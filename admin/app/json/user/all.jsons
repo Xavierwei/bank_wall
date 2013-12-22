@@ -1,0 +1,18 @@
+[
+    {
+        "uid": "{{index}}",
+        "firstname": "{{firstName}}",
+        "lastname": " {{surname}}",
+        "avatar": "/upload/avatar/u12.jpg",
+        "country": [
+            {
+                "country_name": "China",
+                "flag_icon": "/upload/country/cn.gif"
+            }
+        ],
+        "company_email": "{{email}}",
+        "personal_email": "{{email}}",
+        "role": "1",
+        "status": "1"
+    }
+]

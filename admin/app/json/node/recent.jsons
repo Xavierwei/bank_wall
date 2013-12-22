@@ -1,0 +1,33 @@
+[
+    '{{repeat(5, 7)}}',
+    {
+        "nid": "{{index}}",
+        "user": [
+            {
+                "uid": "{{index}}",
+                "firstname": "{{surname}}",
+                "lastname": "{{firstName}}",
+                "avatar": "/upload/avatar/u12.jpg"
+            }
+        ],
+        "country": [
+            {
+                "country_name": "China",
+                "flag_icon": "/upload/country/cn.gif"
+            }
+        ],
+        "type": function(idx) {
+            var choices = ['video', 'photo'];
+            return choices[this.numeric(0, choices.length - 1)];
+        },
+        "file": "/upload/p{{index}}.jpg",
+        "description": "#test #123 {{lorem(1,paragraphs)}}",
+        "hashtag": [
+            "#test",
+            "#123"
+        ],
+        "status": "1",
+        "datetime": "{{date(YYYY-MM-ddThh:mm:ss Z)}}"
+    }
+
+]

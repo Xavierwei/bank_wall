@@ -1,0 +1,10 @@
+<form name="node-edit-form" class="css-form" novalidate>
+    Description:
+    {{node.description}}
+    <input type="text" ng-model="node.description" name="description" required /><br />
+    <div ng-show="form.description.$dirty && form.description.$invalid">Invalid:
+        <span ng-show="form.description.$error.required">Tell us your email.</span>
+    </div>
+    <button ng-click="update(user)"
+            ng-disabled="form.$invalid || isUnchanged(user)">SAVE</button>
+</form>

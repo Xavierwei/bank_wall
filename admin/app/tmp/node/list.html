@@ -1,0 +1,13 @@
+<ul class="nodes">
+    <li ng-repeat="node in nodes" ng-class="status-{{node.status}}">
+        <p>{{node.type}}</p>
+        <p>{{node.file}}</p>
+        <p>{{node.status | nodeStatus}}</p>
+        <p>{{node.datetime}}</p>
+        <p>{{node.description}}</p>
+        <div ng-click="switchStatus(node)">switch</div>
+        <a href="#/node/edit/{{node.nid}}">edit</a>
+    </li>
+
+</ul>
+<div ng-show="error">1111{{error}}</div>
