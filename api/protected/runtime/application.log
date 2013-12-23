@@ -1,0 +1,105 @@
+2013/12/22 18:24:30 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site/login".' in /usr/local/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('site/login')
+#1 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/index.php?r=site/login
+HTTP_REFERER=http://bankapi.local/index.php?r=site/page&view=about
+---
+2013/12/22 18:24:33 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "user".' in /usr/local/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user')
+#1 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/index.php?r=user
+---
+2013/12/22 18:29:23 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "user".' in /usr/local/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user')
+#1 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/index.php?r=user
+---
+2013/12/22 19:42:16 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /usr/local/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/index.php?r=user
+---
+2013/12/22 19:42:21 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /usr/local/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/index.php?r=user
+---
+2013/12/23 20:15:13 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /usr/local/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/index.php?r=user
+---
+2013/12/23 20:15:53 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /usr/local/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/index.php?r=user
+---
+2013/12/23 20:15:58 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /usr/local/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/index.php?r=user
+---
+2013/12/23 20:16:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /usr/local/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/index.php?r=user
+---
+2013/12/23 20:16:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /usr/local/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/index.php?r=user
+---
+2013/12/23 20:16:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /usr/local/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/index.php
+---
+2013/12/23 20:16:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /usr/local/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/index.php
+---
+2013/12/23 20:16:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /usr/local/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/index.php
+---
