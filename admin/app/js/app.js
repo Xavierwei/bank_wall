@@ -12,6 +12,8 @@ angular.module('SGWallAdmin', [
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/node', {templateUrl: 'tmp/node/list.html', controller: 'NodeCtrList'});
   $routeProvider.when('/node/edit/:nid', {templateUrl: 'tmp/node/edit.html', controller: 'NodeCtrEdit'});
+  $routeProvider.when('/node/comment/:nid', {templateUrl: 'tmp/comment/list.html', controller: 'CommentCtrList'});
   $routeProvider.when('/user', {templateUrl: 'tmp/user/list.html', controller: 'UserCtrList'});
-  $routeProvider.otherwise({redirectTo: '/view1'});
+  $routeProvider.when('/user/edit/:uid', {templateUrl: 'tmp/user/edit.html', controller: 'UserCtrEdit'});
+  $routeProvider.otherwise({redirectTo: '/node'});
 }]);

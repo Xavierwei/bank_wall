@@ -1,10 +1,13 @@
-<form name="node-edit-form" class="css-form" novalidate>
-    Description:
-    {{node.description}}
-    <input type="text" ng-model="node.description" name="description" required /><br />
-    <div ng-show="form.description.$dirty && form.description.$invalid">Invalid:
-        <span ng-show="form.description.$error.required">Tell us your email.</span>
+<form name="form" class="css-form" novalidate xmlns="http://www.w3.org/1999/html">
+
+    <div><textarea ng-model="node.description" name="description" maxlength="140" required></textarea></div>
+    <div><input type="text" ng-model="node.status" name="status" required /></div>
+    <div><input type="text" ng-model="node.datetime" name="datetime" required /></div>
+    <div>Invalid:
+        <span ng-show="form.description.$error.required">Missing description.</span>
+        <span ng-show="form.description.$error.maxlength">Cannot more than 140</span>
     </div>
-    <button ng-click="update(user)"
-            ng-disabled="form.$invalid || isUnchanged(user)">SAVE</button>
+    <button ng-click="update(node)"
+            ng-disabled="form.$invalid || isUnchanged(node)">SAVE</button>
+    <button ng-click="delete(node)">Delete</button>
 </form>

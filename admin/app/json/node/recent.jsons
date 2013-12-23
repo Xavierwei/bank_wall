@@ -2,20 +2,19 @@
     '{{repeat(5, 7)}}',
     {
         "nid": "{{index}}",
-        "user": [
-            {
-                "uid": "{{index}}",
-                "firstname": "{{surname}}",
-                "lastname": "{{firstName}}",
-                "avatar": "/upload/avatar/u12.jpg"
-            }
-        ],
-        "country": [
-            {
-                "country_name": "China",
-                "flag_icon": "/upload/country/cn.gif"
-            }
-        ],
+        "user": 
+        {
+            "uid": "{{index}}",
+            "firstname": "{{surname}}",
+            "lastname": "{{firstName}}",
+            "avatar": "/upload/avatar/u12.jpg"
+        },
+        "country": 
+        {
+            "countryid": 86,
+            "country_name": "China",
+            "flag_icon": "/upload/country/cn.gif"
+        },
         "type": function(idx) {
             var choices = ['video', 'photo'];
             return choices[this.numeric(0, choices.length - 1)];
@@ -26,8 +25,9 @@
             "#test",
             "#123"
         ],
+        "comment_count": "{{numeric(1,999)}}",
+        "like_count": "{{numeric(1,999)}}",
         "status": "1",
         "datetime": "{{date(YYYY-MM-ddThh:mm:ss Z)}}"
     }
-
 ]

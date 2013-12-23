@@ -1,0 +1,9 @@
+<ul class="nodes">
+    <li ng-repeat="comment in comments">
+        <p>{{comment.content}}</p>
+        <p>{{comment.datetime}}</p>
+        <a href="#/node/edit/{{comment.nid}}">edit</a>
+    </li>
+
+</ul>
+<div ng-show="error">{{error}}</div>

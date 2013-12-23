@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <omniplan xmlns="http://www.omnigroup.com/namespace/OmniPlan/v2">
-  <window x="86" y="102" w="2304" h="1130">
+  <window x="82" y="133" w="2304" h="1130">
     <editing-scenario>dpzL3Isr3RP</editing-scenario>
     <view>task</view>
     <change-tracking/>
@@ -8,15 +8,15 @@
     <status-display>extended</status-display>
     <task-view>
       <split-view-divider-position>662</split-view-divider-position>
-      <outline x="0" y="1637" w="662" h="1026">
+      <outline x="0" y="0" w="662" h="1026">
         <column name="Violations" width="20"/>
         <column name="Notes" width="20"/>
         <column name="Title" width="547"/>
         <column name="Effort" width="70"/>
-        <expanded-items idrefs="t17 t38 t62 t1 t13 t50 t107 t76 t84 t97 t47 t22 t35 t14 t93 t48 t85 t51 t60 t114 t131 t36 t119 t94 t49 t31 t7 t12 t33 t115 t25"/>
-        <selected-items-at-filter-time idrefs="t122 t91 t44 t88 t92 t100 t119 t123 t45 t89 t93 t46 t94 t50 t101 t124 t51 t47 t95 t48 t52 t102 t96 t125 t49 t97 t53 t103 t98 t54 t130 t126 t55 t99 t2 t104 t12 t56 t60 t127 t3 t131 t4 t13 t61 t57 t5 t105 t14 t62 t58 t128 t7 t132 t6 t15 t63 t59 t8 t110 t106 t16 t64 t129 t133 t17 t65 t107 t111 t22 t66 t18 t134 t70 t19 t67 t71 t112 t108 t24 t68 t135 t72 t25 t73 t69 t113 t109 t140 t26 t136 t30 t74 t27 t75 t31 t114 t141 t137 t32 t76 t80 t28 t33 t81 t115 t77 t138 t142 t34 t78 t82 t35 t83 t116 t120 t79 t143 t139 t36 t84 t41 t117 t85 t121 t144 t38 t42 t90 t86 t118 t39 t43 t87"/>
+        <expanded-items idrefs="t17 t38 t25 t50 t13 t1 t84 t76 t107 t97 t51 t14 t35 t22 t93 t85 t48 t31 t60 t114 t131 t47 t119 t94 t49 t36 t7 t12 t33 t62 t115"/>
+        <selected-items-at-filter-time idrefs="t91 t44 t88 t92 t100 t119 t45 t89 t93 t46 t94 t101 t50 t124 t47 t95 t51 t52 t96 t48 t102 t125 t49 t97 t53 t54 t98 t103 t126 t130 t55 t99 t2 t12 t60 t3 t104 t131 t127 t4 t13 t61 t5 t6 t14 t62 t105 t128 t132 t7 t15 t59 t63 t8 t110 t106 t16 t64 t129 t133 t17 t65 t111 t107 t18 t134 t66 t22 t19 t71 t67 t112 t108 t135 t68 t72 t24 t25 t73 t69 t109 t140 t26 t74 t27 t31 t75 t114 t137 t141 t28 t80 t76 t33 t81 t115 t142 t138 t34 t82 t78 t35 t116 t79 t120 t139 t143 t36 t84 t121 t117 t41 t85 t144 t42 t38 t86 t43 t87 t39"/>
       </outline>
-      <gantt-view x="1588" y="1637" w="1641" h="1026">
+      <gantt-view x="155" y="0" w="1641" h="1026">
         <view-mode>actual</view-mode>
         <dependency-lines/>
         <constraints/>
@@ -47,7 +47,7 @@
         <task-bar-label task-type="task" position="right">
           <key>Assigned</key>
         </task-bar-label>
-        <scale scale-name="Automatic" full-day-width="189.398">
+        <scale scale-name="Automatic" full-day-width="175.14">
           <selected/>
         </scale>
         <scale scale-name="Day" full-day-width="1215"/>
@@ -61,14 +61,14 @@
     </task-view>
     <resource-view>
       <split-view-divider-position>306</split-view-divider-position>
-      <outline x="0" y="0" w="306" h="914">
+      <outline x="0" y="0" w="306" h="1026">
         <column name="IM" width="20"/>
         <column name="Notes" width="20"/>
         <column name="Type" width="49"/>
         <column name="Resource" width="121"/>
         <column name="#" width="75"/>
       </outline>
-      <timeline x="-375" y="0" w="1843" h="914">
+      <timeline x="-350" y="0" w="1969" h="1026">
         <task-bar-label task-type="group" position="left">
           <key>Title</key>
         </task-bar-label>
@@ -110,7 +110,7 @@
     </resource-view>
     <calendar>
       <split-view-divider-position>290</split-view-divider-position>
-      <outline x="0" y="0" w="290" h="883">
+      <outline x="0" y="0" w="290" h="995">
         <column name="IM" width="20"/>
         <column name="Notes" width="20"/>
         <column name="Type" width="49"/>
@@ -178,6 +178,28 @@
     </not-editable-style>
     <subscribe-refresh>0</subscribe-refresh>
     <leveling/>
+    <printinfo-dictionary>
+      <key>OPPrintSettingPrintOption</key>
+      <integer>0</integer>
+      <key>NSTopMargin</key>
+      <real>90</real>
+      <key>NSBottomMargin</key>
+      <real>90</real>
+      <key>NSRightMargin</key>
+      <real>72</real>
+      <key>NSLeftMargin</key>
+      <real>72</real>
+      <key>NSPaperName</key>
+      <string>iso-a4</string>
+      <key>NSOrientation</key>
+      <integer>0</integer>
+      <key>OPPrintSettingPrintDisplayOption</key>
+      <integer>0</integer>
+      <key>NSScalingFactor</key>
+      <real>1</real>
+      <key>NSPrinterName</key>
+      <string>EPSON L200-3</string>
+    </printinfo-dictionary>
     <page-adornment>
       <master-page-headers>
         <header location="left">
