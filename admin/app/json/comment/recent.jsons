@@ -1,0 +1,16 @@
+[
+    '{{repeat(5, 7)}}',
+    {
+        "cid": "{{index}}",
+        "user":
+            {
+                "uid": "{{numeric(1,999)}}",
+                "firstname": "{{firstName}}",
+                "lastname": "{{surname}}",
+                "avatar": "/upload/avatar/u12.jpg"
+            },
+        "content": "{{lorem(1,paragraphs)}}",
+        "datetime": "{{date(YYYY-MM-ddThh:mm:ss Z)}}"
+    }
+
+]

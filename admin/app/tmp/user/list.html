@@ -1,0 +1,9 @@
+<ul class="users">
+    <li ng-repeat="user in users" ng-class="user.status">
+        <p>{{user.lasttname}} {{user.firstname}}</p>
+        <p>{{user.company_email}}</p>
+        <a href="#/user/edit/{{user.uid}}">edit</a>
+    </li>
+
+</ul>
+<div ng-show="error">1111{{error}}</div>
