@@ -15,5 +15,6 @@ config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/node/comment/:nid', {templateUrl: 'tmp/comment/list.html', controller: 'CommentCtrList'});
   $routeProvider.when('/user', {templateUrl: 'tmp/user/list.html', controller: 'UserCtrList'});
   $routeProvider.when('/user/edit/:uid', {templateUrl: 'tmp/user/edit.html', controller: 'UserCtrEdit'});
+  $routeProvider.when('/comment', {templateUrl: 'tmp/comment/list.html', controller: 'CommentCtrList'});
   $routeProvider.otherwise({redirectTo: '/node'});
 }]);

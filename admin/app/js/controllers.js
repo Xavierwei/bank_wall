@@ -8,7 +8,7 @@ angular.module('SGWallAdmin.controllers', [])
             // Get node list by recent
             $http.get('json/node/recent.json')
                 .success(function(data) {
-                    $scope.nodes = data;
+                    $scope.nodes = data.data;
                 })
                 .error(function() {
                     $scope.error = "加载失败";
@@ -35,7 +35,7 @@ angular.module('SGWallAdmin.controllers', [])
             $scope.next = function() {
                 $http.get('json/node/recent2.json')
                     .success(function(data) {
-                        $scope.nodes = data;
+                        $scope.nodes = data.data;
                     })
                     .error(function() {
                         $scope.error = "加载失败";
@@ -46,7 +46,7 @@ angular.module('SGWallAdmin.controllers', [])
         function($scope, $http) {
             $http.get('json/node/photo.json')
                 .success(function(data) {
-                    $scope.node = data;
+                    $scope.node = data.data;
                 })
                 .error(function() {
                 });
@@ -66,7 +66,7 @@ angular.module('SGWallAdmin.controllers', [])
         function($scope, $http) {
             $http.get('json/user/all.json')
                 .success(function(data) {
-                    $scope.users = data;
+                    $scope.users = data.data;
                 })
                 .error(function() {
                     $scope.error = "加载失败";
@@ -79,7 +79,7 @@ angular.module('SGWallAdmin.controllers', [])
         function($scope, $http, $routeParams) {
             $http.get('json/user/user.json?uid=' + $routeParams.uid)
                 .success(function(data) {
-                    $scope.user = data;
+                    $scope.user = data.data;
                 })
                 .error(function() {
                 });
@@ -94,11 +94,11 @@ angular.module('SGWallAdmin.controllers', [])
                 alert(user.uid);
             }
         }])
-    .controller('CommentCtrList', ['$scope', '$http', '$routeParams',
-        function($scope, $http, $routeParams) {
-            $http.get('json/comment/recent.json?nid=' + $routeParams.nid)
+    .controller('CommentCtrList', ['$scope', '$http',
+        function($scope, $http) {
+            $http.get('json/comment/recent.json')
                 .success(function(data) {
-                    $scope.comments = data;
+                    $scope.comments = data.data;
                 })
                 .error(function() {
                 });

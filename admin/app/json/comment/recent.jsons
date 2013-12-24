@@ -1,4 +1,7 @@
-[
+{
+	'success': true,
+        'data': 
+        [
     '{{repeat(5, 7)}}',
     {
         "cid": "{{index}}",
@@ -13,4 +16,8 @@
         "datetime": "{{date(YYYY-MM-ddThh:mm:ss Z)}}"
     }
 
-]
+],
+        'message':''
+        
+}
+

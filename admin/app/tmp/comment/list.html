@@ -2,6 +2,7 @@
     <li ng-repeat="comment in comments">
         <p>{{comment.content}}</p>
         <p>{{comment.datetime}}</p>
+        <p>{{comment.user.firstname}} {{comment.user.lastname}}</p>
         <a href="#/node/edit/{{comment.nid}}">edit</a>
     </li>
 

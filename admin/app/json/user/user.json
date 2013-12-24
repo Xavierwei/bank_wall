@@ -1,15 +1,19 @@
 {
-    "uid": 1,
-    "firstname": "Coleen",
-    "lastname": " Glass",
-    "avatar": "/upload/avatar/u12.jpg",
-    "country": {
-        "countryid": 86,
-        "country_name": "China",
-        "flag_icon": "/upload/country/cn.gif"
+    "success": true,
+    "data": {
+        "uid": 0,
+        "firstname": "Shepard",
+        "lastname": " Stephenson",
+        "avatar": "/upload/avatar/u12.jpg",
+        "country": {
+            "countryid": "86",
+            "country_name": "China",
+            "flag_icon": "/upload/country/cn.gif"
+        },
+        "company_email": "shepardstephenson@fishland.com",
+        "personal_email": "shepardstephenson@fishland.com",
+        "role": "1",
+        "status": "1"
     },
-    "company_email": "coleenglass@fishland.com",
-    "personal_email": "coleenglass@fishland.com",
-    "role": "1",
-    "status": "1"
+    "message": ""
 }

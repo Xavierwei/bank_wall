@@ -1,19 +1,26 @@
-[
-    '{{repeat(5)}}',
-    {
-        "uid": "{{index}}",
-        "firstname": "{{firstName}}",
-        "lastname": " {{surname}}",
-        "avatar": "/upload/avatar/u12.jpg",
-        "country":
+{
+	'success': true,
+        'data': 
+        [
+        '{{repeat(5)}}',
         {
-            "countryid": "86",
-            "country_name": "China",
-            "flag_icon": "/upload/country/cn.gif"
-        },
-        "company_email": "{{email}}",
-        "personal_email": "{{email}}",
-        "role": "1",
-        "status": "1"
-    }
-]
+            "uid": "{{index}}",
+            "firstname": "{{firstName}}",
+            "lastname": " {{surname}}",
+            "avatar": "/upload/avatar/u12.jpg",
+            "country":
+            {
+                "countryid": "86",
+                "country_name": "China",
+                "flag_icon": "/upload/country/cn.gif"
+            },
+            "company_email": "{{email}}",
+            "personal_email": "{{email}}",
+            "role": "1",
+            "status": "1"
+        }
+    ],
+        'message':''
+        
+}
+
