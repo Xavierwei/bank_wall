@@ -30,6 +30,17 @@ angular.module('SGWallAdmin.controllers', [])
 
                     });
             }
+
+            // Next
+            $scope.next = function() {
+                $http.get('json/node/recent2.json')
+                    .success(function(data) {
+                        $scope.nodes = data;
+                    })
+                    .error(function() {
+                        $scope.error = "加载失败";
+                    });
+            }
     }])
     .controller('NodeCtrEdit', ['$scope', '$http',
         function($scope, $http) {
