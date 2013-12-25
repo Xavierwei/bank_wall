@@ -53,15 +53,21 @@ a{text-decoration:none;color:#666}
 .index{margin:130px 0 0 0;}
 	.main-item{float:left;position: relative;width:180px;height: 180px;}
 	.time-item{background: #333;color:#fff;text-align: center;}
-		.time-date{padding:30px 0 0;}
-		.time-day{font-size:30px;padding:25px 0;}
+		.time-date{background: url('../img/time-item.gif') no-repeat;width:124px;height: 124px;position: absolute;left:50%;top:50%;margin: -62px 0 0 -62px;text-align: center;color:#666;font-size: 14px}
+		.time-date span{display: block;font-size:42px;line-height:60px;padding:25px 0 5px;}
 	.pic-item{cursor: pointer;}
 	.pic-item:hover .item-info{display: block;}
-	.item-info{position: absolute;top: 0;left: 0;right: 0;bottom: 0;background: #fff;opacity: 0.8;text-align: center;padding:30px 0 0;display:none}
+	.pic-item:hover .item-icon{display: none;}
+	.item-info{position: absolute;top: 0;left: 0;right: 0;bottom: 0;background: #fff;opacity: 0.8;text-align: center;display: none;}
+		.item-user{}
+			.item-usericon{background: url('../img/icon_user_s.gif') no-repeat left center;width:20px;height: 20px;display: inline-block;vertical-align: middle;}
 		.item-source{height:30px;padding:20px 0;}
-			.item-source .photo{background: url('http://www.ff9263.com/images/icon_s_instagram.png') no-repeat center;width:30px;height: 30px;margin: 0 auto}
-	.item-icon{position: absolute;right: 10px;bottom: 10px}
-			.item-icon .photo{background: url('http://www.ff9263.com/images/icon_s_instagram_w.png') no-repeat center;;width:16px;height: 16px ;margin: 0 auto}
+			.item-source .photo{background: url('../img/icon_photo.gif') no-repeat center;width:80px;height:80px;margin: 0 auto}
+		.item-time{position: absolute;bottom: 0;width: 100%;padding:5px;}
+			.item-timeicon{background: url('../img/icon_time_s.gif') no-repeat left center;width:20px;height: 20px;display: inline-block;vertical-align: middle;}
+		.item-like{position: absolute;bottom: 5px;left:5px;background: url('../img/icon_like_s.gif') no-repeat;padding-left:25px;}
+	.item-icon{position: absolute;right: 0px;bottom:0px}
+			.item-icon .photo{background: url('../img/icon_photo_s.gif') no-repeat center;;width:40px;height:30px ;margin: 0 auto}
 
 /* side Used
 ================================================================================================= */
