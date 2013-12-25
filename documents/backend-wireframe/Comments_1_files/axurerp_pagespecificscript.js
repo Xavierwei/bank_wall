@@ -18,6 +18,8 @@ $axure.eventManager.click('u14', function(e) {
 
 if (true) {
 
+	SetPanelVisibility('u100','','fade',500);
+
 }
 });
 gv_vAlignTable['u15'] = 'center';document.getElementById('u16_img').tabIndex = 0;
@@ -185,6 +187,8 @@ $axure.eventManager.click('u43', function(e) {
 
 if (true) {
 
+	SetPanelVisibility('u100','','fade',500);
+
 }
 });
 gv_vAlignTable['u44'] = 'center';document.getElementById('u45_img').tabIndex = 0;
@@ -261,6 +265,8 @@ $axure.eventManager.click('u50', function(e) {
 
 if (true) {
 
+	SetPanelVisibility('u100','','fade',500);
+
 }
 });
 gv_vAlignTable['u51'] = 'center';document.getElementById('u52_img').tabIndex = 0;
@@ -282,6 +288,8 @@ u57.style.cursor = 'pointer';
 $axure.eventManager.click('u57', function(e) {
 
 if (true) {
+
+	SetPanelVisibility('u100','','fade',500);
 
 }
 });
@@ -305,6 +313,8 @@ $axure.eventManager.click('u64', function(e) {
 
 if (true) {
 
+	SetPanelVisibility('u100','','fade',500);
+
 }
 });
 gv_vAlignTable['u65'] = 'center';document.getElementById('u66_img').tabIndex = 0;
@@ -326,6 +336,8 @@ u71.style.cursor = 'pointer';
 $axure.eventManager.click('u71', function(e) {
 
 if (true) {
+
+	SetPanelVisibility('u100','','fade',500);
 
 }
 });

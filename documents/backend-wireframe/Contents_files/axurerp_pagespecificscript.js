@@ -586,7 +586,7 @@ $axure.eventManager.click('u322', function(e) {
 
 if (true) {
 
-	SetPanelVisibility('u321','hidden','none',500);
+	SetPanelVisibility('u321','hidden','fade',500);
 
 }
 });
