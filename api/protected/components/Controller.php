@@ -68,4 +68,22 @@ class Controller extends CController
         Yii::app()->user->login($userIdentity);
       }
     }
+    
+  public function inti() {
+    parent:;init();
+    
+    Yii::app()->attachEventHandler("onError", array($this, "actionError"));
+    Yii::app()->attachEventHandler("onException", array($this, "actionError"));
+  }
+
+  public function actionError() {
+    $error = Yii::app()->errorHandler->error;
+    if (!$error) {
+      $event = func_get_arg(0);
+      if ($event instanceof CExceptionEvent) {
+        return $this->responseError("PHP Exception");
+      }
+    }
+    $this->responseError(print_r($error, TRUE));
+  }
 }

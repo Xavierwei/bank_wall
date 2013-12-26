@@ -4,13 +4,6 @@
  * @author Jackey <jziwenchen@gmail.com>
  */
 class UserController extends Controller {
-  
-  public function init() {
-    parent::init();
-    
-    Yii::app()->attachEventHandler("onError", array($this, "actionError"));
-    Yii::app()->attachEventHandler("onException", array($this, "actionError"));
-  }
 
   public function actionIndex() {
     return $this->responseJSON(array(), "");
@@ -203,24 +196,13 @@ class UserController extends Controller {
           $user->{$key} = $value;
         }
       }
-      $user->save();
+      UserAR::model()->updateByPk($uid, $user->attributes);
       
       $this->responseJSON($user, "success");
     }
     else {
       $this->responseError("invalid params");
     }
-  }
-
-  public function actionError() {
-    $error = Yii::app()->errorHandler->error;
-    if (!$error) {
-      $event = func_get_arg(0);
-      if ($event instanceof CExceptionEvent) {
-        return $this->responseError("PHP Exception");
-      }
-    }
-    $this->responseError(print_r($error, TRUE));
   }
 
 }
