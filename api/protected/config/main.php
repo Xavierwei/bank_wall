@@ -46,22 +46,17 @@ return array(
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
 		),
-		'db'=>array(
-			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
-		),
 		// uncomment the following to use a MySQL database
-		/*
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=testdrive',
+			'connectionString' => 'mysql:host=localhost;dbname=bank_wall',
 			'emulatePrepare' => true,
 			'username' => 'root',
-			'password' => '',
+			'password' => 'admin',
 			'charset' => 'utf8',
 		),
-		*/
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
-			//'errorAction'=>'site/error',
+			'errorAction'=>'user/error',
 		),
 		'log'=>array(
 			'class'=>'CLogRouter',
@@ -78,6 +73,9 @@ return array(
 				*/
 			),
 		),
+        "authManager" => array(
+            "class" => "PhpAuthManager"
+        ),
 	),
 
 	// application-level parameters that can be accessed

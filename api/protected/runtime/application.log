@@ -103,3 +103,1152 @@ Stack trace:
 #3 {main}
 REQUEST_URI=/index.php
 ---
+2013/12/23 23:24:13 [error] [exception.CDbException] exception 'CDbException' with message 'CDbConnection failed to open the DB connection: could not find driver' in /usr/local/yii/db/CDbConnection.php:382
+Stack trace:
+#0 /usr/local/yii/db/CDbConnection.php(330): CDbConnection->open()
+#1 /usr/local/yii/db/CDbConnection.php(308): CDbConnection->setActive(true)
+#2 /usr/local/yii/base/CModule.php(387): CDbConnection->init()
+#3 /usr/local/yii/base/CApplication.php(450): CModule->getComponent('db')
+#4 /usr/local/yii/db/ar/CActiveRecord.php(634): CApplication->getDb()
+#5 /usr/local/yii/db/ar/CActiveRecord.php(2361): CActiveRecord->getDbConnection()
+#6 /usr/local/yii/db/ar/CActiveRecord.php(411): CActiveRecordMetaData->__construct(Object(UserAR))
+#7 /usr/local/yii/db/ar/CActiveRecord.php(79): CActiveRecord->getMetaData()
+#8 /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php(22): CActiveRecord->__construct()
+#9 /usr/local/yii/web/actions/CInlineAction.php(49): UserController->actionPost()
+#10 /usr/local/yii/web/CController.php(308): CInlineAction->runWithParams(Array)
+#11 /usr/local/yii/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#12 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /usr/local/yii/web/CWebApplication.php(282): CController->run('post')
+#14 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/post')
+#15 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#16 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/index.php/user/post
+---
+2013/12/23 23:38:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "testdrive/index-test.php".' in /usr/local/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('testdrive/index...')
+#1 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testdrive/index-test.php
+---
+2013/12/23 23:44:43 [warning] [application] Failed to set unsafe attribute "country_id" of "UserAR".
+in /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php (60)
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (28)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/23 23:44:43 [error] [exception.CDbException] exception 'CDbException' with message 'Relation "password" is not defined in active record class "UserAR".' in /usr/local/yii/db/ar/CActiveFinder.php:226
+Stack trace:
+#0 /usr/local/yii/db/ar/CActiveFinder.php(48): CActiveFinder->buildJoinTree(Object(CJoinElement), 'password')
+#1 /usr/local/yii/db/ar/CActiveRecord.php(909): CActiveFinder->__construct(Object(UserAR), 'password')
+#2 /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php(64): CActiveRecord->getActiveFinder('password')
+#3 /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php(28): UserAR->postNewUser()
+#4 /usr/local/yii/web/actions/CInlineAction.php(49): UserController->actionPost()
+#5 /usr/local/yii/web/CController.php(308): CInlineAction->runWithParams(Array)
+#6 /usr/local/yii/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#7 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /usr/local/yii/web/CWebApplication.php(282): CController->run('post')
+#9 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/post')
+#10 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#11 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/index.php/user/post
+---
+2013/12/23 23:48:57 [warning] [application] Failed to set unsafe attribute "country_id" of "UserAR".
+in /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php (60)
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (28)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/23 23:48:57 [error] [exception.CDbException] exception 'CDbException' with message 'Relation "password" is not defined in active record class "UserAR".' in /usr/local/yii/db/ar/CActiveFinder.php:226
+Stack trace:
+#0 /usr/local/yii/db/ar/CActiveFinder.php(48): CActiveFinder->buildJoinTree(Object(CJoinElement), 'password')
+#1 /usr/local/yii/db/ar/CActiveRecord.php(909): CActiveFinder->__construct(Object(UserAR), 'password')
+#2 /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php(64): CActiveRecord->getActiveFinder('password')
+#3 /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php(28): UserAR->postNewUser()
+#4 /usr/local/yii/web/actions/CInlineAction.php(49): UserController->actionPost()
+#5 /usr/local/yii/web/CController.php(308): CInlineAction->runWithParams(Array)
+#6 /usr/local/yii/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#7 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /usr/local/yii/web/CWebApplication.php(282): CController->run('post')
+#9 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/post')
+#10 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#11 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/index.php/user/post
+---
+2013/12/23 23:49:15 [warning] [application] Failed to set unsafe attribute "country_id" of "UserAR".
+in /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php (60)
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (28)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/23 23:49:15 [error] [exception.CDbException] exception 'CDbException' with message 'Relation "password" is not defined in active record class "UserAR".' in /usr/local/yii/db/ar/CActiveFinder.php:226
+Stack trace:
+#0 /usr/local/yii/db/ar/CActiveFinder.php(48): CActiveFinder->buildJoinTree(Object(CJoinElement), 'password')
+#1 /usr/local/yii/db/ar/CActiveRecord.php(909): CActiveFinder->__construct(Object(UserAR), 'password')
+#2 /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php(64): CActiveRecord->getActiveFinder('password')
+#3 /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php(28): UserAR->postNewUser()
+#4 /usr/local/yii/web/actions/CInlineAction.php(49): UserController->actionPost()
+#5 /usr/local/yii/web/CController.php(308): CInlineAction->runWithParams(Array)
+#6 /usr/local/yii/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#7 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /usr/local/yii/web/CWebApplication.php(282): CController->run('post')
+#9 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/post')
+#10 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#11 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/index.php/user/post
+---
+2013/12/23 23:51:20 [warning] [application] Failed to set unsafe attribute "country_id" of "UserAR".
+in /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php (60)
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (28)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/23 23:51:20 [error] [exception.CDbException] exception 'CDbException' with message 'Relation "password" is not defined in active record class "UserAR".' in /usr/local/yii/db/ar/CActiveFinder.php:226
+Stack trace:
+#0 /usr/local/yii/db/ar/CActiveFinder.php(48): CActiveFinder->buildJoinTree(Object(CJoinElement), 'password')
+#1 /usr/local/yii/db/ar/CActiveRecord.php(909): CActiveFinder->__construct(Object(UserAR), 'password')
+#2 /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php(64): CActiveRecord->getActiveFinder('password')
+#3 /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php(28): UserAR->postNewUser()
+#4 /usr/local/yii/web/actions/CInlineAction.php(49): UserController->actionPost()
+#5 /usr/local/yii/web/CController.php(308): CInlineAction->runWithParams(Array)
+#6 /usr/local/yii/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#7 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /usr/local/yii/web/CWebApplication.php(282): CController->run('post')
+#9 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/post')
+#10 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#11 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/index.php/user/post
+---
+2013/12/23 23:51:28 [warning] [application] Failed to set unsafe attribute "country_id" of "UserAR".
+in /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php (60)
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (28)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/23 23:51:28 [error] [exception.CDbException] exception 'CDbException' with message 'Relation "password" is not defined in active record class "UserAR".' in /usr/local/yii/db/ar/CActiveFinder.php:226
+Stack trace:
+#0 /usr/local/yii/db/ar/CActiveFinder.php(48): CActiveFinder->buildJoinTree(Object(CJoinElement), 'password')
+#1 /usr/local/yii/db/ar/CActiveRecord.php(909): CActiveFinder->__construct(Object(UserAR), 'password')
+#2 /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php(64): CActiveRecord->getActiveFinder('password')
+#3 /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php(28): UserAR->postNewUser()
+#4 /usr/local/yii/web/actions/CInlineAction.php(49): UserController->actionPost()
+#5 /usr/local/yii/web/CController.php(308): CInlineAction->runWithParams(Array)
+#6 /usr/local/yii/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#7 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /usr/local/yii/web/CWebApplication.php(282): CController->run('post')
+#9 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/post')
+#10 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#11 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/index.php/user/post
+---
+2013/12/23 23:54:53 [warning] [application] Failed to set unsafe attribute "country_id" of "UserAR".
+in /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php (60)
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (28)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/23 23:54:53 [error] [exception.CDbException] exception 'CDbException' with message 'Relation "password" is not defined in active record class "UserAR".' in /usr/local/yii/db/ar/CActiveFinder.php:226
+Stack trace:
+#0 /usr/local/yii/db/ar/CActiveFinder.php(48): CActiveFinder->buildJoinTree(Object(CJoinElement), 'password')
+#1 /usr/local/yii/db/ar/CActiveRecord.php(909): CActiveFinder->__construct(Object(UserAR), 'password')
+#2 /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php(64): CActiveRecord->getActiveFinder('password')
+#3 /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php(28): UserAR->postNewUser()
+#4 /usr/local/yii/web/actions/CInlineAction.php(49): UserController->actionPost()
+#5 /usr/local/yii/web/CController.php(308): CInlineAction->runWithParams(Array)
+#6 /usr/local/yii/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#7 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /usr/local/yii/web/CWebApplication.php(282): CController->run('post')
+#9 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/post')
+#10 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#11 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/index.php/user/post
+---
+2013/12/24 00:12:41 [warning] [application] Failed to set unsafe attribute "country_id" of "UserAR".
+in /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php (60)
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (28)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/24 00:12:41 [error] [exception.CDbException] exception 'CDbException' with message 'Relation "password" is not defined in active record class "UserAR".' in /usr/local/yii/db/ar/CActiveFinder.php:226
+Stack trace:
+#0 /usr/local/yii/db/ar/CActiveFinder.php(48): CActiveFinder->buildJoinTree(Object(CJoinElement), 'password')
+#1 /usr/local/yii/db/ar/CActiveRecord.php(909): CActiveFinder->__construct(Object(UserAR), 'password')
+#2 /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php(64): CActiveRecord->getActiveFinder('password')
+#3 /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php(28): UserAR->postNewUser()
+#4 /usr/local/yii/web/actions/CInlineAction.php(49): UserController->actionPost()
+#5 /usr/local/yii/web/CController.php(308): CInlineAction->runWithParams(Array)
+#6 /usr/local/yii/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#7 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /usr/local/yii/web/CWebApplication.php(282): CController->run('post')
+#9 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/post')
+#10 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#11 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/index.php/user/post
+---
+2013/12/24 00:13:11 [warning] [application] Failed to set unsafe attribute "country_id" of "UserAR".
+in /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php (60)
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (28)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/24 00:13:11 [error] [exception.CDbException] exception 'CDbException' with message 'Relation "password" is not defined in active record class "UserAR".' in /usr/local/yii/db/ar/CActiveFinder.php:226
+Stack trace:
+#0 /usr/local/yii/db/ar/CActiveFinder.php(48): CActiveFinder->buildJoinTree(Object(CJoinElement), 'password')
+#1 /usr/local/yii/db/ar/CActiveRecord.php(909): CActiveFinder->__construct(Object(UserAR), 'password')
+#2 /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php(64): CActiveRecord->getActiveFinder('password')
+#3 /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php(28): UserAR->postNewUser()
+#4 /usr/local/yii/web/actions/CInlineAction.php(49): UserController->actionPost()
+#5 /usr/local/yii/web/CController.php(308): CInlineAction->runWithParams(Array)
+#6 /usr/local/yii/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#7 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /usr/local/yii/web/CWebApplication.php(282): CController->run('post')
+#9 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/post')
+#10 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#11 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/index.php/user/post
+---
+2013/12/24 00:13:26 [warning] [application] Failed to set unsafe attribute "country_id" of "UserAR".
+in /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php (60)
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (28)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/24 00:13:26 [error] [exception.CDbException] exception 'CDbException' with message 'Relation "password" is not defined in active record class "UserAR".' in /usr/local/yii/db/ar/CActiveFinder.php:226
+Stack trace:
+#0 /usr/local/yii/db/ar/CActiveFinder.php(48): CActiveFinder->buildJoinTree(Object(CJoinElement), 'password')
+#1 /usr/local/yii/db/ar/CActiveRecord.php(909): CActiveFinder->__construct(Object(UserAR), 'password')
+#2 /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php(64): CActiveRecord->getActiveFinder('password')
+#3 /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php(28): UserAR->postNewUser()
+#4 /usr/local/yii/web/actions/CInlineAction.php(49): UserController->actionPost()
+#5 /usr/local/yii/web/CController.php(308): CInlineAction->runWithParams(Array)
+#6 /usr/local/yii/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#7 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /usr/local/yii/web/CWebApplication.php(282): CController->run('post')
+#9 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/post')
+#10 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#11 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/index.php/user/post
+---
+2013/12/24 00:14:39 [warning] [application] Failed to set unsafe attribute "country_id" of "UserAR".
+in /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php (60)
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (28)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/24 00:14:39 [error] [exception.CDbException] exception 'CDbException' with message 'Relation "password" is not defined in active record class "UserAR".' in /usr/local/yii/db/ar/CActiveFinder.php:226
+Stack trace:
+#0 /usr/local/yii/db/ar/CActiveFinder.php(48): CActiveFinder->buildJoinTree(Object(CJoinElement), 'password')
+#1 /usr/local/yii/db/ar/CActiveRecord.php(909): CActiveFinder->__construct(Object(UserAR), 'password')
+#2 /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php(64): CActiveRecord->getActiveFinder('password')
+#3 /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php(28): UserAR->postNewUser()
+#4 /usr/local/yii/web/actions/CInlineAction.php(49): UserController->actionPost()
+#5 /usr/local/yii/web/CController.php(308): CInlineAction->runWithParams(Array)
+#6 /usr/local/yii/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#7 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /usr/local/yii/web/CWebApplication.php(282): CController->run('post')
+#9 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/post')
+#10 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#11 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/index.php/user/post
+---
+2013/12/24 00:14:44 [warning] [application] Failed to set unsafe attribute "country_id" of "UserAR".
+in /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php (60)
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (28)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/24 00:14:44 [error] [exception.CDbException] exception 'CDbException' with message 'Relation "password" is not defined in active record class "UserAR".' in /usr/local/yii/db/ar/CActiveFinder.php:226
+Stack trace:
+#0 /usr/local/yii/db/ar/CActiveFinder.php(48): CActiveFinder->buildJoinTree(Object(CJoinElement), 'password')
+#1 /usr/local/yii/db/ar/CActiveRecord.php(909): CActiveFinder->__construct(Object(UserAR), 'password')
+#2 /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php(64): CActiveRecord->getActiveFinder('password')
+#3 /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php(28): UserAR->postNewUser()
+#4 /usr/local/yii/web/actions/CInlineAction.php(49): UserController->actionPost()
+#5 /usr/local/yii/web/CController.php(308): CInlineAction->runWithParams(Array)
+#6 /usr/local/yii/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#7 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /usr/local/yii/web/CWebApplication.php(282): CController->run('post')
+#9 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/post')
+#10 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#11 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/index.php/user/post
+---
+2013/12/24 00:15:30 [warning] [application] Failed to set unsafe attribute "country_id" of "UserAR".
+in /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php (60)
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (28)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/24 00:15:47 [warning] [application] Failed to set unsafe attribute "country_id" of "UserAR".
+in /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php (60)
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (28)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/24 00:15:55 [warning] [application] Failed to set unsafe attribute "country_id" of "UserAR".
+in /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php (60)
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (28)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/24 00:15:55 [error] [exception.CDbException] exception 'CDbException' with message 'Relation "password" is not defined in active record class "UserAR".' in /usr/local/yii/db/ar/CActiveFinder.php:226
+Stack trace:
+#0 /usr/local/yii/db/ar/CActiveFinder.php(48): CActiveFinder->buildJoinTree(Object(CJoinElement), 'password')
+#1 /usr/local/yii/db/ar/CActiveRecord.php(909): CActiveFinder->__construct(Object(UserAR), 'password')
+#2 /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php(64): CActiveRecord->getActiveFinder('password')
+#3 /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php(28): UserAR->postNewUser()
+#4 /usr/local/yii/web/actions/CInlineAction.php(49): UserController->actionPost()
+#5 /usr/local/yii/web/CController.php(308): CInlineAction->runWithParams(Array)
+#6 /usr/local/yii/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#7 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /usr/local/yii/web/CWebApplication.php(282): CController->run('post')
+#9 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/post')
+#10 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#11 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/index.php/user/post
+---
+2013/12/24 00:18:45 [warning] [application] Failed to set unsafe attribute "country_id" of "UserAR".
+in /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php (60)
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (28)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/24 00:20:31 [warning] [application] Failed to set unsafe attribute "country_id" of "UserAR".
+in /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php (60)
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (28)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/24 00:20:54 [warning] [application] Failed to set unsafe attribute "country_id" of "UserAR".
+in /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php (60)
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (28)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/24 00:22:10 [warning] [application] Failed to set unsafe attribute "country_id" of "UserAR".
+in /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php (60)
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (28)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/24 00:30:45 [warning] [application] Failed to set unsafe attribute "country_id" of "UserAR".
+in /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php (60)
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (28)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/24 00:30:45 [error] [exception.CException] exception 'CException' with message 'Property "CDbCriteria.name" is not defined.' in /usr/local/yii/base/CComponent.php:173
+Stack trace:
+#0 /usr/local/yii/db/schema/CDbCriteria.php(160): CComponent->__set('name', 'admin')
+#1 /usr/local/yii/db/schema/CDbCommandBuilder.php(585): CDbCriteria->__construct(Array)
+#2 /usr/local/yii/db/ar/CActiveRecord.php(1455): CDbCommandBuilder->createCriteria(Array, Array)
+#3 /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php(52): CActiveRecord->find(Array)
+#4 /usr/local/yii/validators/CInlineValidator.php(42): UserAR->dbRowUnique('name', Array)
+#5 /usr/local/yii/validators/CValidator.php(213): CInlineValidator->validateAttribute(Object(UserAR), 'name')
+#6 /usr/local/yii/base/CModel.php(159): CValidator->validate(Object(UserAR), NULL)
+#7 /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php(69): CModel->validate()
+#8 /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php(28): UserAR->postNewUser()
+#9 /usr/local/yii/web/actions/CInlineAction.php(49): UserController->actionPost()
+#10 /usr/local/yii/web/CController.php(308): CInlineAction->runWithParams(Array)
+#11 /usr/local/yii/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#12 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /usr/local/yii/web/CWebApplication.php(282): CController->run('post')
+#14 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/post')
+#15 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#16 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/index.php/user/post
+---
+2013/12/24 00:33:25 [warning] [application] Failed to set unsafe attribute "country_id" of "UserAR".
+in /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php (60)
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (28)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/24 00:33:35 [warning] [application] Failed to set unsafe attribute "country_id" of "UserAR".
+in /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php (60)
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (28)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/24 00:33:35 [error] [php] Trying to get property of non-object (/home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php:34)
+Stack trace:
+#0 /usr/local/yii/web/CController.php(286): UserController->runAction()
+#1 /usr/local/yii/web/CController.php(265): UserController->runActionWithFilters()
+#2 /usr/local/yii/web/CWebApplication.php(282): UserController->run()
+#3 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /home/jackey/workspace/bank_wall/api/index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/user/post
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (34)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/24 00:34:51 [warning] [application] Failed to set unsafe attribute "country_id" of "UserAR".
+in /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php (60)
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (28)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/24 00:34:51 [error] [php] Missing argument 1 for CModel::getError(), called in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php on line 41 and defined (/usr/local/yii/base/CModel.php:371)
+Stack trace:
+#0 /usr/local/yii/web/CController.php(308): CInlineAction->runWithParams()
+#1 /usr/local/yii/web/CController.php(286): UserController->runAction()
+#2 /usr/local/yii/web/CController.php(265): UserController->runActionWithFilters()
+#3 /usr/local/yii/web/CWebApplication.php(282): UserController->run()
+#4 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /home/jackey/workspace/bank_wall/api/index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/user/post
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (41)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/24 00:35:15 [warning] [application] Failed to set unsafe attribute "country_id" of "UserAR".
+in /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php (60)
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (28)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/24 00:35:15 [error] [php] Array to string conversion (/home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php:41)
+Stack trace:
+#0 /usr/local/yii/web/CController.php(308): CInlineAction->runWithParams()
+#1 /usr/local/yii/web/CController.php(286): UserController->runAction()
+#2 /usr/local/yii/web/CController.php(265): UserController->runActionWithFilters()
+#3 /usr/local/yii/web/CWebApplication.php(282): UserController->run()
+#4 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /home/jackey/workspace/bank_wall/api/index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/user/post
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (41)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/24 00:35:44 [warning] [application] Failed to set unsafe attribute "country_id" of "UserAR".
+in /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php (60)
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (28)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/24 00:35:44 [error] [php] Array to string conversion (/home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php:41)
+Stack trace:
+#0 /usr/local/yii/web/CController.php(308): CInlineAction->runWithParams()
+#1 /usr/local/yii/web/CController.php(286): UserController->runAction()
+#2 /usr/local/yii/web/CController.php(265): UserController->runActionWithFilters()
+#3 /usr/local/yii/web/CWebApplication.php(282): UserController->run()
+#4 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /home/jackey/workspace/bank_wall/api/index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/user/post
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (41)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/24 00:36:06 [warning] [application] Failed to set unsafe attribute "country_id" of "UserAR".
+in /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php (60)
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (28)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/24 00:36:36 [warning] [application] Failed to set unsafe attribute "country_id" of "UserAR".
+in /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php (60)
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (28)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/24 00:36:49 [warning] [application] Failed to set unsafe attribute "country_id" of "UserAR".
+in /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php (60)
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (28)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/24 00:37:30 [warning] [application] Failed to set unsafe attribute "country_id" of "UserAR".
+in /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php (60)
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (28)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/24 00:37:38 [warning] [application] Failed to set unsafe attribute "country_id" of "UserAR".
+in /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php (60)
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (28)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/24 00:37:53 [warning] [application] Failed to set unsafe attribute "country_id" of "UserAR".
+in /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php (60)
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (28)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/24 00:40:15 [warning] [application] Failed to set unsafe attribute "country_id" of "UserAR".
+in /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php (60)
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (28)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/24 00:40:18 [warning] [application] Failed to set unsafe attribute "country_id" of "UserAR".
+in /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php (60)
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (28)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/25 14:59:07 [error] [exception.CDbException] exception 'CDbException' with message 'Active record "UserAR" has an invalid configuration for relation "country". It must specify the relation type, the related active record class and the foreign key.' in /usr/local/yii/db/ar/CActiveRecord.php:2410
+Stack trace:
+#0 /usr/local/yii/db/ar/CActiveRecord.php(2389): CActiveRecordMetaData->addRelation('country', Array)
+#1 /usr/local/yii/db/ar/CActiveRecord.php(411): CActiveRecordMetaData->__construct(Object(UserAR))
+#2 /usr/local/yii/db/ar/CActiveRecord.php(658): CActiveRecord->getMetaData()
+#3 /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php(38): CActiveRecord->getTableSchema()
+#4 /usr/local/yii/web/actions/CInlineAction.php(49): UserController->actionList()
+#5 /usr/local/yii/web/CController.php(308): CInlineAction->runWithParams(Array)
+#6 /usr/local/yii/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#7 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /usr/local/yii/web/CWebApplication.php(282): CController->run('list')
+#9 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#10 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#11 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/index.php/user/list?countryid=1&role=1
+---
+2013/12/25 15:02:06 [error] [php] Cannot modify header information - headers already sent by (output started at /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php:39) (/home/jackey/workspace/bank_wall/api/protected/components/Controller.php:47)
+Stack trace:
+#0 /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php(41): UserController->responseError()
+#1 /usr/local/yii/web/actions/CInlineAction.php(49): UserController->actionList()
+#2 /usr/local/yii/web/CController.php(308): CInlineAction->runWithParams()
+#3 /usr/local/yii/web/CController.php(286): UserController->runAction()
+#4 /usr/local/yii/web/CController.php(265): UserController->runActionWithFilters()
+#5 /usr/local/yii/web/CWebApplication.php(282): UserController->run()
+#6 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /home/jackey/workspace/bank_wall/api/index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/user/list?countryid=1&role=1&orderby=uid
+in /home/jackey/workspace/bank_wall/api/protected/components/Controller.php (47)
+in /home/jackey/workspace/bank_wall/api/protected/components/Controller.php (25)
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (41)
+2013/12/25 15:02:30 [error] [exception.CDbException] exception 'CDbException' with message 'Relation "contry" is not defined in active record class "UserAR".' in /usr/local/yii/db/ar/CActiveFinder.php:226
+Stack trace:
+#0 /usr/local/yii/db/ar/CActiveFinder.php(296): CActiveFinder->buildJoinTree(Object(CJoinElement), 'contry')
+#1 /usr/local/yii/db/ar/CActiveFinder.php(48): CActiveFinder->buildJoinTree(Object(CJoinElement), Array)
+#2 /usr/local/yii/db/ar/CActiveRecord.php(909): CActiveFinder->__construct(Object(UserAR), Array)
+#3 /usr/local/yii/db/ar/CActiveRecord.php(1355): CActiveRecord->getActiveFinder(Array)
+#4 /usr/local/yii/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#5 /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php(54): CActiveRecord->findAll(Object(CDbCriteria))
+#6 /usr/local/yii/web/actions/CInlineAction.php(49): UserController->actionList()
+#7 /usr/local/yii/web/CController.php(308): CInlineAction->runWithParams(Array)
+#8 /usr/local/yii/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#9 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 /usr/local/yii/web/CWebApplication.php(282): CController->run('list')
+#11 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#12 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#13 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/index.php/user/list?countryid=1&role=1&orderby=uid
+---
+2013/12/25 15:02:44 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'country_id' in where clause is ambiguous. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avadar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`country`.`country_id`=`t`.`uid`)  WHERE ((role=:role) AND (country_id = :country_id)) ORDER BY uid DESC.
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (54)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/25 15:02:44 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'country_id' in where clause is ambiguous. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avadar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`country`.`country_id`=`t`.`uid`)  WHERE ((role=:role) AND (country_id = :country_id)) ORDER BY uid DESC' in /usr/local/yii/db/CDbCommand.php:543
+Stack trace:
+#0 /usr/local/yii/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /usr/local/yii/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /usr/local/yii/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /usr/local/yii/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /usr/local/yii/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /usr/local/yii/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php(54): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /usr/local/yii/web/actions/CInlineAction.php(49): UserController->actionList()
+#8 /usr/local/yii/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /usr/local/yii/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /usr/local/yii/web/CWebApplication.php(282): CController->run('list')
+#12 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#13 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/index.php/user/list?countryid=1&role=1&orderby=uid
+---
+2013/12/25 15:03:18 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'uidcountry_id' in 'where clause'. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avadar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`country`.`country_id`=`t`.`uid`)  WHERE ((role=:role) AND (uidcountry_id = :country_id)) ORDER BY uid DESC.
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (54)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/25 15:03:18 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'uidcountry_id' in 'where clause'. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avadar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`country`.`country_id`=`t`.`uid`)  WHERE ((role=:role) AND (uidcountry_id = :country_id)) ORDER BY uid DESC' in /usr/local/yii/db/CDbCommand.php:543
+Stack trace:
+#0 /usr/local/yii/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /usr/local/yii/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /usr/local/yii/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /usr/local/yii/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /usr/local/yii/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /usr/local/yii/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php(54): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /usr/local/yii/web/actions/CInlineAction.php(49): UserController->actionList()
+#8 /usr/local/yii/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /usr/local/yii/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /usr/local/yii/web/CWebApplication.php(282): CController->run('list')
+#12 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#13 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/index.php/user/list?countryid=1&role=1&orderby=uid
+---
+2013/12/25 15:03:19 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'uidcountry_id' in 'where clause'. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avadar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`country`.`country_id`=`t`.`uid`)  WHERE ((role=:role) AND (uidcountry_id = :country_id)) ORDER BY uid DESC.
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (54)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/25 15:03:19 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'uidcountry_id' in 'where clause'. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avadar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`country`.`country_id`=`t`.`uid`)  WHERE ((role=:role) AND (uidcountry_id = :country_id)) ORDER BY uid DESC' in /usr/local/yii/db/CDbCommand.php:543
+Stack trace:
+#0 /usr/local/yii/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /usr/local/yii/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /usr/local/yii/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /usr/local/yii/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /usr/local/yii/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /usr/local/yii/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php(54): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /usr/local/yii/web/actions/CInlineAction.php(49): UserController->actionList()
+#8 /usr/local/yii/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /usr/local/yii/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /usr/local/yii/web/CWebApplication.php(282): CController->run('list')
+#12 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#13 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/index.php/user/list?countryid=1&role=1&orderby=uid
+---
+2013/12/25 15:03:26 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'uid.country_id' in 'where clause'. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avadar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`country`.`country_id`=`t`.`uid`)  WHERE ((role=:role) AND (uid.country_id = :country_id)) ORDER BY uid DESC.
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (54)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/25 15:03:26 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'uid.country_id' in 'where clause'. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avadar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`country`.`country_id`=`t`.`uid`)  WHERE ((role=:role) AND (uid.country_id = :country_id)) ORDER BY uid DESC' in /usr/local/yii/db/CDbCommand.php:543
+Stack trace:
+#0 /usr/local/yii/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /usr/local/yii/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /usr/local/yii/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /usr/local/yii/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /usr/local/yii/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /usr/local/yii/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php(54): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /usr/local/yii/web/actions/CInlineAction.php(49): UserController->actionList()
+#8 /usr/local/yii/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /usr/local/yii/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /usr/local/yii/web/CWebApplication.php(282): CController->run('list')
+#12 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#13 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/index.php/user/list?countryid=1&role=1&orderby=uid
+---
+2013/12/25 15:03:27 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'uid.country_id' in 'where clause'. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avadar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`country`.`country_id`=`t`.`uid`)  WHERE ((role=:role) AND (uid.country_id = :country_id)) ORDER BY uid DESC.
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (54)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/25 15:03:27 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'uid.country_id' in 'where clause'. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avadar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`country`.`country_id`=`t`.`uid`)  WHERE ((role=:role) AND (uid.country_id = :country_id)) ORDER BY uid DESC' in /usr/local/yii/db/CDbCommand.php:543
+Stack trace:
+#0 /usr/local/yii/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /usr/local/yii/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /usr/local/yii/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /usr/local/yii/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /usr/local/yii/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /usr/local/yii/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php(54): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /usr/local/yii/web/actions/CInlineAction.php(49): UserController->actionList()
+#8 /usr/local/yii/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /usr/local/yii/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /usr/local/yii/web/CWebApplication.php(282): CController->run('list')
+#12 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#13 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/index.php/user/list?countryid=1&role=1&orderby=uid
+---
+2013/12/25 15:03:28 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'uid.country_id' in 'where clause'. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avadar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`country`.`country_id`=`t`.`uid`)  WHERE ((role=:role) AND (uid.country_id = :country_id)) ORDER BY uid DESC.
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (54)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/25 15:03:28 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'uid.country_id' in 'where clause'. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avadar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`country`.`country_id`=`t`.`uid`)  WHERE ((role=:role) AND (uid.country_id = :country_id)) ORDER BY uid DESC' in /usr/local/yii/db/CDbCommand.php:543
+Stack trace:
+#0 /usr/local/yii/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /usr/local/yii/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /usr/local/yii/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /usr/local/yii/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /usr/local/yii/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /usr/local/yii/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php(54): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /usr/local/yii/web/actions/CInlineAction.php(49): UserController->actionList()
+#8 /usr/local/yii/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /usr/local/yii/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /usr/local/yii/web/CWebApplication.php(282): CController->run('list')
+#12 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#13 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/index.php/user/list?countryid=1&role=1&orderby=uid
+---
+2013/12/25 15:03:36 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user.country_id' in 'where clause'. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avadar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`country`.`country_id`=`t`.`uid`)  WHERE ((role=:role) AND (user.country_id = :country_id)) ORDER BY uid DESC.
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (54)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/25 15:03:36 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user.country_id' in 'where clause'. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avadar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`country`.`country_id`=`t`.`uid`)  WHERE ((role=:role) AND (user.country_id = :country_id)) ORDER BY uid DESC' in /usr/local/yii/db/CDbCommand.php:543
+Stack trace:
+#0 /usr/local/yii/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /usr/local/yii/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /usr/local/yii/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /usr/local/yii/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /usr/local/yii/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /usr/local/yii/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php(54): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /usr/local/yii/web/actions/CInlineAction.php(49): UserController->actionList()
+#8 /usr/local/yii/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /usr/local/yii/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /usr/local/yii/web/CWebApplication.php(282): CController->run('list')
+#12 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#13 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/index.php/user/list?countryid=1&role=1&orderby=uid
+---
+2013/12/25 15:03:37 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user.country_id' in 'where clause'. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avadar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`country`.`country_id`=`t`.`uid`)  WHERE ((role=:role) AND (user.country_id = :country_id)) ORDER BY uid DESC.
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (54)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/25 15:03:37 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user.country_id' in 'where clause'. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avadar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`country`.`country_id`=`t`.`uid`)  WHERE ((role=:role) AND (user.country_id = :country_id)) ORDER BY uid DESC' in /usr/local/yii/db/CDbCommand.php:543
+Stack trace:
+#0 /usr/local/yii/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /usr/local/yii/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /usr/local/yii/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /usr/local/yii/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /usr/local/yii/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /usr/local/yii/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php(54): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /usr/local/yii/web/actions/CInlineAction.php(49): UserController->actionList()
+#8 /usr/local/yii/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /usr/local/yii/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /usr/local/yii/web/CWebApplication.php(282): CController->run('list')
+#12 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#13 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/index.php/user/list?countryid=1&role=1&orderby=uid
+---
+2013/12/25 15:29:10 [error] [php] Illegal offset type (/home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php:78)
+Stack trace:
+#0 /usr/local/yii/web/CController.php(286): UserController->runAction()
+#1 /usr/local/yii/web/CController.php(265): UserController->runActionWithFilters()
+#2 /usr/local/yii/web/CWebApplication.php(282): UserController->run()
+#3 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /home/jackey/workspace/bank_wall/api/index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/user/list?countryid=1&role=1&orderby=uid
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (78)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/25 15:29:13 [error] [php] Illegal offset type (/home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php:78)
+Stack trace:
+#0 /usr/local/yii/web/CController.php(286): UserController->runAction()
+#1 /usr/local/yii/web/CController.php(265): UserController->runActionWithFilters()
+#2 /usr/local/yii/web/CWebApplication.php(282): UserController->run()
+#3 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /home/jackey/workspace/bank_wall/api/index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/user/list?countryid=1&role=1&orderby=uid
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (78)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/25 15:29:26 [error] [php] Illegal offset type (/home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php:80)
+Stack trace:
+#0 /usr/local/yii/web/CController.php(286): UserController->runAction()
+#1 /usr/local/yii/web/CController.php(265): UserController->runActionWithFilters()
+#2 /usr/local/yii/web/CWebApplication.php(282): UserController->run()
+#3 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /home/jackey/workspace/bank_wall/api/index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/user/list?countryid=1&role=1&orderby=uid
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (80)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/25 15:29:32 [error] [php] Undefined index: status (/home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php:74)
+Stack trace:
+#0 /usr/local/yii/web/CController.php(286): UserController->runAction()
+#1 /usr/local/yii/web/CController.php(265): UserController->runActionWithFilters()
+#2 /usr/local/yii/web/CWebApplication.php(282): UserController->run()
+#3 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /home/jackey/workspace/bank_wall/api/index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/user/list?countryid=1&role=1&orderby=uid
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (74)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/25 16:28:20 [error] [exception.CException] exception 'CException' with message 'Property "CWebUser.isAdmin" is not defined.' in /usr/local/yii/base/CComponent.php:130
+Stack trace:
+#0 /usr/local/yii/web/auth/CWebUser.php(146): CComponent->__get('isAdmin')
+#1 /usr/local/yii/web/auth/CAuthManager.php(149) : eval()'d code(1): CWebUser->__get('isAdmin')
+#2 /usr/local/yii/web/auth/CAuthManager.php(149): eval()
+#3 /usr/local/yii/web/auth/CPhpAuthManager.php(74): CAuthManager->executeBizRule('return Yii::app...', Array, NULL)
+#4 /usr/local/yii/web/auth/CWebUser.php(815): CPhpAuthManager->checkAccess('admin', NULL, Array)
+#5 /usr/local/yii/web/auth/CAccessControlFilter.php(346): CWebUser->checkAccess('admin')
+#6 /usr/local/yii/web/auth/CAccessControlFilter.php(284): CAccessRule->isRoleMatched(Object(CWebUser))
+#7 /usr/local/yii/web/auth/CAccessControlFilter.php(138): CAccessRule->isUserAllowed(Object(CWebUser), Object(UserController), Object(CInlineAction), '127.0.0.1', 'GET')
+#8 /usr/local/yii/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#9 /usr/local/yii/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 /usr/local/yii/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 /usr/local/yii/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 /usr/local/yii/web/CController.php(291): CFilterChain->run()
+#13 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 /usr/local/yii/web/CWebApplication.php(282): CController->run('list')
+#15 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#16 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#17 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/index.php/user/list?countryid=1&role=1&orderby=uid
+---
+2013/12/25 16:31:37 [error] [exception.CException] exception 'CException' with message 'Property "CWebUser.isAdmin" is not defined.' in /usr/local/yii/base/CComponent.php:130
+Stack trace:
+#0 /usr/local/yii/web/auth/CWebUser.php(146): CComponent->__get('isAdmin')
+#1 /usr/local/yii/web/auth/CAuthManager.php(149) : eval()'d code(1): CWebUser->__get('isAdmin')
+#2 /usr/local/yii/web/auth/CAuthManager.php(149): eval()
+#3 /usr/local/yii/web/auth/CPhpAuthManager.php(74): CAuthManager->executeBizRule('return Yii::app...', Array, NULL)
+#4 /usr/local/yii/web/auth/CWebUser.php(815): CPhpAuthManager->checkAccess('admin', NULL, Array)
+#5 /usr/local/yii/web/auth/CAccessControlFilter.php(346): CWebUser->checkAccess('admin')
+#6 /usr/local/yii/web/auth/CAccessControlFilter.php(284): CAccessRule->isRoleMatched(Object(CWebUser))
+#7 /usr/local/yii/web/auth/CAccessControlFilter.php(138): CAccessRule->isUserAllowed(Object(CWebUser), Object(UserController), Object(CInlineAction), '127.0.0.1', 'GET')
+#8 /usr/local/yii/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#9 /usr/local/yii/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 /usr/local/yii/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 /usr/local/yii/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 /usr/local/yii/web/CController.php(291): CFilterChain->run()
+#13 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 /usr/local/yii/web/CWebApplication.php(282): CController->run('list')
+#15 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#16 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#17 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/index.php/user/list?countryid=1&role=1&orderby=uid
+---
+2013/12/25 16:31:38 [error] [exception.CException] exception 'CException' with message 'Property "CWebUser.isAdmin" is not defined.' in /usr/local/yii/base/CComponent.php:130
+Stack trace:
+#0 /usr/local/yii/web/auth/CWebUser.php(146): CComponent->__get('isAdmin')
+#1 /usr/local/yii/web/auth/CAuthManager.php(149) : eval()'d code(1): CWebUser->__get('isAdmin')
+#2 /usr/local/yii/web/auth/CAuthManager.php(149): eval()
+#3 /usr/local/yii/web/auth/CPhpAuthManager.php(74): CAuthManager->executeBizRule('return Yii::app...', Array, NULL)
+#4 /usr/local/yii/web/auth/CWebUser.php(815): CPhpAuthManager->checkAccess('admin', NULL, Array)
+#5 /usr/local/yii/web/auth/CAccessControlFilter.php(346): CWebUser->checkAccess('admin')
+#6 /usr/local/yii/web/auth/CAccessControlFilter.php(284): CAccessRule->isRoleMatched(Object(CWebUser))
+#7 /usr/local/yii/web/auth/CAccessControlFilter.php(138): CAccessRule->isUserAllowed(Object(CWebUser), Object(UserController), Object(CInlineAction), '127.0.0.1', 'GET')
+#8 /usr/local/yii/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#9 /usr/local/yii/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 /usr/local/yii/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 /usr/local/yii/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 /usr/local/yii/web/CController.php(291): CFilterChain->run()
+#13 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 /usr/local/yii/web/CWebApplication.php(282): CController->run('list')
+#15 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#16 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#17 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/index.php/user/list?countryid=1&role=1&orderby=uid
+---
+2013/12/25 16:36:59 [error] [exception.CException] exception 'CException' with message 'Property "CWebUser.isAdmin" is not defined.' in /usr/local/yii/base/CComponent.php:130
+Stack trace:
+#0 /usr/local/yii/web/auth/CWebUser.php(146): CComponent->__get('isAdmin')
+#1 /usr/local/yii/web/auth/CAuthManager.php(149) : eval()'d code(1): CWebUser->__get('isAdmin')
+#2 /usr/local/yii/web/auth/CAuthManager.php(149): eval()
+#3 /usr/local/yii/web/auth/CPhpAuthManager.php(74): CAuthManager->executeBizRule('return Yii::app...', Array, NULL)
+#4 /usr/local/yii/web/auth/CWebUser.php(815): CPhpAuthManager->checkAccess('admin', NULL, Array)
+#5 /usr/local/yii/web/auth/CAccessControlFilter.php(346): CWebUser->checkAccess('admin')
+#6 /usr/local/yii/web/auth/CAccessControlFilter.php(284): CAccessRule->isRoleMatched(Object(CWebUser))
+#7 /usr/local/yii/web/auth/CAccessControlFilter.php(138): CAccessRule->isUserAllowed(Object(CWebUser), Object(UserController), Object(CInlineAction), '127.0.0.1', 'GET')
+#8 /usr/local/yii/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#9 /usr/local/yii/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 /usr/local/yii/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 /usr/local/yii/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 /usr/local/yii/web/CController.php(291): CFilterChain->run()
+#13 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 /usr/local/yii/web/CWebApplication.php(282): CController->run('list')
+#15 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#16 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#17 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/index.php/user/list?countryid=1&role=1&orderby=uid
+---
+2013/12/25 16:37:00 [error] [exception.CException] exception 'CException' with message 'Property "CWebUser.isAdmin" is not defined.' in /usr/local/yii/base/CComponent.php:130
+Stack trace:
+#0 /usr/local/yii/web/auth/CWebUser.php(146): CComponent->__get('isAdmin')
+#1 /usr/local/yii/web/auth/CAuthManager.php(149) : eval()'d code(1): CWebUser->__get('isAdmin')
+#2 /usr/local/yii/web/auth/CAuthManager.php(149): eval()
+#3 /usr/local/yii/web/auth/CPhpAuthManager.php(74): CAuthManager->executeBizRule('return Yii::app...', Array, NULL)
+#4 /usr/local/yii/web/auth/CWebUser.php(815): CPhpAuthManager->checkAccess('admin', NULL, Array)
+#5 /usr/local/yii/web/auth/CAccessControlFilter.php(346): CWebUser->checkAccess('admin')
+#6 /usr/local/yii/web/auth/CAccessControlFilter.php(284): CAccessRule->isRoleMatched(Object(CWebUser))
+#7 /usr/local/yii/web/auth/CAccessControlFilter.php(138): CAccessRule->isUserAllowed(Object(CWebUser), Object(UserController), Object(CInlineAction), '127.0.0.1', 'GET')
+#8 /usr/local/yii/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#9 /usr/local/yii/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 /usr/local/yii/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 /usr/local/yii/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 /usr/local/yii/web/CController.php(291): CFilterChain->run()
+#13 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 /usr/local/yii/web/CWebApplication.php(282): CController->run('list')
+#15 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#16 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#17 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/index.php/user/list?countryid=1&role=1&orderby=uid
+---
+2013/12/25 16:37:00 [error] [exception.CException] exception 'CException' with message 'Property "CWebUser.isAdmin" is not defined.' in /usr/local/yii/base/CComponent.php:130
+Stack trace:
+#0 /usr/local/yii/web/auth/CWebUser.php(146): CComponent->__get('isAdmin')
+#1 /usr/local/yii/web/auth/CAuthManager.php(149) : eval()'d code(1): CWebUser->__get('isAdmin')
+#2 /usr/local/yii/web/auth/CAuthManager.php(149): eval()
+#3 /usr/local/yii/web/auth/CPhpAuthManager.php(74): CAuthManager->executeBizRule('return Yii::app...', Array, NULL)
+#4 /usr/local/yii/web/auth/CWebUser.php(815): CPhpAuthManager->checkAccess('admin', NULL, Array)
+#5 /usr/local/yii/web/auth/CAccessControlFilter.php(346): CWebUser->checkAccess('admin')
+#6 /usr/local/yii/web/auth/CAccessControlFilter.php(284): CAccessRule->isRoleMatched(Object(CWebUser))
+#7 /usr/local/yii/web/auth/CAccessControlFilter.php(138): CAccessRule->isUserAllowed(Object(CWebUser), Object(UserController), Object(CInlineAction), '127.0.0.1', 'GET')
+#8 /usr/local/yii/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#9 /usr/local/yii/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 /usr/local/yii/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 /usr/local/yii/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 /usr/local/yii/web/CController.php(291): CFilterChain->run()
+#13 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 /usr/local/yii/web/CWebApplication.php(282): CController->run('list')
+#15 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#16 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#17 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/index.php/user/list?countryid=1&role=1&orderby=uid
+---
+2013/12/25 16:37:00 [error] [exception.CException] exception 'CException' with message 'Property "CWebUser.isAdmin" is not defined.' in /usr/local/yii/base/CComponent.php:130
+Stack trace:
+#0 /usr/local/yii/web/auth/CWebUser.php(146): CComponent->__get('isAdmin')
+#1 /usr/local/yii/web/auth/CAuthManager.php(149) : eval()'d code(1): CWebUser->__get('isAdmin')
+#2 /usr/local/yii/web/auth/CAuthManager.php(149): eval()
+#3 /usr/local/yii/web/auth/CPhpAuthManager.php(74): CAuthManager->executeBizRule('return Yii::app...', Array, NULL)
+#4 /usr/local/yii/web/auth/CWebUser.php(815): CPhpAuthManager->checkAccess('admin', NULL, Array)
+#5 /usr/local/yii/web/auth/CAccessControlFilter.php(346): CWebUser->checkAccess('admin')
+#6 /usr/local/yii/web/auth/CAccessControlFilter.php(284): CAccessRule->isRoleMatched(Object(CWebUser))
+#7 /usr/local/yii/web/auth/CAccessControlFilter.php(138): CAccessRule->isUserAllowed(Object(CWebUser), Object(UserController), Object(CInlineAction), '127.0.0.1', 'GET')
+#8 /usr/local/yii/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#9 /usr/local/yii/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 /usr/local/yii/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 /usr/local/yii/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 /usr/local/yii/web/CController.php(291): CFilterChain->run()
+#13 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 /usr/local/yii/web/CWebApplication.php(282): CController->run('list')
+#15 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#16 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#17 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/index.php/user/list?countryid=1&role=1&orderby=uid
+---
+2013/12/25 16:39:16 [error] [exception.CException] exception 'CException' with message 'Property "CWebUser.isAdmin" is not defined.' in /usr/local/yii/base/CComponent.php:130
+Stack trace:
+#0 /usr/local/yii/web/auth/CWebUser.php(146): CComponent->__get('isAdmin')
+#1 /usr/local/yii/web/auth/CAuthManager.php(149) : eval()'d code(1): CWebUser->__get('isAdmin')
+#2 /usr/local/yii/web/auth/CAuthManager.php(149): eval()
+#3 /usr/local/yii/web/auth/CPhpAuthManager.php(74): CAuthManager->executeBizRule('return Yii::app...', Array, NULL)
+#4 /usr/local/yii/web/auth/CWebUser.php(815): CPhpAuthManager->checkAccess('admin', NULL, Array)
+#5 /usr/local/yii/web/auth/CAccessControlFilter.php(346): CWebUser->checkAccess('admin')
+#6 /usr/local/yii/web/auth/CAccessControlFilter.php(284): CAccessRule->isRoleMatched(Object(CWebUser))
+#7 /usr/local/yii/web/auth/CAccessControlFilter.php(138): CAccessRule->isUserAllowed(Object(CWebUser), Object(UserController), Object(CInlineAction), '127.0.0.1', 'GET')
+#8 /usr/local/yii/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#9 /usr/local/yii/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 /usr/local/yii/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 /usr/local/yii/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 /usr/local/yii/web/CController.php(291): CFilterChain->run()
+#13 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 /usr/local/yii/web/CWebApplication.php(282): CController->run('list')
+#15 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#16 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#17 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/index.php/user/list?countryid=1&role=1&orderby=uid
+---
+2013/12/25 16:39:17 [error] [exception.CException] exception 'CException' with message 'Property "CWebUser.isAdmin" is not defined.' in /usr/local/yii/base/CComponent.php:130
+Stack trace:
+#0 /usr/local/yii/web/auth/CWebUser.php(146): CComponent->__get('isAdmin')
+#1 /usr/local/yii/web/auth/CAuthManager.php(149) : eval()'d code(1): CWebUser->__get('isAdmin')
+#2 /usr/local/yii/web/auth/CAuthManager.php(149): eval()
+#3 /usr/local/yii/web/auth/CPhpAuthManager.php(74): CAuthManager->executeBizRule('return Yii::app...', Array, NULL)
+#4 /usr/local/yii/web/auth/CWebUser.php(815): CPhpAuthManager->checkAccess('admin', NULL, Array)
+#5 /usr/local/yii/web/auth/CAccessControlFilter.php(346): CWebUser->checkAccess('admin')
+#6 /usr/local/yii/web/auth/CAccessControlFilter.php(284): CAccessRule->isRoleMatched(Object(CWebUser))
+#7 /usr/local/yii/web/auth/CAccessControlFilter.php(138): CAccessRule->isUserAllowed(Object(CWebUser), Object(UserController), Object(CInlineAction), '127.0.0.1', 'GET')
+#8 /usr/local/yii/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#9 /usr/local/yii/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 /usr/local/yii/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 /usr/local/yii/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 /usr/local/yii/web/CController.php(291): CFilterChain->run()
+#13 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 /usr/local/yii/web/CWebApplication.php(282): CController->run('list')
+#15 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#16 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#17 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/index.php/user/list?countryid=1&role=1&orderby=uid
+---
+2013/12/25 16:39:17 [error] [exception.CException] exception 'CException' with message 'Property "CWebUser.isAdmin" is not defined.' in /usr/local/yii/base/CComponent.php:130
+Stack trace:
+#0 /usr/local/yii/web/auth/CWebUser.php(146): CComponent->__get('isAdmin')
+#1 /usr/local/yii/web/auth/CAuthManager.php(149) : eval()'d code(1): CWebUser->__get('isAdmin')
+#2 /usr/local/yii/web/auth/CAuthManager.php(149): eval()
+#3 /usr/local/yii/web/auth/CPhpAuthManager.php(74): CAuthManager->executeBizRule('return Yii::app...', Array, NULL)
+#4 /usr/local/yii/web/auth/CWebUser.php(815): CPhpAuthManager->checkAccess('admin', NULL, Array)
+#5 /usr/local/yii/web/auth/CAccessControlFilter.php(346): CWebUser->checkAccess('admin')
+#6 /usr/local/yii/web/auth/CAccessControlFilter.php(284): CAccessRule->isRoleMatched(Object(CWebUser))
+#7 /usr/local/yii/web/auth/CAccessControlFilter.php(138): CAccessRule->isUserAllowed(Object(CWebUser), Object(UserController), Object(CInlineAction), '127.0.0.1', 'GET')
+#8 /usr/local/yii/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#9 /usr/local/yii/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 /usr/local/yii/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 /usr/local/yii/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 /usr/local/yii/web/CController.php(291): CFilterChain->run()
+#13 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 /usr/local/yii/web/CWebApplication.php(282): CController->run('list')
+#15 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#16 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#17 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/index.php/user/list?countryid=1&role=1&orderby=uid
+---
+2013/12/25 16:39:18 [error] [exception.CException] exception 'CException' with message 'Property "CWebUser.isAdmin" is not defined.' in /usr/local/yii/base/CComponent.php:130
+Stack trace:
+#0 /usr/local/yii/web/auth/CWebUser.php(146): CComponent->__get('isAdmin')
+#1 /usr/local/yii/web/auth/CAuthManager.php(149) : eval()'d code(1): CWebUser->__get('isAdmin')
+#2 /usr/local/yii/web/auth/CAuthManager.php(149): eval()
+#3 /usr/local/yii/web/auth/CPhpAuthManager.php(74): CAuthManager->executeBizRule('return Yii::app...', Array, NULL)
+#4 /usr/local/yii/web/auth/CWebUser.php(815): CPhpAuthManager->checkAccess('admin', NULL, Array)
+#5 /usr/local/yii/web/auth/CAccessControlFilter.php(346): CWebUser->checkAccess('admin')
+#6 /usr/local/yii/web/auth/CAccessControlFilter.php(284): CAccessRule->isRoleMatched(Object(CWebUser))
+#7 /usr/local/yii/web/auth/CAccessControlFilter.php(138): CAccessRule->isUserAllowed(Object(CWebUser), Object(UserController), Object(CInlineAction), '127.0.0.1', 'GET')
+#8 /usr/local/yii/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#9 /usr/local/yii/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 /usr/local/yii/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 /usr/local/yii/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 /usr/local/yii/web/CController.php(291): CFilterChain->run()
+#13 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 /usr/local/yii/web/CWebApplication.php(282): CController->run('list')
+#15 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#16 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#17 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/index.php/user/list?countryid=1&role=1&orderby=uid
+---
+2013/12/25 16:41:12 [error] [exception.CException] exception 'CException' with message 'Property "CWebUser.isAdmin" is not defined.' in /usr/local/yii/base/CComponent.php:130
+Stack trace:
+#0 /usr/local/yii/web/auth/CWebUser.php(146): CComponent->__get('isAdmin')
+#1 /usr/local/yii/web/auth/CAuthManager.php(149) : eval()'d code(1): CWebUser->__get('isAdmin')
+#2 /usr/local/yii/web/auth/CAuthManager.php(149): eval()
+#3 /usr/local/yii/web/auth/CPhpAuthManager.php(74): CAuthManager->executeBizRule('return Yii::app...', Array, NULL)
+#4 /usr/local/yii/web/auth/CWebUser.php(815): CPhpAuthManager->checkAccess('admin', NULL, Array)
+#5 /usr/local/yii/web/auth/CAccessControlFilter.php(346): CWebUser->checkAccess('admin')
+#6 /usr/local/yii/web/auth/CAccessControlFilter.php(284): CAccessRule->isRoleMatched(Object(CWebUser))
+#7 /usr/local/yii/web/auth/CAccessControlFilter.php(138): CAccessRule->isUserAllowed(Object(CWebUser), Object(UserController), Object(CInlineAction), '127.0.0.1', 'GET')
+#8 /usr/local/yii/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#9 /usr/local/yii/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 /usr/local/yii/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 /usr/local/yii/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 /usr/local/yii/web/CController.php(291): CFilterChain->run()
+#13 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 /usr/local/yii/web/CWebApplication.php(282): CController->run('list')
+#15 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#16 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#17 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/index.php/user/list?countryid=1&role=1&orderby=uid
+---
+2013/12/25 16:41:12 [error] [exception.CException] exception 'CException' with message 'Property "CWebUser.isAdmin" is not defined.' in /usr/local/yii/base/CComponent.php:130
+Stack trace:
+#0 /usr/local/yii/web/auth/CWebUser.php(146): CComponent->__get('isAdmin')
+#1 /usr/local/yii/web/auth/CAuthManager.php(149) : eval()'d code(1): CWebUser->__get('isAdmin')
+#2 /usr/local/yii/web/auth/CAuthManager.php(149): eval()
+#3 /usr/local/yii/web/auth/CPhpAuthManager.php(74): CAuthManager->executeBizRule('return Yii::app...', Array, NULL)
+#4 /usr/local/yii/web/auth/CWebUser.php(815): CPhpAuthManager->checkAccess('admin', NULL, Array)
+#5 /usr/local/yii/web/auth/CAccessControlFilter.php(346): CWebUser->checkAccess('admin')
+#6 /usr/local/yii/web/auth/CAccessControlFilter.php(284): CAccessRule->isRoleMatched(Object(CWebUser))
+#7 /usr/local/yii/web/auth/CAccessControlFilter.php(138): CAccessRule->isUserAllowed(Object(CWebUser), Object(UserController), Object(CInlineAction), '127.0.0.1', 'GET')
+#8 /usr/local/yii/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#9 /usr/local/yii/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 /usr/local/yii/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 /usr/local/yii/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 /usr/local/yii/web/CController.php(291): CFilterChain->run()
+#13 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 /usr/local/yii/web/CWebApplication.php(282): CController->run('list')
+#15 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#16 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#17 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/index.php/user/list?countryid=1&role=1&orderby=uid
+---
+2013/12/25 16:41:13 [error] [exception.CException] exception 'CException' with message 'Property "CWebUser.isAdmin" is not defined.' in /usr/local/yii/base/CComponent.php:130
+Stack trace:
+#0 /usr/local/yii/web/auth/CWebUser.php(146): CComponent->__get('isAdmin')
+#1 /usr/local/yii/web/auth/CAuthManager.php(149) : eval()'d code(1): CWebUser->__get('isAdmin')
+#2 /usr/local/yii/web/auth/CAuthManager.php(149): eval()
+#3 /usr/local/yii/web/auth/CPhpAuthManager.php(74): CAuthManager->executeBizRule('return Yii::app...', Array, NULL)
+#4 /usr/local/yii/web/auth/CWebUser.php(815): CPhpAuthManager->checkAccess('admin', NULL, Array)
+#5 /usr/local/yii/web/auth/CAccessControlFilter.php(346): CWebUser->checkAccess('admin')
+#6 /usr/local/yii/web/auth/CAccessControlFilter.php(284): CAccessRule->isRoleMatched(Object(CWebUser))
+#7 /usr/local/yii/web/auth/CAccessControlFilter.php(138): CAccessRule->isUserAllowed(Object(CWebUser), Object(UserController), Object(CInlineAction), '127.0.0.1', 'GET')
+#8 /usr/local/yii/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#9 /usr/local/yii/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 /usr/local/yii/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 /usr/local/yii/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 /usr/local/yii/web/CController.php(291): CFilterChain->run()
+#13 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 /usr/local/yii/web/CWebApplication.php(282): CController->run('list')
+#15 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#16 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#17 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/index.php/user/list?countryid=1&role=1&orderby=uid
+---
+2013/12/25 16:41:13 [error] [exception.CException] exception 'CException' with message 'Property "CWebUser.isAdmin" is not defined.' in /usr/local/yii/base/CComponent.php:130
+Stack trace:
+#0 /usr/local/yii/web/auth/CWebUser.php(146): CComponent->__get('isAdmin')
+#1 /usr/local/yii/web/auth/CAuthManager.php(149) : eval()'d code(1): CWebUser->__get('isAdmin')
+#2 /usr/local/yii/web/auth/CAuthManager.php(149): eval()
+#3 /usr/local/yii/web/auth/CPhpAuthManager.php(74): CAuthManager->executeBizRule('return Yii::app...', Array, NULL)
+#4 /usr/local/yii/web/auth/CWebUser.php(815): CPhpAuthManager->checkAccess('admin', NULL, Array)
+#5 /usr/local/yii/web/auth/CAccessControlFilter.php(346): CWebUser->checkAccess('admin')
+#6 /usr/local/yii/web/auth/CAccessControlFilter.php(284): CAccessRule->isRoleMatched(Object(CWebUser))
+#7 /usr/local/yii/web/auth/CAccessControlFilter.php(138): CAccessRule->isUserAllowed(Object(CWebUser), Object(UserController), Object(CInlineAction), '127.0.0.1', 'GET')
+#8 /usr/local/yii/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#9 /usr/local/yii/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 /usr/local/yii/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 /usr/local/yii/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 /usr/local/yii/web/CController.php(291): CFilterChain->run()
+#13 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 /usr/local/yii/web/CWebApplication.php(282): CController->run('list')
+#15 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#16 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#17 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/index.php/user/list?countryid=1&role=1&orderby=uid
+---
+2013/12/25 16:41:26 [error] [exception.CException] exception 'CException' with message 'Property "CWebUser.isAdmin" is not defined.' in /usr/local/yii/base/CComponent.php:130
+Stack trace:
+#0 /usr/local/yii/web/auth/CWebUser.php(146): CComponent->__get('isAdmin')
+#1 /usr/local/yii/web/auth/CAuthManager.php(149) : eval()'d code(1): CWebUser->__get('isAdmin')
+#2 /usr/local/yii/web/auth/CAuthManager.php(149): eval()
+#3 /usr/local/yii/web/auth/CPhpAuthManager.php(74): CAuthManager->executeBizRule('return Yii::app...', Array, NULL)
+#4 /usr/local/yii/web/auth/CWebUser.php(815): CPhpAuthManager->checkAccess('admin', NULL, Array)
+#5 /usr/local/yii/web/auth/CAccessControlFilter.php(346): CWebUser->checkAccess('admin')
+#6 /usr/local/yii/web/auth/CAccessControlFilter.php(284): CAccessRule->isRoleMatched(Object(CWebUser))
+#7 /usr/local/yii/web/auth/CAccessControlFilter.php(138): CAccessRule->isUserAllowed(Object(CWebUser), Object(UserController), Object(CInlineAction), '127.0.0.1', 'GET')
+#8 /usr/local/yii/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#9 /usr/local/yii/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 /usr/local/yii/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 /usr/local/yii/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 /usr/local/yii/web/CController.php(291): CFilterChain->run()
+#13 /usr/local/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 /usr/local/yii/web/CWebApplication.php(282): CController->run('list')
+#15 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#16 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#17 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/index.php/user/list?countryid=1&role=1&orderby=uid
+---
+2013/12/25 16:42:32 [error] [php] Missing argument 1 for UserIdentity::__construct(), called in /home/jackey/workspace/bank_wall/api/protected/components/Controller.php on line 67 and defined (/home/jackey/workspace/bank_wall/api/protected/components/UserIdentity.php:12)
+Stack trace:
+#0 /usr/local/yii/web/CWebApplication.php(276): CWebApplication->createController()
+#1 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#2 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#3 /home/jackey/workspace/bank_wall/api/index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/user/list?countryid=1&role=1&orderby=uid
+in /home/jackey/workspace/bank_wall/api/protected/components/UserIdentity.php (12)
+in /home/jackey/workspace/bank_wall/api/protected/components/Controller.php (67)
+in /home/jackey/workspace/bank_wall/api/index.php (13)
+2013/12/25 18:07:46 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in /usr/local/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2013/12/25 18:07:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in /usr/local/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2013/12/25 18:07:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in /usr/local/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2013/12/25 18:12:49 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in /usr/local/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2013/12/25 18:12:49 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in /usr/local/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2013/12/25 18:12:49 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in /usr/local/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /home/jackey/workspace/bank_wall/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2013/12/25 18:29:25 [error] [php] Undefined variable: user (/home/jackey/workspace/bank_wall/api/protected/models/UserAR.php:39)
+Stack trace:
+#0 /usr/local/yii/web/CController.php(308): CInlineAction->runWithParams()
+#1 /usr/local/yii/web/CController.php(286): UserController->runAction()
+#2 /usr/local/yii/web/CController.php(265): UserController->runActionWithFilters()
+#3 /usr/local/yii/web/CWebApplication.php(282): UserController->run()
+#4 /usr/local/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /usr/local/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /home/jackey/workspace/bank_wall/api/index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/user/getuserbyuid?uid=1
+in /home/jackey/workspace/bank_wall/api/protected/models/UserAR.php (39)
+in /home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php (104)
+in /home/jackey/workspace/bank_wall/api/index.php (13)

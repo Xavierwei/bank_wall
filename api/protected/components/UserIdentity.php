@@ -7,27 +7,49 @@
  */
 class UserIdentity extends CUserIdentity
 {
-	/**
-	 * Authenticates a user.
-	 * The example implementation makes sure if the username and password
-	 * are both 'demo'.
-	 * In practical applications, this should be changed to authenticate
-	 * against some persistent user identity storage (e.g. database).
-	 * @return boolean whether authentication succeeds.
-	 */
-	public function authenticate()
-	{
-		$users=array(
-			// username => password
-			'demo'=>'demo',
-			'admin'=>'admin',
-		);
-		if(!isset($users[$this->username]))
-			$this->errorCode=self::ERROR_USERNAME_INVALID;
-		elseif($users[$this->username]!==$this->password)
-			$this->errorCode=self::ERROR_PASSWORD_INVALID;
-		else
-			$this->errorCode=self::ERROR_NONE;
-		return !$this->errorCode;
-	}
+  private $_id = NULL;
+  
+  public function __construct($username, $password) {
+    parent::__construct($username, $password);
+    
+    Yii::app()->user->setState("isAdmin", TRUE);
+    Yii::app()->user->setState("isCountryManager", FALSE);
+    Yii::app()->user->setState("isAuthenticated", FALSE); 
+    Yii::app()->user->setState("isGuest", FALSE);
+  }
+  
+  public function authenticate()
+  {
+    $arUser = new UserAR();
+    $user = UserAR::model()->findByAttributes(array("name" => $this->username));
+    if (!$user) {
+      $this->errorCode = self::ERROR_USERNAME_INVALID;
+    }
+    else if ($user->password != md5($this->password)) {
+      $this->errorCode = self::ERROR_PASSWORD_INVALID;
+    }
+    else {
+      $this->_id = $user->uid;
+      $this->setState("name", $user->name);
+      
+      // 配置用户的角色
+      if ($user->role == UserAR::ROLE_ADMIN) {
+        Yii::app()->user->setState("isAdmin", TRUE);
+      }
+      else if ($user->role == UserAR::ROLE_COUNTRY_MANAGER) {
+        Yii::app()->user->setState("isCountryManager", TRUE);
+      }
+      else if ($user->role == UserAR::ROLE_AUTHEN) {
+        Yii::app()->user->setState("isAuthenticated", TRUE);
+      }
+      
+      $this->errorCode = self::ERROR_NONE;
+    }
+
+    return !$this->errorCode;
+  }
+
+  public function getId() {
+    return $this->_id;
+  }
 }
