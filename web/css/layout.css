@@ -32,7 +32,7 @@ a{text-decoration:none;color:#666}
 	.select{position: absolute;right:60px;top:50px}
 		.select-item{position: relative;float: left;width: 145px;height: 25px}
 			.select-box{width:120px;border:#333 solid 1px;padding:3px;cursor: pointer;}
-			.select-pop{border:#fff solid 1px;position: absolute;width: 120px;top:0;padding:0 3px;background: #666;opacity: 0.8}
+			.select-pop{border:#fff solid 1px;position: absolute;width: 120px;top:0;padding:0 3px;background: #666;opacity: 0.8;filter:alpha(opacity=80);}
 				.select-option p{padding:3px;color:#fff;border-bottom:#999 solid 1px;cursor: pointer;}
 	.language{position: absolute;right:10px;top: 10px; }
 		.language-item{float:left;padding:8px 3px;}
@@ -58,7 +58,7 @@ a{text-decoration:none;color:#666}
 	.pic-item{cursor: pointer;}
 	.pic-item:hover .item-info{display: block;}
 	.pic-item:hover .item-icon{display: none;}
-	.item-info{position: absolute;top: 0;left: 0;right: 0;bottom: 0;background: #fff;opacity: 0.8;text-align: center;display: none;}
+	.item-info{position: absolute;top: 0;left: 0;right: 0;bottom: 0;background: #fff;opacity: 0.8;filter:alpha(opacity=80);text-align: center;display: none;}
 		.item-user{}
 			.item-usericon{background: url('../img/icon_user_s.gif') no-repeat left center;width:20px;height: 20px;display: inline-block;vertical-align: middle;}
 		.item-source{height:30px;padding:20px 0;}
@@ -86,7 +86,7 @@ a{text-decoration:none;color:#666}
 /* inner Used
 ================================================================================================= */
 .inner{margin:130px 0 0 620px;}
-	.inner-shade{height:32px;background: #000;position: fixed;width: 100%;bottom: 0;opacity: 0.5}
+	.inner-shade{height:32px;background: #000;position: fixed;width: 100%;bottom: 0;opacity: 0.5;filter:alpha(opacity=50);}
 	.inner-infocom{position: fixed;bottom: 0;color:#fff;padding:5px 10px;font-size: 16px;}
 	.inner-infoicon{position: fixed;bottom: 0;right:10px;}
 	.inner-info .photo{background: url('http://www.ff9263.com/images/icon_s_instagram.png') no-repeat center;width:30px;height: 30px;margin: 0 auto}
@@ -138,7 +138,7 @@ a{text-decoration:none;color:#666}
 
 /* shade&pop Used
 ================================================================================================= */
-.shade{position: fixed;background: #000;opacity: 0.5;top:0;left:0;right: 0;bottom: 0;z-index: 10}
+.shade{position: fixed;background: #000;opacity: 0.5;filter:alpha(opacity=50);top:0;left:0;right: 0;bottom: 0;z-index: 10}
 .pop{width: 730px;height:570px;background: #fff;position:fixed;left:50%;top:50%;margin: -285px 0 0 -365px;z-index: 12}
 	.popclose{position: absolute;font-size:28px;right:0;top:0;color:fff;padding:18px;cursor: pointer;}
 	.pophd{height:60px;background: #d3273f;font-size:28px;color:#fff;line-height: 60px;padding:0 18px;}
@@ -174,7 +174,7 @@ a{text-decoration:none;color:#666}
 		.count-userpho img{border-radius: 110px;border:#fff solid 3px;
 			-webkit-border-radius: 110px;-moz-border-radius: 110px;-o-border-radius: 110px;-ms-border-radius: 110px;}
 		.count-userinfo{color:#fff;border-left:#5b5b5b solid 1px;height:62px;position: absolute;padding:10px 20px;left:200px;top:60px;font-size: 14px;line-height: 2em}
-		.count-userinfo-edit{left:45v0px;}
+		.count-userinfo-edit{left:450px;}
 		.count-edit{position: absolute;right: 10px;top: 10px;background:#828282 ;padding:2px 15px;color:#fff;}
 		.count-file{background: #6b6b6b;color: #FFF;font-size: 14px;position: absolute;left:170px;top:85px;padding:5px 20px 5px 70px;}
 .user-message{position: relative;padding:100px 0 0;}
