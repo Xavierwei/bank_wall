@@ -8,22 +8,14 @@ seajs.config({
       src: "../jquery/jquery-1.102.js"
       , exports: "jQuery"
     }
-    // , upload: {
-    //   src: '../uploader/ajaxUpload'
-    //   , exports: 'AjaxUpload'
-    // }
-    // , bootstrap: {
-    //   src: '../bootstrap3/js/bootstrap.min.js',
-    //   deps: ['jquery']
-    // }
-    // , datepicker: {
-    //   src: '../bootstrap3/datepicker/js/bootstrap-datepicker.js',
-    //   deps: ['bootstrap']
-    // }
-    // , angular: {
-    //   src: '../angular/angular.js'
-    //   , exports: "angular"
-    // }
+    ,handlebars: {
+      src: "../handlebars/handlebars-v1.1.2.js"
+      , exports: "Handlebars"
+    }
+    ,isotope:{
+      src: "../plugin/jquery.isotope.min.js"
+      , deps: ['jquery']
+    }
   }
   , alias: {
     api: '../api'

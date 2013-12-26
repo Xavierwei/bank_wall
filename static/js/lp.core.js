@@ -293,21 +293,6 @@
         });
     })();
 
-
-    LP.ajax = function( ){
-        var args = [].splice.call( arguments , 0 , arguments.length);
-        LP.use('api' , function( api ){
-            api.ajax.apply( api , args );
-        });
-    }
-
-
-    LP.sjhtAjax = function( ){
-        var args = [].splice.call( arguments , 0 , arguments.length);
-        LP.use('api4sjht' , function( api ){
-            api.ajax.apply( api , args );
-        });
-    }
     // cookie
     /**
      * 根据cookie名称取得cookie值
@@ -370,41 +355,4 @@
     LP.removeCookie = function(name, path, domain){
         return LP.setCookie(name, '', -1, path, domain);
     };
-
-
-    LP.mix( LP , {
-        error: function(){
-            var args = [].splice.call( arguments , 0 , arguments.length);
-            LP.use('panel' , function( exports ){
-                exports.error.apply( exports , args );
-            });
-        }
-        , right: function(){
-            var args = [].splice.call( arguments , 0 , arguments.length);
-            LP.use('panel' , function( exports ){
-                exports.right.apply( exports , args );
-            });
-        }
-        , alert: function(){
-            return this.warn.apply( this , [].splice.call( arguments , 0 , arguments.length));
-        }
-        , warn: function(){
-            var args = [].splice.call( arguments , 0 , arguments.length);
-            LP.use('panel' , function( exports ){
-                exports.warn.apply( exports , args );
-            });
-        }
-        , confirm: function(){
-            var args = [].splice.call( arguments , 0 , arguments.length);
-            LP.use('panel' , function( exports ){
-                exports.confirm.apply( exports , args );
-            });
-        }
-        , panel: function(){
-            var args = [].splice.call( arguments , 0, arguments.length );
-            LP.use('panel' , function( exports ){
-                exports.panel.apply( exports , args );
-            });
-        }
-    } , true );
 })( window );

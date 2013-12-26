@@ -23,7 +23,7 @@ define(function( require , exports , model ){
     // 配置
     var _api = {
         // searchHosts: {path: '/Ajax/searchHosts' , data: {key: ''} , m: '检索小组' , method: 'get' },
-        
+        comment: {path:'/' , data: }
     };
 
     // 内部API

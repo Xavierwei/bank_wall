@@ -4,34 +4,25 @@
     <title> demo </title>
 </head>
 <body>
-<pre>
-<font face="Consolas">
-<font color="#0000ff">&lt;script </font><font color="#ff0000">type</font><font color="#0000ff">=</font><font color="#ff00ff">&quot;text/javascript&quot; </font><font color="#ff0000">src</font><font color="#0000ff">=</font><font color="#ff00ff">&quot;./js/sea/sea-debug.js&quot; </font><font color="#800080">data-config</font><font color="#0000ff">=</font><font color="#ff00ff">&quot;../config&quot;</font><font color="#0000ff">&gt;&lt;/script&gt;</font>
-<font color="#0000ff">&lt;script </font><font color="#ff0000">type</font><font color="#0000ff">=</font><font color="#ff00ff">&quot;text/javascript&quot; </font><font color="#ff0000">src</font><font color="#0000ff">=</font><font color="#ff00ff">&quot;./js/sea/plugin-shim.js&quot;</font><font color="#0000ff">&gt;&lt;/script&gt;</font>
-<font color="#0000ff">&lt;script </font><font color="#ff0000">type</font><font color="#0000ff">=</font><font color="#ff00ff">&quot;text/javascript&quot; </font><font color="#ff0000">src</font><font color="#0000ff">=</font><font color="#ff00ff">&quot;./js/lp.core.js&quot;</font><font color="#0000ff">&gt;&lt;/script&gt;</font>
-<font color="#0000ff">&lt;script </font><font color="#ff0000">type</font><font color="#0000ff">=</font><font color="#ff00ff">&quot;text/javascript&quot;</font><font color="#0000ff">&gt;</font>
-    <font color="#800000">LP.use([</font><font color="#ff00ff">'jquery' </font><font color="#800000">, </font><font color="#ff00ff">'api'</font><font color="#800000">] , </font><font color="#0000ff">function</font><font color="#800000">( $ , api ){</font>
-        <font color="#800000">api.ajax(</font><font color="#ff00ff">'get-comment' </font><font color="#800000">, {</font>
-            <font color="#800000">id: </font><font color="#800080">2323</font>
-        <font color="#800000">} , </font><font color="#0000ff">function</font><font color="#800000">( result ){</font>
 
-        <font color="#800000">});</font>
-    <font color="#800000">});</font>
-<font color="#0000ff">&lt;/script&gt;</font>
-</font>
-</pre>
-
-
+<a data-a="comment" href="#" data-d="id=1"> 点击获取评论 </a>
 
 <script type="text/javascript" src="./js/sea/sea-debug.js" data-config="../config"></script>
 <script type="text/javascript" src="./js/sea/plugin-shim.js"></script>
 <script type="text/javascript" src="./js/lp.core.js"></script>
+<script type="text/javascript" src="./js/lp.base.js"></script>
 <script type="text/javascript">
     LP.use(['jquery' , 'api'] , function( $ , api ){
         api.ajax('get-comment' , {
             id: 2323
         } , function( result ){
 
+        });
+
+        LP.action('comment' , function( data ){
+            alert( 'id is ' + data.id );
+
+            return false;
         });
     });
 </script>
