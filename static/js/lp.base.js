@@ -1,12 +1,13 @@
 /*
  * page base action
  */
-LP.use(['jquery' , 'util'] , function( $ , util ){
+LP.use(['jquery'] , function( $ ){
     'use strict'
 
     // live for pic-item hover event
     $(document.body)
         .delegate('.pic-item' , 'mouseenter' , function(){
+            console.log(1);
             $(this).find('.item-info')
                 //.stop( true , false )
                 .fadeIn( 500 );
@@ -39,9 +40,14 @@ LP.use(['jquery' , 'util'] , function( $ , util ){
 
 
     var $main = $('.main');
+    var minWidth = 170;
+    var itemWidth = minWidth;
     // fix one day animation. It is start animate from the day which is not trigger the animation
     // After the day trigger the animation , it would be added 'opened' class.
     // Fix animation day by day
+    // events: 
+    //      item-reversal   : fix image reversal effect
+    //      item-width      : fix item width
     $main.bind('item-reversal' , function(){
     //function picItemAnimate(){
         // get first time item , which is not opend
@@ -87,12 +93,19 @@ LP.use(['jquery' , 'util'] , function( $ , util ){
             startAnimate();
         }
     })
+    .bind('item-width' , function(){
+        var mainWidth = $(this).width();
+
+        var min = ~~( mainWidth / minWidth );
+        itemWidth = ~~( mainWidth / min );
+        $('.time-item, .pic-item.reversal , .pic-item.reversal img')
+            .width( itemWidth )
+            .height( itemWidth );
+    })
+    .trigger('item-width')
     .trigger('item-reversal');
 
-
-
-    var minWidth = 170;
-    var itemWidth = minWidth;
+    
     
     // isotope effect init and invoke
     var isIsotoped = false;
@@ -119,13 +132,7 @@ LP.use(['jquery' , 'util'] , function( $ , util ){
     }
 
     function fixItemWidth(){
-        var mainWidth = $('.main').width();
-        var min = ~~( mainWidth / minWidth );
-        itemWidth = ~~( mainWidth / min );
-
-        $('.time-item, .pic-item.reversal , .pic-item.reversal img')
-            .width( itemWidth )
-            .height( itemWidth );
+        
     }
 
     // fix window resize event
@@ -135,7 +142,8 @@ LP.use(['jquery' , 'util'] , function( $ , util ){
     $(window).resize(function(){
         clearTimeout( resizeTimer );
         resizeTimer = setTimeout(function(){
-            fixItemWidth();
+            $main.trigger('item-width');
+            //fixItemWidth();
             // run isotope after item width fixed
             setTimeout(fixIsotope , 500);
             
@@ -145,7 +153,7 @@ LP.use(['jquery' , 'util'] , function( $ , util ){
 
     });
 
-    fixItemWidth();
+    //fixItemWidth();
     //picItemAnimate();
 
 

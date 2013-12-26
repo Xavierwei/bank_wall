@@ -279,12 +279,12 @@
             if( !action ) return;
             // login 
             // data-nl === > data need login
-            if( target.getAttribute('data-nl') && !LP.isLogin() ){
-                LP.use('util' , function( util ){
-                    util.trigger('login');
-                });
-                return false;
-            }
+            // if( target.getAttribute('data-nl') && !LP.isLogin() ){
+            //     LP.use('util' , function( util ){
+            //         util.trigger('login');
+            //     });
+            //     return false;
+            // }
 
             // fire action
             var aData = target.getAttribute( actionDataAttr ) || '';
