@@ -63,9 +63,9 @@ class UserAR extends CActiveRecord{
         array("personal_email", "dbRowUnique"),
         array("company_email", "email"),
         array("personal_email", "dbRowUnique"),
-        array("role", "type", 'type' => 'int'),
+        //array("role", "type", 'type' => 'int'),
         array("password", "required"),
-        array("avadar, datetime, firstname, lastname", 'safe'),
+        array("avadar, datetime, firstname, lastname, role", 'safe'),
         array("country_id", "required"),
     );
   }

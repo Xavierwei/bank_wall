@@ -55,7 +55,6 @@ return array(
 			'charset' => 'utf8',
 		),
 		'errorHandler'=>array(
-			// use 'site/error' action to display errors
 			'errorAction'=>'user/error',
 		),
 		'log'=>array(

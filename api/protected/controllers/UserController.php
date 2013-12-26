@@ -4,6 +4,13 @@
  * @author Jackey <jziwenchen@gmail.com>
  */
 class UserController extends Controller {
+  
+  public function init() {
+    parent::init();
+    
+    Yii::app()->attachEventHandler("onError", array($this, "actionError"));
+    Yii::app()->attachEventHandler("onException", array($this, "actionError"));
+  }
 
   public function actionIndex() {
     return $this->responseJSON(array(), "");
@@ -165,18 +172,55 @@ class UserController extends Controller {
     $user = UserAR::model()->with("country")->findByPk($uid);
     
     if ($user) {
-      $status = $user->delete();
+      UserAR::model()->deleteByPk($user->uid);
       $this->responseJSON(array(), "success");
     }
     else {
       $this->responseJSON(array(), "success");
     }
   }
+  
+  /**
+   * 更改用户资料 
+   */
+  public function actionUserput() {
+    $request = Yii::app()->getRequest();
+    if (!$request->isPostRequest) {
+      $this->responseError("http error");
+    }
+    
+    $uid = $request->getPost("uid");
+    
+    if ($uid) {
+      $user = UserAR::model()->findByPk($uid);
+      if (!$user) {
+        $this->responseError("invalid params");
+      }
+      
+      $data = $_POST;
+      foreach ($data as $key => $value) {
+        if ($user->{$key}) {
+          $user->{$key} = $value;
+        }
+      }
+      $user->save();
+      
+      $this->responseJSON($user, "success");
+    }
+    else {
+      $this->responseError("invalid params");
+    }
+  }
 
   public function actionError() {
     $error = Yii::app()->errorHandler->error;
-    print_r($error);
-    die();
+    if (!$error) {
+      $event = func_get_arg(0);
+      if ($event instanceof CExceptionEvent) {
+        return $this->responseError("PHP Exception");
+      }
+    }
+    $this->responseError(print_r($error, TRUE));
   }
 
 }
