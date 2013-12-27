@@ -12,6 +12,10 @@
  * @author jackey
  */
 class NodeAR extends CActiveRecord{
+    
+    const PUBLICHSED = 1;
+    const UNPUBLISHED = 2;
+    const BLOCKED = 3;
   
   public static function model($class = __CLASS__) {
     return parent::model($class);
@@ -29,8 +33,8 @@ class NodeAR extends CActiveRecord{
     return array(
         array("uid, country_id, type", "required"),
         array("uid", "uidExist"),
-        array("country", "countryExist"),
-        array("file, type, datetime, status, description", "safe"),
+        array("country_id", "countryExist"),
+        array("file, type, datetime, status, description, nid, hashtag", "safe"),
     );
   }
   
@@ -39,7 +43,7 @@ class NodeAR extends CActiveRecord{
         
     if ($uid) {
       $user = UserAR::model()->findByPk($uid);
-      if ($user) {
+      if (!$user) {
         $this->addError($attribute, "user is not exist our system");
       }
     }
@@ -50,7 +54,7 @@ class NodeAR extends CActiveRecord{
         
     if ($country_id) {
       $country = CountryAR::model()->findByPk($country_id);
-      if (country) {
+      if (!$country) {
         $this->addError($attribute, "country is not exist our system");
       }
     }
@@ -76,13 +80,53 @@ class NodeAR extends CActiveRecord{
     parent::beforeSave();
     
     $hashtags = $this->getHashTag();
-    $this->hashtag = json_encode($hashtags);
-    $this->datetime = time();
+    $this->setAttribute("status", self::PUBLICHSED);
+    $this->setAttribute("hashtag", serialize($hashtags));
+    $this->setAttribute("datetime", time());
+    
+    return TRUE;
   }
   
   public function afterFind() {
     parent::afterFind();
-    $this->hashtag = json_decode($this->hashtag);
+    $this->hashtag = unserialize($this->hashtag);
+    
+    return TRUE;
+  }
+  
+  public function afterSave() {
+      $file = $this->file;
+      $nid = $this->nid;
+      $type = $this->type;
+      if ($type == "photo") {
+          $name = "p". $this->nid;
+      }
+      else {
+          $name = "v". $this->nid;
+      }
+      
+      $ext = pathinfo($this->file, PATHINFO_EXTENSION);
+      $newname = $name.'.'.$ext;
+      
+      $paths = explode("/", $this->file);
+      $paths[count($paths) - 1] = $newname;
+      $newpath = implode("/", $paths);
+      
+      rename(ROOT.$this->file, ROOT. $newpath);
+      
+      // 文件重命名后 修改数据库
+      $this->updateByPk($this->nid, array("file" => $newpath));
+      
+      $this->file = $newpath;
+      
+      // Load user/country
+      $userAr = new UserAR();
+      $userAr->setAttributes($userAr->getOutputRecordInArray(UserAR::model()->findByPk($this->uid)));
+      $this->user = $userAr;
+      
+      $this->country = CountryAR::model()->findByPk($this->country_id);
+      
+      return TRUE;
   }
   
   /**
@@ -99,6 +143,8 @@ class NodeAR extends CActiveRecord{
     $filename = uniqid().'_'.$upload->getName();
     $to = $dir."/". $filename;
     $upload->saveAs($to);
+    
+    $to = str_replace(ROOT, "", $to);
     
     return $to;
   }

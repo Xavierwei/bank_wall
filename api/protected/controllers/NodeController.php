@@ -67,11 +67,14 @@ class NodeController extends Controller {
       $nodeAr->country_id = $country_id;
       
       if ($nodeAr->validate()) {
-        $nodeAr->save();
+        $success = $nodeAr->save();
+        if (!$success) {
+            $this->responseError("exception happended");
+        }
         $retdata = $nodeAr->attributes;
-        // user
-        $retdata->user = $nodeAr->user->attributes;
-        $retdata->country = $nodeAr->country->attributes;
+        
+        $retdata['user'] = $nodeAr->user->attributes;
+        $retdata['country'] = $nodeAr->country->attributes;
         
         $this->responseJSON($retdata, "success");
       }
@@ -82,6 +85,165 @@ class NodeController extends Controller {
     else {
       $this->responseError("unknown error");
     }
+  }
+  
+  public function actionPut() {
+      // TODO::
+  }
+  
+  public function actionDelete() {
+      $request = Yii::app()->getRequest();
+      
+      if (!$request->isPostRequest) {
+          $this->responseError("http error");
+      }
+      
+      $nid = $request->getPost("nid");
+      
+      if (!$nid) {
+          $this->responseError("invalid params");
+      }
+      
+      $nodeAr = NodeAR::model()->findByPk($nid);
+      if(!$nodeAr) {
+          $this->responseError("invalid params");
+      }
+      
+      $nodeAr->delete();
+      
+      return $this->responseJSON($nodeAr->attributes, "success");
+  }
+  
+  public function actionList() {
+      $request = Yii::app()->getRequest();
+      
+      $type = $request->getParam("type");
+      $country_id = $request->getParam("country_id");
+      $uid = $request->getParam("uid");
+      
+      // 3个参数必须填一个
+      if (!$type && !$country_id && !$uid) {
+          return $this->responseError("http error");
+      }
+      
+      $page = $request->getParam("page");
+      if (!$page) {
+          $page = 1;
+      }
+      $pagenum = $request->getParam("pagenum");
+      if (!$pagenum) {
+          $pagenum = 10;
+      }
+      
+      // 开始时间和结束时间
+      $start = $request->getParam("start");
+      $end = $request->getParam("end");
+      
+      // orderby 可选参数:
+      // [datetime, like]
+      // 暂时不支持like
+      $orderby = $request->getParam("orderby");
+      
+      // 需要验证是否是管理员
+      $status = $request->getParam("status");
+      
+      // 配置查询条件
+      $query = new CDbCriteria();
+      $nodeAr = new NodeAR();
+      $params = &$query->params;
+      if ($type) {
+          $query->addCondition("type=:type", "AND");
+          $params[":type"] = $type;
+      }
+      if ($country_id) {
+          $query->addCondition("contry_id = :country_id", "AND");
+          $params[":country_id"] = $country_id;
+      }
+      if ($uid) {
+          $query->addCondition("uid=:uid", "AND");
+          $params[":uid"] = $uid;
+      }
+      
+      if ($start) {
+          $start = strtotime($start);
+          $params[":start"] = $start;
+          $query->addCondition("datetime >= :start", "AND");
+      }
+      if ($end) {
+          $end = strtotime($end);
+          $params[":end"] = $end;
+          $query->addCondition("datetime<= :end", "AND");
+      }
+      
+      // 需要验证用户权限
+      $user = UserAR::model()->findByPk(Yii::app()->getId());
+      if ($user && $user->role == UserAR::ROLE_ADMIN) {
+          $query->addCondition("status =:status", "AND");
+          $params[":status"] = $status;
+      }
+      // 否则 status 只是是 published 状态
+      else {
+          $status = NodeAR::PUBLICHSED;
+          $query->addCondition($nodeAr->getTableAlias().".status = :status", "AND");
+          $params[":status"] = $status;
+      }
+      
+      $order = "ORDER BY ";
+      if ($orderby == "datetime") {
+          $order .= " datetime DESC";
+      }
+      else if ($orderby == "like") {
+          //TODO::
+      }
+      else if ($orderby == "random") {
+          // 随机查询需要特别处理
+          // 如下， 首先随机出 $pagenum 个数的随机数，大小范围在 max(nid), min(nid) 之间
+          // 再用 nid in (随机数) 去查询
+          $sql = "SELECT max(nid) as max, min(nid) as min FROM node";
+          $ret = Yii::app()->db->createCommand($sql);
+          $row = $ret->queryRow();
+          $nids = [];
+          $max_run = 0;
+          while (count($nids) < $pagenum && $max_run < $pagenum * 10) {
+              $nid = mt_rand($row["min"], $row["max"]);
+              if (!isset($nids[$nid])) {
+                  $cond = array();
+                  foreach ($params as $k => $v) {
+                      $cond[str_replace(":", "", $k)] = $v;
+                  }
+                  $node = NodeAR::model()->findByPk($nid);
+                  $isNotWeWant = FALSE;
+                  foreach ($cond as $k => $v) {
+                      if($node->{$k} != $v) {
+                          $isNotWeWant = TRUE;
+                          break;
+                      }
+                  }
+                  if ($isNotWeWant) {
+                          continue;
+                  }
+                  $nids[$nid] = $nid;
+              }
+              $max_run ++;
+          }
+          $query->addInCondition("nid", $nids, "AND");
+      }
+      
+      $query->limit = $pagenum;
+      $query->offset = ($page - 1 ) * $pagenum;
+      
+      $query->with = array("user", "country");
+      
+      $res = NodeAR::model()->with("user", "country")->findAll($query);
+      $retdata = array();
+      foreach ($res as $node) {
+          $data = $node->attributes;
+          //$data["user"] = $node->user->attributes;
+          //$data["country"] = $record->country->attributes;
+          $retdata[] = $data;
+      }
+      
+      $this->responseJSON($retdata, "success");
   }
 }
 
