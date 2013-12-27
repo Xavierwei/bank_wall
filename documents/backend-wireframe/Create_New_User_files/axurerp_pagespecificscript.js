@@ -1,4 +1,4 @@
-﻿for(var i = 0; i < 40; i++) { var scriptId = 'u' + i; window[scriptId] = document.getElementById(scriptId); }
+﻿for(var i = 0; i < 44; i++) { var scriptId = 'u' + i; window[scriptId] = document.getElementById(scriptId); }
 
 $axure.eventManager.pageLoad(
 function (e) {
@@ -24,7 +24,7 @@ $axure.eventManager.click('u22', function(e) {
 
 if (true) {
 
-	self.location.href=$axure.globalVariableProvider.getLinkUrl('Contents.html');
+	self.location.href=$axure.globalVariableProvider.getLinkUrl('Photo.html');
 
 }
 });
@@ -36,7 +36,7 @@ $axure.eventManager.click('u24', function(e) {
 
 if (true) {
 
-	self.location.href=$axure.globalVariableProvider.getLinkUrl('Contents.html');
+	self.location.href=$axure.globalVariableProvider.getLinkUrl('Video.html');
 
 }
 });
@@ -72,7 +72,7 @@ $axure.eventManager.click('u30', function(e) {
 
 if (true) {
 
-	self.location.href=$axure.globalVariableProvider.getLinkUrl('User.html');
+	self.location.href=$axure.globalVariableProvider.getLinkUrl('Editor.html');
 
 }
 });
@@ -84,7 +84,7 @@ $axure.eventManager.click('u32', function(e) {
 
 if (true) {
 
-    self.location.href="resources/reload.html#" + encodeURI($axure.globalVariableProvider.getLinkUrl($axure.pageData.url));
+	self.location.href=$axure.globalVariableProvider.getLinkUrl('Editor.html');
 
 }
 });
@@ -96,7 +96,7 @@ $axure.eventManager.click('u34', function(e) {
 
 if (true) {
 
-	self.location.href=$axure.globalVariableProvider.getLinkUrl('Contents_1.html');
+	self.location.href=$axure.globalVariableProvider.getLinkUrl('Admin.html');
 
 }
 });
@@ -108,7 +108,7 @@ $axure.eventManager.click('u36', function(e) {
 
 if (true) {
 
-	self.location.href=$axure.globalVariableProvider.getLinkUrl('Contents_1.html');
+    self.location.href="resources/reload.html#" + encodeURI($axure.globalVariableProvider.getLinkUrl($axure.pageData.url));
 
 }
 });
@@ -120,21 +120,21 @@ $axure.eventManager.click('u38', function(e) {
 
 if (true) {
 
-	self.location.href=$axure.globalVariableProvider.getLinkUrl('Comments_1.html');
+	self.location.href=$axure.globalVariableProvider.getLinkUrl('Contents_1.html');
 
 }
 });
-gv_vAlignTable['u39'] = 'center';gv_vAlignTable['u0'] = 'top';gv_vAlignTable['u2'] = 'top';
-$axure.eventManager.change('u4', function(e) {
+gv_vAlignTable['u39'] = 'center';gv_vAlignTable['u1'] = 'top';
+$axure.eventManager.change('u3', function(e) {
 
-if ((GetSelectedOption('u4')) == ('Select One...')) {
+if ((GetSelectedOption('u3')) == ('Select One...')) {
 
 }
 });
 
-$axure.eventManager.blur('u4', function(e) {
+$axure.eventManager.blur('u3', function(e) {
 
-if ((GetSelectedOption('u4')) == ('Select One...')) {
+if ((GetSelectedOption('u3')) == ('Select One...')) {
 
 }
 else
@@ -142,12 +142,36 @@ if (true) {
 
 }
 });
-gv_vAlignTable['u5'] = 'top';gv_vAlignTable['u7'] = 'top';gv_vAlignTable['u9'] = 'top';gv_vAlignTable['u11'] = 'top';HookHover('u12', false);
-gv_vAlignTable['u13'] = 'center';document.getElementById('u14_img').tabIndex = 0;
-HookHover('u14', false);
+gv_vAlignTable['u4'] = 'top';gv_vAlignTable['u6'] = 'top';gv_vAlignTable['u8'] = 'top';document.getElementById('u42_img').tabIndex = 0;
+HookHover('u42', false);
 
-u14.style.cursor = 'pointer';
-$axure.eventManager.click('u14', function(e) {
+u42.style.cursor = 'pointer';
+$axure.eventManager.click('u42', function(e) {
+
+if (true) {
+
+	self.location.href=$axure.globalVariableProvider.getLinkUrl('Comments_1.html');
+
+}
+});
+document.getElementById('u40_img').tabIndex = 0;
+HookHover('u40', false);
+
+u40.style.cursor = 'pointer';
+$axure.eventManager.click('u40', function(e) {
+
+if (true) {
+
+	self.location.href=$axure.globalVariableProvider.getLinkUrl('Contents_1.html');
+
+}
+});
+gv_vAlignTable['u41'] = 'center';gv_vAlignTable['u43'] = 'center';gv_vAlignTable['u10'] = 'top';HookHover('u11', false);
+gv_vAlignTable['u12'] = 'center';document.getElementById('u13_img').tabIndex = 0;
+HookHover('u13', false);
+
+u13.style.cursor = 'pointer';
+$axure.eventManager.click('u13', function(e) {
 
 if (true) {
 
@@ -155,11 +179,11 @@ if (true) {
 
 }
 });
-gv_vAlignTable['u15'] = 'center';document.getElementById('u16_img').tabIndex = 0;
-HookHover('u16', false);
+gv_vAlignTable['u14'] = 'center';document.getElementById('u15_img').tabIndex = 0;
+HookHover('u15', false);
 
-u16.style.cursor = 'pointer';
-$axure.eventManager.click('u16', function(e) {
+u15.style.cursor = 'pointer';
+$axure.eventManager.click('u15', function(e) {
 
 if (true) {
 
@@ -167,4 +191,4 @@ if (true) {
 
 }
 });
-gv_vAlignTable['u17'] = 'center';
+gv_vAlignTable['u16'] = 'center';gv_vAlignTable['u17'] = 'top';
