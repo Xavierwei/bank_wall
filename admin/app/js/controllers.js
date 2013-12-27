@@ -3,8 +3,7 @@
 /* Controllers */
 
 angular.module('SGWallAdmin.controllers', [])
-    .controller('NodeCtrList', ['$scope', '$http',
-        function($scope, $http) {
+    .controller('NodeCtrList', function($scope, $http) {
             // Get node list by recent
             $http.get('json/node/recent.json')
                 .success(function(data) {
@@ -41,8 +40,8 @@ angular.module('SGWallAdmin.controllers', [])
                         $scope.error = "加载失败";
                     });
             }
-    }])
-    .controller('NodeCtrEdit', ['$scope', '$http',
+    })
+    .controller('NodeCtrEdit',
         function($scope, $http) {
             $http.get('json/node/photo.json')
                 .success(function(data) {
@@ -61,8 +60,8 @@ angular.module('SGWallAdmin.controllers', [])
                 alert(node.nid);
             }
 
-        }])
-    .controller('UserCtrList', ['$scope', '$http',
+        })
+    .controller('UserCtrList',
         function($scope, $http) {
             $http.get('json/user/all.json')
                 .success(function(data) {
@@ -74,8 +73,8 @@ angular.module('SGWallAdmin.controllers', [])
             $scope.switchStatus = function(uid) {
                 alert(uid);
             }
-        }])
-    .controller('UserCtrEdit', ['$scope', '$http', '$routeParams',
+        })
+    .controller('UserCtrEdit',
         function($scope, $http, $routeParams) {
             $http.get('json/user/user.json?uid=' + $routeParams.uid)
                 .success(function(data) {
@@ -93,8 +92,8 @@ angular.module('SGWallAdmin.controllers', [])
             $scope.delete = function(user) {
                 alert(user.uid);
             }
-        }])
-    .controller('CommentCtrList', ['$scope', '$http',
+        })
+    .controller('CommentCtrList',
         function($scope, $http) {
             $http.get('json/comment/recent.json')
                 .success(function(data) {
@@ -112,4 +111,5 @@ angular.module('SGWallAdmin.controllers', [])
             $scope.delete = function(comment) {
                 alert(comment.cid);
             }
-        }]);
+        });
+
