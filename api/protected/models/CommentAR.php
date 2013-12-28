@@ -27,5 +27,13 @@ class CommentAR extends CActiveRecord {
         "node" => array(self::BELONGS_TO, "NodeAR", "nid"),
     );
   }
+  
+  public function beforeSave() {
+    // 设置默认时间
+    if (!$this->getAttribute("datetime")) {
+      $this->setAttribute("datetime", time());
+    }
+    return TRUE;
+  }
 }
 
