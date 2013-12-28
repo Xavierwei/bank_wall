@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @author  jackey <jziwenchen@gmail.com>
+ */
 class LikeAR extends CActiveRecord {
   public function tableName() {
     return "like";
@@ -22,12 +25,14 @@ class LikeAR extends CActiveRecord {
   }
   
   public function beforeSave() {
+    // 设置默认时间
     if (!$this->getAttribute("datetime")) {
       $this->setAttribute("datetime", time());
     }
     return TRUE;
   }
   
+  // 删除Like
   public function deleteLike($uid, $nid) {
     $query = new CDbCriteria();
     $query->addCondition("nid = :nid");

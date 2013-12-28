@@ -244,6 +244,19 @@ class NodeController extends Controller {
       
       $query->with = array("user", "country");
       
+      //TODO:: 搜索功能 现在是全文搜索，如果效果不好 可能改为分词搜索 (需要更多查询表)
+      // 集成 keyword 查询, 查询 description 中的关键字
+      $keyword = $request->getParam("keyword");
+      if ($keyword) {
+        $query->addSearchCondition("description", $keyword);
+      }
+      
+      // 集成 hashtag 搜索, 查询 hashtag 中的关键字
+      $hashtag = $request->getParam("hashtag");
+      if ($hashtag) {
+        $query->addSearchCondition("hashtag", '#'.$hashtag);
+      }
+      
       $res = NodeAR::model()->with("user", "country")->findAll($query);
       $retdata = array();
       foreach ($res as $node) {
