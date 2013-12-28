@@ -122,7 +122,7 @@ class UserAR extends CActiveRecord{
   
   public function relations() {
     return array(
-        "country" => array(self::HAS_ONE, "CountryAR", "country_id"),
+        "country" => array(self::BELONGS_TO, "CountryAR", "country_id"),
     );
   }
 }

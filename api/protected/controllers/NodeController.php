@@ -17,7 +17,7 @@ class NodeController extends Controller {
     $uid = Yii::app()->user->getId();
     
     //先用默认的用户来模拟登陆问题
-    $uid = 1;
+    $uid = UserAR::model()->find()->uid;
     $user = UserAR::model()->findByPk($uid);
     
     if ($user) {
@@ -79,7 +79,7 @@ class NodeController extends Controller {
         $this->responseJSON($retdata, "success");
       }
       else {
-        $this->responseError(print_r($nodeAr->getErrors(), TRUE));
+        $this->responseError(current(array_shift($nodeAr->getErrors())));
       }
     }
     else {
@@ -115,6 +115,7 @@ class NodeController extends Controller {
   }
   
   public function actionList() {
+      // TODO:: Order by like / Search by hashtag / Search by keyword
       $request = Yii::app()->getRequest();
       
       $type = $request->getParam("type");
@@ -193,7 +194,13 @@ class NodeController extends Controller {
           $order .= " datetime DESC";
       }
       else if ($orderby == "like") {
-          //TODO::
+        // orderby like 比较复杂， 需要用到join 和 group
+        // 还需要增加一个额外的 SELECT 
+        $likeAr = new LikeAR();
+        $query->select = "*". ", count(like.nid) AS likecount";
+        $query->join = 'left join `like` '.' on '.$likeAr->getTableAlias() .".nid = ". $nodeAr->getTableAlias().".nid";
+        $query->group ="`like`.nid";
+        $order .= "`like` DESC";
       }
       else if ($orderby == "random") {
           // 随机查询需要特别处理
@@ -202,9 +209,10 @@ class NodeController extends Controller {
           $sql = "SELECT max(nid) as max, min(nid) as min FROM node";
           $ret = Yii::app()->db->createCommand($sql);
           $row = $ret->queryRow();
-          $nids = [];
+          $nids = array();
           $max_run = 0;
           while (count($nids) < $pagenum && $max_run < $pagenum * 10) {
+              $max_run ++;
               $nid = mt_rand($row["min"], $row["max"]);
               if (!isset($nids[$nid])) {
                   $cond = array();
@@ -212,6 +220,9 @@ class NodeController extends Controller {
                       $cond[str_replace(":", "", $k)] = $v;
                   }
                   $node = NodeAR::model()->findByPk($nid);
+                  if (!$node) {
+                    continue;
+                  }
                   $isNotWeWant = FALSE;
                   foreach ($cond as $k => $v) {
                       if($node->{$k} != $v) {
@@ -224,7 +235,6 @@ class NodeController extends Controller {
                   }
                   $nids[$nid] = $nid;
               }
-              $max_run ++;
           }
           $query->addInCondition("nid", $nids, "AND");
       }
@@ -238,8 +248,9 @@ class NodeController extends Controller {
       $retdata = array();
       foreach ($res as $node) {
           $data = $node->attributes;
-          //$data["user"] = $node->user->attributes;
-          //$data["country"] = $record->country->attributes;
+          $data["likecount"] = $node->likecount;
+          $data["user"] = $node->user->attributes;
+          $data["country"] = $node->country->attributes;
           $retdata[] = $data;
       }
       

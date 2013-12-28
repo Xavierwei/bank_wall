@@ -19,4 +19,3 @@ curl_setopt($req, CURLOPT_POSTFIELDS, array(
 $res = curl_exec($req);
 
 echo $res;
-

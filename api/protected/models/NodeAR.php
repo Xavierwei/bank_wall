@@ -16,6 +16,9 @@ class NodeAR extends CActiveRecord{
     const PUBLICHSED = 1;
     const UNPUBLISHED = 2;
     const BLOCKED = 3;
+    
+    
+  public $likecount = 0;
   
   public static function model($class = __CLASS__) {
     return parent::model($class);
@@ -62,8 +65,8 @@ class NodeAR extends CActiveRecord{
   
   public function relations() {
     return array(
-        "country" => array(self::HAS_ONE, "CountryAR", "country_id"),
-        "user" => array(self:: HAS_ONE, "UserAR", "uid"),
+        "country" => array(self::BELONGS_TO, "CountryAR", "country_id"),
+        "user" => array(self::BELONGS_TO, "UserAR", "uid"),
     );
   }
   
