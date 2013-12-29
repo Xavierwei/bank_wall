@@ -3,13 +3,13 @@
 /**
  * @author  jackey <jziwenchen@gmail.com>
  */
-class LikeAR extends CActiveRecord {
+class FlagAR extends CActiveRecord {
   public function tableName() {
-    return "like";
+    return "flag";
   }
   
   public function primaryKey() {
-    return "like_id";
+    return "flag_id";
   }
   
   public static function model($class = __CLASS__) {
@@ -20,7 +20,8 @@ class LikeAR extends CActiveRecord {
     return array(
         array("nid", "NidExist"),
         array("uid", "UidExist"),
-        array("datetime, like_id", "safe"),
+        array("cid", "CidExist"),
+        array("datetime, flag_id", "safe"),
     );
   }
   
@@ -32,15 +33,29 @@ class LikeAR extends CActiveRecord {
     return TRUE;
   }
   
-  // 删除Like
-  public function deleteLike($uid, $nid) {
+  // 删除Node Like
+  public function deleteNodeFlag($nid) {
     $query = new CDbCriteria();
     $query->addCondition("nid = :nid");
-    $query->addCondition("uid = :uid");
-    $query->params[":uid"] = $uid;
     $query->params[":nid"] = $nid;
 
     return $this->deleteAll($query);
+  }
+  
+  // 删除Comment Like
+  public function deleteCommentFlag($cid) {
+    $query = new CDbCriteria();
+    $query->addCondition("cid = :cid");
+    $query->params[":cid"] = $nid;
+
+    return $this->deleteAll($query);
+  }
+  
+  public function relations() {
+    return array(
+        "node" => array(self::BELONGS_TO, "NodeAR", "nid"),
+        "comment" => array(self::BELONGS_TO, "CommentAR", "cid"),
+    );
   }
 }
 

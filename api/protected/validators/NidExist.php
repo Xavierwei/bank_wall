@@ -7,6 +7,7 @@ class NidExist extends CValidator {
   
   public function validateAttribute($object, $attribute) {
     $nid = $object->{$attribute};
+    if (!$nid) return;
     
     $node = NodeAR::model()->findByPk($nid);
     
