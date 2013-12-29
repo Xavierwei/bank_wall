@@ -1,14 +1,16 @@
-<ul class="nodes">
+<ul node class="nodes">
     <li ng-repeat="node in nodes" ng-class="status-{{node.status}}">
+        <p><img src="{{node.image}}" width="200" height="200" /></p>
         <p>{{node.type}}</p>
         <p>{{node.file}}</p>
         <p>{{node.status | nodeStatus}}</p>
+        <p>{{node.user.firstname}} {{node.user.lastname}}</p>
         <p><a href="#/node/comment/{{node.nid}}">{{node.comment_count}}</a></p>
         <p>{{node.like_count}}</p>
         <p>{{node.datetime}}</p>
-        <p>{{node.description}}</p>
         <div ng-click="switchStatus(node)">switch</div>
         <a href="#/node/edit/{{node.nid}}">edit</a>
+        <div ng-click="delete(node)">delete</div>
     </li>
 
 </ul>

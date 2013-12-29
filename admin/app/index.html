@@ -3,22 +3,34 @@
 <head>
   <meta charset="utf-8">
   <title>My AngularJS App</title>
-  <link rel="stylesheet" href="css/app.css"/>
+  <link rel="stylesheet" href="css/admin.css"/>
 </head>
 <body>
-  <ul class="menu">
-    <li><a href="#/node">node</a></li>
-    <li><a href="#/user">user</a></li>
-    <li><a href="#/comment">comment</a></li>
-  </ul>
 
-  <div ng-view></div>
+<div class="page-left">
+    <ul class="menu">
+        <li><a href="#/node">Contents</a>
+            <ul>
+                <li><a href="#/node">Photos</a></li>
+                <li><a href="#/node">Videos</a></li>
+            </ul>
+        </li>
+        <li><a href="#/comment">Comments</a></li>
+        <li><a href="#/like">Likes</a></li>
+        <li><a href="#/user">Users</a></li>
+        <li><a href="#/user">Non-appropriate</a>
+            <ul>
+                <li><a href="#/node">Contents</a></li>
+                <li><a href="#/node">Comments</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
 
-  <my-dialog ng-hide="dialogIsHidden" on-close="hideDialog()">
-      Check out the contents, {{name}}!
-  </my-dialog>
+<div class="page-right">
+    <div ng-view></div>
+</div>
 
-  <div>Angular seed app: v<span app-version></span></div>
 
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>

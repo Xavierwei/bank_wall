@@ -10,7 +10,7 @@
                 "uid": "{{index}}",
                 "firstname": "{{surname}}",
                 "lastname": "{{firstName}}",
-                "avatar": "/upload/avatar/u12.jpg"
+                "avatar": "http://lorempixel.com/80/80/people/{{index}}"
             },
             "country": 
             {
@@ -22,7 +22,7 @@
                 var choices = ['video', 'photo'];
                 return choices[this.numeric(0, choices.length - 1)];
             },
-            "image": "/upload/p{{index}}.jpg",
+            "image": "http://lorempixel.com/400/400/abstract/{{index}}",
             "video": "/upload/v{{index}}.mp4",
             "description": "#test #123 {{lorem(1,paragraphs)}}",
             "hashtag": [

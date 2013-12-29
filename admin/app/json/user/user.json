@@ -2,16 +2,16 @@
     "success": true,
     "data": {
         "uid": 0,
-        "firstname": "Shepard",
-        "lastname": " Stephenson",
-        "avatar": "/upload/avatar/u12.jpg",
+        "firstname": "Henson",
+        "lastname": " Miranda",
+        "avatar": "http://lorempixel.com/80/80/people/0",
         "country": {
             "countryid": "86",
             "country_name": "China",
             "flag_icon": "/upload/country/cn.gif"
         },
-        "company_email": "shepardstephenson@fishland.com",
-        "personal_email": "shepardstephenson@fishland.com",
+        "company_email": "hensonmiranda@steeltab.com",
+        "personal_email": "hensonmiranda@steeltab.com",
         "role": "1",
         "status": "1"
     },

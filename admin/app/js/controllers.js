@@ -30,6 +30,11 @@ angular.module('SGWallAdmin.controllers', [])
                     });
             }
 
+            // Delete node
+            $scope.delete = function(node) {
+                alert(node.nid);
+            }
+
             // Next
             $scope.next = function() {
                 $http.get('json/node/recent2.json')
@@ -41,6 +46,8 @@ angular.module('SGWallAdmin.controllers', [])
                     });
             }
     })
+
+
     .controller('NodeCtrEdit',
         function($scope, $http) {
             $http.get('json/node/photo.json')
@@ -61,6 +68,8 @@ angular.module('SGWallAdmin.controllers', [])
             }
 
         })
+
+
     .controller('UserCtrList',
         function($scope, $http) {
             $http.get('json/user/all.json')
@@ -74,6 +83,8 @@ angular.module('SGWallAdmin.controllers', [])
                 alert(uid);
             }
         })
+
+
     .controller('UserCtrEdit',
         function($scope, $http, $routeParams) {
             $http.get('json/user/user.json?uid=' + $routeParams.uid)
@@ -93,6 +104,8 @@ angular.module('SGWallAdmin.controllers', [])
                 alert(user.uid);
             }
         })
+
+
     .controller('CommentCtrList',
         function($scope, $http) {
             $http.get('json/comment/recent.json')
