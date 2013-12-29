@@ -4,6 +4,8 @@
  * @author  jackey <jziwenchen@gmail.com>
  */
 class FlagAR extends CActiveRecord {
+  // 3 次 flag 后， 把node 放到 blocked 状态下
+  const COUNT_THAT_BLOckED = 3;
   public function tableName() {
     return "flag";
   }
@@ -31,6 +33,21 @@ class FlagAR extends CActiveRecord {
       $this->setAttribute("datetime", time());
     }
     return TRUE;
+  }
+  
+  public function afterSave() {
+    $nid = $this->nid;
+    
+    if ($nid) {
+      // 保存后， 查询这个nid 有 COUNT_THAT_BLOckED 个 flag.
+      $command = Yii::app()->db->createCommand("SELECT count(*) as count FROM flag where nid = :nid");
+      $res = $command->query(array(":nid" => $nid))->read();
+      if ($res["count"] >= self::COUNT_THAT_BLOckED) {
+        $node = NodeAR::model()->findByPk($nid);
+        $node->blockIt();
+      }
+    }
+
   }
   
   // 删除Node Like

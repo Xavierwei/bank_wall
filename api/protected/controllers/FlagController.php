@@ -25,7 +25,7 @@ class FlagController extends Controller {
       $this->responseError("invalid params");
     }
     
-    // 如果 不是空 并且不是数字
+    // 如果有数据但是不是数字
     // 说明参数错误
     if ($nid && !is_numeric($nid)) {
       $this->responseError("invalid params");
@@ -34,7 +34,6 @@ class FlagController extends Controller {
       $this->responseError("invalid params");
     }
     
-    // 从session 拿到 uid
     // TODO:: 暂时 用任意用户uid 做测试, 登陆实现后 再完成此处功能
     //$uid = Yii::app()->user->getId();
     $uid = UserAR::model()->find()->uid;

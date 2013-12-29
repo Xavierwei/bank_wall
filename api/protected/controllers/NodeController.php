@@ -14,9 +14,8 @@ class NodeController extends Controller {
   }
   
   public function actionPost() {
-    $uid = Yii::app()->user->getId();
-    
     //先用默认的用户来模拟登陆问题
+    //$uid = Yii::app()->user->getId();
     $uid = UserAR::model()->find()->uid;
     $user = UserAR::model()->findByPk($uid);
     
@@ -88,7 +87,80 @@ class NodeController extends Controller {
   }
   
   public function actionPut() {
-      // TODO::
+      $request = Yii::app()->getRequest();
+      if (!$request->isPostRequest) {
+        $this->responseError("http error");
+      }
+      
+      $nid = $request->getPost("nid");
+      if (!$nid) {
+        $this->responseError("invalid params");
+      }
+      
+      $node = NodeAR::model()->findByPk($nid);
+      
+      if ($node) {
+        $photoUpload = CUploadedFile::getInstanceByName("photo");
+        $videoUpload = CUploadedFile::getInstanceByName("video");
+        if ($photoUpload) {
+          $type = "photo";
+        }
+        else if ($videoUpload){
+          $type = "video";
+        }
+        // 在这里和添加有点区别，我们不强制用户传 Media 过来
+        else {
+          $type = FALSE;
+        }
+
+        if ($photoUpload) {
+          $mime = $photoUpload->getType();
+          $allowMime = array(
+              "image/gif", "image/png", "image/jpeg", "image/jpg"
+          );
+          if (!in_array($mime, $allowMime)) {
+            $this->responseError("photo's media type is not allowed");
+          }
+        }
+
+        if ($videoUpload) {
+          // TODO:: 暂时判断不出视频类型，需要更多测试实例
+        }
+        
+        // 修改 description
+        $description = $request->getPost("description");
+        if ($description) {
+          $node->description =  $description;
+        }
+        
+        $status = $request->getPost("status");
+        if ($status) {
+          // TODO:: 这里修改node 状态需要权限检查， 暂时没有实现权限检查
+          $node->status = $status;
+        }
+        
+        // 修改media
+        if ($type == "photo") {
+          $node->file = $node->saveUploadedFile($photoUpload);
+          $node->type = $type;
+        }
+        elseif($type == "video") {
+          $node->file = $node->saveUploadedFile($videoUpload);
+          $node->type = $type;
+        }
+        
+        if ($node->validate()) {
+          $node->beforeSave();
+          $ret = $node->updateByPk($node->nid, $node->attributes);
+          $this->responseJSON($node->attributes, "success");
+        }
+        else {
+          $this->responseError(current(array_shift($node->getErrors())));
+        }
+      }
+      else {
+        $this->responseError("node not found");
+      }
   }
   
   public function actionDelete() {

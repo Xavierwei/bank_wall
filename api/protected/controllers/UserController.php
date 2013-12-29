@@ -6,7 +6,7 @@
 class UserController extends Controller {
 
   public function actionIndex() {
-    return $this->responseJSON(array(), "");
+    return $this->responseError("not support yet");
   }
   
   /**

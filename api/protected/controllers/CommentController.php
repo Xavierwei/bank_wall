@@ -36,6 +36,38 @@ class CommentController extends Controller {
     }
   }
   
+  public function actionPut() {
+    $request = Yii::app()->getRequest();
+    
+    if (!$request->isPostRequest) {
+      $this->responseError("http error");
+    }
+    
+    $cid = $request->getPost("cid");
+    if (!$cid || !is_numeric($cid)) {
+      $this->responseError("invalid params");
+    }
+    
+    $comment = CommentAR::model()->findByPk($cid);
+    if (!$comment) {
+      $this->responseError("comment not found");
+    }
+    
+    // 参数应该和 comment POST 不一样， 只允许 content 数据
+    $content = $request->getPost("content");
+    if (!$content) {
+      $this->responseError("invalid params");
+    }
+    $comment->content = $content;
+    if ($comment->validate()) {
+      $comment->updateByPk($comment->cid, array("content" => $comment->content));
+      $this->responseJSON($comment->attributes, "success");
+    }
+    else {
+      $this->responseError(current(array_shift($comment->getErrors())));
+    }
+  }
+  
   public function actionDelete() {
     $request = Yii::app()->getRequest();
     

@@ -83,7 +83,10 @@ class NodeAR extends CActiveRecord{
     parent::beforeSave();
     
     $hashtags = $this->getHashTag();
-    $this->setAttribute("status", self::PUBLICHSED);
+    // 在添加时 需要制定一个默认的 status = publichsed
+    if (!$this->{$this->getPrimaryKey()}) {
+      $this->setAttribute("status", self::PUBLICHSED);  
+    }
     $this->setAttribute("hashtag", serialize($hashtags));
     $this->setAttribute("datetime", time());
     
@@ -150,5 +153,11 @@ class NodeAR extends CActiveRecord{
     $to = str_replace(ROOT, "", $to);
     
     return $to;
+  }
+  
+  public function blockIt() {
+    if ($this->nid) {
+      $this->updateByPk($this->nid, array("status" => self::BLOCKED));
+    }
   }
 }
