@@ -9,15 +9,6 @@ class UserIdentity extends CUserIdentity
 {
   private $_id = NULL;
   
-  public function __construct($username, $password) {
-    parent::__construct($username, $password);
-    
-    Yii::app()->user->setState("isAdmin", TRUE);
-    Yii::app()->user->setState("isCountryManager", FALSE);
-    Yii::app()->user->setState("isAuthenticated", FALSE); 
-    Yii::app()->user->setState("isGuest", FALSE);
-  }
-  
   public function authenticate()
   {
     $arUser = new UserAR();

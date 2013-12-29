@@ -16,29 +16,30 @@ class PhpAuthManager extends CPhpAuthManager{
   public function init() {
     parent::init();
     
-    // 创建操作
-    $this->createOperation("list_all_user", "get all users");
-    $this->createOperation("list_user_in_country", "get all users in special country");
+    $this->createOperation("deleteNode", "delete one node");
+    $this->createOperation("blockNode", "block one node");
+    $this->createOperation("unpublishNode", "unpublish one node");
+    $this->createOperation("publichsNode", "publish one node");
     
-    // 创建角色
-    $bizRule = "return Yii::app()->user->isCountryManager;";
-    $role = $this->createRole("country_manager");
+    $this->createOperation("updateNode", "update one node");
+    $this->createOperation("updateAnyNode", "update any node");
     
-    // 分配操作
-    $role->addChild("list_user_in_country");
+    $bizRule = 'return Yii::app()->user->id == $params["post"]->uid';
+    $task = $this->createTask("updateOwnNode", "update own node", $bizRule);
+    $task->addChild("updateNode");
     
-    $bizRule = "return Yii::app()->user->isAdmin;";
-    $role = $this->createRole("admin", "admin role", $bizRule);
-    // 分配”操作“
-    $role->addChild("list_all_user");
-    $role->addChild("country_manager");
+    $admin = $this->createRole("admin");
+    $admin->addChild("deleteNode");
+    $admin->addChild("blockNode");
+    $admin->addChild("unpublishNode");
+    $admin->addChild("updateNode");
     
-    $bizRule = "return Yii::app()->user->isAuthenticated;";
-    $this->createRole("authen", "authenticated user", $bizRule);
+    $uid = Yii::app()->user->id;
     
-    $bizRule = "return Yii::app()->user->isGuest;";
-    $this->createRole("guest", "guest user", $bizRule);
+    if ($uid) {
+      // 设置权限
+    }
+    
   }
-  
   
 }

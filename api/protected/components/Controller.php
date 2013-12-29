@@ -21,6 +21,12 @@ class Controller extends CController
 	 */
 	public $breadcrumbs=array();
     
+    public function beforeAction($action) {
+      $auth = Yii::app()->authManager;
+      
+      return parent::beforeAction($action);
+    }
+    
     public function responseError($message) {
          $this->_renderjson($this->wrapperDataInRest(NULL, $message, TRUE));
     }

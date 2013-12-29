@@ -76,6 +76,9 @@ return array(
         "authManager" => array(
             "class" => "PhpAuthManager"
         ),
+        "session" => array(
+            "autoStart" => TRUE,
+        ),
 	),
 
 	// application-level parameters that can be accessed

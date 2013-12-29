@@ -231,6 +231,29 @@ class UserController extends Controller {
     }
   }
   
+  public function actionLoginForm() {
+    $request = Yii::app()->getRequest();
+    $loginform = new LoginForm();
+    
+    if (!$request->isPostRequest) {
+      $params = array("model" => $loginform);
+      $this->render("login", $params);
+    }
+    else {
+      $loginform->attributes = $_POST["LoginForm"];
+      if ($loginform->validate()) {
+        Yii::app()->user->login($loginform->getUserIdentify());
+        $this->redirect(Yii::app()->user->returnUrl);
+      }
+      else {
+        $params = array("model" => $loginform);
+        $this->render("login", $params);
+      }
+    }
+  }
   
+  public function actionTest() {
+    $this->responseError("test");
+  }
 
 }
