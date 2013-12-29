@@ -204,5 +204,33 @@ class UserController extends Controller {
       $this->responseError("invalid params");
     }
   }
+  
+  public function actionLogin() {
+    $request = Yii::app()->getRequest();
+    
+    if (!$request->isPostRequest) {
+      $this->responseError("http error");
+    }
+    
+    $company_email = $request->getPost("company_email");
+    $password = $request->getPost("password");
+    
+    $userIdentify = new UserIdentity($company_email, $password);
+    
+    // 验证没有通过
+    if (!$userIdentify->authenticate()) {
+      // 不必把对应的错误消息返回给客户端， 客户端只需知道登陆失败即可
+      // 可以避免Hacker 根据错误消息来推敲我们系统的运行机制和用户密码/帐号
+      $this->responseError("login failed");
+    }
+    else {
+      Yii::app()->user->login($userIdentify);
+      
+      $userAr = new UserAR();
+      $this->responseJSON($userAr->getOutputRecordInArray(UserAR::model()->findByPk(Yii::app()->user->getId())), "success");
+    }
+  }
+  
+  
 
 }

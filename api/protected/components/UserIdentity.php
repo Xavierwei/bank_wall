@@ -21,7 +21,7 @@ class UserIdentity extends CUserIdentity
   public function authenticate()
   {
     $arUser = new UserAR();
-    $user = UserAR::model()->findByAttributes(array("name" => $this->username));
+    $user = UserAR::model()->findByAttributes(array("company_email" => $this->username));
     if (!$user) {
       $this->errorCode = self::ERROR_USERNAME_INVALID;
     }
@@ -31,17 +31,6 @@ class UserIdentity extends CUserIdentity
     else {
       $this->_id = $user->uid;
       $this->setState("name", $user->name);
-      
-      // 配置用户的角色
-      if ($user->role == UserAR::ROLE_ADMIN) {
-        Yii::app()->user->setState("isAdmin", TRUE);
-      }
-      else if ($user->role == UserAR::ROLE_COUNTRY_MANAGER) {
-        Yii::app()->user->setState("isCountryManager", TRUE);
-      }
-      else if ($user->role == UserAR::ROLE_AUTHEN) {
-        Yii::app()->user->setState("isAuthenticated", TRUE);
-      }
       
       $this->errorCode = self::ERROR_NONE;
     }
