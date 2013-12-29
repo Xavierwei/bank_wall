@@ -78,26 +78,27 @@ a{text-decoration:none;color:#666}
 	.menu{}
 		.menu-item{border-bottom:#474747 2px solid;width: 120px;height:75px;cursor: pointer; }
 		.menu-item-on{background:#cb6666 }
-		.menu-item.photo p{background: url('http://www.ff9263.com/images/icon_s_instagram.png') no-repeat center;width: 120px;height:75px;}
-		.menu-item.youtube p{background: url('http://www.ff9263.com/images/icon_s_youtube.png') no-repeat center;width: 120px;height:75px;}
+		.menu-item.photo p{background: url('../img/icon_s_instagram.png') no-repeat center;width: 120px;height:75px;}
+		.menu-item.youtube p{background: url('../img/icon_s_youtube.png') no-repeat center;width: 120px;height:75px;}
 
 
 /* inner Used
 ================================================================================================= */
-.inner{margin:130px 0 0 620px;}
-	.inner-shade{height:32px;background: #000;position: fixed;width: 100%;bottom: 0;opacity: 0.5;filter:alpha(opacity=50);}
-	.inner-infocom{position: fixed;bottom: 0;color:#fff;padding:5px 10px;font-size: 16px;}
-	.inner-infoicon{position: fixed;bottom: 0;right:10px;}
-	.inner-info .photo{background: url('http://www.ff9263.com/images/icon_s_instagram.png') no-repeat center;width:30px;height: 30px;margin: 0 auto}
+.inner{margin:130px 0 0 620px;position: relative;}
+	.inner-info{height: 32px;position: fixed;bottom: -32px;right: 0;left: 620px;}
+	.inner-shade{height: 32px;background: #000;opacity: 0.5;filter: alpha(opacity=50);}
+	.inner-infocom{position: absolute;bottom: 0;color:#fff;padding:5px 10px;font-size: 16px;}
+	.inner-infoicon{position: absolute;bottom: 0;right:10px;}
+	.inner-info .photo{background: url('../img/icon_s_instagram.png') no-repeat center;width:30px;height: 30px;margin: 0 auto}
 
 /* comment Used
 ================================================================================================= */
-.comment{color:#fff;position: fixed;width:500px;height: 100%;background: #404040;top:130px;left:120px;}
+.comment{color: #FFF;position: absolute;width: 500px;height: 100%;background: #404040;top: 0;left: -500px;}
 .com-user{height: 220px;width: 220px;border-bottom:#525252 solid 1px;margin:0 auto;text-align: center;font-size: 18px;line-height: 2em}
 	.comuser-pho{padding:50px 0 20px;height: 55px}
 	.comuser-pho img{margin:0 auto;display: block;border-radius: 33px;
 			border-radius: 33px;-webkit-border-radius: 33px;-moz-border-radius: 33px;-o-border-radius: 33px;-ms-border-radius: 33px;}
-.com-info{height: 220px;width: 220px;border-top:#525252 solid 1px;margin:0 auto;text-align: center;font-size: 18px;padding:20px 0;}	
+.com-info{width: 220px;border-top: #525252 solid 1px;margin: 0 auto;text-align: center;font-size: 18px;padding: 20px 0 0;}
 	.com-num{margin:20px 0 0 -50px;width:320px;}
 		.com-day{float:left;}
 		.com-like{float:right;}
