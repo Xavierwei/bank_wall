@@ -1,5 +1,6 @@
 <ul class="users">
     <li ng-repeat="user in users" ng-class="user.status">
+        <p><img src="{{user.avatar}}" width="80" height="80" /></p>
         <p>{{user.lasttname}} {{user.firstname}}</p>
         <p>{{user.company_email}}</p>
         <a href="#/user/edit/{{user.uid}}">edit</a>
