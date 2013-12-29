@@ -16,6 +16,23 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `comment`
+--
+
+DROP TABLE IF EXISTS `comment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `comment` (
+  `cid` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) DEFAULT NULL,
+  `content` text,
+  `datetime` int(11) DEFAULT NULL,
+  `nid` int(11) DEFAULT '0',
+  PRIMARY KEY (`cid`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `country`
 --
 
@@ -28,18 +45,8 @@ CREATE TABLE `country` (
   `code` varchar(45) DEFAULT NULL,
   `flag_icon` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`country_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `country`
---
-
-LOCK TABLES `country` WRITE;
-/*!40000 ALTER TABLE `country` DISABLE KEYS */;
-INSERT INTO `country` VALUES (1,'China','cn','/images/country/cn.png');
-/*!40000 ALTER TABLE `country` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `flag`
@@ -50,21 +57,13 @@ DROP TABLE IF EXISTS `flag`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `flag` (
   `flag_id` int(15) NOT NULL AUTO_INCREMENT,
-  `nid` int(15) DEFAULT NULL,
+  `nid` int(11) DEFAULT '0',
   `uid` int(15) DEFAULT NULL,
   `datetime` int(11) DEFAULT NULL,
+  `cid` int(11) DEFAULT '0',
   PRIMARY KEY (`flag_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `flag`
---
-
-LOCK TABLES `flag` WRITE;
-/*!40000 ALTER TABLE `flag` DISABLE KEYS */;
-/*!40000 ALTER TABLE `flag` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `like`
@@ -79,17 +78,8 @@ CREATE TABLE `like` (
   `uid` int(15) DEFAULT NULL,
   `datetime` int(15) DEFAULT NULL,
   PRIMARY KEY (`like_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `like`
---
-
-LOCK TABLES `like` WRITE;
-/*!40000 ALTER TABLE `like` DISABLE KEYS */;
-/*!40000 ALTER TABLE `like` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `node`
@@ -107,18 +97,10 @@ CREATE TABLE `node` (
   `datetime` int(11) DEFAULT NULL,
   `hashtag` varchar(200) DEFAULT NULL,
   `description` text,
+  `status` int(11) DEFAULT '0',
   PRIMARY KEY (`nid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `node`
---
-
-LOCK TABLES `node` WRITE;
-/*!40000 ALTER TABLE `node` DISABLE KEYS */;
-/*!40000 ALTER TABLE `node` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `user`
@@ -144,18 +126,8 @@ CREATE TABLE `user` (
   UNIQUE KEY `name_UNIQUE` (`name`),
   UNIQUE KEY `personal_email_UNIQUE` (`personal_email`),
   UNIQUE KEY `company_email_UNIQUE` (`company_email`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `user`
---
-
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'admin','jziwenchen@gmail.com','jziwenchen@gmail.com',1,NULL,2,1387816673,'Jackey','Chen','21232f297a57a5a743894a0e4a801fc3',1);
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -166,4 +138,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-12-26  9:27:22
+-- Dump completed on 2013-12-30  0:47:49
