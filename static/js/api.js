@@ -23,7 +23,9 @@ define(function( require , exports , model ){
     // 配置
     var _api = {
         // searchHosts: {path: '/Ajax/searchHosts' , data: {key: ''} , m: '检索小组' , method: 'get' },
-        comment: {path:'/' , data: }
+        comment: { path:'/' },
+        nodeNext: {path: './test/node_next'},
+        nodeList: {path: './test/node_list'}
     };
 
     // 内部API
@@ -93,6 +95,8 @@ define(function( require , exports , model ){
         var alertOnError = config.alertOnError;
 
         var error_no = result['code'] || result['status'];
+        // TODO .. success tag
+        error_no = 0;
         if ( error_no != 0 ) {
             if( alertOnError !== false ){
                 // 如果是未登录错误，弹出登录框

@@ -355,4 +355,19 @@
     LP.removeCookie = function(name, path, domain){
         return LP.setCookie(name, '', -1, path, domain);
     };
+
+
+    var _templates = {};
+    LP.compile = function( tplId , context , cb ){
+
+        if( _templates[ tplId ] ){
+            cb( _templates[ tplId ]( context ) );
+        } else {
+            LP.use(['jquery' , 'handlebars'] , function( $ , Handlebars ){
+                var template = Handlebars.compile( $('#' + tplId).html() );
+                _templates[ tplId ] = template;
+                cb( template( context ) );
+            });
+        }
+    }
 })( window );

@@ -52,7 +52,7 @@ return array(
 			'connectionString' => 'mysql:host=localhost;dbname=bank_wall',
 			'emulatePrepare' => true,
 			'username' => 'root',
-			'password' => 'admin',
+			'password' => 'hdg',
 			'charset' => 'utf8',
 		),
 		'errorHandler'=>array(
