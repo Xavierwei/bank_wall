@@ -52,7 +52,7 @@ return array(
 			'connectionString' => 'mysql:host=localhost;dbname=bank_wall',
 			'emulatePrepare' => true,
 			'username' => 'root',
-			'password' => 'hdg',
+			'password' => 'admin',
 			'charset' => 'utf8',
 		),
 		'errorHandler'=>array(
@@ -75,9 +75,6 @@ return array(
 		),
         "authManager" => array(
             "class" => "PhpAuthManager"
-        ),
-        "session" => array(
-            "autoStart" => TRUE,
         ),
 	),
 

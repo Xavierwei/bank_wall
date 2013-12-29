@@ -1,8 +1,7 @@
 <?php
 
 // change the following paths if necessary
-
-$yii='E:/freework/framework/yii.php';
+$yii=dirname(__FILE__).'/../../../../../usr/local/yii/yii.php';
 $config=dirname(__FILE__).'/protected/config/main.php';
 
 // remove the following lines when in production mode

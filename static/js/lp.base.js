@@ -10,7 +10,13 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         var aMonth = ["January","February","March","April","May","June","July","August","September","October","November","December"];
         return function( date ){
             date = date || new Date;
-            return aMonth[ date.getMonth() ];
+            var month;
+            if( typeof date == 'object' ){
+                month = date.getMonth();
+            } else {
+                month = date - 1;
+            }
+            return aMonth[ month ];
         }
     })();
 
@@ -81,6 +87,11 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                 setTimeout(function(){
                     var $item = $itemPics.eq( index )
                         .addClass('reversal')
+                        .width( itemWidth )
+                        .height( itemWidth );
+
+                    // fix it's img width and height
+                    $item.find('img')
                         .width( itemWidth )
                         .height( itemWidth );
 
@@ -169,9 +180,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                 $main.removeClass('no-animate');
             } , 100);
         });
-    })
-    .trigger('item-width')
-    .trigger('item-reversal');
+    });
 
 
     // fix window resize event
@@ -195,6 +204,10 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         if( _scrollAjax ) return;
         // if the page has unreversaled node
         if( $('.main .main-item:not(.time-item,.reversal)').length ) return;
+
+        // if has inner element 
+        if( $('.inner').length ) return;
+
         _scrollAjax = true;
         // if scroll to the botton of the window 
         // ajax the next datas
@@ -206,30 +219,36 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             api.ajax('nodeList' , {nid: 10} , function( result ){
                 var aHtml = [];
                 var lastDate = null;
+                var data = result.data || [];
                 // filte for date
-                $.each( result.data || [] , function( index , node ){
+                $.each( data , function( index , node ){
                     // get date
-                    var jsDate = new Date( node.datetime * 1000 );
-                    var date = ~~(+jsDate / 86400000);
-                    if( lastDate != date ){
+                    var match = node.datetime.match(/^\d+-(\d+)-(\d+)/);
+                    if( lastDate != match[0] ){
                         LP.compile( 'time-item-template' , 
-                            {day: jsDate.getDate() , month: getMonth( jsDate )} , 
+                            {day: parseInt(match[2]) , month: getMonth( parseInt(match[1]))} , 
                             function( html ){
                                 aHtml.push( html );
                             } );
-                        lastDate = date;
+                        lastDate = match[0];
                     }
+
+                    node.formatDate = match[0].replace(/-/g , '/');
+
                     LP.compile( 'node-item-template' , 
                         node , 
                         function( html ){
                             aHtml.push( html );
+
+                            if( index == data.length - 1 ){
+                                // render html
+                                $main.append(aHtml.join(''))
+                                    .trigger('item-width')
+                                    .trigger('item-reversal');
+                            }
                         } );
 
                 } );
-
-                // render html
-                $('.main').append(aHtml.join(''))
-                    .trigger('item-reversal');
 
                 _scrollAjax = false;
             });
@@ -267,58 +286,61 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         LP.use('api' , function( api ){
             // TODO.. change request url
             var nid = data.nid;
-            api.ajax( 'nodeNext' , data , function( result ){
+            api.ajax( 'getNode' , data , function( result ){
                 // get current node data
-                $.each( result.data , function( index , node ){
-                    if( node.nid == nid ){
-                        renderNode( node );
-                        // save node cache
-                        _nodeCache = _nodeCache.concat( result.data.slice( index ) );
-                        return false;
-                    }
+                // $.each( result.data , function( index , node ){
+                //     if( node.nid == nid ){
+                //         renderNode( node );
+                //         // save node cache
+                //         _nodeCache = _nodeCache.concat( result.data.slice( index ) );
+                //         return false;
+                //     }
+                // } );
+                var node = result.data;
+                var match = node.datetime.match(/\d+-(\d+)-(\d+)/)
+                node.date = parseInt(match[2]);
+                node.month = getMonth( parseInt(match[1]));
+                LP.compile( 'inner-template' , node , function( html ){
+                    var mainWidth = winWidth - _silderWidth;
+                    // inner animation
+                    var $inner = $(html).insertBefore( $main )
+                        .css({
+                            left: - mainWidth ,
+                            position: 'relative'
+                        })
+
+                        .animate({
+                            left: 0
+                        } , _animateTime , _animateEasing , function(){
+                            // show up node info
+                            $(this).find('.inner-info')
+                                .animate({
+                                    bottom: 0
+                                } , 300);
+                        });
+                    // set inner-info bottom css
+                    var $info = $inner.find('.inner-info');
+                    $info.css( 'bottom' , - $info.height() );
+
+                    // main animation
+                    $main
+                        .css({
+                            position: 'fixed',
+                            width: mainWidth,
+                            left: 0,
+                            top: 0
+                        })
+                        .animate({
+                            left: winWidth
+                        } , _animateTime , _animateEasing);
+
+                    // loading comments
+
+                    // loading image
                 } );
             } );
             
         });
-        function renderNode ( nodeData ){
-            LP.compile( 'inner-template' , nodeData , function( html ){
-                var $main = $('.main');
-                var mainWidth = winWidth - _silderWidth;
-
-                // inner animation
-                $(html).insertBefore( $main )
-                    .css({
-                        left: - mainWidth ,
-                        position: 'relative'
-                    })
-                    .animate({
-                        left: 0
-                    } , _animateTime , _animateEasing , function(){
-                        // show up node info
-                        $(this).find('.inner-info')
-                            .animate({
-                                bottom: 0
-                            } , 300);
-                    });
-
-                // main animation
-                $main
-                    .css({
-                        position: 'fixed',
-                        width: mainWidth,
-                        left: 0,
-                        top: 0
-                    })
-                    .animate({
-                        left: winWidth
-                    } , _animateTime , _animateEasing);
-
-                // loading comments
-
-                // loading image
-            } );
-        }
-       
 
         return false;
     });
@@ -329,9 +351,11 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         var $main = $('.main');
         var infoTime = 300;
         // hide the inner info node
-        $inner.find('.inner-info')
+        var $info = $inner.find('.inner-info');
+
+        $info
             .animate({
-                bottom: -32
+                bottom: -$info.height()
             } , infoTime);
         // back $inner and remove it
         $inner
@@ -366,4 +390,42 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         // TODO..
     });
 
+
+    // after page load , load the recent data from server
+    api.ajax('recent' , function( result ){
+        var aHtml = [];
+        var lastDate = null;
+        var data = result.data || [];
+        // filte for date
+        $.each( data , function( index , node ){
+            // get date
+            var match = node.datetime.match(/^\d+-(\d+)-(\d+)/);
+            if( lastDate != match[0] ){
+                LP.compile( 'time-item-template' , 
+                    {day: parseInt(match[2]) , month: getMonth( parseInt(match[1]))} , 
+                    function( html ){
+                        aHtml.push( html );
+                    } );
+                lastDate = match[0];
+            }
+
+            node.formatDate = match[0].replace(/-/g , '/');
+
+            LP.compile( 'node-item-template' , 
+                node , 
+                function( html ){
+                    aHtml.push( html );
+
+                    if( index == data.length - 1 ){
+                        // render html
+                        $main.append(aHtml.join(''))
+                            .trigger('item-width')
+                            .trigger('item-reversal');
+                    }
+                } );
+
+        } );
+
+        
+    });
 });

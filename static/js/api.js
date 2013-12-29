@@ -24,8 +24,9 @@ define(function( require , exports , model ){
     var _api = {
         // searchHosts: {path: '/Ajax/searchHosts' , data: {key: ''} , m: '检索小组' , method: 'get' },
         comment: { path:'/' },
-        nodeNext: {path: './test/node_next'},
-        nodeList: {path: './test/node_list'}
+        recent: {path: '../admin/app/json/node/recent.json'},
+        getNode: {path: '../admin/app/json/node/photo.json'},
+        nodeList: {path: '../admin/app/json/node/recent.json'}
     };
 
     // 内部API

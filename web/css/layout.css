@@ -85,9 +85,9 @@ a{text-decoration:none;color:#666}
 /* inner Used
 ================================================================================================= */
 .inner{margin:130px 0 0 620px;position: relative;}
-	.inner-info{height: 32px;position: fixed;bottom: -32px;right: 0;left: 620px;}
-	.inner-shade{height: 32px;background: #000;opacity: 0.5;filter: alpha(opacity=50);}
-	.inner-infocom{position: absolute;bottom: 0;color:#fff;padding:5px 10px;font-size: 16px;}
+	.inner-info{position: fixed;right: 0;left: 620px;}
+	.inner-shade{position: absolute; height: 100%; width:100%;z-index: -1; background: #000;opacity: 0.5;filter: alpha(opacity=50);}
+	.inner-infocom{bottom: 0;color:#fff;padding:5px 10px;font-size: 16px;}
 	.inner-infoicon{position: absolute;bottom: 0;right:10px;}
 	.inner-info .photo{background: url('../img/icon_s_instagram.png') no-repeat center;width:30px;height: 30px;margin: 0 auto}
 
