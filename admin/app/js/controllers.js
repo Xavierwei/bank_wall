@@ -3,7 +3,7 @@
 /* Controllers */
 
 angular.module('SGWallAdmin.controllers', [])
-    .controller('NodeCtrList', function($scope, $http) {
+    .controller('NodeCtrList', function($scope, $http,$modal,$log) {
             // Get node list by recent
             $http.get('json/node/recent.json')
                 .success(function(data) {
@@ -14,16 +14,10 @@ angular.module('SGWallAdmin.controllers', [])
                 });
 
             // Switch node status
-            $scope.switchStatus = function(node) {
-                var _status;
-                if(node.status == '1') {
-                    _status = '2';
-                } else {
-                    _status = '1';
-                }
-                $http.post('json/node/photo.json',{'nid':node.nid, 'status':_status})
+            $scope.updateStatus = function(node, status) {
+                $http.post('json/node/photo.json',{'nid':node.nid, 'status':status})
                     .success(function(data) {
-                        node.status = _status;
+                        node.status = status;
                     })
                     .error(function() {
 
@@ -32,7 +26,38 @@ angular.module('SGWallAdmin.controllers', [])
 
             // Delete node
             $scope.delete = function(node) {
-                alert(node.nid);
+                var modalInstance = $modal.open({
+                    templateUrl: 'tmp/dialog/delete.html',
+                    controller: ConfirmModalCtrl
+                });
+
+                modalInstance.result.then(function () {
+                    $scope.nodes.splice($scope.nodes.indexOf(node), 1);
+                    $log.info('Modal confirmed at: ' + new Date());
+                }, function () {
+                    $log.info('Modal dismissed at: ' + new Date());
+                });
+
+            }
+
+
+            $scope.open = function(node) {
+                var modalInstance = $modal.open({
+                    templateUrl: 'tmp/node/popup.html',
+                    controller: NodeModalCtrl,
+                    resolve: {
+                        node: function () {
+                            return node;
+                        }
+                    }
+                });
+
+                modalInstance.result.then(function () {
+                    $scope.nodes.splice($scope.nodes.indexOf(node), 1);
+                    $log.info('Modal confirmed at: ' + new Date());
+                }, function () {
+                    $log.info('Modal dismissed at: ' + new Date());
+                });
             }
 
             // Next
@@ -125,4 +150,21 @@ angular.module('SGWallAdmin.controllers', [])
                 alert(comment.cid);
             }
         });
+
+
+
+
+var NodeModalCtrl = function($scope, $modalInstance, node) {
+    $scope.node = node;
+
+    $scope.ok = function () {
+        $modalInstance.close(true);
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+}
+
+
 

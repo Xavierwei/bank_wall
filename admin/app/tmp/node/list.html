@@ -1,18 +1,36 @@
-<ul node class="nodes">
+<ul node class="nodes-list">
     <li ng-repeat="node in nodes" ng-class="status-{{node.status}}">
-        <p><img src="{{node.image}}" width="200" height="200" /></p>
-        <p>{{node.type}}</p>
-        <p>{{node.file}}</p>
-        <p>{{node.status | nodeStatus}}</p>
-        <p>{{node.user.firstname}} {{node.user.lastname}}</p>
-        <p><a href="#/node/comment/{{node.nid}}">{{node.comment_count}}</a></p>
-        <p>{{node.like_count}}</p>
-        <p>{{node.datetime}}</p>
-        <div ng-click="switchStatus(node)">switch</div>
-        <a href="#/node/edit/{{node.nid}}">edit</a>
-        <div ng-click="delete(node)">delete</div>
+        <div><img ng-click="open(node)" ng-src="{{node.image}}" width="200" height="200" /></div>
+        <div class="type">{{node.type}}</div>
+        <div class="user">
+            <div class="avatar"><img ng-src="{{node.user.avatar}}" width="40" height="40" /></div>
+            <div class="date">{{node.datetime | date:'MMM d, y HH:mm a'}}</div>
+            <div class="name"><strong>{{node.user.firstname}} {{node.user.lastname}}</strong></div>
+        </div>
+        <div class="clear"></div>
+        <div class="comment"><a href="#/node/comment/{{node.nid}}">{{node.comment_count}}</a></div>
+        <div class="like">{{node.like_count}}</div>
+        <div class="clear"></div>
+        <div class="btns">
+            <a class="btn btn-default btn-xs" href="#/node/edit/{{node.nid}}">Edit</a>
+            <a class="btn btn-default btn-xs" href="javascript:void(0)" ng-click="delete(node)">Delete</a>
+        </div>
+        <div class="switch dropdown" ng-controller="StatusDropdownCtrl">
+            <a class="dropdown-toggle">
+                {{node.status | nodeStatus}}
+            </a>
+            <ul class="dropdown-menu">
+                <li ng-repeat="choice in items">
+                    <a ng-click="updateStatus(node, choice)">{{choice | nodeStatus}}</a>
+                </li>
+            </ul>
+        </div>
     </li>
-
 </ul>
 <div ng-show="error">1111{{error}}</div>
 <div ng-click="next()">next</div>
+
+<button class="btn btn-default" ng-click="open()">Open me!</button>
+<div ng-show="selected">Selection from a modal: {{ selected }}</div>
+
+

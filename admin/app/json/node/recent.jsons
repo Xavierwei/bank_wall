@@ -2,7 +2,7 @@
 	'success': true,
         'data': 
         [
-        '{{repeat(5, 7)}}',
+        '{{repeat(30)}}',
         {
             "nid": "{{index}}",
             "user": 
@@ -10,7 +10,7 @@
                 "uid": "{{index}}",
                 "firstname": "{{surname}}",
                 "lastname": "{{firstName}}",
-                "avatar": "http://lorempixel.com/80/80/people/{{index}}"
+                "avatar": "http://lorempixel.com/80/80/people/{{numeric(0,10)}}"
             },
             "country": 
             {
@@ -22,7 +22,7 @@
                 var choices = ['video', 'photo'];
                 return choices[this.numeric(0, choices.length - 1)];
             },
-            "image": "http://lorempixel.com/400/400/abstract/{{index}}",
+            "image": "http://lorempixel.com/400/400/abstract/{{numeric(0,10)}}",
             "video": "/upload/v{{index}}.mp4",
             "description": "#test #123 {{lorem(1,paragraphs)}}",
             "hashtag": [
@@ -32,7 +32,7 @@
             "comment_count": "{{numeric(1,999)}}",
             "like_count": "{{numeric(1,999)}}",
             "status": "1",
-            "datetime": "{{date(YYYY-MM-ddThh:mm:ss Z)}}"
+            "datetime": "{{date(YYYY-MM-ddThh:mm:ss)}}"
         }
     ],
         'message':''

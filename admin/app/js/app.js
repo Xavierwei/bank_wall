@@ -3,6 +3,7 @@
 
 // Declare app level module which depends on filters, and services
 angular.module('SGWallAdmin', [
+  'ui.bootstrap',
   'ngRoute',
   'SGWallAdmin.filters',
   'myApp.services',
