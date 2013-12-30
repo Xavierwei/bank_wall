@@ -14,16 +14,11 @@ angular.module('SGWallAdmin.controllers', [])
                 });
 
             // Switch node status
-            $scope.switchStatus = function(node) {
-                var _status;
-                if(node.status == '1') {
-                    _status = '2';
-                } else {
-                    _status = '1';
-                }
-                $http.post('json/node/photo.json',{'nid':node.nid, 'status':_status})
+            $scope.updateStatus = function(node, status) {
+                console.log(status);
+                $http.post('json/node/photo.json',{'nid':node.nid, 'status':status})
                     .success(function(data) {
-                        node.status = _status;
+                        node.status = status;
                     })
                     .error(function() {
 
@@ -32,7 +27,7 @@ angular.module('SGWallAdmin.controllers', [])
 
             // Delete node
             $scope.delete = function(node) {
-                alert(node.nid);
+                $scope.nodes.splice($scope.nodes.indexOf(node), 1);
             }
 
             // Next
@@ -125,4 +120,5 @@ angular.module('SGWallAdmin.controllers', [])
                 alert(comment.cid);
             }
         });
+
 
