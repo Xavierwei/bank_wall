@@ -180,6 +180,45 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                 $main.removeClass('no-animate');
             } , 100);
         });
+    })
+    .bind('item-insert' , function( ev , nodes ){
+        var aHtml = [];
+        var lastDate = null;
+        nodes = nodes || [];
+
+        // save nodes to cache
+        var cache = $main.data('nodes') || [];
+        $main.data('nodes' , cache.concat( nodes ) );
+
+        // filte for date
+        $.each( nodes , function( index , node ){
+            // get date
+            var match = node.datetime.match(/^\d+-(\d+)-(\d+)/);
+            if( lastDate != match[0] ){
+                LP.compile( 'time-item-template' , 
+                    {day: parseInt(match[2]) , month: getMonth( parseInt(match[1]))} , 
+                    function( html ){
+                        aHtml.push( html );
+                    } );
+                lastDate = match[0];
+            }
+
+            node.formatDate = match[0].replace(/-/g , '/');
+
+            LP.compile( 'node-item-template' , 
+                node , 
+                function( html ){
+                    aHtml.push( html );
+
+                    if( index == nodes.length - 1 ){
+                        // render html
+                        $main.append(aHtml.join(''))
+                            .trigger('item-width')
+                            .trigger('item-reversal');
+                    }
+                } );
+
+        } );
     });
 
 
@@ -217,39 +256,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         if( bodyHeight - winHeight - st < 100 ){
             //TODO ajax next nodes
             api.ajax('nodeList' , {nid: 10} , function( result ){
-                var aHtml = [];
-                var lastDate = null;
-                var data = result.data || [];
-                // filte for date
-                $.each( data , function( index , node ){
-                    // get date
-                    var match = node.datetime.match(/^\d+-(\d+)-(\d+)/);
-                    if( lastDate != match[0] ){
-                        LP.compile( 'time-item-template' , 
-                            {day: parseInt(match[2]) , month: getMonth( parseInt(match[1]))} , 
-                            function( html ){
-                                aHtml.push( html );
-                            } );
-                        lastDate = match[0];
-                    }
-
-                    node.formatDate = match[0].replace(/-/g , '/');
-
-                    LP.compile( 'node-item-template' , 
-                        node , 
-                        function( html ){
-                            aHtml.push( html );
-
-                            if( index == data.length - 1 ){
-                                // render html
-                                $main.append(aHtml.join(''))
-                                    .trigger('item-width')
-                                    .trigger('item-reversal');
-                            }
-                        } );
-
-                } );
-
+                $main.trigger('item-insert' , [result.data] );
                 _scrollAjax = false;
             });
         }
@@ -280,67 +287,74 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
     var _animateTime = 600;
     var _animateEasing = 'linear';
     var _nodeCache = [];
+    var _currentNodeIndex = 0;
     LP.action('node' , function( data ){
-        // ajax the node info , then compile it to html
-        // get the 21 nodes data , before current
-        LP.use('api' , function( api ){
-            // TODO.. change request url
-            var nid = data.nid;
-            api.ajax( 'getNode' , data , function( result ){
-                // get current node data
-                // $.each( result.data , function( index , node ){
-                //     if( node.nid == nid ){
-                //         renderNode( node );
-                //         // save node cache
-                //         _nodeCache = _nodeCache.concat( result.data.slice( index ) );
-                //         return false;
-                //     }
-                // } );
-                var node = result.data;
-                var match = node.datetime.match(/\d+-(\d+)-(\d+)/)
-                node.date = parseInt(match[2]);
-                node.month = getMonth( parseInt(match[1]));
-                LP.compile( 'inner-template' , node , function( html ){
-                    var mainWidth = winWidth - _silderWidth;
-                    // inner animation
-                    var $inner = $(html).insertBefore( $main )
-                        .css({
-                            left: - mainWidth ,
-                            position: 'relative'
-                        })
+        _currentNodeIndex = $(this).prevAll(':not(.time-item)').length;
 
+        var node = $main.data('nodes')[ _currentNodeIndex ];
+
+        var match = node.datetime.match(/\d+-(\d+)-(\d+)/);
+        node.date = parseInt(match[2]);
+        node.month = getMonth( parseInt(match[1]));
+        LP.compile( 'inner-template' , node , function( html ){
+            var mainWidth = winWidth - _silderWidth;
+            // inner animation
+            var $inner = $(html).insertBefore( $main )
+                .css({
+                    left: - mainWidth ,
+                    position: 'relative'
+                })
+
+                .animate({
+                    left: 0
+                } , _animateTime , _animateEasing , function(){
+                    // show up node info
+                    $(this).find('.inner-info')
                         .animate({
-                            left: 0
-                        } , _animateTime , _animateEasing , function(){
-                            // show up node info
-                            $(this).find('.inner-info')
-                                .animate({
-                                    bottom: 0
-                                } , 300);
-                        });
-                    // set inner-info bottom css
-                    var $info = $inner.find('.inner-info');
-                    $info.css( 'bottom' , - $info.height() );
+                            bottom: 0
+                        } , 300);
+                });
+            // set inner-info bottom css
+            var $info = $inner.find('.inner-info');
+            $info.css( 'bottom' , - $info.height() );
 
-                    // main animation
-                    $main
-                        .css({
-                            position: 'fixed',
-                            width: mainWidth,
-                            left: 0,
-                            top: 0
-                        })
-                        .animate({
-                            left: winWidth
-                        } , _animateTime , _animateEasing);
+            // main animation
+            $main
+                .css({
+                    position: 'fixed',
+                    width: mainWidth,
+                    left: 0,
+                    top: 0
+                })
+                .animate({
+                    left: winWidth
+                } , _animateTime , _animateEasing);
 
-                    // loading comments
+            // loading comments
 
-                    // loading image
-                } );
-            } );
+            // loading image
+        } );
+  
+        // // ajax the node info , then compile it to html
+        // // get the 21 nodes data , before current
+        // LP.use('api' , function( api ){
+        //     // TODO.. change request url
+        //     var nid = data.nid;
+        //     api.ajax( 'getNode' , data , function( result ){
+        //         // get current node data
+        //         // $.each( result.data , function( index , node ){
+        //         //     if( node.nid == nid ){
+        //         //         renderNode( node );
+        //         //         // save node cache
+        //         //         _nodeCache = _nodeCache.concat( result.data.slice( index ) );
+        //         //         return false;
+        //         //     }
+        //         // } );
+        //         var node = result.data;
+                
+        //     } );
             
-        });
+        // });
 
         return false;
     });
@@ -381,51 +395,113 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
 
     //for prev action
     LP.action('prev' , function( data ){
-        // TODO..
+        if( _currentNodeIndex == 0 )
+            return false;
+        _currentNodeIndex -= 1;
 
+        var node = $main.data('nodes')[ _currentNodeIndex ];
+        var match = node.datetime.match(/\d+-(\d+)-(\d+)/);
+        node.date = parseInt(match[2]);
+        node.month = getMonth( parseInt(match[1]));
+
+        var $inner = $('.inner');
+        LP.compile( 'inner-template' , node , function( html ){
+            // comment animation
+            var $prevComment = $(html).find('.comment')
+                .addClass('rotate-left')
+                .insertBefore( $inner.find('.comment').addClass('rotate-right') );
+            setTimeout(function(){
+                $prevComment
+                    .addClass('rotate-center');
+            } , 0);
+
+            setTimeout(function(){
+                $prevComment
+                    .removeClass('rotate-left')
+                    .removeClass('rotate-center')
+                    .next()
+                    .remove();
+            } , 1000);
+
+            // TODO.. picture animation
+            $inner.children('img')
+                .attr('src' , node.image);
+            // TODO.. desc animation
+            $inner.find('.inner-infocom')
+                .html( node.description );
+            // TOOD.. load comment
+        });
     });
 
     //for next action
     LP.action('next' , function( data ){
-        // TODO..
+        _currentNodeIndex++;
+        var node = $main.data('nodes')[ _currentNodeIndex ];
+        if( !node ){
+            // TODO..  ajax to get more node
+            return;
+        }
+
+        var match = node.datetime.match(/\d+-(\d+)-(\d+)/);
+        node.date = parseInt(match[2]);
+        node.month = getMonth( parseInt(match[1]));
+
+        var $inner = $('.inner');
+        LP.compile( 'inner-template' , node , function( html ){
+            // comment animation
+            var $prevComment = $(html).find('.comment')
+                .addClass('rotate-right')
+                .insertBefore( $inner.find('.comment').addClass('rotate-left') );
+            setTimeout(function(){
+                $prevComment
+                    .addClass('rotate-center');
+            } , 0);
+
+            setTimeout(function(){
+                $prevComment
+                    .removeClass('rotate-right')
+                    .removeClass('rotate-center')
+                    .prev()
+                    .remove();
+            } , 1000);
+
+            // TODO.. picture animation
+            $inner.children('img')
+                .attr('src' , node.image);
+            // TODO.. desc animation
+            $inner.find('.inner-infocom')
+                .html( node.description );
+            // TOOD.. load comment
+        });
     });
 
+    //for like action
+    LP.action('like' , function( data ){
+        // TODO.. like action here
+    });
+
+    //for comment action
+    LP.action('comment' , function( data ){
+        // TODO.. comment action here
+    });
+
+    // bind document key event for back , prev , next actions
+    $(document).keydown(function( ev ){
+        switch( ev.which ){
+            case 37: // left
+                LP.triggerAction('prev');
+                break;
+            case 39: // right
+                LP.triggerAction('next');
+                break;
+            case 27: //esc
+                LP.triggerAction('back');
+                break;
+        }
+    });
 
     // after page load , load the recent data from server
     api.ajax('recent' , function( result ){
-        var aHtml = [];
-        var lastDate = null;
-        var data = result.data || [];
-        // filte for date
-        $.each( data , function( index , node ){
-            // get date
-            var match = node.datetime.match(/^\d+-(\d+)-(\d+)/);
-            if( lastDate != match[0] ){
-                LP.compile( 'time-item-template' , 
-                    {day: parseInt(match[2]) , month: getMonth( parseInt(match[1]))} , 
-                    function( html ){
-                        aHtml.push( html );
-                    } );
-                lastDate = match[0];
-            }
-
-            node.formatDate = match[0].replace(/-/g , '/');
-
-            LP.compile( 'node-item-template' , 
-                node , 
-                function( html ){
-                    aHtml.push( html );
-
-                    if( index == data.length - 1 ){
-                        // render html
-                        $main.append(aHtml.join(''))
-                            .trigger('item-width')
-                            .trigger('item-reversal');
-                    }
-                } );
-
-        } );
-
-        
+        $main.trigger('item-insert' , [result.data] );
     });
 });

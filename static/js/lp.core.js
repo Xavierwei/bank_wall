@@ -238,6 +238,11 @@
                 __Cache['actions'] [ type ] = fn;
                 return this;
             }
+            , triggerAction: function( name , data ){
+                var fn = __Cache['actions'] [ name ];
+                fn && fn( data );
+                return this;
+            }
             , bind : document.addEventListener ? function( dom , type , fn ){
                 dom.addEventListener( type , function( ev ){
                     var r = fn.call( dom , ev );
