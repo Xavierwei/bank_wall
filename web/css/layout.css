@@ -90,6 +90,9 @@ a{text-decoration:none;color:#666}
 	.inner-infocom{bottom: 0;color:#fff;padding:5px 10px;font-size: 16px;}
 	.inner-infoicon{position: absolute;bottom: 0;right:10px;}
 	.inner-info .photo{background: url('../img/icon_s_instagram.png') no-repeat center;width:30px;height: 30px;margin: 0 auto}
+    .flag-node {opacity:0.7;cursor:pointer;position: absolute;top:10px;right:10px;background:url('../img/icon_node_flag.png') no-repeat;text-indent:-999em;width:16px;height:17px;}
+    .flag-node:hover {opacity:1;}
+    .flag-node.flagged {background-position: 0 -27px;}
 
 /* comment Used
 ================================================================================================= */
@@ -110,9 +113,13 @@ a{text-decoration:none;color:#666}
 	/**/
 	.com-main{padding:30px;}
 		.com-list{height: 200px;overflow: hidden;}
+            .com-list-inner {width:430px;}
 			.comlist-item{background: #474747;padding:10px;margin: 0 0 15px;position: relative;}
+            .comlist-item:last-child {margin-bottom: 0;}
 				.comlist-tit span{font-size:18px;}
-				.comlist-icon{position: absolute;background:url('../img/comlist-icon.gif') no-repeat;width:16px;height: 16px;top: 10px;right: 10px}
+				.comlist-flag{opacity:0.7;cursor:pointer;position: absolute;background:url('../img/icon_comment_flag.gif') no-repeat;width:16px;height: 16px;top: 10px;right: 10px}
+                .comlist-flag:hover {opacity:1;}
+.comlist-flag.flagged {background-position: 0 -22px;}
 		.com-ipt{background:#4b4b4b;color:#ccc;width:100%;margin:10px 0 0;padding:15px;font-size:14px;}
 
 /* search Used
@@ -159,6 +166,7 @@ a{text-decoration:none;color:#666}
 .poptxt-btn{width: 640px;margin:50px auto 0; }
 	.poptxt-cancel{float:left;width: 254px;height: 60px;background: #db2842;border: #c0152d 3px solid;color:#fff;line-height: 60px;text-align: center;font-size:28px;}
 	.poptxt-submit{float:right;width: 354px;height: 60px;background: #3f3e3d;border: #5d5d5d 3px solid;color:#fff;line-height: 60px;text-align: center;font-size:28px;}
+.confirm-modal {width: 300px;height:100px;background: #fff;position:fixed;left:50%;top:50%;margin: -50px 0 0 -150px;z-index: 12}
 
 /* comment Used
 ================================================================================================= */

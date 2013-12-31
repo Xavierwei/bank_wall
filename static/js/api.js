@@ -27,7 +27,8 @@ define(function( require , exports , model ){
         recent: {path: '../admin/app/json/node/recent.json'},
         getNode: {path: '../admin/app/json/node/photo.json'},
         nodeList: {path: '../admin/app/json/node/recent.json'},
-        like: {path: '../admin/app/json/like/like.json'}
+        like: {path: '../admin/app/json/like/like.json'},
+        flag: {path: '../admin/app/json/flag/flag.json'}
     };
 
     // 内部API

@@ -333,6 +333,19 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             // loading comments
             getCommentList(node.nid);
 
+            LP.use(['jscrollpane' , 'mousewheel'] , function(){
+                $('.com-list').jScrollPane({autoReinitialise:true}).bind(
+                    'jsp-scroll-y',
+                    function(event, scrollPositionY, isAtTop, isAtBottom)
+                    {
+                        if(isAtBottom) {
+                            //getCommentList(node.nid);
+                            console.log('Append next page');
+                        }
+                    }
+                );
+            });
+
             // loading image
         } );
   
@@ -493,7 +506,6 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                     _this.data('liked',true);
                     $(this).animate({opacity:1});
                 });
-
             });
         }
     });
@@ -501,6 +513,47 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
     //for comment action
     LP.action('comment' , function( data ){
         // TODO.. comment action here
+    });
+
+    //for flag node action
+    LP.action('flag_node' , function( data ){
+        // if this node already flagged, return the action
+        if($(this).hasClass('flagged')) {
+            return false;
+        }
+        // display the modal before submit flag
+        if(!$('.confirm-modal').is(':visible')) {
+            $('.confirm-modal').fadeIn();
+            $('.confirm-modal .modal-header span').html(data.type);
+            $('.confirm-modal .ok').attr('data-a','flag_node');
+            $('.confirm-modal .ok').attr('data-d','nid='+data.nid);
+        }
+        else {
+            api.ajax('flag', {nid:data.nid});
+            LP.triggerAction('cancel_confirm_modal');
+            $('.flag-node').addClass('flagged');
+        }
+    });
+
+    //for flag comment action
+    LP.action('flag_comment' , function( data ){
+        console.log(data);
+        if(!$('.confirm-modal').is(':visible')) {
+            $('.confirm-modal').fadeIn();
+            $('.confirm-modal .modal-header span').html(data.type);
+            $('.confirm-modal .ok').attr('data-a','flag_comment');
+            $('.confirm-modal .ok').attr('data-d','cid='+data.cid);
+        }
+        else {
+            api.ajax('flag', {cid:data.cid});
+            LP.triggerAction('cancel_confirm_modal');
+            $('.comlist-item-'+data.cid).find('.comlist-flag').addClass('flagged');
+        }
+    });
+
+    //cancel confirm modal
+    LP.action('cancel_confirm_modal' , function(){
+        $('.confirm-modal').fadeOut();
     });
 
     // bind document key event for back , prev , next actions
@@ -524,6 +577,8 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
     });
 
 
+
+    // get node comments
     var getCommentList = function(cid) {
         api.ajax('commentList', {cid: cid}, function( result ){
             // TODO: 异常处理
@@ -539,9 +594,11 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                     comment ,
                     function( html ){
                         // render html
-                        $('.com-list').append(html);
+                        $('.com-list-inner').append(html);
                     } );
-            } );
+            });
+
+
         });
     }
 });

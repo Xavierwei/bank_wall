@@ -16,6 +16,14 @@ seajs.config({
       src: "../plugin/jquery.isotope.min.js"
       , deps: ['jquery']
     }
+    ,jscrollpane:{
+      src: "../plugin/jquery.jscrollpane.js"
+      , deps: ['jquery']
+    }
+    ,mousewheel:{
+      src: "../plugin/jquery.mousewheel.js"
+      , deps: ['jquery']
+    }
   }
   , alias: {
     api: '../api'

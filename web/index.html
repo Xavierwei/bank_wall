@@ -5,6 +5,7 @@
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <title></title>
+    <link href="css/jsPane.css" rel="stylesheet" type="text/css" />
     <link href="css/layout.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -124,6 +125,12 @@
 	</div>	
 </div>
 
+<div class="confirm-modal" style="display: none;">
+    <div class="modal-header">Are you sure to flag this <span></span>?</div>
+    <button class="btn ok">Sure</button>
+    <button class="btn cancel" data-a="cancel_confirm_modal">Cancel</button>
+</div>
+
 <style type="text/css">
 body{
     overflow-y: scroll;
@@ -220,6 +227,8 @@ body{
         <!--  -->
         <div class="com-main">
             <div class="com-list">
+                <div class="com-list-inner">
+                </div>
             </div>
             <div class="com-make">
                 <input type="text" class="com-ipt" />
@@ -235,11 +244,15 @@ body{
             </div>
         </div>
     </div>
-    <img src="{{image}}" width="100%" />
-    <div class="inner-info">
-        <div class="inner-shade"></div>
-        <div class="inner-infocom">{{description}}</div>
-        <div class="inner-infoicon"><div class="photo"></div></div>
+
+    <div class="image-wrap">
+        <img src="{{image}}" width="100%" />
+        <div class="inner-info">
+            <div class="inner-shade"></div>
+            <div class="inner-infocom">{{description}}</div>
+            <div class="inner-infoicon"><div class="photo"></div></div>
+        </div>
+        <div class="flag-node" data-d="nid={{nid}}&type={{type}}" data-a="flag_node">flag</div>
     </div>
 </div>
 </script>
@@ -270,10 +283,10 @@ body{
 
 <!-- comment-item-tpl -->
 <script type="text/tpl" id="comment-item-template">
-    <div class="comlist-item">
+    <div class="comlist-item comlist-item-{{cid}}">
         <div class="comlist-tit"><span>Arthur Pechaud </span> - {{date}} {{month}}</div>
         <div class="comlist-con">{{content}}</div>
-        <div class="comlist-icon"></div>
+        <div class="comlist-flag" data-a="flag_comment" data-d="cid={{cid}}&type=comment"></div>
     </div>
 </script>
 <!--//all tpls end -->
