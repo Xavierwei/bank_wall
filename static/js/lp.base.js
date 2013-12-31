@@ -331,6 +331,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                 } , _animateTime , _animateEasing);
 
             // loading comments
+            getCommentList(node.nid);
 
             // loading image
         } );
@@ -429,7 +430,8 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             // TODO.. desc animation
             $inner.find('.inner-infocom')
                 .html( node.description );
-            // TOOD.. load comment
+            // load comment
+            getCommentList(node.nid);
         });
     });
 
@@ -471,13 +473,29 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             // TODO.. desc animation
             $inner.find('.inner-infocom')
                 .html( node.description );
-            // TOOD.. load comment
+            // load comment
+            getCommentList(node.nid);
         });
     });
 
     //for like action
     LP.action('like' , function( data ){
-        // TODO.. like action here
+        var _this = $(this);
+        var _likeWrap = _this.find('span');
+        if(_this.data('liked')) {
+            //TODO.. if current user already liked this node, invoke the unlike function
+            return;
+        }
+        else {
+            api.ajax('like', {nid:data.nid}, function( result ){
+                _likeWrap.animate({opacity:0},function(){
+                    _likeWrap.html(result.data.like_count);
+                    _this.data('liked',true);
+                    $(this).animate({opacity:1});
+                });
+
+            });
+        }
     });
 
     //for comment action
@@ -504,4 +522,26 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
     api.ajax('recent' , function( result ){
         $main.trigger('item-insert' , [result.data] );
     });
+
+
+    var getCommentList = function(cid) {
+        api.ajax('commentList', {cid: cid}, function( result ){
+            // TODO: 异常处理
+            var comments = result.data;
+            // filte for date
+            $.each( comments , function( index , comment ){
+                // get date
+                var match = comment.datetime.match(/\d+-(\d+)-(\d+)/);
+                comment.date = parseInt(match[2]);
+                comment.month = getMonth( parseInt(match[1]));
+
+                LP.compile( 'comment-item-template' ,
+                    comment ,
+                    function( html ){
+                        // render html
+                        $('.com-list').append(html);
+                    } );
+            } );
+        });
+    }
 });

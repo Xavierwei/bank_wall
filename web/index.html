@@ -220,18 +220,6 @@ body{
         <!--  -->
         <div class="com-main">
             <div class="com-list">
-                <!--  -->
-                <div class="comlist-item">
-                    <div class="comlist-tit"><span>Arthur Pechaud </span> - 12 mars 2014</div>
-                    <div class="comlist-con">Salut Adrien,excellent je ne savais pas que tu dtais implique dan le projet!</div>
-                    <div class="comlist-icon"></div>
-                </div>
-                <div class="comlist-item">
-                    <div class="comlist-tit"><span>Arthur Pechaud </span> - 12 mars 2014</div>
-                    <div class="comlist-con">Salut Adrien,excellent je ne savais pas que tu dtais implique dan le projet!</div>
-                    <div class="comlist-icon"></div>
-                </div>
-                <!--  -->
             </div>
             <div class="com-make">
                 <input type="text" class="com-ipt" />
@@ -239,7 +227,7 @@ body{
         </div>
         <!--  -->
         <div class="com-info">
-            <div class="com-num clear"><p class="com-day">{{date}} {{month}}</p><p class="com-like">{{like_count}} Likes</p></div>
+            <div class="com-num clear"><p class="com-day">{{date}} {{month}}</p><p data-a="like" data-d="nid={{nid}}" class="com-like"><span>{{like_count}}</span> Likes</p></div>
             <div class="com-btn">
                 <p data-a="back" class="com-back"></p>
                 <p data-a="prev" class="com-prev"></p>
@@ -278,6 +266,15 @@ body{
         <div class="item-icon" style="display: block;"><div class="photo"></div></div>
     </a>
 </div>
+</script>
+
+<!-- comment-item-tpl -->
+<script type="text/tpl" id="comment-item-template">
+    <div class="comlist-item">
+        <div class="comlist-tit"><span>Arthur Pechaud </span> - {{date}} {{month}}</div>
+        <div class="comlist-con">{{content}}</div>
+        <div class="comlist-icon"></div>
+    </div>
 </script>
 <!--//all tpls end -->
 <script type="text/javascript" src="../static/js/sea/sea-debug.js" data-config="../config"></script>

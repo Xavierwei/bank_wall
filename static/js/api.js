@@ -13,7 +13,7 @@ define(function( require , exports , model ){
                 // #[uid] 替换成正确的值
     //      data: {object} ajax data
     //      info: {string} desc, this would used in net error info
-    //      methon: {string} ajax type ['get' | 'post' ] //  default is get
+    //      method: {string} ajax type ['get' | 'post' ] //  default is get
     //      dataType: {string} 返回的数据格式，默认是json
     //      cache: {boolean} 是否缓存
     //      alertOnError：{boolean} ajax出错的时候，是否需要强出提示，主要用于一些不重要的ajax，即使出错了，也不要告诉用户的
@@ -23,10 +23,11 @@ define(function( require , exports , model ){
     // 配置
     var _api = {
         // searchHosts: {path: '/Ajax/searchHosts' , data: {key: ''} , m: '检索小组' , method: 'get' },
-        comment: { path:'/' },
+        commentList: {path: '../admin/app/json/comment/recent.json'},
         recent: {path: '../admin/app/json/node/recent.json'},
         getNode: {path: '../admin/app/json/node/photo.json'},
-        nodeList: {path: '../admin/app/json/node/recent.json'}
+        nodeList: {path: '../admin/app/json/node/recent.json'},
+        like: {path: '../admin/app/json/like/like.json'}
     };
 
     // 内部API
