@@ -193,13 +193,8 @@ class NodeAR extends CActiveRecord{
             $status;
             $output;
             // 视频转换
-            exec("ffmpeg -i {$to} -b:a 128k -vcodec mpeg4 -b:v 1200k -flags +aic+mv4 {$newpath}", $output, $status);
-            if ($status == 1) {
-              // nothing
-            }
-            else {
-              return $this->addError("file", "video convert error");
-            }
+            exec("ffmpeg -i {$to} -acodec libfaac -b:a 128k -vcodec mpeg4 -b:v 1200k -flags +aic+mv4 {$newpath}", $output, $status);
+            
             // 视频转换完后 要删掉之前的视频文件
             unlink($to);
 

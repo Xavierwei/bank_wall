@@ -9,7 +9,7 @@ curl_setopt($req, CURLOPT_URL, $http);
 curl_setopt($req, CURLOPT_POSTFIELDS, array(
     "description" => "I am at #Starbar and work for #Shanghai Company",
     //"photo" => "@/home/jackey/Pictures/afb3ddea748c1e40674cec9ec62c0245.gif;type=image/gif",
-    "video" => "@/home/jackey/Videos/t2.avi"
+    "video" => "@/home/jackey/Videos/t3.avi"
 ));
 
 // 发送cookie
