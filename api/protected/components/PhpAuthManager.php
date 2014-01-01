@@ -27,6 +27,9 @@ class PhpAuthManager extends CPhpAuthManager{
     // 禁用掉 node
     $this->createOperation("blockNode", "block one node");
     
+    // 添加node
+    $this->createOperation("addNode", "add new node");
+    
     // 
     $this->createOperation("unpublishNode", "unpublish one node");
     
@@ -107,6 +110,7 @@ class PhpAuthManager extends CPhpAuthManager{
     $admin->addChild("addCountry");
     $admin->addChild("updateCountry");
     $admin->addChild("deleteCountry");
+    $admin->addChild("addNode");
     
     // country manager
     $countryManager = $this->createRole("countryManager");
@@ -122,6 +126,7 @@ class PhpAuthManager extends CPhpAuthManager{
     $countryManager->addChild("flagNode");
     $countryManager->addChild("listFlagedNode");
     $countryManager->addChild("listFlagedComment");
+    $countryManager->addChild("addNode");
     
     // auth role
     $auth = $this->createRole("auth");
@@ -129,6 +134,7 @@ class PhpAuthManager extends CPhpAuthManager{
     $auth->addChild("flagNode");
     $auth->addChild("updateOwnNode");
     $auth->addChild("postComment");
+    $auth->addChild("addNode");
     
     // guest role
     $guest = $this->createRole("guest");

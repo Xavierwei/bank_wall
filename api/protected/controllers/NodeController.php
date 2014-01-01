@@ -14,10 +14,12 @@ class NodeController extends Controller {
   }
   
   public function actionPost() {
-    //先用默认的用户来模拟登陆问题
-    //$uid = Yii::app()->user->getId();
-    $uid = UserAR::model()->find()->uid;
+    $uid = Yii::app()->user->getId();
     $user = UserAR::model()->findByPk($uid);
+    
+    if (!Yii::app()->user->checkAccess("addNode")) {
+      return $this->responseError("permission deny");
+    }
     
     if ($user) {
       $country_id = $user->country_id;
