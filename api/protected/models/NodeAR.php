@@ -175,6 +175,41 @@ class NodeAR extends CActiveRecord{
     $to = $dir."/". $filename;
     $upload->saveAs($to);
     
+    // 检查是不是视频， 如果是, 就就做视频转换工作
+    $extname = pathinfo($to, PATHINFO_EXTENSION);
+    $videoexts = explode(",", self::ALLOW_UPLOADED_VIDEO_TYPES);
+    if (in_array($extname, $videoexts)) {
+      // 在这里做视频转换功能
+      // 先检查 ffmpeg 是否已经安装
+      $output;
+      exec("which ffmpeg", $output);
+      if (!empty($output)) {
+        $ffmpeg = array_shift($output);
+        if ($ffmpeg) {
+          $newpath = pathinfo($to, PATHINFO_FILENAME).".". self::ALLOW_STORE_VIDE_TYPE;
+          $dir = pathinfo($to, PATHINFO_DIRNAME);
+          $newpath = $dir.'/'. $newpath;
+          if ($newpath != $to) {
+            $status;
+            $output;
+            // 视频转换
+            exec("ffmpeg -i {$to} -b:a 128k -vcodec mpeg4 -b:v 1200k -flags +aic+mv4 {$newpath}", $output, $status);
+            if ($status == 1) {
+              // nothing
+            }
+            else {
+              return $this->addError("file", "video convert error");
+            }
+            // 视频转换完后 要删掉之前的视频文件
+            unlink($to);
+
+            // 删除后， 再返回新的文件地址
+            $to = $newpath;
+          }
+        }
+      }
+    }
+    
     $to = str_replace(ROOT, "", $to);
     
     return $to;
