@@ -15,8 +15,10 @@ class CommentController extends Controller {
     
     $nid = $request->getPost("nid");
     
-    //$uid = Yii::app()->user->getId();
-    $uid = UserAR::model()->find()->uid;
+    $uid = Yii::app()->user->getId();
+    if (Yii::app()->user->checkAccess("postComment")) {
+      return $this->responseError("permission deny");
+    }
     
     $content = $request->getPost("content");
     
@@ -48,9 +50,15 @@ class CommentController extends Controller {
       $this->responseError("invalid params");
     }
     
-    $comment = CommentAR::model()->findByPk($cid);
+    $comment = CommentAR::model()->with("node")->findByPk($cid);
     if (!$comment) {
       $this->responseError("comment not found");
+    }
+    
+    // 权限检查
+    $node = $comment->node;
+    if (!Yii::app()->user->checkAccess("updateAnyComment", array("country_id" => $node->country_id))) {
+      return $this->responseError("permission deny");
     }
     
     // 参数应该和 comment POST 不一样， 只允许 content 数据
@@ -75,7 +83,11 @@ class CommentController extends Controller {
       $this->responseError("http error");
     }
     
-    // TODO:: 权限检查
+    $comment = CommentAR::model()->with("node")->findByPk($cid);
+    $node = $comment->node;
+    if (!Yii::app()->user->checkAccess("deleteAnyComment", array("country_id" => $node->country_id))) {
+      return $this->responseError("permission deny");
+    }
     
     $cid = $request->getPost("cid");
     if ($cid) {

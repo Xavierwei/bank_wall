@@ -112,6 +112,16 @@ class NodeController extends Controller {
         else {
           $type = FALSE;
         }
+        
+        // 在这里做权限检查
+        // 如果用户在更改 media, 就要检查更改 media 的权限
+        if ($type && !Yii::app()->user->checkAccess("updateNodeMedia", array("country_id" => $node->country_id))) {
+          return $this->responseError("permission deny");
+        }
+        // 如果做内容修改， 用户就应该有修改自己内容的权限
+        else if (!Yii::app()->user->checkAccess("updateOwnNode", array("uid" => $node->uid))) {
+          return $this->responseError("permission deny");
+        }
 
         if ($photoUpload) {
           $mime = $photoUpload->getType();
@@ -148,7 +158,6 @@ class NodeController extends Controller {
           $node->file = $node->saveUploadedFile($videoUpload);
           $node->type = $type;
         }
-        
         if ($node->validate()) {
           $node->beforeSave();
           $ret = $node->updateByPk($node->nid, $node->attributes);
@@ -179,6 +188,11 @@ class NodeController extends Controller {
       $nodeAr = NodeAR::model()->findByPk($nid);
       if(!$nodeAr) {
           $this->responseError("invalid params");
+      }
+      
+      // 权限检查
+      if (!Yii::app()->user->checkAccess("deleteAnyNode", array("country_id" => $node->country_id))) {
+        return $this->responseError("permission deny");
       }
       
       $nodeAr->delete();
@@ -250,20 +264,21 @@ class NodeController extends Controller {
       
       // 需要验证用户权限
       $user = UserAR::model()->findByPk(Yii::app()->getId());
-      if ($user && $user->role == UserAR::ROLE_ADMIN) {
-          $query->addCondition("status =:status", "AND");
-          $params[":status"] = $status;
+      if ($user && ($user->role == UserAR::ROLE_ADMIN || $user->role == UserAR::ROLE_COUNTRY_MANAGER)) {
+          //$query->addCondition("status =:status", "OR");
+          //$params[":status"] = $status;
       }
-      // 否则 status 只是是 published 状态
+      // 否则 status 只能是 published 状态
       else {
           $status = NodeAR::PUBLICHSED;
           $query->addCondition($nodeAr->getTableAlias().".status = :status", "AND");
           $params[":status"] = $status;
       }
       
-      $order = "ORDER BY ";
+      $order = "";
       if ($orderby == "datetime") {
           $order .= " datetime DESC";
+          $query->order = $order;
       }
       else if ($orderby == "like") {
         // orderby like 比较复杂， 需要用到join 和 group
@@ -272,7 +287,8 @@ class NodeController extends Controller {
         $query->select = "*". ", count(like.nid) AS likecount";
         $query->join = 'left join `like` '.' on '.$likeAr->getTableAlias() .".nid = ". $nodeAr->getTableAlias().".nid";
         $query->group ="`like`.nid";
-        $order .= "`like` DESC";
+        $order .= "`likecount` DESC";
+        $query->order = $order;
       }
       else if ($orderby == "random") {
           // 随机查询需要特别处理
@@ -336,10 +352,154 @@ class NodeController extends Controller {
           $data["likecount"] = $node->likecount;
           $data["user"] = $node->user->attributes;
           $data["country"] = $node->country->attributes;
+          $data["user_liked"] = $node->user_liked;
+          $data["like"] = $node->like;
           $retdata[] = $data;
       }
       
       $this->responseJSON($retdata, "success");
+  }
+  
+  // 返回某个  nid 的 前10条和后10条
+  // 这个里支持的参数是
+  // @param type
+  // @param country_id
+  // @param uid 
+  // @param orderby  
+  // @param nid
+  public function actionGetNeighbor() {
+    $request = Yii::app()->getRequest();
+    
+    $type = $request->getParam("type");
+    $country_id = $request->getParam("country_id");
+    $uid = $request->getParam("uid");
+    $nid = $request->getParam("nid");
+    $orderby = $request->getParam("orderby");
+    
+    $nodeAr = new NodeAR();
+    
+    if (!$nid) {
+      return $this->responseError("invalid params");
+    }
+    
+    // 构造查询条件
+    $query = new CDbCriteria();
+    if ($type) {
+      $query->addCondition("type = :type");
+      $query->params[":type"] = $type;
+    }
+    
+    if ($country_id) {
+      $query->addCondition("country_id = :country_id");
+      $query->params[":country_id"] = $country_id;
+    }
+    
+    if ($uid) {
+      $query->addCondition("uid = :uid");
+      $query->params[":uid"] = $uid;
+    }
+    
+    if ($orderby) {
+      $order = " ";
+      if ($orderby == "datetime") {
+          $order .= " datetime DESC";
+          $query->order = $order;
+      }
+      else if ($orderby == "like") {
+        // orderby like 比较复杂， 需要用到join 和 group
+        // 还需要增加一个额外的 SELECT 
+        $likeAr = new LikeAR();
+        $query->select = "*". ", count(like.nid) AS likecount";
+        $query->join = 'left join `like` '.' on '.$likeAr->getTableAlias() .".nid = ". $nodeAr->getTableAlias().".nid";
+        $query->group ="`like`.nid";
+        $order .= "`likecount` DESC";
+        
+        $query->order = $order;
+      }
+      else if ($orderby == "random") {
+          // 随机查询需要特别处理
+          // 如下， 首先随机出 $pagenum 个数的随机数，大小范围在 max(nid), min(nid) 之间
+          // 再用 nid in (随机数) 去查询
+          $sql = "SELECT max(nid) as max, min(nid) as min FROM node";
+          $ret = Yii::app()->db->createCommand($sql);
+          $row = $ret->queryRow();
+          $nids = array();
+          $max_run = 0;
+          while (count($nids) < $pagenum && $max_run < $pagenum * 10) {
+              $max_run ++;
+              $nid = mt_rand($row["min"], $row["max"]);
+              if (!isset($nids[$nid])) {
+                  $cond = array();
+                  foreach ($params as $k => $v) {
+                      $cond[str_replace(":", "", $k)] = $v;
+                  }
+                  $node = NodeAR::model()->findByPk($nid);
+                  if (!$node) {
+                    continue;
+                  }
+                  $isNotWeWant = FALSE;
+                  foreach ($cond as $k => $v) {
+                      if($node->{$k} != $v) {
+                          $isNotWeWant = TRUE;
+                          break;
+                      }
+                  }
+                  if ($isNotWeWant) {
+                          continue;
+                  }
+                  $nids[$nid] = $nid;
+              }
+          }
+          $query->addInCondition("nid", $nids, "AND");
+      }
+    }
+    
+    $query->addCondition($nodeAr->getTableAlias().".status = :status", "AND");
+    $query->params[":status"] =  NodeAR::PUBLICHSED;
+    
+    $query->limit = 10;
+
+    $query->with = array("user", "country");
+    
+    // 在这里 要查询后当前 nid 的前10条和后10条, 要查询2次
+    // 前10条
+    $query1 = clone $query;
+    $query1->addCondition($nodeAr->getTableAlias(). '.nid < :nid');
+    $query1->params[":nid"] = $nid;
+    
+    
+    // 后10条
+    $query2 = clone $query;
+    $query2->addCondition($nodeAr->getTableAlias().'.nid > :nid');
+    $query2->params[":nid"] = $nid;
+    
+    
+    // 构造完后 查询结果
+    $leftRet = array();
+    $res = NodeAR::model()->findAll($query1);
+    foreach ($res as $node) {
+        $data = $node->attributes;
+        $data["likecount"] = $node->likecount;
+        $data["user"] = $node->user->attributes;
+        $data["country"] = $node->country->attributes;
+        $data["user_liked"] = $node->user_liked;
+        $data["like"] = $node->like;
+        $leftRet[] = $data;
+    }
+    
+    $rightRet = array();
+    $res = NodeAR::model()->findAll($query2);
+    foreach ($res as $node) {
+        $data = $node->attributes;
+        $data["likecount"] = $node->likecount;
+        $data["user"] = $node->user->attributes;
+        $data["country"] = $node->country->attributes;
+        $data["user_liked"] = $node->user_liked;
+        $data["like"] = $node->like;
+        $rightRet[] = $data;
+    }
+    
+    $this->responseJSON(array("left" => $leftRet, "right" => $rightRet), "success");
   }
 }
 

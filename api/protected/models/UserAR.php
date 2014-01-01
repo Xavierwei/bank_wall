@@ -75,11 +75,21 @@ class UserAR extends CActiveRecord{
     return parent::model($classname);
   }
   
+  public function beforeSave() {
+    // 默认情况下， 添加新用户时 role 是 ROLE_AUTH
+    if (!$this->getAttribute("role")) {
+      $this->setAttribute("role", self::ROLE_AUTHEN);
+    }
+    return TRUE;
+  }
+  
   // 初始化操作
   public function init() {
     parent::init();
   }
   
+  // Validator
+  //  相当于 unique key
   public function dbRowUnique($attribute, $pramas = array()) {
     $value = $this->{$attribute};
     

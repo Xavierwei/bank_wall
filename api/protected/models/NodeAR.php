@@ -20,6 +20,10 @@ class NodeAR extends CActiveRecord{
     
   public $likecount = 0;
   
+  public $user_liked = FALSE;
+  
+  public $like = array();
+  
   public static function model($class = __CLASS__) {
     return parent::model($class);
   }
@@ -37,7 +41,7 @@ class NodeAR extends CActiveRecord{
         array("uid, country_id, type", "required"),
         array("uid", "uidExist"),
         array("country_id", "countryExist"),
-        array("file, type, datetime, status, description, nid, hashtag", "safe"),
+        array("file, type, datetime, status, description, nid, hashtag, user_liked, like", "safe"),
     );
   }
   
@@ -96,6 +100,21 @@ class NodeAR extends CActiveRecord{
   public function afterFind() {
     parent::afterFind();
     $this->hashtag = unserialize($this->hashtag);
+    
+    // 加载当前用户的flag
+    if ($uid = Yii::app()->user->getId() ) {
+      $user = UserAR::model()->findByPk($uid);
+      if ($user) {
+        $flag = LikeAR::model()->findByAttributes(array("nid" => $this->nid, "uid" => $user->uid));
+        if (($flag)) {
+          $this->like = $flag->attributes;
+          $this->user_liked = TRUE;
+        }
+        else {
+          $this->user_liked = FALSE;
+        }
+      }
+    }
     
     return TRUE;
   }

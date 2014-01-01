@@ -14,6 +14,12 @@ class UserController extends Controller {
    */
   public function actionList() {
     $request = Yii::app()->getRequest();
+    
+    // 验证权限
+    if (!Yii::app()->user->checkAccess("listAllAccount")) {
+      return $this->responseError("permission deny");
+    }
+    
     $role = $request->getParam("role");
     $country_id = $request->getParam("countryid");
     $orderby = $request->getParam("orderby");
@@ -26,14 +32,10 @@ class UserController extends Controller {
     
     // 在这里有一个逻辑:
     // 当用户是 country manager 的时候，我们只取这个user 所属的 country_id的用户， 所以 country_id 不管传入参数如何，都要重置
-    if (!Yii::app()->user->checkAccess("list_all_user") && Yii::app()->user->checkAccess("list_user_in_country")) {
+    if (Yii::app()->user->role == UserAR::ROLE_COUNTRY_MANAGER) {
       $login_uid = Yii::app()->user->getId();
       $user = UserAR::model()->findByPk($login_uid);
-      //$country_id = $user->country_id;
-    }
-    
-    if (!Yii::app()->user->checkAccess("list_user_in_country") && !Yii::app()->user->checkAccess("list_all_user")) {
-      //return $this->responseError("permission deny");
+      $country_id = $user->country_id;
     }
 
     // Role 必须是数字
@@ -100,9 +102,13 @@ class UserController extends Controller {
   /**
    * 用uid 获取用户资料
    */
-  public function actionGetuserbyuid() {
+  public function actionGetByUid() {
     $request = Yii::app()->getRequest();
     $uid = $request->getParam("uid");
+    
+    if (!Yii::app()->user->role == UserAR::ROLE_ADMIN && !Yii::app()->user->role == UserAR::ROLE_COUNTRY_MANAGER) {
+      return $this->responseError("permission deny");
+    }
     
     if ($uid) {
       $user = UserAR::model()->with("country")->findByPk($uid);
@@ -126,6 +132,11 @@ class UserController extends Controller {
     $arUser = new UserAR();
 
     $request = Yii::app()->getRequest();
+    
+    // 检查用户是否登陆了
+    if (Yii::app()->user->getId() ) {
+      return $this->responseError("you have already login");
+    }
 
     // Only allow post
     if ($this->isPost()) {
@@ -164,12 +175,36 @@ class UserController extends Controller {
     }
     $user = UserAR::model()->with("country")->findByPk($uid);
     
+    // 检查用户权限
+    if (!Yii::app()->user->checkAccess("deleteAnyAccount", array("country_id" => $user->country_id))) {
+      return $this->responseError("permission deny");
+    }
+    
     if ($user) {
+      if (!Yii::app()->user->checkAccess("deleteAnyAccount", array("country_id" => $user->country_id))) {
+        return $this->responseError("permission deny");
+      }
       UserAR::model()->deleteByPk($user->uid);
       $this->responseJSON(array(), "success");
     }
     else {
       $this->responseJSON(array(), "success");
+    }
+  }
+  
+  //获取当前用户资料
+  public function actionGetCurrent() {
+    $request = Yii::app()->getRequest();
+    
+    if ($uid = Yii::app()->user->getId()) {
+      $user = UserAR::model()->with("country")->findByPk($uid);
+      $country = $user->country;
+      $retdata = $user->getOutputRecordInArray(array("country" => $country) + $user->attributes);
+      
+      $this->responseJSON($retdata, "success");
+    }
+    else {
+      $this->responseError("not login");
     }
   }
   
@@ -188,6 +223,13 @@ class UserController extends Controller {
       $user = UserAR::model()->findByPk($uid);
       if (!$user) {
         $this->responseError("invalid params");
+      }
+      
+      if (!Yii::app()->user->checkAccess("updateOwnAccount", array("uid" => $user->uid ))) {
+        return $this->responseError("permission deny");
+      }
+      elseif (!Yii::app()->user->checkAccess("updateAnyAccount", array("country_id" => $user->country_id))) {
+        return $this->responseError("permission deny");
       }
       
       $data = $_POST;
@@ -253,6 +295,8 @@ class UserController extends Controller {
   }
   
   public function actionTest() {
+    $user = UserAR::model()->findByPk(Yii::app()->user->getId());
+    
     $this->responseError("test");
   }
 

@@ -6,7 +6,7 @@
 class CountryController extends Controller {
   
   public function actionList() {
-    $request = Yii::app()->getRequest();
+    $request = Yii::app()->getRequest(); 
     
     $countryAr = new CountryAR();
     $list = $countryAr->findAll();
@@ -24,6 +24,10 @@ class CountryController extends Controller {
     
     if (!$request->isPostRequest) {
       $this->responseError("http error");
+    }
+    
+    if (!Yii::app()->user->checkAccess("addCountry")) {
+      return $this->responseError("permission deny");
     }
     
     $countryAr = new CountryAR();
@@ -45,6 +49,10 @@ class CountryController extends Controller {
     
     if (!$request->isPostRequest) {
       $this->responseError("http error");
+    }
+    
+    if (!Yii::app()->user->checkAccess("updateCountry")) {
+      return $this->responseError("permission deny");
     }
     
     $countryAr = new CountryAR();
@@ -72,6 +80,10 @@ class CountryController extends Controller {
     
     if (!$request->isPostRequest) {
       $this->responseError("http error");
+    }
+    
+    if (!Yii::app()->user->checkAccess("deleteCountry")) {
+      return $this->responseError("permission deny");
     }
     
     $country_id = $request->getPost("country_id");

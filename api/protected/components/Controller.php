@@ -22,7 +22,13 @@ class Controller extends CController
 	public $breadcrumbs=array();
     
     public function beforeAction($action) {
-      $auth = Yii::app()->authManager;
+      try {
+        $role = Yii::app()->user->role;
+      }
+      catch (CException $e) {
+        Yii::app()->user->setState("role", 0);
+        Yii::app()->user->setState("country_id", 0);
+      }
       
       return parent::beforeAction($action);
     }

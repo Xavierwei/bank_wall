@@ -13,6 +13,10 @@ class FlagController extends Controller {
   public function actionPost() {
     $request = Yii::app()->getRequest();
     
+    if (!Yii::app()->user->checkAccess("flagNode")) {
+      return $this->responseError("permission deny");
+    }
+    
     if (!$request->isPostRequest) {
       $this->responseError("http error");
     }
@@ -34,9 +38,7 @@ class FlagController extends Controller {
       $this->responseError("invalid params");
     }
     
-    // TODO:: 暂时 用任意用户uid 做测试, 登陆实现后 再完成此处功能
-    //$uid = Yii::app()->user->getId();
-    $uid = UserAR::model()->find()->uid;
+    $uid = Yii::app()->user->getId();
     
     $flagAr = new FlagAR();
     $flagAr->uid = $uid;
@@ -67,6 +69,15 @@ class FlagController extends Controller {
     $nid = $request->getPost("nid");
     $cid = $request->getPost("cid");
     
+    $node = NodeAR::model()->findByPk($nid);
+    if (!$node) {
+      $this->responseJSON(array(), "success");
+    }
+    
+    if (!Yii::app()->user->checkAccess("removeFlag", array("country_id" => $node->country_id))) {
+      return $this->responseError("permission deny");
+    }
+    
     if (!$nid && !$cid) {
       return $this->responseError("invalid params");
     }
@@ -90,27 +101,43 @@ class FlagController extends Controller {
       //$this->responseError("http error");
     }
     
+    if (!Yii::app()->user->checkAccess("listFlagedNode")) {
+      return $this->responseError("permission deny");
+    }
+    
+    $user = UserAR::model()->findByPk(Yii::app()->user->getId());
     $flagAr = new FlagAR();
     
     $query = new CDbCriteria();
     $query->addCondition($flagAr->getTableAlias().".nid <> 0");
     $query->select = "distinct ".$flagAr->getTableAlias().".nid AS distinct_nid" .$flagAr->getTableAlias().".*";
-    $query->with = array("node", "comment");
+    $query->with = array("node");
     
     $flags = $flagAr->findAll($query);
     
-    $retdata = array();
+    $allnodes = array();
     foreach ($flags as $flag) {
       $data = $flag->attributes;
-      if ($flag->node)
-        $data["node"] = $flag->node->attributes;
-      if ($flag->comment)
-        $data["comment"] = $flag->comment->attributes;
-      
-      $retdata[] = $data;
+      if ($flag->node) {
+        // TODO:: 是否有必要返回 flag 的次数， country数据 和 user 数据 ?
+        $allnodes[$flag->node->nid] = $flag->node->attributes;
+      }
     }
     
-    $this->responseJSON($retdata, "success");
+    // 只处理 node
+    $retnodes = array();
+    if (Yii::app()->user->role == UserAR::ROLE_COUNTRY_MANAGER) {
+      foreach ($allnodes as $node) {
+        if ($node['country_id'] == Yii::app()->user->country_id) {
+          $retnodes[] = $node;
+        }
+      }
+    }
+    else  {
+      $retnodes = $allnodes;
+    }
+    
+    $this->responseJSON($retnodes, "success");
   }
   
   public function actionGetFlaggedComments() {
@@ -119,6 +146,10 @@ class FlagController extends Controller {
     
     if (!$request->isPostRequest) {
       //$this->responseError("http error");
+    }
+    
+    if (!Yii::app()->user->checkAccess("listFlagedComment")) {
+      return $this->responseError("permission deny");
     }
     
     $flagAr = new FlagAR();
@@ -130,18 +161,36 @@ class FlagController extends Controller {
     
     $flags = $flagAr->findAll($query);
     
-    $retdata = array();
+    $cids = array();
     foreach ($flags as $flag) {
-      $data = $flag->attributes;
-      if ($flag->node)
-        $data["node"] = $flag->node->attributes;
-      if ($flag->comment)
-        $data["comment"] = $flag->comment->attributes;
-      
-      $retdata[] = $data;
+      if ($flag->comment) {
+        $cids[] = $flag->comment->cid;
+      }
     }
     
-    $this->responseJSON($retdata, "success");
+    // 查询出comment 后 还需要查询对应的node, 因为我们返回当前的国家管理员下面的node 的 comment
+    $query = new CDbCriteria();
+    $query->addInCondition("cid", $cids);
+    $query->with = array("node");
+    
+    $comments = CommentAR::model()->findAll($query);
+    
+    $retcomments = array();
+    if (Yii::app()->user->role == UserAR::ROLE_COUNTRY_MANAGER) {
+      foreach ($comments as $comment) {
+        $node = $comment->node;
+        if ($node->country_id == Yii::app()->user->country_id) {
+          $retcomments[] = $comment->attributes;
+        }
+      }
+    }
+    else {
+      foreach ($comments as $comment) {
+        $retcomments[] = $comment->attributes;
+      }
+    }
+    
+    $this->responseJSON($retcomments, "success");
   }
 }
 

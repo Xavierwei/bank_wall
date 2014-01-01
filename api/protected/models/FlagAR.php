@@ -47,7 +47,6 @@ class FlagAR extends CActiveRecord {
         $node->blockIt();
       }
     }
-
   }
   
   // 删除Node Like

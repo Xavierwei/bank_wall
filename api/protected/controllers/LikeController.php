@@ -12,8 +12,12 @@ class LikeController extends Controller {
       $this->responseError("http error");
     }
     
-    //$uid = Yii::app()->user->getId();
-    $uid = UserAR::model()->find()->uid;
+    if (!Yii::app()->user->checkAccess("flagNode")) {
+      return $this->responseError("permission deny");
+    }
+    
+    $uid = Yii::app()->user->getId();
+    //$uid = UserAR::model()->find()->uid;
     $nid = $request->getPost("nid");
     
     $likeAr = new LikeAR();
@@ -40,8 +44,13 @@ class LikeController extends Controller {
       $this->responseError("http error");
     }
     
-    //$uid = Yii::app()->user->getId();
-    $uid = UserAR::model()->find()->uid;
+    // 这里不需要检查权限，因为用户如果like了 就取消掉； 如果没有like过 就什么也不做
+//    if (!Yii::app()->user->checkAccess("cancelOwnLike", array("uid" => $uid))) {
+//      return $this->responseError("permission deny");
+//    }
+    
+    $uid = Yii::app()->user->getId();
+    //$uid = UserAR::model()->find()->uid;
     $nid = $request->getPost("nid");
     
     $likeAr = new LikeAR();
