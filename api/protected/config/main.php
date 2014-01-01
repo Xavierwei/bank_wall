@@ -18,6 +18,7 @@ return array(
 		'application.models.*',
 		'application.components.*',
         'application.validators.*',
+         'ext.easyimage.EasyImage',
 	),
 
 	'modules'=>array(
@@ -76,6 +77,14 @@ return array(
         "authManager" => array(
             "class" => "PhpAuthManager"
         ),
+        'easyImage' => array(
+               'class' => 'application.extensions.easyimage.EasyImage',
+               'driver' => 'GD',
+               'quality' => 100,
+               'cachePath' => '/uploads',
+               'cacheTime' => 2592000,
+               //'retinaSupport' => false,
+       ),
 	),
 
 	// application-level parameters that can be accessed

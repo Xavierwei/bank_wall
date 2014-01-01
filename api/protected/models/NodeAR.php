@@ -13,9 +13,9 @@
  */
 class NodeAR extends CActiveRecord{
     
-    const PUBLICHSED = 1;
-    const UNPUBLISHED = 2;
-    const BLOCKED = 3;
+  const PUBLICHSED = 1;
+  const UNPUBLISHED = 2;
+  const BLOCKED = 3;
     
     
   public $likecount = 0;
@@ -23,6 +23,12 @@ class NodeAR extends CActiveRecord{
   public $user_liked = FALSE;
   
   public $like = array();
+  
+  // 这个只是允许上传的视频格式
+  const ALLOW_UPLOADED_VIDEO_TYPES = "mp4,avi,mov,mpg";
+  
+  // 其他格式的视频需要转换到这个指定的格式
+  const ALLOW_STORE_VIDE_TYPE = "mp4";
   
   public static function model($class = __CLASS__) {
     return parent::model($class);
