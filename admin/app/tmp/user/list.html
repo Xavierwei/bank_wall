@@ -1,10 +1,15 @@
-<ul class="users">
+<ul class="users-list">
     <li ng-repeat="user in users" ng-class="user.status">
-        <p><img src="{{user.avatar}}" width="80" height="80" /></p>
-        <p>{{user.lasttname}} {{user.firstname}}</p>
-        <p>{{user.company_email}}</p>
-        <a href="#/user/edit/{{user.uid}}">edit</a>
+        <div class="avatar"><img ng-src="{{user.avatar}}" width="40" height="40" /></div>
+        <div class="user-info">
+            <div class="name"><strong>{{user.firstname}} {{user.lastname}}</strong></div>
+            <div class="email">{{user.company_email}}</div>
+            <div class="email">{{user.personal_email}}</div>
+        </div>
+        <div class="clear"></div>
+        <div class="btns">
+            <a class="btn btn-default btn-xs" href="#/user/edit/{{user.nid}}">Edit</a>
+            <a class="btn btn-default btn-xs" href="javascript:void(0)" ng-click="delete(user)">Delete</a>
+        </div>
     </li>
-
 </ul>
-<div ng-show="error">1111{{error}}</div>

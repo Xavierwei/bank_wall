@@ -16,30 +16,30 @@
 		<div class="logo"></div>
 		<!--  -->
 		<div class="search clear">
-			<input class="search-ipt" type="text" />
+			<input class="search-ipt" type="text" placeholder="#HASHTAG" />
 			<input class="search-sub" type="submit" value="search" />
 		</div>
 		<!--  -->
 		<div class="select clear">
 			<!--  -->
 			<div class="select-item">
-				<div class="select-box">PAYS</div>
+				<div class="select-box">Country</div>
 				<div class="select-pop" style="display:none">
-					<div class="select-option"><p>PAYS</p><p>PAYS</p><p>PAYS</p><p>PAYS</p><p>PAYS</p></div>
+					<div class="select-option"><p>France</p><p>Sweden</p><p>Switzerland</p><p>Italy</p><p>Portugal</p></div>
 				</div>
 			</div>
 			<!--  -->
 			<div class="select-item">
-				<div class="select-box" >PAYS</div>
+				<div class="select-box" >Recent</div>
 				<div class="select-pop" style="display:none">
-					<div class="select-option"><p>PAYS</p><p>PAYS</p><p>PAYS</p><p>PAYS</p><p>PAYS</p><p>PAYS</p><p>PAYS</p></div>
+					<div class="select-option"><p>Recent</p><p>Popular</p><p>Random</p></div>
 				</div>
 			</div>
 			<!--  -->
 			<div class="select-item">
-				<div class="select-box">PAYS</div>
+				<div class="select-box">Type</div>
 				<div class="select-pop" style="display:none">
-					<div class="select-option"><p>PAYS</p><p>PAYS</p><p>PAYS</p></div>
+					<div class="select-option"><p>Photo</p><p>Video</p></div>
 				</div>
 			</div>
 		</div>
@@ -78,11 +78,11 @@
 			</div>
 			<!-- menu -->
 			<div class="menu">
-				<div class="menu-item menu-item-on photo"><p></p></div>
-				<div class="menu-item youtube"><p></p></div>
-				<div class="menu-item youtube"><p></p></div>
-				<div class="menu-item youtube"><p></p></div>
-				<div class="menu-item youtube"><p></p></div>
+				<div class="menu-item photo"><p></p></div>
+				<div class="menu-item video"><p></p></div>
+				<div class="menu-item byday"><p></p></div>
+				<div class="menu-item bymonth"><p></p></div>
+				<div class="menu-item settings"><p></p></div>
 			</div>
 		</div>
 		<!--  -->
@@ -269,7 +269,7 @@ body{
     <a href="inner.html">
         <img src="{{image}}" width="180" />
         <div class="item-info" >
-            <div class="item-user"><span class="item-usericon"></span>{{country.country_name}}</div>
+            <div class="item-user"><span class="item-usericon"></span>{{user.firstname}} {{user.lastname}}</div>
             <div class="item-source">
                 <div class="photo"></div>
             </div>

@@ -27,11 +27,11 @@ a{text-decoration:none;color:#666}
 .header{height:130px;position: fixed;width: 100%;top:0;z-index: 2;left:0;right: 0;background: #fff}
 	.logo{width: 315px;height: 95px;background: url('../img/logo.jpg') no-repeat;margin:18px auto 0;}
 	.search{border:#333 solid 1px;position: absolute;left:60px;top:50px;}
-		.search-ipt{color:#666;border:0;float:left;padding:3px;width:250px;}
-		.search-sub{border:0;background: none;border-left: #333 solid 1px;float:left;padding:5px 3px;}
-	.select{position: absolute;right:60px;top:50px}
-		.select-item{position: relative;float: left;width: 145px;height: 25px}
-			.select-box{width:120px;border:#333 solid 1px;padding:3px;cursor: pointer;}
+		.search-ipt{color:#666;border:0;float:left;padding:6px;width:250px;}
+		.search-sub{border:0;background:url('../img/icon_search.gif') no-repeat center center;font-size:0;width:26px;height:25px;border-left: #333 solid 1px;float:left;padding:5px 3px;}
+	.select{position: absolute;right:40px;top:50px}
+		.select-item{position: relative;float: left;width: 135px;height: 25px}
+			.select-box{width:110px;border:#333 solid 1px;padding:3px;cursor: pointer;background:url('../img/selectbox_arrow.gif') no-repeat right center;}
 			.select-pop{border:#fff solid 1px;position: absolute;width: 120px;top:0;padding:0 3px;background: #666;opacity: 0.8;filter:alpha(opacity=80);}
 				.select-option p{padding:3px;color:#fff;border-bottom:#999 solid 1px;cursor: pointer;}
 	.language{position: absolute;right:10px;top: 10px; }
@@ -78,8 +78,11 @@ a{text-decoration:none;color:#666}
 	.menu{}
 		.menu-item{border-bottom:#474747 2px solid;width: 120px;height:75px;cursor: pointer; }
 		.menu-item-on{background:#cb6666 }
-		.menu-item.photo p{background: url('../img/icon_s_instagram.png') no-repeat center;width: 120px;height:75px;}
-		.menu-item.youtube p{background: url('../img/icon_s_youtube.png') no-repeat center;width: 120px;height:75px;}
+		.menu-item.photo p{background: url('../img/icon_menu_photo.gif') no-repeat center;width: 120px;height:75px;}
+        .menu-item.video p{background: url('../img/icon_menu_video.gif') no-repeat center;width: 120px;height:75px;}
+        .menu-item.byday p{background: url('../img/icon_menu_byday.gif') no-repeat center;width: 120px;height:75px;}
+        .menu-item.bymonth p{background: url('../img/icon_menu_bymonth.gif') no-repeat center;width: 120px;height:75px;}
+        .menu-item.settings p{background: url('../img/icon_menu_settings.gif') no-repeat center;width: 120px;height:75px;}
 
 
 /* inner Used

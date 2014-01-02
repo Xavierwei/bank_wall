@@ -1,41 +1,31 @@
 {
 	'success': true,
-        'data': 
+        'data':
         [
-        '{{repeat(30)}}',
-        {
-            "nid": "{{index}}",
-            "user": 
+    '{{repeat(20)}}',
+    {
+        "cid": "{{index}}",
+        "node":{
+                   "nid": "{{index}}",
+                   "type": function(idx) {
+                       var choices = ['video', 'photo'];
+                       return choices[this.numeric(0, choices.length - 1)];
+                   },
+                   "image": "http://lorempixel.com/400/400/abstract/{{numeric(0,10)}}"
+               },
+        "user":
             {
-                "uid": "{{index}}",
-                "firstname": "{{surname}}",
-                "lastname": "{{firstName}}",
+                "uid": "{{numeric(1,999)}}",
+                "firstname": "{{firstName}}",
+                "lastname": "{{surname}}",
                 "avatar": "http://lorempixel.com/80/80/people/{{numeric(0,10)}}"
             },
-            "country": 
-            {
-                "countryid": 86,
-                "country_name": "China",
-                "flag_icon": "/upload/country/cn.gif"
-            },
-            "type": function(idx) {
-                var choices = ['video', 'photo'];
-                return choices[this.numeric(0, choices.length - 1)];
-            },
-            "image": "http://lorempixel.com/400/400/abstract/{{numeric(0,10)}}",
-            "video": "/upload/v{{index}}.mp4",
-            "description": "#test #123 {{lorem(1,paragraphs)}}",
-            "hashtag": [
-                "#test",
-                "#123"
-            ],
-            "comment_count": "{{numeric(1,999)}}",
-            "like_count": "{{numeric(1,999)}}",
-            "status": "1",
-            "datetime": "{{date(YYYY-MM-ddThh:mm:ss)}}"
-        }
-    ],
+        "content": "{{lorem(1,paragraphs)}}",
+        "datetime": "{{date(YYYY-MM-ddThh:mm:ss)}}"
+    }
+
+],
         'message':''
-        
+
 }
 

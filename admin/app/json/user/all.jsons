@@ -2,12 +2,12 @@
 	'success': true,
         'data': 
         [
-        '{{repeat(5)}}',
+        '{{repeat(20)}}',
         {
             "uid": "{{index}}",
             "firstname": "{{firstName}}",
             "lastname": " {{surname}}",
-            "avatar": "/upload/avatar/u12.jpg",
+            "avatar": "http://lorempixel.com/80/80/people/{{numeric(0,10)}}",
             "country":
             {
                 "countryid": "86",
