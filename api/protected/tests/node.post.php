@@ -1,6 +1,6 @@
 <?php
 
-$http = "http://bankapi.local/index.php/node/post";
+$http = "http://localhost:8888/bank_wall/api/index.php?r=/node/post";
 $req = curl_init();
 
 curl_setopt($req, CURLOPT_POST, TRUE);
@@ -8,12 +8,12 @@ curl_setopt($req, CURLOPT_RETURNTRANSFER, TRUE);
 curl_setopt($req, CURLOPT_URL, $http);
 curl_setopt($req, CURLOPT_POSTFIELDS, array(
     "description" => "I am at #Starbar and work for #Shanghai Company",
-    //"photo" => "@/home/jackey/Pictures/afb3ddea748c1e40674cec9ec62c0245.gif;type=image/gif",
-    "video" => "@/home/jackey/Videos/t3.avi"
+    "photo" => "@/Applications/MAMP/htdocs/bank_wall/web/photo/1.jpg;type=image/jpg",
+    //"video" => "@/home/jackey/Videos/t3.avi"
 ));
 
 // 发送cookie
-$cookie = "PHPSESSID=befg5lru99n1m9s4tlt8kjoip1";
+$cookie = "PHPSESSID=09e9e4d98f4feeecb9e35c2957a60e1e";
 curl_setopt($req, CURLOPT_COOKIE, $cookie);
 
 //curl_setopt($req, CURLOPT_HTTPHEADER, array("Content-Type: image/png"));
