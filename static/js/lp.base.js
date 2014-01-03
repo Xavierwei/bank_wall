@@ -95,28 +95,6 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                         .width( itemWidth )
                         .height( itemWidth );
 
-                    // set the position
-                    // var itemIndex = $item.index();
-                    // var cols = ~~( winWidth / itemWidth );
-                    // $item
-                    //     .hide()
-                    //     .css({
-                    //         width: 0,
-                    //         top: ~~( itemIndex / cols ) * itemWidth,
-                    //         left: itemIndex % cols * itemWidth
-                    //     });
-                    // setTimeout(function(){
-                    //     $item
-                    //         .show();
-                    //     setTimeout(function(){
-                    //         $item.addClass('reversal')
-                    //     .width( itemWidth )
-                    //     .height( itemWidth );;
-                    //     });
-
-                    // });
-
-
                     // play next pic items
                     if( index == $itemPics.length - 1 ){
                         setTimeout(function(){$main.trigger('item-reversal')} , 1000);
@@ -296,8 +274,8 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
     var _currentNodeIndex = 0;
     LP.action('node' , function( data ){
         _currentNodeIndex = $(this).prevAll(':not(.time-item)').length;
-
-        var node = $main.data('nodes')[ _currentNodeIndex ];
+        var nodes = $main.data('nodes');
+        var node = nodes[ _currentNodeIndex ];
 
         var match = node.datetime.match(/\d+-(\d+)-(\d+)/);
         node.date = parseInt(match[2]);
@@ -334,7 +312,9 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                 })
                 .animate({
                     left: winWidth
-                } , _animateTime , _animateEasing);
+                } , _animateTime , _animateEasing , function(){
+                    $main.hide();
+                });
 
             // loading comments
             getCommentList(node.nid);
@@ -354,7 +334,9 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
 
             // loading image
         } );
-  
+    
+        // preload before and after images
+        preLoadSiblings();
         // // ajax the node info , then compile it to html
         // // get the 21 nodes data , before current
         // LP.use('api' , function( api ){
@@ -382,7 +364,6 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
     // for back action
     LP.action('back' , function( data ){
         var $inner = $('.inner');
-        var $main = $('.main');
         var infoTime = 300;
         // hide the inner info node
         var $info = $inner.find('.inner-info');
@@ -402,6 +383,8 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
 
         // back $main
         $main
+            .show()
+            .css('position' , 'fixed')
             .delay(infoTime)
             .animate({
                 left: 0
@@ -413,61 +396,17 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             });
     });
 
-    //for prev action
-    LP.action('prev' , function( data ){
-        if( _currentNodeIndex == 0 )
-            return false;
-        _currentNodeIndex -= 1;
+    /**
+     * @desc: 立方体旋转inner node
+     * @date:
+     * @param node {node object}
+     * @param direction { 'right' or 'left' }
+     * @author: hdg1988@gmail.com
+     */
+    function cubeInnerNode( node , direction ){
 
-        var node = $main.data('nodes')[ _currentNodeIndex ];
-        var match = node.datetime.match(/\d+-(\d+)-(\d+)/);
-        node.date = parseInt(match[2]);
-        node.month = getMonth( parseInt(match[1]));
-
-        var $inner = $('.inner');
-        LP.compile( 'inner-template' , node , function( html ){
-            var $comment = $inner.find('.comment');
-            // comment animation
-            var $prevComment = $(html).find('.comment')
-                .addClass('cube-left')
-                .insertBefore( $comment );
-
-            var $cube = $comment.parent();
-            $cube.addClass('rotate-left');
-
-
-            setTimeout(function(){
-                // reset css
-                $cube.addClass('no-animate')
-                    .removeClass('rotate-left');
-                $comment.remove();
-                $prevComment
-                    .removeClass('cube-left');
-                setTimeout(function(){
-                    $cube.removeClass('no-animate');
-                },0);
-                
-            } , 1000);
-
-            // TODO.. picture animation
-            $inner.children('img')
-                .attr('src' , node.image);
-            // TODO.. desc animation
-            $inner.find('.inner-infocom')
-                .html( node.description );
-            // load comment
-            getCommentList(node.nid);
-        });
-    });
-
-    //for next action
-    LP.action('next' , function( data ){
-        _currentNodeIndex++;
-        var node = $main.data('nodes')[ _currentNodeIndex ];
-        if( !node ){
-            // TODO..  ajax to get more node
-            return;
-        }
+        var cubeDir = 'cube-' + direction;
+        var rotateDir = 'rotate-' + direction;
 
         var match = node.datetime.match(/\d+-(\d+)-(\d+)/);
         node.date = parseInt(match[2]);
@@ -478,36 +417,138 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             var $comment = $inner.find('.comment');
             // comment animation
             var $nextComment = $(html).find('.comment')
-                .addClass('cube-right')
+                .addClass(cubeDir)
                 .insertBefore( $comment );
 
             var $cube = $comment.parent();
-            $cube.addClass('rotate-right');
+            $cube.addClass(rotateDir);
 
             setTimeout(function(){
                 // reset css
                 $cube.addClass( 'no-animate' )
-                    .removeClass( 'rotate-right' );
+                    .removeClass( rotateDir );
                 $comment.remove();
                 $nextComment
-                    .removeClass('cube-right');
+                    .removeClass(cubeDir);
                 setTimeout(function(){
                     $cube.removeClass( 'no-animate' )
                         ;
                 },0);
+
+                $inner.removeClass('disabled');
                 
             } , 1000);
 
-            // TODO.. picture animation
-            $inner.children('img')
-                .attr('src' , node.image);
-            // TODO.. desc animation
-            $inner.find('.inner-infocom')
-                .html( node.description );
+            // picture animation,
+            // prepend the new image to .image-wrap element
+            // set .image-wrap element margin-right css
+            // set .image-wrap's two image width style to it's width 
+            // set the first image's margin-left style 
+            // animate the first image's margin-left style
+            var $imgWrap = $inner.find('.image-wrap');
+            var wrapWidth = $imgWrap.width();
+            $imgWrap.css('margin-right' , - wrapWidth );
+
+            // append dom
+            var $oriImage = $imgWrap.children('img');
+            var $newImage = $('<img/>')[ direction == 'left' ? 'insertBefore' : 'insertAfter' ]( $oriImage )
+                    .attr('src' , node.image);
+            // set style and animation
+            $imgWrap.children('img').css({
+                width: wrapWidth
+            })
+            .eq(0)
+            .css('marginLeft' , direction == 'left' ? - wrapWidth : 0 )
+            .animate({
+                marginLeft: direction == 'left' ? 0 : - wrapWidth 
+            } , 1000)
+            // after animation
+            .promise()
+            .done(function(){
+                $imgWrap.css({
+                    'margin-right': 0
+                });
+                $newImage.css('width' , '100%')
+                    .siblings('img')
+                    .remove();
+            });
+
+            // desc animation
+            var $info = $inner.find('.inner-info');
+            $info
+                .animate({
+                    bottom: -$info.height()
+                } , 500 )
+                .promise()
+                .done(function(){
+                    $inner.find('.inner-infocom')
+                        .html( node.description );
+                    $info
+                        .animate({
+                            bottom: 0
+                        } , 500 );
+                });
+            
             // load comment
             getCommentList(node.nid);
         });
-        
+    }
+
+    /**
+     * @desc: preload sibling images
+     * @date:
+     * @author: hdg1988@gmail.com
+     */
+    function preLoadSiblings(){
+        var nodes = $main.data('nodes');
+        // preload before and after images
+        for( var i = 0 ; i < 5 ; i++ ){
+            if( nodes[ _currentNodeIndex - i ] ){
+                $('<img/>').attr('src' , nodes[ _currentNodeIndex - i ].image);
+            }
+            if( nodes[ _currentNodeIndex + i ] ){
+                $('<img/>').attr('src' , nodes[ _currentNodeIndex + i ].image);
+            }
+        }
+    }
+    //for prev action
+    LP.action('prev' , function( data ){
+        if( _currentNodeIndex == 0 )
+            return false;
+
+        // lock the animation
+        if( $('.inner').hasClass('disabled') ) return;
+        $('.inner').addClass('disabled');
+
+        _currentNodeIndex -= 1;
+
+        var node = $main.data('nodes')[ _currentNodeIndex ];
+
+        cubeInnerNode( node , 'left' );
+
+        preLoadSiblings();
+    });
+    
+    //for next action
+    LP.action('next' , function( data ){
+        // lock the animation
+        if( $('.inner').hasClass('disabled') ) return;
+        $('.inner').addClass('disabled');
+
+        _currentNodeIndex++;
+        var nodes = $main.data('nodes');
+        var node = nodes[ _currentNodeIndex ];
+        if( !node ){
+            // TODO..  ajax to get more node
+            api.ajax('nodeList' , {nid: nodes[ _currentNodeIndex - 1 ].nid} , function( result ){
+                $main.trigger('item-insert' , [result.data] );
+                cubeInnerNode( $main.data('nodes')[ _currentNodeIndex ] , 'right' );
+                preLoadSiblings();
+            });
+            return;
+        }
+        cubeInnerNode( node , 'right' );
+        preLoadSiblings();
     });
 
     //for like action

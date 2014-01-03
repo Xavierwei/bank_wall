@@ -6,7 +6,7 @@
 
 /* Reset
 ================================================================================================= */
-body{color:#000;font-size:12px;line-height:1.8em;background: #fff}
+body{color:#000;font-size:12px;line-height:1.8em;background: #fff;overflow-x: hidden;}
 body,input,textarea{font-family:"Microsoft YaHei",arial,sans-serif;}
 h1,h2,h3{font-size:100%;font-weight:600}
 body,h1,h2,h3,h4,ul,li,p,img,input,textarea{margin:0;padding:0;border:0;}
