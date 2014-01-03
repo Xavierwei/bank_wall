@@ -1,7 +1,7 @@
 <ul node class="nodes-list">
     <li ng-repeat="node in nodes" ng-class="status-{{node.status}}">
-        <div><img ng-click="open(node)" ng-src="{{node.image}}" width="200" height="200" /></div>
-        <div class="type">{{node.type}}</div>
+        <div><img ng-click="open(node)" ng-src="{{node.file | thumbnail}}" width="200" height="200" /></div>
+        <div class="type icon-{{node.type}}">{{node.type}}</div>
         <div class="user">
             <div class="avatar"><img ng-src="{{node.user.avatar}}" width="40" height="40" /></div>
             <div class="date">{{node.datetime | date:'MMM d, y HH:mm a'}}</div>

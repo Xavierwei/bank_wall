@@ -201,16 +201,67 @@ body{
 
 
 .comment{
-    -webkit-transition: -webkit-transform 1s;
+    left: 0 !important;
+    /*-webkit-transition: -webkit-transform 1s;
+    -moz-transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;*/
+    -webkit-backface-visibility: hidden
 }
-.comment.rotate-right{
-    -webkit-transform: translatex(250px) rotateY(90deg);
+.comment.cube-right{
+    -webkit-transform: translatex(250px) translatez(-250px) rotateY(90deg);
 }
-.comment.rotate-left{
-    -webkit-transform: translatex(-250px) rotateY(-90deg);
+.comment.cube-left{
+    -webkit-transform: translatex(-250px) translatez(-250px) rotateY(-90deg);
 }
-.comment.rotate-center{
-    -webkit-transform: translatex(0px) rotateY(0deg);
+
+.comment-wrap{
+    height: 100%;
+    width: 500px;
+    position: absolute;
+    -webkit-perspective: 1000px;
+    perspective: 1000px;
+    left: -500px;
+    overflow: hidden;
+}
+.comment-cube{
+    position: absolute;
+    width: 500px;
+    height: 100%;
+    -webkit-transition: -webkit-transform, 1s;
+    -moz-transition: -moz-transform, 1s;
+    -o-transition: -o-transform, 1s;
+    transition: transform, 1s;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transform: rotateY(0deg);
+    -moz-transform: rotateY(0deg);
+    -ms-transform: rotateY(0deg);
+    -o-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+}
+.comment-cube.rotate-left{
+    -webkit-transform: translate3d(250px,0,-250px) rotateY(90deg);
+    -moz-transform: translate3d(250px,0,-250px) rotateY(90deg);
+    -ms-transform: translate3d(250px,0,-250px) rotateY(90deg);
+    -o-transform: translate3d(250px,0,-250px) rotateY(90deg);
+    transform: translate3d(250px,0,-250px) rotateY(90deg);
+}
+.comment-cube.rotate-right{
+    -webkit-transform: translate3d(-250px,0,-250px) rotateY(-90deg);
+    -moz-transform: translate3d(-250px,0,-250px) rotateY(-90deg);
+    -ms-transform: translate3d(-250px,0,-250px) rotateY(-90deg);
+    -o-transform: translate3d(-250px,0,-250px) rotateY(-90deg);
+    transform: translate3d(-250px,0,-250px) rotateY(-90deg);
+}
+.no-animate{
+    -webkit-transition: 0s;
+    -moz-transition: 0s;
+    -o-transition: 0s;
+    transition: 0s;
 }
 </style>
 
@@ -218,29 +269,33 @@ body{
 <!-- inner-template -->
 <script type="text/tpl" id="inner-template">
 <div class="inner">
-    <div class="comment">
-        <div class="com-user">
-            <div class="comuser-pho"><img src="{{user.avatar}}" width="50"  /></div>
-            <div class="comuser-name">{{user.firstname}} {{user.lastname}}</div>
-            <div class="comuser-addr">{{country.country_name}}</div>
-        </div>
-        <!--  -->
-        <div class="com-main">
-            <div class="com-list">
-                <div class="com-list-inner">
+    <div class="comment-wrap">
+        <div class="comment-cube">
+            <div class="comment">
+                <div class="com-user">
+                    <div class="comuser-pho"><img src="{{user.avatar}}" width="50"  /></div>
+                    <div class="comuser-name">{{user.firstname}} {{user.lastname}}</div>
+                    <div class="comuser-addr">{{country.country_name}}</div>
                 </div>
-            </div>
-            <div class="com-make">
-                <input type="text" class="com-ipt" />
-            </div>
-        </div>
-        <!--  -->
-        <div class="com-info">
-            <div class="com-num clear"><p class="com-day">{{date}} {{month}}</p><p data-a="like" data-d="nid={{nid}}" class="com-like"><span>{{like_count}}</span> Likes</p></div>
-            <div class="com-btn">
-                <p data-a="back" class="com-back"></p>
-                <p data-a="prev" class="com-prev"></p>
-                <p data-a="next" class="com-next"></p>
+                <!--  -->
+                <div class="com-main">
+                    <div class="com-list">
+                        <div class="com-list-inner">
+                        </div>
+                    </div>
+                    <div class="com-make">
+                        <input type="text" class="com-ipt" />
+                    </div>
+                </div>
+                <!--  -->
+                <div class="com-info">
+                    <div class="com-num clear"><p class="com-day">{{date}} {{month}}</p><p data-a="like" data-d="nid={{nid}}" class="com-like"><span>{{like_count}}</span> Likes</p></div>
+                    <div class="com-btn">
+                        <p data-a="back" class="com-back"></p>
+                        <p data-a="prev" class="com-prev"></p>
+                        <p data-a="next" class="com-next"></p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

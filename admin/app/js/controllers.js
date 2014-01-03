@@ -72,6 +72,21 @@ angular.module('SGWallAdmin.controllers', [])
             }
     })
 
+    .controller('NodeCtrPost',
+    function($scope, $http) {
+
+        // Update node
+        $scope.post = function(node) {
+            $http.post('http://localhost:8888/bank_wall/api/index.php?r=user/login',{company_email:user.company_email, password:user.password},{headers:'object'})
+                .success(function(data) {
+                })
+                .error(function() {
+                });
+        }
+
+
+    })
+
 
     .controller('NodeCtrEdit',
         function($scope, $http) {
@@ -129,6 +144,21 @@ angular.module('SGWallAdmin.controllers', [])
                 alert(user.uid);
             }
         })
+
+    .controller('UserCtrLogin',
+    function($scope, $http, $routeParams) {
+
+
+        // login
+        $scope.login = function(user) {
+            $http.post('http://localhost:8888/bank_wall/api/index.php?r=user/login',{company_email:user.company_email, password:user.password},{data:'object'})
+                .success(function(data) {
+                })
+                .error(function() {
+                });
+        }
+
+    })
 
 
     .controller('CommentCtrList',

@@ -202,7 +202,13 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                     } );
                 lastDate = match[0];
             }
-
+            if(node.type == 'video') {
+                node.image = node.file.replace('mp4','jpg');
+            }
+            else
+            {
+                node.image = node.file;
+            }
             node.formatDate = match[0].replace(/-/g , '/');
 
             LP.compile( 'node-item-template' , 
@@ -420,21 +426,27 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
 
         var $inner = $('.inner');
         LP.compile( 'inner-template' , node , function( html ){
+            var $comment = $inner.find('.comment');
             // comment animation
             var $prevComment = $(html).find('.comment')
-                .addClass('rotate-left')
-                .insertBefore( $inner.find('.comment').addClass('rotate-right') );
-            setTimeout(function(){
-                $prevComment
-                    .addClass('rotate-center');
-            } , 0);
+                .addClass('cube-left')
+                .insertBefore( $comment );
+
+            var $cube = $comment.parent();
+            $cube.addClass('rotate-left');
+
 
             setTimeout(function(){
+                // reset css
+                $cube.addClass('no-animate')
+                    .removeClass('rotate-left');
+                $comment.remove();
                 $prevComment
-                    .removeClass('rotate-left')
-                    .removeClass('rotate-center')
-                    .next()
-                    .remove();
+                    .removeClass('cube-left');
+                setTimeout(function(){
+                    $cube.removeClass('no-animate');
+                },0);
+                
             } , 1000);
 
             // TODO.. picture animation
@@ -463,21 +475,27 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
 
         var $inner = $('.inner');
         LP.compile( 'inner-template' , node , function( html ){
+            var $comment = $inner.find('.comment');
             // comment animation
-            var $prevComment = $(html).find('.comment')
-                .addClass('rotate-right')
-                .insertBefore( $inner.find('.comment').addClass('rotate-left') );
-            setTimeout(function(){
-                $prevComment
-                    .addClass('rotate-center');
-            } , 0);
+            var $nextComment = $(html).find('.comment')
+                .addClass('cube-right')
+                .insertBefore( $comment );
+
+            var $cube = $comment.parent();
+            $cube.addClass('rotate-right');
 
             setTimeout(function(){
-                $prevComment
-                    .removeClass('rotate-right')
-                    .removeClass('rotate-center')
-                    .prev()
-                    .remove();
+                // reset css
+                $cube.addClass( 'no-animate' )
+                    .removeClass( 'rotate-right' );
+                $comment.remove();
+                $nextComment
+                    .removeClass('cube-right');
+                setTimeout(function(){
+                    $cube.removeClass( 'no-animate' )
+                        ;
+                },0);
+                
             } , 1000);
 
             // TODO.. picture animation
@@ -489,6 +507,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             // load comment
             getCommentList(node.nid);
         });
+        
     });
 
     //for like action
