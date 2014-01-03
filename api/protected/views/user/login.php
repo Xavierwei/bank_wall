@@ -1,6 +1,6 @@
 <div class="form">
   
-  <?php echo CHtml::beginForm("/user/loginform")?>
+  <?php echo CHtml::beginForm("http://localhost:8888/bank_wall/api/index.php?r=user/loginform")?>
     
   <?php echo CHTml::errorSummary($model)?>
   

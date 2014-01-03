@@ -284,8 +284,9 @@ class UserController extends Controller {
     else {
       $loginform->attributes = $_POST["LoginForm"];
       if ($loginform->validate()) {
-        Yii::app()->user->login($loginform->getUserIdentify());
-        $this->redirect(Yii::app()->user->returnUrl);
+        $res = Yii::app()->user->login($loginform->getUserIdentify());
+        echo $res;
+        //$this->redirect(Yii::app()->user->returnUrl);
       }
       else {
         $params = array("model" => $loginform);

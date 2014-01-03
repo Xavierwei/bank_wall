@@ -26,7 +26,9 @@ a{text-decoration:none;color:#666}
 
 
 .nodes-list li {background:#eee;float: left;margin:10px;position: relative;font-size:0.9em;}
-    .nodes-list .type {position: absolute;right:10px;top:170px;}
+    .nodes-list .type {position: absolute;right:10px;top:170px;background: url(../img/icons-white.png) no-repeat;text-indent: -999em;}
+    .nodes-list .type.icon-photo {width:21px;height:15px;margin-top:5px;}
+    .nodes-list .type.icon-video {width:21px;height:18px;background-position: 0 -42px;}
     .nodes-list .switch {position: absolute;right:10px;top:10px;}
     .nodes-list .date {color:#999;}
     .nodes-list .user {margin:6px 0 6px 0;}

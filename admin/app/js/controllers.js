@@ -130,6 +130,21 @@ angular.module('SGWallAdmin.controllers', [])
             }
         })
 
+    .controller('UserCtrLogin',
+    function($scope, $http, $routeParams) {
+
+
+        // login
+        $scope.login = function(user) {
+            $http.post('http://localhost:8888/bank_wall/api/index.php?r=user/login',{company_email:user.company_email, password:user.password},{data:'object'})
+                .success(function(data) {
+                })
+                .error(function() {
+                });
+        }
+
+    })
+
 
     .controller('CommentCtrList',
         function($scope, $http) {

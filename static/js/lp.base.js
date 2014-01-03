@@ -202,7 +202,13 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                     } );
                 lastDate = match[0];
             }
-
+            if(node.type == 'video') {
+                node.image = node.file.replace('mp4','jpg');
+            }
+            else
+            {
+                node.image = node.file;
+            }
             node.formatDate = match[0].replace(/-/g , '/');
 
             LP.compile( 'node-item-template' , 

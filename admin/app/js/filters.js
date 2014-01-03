@@ -24,4 +24,13 @@ angular.module('SGWallAdmin.filters', [])
             }
             return output;
         }
+    })
+    .filter('thumbnail', function() {
+        return function(input) {
+            var output = input;
+            if(input.indexOf('mp4') > 0) {
+                output = input.replace('mp4','jpg');
+            }
+            return output;
+        }
     });
