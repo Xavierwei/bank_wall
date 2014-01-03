@@ -13,7 +13,7 @@ curl_setopt($req, CURLOPT_POSTFIELDS, array(
 ));
 
 // 发送cookie
-$cookie = "PHPSESSID=09e9e4d98f4feeecb9e35c2957a60e1e";
+$cookie = "PHPSESSID=ee2271830dc379927f80bff5f8992c41";
 curl_setopt($req, CURLOPT_COOKIE, $cookie);
 
 //curl_setopt($req, CURLOPT_HTTPHEADER, array("Content-Type: image/png"));

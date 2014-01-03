@@ -6213,3 +6213,23 @@ Stack trace:
 #12 {main}
 REQUEST_URI=/bank_wall/api/index-sg.php?r=user%2Fpost
 ---
+2014/01/03 17:01:59 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "GetCurrent".' in /Applications/MAMP/htdocs/yii/framework/web/CController.php:483
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CController.php(270): CController->missingAction('GetCurrent')
+#1 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(282): CController->run('GetCurrent')
+#2 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('node/GetCurrent')
+#3 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#5 {main}
+REQUEST_URI=/bank_wall/api/index.php?r=node/GetCurrent
+---
+2014/01/03 17:05:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "login".' in /Applications/MAMP/htdocs/yii/framework/web/CController.php:483
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CController.php(270): CController->missingAction('login')
+#1 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(282): CController->run('login')
+#2 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('node/login')
+#3 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#5 {main}
+REQUEST_URI=/bank_wall/api/index.php?r=node/login
+---

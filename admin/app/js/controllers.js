@@ -72,6 +72,21 @@ angular.module('SGWallAdmin.controllers', [])
             }
     })
 
+    .controller('NodeCtrPost',
+    function($scope, $http) {
+
+        // Update node
+        $scope.post = function(node) {
+            $http.post('http://localhost:8888/bank_wall/api/index.php?r=user/login',{company_email:user.company_email, password:user.password},{headers:'object'})
+                .success(function(data) {
+                })
+                .error(function() {
+                });
+        }
+
+
+    })
+
 
     .controller('NodeCtrEdit',
         function($scope, $http) {
