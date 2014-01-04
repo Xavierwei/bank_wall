@@ -3,6 +3,6 @@ modules:
     enabled: [PhpBrowser, REST, ApiHelper]
     config:
       PhpBrowser:
-          url: http://localhost:8888/bank_wall/api/index-sg.php?r=
+          url: http://localhost/bank_wall/api/index-sg.php?r=
       REST:
-          url: http://localhost:8888/bank_wall/api/index-sg.php?r=
+          url: http://localhost/bank_wall/api/index-sg.php?r=

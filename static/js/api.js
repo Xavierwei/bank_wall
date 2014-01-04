@@ -28,7 +28,8 @@ define(function( require , exports , model ){
         getNode: {path: '../admin/app/json/node/photo.json'},
         nodeList: {path: '../admin/app/json/node/recent.json'},
         like: {path: '../admin/app/json/like/like.json'},
-        flag: {path: '../admin/app/json/flag/flag.json'}
+        flag: {path: '../admin/app/json/flag/flag.json'},
+        user: {path: '../admin/app/json/user/user.json'}
     };
 
     // 内部API

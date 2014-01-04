@@ -1,6 +1,6 @@
 <?php
 
-$http = "http://localhost:8888/bank_wall/api/index.php?r=user/post";
+$http = "http://localhost/bank_wall/api/index.php/user/post";
 $req = curl_init();
 
 curl_setopt($req, CURLOPT_POST, TRUE);

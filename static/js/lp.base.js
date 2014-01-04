@@ -35,9 +35,21 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
 
     // for select options
     .delegate('.select-option p' , 'click' , function(){
+        var filter = $(this).data('param');
         $(this).closest('.select-pop')
             .prev()
             .html( $(this).html() );
+        //TODO: loading animation
+
+        $main.fadeOut(400,function(){
+            LP.triggerAction('close_user_page');
+            $main.html('');
+            $main.data('nodes','');
+            api.ajax(filter , function( result ){
+                $main.fadeIn().trigger('item-insert' , [result.data] );
+            });
+        });
+
     })
 
     // click to hide select options
@@ -616,6 +628,82 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         $('.confirm-modal').fadeOut();
     });
 
+    //upload photo
+    LP.action('pop_upload_photo' , function( data ){
+        $('.overlay').fadeIn();
+        $('.pop').fadeIn();
+        $('.pop-inner').hide();
+        $('.pop-file').show();
+        $('.pop-file .step1-btns').show();
+        $('.pop-file .step2-btns').hide();
+        $('.pop .poptit').html(data.title);
+    });
+
+    //close pop
+    LP.action('close_pop' , function(){
+        $('.overlay').fadeOut();
+        $('.pop').fadeOut();
+    });
+
+    //select photo
+    LP.action('select_photo' , function(){
+        $('#file-photo').trigger('click');
+    });
+
+    //select photo
+    LP.action('upload_photo' , function(){
+        $('.pop-inner').fadeOut(400);
+        //TODO uploading
+        $('.pop-load').delay(300).fadeIn(400);
+        $('.pop-load').delay(300).fadeOut(400);
+        $('.pop-txt').delay(300).fadeIn(400);
+    });
+
+    //toggle user page
+    LP.action('toggle_user_page' , function(){
+        if(!$('.user-page').is(':visible')) {
+            $('.inner').fadeOut(400);
+            $('.main').fadeOut(400);
+            $('.user-page').delay(400).fadeIn(400);
+            $('.close-user-page').fadeIn();
+        }
+        else {
+            LP.triggerAction('close_user_page');
+        }
+    });
+
+    //close user page
+    LP.action('close_user_page' , function(){
+        $('.user-page').fadeOut(400);
+        $('.close-user-page').fadeOut();
+        $('.inner').delay(400).fadeIn(400);
+        $('.main').delay(400).fadeIn(400);
+    });
+
+    //open user edit page
+    LP.action('open_user_edit_page' , function(){
+        $('.count-com').fadeOut(400);
+        $(this).fadeOut();
+        $('.user-edit-page').delay(400).fadeIn(400);
+        $('.avatar-file').fadeIn();
+        $('.count-userinfo').addClass('count-userinfo-edit');
+    });
+
+    //save user updates
+    LP.action('save_user' , function(){
+        $('.user-edit-page').fadeOut(400);
+        $('.avatar-file').fadeOut();
+        $('.count-com').delay(400).fadeIn(400);
+        $('.count-edit').fadeIn();
+        $('.count-userinfo').removeClass('count-userinfo-edit');
+    });
+
+    //after selected photo
+    $('#file-photo').change(function(){
+        $('.pop-file .step1-btns').fadeOut(400);
+        $('.pop-file .step2-btns').delay(400).fadeIn(400);
+    });
+
     // bind document key event for back , prev , next actions
     $(document).keydown(function( ev ){
         switch( ev.which ){
@@ -636,9 +724,20 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         $main.trigger('item-insert' , [result.data] );
     });
 
+    // after page load , load the current user information data from server
+    api.ajax('user' , function( result ){
+        result.data.count_by_day = parseInt(result.data.photos_count_by_day) + parseInt(result.data.videos_count_by_day);
+        result.data.count_by_month = parseInt(result.data.photos_count_by_month) + parseInt(result.data.videos_count_by_month);
+        LP.compile( 'user-page-template' , result.data , function( html ){
+            $('.content').append(html);
+        });
+    });
 
 
-    // get node comments
+    /**
+     * Get node comments
+     * @param cid
+     */
     var getCommentList = function(cid) {
         api.ajax('commentList', {cid: cid}, function( result ){
             // TODO: 异常处理

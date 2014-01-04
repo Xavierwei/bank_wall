@@ -73,8 +73,9 @@ a{text-decoration:none;color:#666}
 /* side Used
 ================================================================================================= */
 .side{background:#2c2c2c;width: 120px;height: 100%;position:fixed;top: 130px;left: 0;}
-	.user{background: #cb223a;height:90px;padding:10px;color:#fff;text-align: center}
-		.user-pho{height: 70px;}
+	.user{background: #cb223a;height:90px;padding:10px;color:#fff;text-align: center;position: relative;}
+        .close-user-page {background: #bf1a32 url(../img/icon_close_user.gif) no-repeat center;width:15px;height:110px;position:absolute;z-index:10;top:0px;right:0;display: none;}
+        .user-pho{height: 70px;}
 		.user-pho img{margin:0 auto;display: block;border-radius: 33px;border:#fff solid 3px;
 			border-radius: 33px;-webkit-border-radius: 33px;-moz-border-radius: 33px;-o-border-radius: 33px;-ms-border-radius: 33px;}
 	.menu{}
@@ -151,13 +152,16 @@ a{text-decoration:none;color:#666}
 
 /* shade&pop Used
 ================================================================================================= */
-.shade{position: fixed;background: #000;opacity: 0.5;filter:alpha(opacity=50);top:0;left:0;right: 0;bottom: 0;z-index: 10}
+.overlay{position: fixed;background: #000;opacity: 0.5;filter:alpha(opacity=50);top:0;left:0;right: 0;bottom: 0;z-index: 10}
 .pop{width: 730px;height:570px;background: #fff;position:fixed;left:50%;top:50%;margin: -285px 0 0 -365px;z-index: 12}
-	.popclose{position: absolute;font-size:28px;right:0;top:0;color:fff;padding:18px;cursor: pointer;}
+	.popclose{position: absolute;font-size:28px;right:0;top:0;color:#fff;padding:18px;cursor: pointer;}
 	.pophd{height:60px;background: #d3273f;font-size:28px;color:#fff;line-height: 60px;padding:0 18px;}
 /**/
-.popfile-icon{width: 200px;height: 200px;background: #fcc;margin:90px auto;}
+.popfile-drag-box{width: 400px;height: 400px;background: #f9f9f9 url(../img/icon_pop_upload.gif) no-repeat center;margin:15px auto;}
 	.popfile-btn{color:#fff;background: #db2842;border: #c0152d 3px solid;width: 500px;height: 60px;line-height: 60px;text-align: center;margin: 0 auto;font-size:28px;}
+    .step2-btns {text-align: center;display:none;}
+    .step2-btns .popfile-btn {width:220px;display: inline-block;margin:0 10px;}
+    #file-photo {display: none;}
 /**/
 .popload-icon{width: 200px;height: 200px;background: #fcc;margin:90px auto;}
 .poploading{text-align: center;font-size: 28px;}
@@ -182,7 +186,8 @@ a{text-decoration:none;color:#666}
 
 /* count-inner Used
 ================================================================================================= */
-.count-inner{margin:130px 0 0 480px;}
+.user-page {position: relative;display: none;margin-left:120px;margin-top:130px;}
+    .count-inner{margin:0 0 0 360px;}
 	.count-user{height: 200px;background:#323232 ;position: relative;}
 		.count-userpho{width:110px;height: 110px;position: absolute;top:45px;left:75px;z-index: 5}
 		.count-userpho img{border-radius: 110px;border:#fff solid 3px;
@@ -190,8 +195,8 @@ a{text-decoration:none;color:#666}
 		.count-userinfo{color:#fff;border-left:#5b5b5b solid 1px;height:62px;position: absolute;padding:10px 20px;left:200px;top:60px;font-size: 14px;line-height: 2em}
 		.count-userinfo-edit{left:450px;}
 		.count-edit{position: absolute;right: 10px;top: 10px;background:#828282 ;padding:2px 15px;color:#fff;}
-		.count-file{background: #6b6b6b;color: #FFF;font-size: 14px;position: absolute;left:170px;top:85px;padding:5px 20px 5px 70px;}
-.user-message{position: relative;padding:100px 0 0;}
+		.avatar-file{display:none;background: #6b6b6b;color: #FFF;font-size: 14px;position: absolute;left:170px;top:85px;padding:5px 20px 5px 70px;}
+.user-edit-page{position: relative;padding:100px 0 0;display: none;}
 	.edit-fi{margin: 0 0 30px}
 		.editfi-com,
 		.editfi-tit{float: left;font-size:18px;color:#999;padding:0 5px;line-height: 32px}

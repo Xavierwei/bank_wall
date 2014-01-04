@@ -6233,3 +6233,18 @@ Stack trace:
 #5 {main}
 REQUEST_URI=/bank_wall/api/index.php?r=node/login
 ---
+2014/01/04 07:45:52 [error] [exception.CException] exception 'CException' with message 'Property "UserAR.avadar" is not defined.' in /Applications/MAMP/htdocs/yii/framework/base/CComponent.php:130
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveRecord.php(145): CComponent->__get('avadar')
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php(152): CActiveRecord->__get('avadar')
+#2 /Applications/MAMP/htdocs/yii/framework/web/actions/CInlineAction.php(49): UserController->actionPost()
+#3 /Applications/MAMP/htdocs/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /Applications/MAMP/htdocs/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /Applications/MAMP/htdocs/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(282): CController->run('post')
+#7 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/post')
+#8 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#10 {main}
+REQUEST_URI=/bank_wall/api/index.php/user/post
+---

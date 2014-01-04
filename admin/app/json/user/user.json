@@ -13,7 +13,15 @@
         "company_email": "Barron@email.com",
         "personal_email": "Hancock@personal-email.com",
         "role": "1",
-        "status": "1"
+        "status": "1",
+        "photos_count": "3",
+        "photos_count_by_day": "3",
+        "photos_count_by_month": "3",
+        "video_count": "3",
+        "videos_count_by_day": "3",
+        "videos_count_by_month": "3",
+        "comments_count": "3",
+        "like_counts": "3"
     },
     "message": ""
 }
