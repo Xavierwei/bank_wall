@@ -19,14 +19,16 @@ SGWallAdminController
 
         // Update node
         $scope.update = function(user) {
-            UserService.getByUid(user, function(data) {
+            UserService.update(user, function(data) {
                 console.log(data);
             });
         }
 
         // Delete node
         $scope.delete = function(user) {
-            alert(user.uid);
+            UserService.delete(user, function(data) {
+                console.log(data);
+            });
         }
     })
 

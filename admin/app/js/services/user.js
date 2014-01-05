@@ -59,6 +59,16 @@ SGWallAdminServices.factory( 'UserService', function($http, ROOT) {
             .error(function() {
 
             });
+        },
+
+        delete: function(user) {
+            $http.post(ROOT+'/user/delete',{uid:user.uid})
+                .success(function(data) {
+                    console.log(data);
+                })
+                .error(function() {
+
+                });
         }
     };
 });
