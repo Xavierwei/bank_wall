@@ -3,8 +3,7 @@ modules:
     enabled: [PhpBrowser, REST, ApiHelper]
     config:
       PhpBrowser:
-          url:  http://localhost/bank_wall/api/index-sg.php?r=
-		  curl:
-            CURLOPT_COOKIE: "PHPSESSID=6j9b1lshjsm915m8gce8c4bt90"
+          url:  http://localhost/bank_wall/api/index.php
+          CURLOPT_COOKIE: "PHPSESSID=78f2f866226a1beacbe964afb79724ee"
       REST:
-          url: http://localhost:8888/bank_wall/api/index-sg.php?r=
+          url: http://localhost/bank_wall/api/index.php
