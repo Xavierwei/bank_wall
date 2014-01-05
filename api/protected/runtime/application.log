@@ -6435,3 +6435,396 @@ in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
 in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (155)
 in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (71)
 in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/05 04:46:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "list&role=1".' in /Applications/MAMP/htdocs/yii/framework/web/CController.php:483
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CController.php(270): CController->missingAction('list&role=1')
+#1 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(282): CController->run('list&role=1')
+#2 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/list&role=...')
+#3 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#5 {main}
+REQUEST_URI=/bank_wall/api/index.php/user/list&role=1
+---
+2014/01/05 04:46:48 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "list&role=2".' in /Applications/MAMP/htdocs/yii/framework/web/CController.php:483
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CController.php(270): CController->missingAction('list&role=2')
+#1 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(282): CController->run('list&role=2')
+#2 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/list&role=...')
+#3 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#5 {main}
+REQUEST_URI=/bank_wall/api/index.php/user/list&role=2
+---
+2014/01/05 04:46:58 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "list&role=2&country=1".' in /Applications/MAMP/htdocs/yii/framework/web/CController.php:483
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CController.php(270): CController->missingAction('list&role=2&cou...')
+#1 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(282): CController->run('list&role=2&cou...')
+#2 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/list&role=...')
+#3 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#5 {main}
+REQUEST_URI=/bank_wall/api/index.php/user/list&role=2&country=1
+---
+2014/01/05 04:47:23 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "list&role=2&country=1&orderby=dateime".' in /Applications/MAMP/htdocs/yii/framework/web/CController.php:483
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CController.php(270): CController->missingAction('list&role=2&cou...')
+#1 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(282): CController->run('list&role=2&cou...')
+#2 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/list&role=...')
+#3 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#5 {main}
+REQUEST_URI=/bank_wall/api/index.php/user/list&role=2&country=1&orderby=dateime
+---
+2014/01/05 04:47:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "list&role=2&country=1".' in /Applications/MAMP/htdocs/yii/framework/web/CController.php:483
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CController.php(270): CController->missingAction('list&role=2&cou...')
+#1 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(282): CController->run('list&role=2&cou...')
+#2 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/list&role=...')
+#3 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#5 {main}
+REQUEST_URI=/bank_wall/api/index.php/user/list&role=2&country=1
+---
+2014/01/05 04:49:27 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avatar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `t`.`status` AS `t0_c11`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (role=:role) ORDER BY datetime DESC.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php (66)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/05 04:49:28 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avatar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `t`.`status` AS `t0_c11`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (role=:role) ORDER BY datetime DESC' in /Applications/MAMP/htdocs/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php(66): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/yii/framework/web/actions/CInlineAction.php(49): UserController->actionList()
+#8 /Applications/MAMP/htdocs/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#13 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/index.php/user/list?role=2&country=1&orderby=datetime
+---
+2014/01/05 04:49:48 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avatar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `t`.`status` AS `t0_c11`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (role=:role) ORDER BY uid DESC.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php (66)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/05 04:49:48 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avatar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `t`.`status` AS `t0_c11`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (role=:role) ORDER BY uid DESC' in /Applications/MAMP/htdocs/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php(66): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/yii/framework/web/actions/CInlineAction.php(49): UserController->actionList()
+#8 /Applications/MAMP/htdocs/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#13 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/index.php/user/list?role=2&country=1&orderby=uid
+---
+2014/01/05 04:50:42 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avatar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `t`.`status` AS `t0_c11`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (role=:role) ORDER BY uid DESC.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php (66)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/05 04:50:42 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avatar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `t`.`status` AS `t0_c11`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (role=:role) ORDER BY uid DESC' in /Applications/MAMP/htdocs/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php(66): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/yii/framework/web/actions/CInlineAction.php(49): UserController->actionList()
+#8 /Applications/MAMP/htdocs/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#13 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/index.php/user/list?role=2&country=1&orderby=uid
+---
+2014/01/05 04:52:22 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avatar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `t`.`status` AS `t0_c11`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (role=:role) ORDER BY datetime DESC.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php (66)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/05 04:52:22 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avatar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `t`.`status` AS `t0_c11`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (role=:role) ORDER BY datetime DESC' in /Applications/MAMP/htdocs/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php(66): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/yii/framework/web/actions/CInlineAction.php(49): UserController->actionList()
+#8 /Applications/MAMP/htdocs/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#13 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/index.php/user/list?role=1&orderby=datetime
+---
+2014/01/05 04:53:02 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avatar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `t`.`status` AS `t0_c11`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (role=:role) ORDER BY datetime DESC.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php (66)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/05 04:53:02 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avatar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `t`.`status` AS `t0_c11`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (role=:role) ORDER BY datetime DESC' in /Applications/MAMP/htdocs/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php(66): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/yii/framework/web/actions/CInlineAction.php(49): UserController->actionList()
+#8 /Applications/MAMP/htdocs/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#13 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/index.php/user/list?role=1&orderby=datetime
+---
+2014/01/05 04:53:38 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avatar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `t`.`status` AS `t0_c11`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (role=:role) ORDER BY datetime DESC.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php (67)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/05 04:53:38 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avatar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `t`.`status` AS `t0_c11`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (role=:role) ORDER BY datetime DESC' in /Applications/MAMP/htdocs/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php(67): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/yii/framework/web/actions/CInlineAction.php(49): UserController->actionList()
+#8 /Applications/MAMP/htdocs/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#13 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/index.php/user/list?role=1&orderby=datetime
+---
+2014/01/05 04:54:21 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avatar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `t`.`status` AS `t0_c11`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (role=:role) ORDER BY datetime DESC.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php (67)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/05 04:54:21 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avatar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `t`.`status` AS `t0_c11`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (role=:role) ORDER BY datetime DESC' in /Applications/MAMP/htdocs/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php(67): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/yii/framework/web/actions/CInlineAction.php(49): UserController->actionList()
+#8 /Applications/MAMP/htdocs/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#13 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/index.php/user/list?role=1&country_id=1&orderby=datetime
+---
+2014/01/05 04:54:24 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avatar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `t`.`status` AS `t0_c11`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (role=:role) ORDER BY datetime DESC.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php (67)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/05 04:54:24 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avatar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `t`.`status` AS `t0_c11`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (role=:role) ORDER BY datetime DESC' in /Applications/MAMP/htdocs/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php(67): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/yii/framework/web/actions/CInlineAction.php(49): UserController->actionList()
+#8 /Applications/MAMP/htdocs/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#13 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/index.php/user/list?role=1&country_id=1&orderby=datetime
+---
+2014/01/05 04:54:55 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php:65) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php(100): UserController->responseJSON()
+#1 /Applications/MAMP/htdocs/yii/framework/web/actions/CInlineAction.php(49): UserController->actionList()
+#2 /Applications/MAMP/htdocs/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/yii/framework/web/CController.php(286): UserController->runAction()
+#4 /Applications/MAMP/htdocs/yii/framework/web/CController.php(265): UserController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(282): UserController->run()
+#6 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/user/list?role=1&countryid=1&orderby=datetime
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php (100)
+2014/01/05 04:55:44 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php:65) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php(100): UserController->responseJSON()
+#1 /Applications/MAMP/htdocs/yii/framework/web/actions/CInlineAction.php(49): UserController->actionList()
+#2 /Applications/MAMP/htdocs/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/yii/framework/web/CController.php(286): UserController->runAction()
+#4 /Applications/MAMP/htdocs/yii/framework/web/CController.php(265): UserController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(282): UserController->run()
+#6 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/user/list?role=1&countryid=1&orderby=datetime
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php (100)
+2014/01/05 04:55:47 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php:65) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php(100): UserController->responseJSON()
+#1 /Applications/MAMP/htdocs/yii/framework/web/actions/CInlineAction.php(49): UserController->actionList()
+#2 /Applications/MAMP/htdocs/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/yii/framework/web/CController.php(286): UserController->runAction()
+#4 /Applications/MAMP/htdocs/yii/framework/web/CController.php(265): UserController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(282): UserController->run()
+#6 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/user/list?role=1&countryid=1&orderby=datetime
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php (100)
+2014/01/05 04:55:48 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php:65) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php(100): UserController->responseJSON()
+#1 /Applications/MAMP/htdocs/yii/framework/web/actions/CInlineAction.php(49): UserController->actionList()
+#2 /Applications/MAMP/htdocs/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/yii/framework/web/CController.php(286): UserController->runAction()
+#4 /Applications/MAMP/htdocs/yii/framework/web/CController.php(265): UserController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(282): UserController->run()
+#6 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/user/list?role=1&countryid=1&orderby=datetime
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php (100)
+2014/01/05 04:55:48 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php:65) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php(100): UserController->responseJSON()
+#1 /Applications/MAMP/htdocs/yii/framework/web/actions/CInlineAction.php(49): UserController->actionList()
+#2 /Applications/MAMP/htdocs/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/yii/framework/web/CController.php(286): UserController->runAction()
+#4 /Applications/MAMP/htdocs/yii/framework/web/CController.php(265): UserController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(282): UserController->run()
+#6 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/user/list?role=1&countryid=1&orderby=datetime
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php (100)
+2014/01/05 04:55:54 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php:65) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php(100): UserController->responseJSON()
+#1 /Applications/MAMP/htdocs/yii/framework/web/actions/CInlineAction.php(49): UserController->actionList()
+#2 /Applications/MAMP/htdocs/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/yii/framework/web/CController.php(286): UserController->runAction()
+#4 /Applications/MAMP/htdocs/yii/framework/web/CController.php(265): UserController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(282): UserController->run()
+#6 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/user/list?role=1&countryid=1&orderby=datetime
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php (100)
+2014/01/05 04:55:56 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avatar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `t`.`status` AS `t0_c11`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (role=:role) ORDER BY datetime DESC.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php (66)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/05 04:55:56 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avatar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `t`.`status` AS `t0_c11`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (role=:role) ORDER BY datetime DESC' in /Applications/MAMP/htdocs/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php(66): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/yii/framework/web/actions/CInlineAction.php(49): UserController->actionList()
+#8 /Applications/MAMP/htdocs/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#13 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/index.php/user/list?role=1&countryid=1&orderby=datetime
+---
+2014/01/05 04:55:57 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avatar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `t`.`status` AS `t0_c11`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (role=:role) ORDER BY datetime DESC.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php (66)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/05 04:55:57 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avatar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `t`.`status` AS `t0_c11`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (role=:role) ORDER BY datetime DESC' in /Applications/MAMP/htdocs/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php(66): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/yii/framework/web/actions/CInlineAction.php(49): UserController->actionList()
+#8 /Applications/MAMP/htdocs/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#13 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/index.php/user/list?role=1&countryid=1&orderby=datetime
+---
+2014/01/05 04:56:02 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avatar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `t`.`status` AS `t0_c11`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (role=:role) ORDER BY datetime DESC.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php (66)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/05 04:56:02 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avatar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `t`.`status` AS `t0_c11`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (role=:role) ORDER BY datetime DESC' in /Applications/MAMP/htdocs/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php(66): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/yii/framework/web/actions/CInlineAction.php(49): UserController->actionList()
+#8 /Applications/MAMP/htdocs/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#13 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/index.php/user/list?role=1&countryid=1&orderby=datetime
+---

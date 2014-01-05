@@ -21,7 +21,7 @@ class UserController extends Controller {
     }
     
     $role = $request->getParam("role");
-    $country_id = $request->getParam("countryid");
+    $country_id = $request->getParam("country_id");
     $orderby = $request->getParam("orderby");
 
     // 验证参数
