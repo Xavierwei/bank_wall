@@ -27,7 +27,7 @@ class UserAR extends CActiveRecord{
   }
   
   public static function getAllowOutputFields() {
-    return array("uid", "firstname", "lastname", "avatar", "country" => array("country_name", "flag_icon"),
+    return array("uid", "firstname", "lastname", "avatar", "country" => array("country_id", "country_name", "flag_icon"),
         "company_email", "personal_email", "role", "status");
   }
   
@@ -65,7 +65,7 @@ class UserAR extends CActiveRecord{
         array("personal_email", "dbRowUnique"),
         //array("role", "type", 'type' => 'int'),
         array("password", "required"),
-        array("avadar, datetime, firstname, lastname, role", 'safe'),
+        array("avatar, datetime, firstname, lastname, role", 'safe'),
         array("country_id", "required"),
     );
   }

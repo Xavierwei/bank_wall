@@ -2,11 +2,11 @@
 
 
 // Declare app level module which depends on filters, and services
-angular.module('SGWallAdmin', [
+var SGWallAdmin = angular.module('SGWallAdmin', [
   'ui.bootstrap',
   'ngRoute',
   'SGWallAdmin.filters',
-  'myApp.services',
+  'SGWallAdmin.services',
   'myApp.directives',
   'SGWallAdmin.controllers'
 ]).
@@ -17,6 +17,8 @@ config(function($routeProvider,$httpProvider) {
     $routeProvider.when('/node/comment/:nid', {templateUrl: 'tmp/comment/list.html', controller: 'CommentCtrList'});
     $routeProvider.when('/user', {templateUrl: 'tmp/user/list.html', controller: 'UserCtrList'});
     $routeProvider.when('/user/login', {templateUrl: 'tmp/user/login.html', controller: 'UserCtrLogin'});
+    $routeProvider.when('/user/current', {templateUrl: 'tmp/user/current.html', controller: 'UserCtrCurrent'});
+    $routeProvider.when('/user/create', {templateUrl: 'tmp/user/create.html', controller: 'UserCtrCreate'});
     $routeProvider.when('/user/edit/:uid', {templateUrl: 'tmp/user/edit.html', controller: 'UserCtrEdit'});
     $routeProvider.when('/comment', {templateUrl: 'tmp/comment/list.html', controller: 'CommentCtrList'});
     $routeProvider.otherwise({redirectTo: '/node'});

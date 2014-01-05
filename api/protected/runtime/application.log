@@ -6828,3 +6828,87 @@ Stack trace:
 #15 {main}
 REQUEST_URI=/bank_wall/api/index.php/user/list?role=1&countryid=1&orderby=datetime
 ---
+2014/01/05 05:28:36 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "current".' in /Applications/MAMP/htdocs/yii/framework/web/CController.php:483
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CController.php(270): CController->missingAction('current')
+#1 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(282): CController->run('current')
+#2 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/current')
+#3 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#5 {main}
+REQUEST_URI=/bank_wall/api/index.php/user/current
+HTTP_REFERER=http://localhost/bank_wall/admin/app/
+---
+2014/01/05 06:57:59 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/UserAR.php (105)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php (143)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/05 06:57:59 [warning] [application] Failed to set unsafe attribute "avatar" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/UserAR.php (105)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php (143)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/05 06:57:59 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/UserAR.php (105)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php (143)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/05 06:59:24 [warning] [application] Failed to set unsafe attribute "avatar" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/UserAR.php (105)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php (143)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/05 07:00:05 [warning] [application] Failed to set unsafe attribute "passowrd" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/UserAR.php (105)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php (143)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/05 07:00:05 [warning] [application] Failed to set unsafe attribute "avatar" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/UserAR.php (105)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php (143)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/05 07:00:43 [warning] [application] Failed to set unsafe attribute "avatar" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/UserAR.php (105)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php (143)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/05 07:00:43 [error] [php] Trying to get property of non-object (/Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php:150)
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CController.php(286): UserController->runAction()
+#1 /Applications/MAMP/htdocs/yii/framework/web/CController.php(265): UserController->runActionWithFilters()
+#2 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(282): UserController->run()
+#3 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/user/post
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php (150)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/05 07:05:27 [error] [php] Trying to get property of non-object (/Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php:150)
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CController.php(286): UserController->runAction()
+#1 /Applications/MAMP/htdocs/yii/framework/web/CController.php(265): UserController->runActionWithFilters()
+#2 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(282): UserController->run()
+#3 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/user/post
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php (150)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/05 07:11:51 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avatar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `t`.`status` AS `t0_c11`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (role=:role) ORDER BY datetime DESC.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php (66)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/05 07:11:51 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avatar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `t`.`status` AS `t0_c11`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (role=:role) ORDER BY datetime DESC' in /Applications/MAMP/htdocs/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php(66): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/yii/framework/web/actions/CInlineAction.php(49): UserController->actionList()
+#8 /Applications/MAMP/htdocs/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/list')
+#13 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/index.php/user/list?role=1&countryid=1&orderby=datetime
+---

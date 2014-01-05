@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-angular.module('SGWallAdmin.controllers', [])
+var SGWallAdminController = angular.module('SGWallAdmin.controllers', [])
     .controller('NodeCtrList', function($scope, $http,$modal,$log) {
             // Get node list by recent
             $http.get('json/node/recent.json')
@@ -110,55 +110,7 @@ angular.module('SGWallAdmin.controllers', [])
         })
 
 
-    .controller('UserCtrList',
-        function($scope, $http) {
-            $http.get('json/user/all.json')
-                .success(function(data) {
-                    $scope.users = data.data;
-                })
-                .error(function() {
-                    $scope.error = "加载失败";
-                });
-            $scope.switchStatus = function(uid) {
-                alert(uid);
-            }
-        })
 
-
-    .controller('UserCtrEdit',
-        function($scope, $http, $routeParams) {
-            $http.get('json/user/user.json?uid=' + $routeParams.uid)
-                .success(function(data) {
-                    $scope.user = data.data;
-                })
-                .error(function() {
-                });
-
-            // Update node
-            $scope.update = function(user) {
-                alert(user.uid);
-            }
-
-            // Delete node
-            $scope.delete = function(user) {
-                alert(user.uid);
-            }
-        })
-
-    .controller('UserCtrLogin',
-    function($scope, $http, $routeParams) {
-
-
-        // login
-        $scope.login = function(user) {
-            $http.post('http://localhost/bank_wall/api/index.php/user/login',{company_email:user.company_email, password:user.password},{data:'object'})
-                .success(function(data) {
-                })
-                .error(function() {
-                });
-        }
-
-    })
 
 
     .controller('CommentCtrList',
