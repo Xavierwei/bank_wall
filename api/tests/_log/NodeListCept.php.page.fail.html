@@ -1,1 +1,33 @@
-{"success":false,"message":"not support yet","data":null}
+<h1>PHP notice</h1>
+
+	<p class="message">
+		Trying to get property of non-object	</p>
+
+	<div class="source">
+		<p class="file">/home/jackey/workspace/bank_wall/api/protected/controllers/NodeController.php(357)</p>
+		<div class="code"><pre><span class="ln">345</span>       
+<span class="ln">346</span>       // 集成 hashtag 搜索, 查询 hashtag 中的关键字
+<span class="ln">347</span>       $hashtag = $request-&gt;getParam(&quot;hashtag&quot;);
+<span class="ln">348</span>       if ($hashtag) {
+<span class="ln">349</span>         $query-&gt;addSearchCondition(&quot;hashtag&quot;, &#039;#&#039;.$hashtag);
+<span class="ln">350</span>       }
+<span class="ln">351</span>       
+<span class="ln">352</span>       $res = NodeAR::model()-&gt;with(&quot;user&quot;, &quot;country&quot;)-&gt;findAll($query);
+<span class="ln">353</span>       $retdata = array();
+<span class="ln">354</span>       foreach ($res as $node) {
+<span class="ln">355</span>           $data = $node-&gt;attributes;
+<span class="ln">356</span>           $data[&quot;likecount&quot;] = $node-&gt;likecount;
+<span class="error"><span class="ln error-ln">357</span>           $data[&quot;user&quot;] = $node-&gt;user-&gt;attributes;
+</span><span class="ln">358</span>           $data[&quot;country&quot;] = $node-&gt;country-&gt;attributes;
+<span class="ln">359</span>           $data[&quot;user_liked&quot;] = $node-&gt;user_liked;
+<span class="ln">360</span>           $data[&quot;like&quot;] = $node-&gt;like;
+<span class="ln">361</span>           $retdata[] = $data;
+<span class="ln">362</span>       }
+<span class="ln">363</span>       
+<span class="ln">364</span>       $this-&gt;responseJSON($retdata, &quot;success&quot;);
+<span class="ln">365</span>   }
+<span class="ln">366</span>   
+<span class="ln">367</span>   // 返回某个  nid 的 前10条和后10条
+<span class="ln">368</span>   // 这个里支持的参数是
+<span class="ln">369</span>   // @param type
+</pre></div>	</div>

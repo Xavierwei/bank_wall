@@ -37,7 +37,7 @@ class CountryAR extends CActiveRecord{
   
   public function uniqueCountryCode($attribute, $params = array()) {
     $count = self::model()->findByAttributes(array("code" => $this->{$attribute}));
-    if ($count && $count->count()) {
+    if ($count) {
       return $this->addError($attribute, "code duplcated");
     }
   }

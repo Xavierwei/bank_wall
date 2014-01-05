@@ -4,6 +4,10 @@
  * @author  jackey <jziwenchen@gmail.com>
  */
 class LikeAR extends CActiveRecord {
+  
+  public $likecount = 0;
+  
+  
   public function tableName() {
     return "like";
   }
@@ -41,6 +45,18 @@ class LikeAR extends CActiveRecord {
     $query->params[":nid"] = $nid;
 
     return $this->deleteAll($query);
+  }
+  
+  // get total like count 
+  public function totalLikeByUser($uid) {
+    $query = new CDbCriteria();
+    $query->select = array("count(*) AS likecount");
+    $query->addCondition("uid = :uid");
+    $query->params[":uid"] = $uid;
+    
+    $res = $this->find($query);
+    
+    return $res["likecount"];
   }
 }
 

@@ -1,0 +1,1633 @@
+[2014-01-05 15:02:28] UserLoginCept.php.INFO: send post "user/login",{"company_email":"jziwenchen@gmail.com","password":"admin"} [] []
+[2014-01-05 15:02:29] UserLoginCept.php.INFO: see response is json  [] []
+[2014-01-05 15:02:29] UserLoginCept.php.INFO: see cookie "PHPSESSID" [] []
+[2014-01-05 15:02:29] UserLoginCept.php.INFO: see response contains "jziwenchen1@gmail.com" [] []
+[2014-01-05 15:02:29] UserLoginCept.php.ALERT: REST response contains
+Failed asserting that '{"success":true,"message":"success","data":{"uid":"12","firstname":"Jackey","lastname":"Chen","avatar":"","country":{"country_name":"China","flag_icon":"\/images\/country\/cn.png"},"company_email":"jziwenchen@gmail.com","personal_email":"jziwenchen@gmail.com","role":"3","status":"1"}}' contains "jziwenchen1@gmail.com". [] []
+[2014-01-05 15:02:29] UserLoginCept.php.INFO: # FAILED # [] []
+[2014-01-05 15:02:29] UserLoginCept.php.INFO: PASSED [] []
+[2014-01-05 15:03:19] UserLoginCept.php.INFO: send post "user/login",{"company_email":"jziwenchen@gmail.com","password":"admin"} [] []
+[2014-01-05 15:03:19] UserLoginCept.php.INFO: see response is json  [] []
+[2014-01-05 15:03:19] UserLoginCept.php.INFO: see cookie "PHPSESSID" [] []
+[2014-01-05 15:03:19] UserLoginCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 15:03:19] UserLoginCept.php.INFO: see response contains "jziwenchen1@gmail.com" [] []
+[2014-01-05 15:03:19] UserLoginCept.php.ALERT: REST response contains
+Failed asserting that '{"success":true,"message":"success","data":{"uid":"12","firstname":"Jackey","lastname":"Chen","avatar":"","country":{"country_name":"China","flag_icon":"\/images\/country\/cn.png"},"company_email":"jziwenchen@gmail.com","personal_email":"jziwenchen@gmail.com","role":"3","status":"1"}}' contains "jziwenchen1@gmail.com". [] []
+[2014-01-05 15:03:19] UserLoginCept.php.INFO: # FAILED # [] []
+[2014-01-05 15:03:19] UserLoginCept.php.INFO: PASSED [] []
+[2014-01-05 15:03:40] UserLoginCept.php.INFO: send post "user/login",{"company_email":"jziwenchen@gmail.com","password":"admin"} [] []
+[2014-01-05 15:03:40] UserLoginCept.php.INFO: see response is json  [] []
+[2014-01-05 15:03:40] UserLoginCept.php.INFO: see cookie "PHPSESSID" [] []
+[2014-01-05 15:03:40] UserLoginCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 15:03:40] UserLoginCept.php.INFO: see response contains "jziwenchen@gmail.com" [] []
+[2014-01-05 15:03:40] UserLoginCept.php.INFO: PASSED [] []
+[2014-01-05 15:06:22] UserLoginCept.php.INFO: send post "user/login",{"company_email":"jziwenchen@gmail.com","password":"admin"} [] []
+[2014-01-05 15:06:22] UserLoginCept.php.INFO: see response is json  [] []
+[2014-01-05 15:06:22] UserLoginCept.php.INFO: see cookie "PHPSESSID" [] []
+[2014-01-05 15:06:22] UserLoginCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 15:06:22] UserLoginCept.php.INFO: see response contains "jziwenchen@gmail.com" [] []
+[2014-01-05 15:06:22] UserLoginCept.php.INFO: send get "user/getCurrent" [] []
+[2014-01-05 15:06:22] UserLoginCept.php.INFO: see response code is 200 [] []
+[2014-01-05 15:06:22] UserLoginCept.php.INFO: see response contains ""sucess": true" [] []
+[2014-01-05 15:06:22] UserLoginCept.php.ALERT: REST response contains
+Failed asserting that '{"success":true,"message":"success","data":{"uid":"12","firstname":"Jackey","lastname":"Chen","avatar":"","country":{"country_name":"China","flag_icon":"\/images\/country\/cn.png"},"company_email":"jziwenchen@gmail.com","personal_email":"jziwenchen@gmail.com","role":"3","status":"1"}}' contains ""sucess": true". [] []
+[2014-01-05 15:06:22] UserLoginCept.php.INFO: # FAILED # [] []
+[2014-01-05 15:06:22] UserLoginCept.php.INFO: PASSED [] []
+[2014-01-05 15:10:31] UserLoginCept.php.INFO: send post "user/login",{"company_email":"jziwenchen@gmail.com","password":"admin"} [] []
+[2014-01-05 15:10:31] UserLoginCept.php.INFO: see response is json  [] []
+[2014-01-05 15:10:31] UserLoginCept.php.INFO: see cookie "PHPSESSID" [] []
+[2014-01-05 15:10:31] UserLoginCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 15:10:31] UserLoginCept.php.INFO: see response contains "jziwenchen@gmail.com" [] []
+[2014-01-05 15:10:31] UserLoginCept.php.INFO: send get "user/getCurrent" [] []
+[2014-01-05 15:10:32] UserLoginCept.php.INFO: see response code is 200 [] []
+[2014-01-05 15:10:32] UserLoginCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 15:10:32] UserLoginCept.php.INFO: see response is json  [] []
+[2014-01-05 15:10:32] UserLoginCept.php.INFO: PASSED [] []
+[2014-01-05 15:16:23] UserLoginCept.php.INFO: send post "user/login",{"company_email":"jziwenchen@gmail.com","password":"admin"} [] []
+[2014-01-05 15:16:23] UserLoginCept.php.INFO: see response is json  [] []
+[2014-01-05 15:16:23] UserLoginCept.php.INFO: see cookie "PHPSESSID" [] []
+[2014-01-05 15:16:23] UserLoginCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 15:16:23] UserLoginCept.php.INFO: see response contains "jziwenchen@gmail.com" [] []
+[2014-01-05 15:16:23] UserLoginCept.php.INFO: send get "user/getCurrent" [] []
+[2014-01-05 15:16:23] UserLoginCept.php.INFO: see response code is 200 [] []
+[2014-01-05 15:16:23] UserLoginCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 15:16:23] UserLoginCept.php.INFO: see response is json  [] []
+[2014-01-05 15:16:24] UserLoginCept.php.INFO: PASSED [] []
+[2014-01-05 15:16:43] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:16:44] UserRegisterCept.php.INFO: see response code is 200 [] []
+[2014-01-05 15:16:44] UserRegisterCept.php.ALERT: Failed asserting that 500 matches expected 200. [] []
+[2014-01-05 15:16:44] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 15:16:44] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:20:06] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:20:06] UserRegisterCept.php.INFO: see response is json  [] []
+[2014-01-05 15:20:07] UserRegisterCept.php.ALERT: json decoding error #4, see http://php.net/manual/en/function.json-last-error.php
+Failed asserting that 4 matches expected 0. [] []
+[2014-01-05 15:20:07] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 15:20:07] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:21:20] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:21:20] UserRegisterCept.php.INFO: see response contains "uid" [] []
+[2014-01-05 15:21:20] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that '
+	<h1>CDbException</h1>
+
+	<p class="message">
+		CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry &#039;testguy@mail.com&#039; for key &#039;personal_email_UNIQUE&#039;. The SQL statement executed was: INSERT INTO `user` (`avatar`, `role`, `status`, `firstname`, `lastname`, `password`, `company_email`, `personal_email`, `country_id`, `datetime`) VALUES (:yp0, :yp1, :yp2, :yp3, :yp4, :yp5, :yp6, :yp7, :yp8, :yp9)	</p>
+
+	<div class="source">
+		<p class="file">/home/jackey/workspace/bank_wall/api/framework/db/CDbCommand.php(358)</p>
+		<div class="code"><pre><span class="ln">346</span>         {
+<span class="ln">347</span>             if($this-&gt;_connection-&gt;enableProfiling)
+<span class="ln">348</span>                 Yii::endProfile(&#039;system.db.CDbCommand.execute(&#039;.$this-&gt;getText().$par.&#039;)&#039;,&#039;system.db.CDbCommand.execute&#039;);
+<span class="ln">349</span> 
+<span class="ln">350</span>             $errorInfo=$e instanceof PDOException ? $e-&gt;errorInfo : null;
+<span class="ln">351</span>             $message=$e-&gt;getMessage();
+<span class="ln">352</span>             Yii::log(Yii::t(&#039;yii&#039;,&#039;CDbCommand::execute() failed: {error}. The SQL statement executed was: {sql}.&#039;,
+<span class="ln">353</span>                 array(&#039;{error}&#039;=&gt;$message, &#039;{sql}&#039;=&gt;$this-&gt;getText().$par)),CLogger::LEVEL_ERROR,&#039;system.db.CDbCommand&#039;);
+<span class="ln">354</span> 
+<span class="ln">355</span>             if(YII_DEBUG)
+<span class="ln">356</span>                 $message.=&#039;. The SQL statement executed was: &#039;.$this-&gt;getText().$par;
+<span class="ln">357</span> 
+<span class="error"><span class="ln error-ln">358</span>             throw new CDbException(Yii::t(&#039;yii&#039;,&#039;CDbCommand failed to execute the SQL statement: {error}&#039;,
+</span><span class="ln">359</span>                 array(&#039;{error}&#039;=&gt;$message)),(int)$e-&gt;getCode(),$errorInfo);
+<span class="ln">360</span>         }
+<span class="ln">361</span>     }
+<span class="ln">362</span> 
+<span class="ln">363</span>     /**
+<span class="ln">364</span>      * Executes the SQL statement and returns query result.
+<span class="ln">365</span>      * This method is for executing an SQL query that returns result set.
+<span class="ln">366</span>      * @param array $params input parameters (name=&gt;value) for the SQL execution. This is an alternative
+<span class="ln">367</span>      * to {@link bindParam} and {@link bindValue}. If you have multiple input parameters, passing
+<span class="ln">368</span>      * them in this way can improve the performance. Note that if you pass parameters in this way,
+<span class="ln">369</span>      * you cannot bind parameters or values using {@link bindParam} or {@link bindValue}, and vice versa.
+<span class="ln">370</span>      * Please also note that all values are treated as strings in this case, if you need them to be handled as
+</pre></div>	</div>
+' contains "uid". [] []
+[2014-01-05 15:21:20] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 15:21:20] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:23:11] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:23:11] UserRegisterCept.php.INFO: see response contains "uid" [] []
+[2014-01-05 15:23:11] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that '
+	<h1>PHP notice</h1>
+
+	<p class="message">
+		Undefined variable: ro	</p>
+
+	<div class="source">
+		<p class="file">/home/jackey/workspace/bank_wall/api/protected/models/UserAR.php(99)</p>
+		<div class="code"><pre><span class="ln">087</span>   public function init() {
+<span class="ln">088</span>     parent::init();
+<span class="ln">089</span>   }
+<span class="ln">090</span>   
+<span class="ln">091</span>   // Validator
+<span class="ln">092</span>   //  相当于 unique key
+<span class="ln">093</span>   public function dbRowUnique($attribute, $pramas = array()) {
+<span class="ln">094</span>     $value = $this-&gt;{$attribute};
+<span class="ln">095</span>     
+<span class="ln">096</span>     $model = self::model();
+<span class="ln">097</span>     $row = $model-&gt;find(&quot;$attribute = :attr&quot;, array(&quot;:attr&quot; =&gt; $attribute));
+<span class="ln">098</span>     
+<span class="error"><span class="ln error-ln">099</span>     if ($ro) {
+</span><span class="ln">100</span>       return $this-&gt;addError($attribute, Yii::t(&quot;strings&quot;, &quot;only allow unique value&quot;));
+<span class="ln">101</span>     }
+<span class="ln">102</span>   }
+<span class="ln">103</span>   
+<span class="ln">104</span>   public function postNewUser() {
+<span class="ln">105</span>     $this-&gt;attributes = $_POST;
+<span class="ln">106</span>     if (!$this-&gt;getAttribute(&quot;datetime&quot;)) {
+<span class="ln">107</span>       $this-&gt;setAttribute(&quot;datetime&quot;, time());
+<span class="ln">108</span>     }
+<span class="ln">109</span>     if ($this-&gt;getAttribute(&quot;password&quot;)) {
+<span class="ln">110</span>       $this-&gt;setAttribute(&quot;password&quot;, md5($this-&gt;getAttribute(&quot;password&quot;)));
+<span class="ln">111</span>     }
+</pre></div>	</div>
+' contains "uid". [] []
+[2014-01-05 15:23:11] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 15:23:11] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:23:32] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:23:33] UserRegisterCept.php.INFO: see response contains "uid" [] []
+[2014-01-05 15:23:33] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that '
+	<h1>CDbException</h1>
+
+	<p class="message">
+		CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry &#039;testguy@mail.com&#039; for key &#039;personal_email_UNIQUE&#039;. The SQL statement executed was: INSERT INTO `user` (`avatar`, `role`, `status`, `firstname`, `lastname`, `password`, `company_email`, `personal_email`, `country_id`, `datetime`) VALUES (:yp0, :yp1, :yp2, :yp3, :yp4, :yp5, :yp6, :yp7, :yp8, :yp9)	</p>
+
+	<div class="source">
+		<p class="file">/home/jackey/workspace/bank_wall/api/framework/db/CDbCommand.php(358)</p>
+		<div class="code"><pre><span class="ln">346</span>         {
+<span class="ln">347</span>             if($this-&gt;_connection-&gt;enableProfiling)
+<span class="ln">348</span>                 Yii::endProfile(&#039;system.db.CDbCommand.execute(&#039;.$this-&gt;getText().$par.&#039;)&#039;,&#039;system.db.CDbCommand.execute&#039;);
+<span class="ln">349</span> 
+<span class="ln">350</span>             $errorInfo=$e instanceof PDOException ? $e-&gt;errorInfo : null;
+<span class="ln">351</span>             $message=$e-&gt;getMessage();
+<span class="ln">352</span>             Yii::log(Yii::t(&#039;yii&#039;,&#039;CDbCommand::execute() failed: {error}. The SQL statement executed was: {sql}.&#039;,
+<span class="ln">353</span>                 array(&#039;{error}&#039;=&gt;$message, &#039;{sql}&#039;=&gt;$this-&gt;getText().$par)),CLogger::LEVEL_ERROR,&#039;system.db.CDbCommand&#039;);
+<span class="ln">354</span> 
+<span class="ln">355</span>             if(YII_DEBUG)
+<span class="ln">356</span>                 $message.=&#039;. The SQL statement executed was: &#039;.$this-&gt;getText().$par;
+<span class="ln">357</span> 
+<span class="error"><span class="ln error-ln">358</span>             throw new CDbException(Yii::t(&#039;yii&#039;,&#039;CDbCommand failed to execute the SQL statement: {error}&#039;,
+</span><span class="ln">359</span>                 array(&#039;{error}&#039;=&gt;$message)),(int)$e-&gt;getCode(),$errorInfo);
+<span class="ln">360</span>         }
+<span class="ln">361</span>     }
+<span class="ln">362</span> 
+<span class="ln">363</span>     /**
+<span class="ln">364</span>      * Executes the SQL statement and returns query result.
+<span class="ln">365</span>      * This method is for executing an SQL query that returns result set.
+<span class="ln">366</span>      * @param array $params input parameters (name=&gt;value) for the SQL execution. This is an alternative
+<span class="ln">367</span>      * to {@link bindParam} and {@link bindValue}. If you have multiple input parameters, passing
+<span class="ln">368</span>      * them in this way can improve the performance. Note that if you pass parameters in this way,
+<span class="ln">369</span>      * you cannot bind parameters or values using {@link bindParam} or {@link bindValue}, and vice versa.
+<span class="ln">370</span>      * Please also note that all values are treated as strings in this case, if you need them to be handled as
+</pre></div>	</div>
+' contains "uid". [] []
+[2014-01-05 15:23:33] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 15:23:33] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:24:04] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:24:05] UserRegisterCept.php.INFO: see response contains "uid" [] []
+[2014-01-05 15:24:05] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that '
+	<h1>CDbException</h1>
+
+	<p class="message">
+		CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry &#039;testguy@mail.com&#039; for key &#039;personal_email_UNIQUE&#039;. The SQL statement executed was: INSERT INTO `user` (`avatar`, `role`, `status`, `firstname`, `lastname`, `password`, `company_email`, `personal_email`, `country_id`, `datetime`) VALUES (:yp0, :yp1, :yp2, :yp3, :yp4, :yp5, :yp6, :yp7, :yp8, :yp9)	</p>
+
+	<div class="source">
+		<p class="file">/home/jackey/workspace/bank_wall/api/framework/db/CDbCommand.php(358)</p>
+		<div class="code"><pre><span class="ln">346</span>         {
+<span class="ln">347</span>             if($this-&gt;_connection-&gt;enableProfiling)
+<span class="ln">348</span>                 Yii::endProfile(&#039;system.db.CDbCommand.execute(&#039;.$this-&gt;getText().$par.&#039;)&#039;,&#039;system.db.CDbCommand.execute&#039;);
+<span class="ln">349</span> 
+<span class="ln">350</span>             $errorInfo=$e instanceof PDOException ? $e-&gt;errorInfo : null;
+<span class="ln">351</span>             $message=$e-&gt;getMessage();
+<span class="ln">352</span>             Yii::log(Yii::t(&#039;yii&#039;,&#039;CDbCommand::execute() failed: {error}. The SQL statement executed was: {sql}.&#039;,
+<span class="ln">353</span>                 array(&#039;{error}&#039;=&gt;$message, &#039;{sql}&#039;=&gt;$this-&gt;getText().$par)),CLogger::LEVEL_ERROR,&#039;system.db.CDbCommand&#039;);
+<span class="ln">354</span> 
+<span class="ln">355</span>             if(YII_DEBUG)
+<span class="ln">356</span>                 $message.=&#039;. The SQL statement executed was: &#039;.$this-&gt;getText().$par;
+<span class="ln">357</span> 
+<span class="error"><span class="ln error-ln">358</span>             throw new CDbException(Yii::t(&#039;yii&#039;,&#039;CDbCommand failed to execute the SQL statement: {error}&#039;,
+</span><span class="ln">359</span>                 array(&#039;{error}&#039;=&gt;$message)),(int)$e-&gt;getCode(),$errorInfo);
+<span class="ln">360</span>         }
+<span class="ln">361</span>     }
+<span class="ln">362</span> 
+<span class="ln">363</span>     /**
+<span class="ln">364</span>      * Executes the SQL statement and returns query result.
+<span class="ln">365</span>      * This method is for executing an SQL query that returns result set.
+<span class="ln">366</span>      * @param array $params input parameters (name=&gt;value) for the SQL execution. This is an alternative
+<span class="ln">367</span>      * to {@link bindParam} and {@link bindValue}. If you have multiple input parameters, passing
+<span class="ln">368</span>      * them in this way can improve the performance. Note that if you pass parameters in this way,
+<span class="ln">369</span>      * you cannot bind parameters or values using {@link bindParam} or {@link bindValue}, and vice versa.
+<span class="ln">370</span>      * Please also note that all values are treated as strings in this case, if you need them to be handled as
+</pre></div>	</div>
+' contains "uid". [] []
+[2014-01-05 15:24:05] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 15:24:05] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:24:17] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:24:18] UserRegisterCept.php.INFO: see response contains "uid" [] []
+[2014-01-05 15:24:18] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that '
+	<h1>CDbException</h1>
+
+	<p class="message">
+		CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry &#039;testguy@mail.com&#039; for key &#039;personal_email_UNIQUE&#039;. The SQL statement executed was: INSERT INTO `user` (`avatar`, `role`, `status`, `firstname`, `lastname`, `password`, `company_email`, `personal_email`, `country_id`, `datetime`) VALUES (:yp0, :yp1, :yp2, :yp3, :yp4, :yp5, :yp6, :yp7, :yp8, :yp9)	</p>
+
+	<div class="source">
+		<p class="file">/home/jackey/workspace/bank_wall/api/framework/db/CDbCommand.php(358)</p>
+		<div class="code"><pre><span class="ln">346</span>         {
+<span class="ln">347</span>             if($this-&gt;_connection-&gt;enableProfiling)
+<span class="ln">348</span>                 Yii::endProfile(&#039;system.db.CDbCommand.execute(&#039;.$this-&gt;getText().$par.&#039;)&#039;,&#039;system.db.CDbCommand.execute&#039;);
+<span class="ln">349</span> 
+<span class="ln">350</span>             $errorInfo=$e instanceof PDOException ? $e-&gt;errorInfo : null;
+<span class="ln">351</span>             $message=$e-&gt;getMessage();
+<span class="ln">352</span>             Yii::log(Yii::t(&#039;yii&#039;,&#039;CDbCommand::execute() failed: {error}. The SQL statement executed was: {sql}.&#039;,
+<span class="ln">353</span>                 array(&#039;{error}&#039;=&gt;$message, &#039;{sql}&#039;=&gt;$this-&gt;getText().$par)),CLogger::LEVEL_ERROR,&#039;system.db.CDbCommand&#039;);
+<span class="ln">354</span> 
+<span class="ln">355</span>             if(YII_DEBUG)
+<span class="ln">356</span>                 $message.=&#039;. The SQL statement executed was: &#039;.$this-&gt;getText().$par;
+<span class="ln">357</span> 
+<span class="error"><span class="ln error-ln">358</span>             throw new CDbException(Yii::t(&#039;yii&#039;,&#039;CDbCommand failed to execute the SQL statement: {error}&#039;,
+</span><span class="ln">359</span>                 array(&#039;{error}&#039;=&gt;$message)),(int)$e-&gt;getCode(),$errorInfo);
+<span class="ln">360</span>         }
+<span class="ln">361</span>     }
+<span class="ln">362</span> 
+<span class="ln">363</span>     /**
+<span class="ln">364</span>      * Executes the SQL statement and returns query result.
+<span class="ln">365</span>      * This method is for executing an SQL query that returns result set.
+<span class="ln">366</span>      * @param array $params input parameters (name=&gt;value) for the SQL execution. This is an alternative
+<span class="ln">367</span>      * to {@link bindParam} and {@link bindValue}. If you have multiple input parameters, passing
+<span class="ln">368</span>      * them in this way can improve the performance. Note that if you pass parameters in this way,
+<span class="ln">369</span>      * you cannot bind parameters or values using {@link bindParam} or {@link bindValue}, and vice versa.
+<span class="ln">370</span>      * Please also note that all values are treated as strings in this case, if you need them to be handled as
+</pre></div>	</div>
+' contains "uid". [] []
+[2014-01-05 15:24:18] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 15:24:18] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:24:36] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:24:36] UserRegisterCept.php.INFO: see response contains "uid" [] []
+[2014-01-05 15:24:36] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that 'HELLO{"success":false,"message":"","data":null}' contains "uid". [] []
+[2014-01-05 15:24:36] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 15:24:36] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:25:13] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:25:13] UserRegisterCept.php.INFO: see response contains "uid" [] []
+[2014-01-05 15:25:13] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that '' contains "uid". [] []
+[2014-01-05 15:25:13] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 15:25:13] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:25:33] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:25:33] UserRegisterCept.php.INFO: see response contains "uid" [] []
+[2014-01-05 15:25:33] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that 'name' contains "uid". [] []
+[2014-01-05 15:25:33] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 15:25:33] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:25:40] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:25:40] UserRegisterCept.php.INFO: see response contains "uid" [] []
+[2014-01-05 15:25:40] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that '
+	<h1>CDbException</h1>
+
+	<p class="message">
+		CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry &#039;testguy@mail.com&#039; for key &#039;personal_email_UNIQUE&#039;. The SQL statement executed was: INSERT INTO `user` (`avatar`, `role`, `status`, `firstname`, `lastname`, `password`, `company_email`, `personal_email`, `country_id`, `datetime`) VALUES (:yp0, :yp1, :yp2, :yp3, :yp4, :yp5, :yp6, :yp7, :yp8, :yp9)	</p>
+
+	<div class="source">
+		<p class="file">/home/jackey/workspace/bank_wall/api/framework/db/CDbCommand.php(358)</p>
+		<div class="code"><pre><span class="ln">346</span>         {
+<span class="ln">347</span>             if($this-&gt;_connection-&gt;enableProfiling)
+<span class="ln">348</span>                 Yii::endProfile(&#039;system.db.CDbCommand.execute(&#039;.$this-&gt;getText().$par.&#039;)&#039;,&#039;system.db.CDbCommand.execute&#039;);
+<span class="ln">349</span> 
+<span class="ln">350</span>             $errorInfo=$e instanceof PDOException ? $e-&gt;errorInfo : null;
+<span class="ln">351</span>             $message=$e-&gt;getMessage();
+<span class="ln">352</span>             Yii::log(Yii::t(&#039;yii&#039;,&#039;CDbCommand::execute() failed: {error}. The SQL statement executed was: {sql}.&#039;,
+<span class="ln">353</span>                 array(&#039;{error}&#039;=&gt;$message, &#039;{sql}&#039;=&gt;$this-&gt;getText().$par)),CLogger::LEVEL_ERROR,&#039;system.db.CDbCommand&#039;);
+<span class="ln">354</span> 
+<span class="ln">355</span>             if(YII_DEBUG)
+<span class="ln">356</span>                 $message.=&#039;. The SQL statement executed was: &#039;.$this-&gt;getText().$par;
+<span class="ln">357</span> 
+<span class="error"><span class="ln error-ln">358</span>             throw new CDbException(Yii::t(&#039;yii&#039;,&#039;CDbCommand failed to execute the SQL statement: {error}&#039;,
+</span><span class="ln">359</span>                 array(&#039;{error}&#039;=&gt;$message)),(int)$e-&gt;getCode(),$errorInfo);
+<span class="ln">360</span>         }
+<span class="ln">361</span>     }
+<span class="ln">362</span> 
+<span class="ln">363</span>     /**
+<span class="ln">364</span>      * Executes the SQL statement and returns query result.
+<span class="ln">365</span>      * This method is for executing an SQL query that returns result set.
+<span class="ln">366</span>      * @param array $params input parameters (name=&gt;value) for the SQL execution. This is an alternative
+<span class="ln">367</span>      * to {@link bindParam} and {@link bindValue}. If you have multiple input parameters, passing
+<span class="ln">368</span>      * them in this way can improve the performance. Note that if you pass parameters in this way,
+<span class="ln">369</span>      * you cannot bind parameters or values using {@link bindParam} or {@link bindValue}, and vice versa.
+<span class="ln">370</span>      * Please also note that all values are treated as strings in this case, if you need them to be handled as
+</pre></div>	</div>
+' contains "uid". [] []
+[2014-01-05 15:25:40] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 15:25:40] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:26:12] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:26:12] UserRegisterCept.php.INFO: see response contains "uid" [] []
+[2014-01-05 15:26:12] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that 'nametestguy@mail.compersonal_emailtestguy@mail.compersonal_email' contains "uid". [] []
+[2014-01-05 15:26:12] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 15:26:12] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:26:31] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:26:31] UserRegisterCept.php.INFO: see response contains "uid" [] []
+[2014-01-05 15:26:31] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that 'nametestguy@mail.compersonal_emailtestguy@mail.compersonal_email' contains "uid". [] []
+[2014-01-05 15:26:31] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 15:26:31] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:26:45] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:26:46] UserRegisterCept.php.INFO: see response contains "uid" [] []
+[2014-01-05 15:26:46] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that '  nametestguy@mail.com  personal_emailtestguy@mail.com  personal_email' contains "uid". [] []
+[2014-01-05 15:26:46] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 15:26:46] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:27:35] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:27:35] UserRegisterCept.php.INFO: see response contains "uid" [] []
+[2014-01-05 15:27:35] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that '  name  testguy@mail.com  personal_email  testguy@mail.com  personal_email  ' contains "uid". [] []
+[2014-01-05 15:27:35] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 15:27:35] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:27:59] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:27:59] UserRegisterCept.php.INFO: see response contains "uid" [] []
+[2014-01-05 15:27:59] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that '' contains "uid". [] []
+[2014-01-05 15:27:59] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 15:27:59] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:29:50] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:29:50] UserRegisterCept.php.INFO: see response contains "uid" [] []
+[2014-01-05 15:29:50] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:30:16] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:30:16] UserRegisterCept.php.INFO: see response contains "uid" [] []
+[2014-01-05 15:30:17] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that '{"success":false,"message":"\r\nonly allow unique value","data":null}' contains "uid". [] []
+[2014-01-05 15:30:17] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 15:30:17] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:31:24] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:31:24] UserRegisterCept.php.INFO: see response code is 200 [] []
+[2014-01-05 15:31:24] UserRegisterCept.php.INFO: see response is json  [] []
+[2014-01-05 15:31:24] UserRegisterCept.php.INFO: see response contains json "{"success":true}" [] []
+[2014-01-05 15:31:24] UserRegisterCept.php.ALERT: Argument 1 passed to Codeception\Module\REST::arrayHasArray() must be an array, string given, called in phar:///home/jackey/workspace/bank_wall/api/codecept.phar/src/Codeception/Module/REST.php on line 502 and defined [] []
+[2014-01-05 15:31:24] UserRegisterCept.php.INFO: # ERROR # [] []
+[2014-01-05 15:31:24] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:35:04] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:35:04] UserRegisterCept.php.INFO: see response code is 200 [] []
+[2014-01-05 15:35:04] UserRegisterCept.php.INFO: see response is json  [] []
+[2014-01-05 15:35:04] UserRegisterCept.php.INFO: see response contains json "{"success":true}" [] []
+[2014-01-05 15:35:04] UserRegisterCept.php.ALERT: Argument 1 passed to Codeception\Module\REST::arrayHasArray() must be an array, string given, called in phar:///home/jackey/workspace/bank_wall/api/codecept.phar/src/Codeception/Module/REST.php on line 502 and defined [] []
+[2014-01-05 15:35:04] UserRegisterCept.php.INFO: # ERROR # [] []
+[2014-01-05 15:35:04] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:35:32] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:35:32] UserRegisterCept.php.INFO: see response code is 200 [] []
+[2014-01-05 15:35:32] UserRegisterCept.php.INFO: see response is json  [] []
+[2014-01-05 15:35:32] UserRegisterCept.php.INFO: see response contains json "{"success":true}" [] []
+[2014-01-05 15:35:32] UserRegisterCept.php.ALERT: Argument 1 passed to Codeception\Module\REST::arrayHasArray() must be an array, string given, called in phar:///home/jackey/workspace/bank_wall/api/codecept.phar/src/Codeception/Module/REST.php on line 502 and defined [] []
+[2014-01-05 15:35:32] UserRegisterCept.php.INFO: # ERROR # [] []
+[2014-01-05 15:35:32] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:39:23] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:39:23] UserRegisterCept.php.INFO: see response code is 200 [] []
+[2014-01-05 15:39:23] UserRegisterCept.php.INFO: see response is json  [] []
+[2014-01-05 15:39:23] UserRegisterCept.php.INFO: see response contains json "{"success":true}" [] []
+[2014-01-05 15:39:23] UserRegisterCept.php.ALERT: Argument 1 passed to Codeception\Module\REST::arrayHasArray() must be an array, string given, called in phar:///home/jackey/workspace/bank_wall/api/codecept.phar/src/Codeception/Module/REST.php on line 502 and defined [] []
+[2014-01-05 15:39:23] UserRegisterCept.php.INFO: # ERROR # [] []
+[2014-01-05 15:39:23] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:40:04] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:40:04] UserRegisterCept.php.INFO: see response code is 200 [] []
+[2014-01-05 15:40:04] UserRegisterCept.php.INFO: see response is json  [] []
+[2014-01-05 15:40:04] UserRegisterCept.php.INFO: see response contains json {"success":true} [] []
+[2014-01-05 15:40:04] UserRegisterCept.php.ALERT: Argument 2 passed to Codeception\Module\REST::arrayHasArray() must be an array, null given, called in phar:///home/jackey/workspace/bank_wall/api/codecept.phar/src/Codeception/Module/REST.php on line 502 and defined [] []
+[2014-01-05 15:40:04] UserRegisterCept.php.INFO: # ERROR # [] []
+[2014-01-05 15:40:04] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:40:54] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:40:54] UserRegisterCept.php.INFO: see response code is 200 [] []
+[2014-01-05 15:40:54] UserRegisterCept.php.INFO: see response is json  [] []
+[2014-01-05 15:40:54] UserRegisterCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 15:40:54] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that '' contains ""success":true". [] []
+[2014-01-05 15:40:54] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 15:40:54] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:42:08] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:42:08] UserRegisterCept.php.INFO: see response code is 200 [] []
+[2014-01-05 15:42:08] UserRegisterCept.php.ALERT: Failed asserting that 500 matches expected 200. [] []
+[2014-01-05 15:42:08] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 15:42:08] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:42:30] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:42:30] UserRegisterCept.php.INFO: see response code is 200 [] []
+[2014-01-05 15:42:30] UserRegisterCept.php.ALERT: Failed asserting that 500 matches expected 200. [] []
+[2014-01-05 15:42:30] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 15:42:30] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:42:36] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:42:36] UserRegisterCept.php.INFO: see response code is 200 [] []
+[2014-01-05 15:42:36] UserRegisterCept.php.INFO: see response is json  [] []
+[2014-01-05 15:42:36] UserRegisterCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 15:42:36] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that '{"success":false,"message":"\r\npersonal_email duplicated","data":null}' contains ""success":true". [] []
+[2014-01-05 15:42:36] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 15:42:36] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:43:21] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:43:21] UserRegisterCept.php.INFO: see response code is 200 [] []
+[2014-01-05 15:43:21] UserRegisterCept.php.INFO: see response is json  [] []
+[2014-01-05 15:43:21] UserRegisterCept.php.ALERT: json decoding error #4, see http://php.net/manual/en/function.json-last-error.php
+Failed asserting that 4 matches expected 0. [] []
+[2014-01-05 15:43:21] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 15:43:21] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:44:59] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:44:59] UserRegisterCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 15:44:59] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that 'HELLO' contains ""success":true". [] []
+[2014-01-05 15:44:59] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 15:44:59] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:45:16] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:45:16] UserRegisterCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 15:45:17] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that '{"success":false,"message":"\r\npersonal_email duplicated","data":null}' contains ""success":true". [] []
+[2014-01-05 15:45:17] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 15:45:17] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:46:11] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:46:11] UserRegisterCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 15:46:11] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that 'HELLO' contains ""success":true". [] []
+[2014-01-05 15:46:11] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 15:46:11] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:46:44] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:46:44] UserRegisterCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 15:46:44] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that '' contains ""success":true". [] []
+[2014-01-05 15:46:44] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 15:46:44] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:47:03] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:47:04] UserRegisterCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 15:47:04] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that 'Id; 1' contains ""success":true". [] []
+[2014-01-05 15:47:04] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 15:47:04] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:50:37] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:50:37] UserRegisterCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 15:50:37] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that '{"success":false,"message":"\r\npersonal_email duplicated","data":null}' contains ""success":true". [] []
+[2014-01-05 15:50:37] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 15:50:37] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:50:53] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:50:54] UserRegisterCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 15:50:54] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that '
+	<h1>CException</h1>
+
+	<p class="message">
+		Property &quot;UserAR.avadar&quot; is not defined.	</p>
+
+	<div class="source">
+		<p class="file">/home/jackey/workspace/bank_wall/api/framework/db/ar/CActiveRecord.php(145)</p>
+		<div class="code"><pre><span class="ln">133</span>      */
+<span class="ln">134</span>     public function __get($name)
+<span class="ln">135</span>     {
+<span class="ln">136</span>         if(isset($this-&gt;_attributes[$name]))
+<span class="ln">137</span>             return $this-&gt;_attributes[$name];
+<span class="ln">138</span>         elseif(isset($this-&gt;getMetaData()-&gt;columns[$name]))
+<span class="ln">139</span>             return null;
+<span class="ln">140</span>         elseif(isset($this-&gt;_related[$name]))
+<span class="ln">141</span>             return $this-&gt;_related[$name];
+<span class="ln">142</span>         elseif(isset($this-&gt;getMetaData()-&gt;relations[$name]))
+<span class="ln">143</span>             return $this-&gt;getRelated($name);
+<span class="ln">144</span>         else
+<span class="error"><span class="ln error-ln">145</span>             return parent::__get($name);
+</span><span class="ln">146</span>     }
+<span class="ln">147</span> 
+<span class="ln">148</span>     /**
+<span class="ln">149</span>      * PHP setter magic method.
+<span class="ln">150</span>      * This method is overridden so that AR attributes can be accessed like properties.
+<span class="ln">151</span>      * @param string $name property name
+<span class="ln">152</span>      * @param mixed $value property value
+<span class="ln">153</span>      */
+<span class="ln">154</span>     public function __set($name,$value)
+<span class="ln">155</span>     {
+<span class="ln">156</span>         if($this-&gt;setAttribute($name,$value)===false)
+<span class="ln">157</span>         {
+</pre></div>	</div>
+' contains ""success":true". [] []
+[2014-01-05 15:50:54] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 15:50:54] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:51:16] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:51:16] UserRegisterCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 15:51:16] UserRegisterCept.php.INFO: see response contains "uid" [] []
+[2014-01-05 15:51:16] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:51:28] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:51:28] UserRegisterCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 15:51:28] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that '{"success":false,"message":"\r\npersonal_email duplicated","data":null}' contains ""success":true". [] []
+[2014-01-05 15:51:28] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 15:51:28] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:51:38] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:51:39] UserRegisterCept.php.INFO: see response code is 200 [] []
+[2014-01-05 15:51:39] UserRegisterCept.php.INFO: see response is json  [] []
+[2014-01-05 15:51:39] UserRegisterCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 15:51:39] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that '{"success":false,"message":"\r\npersonal_email duplicated","data":null}' contains ""success":true". [] []
+[2014-01-05 15:51:39] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 15:51:39] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:51:45] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 15:51:45] UserRegisterCept.php.INFO: see response code is 200 [] []
+[2014-01-05 15:51:45] UserRegisterCept.php.INFO: see response is json  [] []
+[2014-01-05 15:51:45] UserRegisterCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 15:51:45] UserRegisterCept.php.INFO: see response contains "uid" [] []
+[2014-01-05 15:51:45] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 15:53:45] UserDeleteCept.php.INFO: send post "user/delete",{"uid":33} [] []
+[2014-01-05 15:53:45] UserDeleteCept.php.INFO: see response code is 200 [] []
+[2014-01-05 15:53:45] UserDeleteCept.php.INFO: see response is json  [] []
+[2014-01-05 15:53:45] UserDeleteCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 15:53:45] UserDeleteCept.php.ALERT: REST response contains
+Failed asserting that '{"success":false,"message":"permission deny","data":null}' contains ""success":true". [] []
+[2014-01-05 15:53:45] UserDeleteCept.php.INFO: # FAILED # [] []
+[2014-01-05 15:53:45] UserDeleteCept.php.INFO: PASSED [] []
+[2014-01-05 20:57:43] UserLoginCept.php.INFO: send post "user/login",{"company_email":"jziwenchen@gmail.com","password":"admin"} [] []
+[2014-01-05 20:57:43] UserLoginCept.php.INFO: see response is json  [] []
+[2014-01-05 20:57:43] UserLoginCept.php.INFO: see cookie "PHPSESSID" [] []
+[2014-01-05 20:57:43] UserLoginCept.php.ALERT: Failed asserting that null is not null. [] []
+[2014-01-05 20:57:43] UserLoginCept.php.INFO: # FAILED # [] []
+[2014-01-05 20:57:43] UserLoginCept.php.INFO: PASSED [] []
+[2014-01-05 20:58:19] UserLoginCept.php.INFO: send post "user/login",{"company_email":"testguy@mail.com","password":"admin"} [] []
+[2014-01-05 20:58:19] UserLoginCept.php.INFO: see response is json  [] []
+[2014-01-05 20:58:19] UserLoginCept.php.ALERT: json decoding error #4, see http://php.net/manual/en/function.json-last-error.php
+Failed asserting that 4 matches expected 0. [] []
+[2014-01-05 20:58:19] UserLoginCept.php.INFO: # FAILED # [] []
+[2014-01-05 20:58:19] UserLoginCept.php.INFO: PASSED [] []
+[2014-01-05 20:58:39] UserLoginCept.php.INFO: send post "user/login",{"company_email":"testguy@mail.com","password":"admin"} [] []
+[2014-01-05 20:58:39] UserLoginCept.php.INFO: see cookie "PHPSESSID" [] []
+[2014-01-05 20:58:39] UserLoginCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 20:58:39] UserLoginCept.php.INFO: see response contains "jziwenchen@gmail.com" [] []
+[2014-01-05 20:58:39] UserLoginCept.php.ALERT: REST response contains
+Failed asserting that 'UserAR Object
+(
+    [_new:CActiveRecord:private] => 
+    [_attributes:CActiveRecord:private] => Array
+        (
+            [uid] => 33
+            [name] => 
+            [personal_email] => testguy@mail.com
+            [company_email] => testguy@mail.com
+            [country_id] => 1
+            [avatar] => path/to/file.png
+            [role] => 2
+            [datetime] => 1388908305
+            [firstname] => Test guy
+            [lastname] =>  name
+            [password] => 21232f297a57a5a743894a0e4a801fc3
+            [status] => 1
+        )
+
+    [_related:CActiveRecord:private] => Array
+        (
+        )
+
+    [_c:CActiveRecord:private] => 
+    [_pk:CActiveRecord:private] => uid
+    [_alias:CActiveRecord:private] => t
+    [_errors:CModel:private] => Array
+        (
+        )
+
+    [_validators:CModel:private] => 
+    [_scenario:CModel:private] => update
+    [_e:CComponent:private] => 
+    [_m:CComponent:private] => 
+)
+33{"success":true,"message":"success","data":{"uid":"33","firstname":"Test guy","lastname":" name","avatar":"path\/to\/file.png","country":{"country_name":"China","flag_icon":"\/images\/country\/cn.png"},"company_email":"testguy@mail.com","personal_email":"testguy@mail.com","role":"2","status":"1"}}' contains "jziwenchen@gmail.com". [] []
+[2014-01-05 20:58:39] UserLoginCept.php.INFO: # FAILED # [] []
+[2014-01-05 20:58:39] UserLoginCept.php.INFO: PASSED [] []
+[2014-01-05 21:00:34] UserLoginCept.php.INFO: send post "user/loginform",{"company_email":"testguy@mail.com","password":"admin"} [] []
+[2014-01-05 21:00:34] UserLoginCept.php.INFO: see cookie "PHPSESSID" [] []
+[2014-01-05 21:00:34] UserLoginCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 21:00:34] UserLoginCept.php.ALERT: REST response contains
+Failed asserting that '
+	<h1>PHP notice</h1>
+
+	<p class="message">
+		Undefined index: LoginForm	</p>
+
+	<div class="source">
+		<p class="file">/home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php(288)</p>
+		<div class="code"><pre><span class="ln">276</span>     $request = Yii::app()-&gt;getRequest();
+<span class="ln">277</span>     $loginform = new LoginForm();
+<span class="ln">278</span>     
+<span class="ln">279</span>     if (Yii::app()-&gt;user-&gt;getId()) {
+<span class="ln">280</span>       $this-&gt;redirect(Yii::app()-&gt;user-&gt;returnUrl);
+<span class="ln">281</span>     }
+<span class="ln">282</span>     
+<span class="ln">283</span>     if (!$request-&gt;isPostRequest) {
+<span class="ln">284</span>       $params = array(&quot;model&quot; =&gt; $loginform);
+<span class="ln">285</span>       $this-&gt;render(&quot;login&quot;, $params);
+<span class="ln">286</span>     }
+<span class="ln">287</span>     else {
+<span class="error"><span class="ln error-ln">288</span>       $loginform-&gt;attributes = $_POST[&quot;LoginForm&quot;];
+</span><span class="ln">289</span>       if ($loginform-&gt;validate()) {
+<span class="ln">290</span>         Yii::app()-&gt;user-&gt;login($loginform-&gt;getUserIdentify());
+<span class="ln">291</span>         $this-&gt;redirect(Yii::app()-&gt;user-&gt;returnUrl);
+<span class="ln">292</span>       }
+<span class="ln">293</span>       else {
+<span class="ln">294</span>         $params = array(&quot;model&quot; =&gt; $loginform);
+<span class="ln">295</span>         $this-&gt;render(&quot;login&quot;, $params);
+<span class="ln">296</span>       }
+<span class="ln">297</span>     }
+<span class="ln">298</span>   }
+<span class="ln">299</span>   
+<span class="ln">300</span>   public function actionTest() {
+</pre></div>	</div>
+' contains ""success":true". [] []
+[2014-01-05 21:00:34] UserLoginCept.php.INFO: # FAILED # [] []
+[2014-01-05 21:00:34] UserLoginCept.php.INFO: PASSED [] []
+[2014-01-05 21:01:09] UserLoginCept.php.INFO: send post "user/loginform",{"[LoginForm][company_email]":"testguy@mail.com","[LoginForm][password]":"admin"} [] []
+[2014-01-05 21:01:09] UserLoginCept.php.INFO: see cookie "PHPSESSID" [] []
+[2014-01-05 21:01:09] UserLoginCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 21:01:09] UserLoginCept.php.ALERT: REST response contains
+Failed asserting that '
+	<h1>PHP notice</h1>
+
+	<p class="message">
+		Undefined index: LoginForm	</p>
+
+	<div class="source">
+		<p class="file">/home/jackey/workspace/bank_wall/api/protected/controllers/UserController.php(288)</p>
+		<div class="code"><pre><span class="ln">276</span>     $request = Yii::app()-&gt;getRequest();
+<span class="ln">277</span>     $loginform = new LoginForm();
+<span class="ln">278</span>     
+<span class="ln">279</span>     if (Yii::app()-&gt;user-&gt;getId()) {
+<span class="ln">280</span>       $this-&gt;redirect(Yii::app()-&gt;user-&gt;returnUrl);
+<span class="ln">281</span>     }
+<span class="ln">282</span>     
+<span class="ln">283</span>     if (!$request-&gt;isPostRequest) {
+<span class="ln">284</span>       $params = array(&quot;model&quot; =&gt; $loginform);
+<span class="ln">285</span>       $this-&gt;render(&quot;login&quot;, $params);
+<span class="ln">286</span>     }
+<span class="ln">287</span>     else {
+<span class="error"><span class="ln error-ln">288</span>       $loginform-&gt;attributes = $_POST[&quot;LoginForm&quot;];
+</span><span class="ln">289</span>       if ($loginform-&gt;validate()) {
+<span class="ln">290</span>         Yii::app()-&gt;user-&gt;login($loginform-&gt;getUserIdentify());
+<span class="ln">291</span>         $this-&gt;redirect(Yii::app()-&gt;user-&gt;returnUrl);
+<span class="ln">292</span>       }
+<span class="ln">293</span>       else {
+<span class="ln">294</span>         $params = array(&quot;model&quot; =&gt; $loginform);
+<span class="ln">295</span>         $this-&gt;render(&quot;login&quot;, $params);
+<span class="ln">296</span>       }
+<span class="ln">297</span>     }
+<span class="ln">298</span>   }
+<span class="ln">299</span>   
+<span class="ln">300</span>   public function actionTest() {
+</pre></div>	</div>
+' contains ""success":true". [] []
+[2014-01-05 21:01:09] UserLoginCept.php.INFO: # FAILED # [] []
+[2014-01-05 21:01:09] UserLoginCept.php.INFO: PASSED [] []
+[2014-01-05 21:04:23] UserLoginCept.php.INFO: send post "user/loginform",{"LoginForm[company_email]":"testguy@mail.com","LoginForm[password]":"admin"} [] []
+[2014-01-05 21:04:24] UserLoginCept.php.INFO: have http header "Content-Type","application/x-www-form-urlencoded" [] []
+[2014-01-05 21:04:24] UserLoginCept.php.INFO: see response is json  [] []
+[2014-01-05 21:04:24] UserLoginCept.php.INFO: see cookie "PHPSESSID" [] []
+[2014-01-05 21:04:24] UserLoginCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 21:04:24] UserLoginCept.php.ALERT: REST response contains
+Failed asserting that '{"success":false,"message":"not support yet","data":null}' contains ""success":true". [] []
+[2014-01-05 21:04:24] UserLoginCept.php.INFO: # FAILED # [] []
+[2014-01-05 21:04:24] UserLoginCept.php.INFO: PASSED [] []
+[2014-01-05 21:05:22] UserLoginCept.php.INFO: send post "user/loginform",{"LoginForm[company_email]":"testguy@mail.com","LoginForm[password]":"admin"} [] []
+[2014-01-05 21:05:22] UserLoginCept.php.INFO: have http header "Content-Type","application/x-www-form-urlencoded" [] []
+[2014-01-05 21:05:22] UserLoginCept.php.INFO: see response is json  [] []
+[2014-01-05 21:05:22] UserLoginCept.php.INFO: see cookie "PHPSESSID" [] []
+[2014-01-05 21:05:22] UserLoginCept.php.INFO: see response contains "not support yet" [] []
+[2014-01-05 21:05:22] UserLoginCept.php.INFO: send get "user/getCurrent" [] []
+[2014-01-05 21:05:22] UserLoginCept.php.INFO: see response code is 200 [] []
+[2014-01-05 21:05:22] UserLoginCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 21:05:22] UserLoginCept.php.INFO: see response is json  [] []
+[2014-01-05 21:05:22] UserLoginCept.php.INFO: PASSED [] []
+[2014-01-05 21:06:27] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 21:06:27] UserRegisterCept.php.INFO: see response code is 200 [] []
+[2014-01-05 21:06:27] UserRegisterCept.php.INFO: see response is json  [] []
+[2014-01-05 21:06:27] UserRegisterCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 21:06:27] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that '{"success":false,"message":"\r\npersonal_email duplicated","data":null}' contains ""success":true". [] []
+[2014-01-05 21:06:27] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 21:06:27] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 21:06:42] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy1@mail.com","personal_email":"testguy1@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 21:06:42] UserRegisterCept.php.INFO: see response code is 200 [] []
+[2014-01-05 21:06:42] UserRegisterCept.php.INFO: see response is json  [] []
+[2014-01-05 21:06:42] UserRegisterCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 21:06:42] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that '{"success":false,"message":"\r\nname duplicated","data":null}' contains ""success":true". [] []
+[2014-01-05 21:06:42] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 21:06:42] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 21:08:28] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy1@mail.com","personal_email":"testguy1@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 21:08:28] UserRegisterCept.php.INFO: see response code is 200 [] []
+[2014-01-05 21:08:28] UserRegisterCept.php.INFO: see response is json  [] []
+[2014-01-05 21:08:28] UserRegisterCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 21:08:28] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that '{"success":false,"message":"\r\nname duplicated","data":null}' contains ""success":true". [] []
+[2014-01-05 21:08:28] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 21:08:28] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 21:09:49] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy1@mail.com","personal_email":"testguy1@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 21:09:49] UserRegisterCept.php.INFO: see response code is 200 [] []
+[2014-01-05 21:09:49] UserRegisterCept.php.INFO: see response is json  [] []
+[2014-01-05 21:09:49] UserRegisterCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 21:09:49] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that '{"success":false,"message":"\r\nname duplicated","data":null}' contains ""success":true". [] []
+[2014-01-05 21:09:49] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 21:09:49] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 21:10:23] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy1@mail.com","personal_email":"testguy1@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 21:10:23] UserRegisterCept.php.INFO: see response code is 200 [] []
+[2014-01-05 21:10:23] UserRegisterCept.php.INFO: see response is json  [] []
+[2014-01-05 21:10:23] UserRegisterCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 21:10:23] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that '{"success":false,"message":"\r\nname duplicated","data":null}' contains ""success":true". [] []
+[2014-01-05 21:10:23] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 21:10:23] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 21:10:55] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy1@mail.com","personal_email":"testguy1@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 21:10:55] UserRegisterCept.php.INFO: see response code is 200 [] []
+[2014-01-05 21:10:55] UserRegisterCept.php.INFO: see response is json  [] []
+[2014-01-05 21:10:55] UserRegisterCept.php.ALERT: json decoding error #4, see http://php.net/manual/en/function.json-last-error.php
+Failed asserting that 4 matches expected 0. [] []
+[2014-01-05 21:10:55] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 21:10:55] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 21:11:11] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy1@mail.com","personal_email":"testguy1@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 21:11:11] UserRegisterCept.php.INFO: see response code is 200 [] []
+[2014-01-05 21:11:11] UserRegisterCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 21:11:11] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that 'Array
+(
+    [avatar] => path/to/file.png
+    [role] => 1
+    [status] => 1
+    [firstname] => Test guy
+    [lastname] =>  name
+    [password] => 21232f297a57a5a743894a0e4a801fc3
+    [company_email] => testguy1@mail.com
+    [personal_email] => testguy1@mail.com
+    [country_id] => 1
+    [datetime] => 1388927471
+    [name] => 
+    [uid] => 
+)
+{"success":false,"message":"\r\nname duplicated","data":null}' contains ""success":true". [] []
+[2014-01-05 21:11:11] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 21:11:11] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 21:11:51] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy1@mail.com","personal_email":"testguy1@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 21:11:51] UserRegisterCept.php.INFO: see response code is 200 [] []
+[2014-01-05 21:11:51] UserRegisterCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 21:11:51] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that 'Array
+(
+    [avatar] => path/to/file.png
+    [role] => 1
+    [status] => 1
+    [firstname] => Test guy
+    [lastname] =>  name
+    [password] => 21232f297a57a5a743894a0e4a801fc3
+    [company_email] => testguy1@mail.com
+    [personal_email] => testguy1@mail.com
+    [country_id] => 1
+    [datetime] => 1388927511
+    [name] => 
+    [uid] => 
+)
+{"success":false,"message":"\r\nname duplicated","data":null}' contains ""success":true". [] []
+[2014-01-05 21:11:51] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 21:11:51] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 21:12:01] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy1@mail.com","personal_email":"testguy1@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 21:12:01] UserRegisterCept.php.INFO: see response code is 200 [] []
+[2014-01-05 21:12:01] UserRegisterCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 21:12:01] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that 'name: Array
+(
+    [avatar] => path/to/file.png
+    [role] => 1
+    [status] => 1
+    [firstname] => Test guy
+    [lastname] =>  name
+    [password] => 21232f297a57a5a743894a0e4a801fc3
+    [company_email] => testguy1@mail.com
+    [personal_email] => testguy1@mail.com
+    [country_id] => 1
+    [datetime] => 1388927521
+    [name] => 
+    [uid] => 
+)
+{"success":false,"message":"\r\nname duplicated","data":null}' contains ""success":true". [] []
+[2014-01-05 21:12:01] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 21:12:01] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 21:12:11] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy1@mail.com","personal_email":"testguy1@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 21:12:11] UserRegisterCept.php.INFO: see response code is 200 [] []
+[2014-01-05 21:12:11] UserRegisterCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 21:12:11] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that 'name: Array
+(
+    [avatar] => path/to/file.png
+    [role] => 1
+    [status] => 1
+    [firstname] => Test guy
+    [lastname] =>  name
+    [password] => 21232f297a57a5a743894a0e4a801fc3
+    [company_email] => testguy1@mail.com
+    [personal_email] => testguy1@mail.com
+    [country_id] => 1
+    [datetime] => 1388927531
+    [name] => 
+    [uid] => 
+)
+{"success":false,"message":"\r\nname duplicated","data":null}' contains ""success":true". [] []
+[2014-01-05 21:12:11] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 21:12:11] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 21:12:32] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy1@mail.com","personal_email":"testguy1@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 21:12:32] UserRegisterCept.php.INFO: see response code is 200 [] []
+[2014-01-05 21:12:32] UserRegisterCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 21:12:32] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that 'name: {"success":false,"message":"\r\nname duplicated","data":null}' contains ""success":true". [] []
+[2014-01-05 21:12:32] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 21:12:32] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 21:13:01] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy1@mail.com","personal_email":"testguy1@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 21:13:02] UserRegisterCept.php.INFO: see response code is 200 [] []
+[2014-01-05 21:13:02] UserRegisterCept.php.INFO: see response is json  [] []
+[2014-01-05 21:13:02] UserRegisterCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 21:13:02] UserRegisterCept.php.INFO: see response contains "uid" [] []
+[2014-01-05 21:13:02] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 21:13:04] UserRegisterCept.php.INFO: send post "user/post",{"firstname":"Test guy","lastname":" name","password":"admin","company_email":"testguy1@mail.com","personal_email":"testguy1@mail.com","country_id":"1","avatar":"path/to/file.png"} [] []
+[2014-01-05 21:13:04] UserRegisterCept.php.INFO: see response code is 200 [] []
+[2014-01-05 21:13:04] UserRegisterCept.php.INFO: see response is json  [] []
+[2014-01-05 21:13:04] UserRegisterCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 21:13:04] UserRegisterCept.php.ALERT: REST response contains
+Failed asserting that '{"success":false,"message":"\r\npersonal_email duplicated","data":null}' contains ""success":true". [] []
+[2014-01-05 21:13:04] UserRegisterCept.php.INFO: # FAILED # [] []
+[2014-01-05 21:13:04] UserRegisterCept.php.INFO: PASSED [] []
+[2014-01-05 21:13:24] UserListCept.php.INFO: send get "user/list" [] []
+[2014-01-05 21:13:24] UserListCept.php.INFO: see response code is 200 [] []
+[2014-01-05 21:13:24] UserListCept.php.INFO: see response is json  [] []
+[2014-01-05 21:13:24] UserListCept.php.INFO: see response contains "http error" [] []
+[2014-01-05 21:13:24] UserListCept.php.ALERT: REST response contains
+Failed asserting that '{"success":false,"message":"permission deny","data":null}' contains "http error". [] []
+[2014-01-05 21:13:24] UserListCept.php.INFO: # FAILED # [] []
+[2014-01-05 21:13:24] UserListCept.php.INFO: PASSED [] []
+[2014-01-05 21:14:31] UserLoginCept.php.INFO: send post "user/loginform",{"LoginForm[company_email]":"testguy@mail.com","LoginForm[password]":"admin"} [] []
+[2014-01-05 21:14:31] UserLoginCept.php.INFO: have http header "Content-Type","application/x-www-form-urlencoded" [] []
+[2014-01-05 21:14:31] UserLoginCept.php.INFO: see response is json  [] []
+[2014-01-05 21:14:31] UserLoginCept.php.INFO: see cookie "PHPSESSID" [] []
+[2014-01-05 21:14:31] UserLoginCept.php.INFO: see response contains "not support yet" [] []
+[2014-01-05 21:14:31] UserLoginCept.php.INFO: send get "user/getCurrent" [] []
+[2014-01-05 21:14:32] UserLoginCept.php.INFO: see response code is 200 [] []
+[2014-01-05 21:14:32] UserLoginCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 21:14:32] UserLoginCept.php.INFO: see response is json  [] []
+[2014-01-05 21:14:32] UserLoginCept.php.INFO: PASSED [] []
+[2014-01-05 21:14:56] UserLoginCept.php.INFO: send post "user/loginform",{"LoginForm[company_email]":"testguy@mail.com","LoginForm[password]":"admin"} [] []
+[2014-01-05 21:14:56] UserLoginCept.php.INFO: have http header "Content-Type","application/x-www-form-urlencoded" [] []
+[2014-01-05 21:14:56] UserLoginCept.php.INFO: see response is json  [] []
+[2014-01-05 21:14:56] UserLoginCept.php.INFO: see cookie "PHPSESSID" [] []
+[2014-01-05 21:14:56] UserLoginCept.php.INFO: see response contains "not support yet" [] []
+[2014-01-05 21:14:56] UserLoginCept.php.INFO: send get "user/getCurrent" [] []
+[2014-01-05 21:14:56] UserLoginCept.php.INFO: see response code is 200 [] []
+[2014-01-05 21:14:56] UserLoginCept.php.INFO: see response contains "firstname" [] []
+[2014-01-05 21:14:56] UserLoginCept.php.INFO: see response is json  [] []
+[2014-01-05 21:14:56] UserLoginCept.php.INFO: PASSED [] []
+[2014-01-05 22:06:14] UserLoginCept.php.INFO: send post "user/loginform",{"LoginForm[company_email]":"testguy@mail.com","LoginForm[password]":"admin"} [] []
+[2014-01-05 22:06:15] UserLoginCept.php.INFO: have http header "Content-Type","application/x-www-form-urlencoded" [] []
+[2014-01-05 22:06:15] UserLoginCept.php.INFO: see response is json  [] []
+[2014-01-05 22:06:15] UserLoginCept.php.INFO: see cookie "PHPSESSID" [] []
+[2014-01-05 22:06:15] UserLoginCept.php.INFO: see response contains "not support yet" [] []
+[2014-01-05 22:06:15] UserLoginCept.php.INFO: send get "user/getCurrent" [] []
+[2014-01-05 22:06:15] UserLoginCept.php.INFO: see response code is 200 [] []
+[2014-01-05 22:06:15] UserLoginCept.php.INFO: see response contains "firstname" [] []
+[2014-01-05 22:06:15] UserLoginCept.php.INFO: see response is json  [] []
+[2014-01-05 22:06:15] UserLoginCept.php.INFO: PASSED [] []
+[2014-01-05 22:06:24] UserListCept.php.INFO: send get "user/list" [] []
+[2014-01-05 22:06:24] UserListCept.php.INFO: see response code is 200 [] []
+[2014-01-05 22:06:24] UserListCept.php.INFO: see response is json  [] []
+[2014-01-05 22:06:24] UserListCept.php.INFO: see response contains "http error" [] []
+[2014-01-05 22:06:25] UserListCept.php.ALERT: REST response contains
+Failed asserting that '{"success":false,"message":"permission deny","data":null}' contains "http error". [] []
+[2014-01-05 22:06:25] UserListCept.php.INFO: # FAILED # [] []
+[2014-01-05 22:06:25] UserListCept.php.INFO: PASSED [] []
+[2014-01-05 22:06:43] UserListCept.php.INFO: send get "user/list" [] []
+[2014-01-05 22:06:43] UserListCept.php.INFO: see response code is 200 [] []
+[2014-01-05 22:06:43] UserListCept.php.INFO: see response is json  [] []
+[2014-01-05 22:06:43] UserListCept.php.INFO: see response contains "http error" [] []
+[2014-01-05 22:06:43] UserListCept.php.ALERT: REST response contains
+Failed asserting that '{"success":false,"message":"permission deny","data":null}' contains "http error". [] []
+[2014-01-05 22:06:43] UserListCept.php.INFO: # FAILED # [] []
+[2014-01-05 22:06:43] UserListCept.php.INFO: PASSED [] []
+[2014-01-05 22:07:21] UserListCept.php.INFO: send get "user/list" [] []
+[2014-01-05 22:07:21] UserListCept.php.INFO: see response code is 200 [] []
+[2014-01-05 22:07:21] UserListCept.php.INFO: see response is json  [] []
+[2014-01-05 22:07:21] UserListCept.php.ALERT: json decoding error #4, see http://php.net/manual/en/function.json-last-error.php
+Failed asserting that 4 matches expected 0. [] []
+[2014-01-05 22:07:21] UserListCept.php.INFO: # FAILED # [] []
+[2014-01-05 22:07:21] UserListCept.php.INFO: PASSED [] []
+[2014-01-05 22:07:39] UserListCept.php.INFO: send get "user/list" [] []
+[2014-01-05 22:07:39] UserListCept.php.INFO: see response code is 200 [] []
+[2014-01-05 22:07:39] UserListCept.php.INFO: see response contains "http error" [] []
+[2014-01-05 22:07:39] UserListCept.php.ALERT: REST response contains
+Failed asserting that 'id: {"success":false,"message":"permission deny","data":null}' contains "http error". [] []
+[2014-01-05 22:07:39] UserListCept.php.INFO: # FAILED # [] []
+[2014-01-05 22:07:39] UserListCept.php.INFO: PASSED [] []
+[2014-01-05 22:08:35] UserListCept.php.INFO: send get "user/list" [] []
+[2014-01-05 22:08:35] UserListCept.php.INFO: see response code is 200 [] []
+[2014-01-05 22:08:35] UserListCept.php.INFO: see response contains "http error" [] []
+[2014-01-05 22:08:35] UserListCept.php.ALERT: REST response contains
+Failed asserting that 'id: {"success":false,"message":"permission deny","data":null}' contains "http error". [] []
+[2014-01-05 22:08:35] UserListCept.php.INFO: # FAILED # [] []
+[2014-01-05 22:08:35] UserListCept.php.INFO: PASSED [] []
+[2014-01-05 22:11:00] UserListCept.php.INFO: send get "user/list" [] []
+[2014-01-05 22:11:01] UserListCept.php.INFO: see response code is 200 [] []
+[2014-01-05 22:11:01] UserListCept.php.INFO: see response is json  [] []
+[2014-01-05 22:11:01] UserListCept.php.ALERT: json decoding error #4, see http://php.net/manual/en/function.json-last-error.php
+Failed asserting that 4 matches expected 0. [] []
+[2014-01-05 22:11:01] UserListCept.php.INFO: # FAILED # [] []
+[2014-01-05 22:11:01] UserListCept.php.INFO: PASSED [] []
+[2014-01-05 22:11:09] UserListCept.php.INFO: send get "user/list" [] []
+[2014-01-05 22:11:09] UserListCept.php.INFO: see response code is 200 [] []
+[2014-01-05 22:11:09] UserListCept.php.INFO: see response contains "http error" [] []
+[2014-01-05 22:11:09] UserListCept.php.ALERT: REST response contains
+Failed asserting that 'id: 33{"success":false,"message":"invalid params role","data":null}' contains "http error". [] []
+[2014-01-05 22:11:09] UserListCept.php.INFO: # FAILED # [] []
+[2014-01-05 22:11:09] UserListCept.php.INFO: PASSED [] []
+[2014-01-05 22:11:23] UserListCept.php.INFO: send get "user/list" [] []
+[2014-01-05 22:11:23] UserListCept.php.INFO: see response code is 200 [] []
+[2014-01-05 22:11:23] UserListCept.php.INFO: see response contains "http error" [] []
+[2014-01-05 22:11:23] UserListCept.php.ALERT: REST response contains
+Failed asserting that '{"success":false,"message":"invalid params role","data":null}' contains "http error". [] []
+[2014-01-05 22:11:23] UserListCept.php.INFO: # FAILED # [] []
+[2014-01-05 22:11:23] UserListCept.php.INFO: PASSED [] []
+[2014-01-05 22:11:43] UserListCept.php.INFO: send get "user/list" [] []
+[2014-01-05 22:11:43] UserListCept.php.INFO: see response code is 200 [] []
+[2014-01-05 22:11:43] UserListCept.php.INFO: see response is json  [] []
+[2014-01-05 22:11:43] UserListCept.php.INFO: see response contains "http error" [] []
+[2014-01-05 22:11:43] UserListCept.php.ALERT: REST response contains
+Failed asserting that '{"success":false,"message":"invalid params role","data":null}' contains "http error". [] []
+[2014-01-05 22:11:43] UserListCept.php.INFO: # FAILED # [] []
+[2014-01-05 22:11:43] UserListCept.php.INFO: PASSED [] []
+[2014-01-05 22:12:01] UserListCept.php.INFO: send get "user/list",{"role":2} [] []
+[2014-01-05 22:12:01] UserListCept.php.INFO: see response code is 200 [] []
+[2014-01-05 22:12:01] UserListCept.php.INFO: see response is json  [] []
+[2014-01-05 22:12:01] UserListCept.php.INFO: see response contains "http error" [] []
+[2014-01-05 22:12:01] UserListCept.php.ALERT: REST response contains
+Failed asserting that '{"success":false,"message":"invalid params orderby","data":null}' contains "http error". [] []
+[2014-01-05 22:12:01] UserListCept.php.INFO: # FAILED # [] []
+[2014-01-05 22:12:01] UserListCept.php.INFO: PASSED [] []
+[2014-01-05 22:12:12] UserListCept.php.INFO: send get "user/list",{"role":2,"orderby":"datetime"} [] []
+[2014-01-05 22:12:12] UserListCept.php.INFO: see response code is 200 [] []
+[2014-01-05 22:12:12] UserListCept.php.ALERT: Failed asserting that 500 matches expected 200. [] []
+[2014-01-05 22:12:12] UserListCept.php.INFO: # FAILED # [] []
+[2014-01-05 22:12:12] UserListCept.php.INFO: PASSED [] []
+[2014-01-05 22:14:03] UserListCept.php.INFO: send get "user/list",{"role":2,"orderby":"datetime"} [] []
+[2014-01-05 22:14:04] UserListCept.php.INFO: see response is json  [] []
+[2014-01-05 22:14:04] UserListCept.php.ALERT: json decoding error #4, see http://php.net/manual/en/function.json-last-error.php
+Failed asserting that 4 matches expected 0. [] []
+[2014-01-05 22:14:04] UserListCept.php.INFO: # FAILED # [] []
+[2014-01-05 22:14:04] UserListCept.php.INFO: PASSED [] []
+[2014-01-05 22:14:10] UserListCept.php.INFO: send get "user/list",{"role":2,"orderby":"datetime"} [] []
+[2014-01-05 22:14:10] UserListCept.php.INFO: see response contains "http error" [] []
+[2014-01-05 22:14:10] UserListCept.php.ALERT: REST response contains
+Failed asserting that '
+	<h1>CDbException</h1>
+
+	<p class="message">
+		CDbCommand failed to execute the SQL statement: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens. The SQL statement executed was: SELECT `t`.`uid` AS `t0_c0`, `t`.`name` AS `t0_c1`, `t`.`personal_email` AS `t0_c2`, `t`.`company_email` AS `t0_c3`, `t`.`country_id` AS `t0_c4`, `t`.`avatar` AS `t0_c5`, `t`.`role` AS `t0_c6`, `t`.`datetime` AS `t0_c7`, `t`.`firstname` AS `t0_c8`, `t`.`lastname` AS `t0_c9`, `t`.`password` AS `t0_c10`, `t`.`status` AS `t0_c11`, `country`.`country_id` AS `t1_c0`, `country`.`country_name` AS `t1_c1`, `country`.`code` AS `t1_c2`, `country`.`flag_icon` AS `t1_c3` FROM `user` `t`  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (role=:role) ORDER BY datetime DESC	</p>
+
+	<div class="source">
+		<p class="file">/home/jackey/workspace/bank_wall/api/framework/db/CDbCommand.php(543)</p>
+		<div class="code"><pre><span class="ln">531</span>         {
+<span class="ln">532</span>             if($this-&gt;_connection-&gt;enableProfiling)
+<span class="ln">533</span>                 Yii::endProfile(&#039;system.db.CDbCommand.query(&#039;.$this-&gt;getText().$par.&#039;)&#039;,&#039;system.db.CDbCommand.query&#039;);
+<span class="ln">534</span> 
+<span class="ln">535</span>             $errorInfo=$e instanceof PDOException ? $e-&gt;errorInfo : null;
+<span class="ln">536</span>             $message=$e-&gt;getMessage();
+<span class="ln">537</span>             Yii::log(Yii::t(&#039;yii&#039;,&#039;CDbCommand::{method}() failed: {error}. The SQL statement executed was: {sql}.&#039;,
+<span class="ln">538</span>                 array(&#039;{method}&#039;=&gt;$method, &#039;{error}&#039;=&gt;$message, &#039;{sql}&#039;=&gt;$this-&gt;getText().$par)),CLogger::LEVEL_ERROR,&#039;system.db.CDbCommand&#039;);
+<span class="ln">539</span> 
+<span class="ln">540</span>             if(YII_DEBUG)
+<span class="ln">541</span>                 $message.=&#039;. The SQL statement executed was: &#039;.$this-&gt;getText().$par;
+<span class="ln">542</span> 
+<span class="error"><span class="ln error-ln">543</span>             throw new CDbException(Yii::t(&#039;yii&#039;,&#039;CDbCommand failed to execute the SQL statement: {error}&#039;,
+</span><span class="ln">544</span>                 array(&#039;{error}&#039;=&gt;$message)),(int)$e-&gt;getCode(),$errorInfo);
+<span class="ln">545</span>         }
+<span class="ln">546</span>     }
+<span class="ln">547</span> 
+<span class="ln">548</span>     /**
+<span class="ln">549</span>      * Builds a SQL SELECT statement from the given query specification.
+<span class="ln">550</span>      * @param array $query the query specification in name-value pairs. The following
+<span class="ln">551</span>      * query options are supported: {@link select}, {@link distinct}, {@link from},
+<span class="ln">552</span>      * {@link where}, {@link join}, {@link group}, {@link having}, {@link order},
+<span class="ln">553</span>      * {@link limit}, {@link offset} and {@link union}.
+<span class="ln">554</span>      * @throws CDbException if &quot;from&quot; key is not present in given query parameter
+<span class="ln">555</span>      * @return string the SQL statement
+</pre></div>	</div>
+' contains "http error". [] []
+[2014-01-05 22:14:10] UserListCept.php.INFO: # FAILED # [] []
+[2014-01-05 22:14:10] UserListCept.php.INFO: PASSED [] []
+[2014-01-05 22:15:30] UserListCept.php.INFO: send get "user/list",{"role":2,"orderby":"datetime"} [] []
+[2014-01-05 22:15:30] UserListCept.php.INFO: see response contains "http error" [] []
+[2014-01-05 22:15:30] UserListCept.php.ALERT: REST response contains
+Failed asserting that '{"success":true,"message":"success","data":[{"uid":"33","firstname":"Test guy","lastname":" name","avatar":"path\/to\/file.png","country":{"country_name":"China","flag_icon":"\/images\/country\/cn.png"},"company_email":"testguy@mail.com","personal_email":"testguy@mail.com","role":"2","status":"1"}]}' contains "http error". [] []
+[2014-01-05 22:15:30] UserListCept.php.INFO: # FAILED # [] []
+[2014-01-05 22:15:30] UserListCept.php.INFO: PASSED [] []
+[2014-01-05 22:15:46] UserListCept.php.INFO: send get "user/list",{"role":2,"orderby":"datetime"} [] []
+[2014-01-05 22:15:46] UserListCept.php.INFO: see response code is 200 [] []
+[2014-01-05 22:15:46] UserListCept.php.INFO: see response is json  [] []
+[2014-01-05 22:15:46] UserListCept.php.INFO: see response contains "http error" [] []
+[2014-01-05 22:15:46] UserListCept.php.ALERT: REST response contains
+Failed asserting that '{"success":true,"message":"success","data":[{"uid":"33","firstname":"Test guy","lastname":" name","avatar":"path\/to\/file.png","country":{"country_name":"China","flag_icon":"\/images\/country\/cn.png"},"company_email":"testguy@mail.com","personal_email":"testguy@mail.com","role":"2","status":"1"}]}' contains "http error". [] []
+[2014-01-05 22:15:46] UserListCept.php.INFO: # FAILED # [] []
+[2014-01-05 22:15:46] UserListCept.php.INFO: PASSED [] []
+[2014-01-05 22:16:04] UserListCept.php.INFO: send get "user/list",{"role":2,"orderby":"datetime"} [] []
+[2014-01-05 22:16:05] UserListCept.php.INFO: see response code is 200 [] []
+[2014-01-05 22:16:05] UserListCept.php.INFO: see response is json  [] []
+[2014-01-05 22:16:05] UserListCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 22:16:05] UserListCept.php.INFO: PASSED [] []
+[2014-01-05 22:17:40] UserListCept.php.INFO: send get "user/list",{"orderby":"datetime"} [] []
+[2014-01-05 22:17:40] UserListCept.php.INFO: see response code is 200 [] []
+[2014-01-05 22:17:40] UserListCept.php.INFO: see response is json  [] []
+[2014-01-05 22:17:40] UserListCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 22:17:40] UserListCept.php.INFO: PASSED [] []
+[2014-01-05 22:17:46] UserListCept.php.INFO: send get "user/list", [] []
+[2014-01-05 22:17:46] UserListCept.php.INFO: see response code is 200 [] []
+[2014-01-05 22:17:46] UserListCept.php.INFO: see response is json  [] []
+[2014-01-05 22:17:46] UserListCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 22:17:46] UserListCept.php.ALERT: REST response contains
+Failed asserting that '{"success":false,"message":"invalid params orderby","data":null}' contains ""success":true". [] []
+[2014-01-05 22:17:46] UserListCept.php.INFO: # FAILED # [] []
+[2014-01-05 22:17:46] UserListCept.php.INFO: PASSED [] []
+[2014-01-05 22:17:54] UserListCept.php.INFO: send get "user/list",{"orderby":"datetime"} [] []
+[2014-01-05 22:17:54] UserListCept.php.INFO: see response code is 200 [] []
+[2014-01-05 22:17:54] UserListCept.php.INFO: see response is json  [] []
+[2014-01-05 22:17:54] UserListCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 22:17:54] UserListCept.php.INFO: PASSED [] []
+[2014-01-05 22:18:11] UserListCept.php.INFO: send get "user/list",{"orderby":"datetime"} [] []
+[2014-01-05 22:18:11] UserListCept.php.INFO: see response code is 200 [] []
+[2014-01-05 22:18:11] UserListCept.php.INFO: see response is json  [] []
+[2014-01-05 22:18:11] UserListCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 22:18:11] UserListCept.php.ALERT: REST response contains
+Failed asserting that '{"success":false,"message":"permission deny","data":null}' contains ""success":true". [] []
+[2014-01-05 22:18:11] UserListCept.php.INFO: # FAILED # [] []
+[2014-01-05 22:18:11] UserListCept.php.INFO: PASSED [] []
+[2014-01-05 22:18:20] UserListCept.php.INFO: send get "user/list",{"orderby":"datetime"} [] []
+[2014-01-05 22:18:20] UserListCept.php.INFO: see response code is 200 [] []
+[2014-01-05 22:18:20] UserListCept.php.INFO: see response is json  [] []
+[2014-01-05 22:18:20] UserListCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 22:18:20] UserListCept.php.INFO: PASSED [] []
+[2014-01-05 22:18:31] UserListCept.php.INFO: send get "user/list",{"orderby":"datetime"} [] []
+[2014-01-05 22:18:32] UserListCept.php.INFO: see response code is 200 [] []
+[2014-01-05 22:18:32] UserListCept.php.INFO: see response is json  [] []
+[2014-01-05 22:18:32] UserListCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 22:18:32] UserListCept.php.INFO: PASSED [] []
+[2014-01-05 22:25:03] UserDeleteCept.php.INFO: send post "user/delete",{"uid":34} [] []
+[2014-01-05 22:25:03] UserDeleteCept.php.INFO: see response code is 200 [] []
+[2014-01-05 22:25:03] UserDeleteCept.php.INFO: see response is json  [] []
+[2014-01-05 22:25:03] UserDeleteCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 22:25:03] UserDeleteCept.php.INFO: PASSED [] []
+[2014-01-05 22:26:58] UserPutCept.php.INFO: send post "user/put",{"name":"admin123","country_id":1,"uid":33} [] []
+[2014-01-05 22:26:58] UserPutCept.php.INFO: see response is json  [] []
+[2014-01-05 22:26:58] UserPutCept.php.INFO: see response contains "test@gmail.com" [] []
+[2014-01-05 22:26:58] UserPutCept.php.ALERT: REST response contains
+Failed asserting that '{"success":false,"message":"Array\n(\n    [code] => 404\n    [type] => CHttpException\n    [errorCode] => 0\n    [message] => The system is unable to find the requested action \"put\".\n    [file] => \/home\/jackey\/workspace\/bank_wall\/api\/framework\/web\/CController.php\n    [line] => 483\n    [trace] => #0 \/home\/jackey\/workspace\/bank_wall\/api\/framework\/web\/CController.php(270): CController->missingAction('put')\n#1 \/home\/jackey\/workspace\/bank_wall\/api\/framework\/web\/CWebApplication.php(282): CController->run('put')\n#2 \/home\/jackey\/workspace\/bank_wall\/api\/framework\/web\/CWebApplication.php(141): CWebApplication->runController('user\/put')\n#3 \/home\/jackey\/workspace\/bank_wall\/api\/framework\/base\/CApplication.php(180): CWebApplication->processRequest()\n#4 \/home\/jackey\/workspace\/bank_wall\/api\/index.php(16): CApplication->run()\n#5 {main}\n    [traces] => Array\n        (\n            [0] => Array\n                (\n                    [file] => \/home\/jackey\/workspace\/bank_wall\/api\/framework\/web\/CController.php\n                    [line] => 270\n                    [function] => missingAction\n                    [class] => CController\n                    [type] => ->\n                    [args] => Array\n                        (\n                            [0] => put\n                        )\n\n                )\n\n            [1] => Array\n                (\n                    [file] => \/home\/jackey\/workspace\/bank_wall\/api\/framework\/web\/CWebApplication.php\n                    [line] => 282\n                    [function] => run\n                    [class] => CController\n                    [type] => ->\n                    [args] => Array\n                        (\n                            [0] => put\n                        )\n\n                )\n\n            [2] => Array\n                (\n                    [file] => \/home\/jackey\/workspace\/bank_wall\/api\/framework\/web\/CWebApplication.php\n                    [line] => 141\n                    [function] => runController\n                    [class] => CWebApplication\n                    [type] => ->\n                    [args] => Array\n                        (\n                            [0] => user\/put\n                        )\n\n                )\n\n            [3] => Array\n                (\n                    [file] => \/home\/jackey\/workspace\/bank_wall\/api\/framework\/base\/CApplication.php\n                    [line] => 180\n                    [function] => processRequest\n                    [class] => CWebApplication\n                    [type] => ->\n                    [args] => Array\n                        (\n                        )\n\n                )\n\n            [4] => Array\n                (\n                    [file] => \/home\/jackey\/workspace\/bank_wall\/api\/index.php\n                    [line] => 16\n                    [function] => run\n                    [class] => CApplication\n                    [type] => ->\n                    [args] => Array\n                        (\n                        )\n\n                )\n\n        )\n\n)\n","data":null}' contains "test@gmail.com". [] []
+[2014-01-05 22:26:58] UserPutCept.php.INFO: # FAILED # [] []
+[2014-01-05 22:26:58] UserPutCept.php.INFO: PASSED [] []
+[2014-01-05 22:27:40] UserPutCept.php.INFO: send post "user/put",{"name":"admin123","country_id":1,"uid":33} [] []
+[2014-01-05 22:27:40] UserPutCept.php.INFO: see response is json  [] []
+[2014-01-05 22:27:40] UserPutCept.php.INFO: see response contains "test@gmail.com" [] []
+[2014-01-05 22:27:40] UserPutCept.php.ALERT: REST response contains
+Failed asserting that '{"success":false,"message":"permission deny","data":null}' contains "test@gmail.com". [] []
+[2014-01-05 22:27:40] UserPutCept.php.INFO: # FAILED # [] []
+[2014-01-05 22:27:40] UserPutCept.php.INFO: PASSED [] []
+[2014-01-05 22:28:22] UserPutCept.php.INFO: send post "user/put",{"name":"admin123","country_id":1,"uid":33} [] []
+[2014-01-05 22:28:22] UserPutCept.php.INFO: see response is json  [] []
+[2014-01-05 22:28:22] UserPutCept.php.ALERT: json decoding error #4, see http://php.net/manual/en/function.json-last-error.php
+Failed asserting that 4 matches expected 0. [] []
+[2014-01-05 22:28:22] UserPutCept.php.INFO: # FAILED # [] []
+[2014-01-05 22:28:22] UserPutCept.php.INFO: PASSED [] []
+[2014-01-05 22:28:42] UserPutCept.php.INFO: send post "user/put",{"name":"admin123","country_id":1,"uid":33} [] []
+[2014-01-05 22:28:42] UserPutCept.php.INFO: see response contains "test@gmail.com" [] []
+[2014-01-05 22:28:42] UserPutCept.php.ALERT: REST response contains
+Failed asserting that 'ID: 33{"success":false,"message":"permission deny","data":null}' contains "test@gmail.com". [] []
+[2014-01-05 22:28:42] UserPutCept.php.INFO: # FAILED # [] []
+[2014-01-05 22:28:42] UserPutCept.php.INFO: PASSED [] []
+[2014-01-05 22:29:07] UserPutCept.php.INFO: send post "user/put",{"name":"admin123","country_id":1,"uid":33} [] []
+[2014-01-05 22:29:08] UserPutCept.php.INFO: see response code is 200 [] []
+[2014-01-05 22:29:08] UserPutCept.php.INFO: see response is json  [] []
+[2014-01-05 22:29:08] UserPutCept.php.INFO: see response contains "test@gmail.com" [] []
+[2014-01-05 22:29:08] UserPutCept.php.ALERT: REST response contains
+Failed asserting that '{"success":false,"message":"permission deny","data":null}' contains "test@gmail.com". [] []
+[2014-01-05 22:29:08] UserPutCept.php.INFO: # FAILED # [] []
+[2014-01-05 22:29:08] UserPutCept.php.INFO: PASSED [] []
+[2014-01-05 22:29:50] UserPutCept.php.INFO: send post "user/put",{"name":"admin123","country_id":1,"uid":33} [] []
+[2014-01-05 22:29:50] UserPutCept.php.INFO: see response code is 200 [] []
+[2014-01-05 22:29:50] UserPutCept.php.INFO: see response is json  [] []
+[2014-01-05 22:29:50] UserPutCept.php.INFO: see response contains "test@gmail.com" [] []
+[2014-01-05 22:29:50] UserPutCept.php.ALERT: REST response contains
+Failed asserting that '{"success":false,"message":"permission deny update any account","data":null}' contains "test@gmail.com". [] []
+[2014-01-05 22:29:50] UserPutCept.php.INFO: # FAILED # [] []
+[2014-01-05 22:29:50] UserPutCept.php.INFO: PASSED [] []
+[2014-01-05 22:30:01] UserPutCept.php.INFO: send post "user/put",{"name":"admin123","country_id":1,"uid":33} [] []
+[2014-01-05 22:30:01] UserPutCept.php.INFO: see response code is 200 [] []
+[2014-01-05 22:30:01] UserPutCept.php.INFO: see response is json  [] []
+[2014-01-05 22:30:01] UserPutCept.php.INFO: see response contains "test@gmail.com" [] []
+[2014-01-05 22:30:01] UserPutCept.php.ALERT: REST response contains
+Failed asserting that '{"success":false,"message":"permission deny update own account","data":null}' contains "test@gmail.com". [] []
+[2014-01-05 22:30:01] UserPutCept.php.INFO: # FAILED # [] []
+[2014-01-05 22:30:01] UserPutCept.php.INFO: PASSED [] []
+[2014-01-05 22:30:33] UserPutCept.php.INFO: send post "user/put",{"name":"admin123","country_id":1,"uid":33} [] []
+[2014-01-05 22:30:34] UserPutCept.php.INFO: see response code is 200 [] []
+[2014-01-05 22:30:34] UserPutCept.php.INFO: see response is json  [] []
+[2014-01-05 22:30:34] UserPutCept.php.INFO: see response contains "test@gmail.com" [] []
+[2014-01-05 22:30:34] UserPutCept.php.ALERT: REST response contains
+Failed asserting that '{"success":true,"message":"success","data":{"uid":"33","name":null,"personal_email":"testguy@mail.com","company_email":"testguy@mail.com","country_id":"1","avatar":"path\/to\/file.png","role":"2","datetime":"1388908305","firstname":"Test guy","lastname":" name","password":"21232f297a57a5a743894a0e4a801fc3","status":"1"}}' contains "test@gmail.com". [] []
+[2014-01-05 22:30:34] UserPutCept.php.INFO: # FAILED # [] []
+[2014-01-05 22:30:34] UserPutCept.php.INFO: PASSED [] []
+[2014-01-05 22:31:13] UserPutCept.php.INFO: send post "user/put",{"name":"admin123","country_id":1,"uid":33} [] []
+[2014-01-05 22:31:13] UserPutCept.php.INFO: see response code is 200 [] []
+[2014-01-05 22:31:13] UserPutCept.php.INFO: see response is json  [] []
+[2014-01-05 22:31:13] UserPutCept.php.INFO: see response contains "admin123" [] []
+[2014-01-05 22:31:13] UserPutCept.php.ALERT: REST response contains
+Failed asserting that '{"success":true,"message":"success","data":{"uid":"33","name":null,"personal_email":"testguy@mail.com","company_email":"testguy@mail.com","country_id":"1","avatar":"path\/to\/file.png","role":"2","datetime":"1388908305","firstname":"Test guy","lastname":" name","password":"21232f297a57a5a743894a0e4a801fc3","status":"1"}}' contains "admin123". [] []
+[2014-01-05 22:31:13] UserPutCept.php.INFO: # FAILED # [] []
+[2014-01-05 22:31:13] UserPutCept.php.INFO: PASSED [] []
+[2014-01-05 22:33:40] UserPutCept.php.INFO: send post "user/put",{"name":"admin123","country_id":1,"uid":33} [] []
+[2014-01-05 22:33:40] UserPutCept.php.INFO: see response code is 200 [] []
+[2014-01-05 22:33:40] UserPutCept.php.INFO: see response is json  [] []
+[2014-01-05 22:33:40] UserPutCept.php.INFO: see response contains "admin123" [] []
+[2014-01-05 22:33:40] UserPutCept.php.INFO: PASSED [] []
+[2014-01-05 23:25:19] NodePostCept.php.INFO: send post "node/post",{"description":"I am from test","photo":"@/home/jackey/Pictures/test.png"} [] []
+[2014-01-05 23:25:19] NodePostCept.php.INFO: see response code is 200 [] []
+[2014-01-05 23:25:19] NodePostCept.php.INFO: see response is json  [] []
+[2014-01-05 23:25:19] NodePostCept.php.INFO: see response contains "http error" [] []
+[2014-01-05 23:25:19] NodePostCept.php.ALERT: REST response contains
+Failed asserting that '{"success":true,"message":"success","data":{"status":1,"description":"I am from test","type":"photo","file":"\/uploads\/p23.png","uid":"33","country_id":"1","hashtag":"a:0:{}","datetime":1388935519,"nid":"23","user":{"avatar":"path\/to\/file.png","role":"2","status":1,"firstname":"Test guy","lastname":" name","company_email":"testguy@mail.com","personal_email":"testguy@mail.com","uid":null,"name":null,"country_id":null,"datetime":null,"password":null},"country":{"country_id":"1","country_name":"China","code":"cn","flag_icon":"\/images\/country\/cn.png"}}}' contains "http error". [] []
+[2014-01-05 23:25:19] NodePostCept.php.INFO: # FAILED # [] []
+[2014-01-05 23:25:19] NodePostCept.php.INFO: PASSED [] []
+[2014-01-05 23:25:50] NodePostCept.php.INFO: send post "node/post",{"description":"I am from test","photo":"@/home/jackey/Pictures/test.png"} [] []
+[2014-01-05 23:25:50] NodePostCept.php.INFO: see response code is 200 [] []
+[2014-01-05 23:25:50] NodePostCept.php.INFO: see response is json  [] []
+[2014-01-05 23:25:50] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:25:50] NodePostCept.php.INFO: see response contains "nid" [] []
+[2014-01-05 23:25:50] NodePostCept.php.INFO: PASSED [] []
+[2014-01-05 23:27:24] NodePostCept.php.INFO: send post "node/post",{"description":"I am from test","photo":"@/home/jackey/Pictures/test.png"} [] []
+[2014-01-05 23:27:24] NodePostCept.php.INFO: see response code is 200 [] []
+[2014-01-05 23:27:24] NodePostCept.php.INFO: see response is json  [] []
+[2014-01-05 23:27:24] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:27:24] NodePostCept.php.INFO: see response contains "nid" [] []
+[2014-01-05 23:27:24] NodePostCept.php.INFO: PASSED [] []
+[2014-01-05 23:27:58] NodePostCept.php.INFO: send post "node/post",{"description":"I am from test","photo":"@/home/jackey/Pictures/test.png"} [] []
+[2014-01-05 23:27:58] NodePostCept.php.INFO: see response code is 200 [] []
+[2014-01-05 23:27:58] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:27:58] NodePostCept.php.ALERT: REST response contains
+Failed asserting that 'Array
+(
+    [avatar] => path/to/file.png
+    [role] => 2
+    [status] => 1
+    [firstname] => Test guy
+    [lastname] =>  name
+    [company_email] => testguy@mail.com
+    [personal_email] => testguy@mail.com
+    [uid] => 
+    [name] => 
+    [country_id] => 
+    [datetime] => 
+    [password] => 
+)
+' contains ""success":true". [] []
+[2014-01-05 23:27:58] NodePostCept.php.INFO: # FAILED # [] []
+[2014-01-05 23:27:58] NodePostCept.php.INFO: PASSED [] []
+[2014-01-05 23:29:41] NodePostCept.php.INFO: send post "node/post",{"description":"I am from test","photo":"@/home/jackey/Pictures/test.png"} [] []
+[2014-01-05 23:29:42] NodePostCept.php.INFO: see response code is 200 [] []
+[2014-01-05 23:29:42] NodePostCept.php.INFO: see response is json  [] []
+[2014-01-05 23:29:42] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:29:42] NodePostCept.php.INFO: see response contains "nid" [] []
+[2014-01-05 23:29:42] NodePostCept.php.INFO: PASSED [] []
+[2014-01-05 23:32:14] NodePostCept.php.INFO: send post "node/post",{"description":"I am from test","photo":"@/home/jackey/Pictures/test.png"} [] []
+[2014-01-05 23:32:14] NodePostCept.php.INFO: see response code is 200 [] []
+[2014-01-05 23:32:14] NodePostCept.php.INFO: see response is json  [] []
+[2014-01-05 23:32:14] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:32:14] NodePostCept.php.INFO: see response contains "nid" [] []
+[2014-01-05 23:32:14] NodePostCept.php.INFO: send post "node/post",{"description":"I am video from #shanghai","video":"@/home/jackey/Videos/t2.avi"} [] []
+[2014-01-05 23:32:17] NodePostCept.php.INFO: PASSED [] []
+[2014-01-05 23:33:12] NodePostCept.php.INFO: send post "node/post",{"description":"I am from test","photo":"@/home/jackey/Pictures/test.png"} [] []
+[2014-01-05 23:33:12] NodePostCept.php.INFO: see response code is 200 [] []
+[2014-01-05 23:33:12] NodePostCept.php.INFO: see response is json  [] []
+[2014-01-05 23:33:12] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:33:12] NodePostCept.php.INFO: see response contains "nid" [] []
+[2014-01-05 23:33:12] NodePostCept.php.INFO: send post "node/post",{"description":"I am video from #shanghai","video":"@/home/jackey/Videos/t2.avi"} [] []
+[2014-01-05 23:33:13] NodePostCept.php.INFO: see response code is 200 [] []
+[2014-01-05 23:33:13] NodePostCept.php.ALERT: Failed asserting that 500 matches expected 200. [] []
+[2014-01-05 23:33:13] NodePostCept.php.INFO: # FAILED # [] []
+[2014-01-05 23:33:13] NodePostCept.php.INFO: PASSED [] []
+[2014-01-05 23:33:28] NodePostCept.php.INFO: send post "node/post",{"description":"I am from test","photo":"@/home/jackey/Pictures/test.png"} [] []
+[2014-01-05 23:33:29] NodePostCept.php.INFO: see response code is 200 [] []
+[2014-01-05 23:33:29] NodePostCept.php.INFO: see response is json  [] []
+[2014-01-05 23:33:29] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:33:29] NodePostCept.php.INFO: see response contains "nid" [] []
+[2014-01-05 23:33:29] NodePostCept.php.INFO: send post "node/post",{"description":"I am video from #shanghai","video":"@/home/jackey/Videos/t2.avi"} [] []
+[2014-01-05 23:33:29] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:33:29] NodePostCept.php.ALERT: REST response contains
+Failed asserting that '
+	<h1>PHP warning</h1>
+
+	<p class="message">
+		rename(/home/jackey/workspace/bank_wall/api/uploads/52c97b49797c4_t2.mp4,/home/jackey/workspace/bank_wall/api/uploads/v33.mp4): No such file or directory	</p>
+
+	<div class="source">
+		<p class="file">/home/jackey/workspace/bank_wall/api/protected/models/NodeAR.php(148)</p>
+		<div class="code"><pre><span class="ln">136</span>       }
+<span class="ln">137</span>       else {
+<span class="ln">138</span>           $name = &quot;v&quot;. $this-&gt;nid;
+<span class="ln">139</span>       }
+<span class="ln">140</span>       
+<span class="ln">141</span>       $ext = pathinfo($this-&gt;file, PATHINFO_EXTENSION);
+<span class="ln">142</span>       $newname = $name.&#039;.&#039;.$ext;
+<span class="ln">143</span>       
+<span class="ln">144</span>       $paths = explode(&quot;/&quot;, $this-&gt;file);
+<span class="ln">145</span>       $paths[count($paths) - 1] = $newname;
+<span class="ln">146</span>       $newpath = implode(&quot;/&quot;, $paths);
+<span class="ln">147</span>       
+<span class="error"><span class="ln error-ln">148</span>       rename(ROOT.$this-&gt;file, ROOT. $newpath);
+</span><span class="ln">149</span>       
+<span class="ln">150</span>       // 文件重命名后 修改数据库
+<span class="ln">151</span>       $this-&gt;updateByPk($this-&gt;nid, array(&quot;file&quot; =&gt; $newpath));
+<span class="ln">152</span>       
+<span class="ln">153</span>       $this-&gt;file = $newpath;
+<span class="ln">154</span>       
+<span class="ln">155</span>       // Load user/country
+<span class="ln">156</span>       $userAr = new UserAR();
+<span class="ln">157</span>       $userAr-&gt;setAttributes($userAr-&gt;getOutputRecordInArray(UserAR::model()-&gt;findByPk($this-&gt;uid)));
+<span class="ln">158</span>       $this-&gt;user = $userAr;
+<span class="ln">159</span>       
+<span class="ln">160</span>       $this-&gt;country = CountryAR::model()-&gt;findByPk($this-&gt;country_id);
+</pre></div>	</div>
+' contains ""success":true". [] []
+[2014-01-05 23:33:29] NodePostCept.php.INFO: # FAILED # [] []
+[2014-01-05 23:33:29] NodePostCept.php.INFO: PASSED [] []
+[2014-01-05 23:35:16] NodePostCept.php.INFO: send post "node/post",{"description":"I am from test","photo":"@/home/jackey/Pictures/test.png"} [] []
+[2014-01-05 23:35:16] NodePostCept.php.INFO: see response code is 200 [] []
+[2014-01-05 23:35:16] NodePostCept.php.INFO: see response is json  [] []
+[2014-01-05 23:35:16] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:35:16] NodePostCept.php.INFO: see response contains "nid" [] []
+[2014-01-05 23:35:16] NodePostCept.php.INFO: send post "node/post",{"description":"I am video from #shanghai","video":"@/home/jackey/Videos/t2.avi"} [] []
+[2014-01-05 23:35:17] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:35:17] NodePostCept.php.ALERT: REST response contains
+Failed asserting that '
+	<h1>PHP warning</h1>
+
+	<p class="message">
+		rename(/home/jackey/workspace/bank_wall/api/uploads/52c97bb4f369d_t2.mp4,/home/jackey/workspace/bank_wall/api/uploads/v35.mp4): No such file or directory	</p>
+
+	<div class="source">
+		<p class="file">/home/jackey/workspace/bank_wall/api/protected/models/NodeAR.php(148)</p>
+		<div class="code"><pre><span class="ln">136</span>       }
+<span class="ln">137</span>       else {
+<span class="ln">138</span>           $name = &quot;v&quot;. $this-&gt;nid;
+<span class="ln">139</span>       }
+<span class="ln">140</span>       
+<span class="ln">141</span>       $ext = pathinfo($this-&gt;file, PATHINFO_EXTENSION);
+<span class="ln">142</span>       $newname = $name.&#039;.&#039;.$ext;
+<span class="ln">143</span>       
+<span class="ln">144</span>       $paths = explode(&quot;/&quot;, $this-&gt;file);
+<span class="ln">145</span>       $paths[count($paths) - 1] = $newname;
+<span class="ln">146</span>       $newpath = implode(&quot;/&quot;, $paths);
+<span class="ln">147</span>       
+<span class="error"><span class="ln error-ln">148</span>       rename(ROOT.$this-&gt;file, ROOT. $newpath);
+</span><span class="ln">149</span>       
+<span class="ln">150</span>       // 文件重命名后 修改数据库
+<span class="ln">151</span>       $this-&gt;updateByPk($this-&gt;nid, array(&quot;file&quot; =&gt; $newpath));
+<span class="ln">152</span>       
+<span class="ln">153</span>       $this-&gt;file = $newpath;
+<span class="ln">154</span>       
+<span class="ln">155</span>       // Load user/country
+<span class="ln">156</span>       $userAr = new UserAR();
+<span class="ln">157</span>       $userAr-&gt;setAttributes($userAr-&gt;getOutputRecordInArray(UserAR::model()-&gt;findByPk($this-&gt;uid)));
+<span class="ln">158</span>       $this-&gt;user = $userAr;
+<span class="ln">159</span>       
+<span class="ln">160</span>       $this-&gt;country = CountryAR::model()-&gt;findByPk($this-&gt;country_id);
+</pre></div>	</div>
+' contains ""success":true". [] []
+[2014-01-05 23:35:17] NodePostCept.php.INFO: # FAILED # [] []
+[2014-01-05 23:35:17] NodePostCept.php.INFO: PASSED [] []
+[2014-01-05 23:36:34] NodePostCept.php.INFO: send post "node/post",{"description":"I am from test","photo":"@/home/jackey/Pictures/test.png"} [] []
+[2014-01-05 23:36:34] NodePostCept.php.INFO: see response code is 200 [] []
+[2014-01-05 23:36:34] NodePostCept.php.INFO: see response is json  [] []
+[2014-01-05 23:36:34] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:36:34] NodePostCept.php.INFO: see response contains "nid" [] []
+[2014-01-05 23:36:34] NodePostCept.php.INFO: send post "node/post",{"description":"I am video from #shanghai","video":"@/home/jackey/Videos/t2.avi"} [] []
+[2014-01-05 23:36:34] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:36:34] NodePostCept.php.INFO: see response contains "nid" [] []
+[2014-01-05 23:36:34] NodePostCept.php.INFO: PASSED [] []
+[2014-01-05 23:37:21] NodePostCept.php.INFO: send post "node/post",{"description":"I am from test","photo":"@/home/jackey/Pictures/test.png"} [] []
+[2014-01-05 23:37:21] NodePostCept.php.INFO: see response code is 200 [] []
+[2014-01-05 23:37:21] NodePostCept.php.INFO: see response is json  [] []
+[2014-01-05 23:37:21] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:37:21] NodePostCept.php.INFO: see response contains "nid" [] []
+[2014-01-05 23:37:21] NodePostCept.php.INFO: send post "node/post",{"description":"I am video from #shanghai","video":"@/home/jackey/Videos/t2.avi"} [] []
+[2014-01-05 23:37:22] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:37:22] NodePostCept.php.ALERT: REST response contains
+Failed asserting that '
+	<h1>PHP notice</h1>
+
+	<p class="message">
+		Use of undefined constant ROO - assumed &#039;ROO&#039;	</p>
+
+	<div class="source">
+		<p class="file">/home/jackey/workspace/bank_wall/api/protected/models/NodeAR.php(156)</p>
+		<div class="code"><pre><span class="ln">144</span>       $paths = explode(&quot;/&quot;, $this-&gt;file);
+<span class="ln">145</span>       $paths[count($paths) - 1] = $newname;
+<span class="ln">146</span>       $newpath = implode(&quot;/&quot;, $paths);
+<span class="ln">147</span>       
+<span class="ln">148</span>       if (file_exists(ROOT.$this-&gt;file)) {
+<span class="ln">149</span>         rename(ROOT.$this-&gt;file, ROOT. $newpath);
+<span class="ln">150</span>         // 文件重命名后 修改数据库
+<span class="ln">151</span>         $this-&gt;updateByPk($this-&gt;nid, array(&quot;file&quot; =&gt; $newpath));
+<span class="ln">152</span> 
+<span class="ln">153</span>         $this-&gt;file = $newpath;
+<span class="ln">154</span>       }
+<span class="ln">155</span>       else {
+<span class="error"><span class="ln error-ln">156</span>         print &quot;FILE: &quot;.ROO.$this-&gt;file;
+</span><span class="ln">157</span>       }
+<span class="ln">158</span>       
+<span class="ln">159</span> 
+<span class="ln">160</span>       
+<span class="ln">161</span>       // Load user/country
+<span class="ln">162</span>       $userAr = new UserAR();
+<span class="ln">163</span>       $userAr-&gt;setAttributes($userAr-&gt;getOutputRecordInArray(UserAR::model()-&gt;findByPk($this-&gt;uid)));
+<span class="ln">164</span>       $this-&gt;user = $userAr;
+<span class="ln">165</span>       
+<span class="ln">166</span>       $this-&gt;country = CountryAR::model()-&gt;findByPk($this-&gt;country_id);
+<span class="ln">167</span>       
+<span class="ln">168</span>       return TRUE;
+</pre></div>	</div>
+' contains ""success":true". [] []
+[2014-01-05 23:37:22] NodePostCept.php.INFO: # FAILED # [] []
+[2014-01-05 23:37:22] NodePostCept.php.INFO: PASSED [] []
+[2014-01-05 23:37:32] NodePostCept.php.INFO: send post "node/post",{"description":"I am from test","photo":"@/home/jackey/Pictures/test.png"} [] []
+[2014-01-05 23:37:32] NodePostCept.php.INFO: see response code is 200 [] []
+[2014-01-05 23:37:32] NodePostCept.php.INFO: see response is json  [] []
+[2014-01-05 23:37:32] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:37:32] NodePostCept.php.INFO: see response contains "nid" [] []
+[2014-01-05 23:37:32] NodePostCept.php.INFO: send post "node/post",{"description":"I am video from #shanghai","video":"@/home/jackey/Videos/t2.avi"} [] []
+[2014-01-05 23:37:33] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:37:33] NodePostCept.php.INFO: see response contains "nid" [] []
+[2014-01-05 23:37:33] NodePostCept.php.INFO: PASSED [] []
+[2014-01-05 23:38:10] NodePostCept.php.INFO: send post "node/post",{"description":"I am from test","photo":"@/home/jackey/Pictures/test.png"} [] []
+[2014-01-05 23:38:11] NodePostCept.php.INFO: see response code is 200 [] []
+[2014-01-05 23:38:11] NodePostCept.php.INFO: see response is json  [] []
+[2014-01-05 23:38:11] NodePostCept.php.ALERT: json decoding error #4, see http://php.net/manual/en/function.json-last-error.php
+Failed asserting that 4 matches expected 0. [] []
+[2014-01-05 23:38:11] NodePostCept.php.INFO: # FAILED # [] []
+[2014-01-05 23:38:11] NodePostCept.php.INFO: PASSED [] []
+[2014-01-05 23:38:35] NodePostCept.php.INFO: send post "node/post",{"description":"I am video from #shanghai","video":"@/home/jackey/Videos/t2.avi"} [] []
+[2014-01-05 23:38:37] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:38:37] NodePostCept.php.INFO: see response contains "nid" [] []
+[2014-01-05 23:38:37] NodePostCept.php.INFO: PASSED [] []
+[2014-01-05 23:39:17] NodePostCept.php.INFO: send post "node/post",{"description":"I am video from #shanghai","video":"@/home/jackey/Videos/t2.avi"} [] []
+[2014-01-05 23:39:17] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:39:17] NodePostCept.php.ALERT: REST response contains
+Failed asserting that 'FILE: /home/jackey/workspace/bank_wall/api/uploads/52c97ca561f15_t2.mp4' contains ""success":true". [] []
+[2014-01-05 23:39:17] NodePostCept.php.INFO: # FAILED # [] []
+[2014-01-05 23:39:17] NodePostCept.php.INFO: PASSED [] []
+[2014-01-05 23:39:25] NodePostCept.php.INFO: send post "node/post",{"description":"I am video from #shanghai","video":"@/home/jackey/Videos/t2.avi"} [] []
+[2014-01-05 23:39:26] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:39:26] NodePostCept.php.ALERT: REST response contains
+Failed asserting that 'FILE: /home/jackey/workspace/bank_wall/api/uploads/52c97cadeb370_t2.mp4' contains ""success":true". [] []
+[2014-01-05 23:39:26] NodePostCept.php.INFO: # FAILED # [] []
+[2014-01-05 23:39:26] NodePostCept.php.INFO: PASSED [] []
+[2014-01-05 23:41:20] NodePostCept.php.INFO: send post "node/post",{"description":"I am video from #shanghai","video":"@/home/jackey/Videos/t2.avi"} [] []
+[2014-01-05 23:41:23] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:41:23] NodePostCept.php.ALERT: REST response contains
+Failed asserting that 'CUploadedFile Object
+(
+    [_name:CUploadedFile:private] => t2.avi
+    [_tempName:CUploadedFile:private] => /tmp/phpkVa6Lv
+    [_type:CUploadedFile:private] => video/x-msvideo
+    [_size:CUploadedFile:private] => 572998
+    [_error:CUploadedFile:private] => 0
+    [_e:CComponent:private] => 
+    [_m:CComponent:private] => 
+)
+FILE: /home/jackey/workspace/bank_wall/api/uploads/52c97d21029cf_t2.mp4' contains ""success":true". [] []
+[2014-01-05 23:41:23] NodePostCept.php.INFO: # FAILED # [] []
+[2014-01-05 23:41:23] NodePostCept.php.INFO: PASSED [] []
+[2014-01-05 23:45:05] NodePostCept.php.INFO: send post "node/post",{"description":"I am video from #shanghai","video":"@/home/jackey/Videos/t2.avi"} [] []
+[2014-01-05 23:45:07] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:45:07] NodePostCept.php.ALERT: REST response contains
+Failed asserting that 'TO:/home/jackey/workspace/bank_wall/api/uploads/52c97e01a16ae_t2.avi1FILE: /home/jackey/workspace/bank_wall/api/uploads/52c97e01a16ae_t2.mp4' contains ""success":true". [] []
+[2014-01-05 23:45:07] NodePostCept.php.INFO: # FAILED # [] []
+[2014-01-05 23:45:07] NodePostCept.php.INFO: PASSED [] []
+[2014-01-05 23:45:40] NodePostCept.php.INFO: send post "node/post",{"description":"I am video from #shanghai","video":"@/home/jackey/Videos/t2.avi"} [] []
+[2014-01-05 23:45:41] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:45:41] NodePostCept.php.ALERT: REST response contains
+Failed asserting that '
+Parse error: syntax error, unexpected T_CONSTANT_ENCAPSED_STRING in /home/jackey/workspace/bank_wall/api/protected/models/NodeAR.php on line 191
+
+Call Stack:
+    0.0001     334312   1. {main}() /home/jackey/workspace/bank_wall/api/index.php:0
+    0.0266    1942824   2. CApplication->run() /home/jackey/workspace/bank_wall/api/index.php:16
+    0.0267    1943520   3. CWebApplication->processRequest() /home/jackey/workspace/bank_wall/api/framework/base/CApplication.php:180
+    0.0308    2155192   4. CWebApplication->runController() /home/jackey/workspace/bank_wall/api/framework/web/CWebApplication.php:141
+    0.0402    3001008   5. CController->run() /home/jackey/workspace/bank_wall/api/framework/web/CWebApplication.php:282
+    0.0408    3042640   6. CController->runActionWithFilters() /home/jackey/workspace/bank_wall/api/framework/web/CController.php:265
+    0.0408    3042640   7. CController->runAction() /home/jackey/workspace/bank_wall/api/framework/web/CController.php:286
+    0.0410    3042856   8. CInlineAction->runWithParams() /home/jackey/workspace/bank_wall/api/framework/web/CController.php:308
+    0.0411    3043692   9. NodeController->actionPost() /home/jackey/workspace/bank_wall/api/framework/web/actions/CInlineAction.php:49
+    0.1594    5603288  10. YiiBase::autoload() /home/jackey/workspace/bank_wall/api/framework/YiiBase.php:0
+
+' contains ""success":true". [] []
+[2014-01-05 23:45:41] NodePostCept.php.INFO: # FAILED # [] []
+[2014-01-05 23:45:41] NodePostCept.php.INFO: PASSED [] []
+[2014-01-05 23:45:48] NodePostCept.php.INFO: send post "node/post",{"description":"I am video from #shanghai","video":"@/home/jackey/Videos/t2.avi"} [] []
+[2014-01-05 23:45:48] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:45:48] NodePostCept.php.ALERT: REST response contains
+Failed asserting that 'TO:/home/jackey/workspace/bank_wall/api/uploads/52c97e2c4c3ae_t2.aviRET: 1FILE: /home/jackey/workspace/bank_wall/api/uploads/52c97e2c4c3ae_t2.mp4' contains ""success":true". [] []
+[2014-01-05 23:45:48] NodePostCept.php.INFO: # FAILED # [] []
+[2014-01-05 23:45:48] NodePostCept.php.INFO: PASSED [] []
+[2014-01-05 23:46:22] NodePostCept.php.INFO: send post "node/post",{"description":"I am video from #shanghai","video":"@/home/jackey/Videos/t2.avi"} [] []
+[2014-01-05 23:46:22] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:46:23] NodePostCept.php.ALERT: REST response contains
+Failed asserting that 'TO:/home/jackey/workspace/bank_wall/api/uploads/52c97e4ebbbbb_t2.aviRET: 1FILE: /home/jackey/workspace/bank_wall/api/uploads/52c97e4ebbbbb_t2.mp4' contains ""success":true". [] []
+[2014-01-05 23:46:23] NodePostCept.php.INFO: # FAILED # [] []
+[2014-01-05 23:46:23] NodePostCept.php.INFO: PASSED [] []
+[2014-01-05 23:46:58] NodePostCept.php.INFO: send post "node/post",{"description":"I am video from #shanghai","video":"@/home/jackey/Videos/t2.avi"} [] []
+[2014-01-05 23:46:59] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:46:59] NodePostCept.php.ALERT: REST response contains
+Failed asserting that 'TO:/home/jackey/workspace/bank_wall/api/uploads/52c97e72e12c7_t2.aviRET: 11FILE: /home/jackey/workspace/bank_wall/api/uploads/52c97e72e12c7_t2.mp4' contains ""success":true". [] []
+[2014-01-05 23:46:59] NodePostCept.php.INFO: # FAILED # [] []
+[2014-01-05 23:46:59] NodePostCept.php.INFO: PASSED [] []
+[2014-01-05 23:47:22] NodePostCept.php.INFO: send post "node/post",{"description":"I am video from #shanghai","video":"@/home/jackey/Videos/t2.avi"} [] []
+[2014-01-05 23:47:22] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:47:22] NodePostCept.php.ALERT: REST response contains
+Failed asserting that 'TO:/home/jackey/workspace/bank_wall/api/uploads/52c97e8a9101d_t2.aviRET: 1FILE: /home/jackey/workspace/bank_wall/api/uploads/52c97e8a9101d_t2.avi' contains ""success":true". [] []
+[2014-01-05 23:47:22] NodePostCept.php.INFO: # FAILED # [] []
+[2014-01-05 23:47:23] NodePostCept.php.INFO: PASSED [] []
+[2014-01-05 23:48:19] NodePostCept.php.INFO: send post "node/post",{"description":"I am video from #shanghai","video":"@/home/jackey/Videos/t2.avi"} [] []
+[2014-01-05 23:48:20] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:48:20] NodePostCept.php.ALERT: REST response contains
+Failed asserting that 'TO:/home/jackey/workspace/bank_wall/api/uploads/52c97ec3df964_t2.aviRET: 1Status: 1FILE: /home/jackey/workspace/bank_wall/api/uploads/52c97ec3df964_t2.mp4' contains ""success":true". [] []
+[2014-01-05 23:48:20] NodePostCept.php.INFO: # FAILED # [] []
+[2014-01-05 23:48:20] NodePostCept.php.INFO: PASSED [] []
+[2014-01-05 23:48:32] NodePostCept.php.INFO: send post "node/post",{"description":"I am video from #shanghai","video":"@/home/jackey/Videos/t2.avi"} [] []
+[2014-01-05 23:48:32] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:48:32] NodePostCept.php.ALERT: REST response contains
+Failed asserting that 'TO:/home/jackey/workspace/bank_wall/api/uploads/52c97ed02356a_t2.aviRET: 1Status: Array
+(
+)
+FILE: /home/jackey/workspace/bank_wall/api/uploads/52c97ed02356a_t2.mp4' contains ""success":true". [] []
+[2014-01-05 23:48:32] NodePostCept.php.INFO: # FAILED # [] []
+[2014-01-05 23:48:32] NodePostCept.php.INFO: PASSED [] []
+[2014-01-05 23:49:00] NodePostCept.php.INFO: send post "node/post",{"description":"I am video from #shanghai","video":"@/home/jackey/Videos/t2.avi"} [] []
+[2014-01-05 23:49:00] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:49:00] NodePostCept.php.ALERT: REST response contains
+Failed asserting that 'TO:/home/jackey/workspace/bank_wall/api/uploads/52c97eec43362_t2.aviRET: 1Status: Array
+(
+)
+/home/jackey/workspace/bank_wall/api/uploads/52c97eec43362_t2.mp4FILE: /home/jackey/workspace/bank_wall/api/uploads/52c97eec43362_t2.mp4' contains ""success":true". [] []
+[2014-01-05 23:49:00] NodePostCept.php.INFO: # FAILED # [] []
+[2014-01-05 23:49:00] NodePostCept.php.INFO: PASSED [] []
+[2014-01-05 23:49:42] NodePostCept.php.INFO: send post "node/post",{"description":"I am video from #shanghai","video":"@/home/jackey/Videos/t2.avi"} [] []
+[2014-01-05 23:49:42] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:49:42] NodePostCept.php.ALERT: REST response contains
+Failed asserting that 'TO:/home/jackey/workspace/bank_wall/api/uploads/52c97f167ca94_t2.aviRET: 1Status: ffmpeg -i /home/jackey/workspace/bank_wall/api/uploads/52c97f167ca94_t2.avi -acodec libfaac -b:a 128k -vcodec mpeg4 -b:v 1200k -flags +aic+mv4 /home/jackey/workspace/bank_wall/api/uploads/52c97f167ca94_t2.mp4FILE: /home/jackey/workspace/bank_wall/api/uploads/52c97f167ca94_t2.mp4' contains ""success":true". [] []
+[2014-01-05 23:49:42] NodePostCept.php.INFO: # FAILED # [] []
+[2014-01-05 23:49:42] NodePostCept.php.INFO: PASSED [] []
+[2014-01-05 23:50:32] NodePostCept.php.INFO: send post "node/post",{"description":"I am video from #shanghai","video":"@/home/jackey/Videos/t2.avi"} [] []
+[2014-01-05 23:50:32] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:50:32] NodePostCept.php.ALERT: REST response contains
+Failed asserting that 'TO:/home/jackey/workspace/bank_wall/api/uploads/52c97f487733a_t2.aviRET: 1Status: ffmpeg -i /home/jackey/workspace/bank_wall/api/uploads/52c97f487733a_t2.avi -acodec libfaac -b:a 128k -vcodec mpeg4 -b:v 1200k -flags +aic+mv4 /home/jackey/workspace/bank_wall/api/uploads/52c97f487733a_t2.mp4FILE: /home/jackey/workspace/bank_wall/api/uploads/52c97f487733a_t2.mp4' contains ""success":true". [] []
+[2014-01-05 23:50:32] NodePostCept.php.INFO: # FAILED # [] []
+[2014-01-05 23:50:32] NodePostCept.php.INFO: PASSED [] []
+[2014-01-05 23:51:13] NodePostCept.php.INFO: send post "node/post",{"description":"I am video from #shanghai","video":"@/home/jackey/Videos/t2.avi"} [] []
+[2014-01-05 23:51:15] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:51:15] NodePostCept.php.ALERT: REST response contains
+Failed asserting that 'TO:/home/jackey/workspace/bank_wall/api/uploads/52c97f7167769_t2.aviRET: 1Status: ffmpeg -i /home/jackey/workspace/bank_wall/api/uploads/52c97f7167769_t2.avi -vcodec mpeg4 -b:v 1200k -flags +aic+mv4 /home/jackey/workspace/bank_wall/api/uploads/52c97f7167769_t2.mp4FILE: /home/jackey/workspace/bank_wall/api/uploads/52c97f7167769_t2.mp4' contains ""success":true". [] []
+[2014-01-05 23:51:15] NodePostCept.php.INFO: # FAILED # [] []
+[2014-01-05 23:51:15] NodePostCept.php.INFO: PASSED [] []
+[2014-01-05 23:52:28] NodePostCept.php.INFO: send post "node/post",{"description":"I am video from #shanghai","video":"@/home/jackey/Videos/t2.avi"} [] []
+[2014-01-05 23:52:30] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:52:30] NodePostCept.php.INFO: see response contains "nid" [] []
+[2014-01-05 23:52:30] NodePostCept.php.INFO: PASSED [] []
+[2014-01-05 23:52:47] NodePostCept.php.INFO: send post "node/post",{"description":"I am from test","photo":"@/home/jackey/Pictures/test.png"} [] []
+[2014-01-05 23:52:47] NodePostCept.php.INFO: see response code is 200 [] []
+[2014-01-05 23:52:47] NodePostCept.php.INFO: see response is json  [] []
+[2014-01-05 23:52:47] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:52:47] NodePostCept.php.INFO: see response contains "nid" [] []
+[2014-01-05 23:52:47] NodePostCept.php.INFO: send post "node/post",{"description":"I am video from #shanghai","video":"@/home/jackey/Videos/t2.avi"} [] []
+[2014-01-05 23:52:50] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:52:50] NodePostCept.php.INFO: see response contains "nid" [] []
+[2014-01-05 23:52:50] NodePostCept.php.INFO: PASSED [] []
+[2014-01-05 23:53:06] NodePostCept.php.INFO: send post "node/post",{"description":"I am from test","photo":"@/home/jackey/Pictures/test.png"} [] []
+[2014-01-05 23:53:06] NodePostCept.php.INFO: see response code is 200 [] []
+[2014-01-05 23:53:06] NodePostCept.php.INFO: see response is json  [] []
+[2014-01-05 23:53:06] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:53:06] NodePostCept.php.INFO: see response contains "nid" [] []
+[2014-01-05 23:53:06] NodePostCept.php.INFO: send post "node/post",{"description":"I am video from #shanghai","video":"@/home/jackey/Videos/t2.avi"} [] []
+[2014-01-05 23:53:08] NodePostCept.php.INFO: see response code is 200 [] []
+[2014-01-05 23:53:08] NodePostCept.php.INFO: see response is json  [] []
+[2014-01-05 23:53:08] NodePostCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:53:08] NodePostCept.php.INFO: see response contains "nid" [] []
+[2014-01-05 23:53:08] NodePostCept.php.INFO: PASSED [] []
+[2014-01-05 23:53:42] NodeListCept.php.INFO: send get "node/list?type=photo" [] []
+[2014-01-05 23:53:43] NodeListCept.php.INFO: see response code is 200 [] []
+[2014-01-05 23:53:43] NodeListCept.php.ALERT: Failed asserting that 500 matches expected 200. [] []
+[2014-01-05 23:53:43] NodeListCept.php.INFO: # FAILED # [] []
+[2014-01-05 23:53:43] NodeListCept.php.INFO: PASSED [] []
+[2014-01-05 23:53:56] NodeListCept.php.INFO: send get "node/list?type=photo" [] []
+[2014-01-05 23:53:56] NodeListCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:53:56] NodeListCept.php.ALERT: REST response contains
+Failed asserting that '
+	<h1>PHP notice</h1>
+
+	<p class="message">
+		Trying to get property of non-object	</p>
+
+	<div class="source">
+		<p class="file">/home/jackey/workspace/bank_wall/api/protected/controllers/NodeController.php(357)</p>
+		<div class="code"><pre><span class="ln">345</span>       
+<span class="ln">346</span>       // 集成 hashtag 搜索, 查询 hashtag 中的关键字
+<span class="ln">347</span>       $hashtag = $request-&gt;getParam(&quot;hashtag&quot;);
+<span class="ln">348</span>       if ($hashtag) {
+<span class="ln">349</span>         $query-&gt;addSearchCondition(&quot;hashtag&quot;, &#039;#&#039;.$hashtag);
+<span class="ln">350</span>       }
+<span class="ln">351</span>       
+<span class="ln">352</span>       $res = NodeAR::model()-&gt;with(&quot;user&quot;, &quot;country&quot;)-&gt;findAll($query);
+<span class="ln">353</span>       $retdata = array();
+<span class="ln">354</span>       foreach ($res as $node) {
+<span class="ln">355</span>           $data = $node-&gt;attributes;
+<span class="ln">356</span>           $data[&quot;likecount&quot;] = $node-&gt;likecount;
+<span class="error"><span class="ln error-ln">357</span>           $data[&quot;user&quot;] = $node-&gt;user-&gt;attributes;
+</span><span class="ln">358</span>           $data[&quot;country&quot;] = $node-&gt;country-&gt;attributes;
+<span class="ln">359</span>           $data[&quot;user_liked&quot;] = $node-&gt;user_liked;
+<span class="ln">360</span>           $data[&quot;like&quot;] = $node-&gt;like;
+<span class="ln">361</span>           $retdata[] = $data;
+<span class="ln">362</span>       }
+<span class="ln">363</span>       
+<span class="ln">364</span>       $this-&gt;responseJSON($retdata, &quot;success&quot;);
+<span class="ln">365</span>   }
+<span class="ln">366</span>   
+<span class="ln">367</span>   // 返回某个  nid 的 前10条和后10条
+<span class="ln">368</span>   // 这个里支持的参数是
+<span class="ln">369</span>   // @param type
+</pre></div>	</div>
+' contains ""success":true". [] []
+[2014-01-05 23:53:56] NodeListCept.php.INFO: # FAILED # [] []
+[2014-01-05 23:53:56] NodeListCept.php.INFO: PASSED [] []
+[2014-01-05 23:54:53] NodeListCept.php.INFO: send get "node/list?type=photo" [] []
+[2014-01-05 23:54:53] NodeListCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:54:53] NodeListCept.php.INFO: PASSED [] []
+[2014-01-05 23:55:31] NodeListCept.php.INFO: send get "node/list?type=photo" [] []
+[2014-01-05 23:55:32] NodeListCept.php.INFO: see response code is 200 [] []
+[2014-01-05 23:55:32] NodeListCept.php.INFO: see response is json  [] []
+[2014-01-05 23:55:32] NodeListCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:55:32] NodeListCept.php.INFO: send get "node/list?type=video" [] []
+[2014-01-05 23:55:32] NodeListCept.php.INFO: see response code is 200 [] []
+[2014-01-05 23:55:32] NodeListCept.php.INFO: see response is json  [] []
+[2014-01-05 23:55:32] NodeListCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:55:32] NodeListCept.php.INFO: PASSED [] []
+[2014-01-05 23:56:04] NodeListCept.php.INFO: send get "node/list?type=photo" [] []
+[2014-01-05 23:56:04] NodeListCept.php.INFO: see response code is 200 [] []
+[2014-01-05 23:56:04] NodeListCept.php.INFO: see response is json  [] []
+[2014-01-05 23:56:04] NodeListCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:56:04] NodeListCept.php.INFO: send get "node/list?type=video" [] []
+[2014-01-05 23:56:05] NodeListCept.php.INFO: see response code is 200 [] []
+[2014-01-05 23:56:05] NodeListCept.php.INFO: see response is json  [] []
+[2014-01-05 23:56:05] NodeListCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:56:05] NodeListCept.php.INFO: PASSED [] []
+[2014-01-05 23:58:44] NodeDeleteCept.php.INFO: send post "node/delete",{"nid":21} [] []
+[2014-01-05 23:58:44] NodeDeleteCept.php.INFO: see response code is 200 [] []
+[2014-01-05 23:58:44] NodeDeleteCept.php.ALERT: Failed asserting that 500 matches expected 200. [] []
+[2014-01-05 23:58:44] NodeDeleteCept.php.INFO: # FAILED # [] []
+[2014-01-05 23:58:44] NodeDeleteCept.php.INFO: PASSED [] []
+[2014-01-05 23:59:03] NodeDeleteCept.php.INFO: send post "node/delete",{"nid":21} [] []
+[2014-01-05 23:59:03] NodeDeleteCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:59:03] NodeDeleteCept.php.ALERT: REST response contains
+Failed asserting that '
+	<h1>PHP notice</h1>
+
+	<p class="message">
+		Undefined variable: node	</p>
+
+	<div class="source">
+		<p class="file">/home/jackey/workspace/bank_wall/api/protected/controllers/NodeController.php(198)</p>
+		<div class="code"><pre><span class="ln">186</span>       $nid = $request-&gt;getPost(&quot;nid&quot;);
+<span class="ln">187</span>       
+<span class="ln">188</span>       if (!$nid) {
+<span class="ln">189</span>           $this-&gt;responseError(&quot;invalid params&quot;);
+<span class="ln">190</span>       }
+<span class="ln">191</span>       
+<span class="ln">192</span>       $nodeAr = NodeAR::model()-&gt;findByPk($nid);
+<span class="ln">193</span>       if(!$nodeAr) {
+<span class="ln">194</span>           $this-&gt;responseError(&quot;invalid params&quot;);
+<span class="ln">195</span>       }
+<span class="ln">196</span>       
+<span class="ln">197</span>       // 权限检查
+<span class="error"><span class="ln error-ln">198</span>       if (!Yii::app()-&gt;user-&gt;checkAccess(&quot;deleteAnyNode&quot;, array(&quot;country_id&quot; =&gt; $node-&gt;country_id))) {
+</span><span class="ln">199</span>         return $this-&gt;responseError(&quot;permission deny&quot;);
+<span class="ln">200</span>       }
+<span class="ln">201</span>       
+<span class="ln">202</span>       $nodeAr-&gt;delete();
+<span class="ln">203</span>       
+<span class="ln">204</span>       return $this-&gt;responseJSON($nodeAr-&gt;attributes, &quot;success&quot;);
+<span class="ln">205</span>   }
+<span class="ln">206</span>   
+<span class="ln">207</span>   public function actionList() {
+<span class="ln">208</span>       // TODO:: Order by like / Search by hashtag / Search by keyword
+<span class="ln">209</span>       $request = Yii::app()-&gt;getRequest();
+<span class="ln">210</span>       
+</pre></div>	</div>
+' contains ""success":true". [] []
+[2014-01-05 23:59:03] NodeDeleteCept.php.INFO: # FAILED # [] []
+[2014-01-05 23:59:03] NodeDeleteCept.php.INFO: PASSED [] []
+[2014-01-05 23:59:40] NodeDeleteCept.php.INFO: send post "node/delete",{"nid":21} [] []
+[2014-01-05 23:59:41] NodeDeleteCept.php.INFO: see response contains ""success":true" [] []
+[2014-01-05 23:59:41] NodeDeleteCept.php.INFO: PASSED [] []

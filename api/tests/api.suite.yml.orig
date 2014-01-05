@@ -1,0 +1,16 @@
+class_name: ApiGuy
+modules:
+    enabled: [PhpBrowser, REST, ApiHelper]
+    config:
+      PhpBrowser:
+<<<<<<< HEAD
+          url: http://bankapi.local/
+          curl:
+            CURLOPT_COOKIE: "PHPSESSID=6j9b1lshjsm915m8gce8c4bt90"
+      REST:
+          url: http://bankapi.local/
+=======
+          url: http://localhost/bank_wall/api/index-sg.php?r=
+      REST:
+          url: http://localhost/bank_wall/api/index-sg.php?r=
+>>>>>>> cfbcf3a8d4d3cf7b2ceee05ac2c3ace3cf1409e3

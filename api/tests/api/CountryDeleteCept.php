@@ -1,9 +1,8 @@
 <?php
 $I = new ApiGuy($scenario);
-$I->wantTo('Get User List');
-$I->sendGet('user/list', array(
-    //"role" => 2,
-    "orderby" => "datetime"
+$I->wantTo('Post Country');
+$I->sendPost('country/delete',array(
+    "country_id" => "4",
 ));
 $I->seeResponseCodeIs(200);
 $I->seeResponseIsJson();

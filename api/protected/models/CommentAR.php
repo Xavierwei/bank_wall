@@ -1,6 +1,9 @@
 <?php
 
 class CommentAR extends CActiveRecord {
+  
+  public $commentscount = 0;
+  
   public function tableName() {
     return "comment";
   }
@@ -34,6 +37,17 @@ class CommentAR extends CActiveRecord {
       $this->setAttribute("datetime", time());
     }
     return TRUE;
+  }
+  
+  public function totalCommentsByUser($uid) {
+    $query = new CDbCriteria();
+    $query->select = array("count(*) AS commentscount");
+    $query->addCondition("uid=:uid");
+    $query->params[":uid"] = $uid;
+    
+    $res = $this->find($query);
+    
+    return $res->commentscount;
   }
 }
 

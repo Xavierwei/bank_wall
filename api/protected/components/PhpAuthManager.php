@@ -111,6 +111,7 @@ class PhpAuthManager extends CPhpAuthManager{
     $admin->addChild("updateCountry");
     $admin->addChild("deleteCountry");
     $admin->addChild("addNode");
+    $admin->addChild("updateOwnAccount");
     
     // country manager
     $countryManager = $this->createRole("countryManager");
@@ -127,6 +128,7 @@ class PhpAuthManager extends CPhpAuthManager{
     $countryManager->addChild("listFlagedNode");
     $countryManager->addChild("listFlagedComment");
     $countryManager->addChild("addNode");
+    $countryManager->addChild("updateOwnAccount");
     
     // auth role
     $auth = $this->createRole("auth");
@@ -135,6 +137,7 @@ class PhpAuthManager extends CPhpAuthManager{
     $auth->addChild("updateOwnNode");
     $auth->addChild("postComment");
     $auth->addChild("addNode");
+    $auth->addChild("updateOwnAccount");
     
     // guest role
     $guest = $this->createRole("guest");

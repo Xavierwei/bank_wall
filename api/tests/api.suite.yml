@@ -2,9 +2,9 @@ class_name: ApiGuy
 modules:
     enabled: [PhpBrowser, REST, ApiHelper]
     config:
-      PhpBrowser:
-          url:  http://localhost/bank_wall/api/index-sg.php?r=
-		  curl:
-            CURLOPT_COOKIE: "PHPSESSID=6j9b1lshjsm915m8gce8c4bt90"
       REST:
-          url: http://localhost:8888/bank_wall/api/index-sg.php?r=
+        url: http://bankapi.local/
+      PhpBrowser:
+        url:  http://bankapi.local/
+        curl:
+          CURLOPT_COOKIE: "PHPSESSID=0ceksh6rq84kcna396i46r8qh7"

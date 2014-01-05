@@ -31,6 +31,7 @@ class NodeController extends Controller {
       
       $photoUpload = CUploadedFile::getInstanceByName("photo");
       $videoUpload = CUploadedFile::getInstanceByName("video");
+      
       if ($photoUpload) {
         $type = "photo";
       }
@@ -43,6 +44,8 @@ class NodeController extends Controller {
       
       if ($photoUpload) {
         $mime = $photoUpload->getType();
+        // TODO:: 大小限制
+        $size = $photoUpload->getSize(); //in bytes
         $allowMime = array(
             "image/gif", "image/png", "image/jpeg", "image/jpg"
         );
@@ -73,7 +76,6 @@ class NodeController extends Controller {
             $this->responseError("exception happended");
         }
         $retdata = $nodeAr->attributes;
-        
         $retdata['user'] = $nodeAr->user->attributes;
         $retdata['country'] = $nodeAr->country->attributes;
         
@@ -193,11 +195,11 @@ class NodeController extends Controller {
       }
       
       // 权限检查
-      if (!Yii::app()->user->checkAccess("deleteAnyNode", array("country_id" => $node->country_id))) {
+      if (!Yii::app()->user->checkAccess("deleteAnyNode", array("country_id" => $nodeAr->country_id))) {
         return $this->responseError("permission deny");
       }
       
-      $nodeAr->delete();
+      $nodeAr->deleteByPk($nodeAr->nid);
       
       return $this->responseJSON($nodeAr->attributes, "success");
   }
@@ -352,8 +354,8 @@ class NodeController extends Controller {
       foreach ($res as $node) {
           $data = $node->attributes;
           $data["likecount"] = $node->likecount;
-          $data["user"] = $node->user->attributes;
-          $data["country"] = $node->country->attributes;
+          $data["user"] = $node->user ? $node->user->attributes : array();
+          $data["country"] = $node->country ? $node->country->attributes: array();
           $data["user_liked"] = $node->user_liked;
           $data["like"] = $node->like;
           $retdata[] = $data;
@@ -482,8 +484,8 @@ class NodeController extends Controller {
     foreach ($res as $node) {
         $data = $node->attributes;
         $data["likecount"] = $node->likecount;
-        $data["user"] = $node->user->attributes;
-        $data["country"] = $node->country->attributes;
+        $data["user"] = $node->user ? $node->user->attributes : array();
+        $data["country"] = $node->country ? $node->country->attributes: array();
         $data["user_liked"] = $node->user_liked;
         $data["like"] = $node->like;
         $leftRet[] = $data;
@@ -494,14 +496,20 @@ class NodeController extends Controller {
     foreach ($res as $node) {
         $data = $node->attributes;
         $data["likecount"] = $node->likecount;
-        $data["user"] = $node->user->attributes;
-        $data["country"] = $node->country->attributes;
+        $data["user"] = $node->user ? $node->user->attributes : array();
+        $data["country"] = $node->country ? $node->country->attributes: array();
         $data["user_liked"] = $node->user_liked;
         $data["like"] = $node->like;
         $rightRet[] = $data;
     }
     
-    $this->responseJSON(array("left" => $leftRet, "right" => $rightRet), "success");
+    // current nid
+    $node = NodeAR::model()->with(array("user", "country"))->findByPk($nid);
+    $nodedata = $node->attributes;
+    $nodedata["country"] = $node->country? $node->country->attributes : array();
+    $nodedata["user"] = $node->user? $node->user->attributes : array();
+    
+    $this->responseJSON(array("left" => $leftRet, "right" => $rightRet, "node" => $nodedata), "success");
   }
 }
 

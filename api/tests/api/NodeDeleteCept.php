@@ -1,11 +1,13 @@
 <?php
 $I = new ApiGuy($scenario);
-$I->wantTo('Get User List');
-$I->sendGet('user/list', array(
-    //"role" => 2,
-    "orderby" => "datetime"
+$I->wantTo("Delete one node");
+$I->sendPost("node/delete", array(
+    "nid" => 21
 ));
+
 $I->seeResponseCodeIs(200);
 $I->seeResponseIsJson();
 $I->seeResponseContains('"success":true');
+
+
 ?>
