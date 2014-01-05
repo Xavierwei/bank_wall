@@ -70,3 +70,4 @@ config(function($routeProvider,$httpProvider) {
         return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
     }];
 });
+

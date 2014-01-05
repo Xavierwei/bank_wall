@@ -7,9 +7,7 @@
     <div>personal_email: <input class="form-control" type="text" ng-model="user.personal_email" name="personal_email" required /></div>
     <div>country id: <input class="form-control" type="text" ng-model="user.country_id" name="country_id" required /></div>
     <div>avatar: <input class="form-control" type="text" ng-model="user.avatar" name="avatar" required /></div>
-    <div>Invalid:
-        <span ng-show="form.firstname.$error.required">Missing firstname.</span>
-    </div>
+
     <button ng-click="save(user)"
             ng-disabled="form.$invalid || isUnchanged(user)">SAVE</button>
 </form>

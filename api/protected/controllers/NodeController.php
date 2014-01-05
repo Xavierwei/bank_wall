@@ -211,9 +211,9 @@ class NodeController extends Controller {
       $uid = $request->getParam("uid");
       
       // 3个参数必须填一个
-      if (!$type && !$country_id && !$uid) {
-          return $this->responseError("http error");
-      }
+//      if (!$type && !$country_id && !$uid) {
+//          return $this->responseError("http error");
+//      }
       
       $page = $request->getParam("page");
       if (!$page) {

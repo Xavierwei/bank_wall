@@ -1,10 +1,11 @@
 SGWallAdminServices.factory( 'UserService', function($http, ROOT) {
     var currentUser, isLoggedin;
     return {
-        login: function(user) {
+        login: function(user, success) {
             $http.post(ROOT+'/user/login',{company_email:user.company_email, password:user.password})
             .success(function(data) {
                 currentUser = data.data;
+                success();
             })
             .error(function() {
             });

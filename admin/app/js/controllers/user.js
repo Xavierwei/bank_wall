@@ -1,12 +1,48 @@
 SGWallAdminController
     .controller('UserCtrList',
-    function($scope, UserService) {
+    function($scope, UserService, $modal, $log) {
         UserService.list(function(data){
             $scope.users = data;
         });
 
         $scope.switchStatus = function(uid) {
             alert(uid);
+        }
+
+        // Delete node
+        $scope.delete = function(user) {
+            var modalInstance = $modal.open({
+                templateUrl: 'tmp/dialog/delete.html',
+                controller: ConfirmModalCtrl
+            });
+
+            modalInstance.result.then(function () {
+                $scope.users.splice($scope.users.indexOf(user), 1);
+                UserService.delete(user);
+                $log.info('Modal confirmed at: ' + new Date());
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
+
+        }
+
+        $scope.open = function(user) {
+            var modalInstance = $modal.open({
+                templateUrl: 'tmp/node/popup.html',
+                controller: UserModalCtrl,
+                resolve: {
+                    user: function () {
+                        return user;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function () {
+                $scope.users.splice($scope.users.indexOf(user), 1);
+                $log.info('Modal confirmed at: ' + new Date());
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
         }
     })
 
@@ -49,10 +85,13 @@ SGWallAdminController
     })
 
     .controller('UserCtrLogin',
-    function($scope, UserService) {
+    function($scope, UserService, $location) {
         // login
         $scope.login = function(user) {
-            UserService.login(user);
+            UserService.login(user,function(){
+                console.log('logined');
+                $location.path('/node');
+            });
         }
     })
 
@@ -61,3 +100,17 @@ SGWallAdminController
         // login
         $scope.user = UserService.info();
     })
+
+
+var UserModalCtrl = function($scope, $modalInstance, user) {
+    $scope.user = user;
+
+    $scope.ok = function () {
+        $modalInstance.close(true);
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+}
+
