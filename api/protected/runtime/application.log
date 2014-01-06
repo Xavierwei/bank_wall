@@ -7014,3 +7014,218 @@ REQUEST_URI=/bank_wall/api/index.php/node/list?type=photo&orderby=nid
 in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (108)
 in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (350)
 in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/06 12:29:54 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/index.php/user/GetCurrent
+HTTP_REFERER=http://localhost:8888/bank_wall/admin/app/
+---
+2014/01/06 12:42:54 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/index.php/user/GetCurrent
+HTTP_REFERER=http://localhost:8888/bank_wall/admin/app/
+---
+2014/01/06 12:43:01 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/index.php/user/login
+HTTP_REFERER=http://localhost:8888/bank_wall/admin/app/
+---
+2014/01/06 12:43:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/index.php/user/login
+---
+2014/01/06 12:43:42 [error] [php] Trying to get property of non-object (/Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php:201)
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CController.php(286): UserController->runAction()
+#1 /Applications/MAMP/htdocs/yii/framework/web/CController.php(265): UserController->runActionWithFilters()
+#2 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(282): UserController->run()
+#3 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php?r=/user/GetCurrent
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UserController.php (201)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/06 12:44:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "list?role=1".' in /Applications/MAMP/htdocs/yii/framework/web/CController.php:483
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CController.php(270): CController->missingAction('list?role=1')
+#1 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(282): CController->run('list?role=1')
+#2 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('/user/list?role...')
+#3 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#5 {main}
+REQUEST_URI=/bank_wall/api/index.php?r=/user/list?role=1&country_id=1&orderby=datetime
+HTTP_REFERER=http://localhost:8888/bank_wall/admin/app/
+---
+2014/01/06 12:44:28 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "list?role=1".' in /Applications/MAMP/htdocs/yii/framework/web/CController.php:483
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CController.php(270): CController->missingAction('list?role=1')
+#1 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(282): CController->run('list?role=1')
+#2 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('/user/list?role...')
+#3 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#5 {main}
+REQUEST_URI=/bank_wall/api/index.php?r=/user/list?role=1&country_id=1&orderby=datetime
+---
+2014/01/06 12:44:33 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "list?role=1".' in /Applications/MAMP/htdocs/yii/framework/web/CController.php:483
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CController.php(270): CController->missingAction('list?role=1')
+#1 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(282): CController->run('list?role=1')
+#2 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/list?role=...')
+#3 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#5 {main}
+REQUEST_URI=/bank_wall/api/index.php?r=user/list?role=1&country_id=1&orderby=datetime
+---
+2014/01/06 12:48:23 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/index
+---
+2014/01/06 12:48:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/
+---
+2014/01/06 12:48:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/index
+---
+2014/01/06 12:48:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/index
+---
+2014/01/06 12:48:35 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/index
+---
+2014/01/06 12:48:35 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/index
+---
+2014/01/06 12:48:35 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/index
+---
+2014/01/06 12:48:38 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/index
+---
+2014/01/06 12:48:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/index
+---
+2014/01/06 12:48:58 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/index/user/list
+---
+2014/01/06 12:49:01 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/index.php/user/list
+---
+2014/01/06 12:49:04 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/index.php/user/list
+---
+2014/01/06 12:49:05 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/index.php/user/list
+---
+2014/01/06 12:49:05 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/index.php/user/list
+---
+2014/01/06 12:49:05 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/index.php/user/list
+---
+2014/01/06 12:53:33 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/index.php?r=/user/GetCurrent
+HTTP_REFERER=http://localhost:8888/bank_wall/admin/app/
+---
+2014/01/06 12:53:33 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/index.php?r=/user/list?role=1&country_id=1&orderby=datetime
+HTTP_REFERER=http://localhost:8888/bank_wall/admin/app/
+---
