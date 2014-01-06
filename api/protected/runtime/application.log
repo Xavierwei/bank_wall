@@ -7229,3 +7229,36 @@ Stack trace:
 REQUEST_URI=/bank_wall/api/index.php?r=/user/list?role=1&country_id=1&orderby=datetime
 HTTP_REFERER=http://localhost:8888/bank_wall/admin/app/
 ---
+2014/01/06 17:19:45 [error] [php] Trying to get property of non-object (/Applications/MAMP/htdocs/bank_wall/api/protected/controllers/CommentController.php:60)
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CController.php(286): CommentController->runAction()
+#1 /Applications/MAMP/htdocs/yii/framework/web/CController.php(265): CommentController->runActionWithFilters()
+#2 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(282): CommentController->run()
+#3 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/comment/put
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/CommentController.php (60)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/06 17:20:30 [error] [php] Trying to get property of non-object (/Applications/MAMP/htdocs/bank_wall/api/protected/controllers/CommentController.php:60)
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CController.php(286): CommentController->runAction()
+#1 /Applications/MAMP/htdocs/yii/framework/web/CController.php(265): CommentController->runActionWithFilters()
+#2 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(282): CommentController->run()
+#3 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/comment/put
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/CommentController.php (60)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/06 17:46:19 [error] [php] Only variables should be passed by reference (/Applications/MAMP/htdocs/bank_wall/api/protected/controllers/FlagController.php:58)
+Stack trace:
+#0 /Applications/MAMP/htdocs/yii/framework/web/CController.php(286): FlagController->runAction()
+#1 /Applications/MAMP/htdocs/yii/framework/web/CController.php(265): FlagController->runActionWithFilters()
+#2 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(282): FlagController->run()
+#3 /Applications/MAMP/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /Applications/MAMP/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/flag/post
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/FlagController.php (58)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)

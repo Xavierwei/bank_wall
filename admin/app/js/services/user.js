@@ -15,7 +15,7 @@ SGWallAdminServices.factory( 'UserService', function($http, ROOT) {
 
         getCurrentUser: function(success) {
             if(!currentUser) {
-                $http.get(ROOT+'/user/GetCurrent')
+                $http.get(ROOT+'/user/getcurrent')
                 .success(function(data) {
                     currentUser = data.data;
                     success(data.data);
@@ -26,7 +26,7 @@ SGWallAdminServices.factory( 'UserService', function($http, ROOT) {
         },
 
         getByUid: function(uid, success) {
-            $http.get(ROOT+'/user/GetByUid?uid='+uid)
+            $http.get(ROOT+'/user/getbyuid?uid='+uid)
             .success(function(data) {
                 success(data.data);
             })
@@ -53,7 +53,7 @@ SGWallAdminServices.factory( 'UserService', function($http, ROOT) {
         },
 
         update: function(user) {
-            $http.post(ROOT+'/user/Userput',user)
+            $http.post(ROOT+'/user/userput',user)
             .success(function(data) {
                 console.log(data);
             })
@@ -64,12 +64,12 @@ SGWallAdminServices.factory( 'UserService', function($http, ROOT) {
 
         delete: function(user) {
             $http.post(ROOT+'/user/delete',{uid:user.uid})
-                .success(function(data) {
-                    console.log(data);
-                })
-                .error(function() {
+            .success(function(data) {
+                console.log(data);
+            })
+            .error(function() {
 
-                });
+            });
         }
     };
 });

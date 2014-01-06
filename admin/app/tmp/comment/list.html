@@ -10,8 +10,12 @@
             {{comment.content}}
         </div>
         <div class="btns">
-            <a class="btn btn-default btn-xs" href="#/node/edit/{{comment.nid}}">Edit</a>
+            <a class="btn btn-default btn-xs" href="#/comment/edit/{{comment.cid}}">Edit</a>
             <a class="btn btn-default btn-xs" href="javascript:void(0)" ng-click="delete(comment)">Delete</a>
+        </div>
+        <div class="test-links">
+            <a href="javascript:void(0)" ng-click="flag(comment)">-Flag</a>
+            <a href="javascript:void(0)" ng-click="cleanFlag(comment)">-Clean Flag</a>
         </div>
     </li>
 

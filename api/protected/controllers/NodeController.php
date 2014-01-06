@@ -193,7 +193,7 @@ class NodeController extends Controller {
       }
       
       // 权限检查
-      if (!Yii::app()->user->checkAccess("deleteAnyNode", array("country_id" => $node->country_id))) {
+      if (!Yii::app()->user->checkAccess("deleteAnyNode", array("country_id" => $nodeAr->country_id))) {
         return $this->responseError("permission deny");
       }
       

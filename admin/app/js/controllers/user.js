@@ -1,6 +1,5 @@
 SGWallAdminController
-    .controller('UserCtrList',
-    function($scope, UserService, $modal, $log) {
+    .controller('UserCtrList', function($scope, UserService, $modal, $log) {
         UserService.list(function(data){
             $scope.users = data;
         });
@@ -25,30 +24,9 @@ SGWallAdminController
             });
 
         }
-
-        $scope.open = function(user) {
-            var modalInstance = $modal.open({
-                templateUrl: 'tmp/node/popup.html',
-                controller: UserModalCtrl,
-                resolve: {
-                    user: function () {
-                        return user;
-                    }
-                }
-            });
-
-            modalInstance.result.then(function () {
-                $scope.users.splice($scope.users.indexOf(user), 1);
-                $log.info('Modal confirmed at: ' + new Date());
-            }, function () {
-                $log.info('Modal dismissed at: ' + new Date());
-            });
-        }
     })
 
-
-    .controller('UserCtrEdit',
-    function($scope, $http, $routeParams, UserService) {
+    .controller('UserCtrEdit', function($scope, $http, $routeParams, UserService) {
         UserService.getByUid($routeParams.uid, function(data) {
             $scope.user = data;
         });
@@ -68,24 +46,21 @@ SGWallAdminController
         }
     })
 
-    .controller('UserCtrCreate',
-    function($scope, UserService) {
+    .controller('UserCtrCreate', function($scope, UserService) {
         // save user
         $scope.save = function(user) {
             UserService.save(user);
         }
     })
 
-    .controller('UserCtrCurrent',
-    function($scope, UserService) {
+    .controller('UserCtrCurrent', function($scope, UserService) {
         // get current user
         UserService.getCurrentUser(function(data){
             $scope.user = data;
         });
     })
 
-    .controller('UserCtrLogin',
-    function($scope, UserService, $location) {
+    .controller('UserCtrLogin', function($scope, UserService, $location) {
         // login
         $scope.login = function(user) {
             UserService.login(user,function(){
@@ -95,22 +70,7 @@ SGWallAdminController
         }
     })
 
-    .controller('UserCtrInfo',
-    function($scope, $http, UserService) {
+    .controller('UserCtrInfo', function($scope, $http, UserService) {
         // login
         $scope.user = UserService.info();
     })
-
-
-var UserModalCtrl = function($scope, $modalInstance, user) {
-    $scope.user = user;
-
-    $scope.ok = function () {
-        $modalInstance.close(true);
-    };
-
-    $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
-    };
-}
-

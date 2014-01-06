@@ -12,6 +12,7 @@ var SGWallAdmin = angular.module('SGWallAdmin', [
 ]).
 config(function($routeProvider,$httpProvider) {
     $routeProvider.when('/node', {templateUrl: 'tmp/node/list.html', controller: 'NodeCtrList'});
+    $routeProvider.when('/node/flagged', {templateUrl: 'tmp/node/list.html', controller: 'NodeCtrFlagged'});
     $routeProvider.when('/node/post', {templateUrl: 'tmp/node/post.html', controller: 'NodeCtrPost'});
     $routeProvider.when('/node/edit/:nid', {templateUrl: 'tmp/node/edit.html', controller: 'NodeCtrEdit'});
     $routeProvider.when('/node/comment/:nid', {templateUrl: 'tmp/comment/list.html', controller: 'CommentCtrList'});
@@ -21,6 +22,9 @@ config(function($routeProvider,$httpProvider) {
     $routeProvider.when('/user/create', {templateUrl: 'tmp/user/create.html', controller: 'UserCtrCreate'});
     $routeProvider.when('/user/edit/:uid', {templateUrl: 'tmp/user/edit.html', controller: 'UserCtrEdit'});
     $routeProvider.when('/comment', {templateUrl: 'tmp/comment/list.html', controller: 'CommentCtrList'});
+    $routeProvider.when('/comment/flagged', {templateUrl: 'tmp/comment/list.html', controller: 'CommentCtrFlagged'});
+    $routeProvider.when('/comment/post/:nid', {templateUrl: 'tmp/comment/post.html', controller: 'CommentCtrPost'});
+    $routeProvider.when('/comment/edit/:cid', {templateUrl: 'tmp/comment/edit.html', controller: 'CommentCtrEdit'});
     $routeProvider.otherwise({redirectTo: '/node'});
 
 
