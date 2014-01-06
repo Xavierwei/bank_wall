@@ -1,0 +1,62 @@
+SGWallAdminServices.factory( 'NodeService', function($http, ROOT) {
+    return {
+        list: function(success) {
+            $http.get(ROOT+'/node/list')
+            .success(function(data) {
+                success(data.data);
+            })
+            .error(function() {
+            });
+        },
+
+        getFlaggedNodes: function(success) {
+            $http.get(ROOT+'/flag/getFlaggedNodes')
+                .success(function(data) {
+                    success(data.data);
+                })
+                .error(function() {
+                });
+        },
+
+        getById: function(success) {
+            $http.get(ROOT+'/node/list')
+                .success(function(data) {
+                    success(data.data);
+                })
+                .error(function() {
+                });
+        },
+
+        post: function(user) {
+            $http.post(ROOT+'/user/post',user)
+            .success(function(data) {
+                console.log(data);
+            })
+            .error(function() {
+
+            });
+        },
+
+        update: function(node, success) {
+            $http.post(ROOT+'/node/put',node)
+            .success(function(data) {
+                if(data.success == true) {
+                    success();
+                }
+            })
+            .error(function() {
+
+            });
+        },
+
+        delete: function(node) {
+            $http.post(ROOT+'/node/delete',{nid:node.nid})
+            .success(function(data) {
+                console.log(data);
+            })
+            .error(function() {
+
+            });
+        }
+    };
+});

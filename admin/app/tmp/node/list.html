@@ -15,6 +15,12 @@
             <a class="btn btn-default btn-xs" href="#/node/edit/{{node.nid}}">Edit</a>
             <a class="btn btn-default btn-xs" href="javascript:void(0)" ng-click="delete(node)">Delete</a>
         </div>
+        <div class="test-links">
+            <a href="javascript:void(0)" ng-click="like(node)">-Like</a><span ng-show="node.user_liked"><a href="javascript:void(0)" ng-click="unlike(node)">(unlike)</a></span>
+            <a href="#/comment/post/{{node.nid}}">-Write Comment</a><br />
+            <a href="javascript:void(0)" ng-click="flag(node)">-Flag</a>
+            <a href="javascript:void(0)" ng-click="cleanFlag(node)">-Clean Flag</a>
+        </div>
         <div class="switch dropdown" ng-controller="StatusDropdownCtrl">
             <a class="dropdown-toggle">
                 {{node.status | nodeStatus}}

@@ -18,4 +18,17 @@ angular.module('myApp.directives', []).
             },
             templateUrl: 'tmp/dialog/dialog.html'
         };
-    });;
+    })
+    .directive('checkUser',  function ($rootScope, $location, UserService) {
+    return {
+        link: function (scope, elem, attrs, ctrl) {
+            $rootScope.$on('$routeChangeStart', function (event) {
+                UserService.getCurrentUser(function(data){
+                    if(!data){
+                        $location.path('/user/login');
+                    }
+                });
+            });
+        }
+    }
+});

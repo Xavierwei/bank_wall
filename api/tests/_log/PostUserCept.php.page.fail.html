@@ -1,1 +1,33 @@
-{"success":false,"message":"not support yet","data":null}
+<h1>CDbException</h1>
+
+	<p class="message">
+		CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry &#039;admin&#039; for key &#039;name_UNIQUE&#039;. The SQL statement executed was: INSERT INTO `user` (`avatar`, `role`, `status`, `name`, `personal_email`, `company_email`, `password`, `firstname`, `lastname`, `country_id`, `datetime`) VALUES (:yp0, :yp1, :yp2, :yp3, :yp4, :yp5, :yp6, :yp7, :yp8, :yp9, :yp10)	</p>
+
+	<div class="source">
+		<p class="file">/Applications/MAMP/htdocs/yii/framework/db/CDbCommand.php(358)</p>
+		<div class="code"><pre><span class="ln">346</span>         {
+<span class="ln">347</span>             if($this-&gt;_connection-&gt;enableProfiling)
+<span class="ln">348</span>                 Yii::endProfile(&#039;system.db.CDbCommand.execute(&#039;.$this-&gt;getText().$par.&#039;)&#039;,&#039;system.db.CDbCommand.execute&#039;);
+<span class="ln">349</span> 
+<span class="ln">350</span>             $errorInfo=$e instanceof PDOException ? $e-&gt;errorInfo : null;
+<span class="ln">351</span>             $message=$e-&gt;getMessage();
+<span class="ln">352</span>             Yii::log(Yii::t(&#039;yii&#039;,&#039;CDbCommand::execute() failed: {error}. The SQL statement executed was: {sql}.&#039;,
+<span class="ln">353</span>                 array(&#039;{error}&#039;=&gt;$message, &#039;{sql}&#039;=&gt;$this-&gt;getText().$par)),CLogger::LEVEL_ERROR,&#039;system.db.CDbCommand&#039;);
+<span class="ln">354</span> 
+<span class="ln">355</span>             if(YII_DEBUG)
+<span class="ln">356</span>                 $message.=&#039;. The SQL statement executed was: &#039;.$this-&gt;getText().$par;
+<span class="ln">357</span> 
+<span class="error"><span class="ln error-ln">358</span>             throw new CDbException(Yii::t(&#039;yii&#039;,&#039;CDbCommand failed to execute the SQL statement: {error}&#039;,
+</span><span class="ln">359</span>                 array(&#039;{error}&#039;=&gt;$message)),(int)$e-&gt;getCode(),$errorInfo);
+<span class="ln">360</span>         }
+<span class="ln">361</span>     }
+<span class="ln">362</span> 
+<span class="ln">363</span>     /**
+<span class="ln">364</span>      * Executes the SQL statement and returns query result.
+<span class="ln">365</span>      * This method is for executing an SQL query that returns result set.
+<span class="ln">366</span>      * @param array $params input parameters (name=&gt;value) for the SQL execution. This is an alternative
+<span class="ln">367</span>      * to {@link bindParam} and {@link bindValue}. If you have multiple input parameters, passing
+<span class="ln">368</span>      * them in this way can improve the performance. Note that if you pass parameters in this way,
+<span class="ln">369</span>      * you cannot bind parameters or values using {@link bindParam} or {@link bindValue}, and vice versa.
+<span class="ln">370</span>      * Please also note that all values are treated as strings in this case, if you need them to be handled as
+</pre></div>	</div>
