@@ -41,7 +41,9 @@ class UserAR extends CActiveRecord{
         if (is_array($field)) {
           $ret_user[$key] = array();
           foreach ($field as $sub_field) {
-            $ret_user[$key][$sub_field] = $user[$key][$sub_field];
+            if (isset($user[$key])) {
+              $ret_user[$key][$sub_field] = $user[$key][$sub_field];
+            }
           }
         }
       }

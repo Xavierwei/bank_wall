@@ -20,6 +20,8 @@ class NodeAR extends CActiveRecord{
     
   public $likecount = 0;
   
+  public $commentcount = 0;
+  
   public $user_liked = FALSE;
   
   public $like = array();

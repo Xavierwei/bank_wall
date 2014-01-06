@@ -4,6 +4,8 @@ class CommentAR extends CActiveRecord {
   
   public $commentscount = 0;
   
+  public $commentcountinnode = 0;
+  
   public function tableName() {
     return "comment";
   }
@@ -48,6 +50,17 @@ class CommentAR extends CActiveRecord {
     $res = $this->find($query);
     
     return $res->commentscount;
+  }
+  
+  public function totalCommentsByNode($nid) {
+    $query = new CDbCriteria();
+    $query->select = "count(*) as commentcountinnode";
+    $query->addCondition("nid=:nid");
+    $query->params[":nid"] = $nid;
+    
+    $res = $this->find($query);
+    
+    return $res->commentcountinnode;
   }
 }
 

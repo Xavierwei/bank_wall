@@ -2,7 +2,7 @@
 $I = new ApiGuy($scenario);
 $I->wantTo("Delete one node");
 $I->sendPost("node/delete", array(
-    "nid" => 21
+    "nid" => 64
 ));
 
 $I->seeResponseCodeIs(200);

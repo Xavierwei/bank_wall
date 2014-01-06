@@ -1,6 +1,6 @@
 <?php
 $I = new ApiGuy($scenario);
-$I->wantTo('Post Country');
+$I->wantTo('Delete Country');
 $I->sendPost('country/delete',array(
     "country_id" => "4",
 ));
