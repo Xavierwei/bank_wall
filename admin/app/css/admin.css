@@ -19,6 +19,7 @@ a{text-decoration:none;color:#666}
 
 .page-left {float:left;width:200px;}
     .page-left .menu {margin:15px 0 0 15px;}
+    .page-left .menu ul {margin-left:15px;}
 
 
 .page-right {margin-left:200px;}

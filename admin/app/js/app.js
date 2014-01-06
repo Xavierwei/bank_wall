@@ -12,6 +12,7 @@ var SGWallAdmin = angular.module('SGWallAdmin', [
 ]).
 config(function($routeProvider,$httpProvider) {
     $routeProvider.when('/node', {templateUrl: 'tmp/node/list.html', controller: 'NodeCtrList'});
+    $routeProvider.when('/node/:type', {templateUrl: 'tmp/node/list.html', controller: 'NodeCtrList'});
     $routeProvider.when('/node/flagged', {templateUrl: 'tmp/node/list.html', controller: 'NodeCtrFlagged'});
     $routeProvider.when('/node/post', {templateUrl: 'tmp/node/post.html', controller: 'NodeCtrPost'});
     $routeProvider.when('/node/edit/:nid', {templateUrl: 'tmp/node/edit.html', controller: 'NodeCtrEdit'});

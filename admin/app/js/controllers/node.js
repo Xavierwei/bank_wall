@@ -1,6 +1,12 @@
 SGWallAdminController
-    .controller('NodeCtrList', function($scope, $http, $modal, $log, NodeService, LikeService, FlagService) {
+    .controller('NodeCtrList', function($scope, $http, $modal, $log, $routeParams, NodeService, LikeService, FlagService) {
         // Get node list by recent
+        params = {};
+        if($routeParams.type != 'all') {
+            params.type = $routeParams.type;
+            params.country = $routeParams.type;
+        }
+
         NodeService.list(function(data){
             $scope.nodes = data;
         });
