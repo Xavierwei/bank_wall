@@ -37,11 +37,11 @@ SGWallAdminController
 
         // Like node - TODO: this is for testing
         $scope.like = function(node) {
-            if(!node.user_liked) {
+            //if(!node.user_liked) {
                 LikeService.post(node.nid, function(data){
                     node.user_liked = !node.user_liked;
                 });
-            }
+            //}
         }
 
         // Unlike node - TODO: this is for testing
