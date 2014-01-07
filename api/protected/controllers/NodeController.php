@@ -358,7 +358,7 @@ class NodeController extends Controller {
       }
       
       $res = NodeAR::model()->with("user", "country")->findAll($query);
-      
+
       $retdata = array();
       $commentAr = new CommentAR();
       foreach ($res as $node) {
@@ -551,7 +551,8 @@ class NodeController extends Controller {
     $retdata["country"] = $node->country ? $node->country->attributes : array();
     $user = $node->user->attributes;
     $retdata["user"] = $node->user ? $node->user->getOutputRecordInArray($user): array();
-    
+
+
     $this->responseJSON($retdata, "success");
   }
 }

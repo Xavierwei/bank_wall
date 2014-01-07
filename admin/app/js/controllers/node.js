@@ -126,12 +126,9 @@ SGWallAdminController
     .controller('NodeCtrEdit',
     function($scope, $http, NodeService, $routeParams) {
 
-        $http.get('json/node/photo.json')
-            .success(function(data) {
-                $scope.node = data.data;
-            })
-            .error(function() {
-            });
+        NodeService.getById($routeParams.nid, function(data){
+            $scope.node = data;
+        });
 
         // Update node
         $scope.update = function(node) {
@@ -142,5 +139,16 @@ SGWallAdminController
         $scope.delete = function(node) {
             alert(node.nid);
         }
+
+    })
+
+    .controller('NodeCtrNeighbor',
+    function($scope, $http, NodeService, $routeParams) {
+
+        NodeService.getNeighbor($routeParams.nid, function(data){
+            $scope.node = data;
+        });
+
+
 
     })

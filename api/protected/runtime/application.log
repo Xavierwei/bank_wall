@@ -7262,3 +7262,126 @@ Stack trace:
 REQUEST_URI=/bank_wall/api/index.php/flag/post
 in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/FlagController.php (58)
 in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/07 13:49:20 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php:215) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(376): NodeController->responseJSON()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionList()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): NodeController->runAction()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): NodeController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): NodeController->run()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/node/list?showall=true
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (376)
+2014/01/07 13:49:24 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php:215) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(376): NodeController->responseJSON()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionList()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): NodeController->runAction()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): NodeController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): NodeController->run()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/node/list?showall=true
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (376)
+2014/01/07 13:50:15 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php:215) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(376): NodeController->responseJSON()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionList()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): NodeController->runAction()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): NodeController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): NodeController->run()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/node/list?showall=true
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (376)
+2014/01/07 13:50:17 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php:215) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(376): NodeController->responseJSON()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionList()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): NodeController->runAction()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): NodeController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): NodeController->run()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/node/list?showall=true
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (376)
+2014/01/07 13:50:17 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php:215) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(376): NodeController->responseJSON()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionList()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): NodeController->runAction()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): NodeController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): NodeController->run()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/node/list?showall=true
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (376)
+2014/01/07 13:50:18 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php:215) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(376): NodeController->responseJSON()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionList()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): NodeController->runAction()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): NodeController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): NodeController->run()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/node/list?showall=true
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (376)
+2014/01/07 16:53:49 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "login".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php:483
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): CController->missingAction('login')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('login')
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/login')
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#5 {main}
+REQUEST_URI=/bank_wall/api/index.php/user/login
+HTTP_REFERER=http://localhost:8888/bank_wall/admin/app/
+---
+2014/01/07 16:53:59 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "login".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php:483
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): CController->missingAction('login')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('login')
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/login')
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#5 {main}
+REQUEST_URI=/bank_wall/api/index.php/user/login
+HTTP_REFERER=http://localhost:8888/bank_wall/admin/app/
+---
+2014/01/07 16:55:39 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "userput".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php:483
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): CController->missingAction('userput')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('userput')
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/userput')
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#5 {main}
+REQUEST_URI=/bank_wall/api/index.php/user/userput
+HTTP_REFERER=http://localhost:8888/bank_wall/admin/app/
+---

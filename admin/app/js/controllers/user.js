@@ -70,6 +70,11 @@ SGWallAdminController
         }
     })
 
+    .controller('UserCtrLogout', function($scope, UserService, $location) {
+        // login
+        UserService.logout();
+    })
+
     .controller('UserCtrInfo', function($scope, $http, UserService) {
         // login
         $scope.user = UserService.info();

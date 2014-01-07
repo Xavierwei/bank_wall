@@ -11,7 +11,13 @@ SGWallAdminServices.factory( 'UserService', function($http, ROOT) {
             });
         },
 
-        logout: function() { },
+        logout: function(success) {
+            $http.get(ROOT+'/user/logout')
+            .success(function(data) {
+                currentUser = data.data;
+                success(data.data);
+            })
+        },
 
         getCurrentUser: function(success) {
             if(!currentUser) {
@@ -33,7 +39,7 @@ SGWallAdminServices.factory( 'UserService', function($http, ROOT) {
         },
 
         list: function(success) {
-            $http.get(ROOT+'/user/list?role=1&country_id=1&orderby=datetime')
+            $http.get(ROOT+'/user/list?orderby=datetime')
             .success(function(data) {
                 success(data.data);
             })
@@ -53,7 +59,7 @@ SGWallAdminServices.factory( 'UserService', function($http, ROOT) {
         },
 
         update: function(user) {
-            $http.post(ROOT+'/user/userput',user)
+            $http.post(ROOT+'/user/put',user)
             .success(function(data) {
                 console.log(data);
             })

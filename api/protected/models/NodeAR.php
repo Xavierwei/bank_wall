@@ -231,7 +231,7 @@ class NodeAR extends CActiveRecord{
     $query = new CDbCriteria();
     $query->select = array("count(*) AS nodecounts");
     $query->addCondition("datetime>:start");
-    $query->addCondition("datetime>=:end");
+    $query->addCondition("datetime<=:end");
     $query->addCondition("uid=:uid");
     
     $query->params = array(
@@ -242,6 +242,28 @@ class NodeAR extends CActiveRecord{
     
     $res = $this->find($query);
     
+    return $res->nodecounts;
+  }
+
+  public function photosCountByMonth($uid) {
+    // 从今天00:00:00开始
+    $start_time = strtotime(date("Y-m-1"));
+    $end_time = time();
+
+    $query = new CDbCriteria();
+    $query->select = array("count(*) AS nodecounts");
+    $query->addCondition("datetime>:start");
+    $query->addCondition("datetime<=:end");
+    $query->addCondition("uid=:uid");
+
+    $query->params = array(
+        ":start" => $start_time,
+        ":end" => $end_time,
+        ":uid" => $uid
+    );
+
+    $res = $this->find($query);
+
     return $res->nodecounts;
   }
 }

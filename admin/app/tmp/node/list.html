@@ -19,7 +19,8 @@
             <a href="javascript:void(0)" ng-click="like(node)">-Like</a><span ng-show="node.user_liked"><a href="javascript:void(0)" ng-click="unlike(node)">(unlike)</a></span>
             <a href="#/comment/post/{{node.nid}}">-Write Comment</a><br />
             <a href="javascript:void(0)" ng-click="flag(node)">-Flag</a>
-            <a href="javascript:void(0)" ng-click="cleanFlag(node)">-Clean Flag</a>
+            <a href="javascript:void(0)" ng-click="cleanFlag(node)">-Clean Flag</a><br />
+            <a href="#/node/neighbor/{{node.nid}}">-Get Neighbor</a>
         </div>
         <div class="switch dropdown" ng-controller="StatusDropdownCtrl">
             <a class="dropdown-toggle">
