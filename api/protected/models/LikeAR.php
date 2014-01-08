@@ -35,6 +35,31 @@ class LikeAR extends CActiveRecord {
     }
     return TRUE;
   }
+
+
+
+
+  // Get node like count
+  public function getNodeCount($nid) {
+    $query=new CDbCriteria;
+    $query->condition='nid=:nid';
+    $query->params=array(':nid'=>$nid);
+    $res=$this->count($query);
+
+    return $res;
+  }
+
+  // Get like count
+  public function getUserNodeCount($nid,$uid) {
+    $query=new CDbCriteria;
+    $query->addCondition('nid=:nid');
+    $query->params[':nid']=$nid;
+    $query->addCondition('uid=:uid');
+    $query->params[':uid']=$uid;
+    $res=$this->count($query);
+
+    return $res;
+  }
   
   // 删除Like
   public function deleteLike($uid, $nid) {

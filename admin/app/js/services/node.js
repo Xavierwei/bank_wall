@@ -1,7 +1,7 @@
 SGWallAdminServices.factory( 'NodeService', function($http, ROOT) {
     return {
         list: function(success) {
-            $http.get(ROOT+'/node/list')
+            $http.get(ROOT+'/node/list?showall=true')
             .success(function(data) {
                 success(data.data);
             })
@@ -18,8 +18,17 @@ SGWallAdminServices.factory( 'NodeService', function($http, ROOT) {
                 });
         },
 
-        getById: function(success) {
-            $http.get(ROOT+'/node/list')
+        getNeighbor: function(nid, success) {
+            $http.get(ROOT+'/node/getNeighbor?nid='+nid)
+                .success(function(data) {
+                    success(data.data);
+                })
+                .error(function() {
+                });
+        },
+
+        getById: function(nid, success) {
+            $http.get(ROOT+'/node/getById?nid='+nid)
                 .success(function(data) {
                     success(data.data);
                 })

@@ -37,11 +37,11 @@ SGWallAdminController
 
         // Like node - TODO: this is for testing
         $scope.like = function(node) {
-            if(!node.user_liked) {
+            //if(!node.user_liked) {
                 LikeService.post(node.nid, function(data){
                     node.user_liked = !node.user_liked;
                 });
-            }
+            //}
         }
 
         // Unlike node - TODO: this is for testing
@@ -126,12 +126,9 @@ SGWallAdminController
     .controller('NodeCtrEdit',
     function($scope, $http, NodeService, $routeParams) {
 
-        $http.get('json/node/photo.json')
-            .success(function(data) {
-                $scope.node = data.data;
-            })
-            .error(function() {
-            });
+        NodeService.getById($routeParams.nid, function(data){
+            $scope.node = data;
+        });
 
         // Update node
         $scope.update = function(node) {
@@ -142,5 +139,16 @@ SGWallAdminController
         $scope.delete = function(node) {
             alert(node.nid);
         }
+
+    })
+
+    .controller('NodeCtrNeighbor',
+    function($scope, $http, NodeService, $routeParams) {
+
+        NodeService.getNeighbor($routeParams.nid, function(data){
+            $scope.node = data;
+        });
+
+
 
     })

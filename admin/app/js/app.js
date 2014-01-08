@@ -14,11 +14,13 @@ config(function($routeProvider,$httpProvider) {
     $routeProvider.when('/node', {templateUrl: 'tmp/node/list.html', controller: 'NodeCtrList'});
     $routeProvider.when('/node/:type', {templateUrl: 'tmp/node/list.html', controller: 'NodeCtrList'});
     $routeProvider.when('/node/flagged', {templateUrl: 'tmp/node/list.html', controller: 'NodeCtrFlagged'});
+    $routeProvider.when('/node/neighbor/:nid', {templateUrl: 'tmp/node/neighbor.html', controller: 'NodeCtrNeighbor'});
     $routeProvider.when('/node/post', {templateUrl: 'tmp/node/post.html', controller: 'NodeCtrPost'});
     $routeProvider.when('/node/edit/:nid', {templateUrl: 'tmp/node/edit.html', controller: 'NodeCtrEdit'});
     $routeProvider.when('/node/comment/:nid', {templateUrl: 'tmp/comment/list.html', controller: 'CommentCtrList'});
     $routeProvider.when('/user', {templateUrl: 'tmp/user/list.html', controller: 'UserCtrList'});
     $routeProvider.when('/user/login', {templateUrl: 'tmp/user/login.html', controller: 'UserCtrLogin'});
+    $routeProvider.when('/user/logout', {templateUrl: 'tmp/user/login.html', controller: 'UserCtrLogout'});
     $routeProvider.when('/user/current', {templateUrl: 'tmp/user/current.html', controller: 'UserCtrCurrent'});
     $routeProvider.when('/user/create', {templateUrl: 'tmp/user/create.html', controller: 'UserCtrCreate'});
     $routeProvider.when('/user/edit/:uid', {templateUrl: 'tmp/user/edit.html', controller: 'UserCtrEdit'});

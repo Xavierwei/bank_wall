@@ -25,12 +25,20 @@ class LikeController extends Controller {
         "uid" => $uid,
         "nid" => $nid
     );
+
+    $currentUserLikeCount = $likeAr->getUserNodeCount($nid,$uid);
     
     // 验证/ 然后 保存
     if ($likeAr->validate()) {
-      $likeAr->save();
-      
-      $this->responseJSON($likeAr->attributes, "success");
+      // 验证是否已投过
+      if($currentUserLikeCount == 0) {
+        $likeAr->save();
+        $this->responseJSON($likeAr->getNodeCount($nid), "success");
+      }
+      else
+      {
+        $this->responseError('Already Liked');
+      }
     }
     else {
       $this->responseError(current(array_shift($likeAr->getErrors())));
