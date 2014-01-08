@@ -66,10 +66,16 @@ class PhpAuthManager extends CPhpAuthManager{
     $bizrule = "return Yii::app()->user->getId()";
     $this->createOperation("postComment", "post comment for node", $bizrule);
     
-    $bizrule = $bizrule = 'return Yii::app()->user->role == UserAR::ROLE_ADMIN ? TRUE : Yii::app()->user->role == UserAR::ROLE_COUNTRY_MANAGER && Yii::app()->user->country_id == $params["country_id"] ? TRUE : FALSE;';
+    $bizrule = 'return Yii::app()->user->getId() == $params["uid"];';
+    $this->createOperation("updateOwnComment", "update own comment", $bizrule);
+    
+    $bizrule = 'return Yii::app()->user->getId() == $params["uid"];';
+    $this->createOperation("deleteOwnComment", "delete own comment", $bizrule);
+    
+    $bizrule = 'return Yii::app()->user->role == UserAR::ROLE_ADMIN ? TRUE : Yii::app()->user->role == UserAR::ROLE_COUNTRY_MANAGER && Yii::app()->user->country_id == $params["country_id"] ? TRUE : FALSE;';
     $this->createOperation("deleteAnyComment", "remove comment of node", $bizrule);
     
-    $bizrule = $bizrule = 'return Yii::app()->user->role == UserAR::ROLE_ADMIN ? TRUE : Yii::app()->user->role == UserAR::ROLE_COUNTRY_MANAGER && Yii::app()->user->country_id == $params["country_id"] ? TRUE : FALSE;';
+    $bizrule = 'return Yii::app()->user->role == UserAR::ROLE_ADMIN ? TRUE : Yii::app()->user->role == UserAR::ROLE_COUNTRY_MANAGER && Yii::app()->user->country_id == $params["country_id"] ? TRUE : FALSE;';
     $this->createOperation("updateAnyComment", "update any comment", $bizrule);
     
     $bizrule = 'return Yii::app()->user->getId() == $params["uid"];';
@@ -112,6 +118,9 @@ class PhpAuthManager extends CPhpAuthManager{
     $admin->addChild("deleteCountry");
     $admin->addChild("addNode");
     $admin->addChild("updateOwnAccount");
+    $admin->addChild("updateOwnComment");
+    $admin->addChild("deleteOwnComment");
+    $admin->addChild("removeFlag");
     
     // country manager
     $countryManager = $this->createRole("countryManager");
@@ -129,6 +138,9 @@ class PhpAuthManager extends CPhpAuthManager{
     $countryManager->addChild("listFlagedComment");
     $countryManager->addChild("addNode");
     $countryManager->addChild("updateOwnAccount");
+    $countryManager->addChild("updateOwnComment");
+    $countryManager->addChild("deleteOwnComment");
+    $countryManager->addChild("removeFlag");
     
     // auth role
     $auth = $this->createRole("auth");
@@ -138,6 +150,8 @@ class PhpAuthManager extends CPhpAuthManager{
     $auth->addChild("postComment");
     $auth->addChild("addNode");
     $auth->addChild("updateOwnAccount");
+    $auth->addChild("updateOwnComment");
+    $auth->addChild("deleteOwnComment");
     
     // guest role
     $guest = $this->createRole("guest");

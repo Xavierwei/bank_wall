@@ -234,7 +234,7 @@ class UserController extends Controller {
       $this->responseError("http error");
     }
     
-    $uid = $request->getPost("uid");
+    $uid = Yii::app()->user->getId();
     
     if ($uid) {
       $user = UserAR::model()->findByPk($uid);
@@ -263,7 +263,7 @@ class UserController extends Controller {
       $this->responseJSON($user, "success");
     }
     else {
-      $this->responseError("invalid params");
+      $this->responseError("not login");
     }
   }
   

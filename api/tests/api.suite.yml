@@ -7,4 +7,4 @@ modules:
       PhpBrowser:
         url:  http://bankapi.local/
         curl:
-          CURLOPT_COOKIE: "PHPSESSID=0ceksh6rq84kcna396i46r8qh7"
+          CURLOPT_COOKIE: "PHPSESSID=osdrqn50636nlq7vignv1c4nl6"

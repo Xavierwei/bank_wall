@@ -49,6 +49,19 @@ class FlagController extends Controller {
       $flagAr->cid = $cid;
     }
     
+    // 检查之前是否flag过
+    if ($flagAr->nid) {
+      $flagold = FlagAR::model()->findByAttributes(array("uid" => $flagAr->uid, "nid" => $flagAr->nid));
+    }
+    else {
+      $flagold = FlagAR::model()->findByAttributes(array("uid" => $flagAr->uid, "cid" => $flagAr->cid));
+    }
+    
+    if ($flagold) {
+      $this->responseError('flagged');
+    }
+    
+    
     if ($flagAr->validate()) {
       $flagAr->save();
       
@@ -82,7 +95,7 @@ class FlagController extends Controller {
       return $this->responseError("invalid params");
     }
     
-    $flagAr = new FlagAr();
+    $flagAr = new FlagAR();
     if ($nid) {
       $flagAr->deleteNodeFlag($nid);
     }
