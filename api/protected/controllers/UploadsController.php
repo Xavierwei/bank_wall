@@ -113,17 +113,19 @@ class UploadsController extends Controller {
    */
   private function makeVideoThumbnail($screenImagePath, $saveTo, $w, $h) {
     // 我们要根据视频截图的路径推算出视频的路径
-    $basename = array_shift(explode(".",$screenImagePath));
+    $paths = explode(".",$screenImagePath);
+    $basename = array_shift($paths);
     $output = NULL;
     $status = NULL;
     $absscreenImagePath = ROOT .'/'. $screenImagePath;
     $abssaveTo = ROOT .'/'. $saveTo;
     $absvideoPath = ROOT. '/' . $basename.'.'.NodeAR::ALLOW_STORE_VIDE_TYPE;
-    
+
     // 视频截图不能截2次
     // 做个检查
     if (!file_exists($absscreenImagePath)) {
       exec("ffmpeg -i $absvideoPath -ss 0.5 -t 1 -f image2 ".$absscreenImagePath. " 2>&1", $output, $status);
+      print_r($output);
       // 成功了
       if ($status) {
         // nothing
