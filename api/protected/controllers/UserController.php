@@ -251,15 +251,18 @@ class UserController extends Controller {
       }
       
       $data = $_POST;
-      foreach ($data as $key => $value) {
-        if ($key == "password") {
-          $user->setAttribute($key, md5($value));
-        }
-        else {
-          $user->setAttribute($key, $value);
-        }
-      }
-      UserAR::model()->updateByPk($uid, $user->attributes);
+      $update_uid = $data['uid'];
+      unset($data['uid']);
+      // 使用单点登陆后无需再修改密码，因此注销以下代码
+//      foreach ($data as $key => $value) {
+//        if ($key == "password") {
+//          $user->setAttribute($key, md5($value));
+//        }
+//        else {
+//          $user->setAttribute($key, $value);
+//        }
+//      }
+      UserAR::model()->updateByPk($update_uid, $data);
       
       $this->responseJSON($user, "success");
     }

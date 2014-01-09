@@ -33,6 +33,8 @@ SGWallAdminController
 
         // Update node
         $scope.update = function(user) {
+            delete user.country;
+            delete user.company_email;
             UserService.update(user, function(data) {
                 console.log(data);
             });
