@@ -79,9 +79,9 @@ SGWallAdminController
     })
 
     .controller('CommentCtrEdit', function($scope, $routeParams, CommentService) {
-//        CommentService.getById($routeParams.cid, function(data) {
-//            $scope.comment = data;
-//        });
+        CommentService.getById($routeParams.cid, function(data) {
+            $scope.comment = data;
+        });
 
 
         $scope.update = function(comment) {

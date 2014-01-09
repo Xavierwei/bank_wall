@@ -136,20 +136,16 @@ class CommentController extends Controller {
       $user = $comment->user? $comment->user->attributes: NULL;
       $user["country"] = $country ? $country->attributes: NULL;
       $commentdata["user"] = $comment->user? $comment->user->getOutputRecordInArray($user): NULL;
-      
+      if ($shownode) {
+        $commentdata['node'] = NodeAR::model()->findByPk($comment->attributes['nid']);
+      }
       $retdata[] = $commentdata;
     }
-    
-    if ($shownode) {
-      $node = NodeAR::model()->findByPk($nid);
-    }
-    else {
-      $node = NULL;
-    }
-    $retdata = array(
-        "node" => $node,
-        "comments" => $retdata,
-    );
+
+//    $retdata = array(
+//        "node" => $node,
+//        "comments" => $retdata,
+//    );
     
     $this->responseJSON($retdata, "success");
   }

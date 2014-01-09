@@ -83,20 +83,16 @@ class FlagController extends Controller {
     $cid = $request->getPost("cid");
     
     $node = NodeAR::model()->findByPk($nid);
-    if (!$node) {
-      $this->responseJSON(array(), "success");
-    }
-    
-    if (!Yii::app()->user->checkAccess("removeFlag", array("country_id" => $node->country_id))) {
-      return $this->responseError("permission deny");
-    }
-    
+
     if (!$nid && !$cid) {
       return $this->responseError("invalid params");
     }
     
     $flagAr = new FlagAR();
     if ($nid) {
+      if (!Yii::app()->user->checkAccess("removeFlag", array("country_id" => $node->country_id))) {
+        return $this->responseError("permission deny");
+      }
       $flagAr->deleteNodeFlag($nid);
     }
     else if($cid) {
