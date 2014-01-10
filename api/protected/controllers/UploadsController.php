@@ -2,6 +2,9 @@
 
 /**
  * @author Jackey <jziwenchen@gmail.com>
+ * 这个 Controller 是为了缩略图准备
+ * 比如 用户访问缩略图 /uploads/p20_400_400.png ， 
+ * 在缩略图没有生成之前会把请求给 UploadsController 来生成缩略图
  */
 class UploadsController extends Controller {
   
@@ -110,17 +113,19 @@ class UploadsController extends Controller {
    */
   private function makeVideoThumbnail($screenImagePath, $saveTo, $w, $h) {
     // 我们要根据视频截图的路径推算出视频的路径
-    $basename = array_shift(explode(".",$screenImagePath));
+    $paths = explode(".",$screenImagePath);
+    $basename = array_shift($paths);
     $output = NULL;
     $status = NULL;
     $absscreenImagePath = ROOT .'/'. $screenImagePath;
     $abssaveTo = ROOT .'/'. $saveTo;
     $absvideoPath = ROOT. '/' . $basename.'.'.NodeAR::ALLOW_STORE_VIDE_TYPE;
-    
+
     // 视频截图不能截2次
     // 做个检查
     if (!file_exists($absscreenImagePath)) {
       exec("ffmpeg -i $absvideoPath -ss 0.5 -t 1 -f image2 ".$absscreenImagePath. " 2>&1", $output, $status);
+      print_r($output);
       // 成功了
       if ($status) {
         // nothing

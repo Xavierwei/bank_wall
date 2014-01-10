@@ -20,6 +20,8 @@ class NodeAR extends CActiveRecord{
     
   public $likecount = 0;
   
+  public $commentcount = 0;
+  
   public $user_liked = FALSE;
   
   public $like = array();
@@ -29,6 +31,8 @@ class NodeAR extends CActiveRecord{
   
   // 其他格式的视频需要转换到这个指定的格式
   const ALLOW_STORE_VIDE_TYPE = "mp4";
+  
+  public $nodecounts;
   
   public static function model($class = __CLASS__) {
     return parent::model($class);
@@ -143,12 +147,15 @@ class NodeAR extends CActiveRecord{
       $paths[count($paths) - 1] = $newname;
       $newpath = implode("/", $paths);
       
-      rename(ROOT.$this->file, ROOT. $newpath);
+      if (file_exists(ROOT.$this->file)) {
+        rename(ROOT.$this->file, ROOT. $newpath);
+        // 文件重命名后 修改数据库
+        $this->updateByPk($this->nid, array("file" => $newpath));
+
+        $this->file = $newpath;
+      }
       
-      // 文件重命名后 修改数据库
-      $this->updateByPk($this->nid, array("file" => $newpath));
-      
-      $this->file = $newpath;
+
       
       // Load user/country
       $userAr = new UserAR();
@@ -173,7 +180,7 @@ class NodeAR extends CActiveRecord{
     
     $filename = uniqid().'_'.$upload->getName();
     $to = $dir."/". $filename;
-    $upload->saveAs($to);
+    $ret = $upload->saveAs($to);
     
     // 检查是不是视频， 如果是, 就就做视频转换工作
     $extname = pathinfo($to, PATHINFO_EXTENSION);
@@ -193,7 +200,7 @@ class NodeAR extends CActiveRecord{
             $status;
             $output;
             // 视频转换
-            exec("ffmpeg -i {$to} -acodec libfaac -b:a 128k -vcodec mpeg4 -b:v 1200k -flags +aic+mv4 {$newpath}", $output, $status);
+            exec("ffmpeg -i {$to}  -vcodec mpeg4 -b:v 1200k -flags +aic+mv4 {$newpath}", $output, $status);
             
             // 视频转换完后 要删掉之前的视频文件
             unlink($to);
@@ -214,5 +221,49 @@ class NodeAR extends CActiveRecord{
     if ($this->nid) {
       $this->updateByPk($this->nid, array("status" => self::BLOCKED));
     }
+  }
+  
+  public function photosCountByDay($uid) {
+    // 从今天00:00:00开始
+    $start_time = strtotime(date("Y-m-d"));
+    $end_time = time();
+    
+    $query = new CDbCriteria();
+    $query->select = array("count(*) AS nodecounts");
+    $query->addCondition("datetime>:start");
+    $query->addCondition("datetime<=:end");
+    $query->addCondition("uid=:uid");
+    
+    $query->params = array(
+        ":start" => $start_time,
+        ":end" => $end_time,
+        ":uid" => $uid
+    );
+    
+    $res = $this->find($query);
+    
+    return $res->nodecounts;
+  }
+
+  public function photosCountByMonth($uid) {
+    // 从今天00:00:00开始
+    $start_time = strtotime(date("Y-m-1"));
+    $end_time = time();
+
+    $query = new CDbCriteria();
+    $query->select = array("count(*) AS nodecounts");
+    $query->addCondition("datetime>:start");
+    $query->addCondition("datetime<=:end");
+    $query->addCondition("uid=:uid");
+
+    $query->params = array(
+        ":start" => $start_time,
+        ":end" => $end_time,
+        ":uid" => $uid
+    );
+
+    $res = $this->find($query);
+
+    return $res->nodecounts;
   }
 }

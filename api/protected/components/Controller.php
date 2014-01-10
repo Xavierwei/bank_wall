@@ -73,9 +73,9 @@ class Controller extends CController
     public function __construct($id, $module = null) {
       parent::__construct($id, $module);
       
-      $name = Yii::app()->user->getState("name");
+      $id = Yii::app()->user->getId();
       // 未登陆情况下 设置一个默认的 useridentity
-      if (!$name) {
+      if (!$id) {
         $userIdentity = new UserIdentity("", "");
         Yii::app()->user->login($userIdentity);
       }

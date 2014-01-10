@@ -31,6 +31,7 @@ class NodeController extends Controller {
       
       $photoUpload = CUploadedFile::getInstanceByName("photo");
       $videoUpload = CUploadedFile::getInstanceByName("video");
+      
       if ($photoUpload) {
         $type = "photo";
       }
@@ -43,6 +44,8 @@ class NodeController extends Controller {
       
       if ($photoUpload) {
         $mime = $photoUpload->getType();
+        // TODO:: 大小限制
+        $size = $photoUpload->getSize(); //in bytes
         $allowMime = array(
             "image/gif", "image/png", "image/jpeg", "image/jpg"
         );
@@ -73,7 +76,6 @@ class NodeController extends Controller {
             $this->responseError("exception happended");
         }
         $retdata = $nodeAr->attributes;
-        
         $retdata['user'] = $nodeAr->user->attributes;
         $retdata['country'] = $nodeAr->country->attributes;
         
@@ -193,11 +195,11 @@ class NodeController extends Controller {
       }
       
       // 权限检查
-      if (!Yii::app()->user->checkAccess("deleteAnyNode", array("country_id" => $node->country_id))) {
+      if (!Yii::app()->user->checkAccess("deleteAnyNode", array("country_id" => $nodeAr->country_id))) {
         return $this->responseError("permission deny");
       }
       
-      $nodeAr->delete();
+      $nodeAr->deleteByPk($nodeAr->nid);
       
       return $this->responseJSON($nodeAr->attributes, "success");
   }
@@ -209,11 +211,12 @@ class NodeController extends Controller {
       $type = $request->getParam("type");
       $country_id = $request->getParam("country_id");
       $uid = $request->getParam("uid");
+      $showall = $request->getParam("showall");
       
       // 3个参数必须填一个
-      if (!$type && !$country_id && !$uid) {
-          return $this->responseError("http error");
-      }
+//      if (!$type && !$country_id && !$uid) {
+//          return $this->responseError("http error");
+//      }
       
       $page = $request->getParam("page");
       if (!$page) {
@@ -230,7 +233,6 @@ class NodeController extends Controller {
       
       // orderby 可选参数:
       // [datetime, like]
-      // 暂时不支持like
       $orderby = $request->getParam("orderby");
       
       // 需要验证是否是管理员
@@ -266,9 +268,17 @@ class NodeController extends Controller {
       
       // 需要验证用户权限
       $user = UserAR::model()->findByPk(Yii::app()->getId());
-      if ($user && ($user->role == UserAR::ROLE_ADMIN || $user->role == UserAR::ROLE_COUNTRY_MANAGER)) {
-          //$query->addCondition("status =:status", "OR");
-          //$params[":status"] = $status;
+      if ($user && ($user->role == UserAR::ROLE_ADMIN || $user->role == UserAR::ROLE_COUNTRY_MANAGER) && $showall) {
+          // 如果是管理员，我们就忽略掉status 参数，这样子他们就可以看到所有的node
+        if ($user->role == UserAR::ROLE_ADMIN) {
+          // admin 就不必要 增加status 参数了
+        }
+        else if ($user->role == UserAR::ROLE_COUNTRY_MANAGER) {
+          // 这里要增加个条件
+          // country manager 只允许看到自己国家的block掉的 node
+          $query->addCondition("country_id = :country_id");
+          $query->params[':country_id'] = $user->country_id;
+        }
       }
       // 否则 status 只能是 published 状态
       else {
@@ -276,6 +286,11 @@ class NodeController extends Controller {
           $query->addCondition($nodeAr->getTableAlias().".status = :status", "AND");
           $params[":status"] = $status;
       }
+      // like count
+      $likeAr = new LikeAR();
+      $query->select = "*". ", count(like_id) AS likecount";
+      $query->join = 'left join `like` '.' on '. '`like`' .".nid = ". $nodeAr->getTableAlias().".nid";
+      $query->group = $nodeAr->getTableAlias().".nid";
       
       $order = "";
       if ($orderby == "datetime") {
@@ -285,10 +300,6 @@ class NodeController extends Controller {
       else if ($orderby == "like") {
         // orderby like 比较复杂， 需要用到join 和 group
         // 还需要增加一个额外的 SELECT 
-        $likeAr = new LikeAR();
-        $query->select = "*". ", count(like.nid) AS likecount";
-        $query->join = 'left join `like` '.' on '.$likeAr->getTableAlias() .".nid = ". $nodeAr->getTableAlias().".nid";
-        $query->group ="`like`.nid";
         $order .= "`likecount` DESC";
         $query->order = $order;
       }
@@ -331,7 +342,6 @@ class NodeController extends Controller {
       
       $query->limit = $pagenum;
       $query->offset = ($page - 1 ) * $pagenum;
-      
       $query->with = array("user", "country");
       
       //TODO:: 搜索功能 现在是全文搜索，如果效果不好 可能改为分词搜索 (需要更多查询表)
@@ -348,12 +358,15 @@ class NodeController extends Controller {
       }
       
       $res = NodeAR::model()->with("user", "country")->findAll($query);
+
       $retdata = array();
+      $commentAr = new CommentAR();
       foreach ($res as $node) {
           $data = $node->attributes;
           $data["likecount"] = $node->likecount;
-          $data["user"] = $node->user->attributes;
-          $data["country"] = $node->country->attributes;
+          $data["commentcount"] = $commentAr->totalCommentsByNode($node->nid);
+          $data["user"] = $node->user ? $node->user->attributes : array();
+          $data["country"] = $node->country ? $node->country->attributes: array();
           $data["user_liked"] = $node->user_liked;
           $data["like"] = $node->like;
           $retdata[] = $data;
@@ -482,8 +495,8 @@ class NodeController extends Controller {
     foreach ($res as $node) {
         $data = $node->attributes;
         $data["likecount"] = $node->likecount;
-        $data["user"] = $node->user->attributes;
-        $data["country"] = $node->country->attributes;
+        $data["user"] = $node->user ? $node->user->attributes : array();
+        $data["country"] = $node->country ? $node->country->attributes: array();
         $data["user_liked"] = $node->user_liked;
         $data["like"] = $node->like;
         $leftRet[] = $data;
@@ -494,14 +507,53 @@ class NodeController extends Controller {
     foreach ($res as $node) {
         $data = $node->attributes;
         $data["likecount"] = $node->likecount;
-        $data["user"] = $node->user->attributes;
-        $data["country"] = $node->country->attributes;
+        $data["user"] = $node->user ? $node->user->attributes : array();
+        $data["country"] = $node->country ? $node->country->attributes: array();
         $data["user_liked"] = $node->user_liked;
         $data["like"] = $node->like;
         $rightRet[] = $data;
     }
     
-    $this->responseJSON(array("left" => $leftRet, "right" => $rightRet), "success");
+    // current nid
+    $node = NodeAR::model()->with(array("user", "country"))->findByPk($nid);
+    $nodedata = $node->attributes;
+    $nodedata["country"] = $node->country? $node->country->attributes : array();
+    $nodedata["user"] = $node->user? $node->user->attributes : array();
+    
+    $this->responseJSON(array("left" => $leftRet, "right" => $rightRet, "node" => $nodedata), "success");
+  }
+  
+  public function actionGetbyid() {
+    $request = Yii::app()->getRequest();
+    $nid = $request->getParam("nid");
+    
+    if (!$nid) {
+      return $this->responseError("invalid params");
+    }
+    
+    $node = NodeAR::model()->with(array("user", "country"))->findByPk($nid);
+    
+    $user = UserAR::model()->findByPk(Yii::app()->user->getId());
+    // 要察看unpublish 和 blocked 的node 需要权限
+    if ($node->status == NodeAR::UNPUBLISHED || $node->status == NodeAR::BLOCKED) {
+      if (!$user) {
+        return $this->responseError("permission deny");
+      }
+      if (($user->role == UserAR::ROLE_COUNTRY_MANAGER && $user->country_id == $node->country_id) || $user->role == UserAR::ROLE_ADMIN) {
+        //nothing todo
+      }
+      else {
+        return $this->responseError("permission deny");
+      }
+    }
+    
+    $retdata = $node->attributes;
+    $retdata["country"] = $node->country ? $node->country->attributes : array();
+    $user = $node->user->attributes;
+    $retdata["user"] = $node->user ? $node->user->getOutputRecordInArray($user): array();
+
+
+    $this->responseJSON($retdata, "success");
   }
 }
 

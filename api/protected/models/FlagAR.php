@@ -62,7 +62,7 @@ class FlagAR extends CActiveRecord {
   public function deleteCommentFlag($cid) {
     $query = new CDbCriteria();
     $query->addCondition("cid = :cid");
-    $query->params[":cid"] = $nid;
+    $query->params[":cid"] = $cid;
 
     return $this->deleteAll($query);
   }

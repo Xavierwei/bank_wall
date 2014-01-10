@@ -2,23 +2,32 @@
 
 
 // Declare app level module which depends on filters, and services
-angular.module('SGWallAdmin', [
+var SGWallAdmin = angular.module('SGWallAdmin', [
   'ui.bootstrap',
   'ngRoute',
   'SGWallAdmin.filters',
-  'myApp.services',
+  'SGWallAdmin.services',
   'myApp.directives',
   'SGWallAdmin.controllers'
 ]).
 config(function($routeProvider,$httpProvider) {
     $routeProvider.when('/node', {templateUrl: 'tmp/node/list.html', controller: 'NodeCtrList'});
+    $routeProvider.when('/node/list/:type', {templateUrl: 'tmp/node/list.html', controller: 'NodeCtrList'});
+    $routeProvider.when('/node/flagged', {templateUrl: 'tmp/node/list.html', controller: 'NodeCtrFlagged'});
+    $routeProvider.when('/node/neighbor/:nid', {templateUrl: 'tmp/node/neighbor.html', controller: 'NodeCtrNeighbor'});
     $routeProvider.when('/node/post', {templateUrl: 'tmp/node/post.html', controller: 'NodeCtrPost'});
     $routeProvider.when('/node/edit/:nid', {templateUrl: 'tmp/node/edit.html', controller: 'NodeCtrEdit'});
     $routeProvider.when('/node/comment/:nid', {templateUrl: 'tmp/comment/list.html', controller: 'CommentCtrList'});
     $routeProvider.when('/user', {templateUrl: 'tmp/user/list.html', controller: 'UserCtrList'});
     $routeProvider.when('/user/login', {templateUrl: 'tmp/user/login.html', controller: 'UserCtrLogin'});
+    $routeProvider.when('/user/logout', {templateUrl: 'tmp/user/login.html', controller: 'UserCtrLogout'});
+    $routeProvider.when('/user/current', {templateUrl: 'tmp/user/current.html', controller: 'UserCtrCurrent'});
+    $routeProvider.when('/user/create', {templateUrl: 'tmp/user/create.html', controller: 'UserCtrCreate'});
     $routeProvider.when('/user/edit/:uid', {templateUrl: 'tmp/user/edit.html', controller: 'UserCtrEdit'});
     $routeProvider.when('/comment', {templateUrl: 'tmp/comment/list.html', controller: 'CommentCtrList'});
+    $routeProvider.when('/comment/flagged', {templateUrl: 'tmp/comment/list.html', controller: 'CommentCtrFlagged'});
+    $routeProvider.when('/comment/post/:nid', {templateUrl: 'tmp/comment/post.html', controller: 'CommentCtrPost'});
+    $routeProvider.when('/comment/edit/:cid', {templateUrl: 'tmp/comment/edit.html', controller: 'CommentCtrEdit'});
     $routeProvider.otherwise({redirectTo: '/node'});
 
 
@@ -68,3 +77,4 @@ config(function($routeProvider,$httpProvider) {
         return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
     }];
 });
+

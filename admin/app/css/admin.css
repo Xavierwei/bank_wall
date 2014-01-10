@@ -19,6 +19,7 @@ a{text-decoration:none;color:#666}
 
 .page-left {float:left;width:200px;}
     .page-left .menu {margin:15px 0 0 15px;}
+    .page-left .menu ul {margin-left:15px;}
 
 
 .page-right {margin-left:200px;}
@@ -51,9 +52,9 @@ a{text-decoration:none;color:#666}
 
 
 
-.users-list li {background:#eee;float: left;margin:10px;position: relative;font-size:0.9em;width:23%;padding:10px;}
+.users-list li {background:#eee;float: left;margin:10px;position: relative;font-size:0.9em;width:300px;padding:10px;}
     .users-list .date {color:#999;}
     .users-list .avatar {float: left;margin:10px 10px 0 6px;}
     .users-list .avatar img {border-radius: 33px;-webkit-border-radius: 33px;-moz-border-radius: 33px;-o-border-radius: 33px;-ms-border-radius: 33px;}
-    .users-list .user-info {margin:6px 0 6px 0;float: left;}
+    .users-list .user-info {margin:6px 0 6px 0;float: left;width:220px;overflow: hidden;}
     .users-list .btns {margin:0 0 0 55px;}

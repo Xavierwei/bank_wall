@@ -7,6 +7,7 @@
     <title></title>
     <link href="css/jsPane.css" rel="stylesheet" type="text/css" />
     <link href="css/layout.css" rel="stylesheet" type="text/css" />
+    <link href="css/needtocombine.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <div class="page">
@@ -25,21 +26,21 @@
 			<div class="select-item">
 				<div class="select-box">Country</div>
 				<div class="select-pop" style="display:none">
-					<div class="select-option"><p>France</p><p>Sweden</p><p>Switzerland</p><p>Italy</p><p>Portugal</p></div>
+					<div class="select-option"><p data-param="recent">France</p><p data-param="recent">Sweden</p><p data-param="recent">Switzerland</p><p data-param="recent">Italy</p><p data-param="recent">Portugal</p></div>
 				</div>
 			</div>
 			<!--  -->
 			<div class="select-item">
 				<div class="select-box" >Recent</div>
 				<div class="select-pop" style="display:none">
-					<div class="select-option"><p>Recent</p><p>Popular</p><p>Random</p></div>
+					<div class="select-option"><p data-param="recent">Recent</p><p data-param="recent">Popular</p><p data-param="recent">Random</p></div>
 				</div>
 			</div>
 			<!--  -->
 			<div class="select-item">
 				<div class="select-box">Type</div>
 				<div class="select-pop" style="display:none">
-					<div class="select-option"><p>Photo</p><p>Video</p></div>
+					<div class="select-option"><p data-param="recent">Photo</p><p data-param="recent">Video</p></div>
 				</div>
 			</div>
 		</div>
@@ -72,38 +73,43 @@
 		<!-- side -->
 		<div class="side">
 			<!-- user -->
-			<div class="user">
+			<div class="user" data-a="toggle_user_page">
 				<div class="user-pho"><img src="./tmp/_fe52ef6e6c5411e3b574122de6ce78ca_8.jpg" width="60"  /></div>
 				<div class="user-name">JULIEN</div>
+                <div class="close-user-page" data-a="toggle-user-page"></div>
 			</div>
 			<!-- menu -->
 			<div class="menu">
-				<div class="menu-item photo"><p></p></div>
+				<div class="menu-item photo" data-a="pop_upload_photo" data-d="title=UPLOAD PHOTO"><p></p></div>
 				<div class="menu-item video"><p></p></div>
 				<div class="menu-item byday"><p></p></div>
 				<div class="menu-item bymonth"><p></p></div>
-				<div class="menu-item settings"><p></p></div>
+				<div class="menu-item settings" data-a="toggle_user_page"><p></p></div>
 			</div>
 		</div>
 		<!--  -->
+
+
 	</div>
 </div>
 <!--  -->
-<div class="shade" style="display:none"></div>
+<div class="overlay" data-a="close_pop" style="display:none"></div>
 <div class="pop" style="display:none">
 
-	<div class="popclose">×</div>
+	<div class="popclose" data-a="close_pop">×</div>
 	<div class="pophd">
 		<div class="poptit">TITLE</div>		
 	</div>
 	<div class="popbd">
 		<!--  -->
-		<div class="pop-file" style="display:none">
-			<div class="popfile-icon"></div>
-			<div class="popfile-btn">CHOISISSEZ UN FICHIER</div>
+		<div class="pop-inner pop-file" style="display:none">
+            <input id="file-photo" type="file" name="photo" />
+			<div class="popfile-drag-box"></div>
+            <div class="step1-btns"><div class="popfile-btn" data-a="select_photo">SELECT PHOTO</div></div>
+            <div class="step2-btns"><div class="popfile-btn" data-a="upload_photo">UPLOAD</div><div class="popfile-btn" data-a="select_photo">SELECT AGAIN</div></div>
 		</div>
 		<!--  -->
-		<div class="pop-load"  style="display:none">
+		<div class="pop-inner pop-load" style="display:none">
 			<div class="popload-icon"></div>
 			<div class="poploading">
 				<div class="popload-percent"><p></p></div>
@@ -111,15 +117,15 @@
 			</div>
 		</div>
 		<!--  -->
-		<div class="pop-txt">
+		<div class="pop-inner pop-txt">
 			<div class="poptxt-preview clear">
 				<div class="poptxt-pic"><img src="./tmp/_fe52ef6e6c5411e3b574122de6ce78ca_8.jpg" width="260"  /></div>
 				<textarea class="poptxt-textarea"></textarea>
 			</div>
-			<div class="poptxt-check"><input type="checkbox" />J'accepte les conditions generales dutilisation</div>
+			<div class="poptxt-check"><input type="checkbox" />Read term condition</div>
 			<div class="poptxt-btn clear">
-				<p class="poptxt-cancel">ANNULER</p>
-				<p class="poptxt-submit">PUBLIER</p>
+				<p class="poptxt-cancel" data-a="close_pop">CANCEL</p>
+				<p class="poptxt-submit">PUBLISH</p>
 			</div>
 		</div>
 	</div>	
@@ -131,140 +137,6 @@
     <button class="btn cancel" data-a="cancel_confirm_modal">Cancel</button>
 </div>
 
-<style type="text/css">
-body{
-    overflow-y: scroll;
-}
-/*.main{position: relative;}
-.main-item{
-    position: absolute;
-    top: 0;
-    left: 0;
-}*/
-.pic-item .item-info{
-    display: none;
-}
-
-
-/*.pic-item .item-info{
-    opacity: 0;
-    transition: opacity 0.5s;
-    -webkit-transition: opacity 0.5s;
-}
-.pic-item:hover .item-info{
-    opacity: 0.8;
-}*/
-.pic-item img{
-    width: 0px;
-    opacity: 0;
-    transform:rotateY(-90deg);
-    -webkit-transform:rotateY(-90deg);
-}
-.pic-item.reversal img{
-    width: 180px;
-    opacity: 1;
-    perspective: 500;
-    -webkit-perspective: 500; /* Safari 和 Chrome */
-    transition: transform 1s, opacity 1s , width 0.01s ease 0.2s;
-    -webkit-transition: -webkit-transform 1s , opacity 1s, width 0.01s ease 0.2s; /* Safari */
-    transform:rotateY(0deg);
-    -webkit-transform:rotateY(0deg);
-}
-.pic-item{
-    width: 0px;
-    overflow: hidden;
-}
-
-.no-animate .main-item{
-    -webkit-transition-duration: 0;
-    -moz-transition-duration: 0;
-    -ms-transition-duration: 0;
-    -o-transition-duration: 0;
-    transition-duration: 0;
-}
-.main-item{
-    -webkit-transition-property: width, -webkit-transform, opacity;
-    -moz-transition-property:  width, -moz-transform, opacity;
-    -ms-transition-property:  width, -ms-transform, opacity;
-    -o-transition-property:  width, -o-transform, opacity;
-    transition-property:  width, transform, opacity;
-
-    -webkit-transition-duration: 0.6s, 0.8s, 0.8s;
-    -moz-transition-duration: 0.6s, 0.8s, 0.8s;
-    -ms-transition-duration: 0.6s, 0.8s, 0.8s;
-    -o-transition-duration: 0.6s, 0.8s, 0.8s;
-    transition-duration: 0.6s, 0.8s, 0.8s;
-}
-.pic-item.reversal{
-    width: 180px;
-}
-
-
-.comment{
-    left: 0 !important;
-    /*-webkit-transition: -webkit-transform 1s;
-    -moz-transform-style: preserve-3d;
-    -webkit-transform-style: preserve-3d;
-    -webkit-backface-visibility: hidden;*/
-    -webkit-backface-visibility: hidden
-}
-.comment.cube-right{
-    -webkit-transform: translatex(250px) translatez(-250px) rotateY(90deg);
-}
-.comment.cube-left{
-    -webkit-transform: translatex(-250px) translatez(-250px) rotateY(-90deg);
-}
-
-.comment-wrap{
-    height: 100%;
-    width: 500px;
-    position: absolute;
-    -webkit-perspective: 1000px;
-    perspective: 1000px;
-    left: -500px;
-    overflow: hidden;
-    background: #000;
-}
-.comment-cube{
-    position: absolute;
-    width: 500px;
-    height: 100%;
-    -webkit-transition: -webkit-transform, 1s;
-    -moz-transition: -moz-transform, 1s;
-    -o-transition: -o-transform, 1s;
-    transition: transform, 1s;
-    -webkit-transform-style: preserve-3d;
-    -moz-transform-style: preserve-3d;
-    -ms-transform-style: preserve-3d;
-    -o-transform-style: preserve-3d;
-    transform-style: preserve-3d;
-    -webkit-transform: rotateY(0deg);
-    -moz-transform: rotateY(0deg);
-    -ms-transform: rotateY(0deg);
-    -o-transform: rotateY(0deg);
-    transform: rotateY(0deg);
-}
-.comment-cube.rotate-left{
-    -webkit-transform: translate3d(250px,0,-250px) rotateY(90deg);
-    -moz-transform: translate3d(250px,0,-250px) rotateY(90deg);
-    -ms-transform: translate3d(250px,0,-250px) rotateY(90deg);
-    -o-transform: translate3d(250px,0,-250px) rotateY(90deg);
-    transform: translate3d(250px,0,-250px) rotateY(90deg);
-}
-.comment-cube.rotate-right{
-    -webkit-transform: translate3d(-250px,0,-250px) rotateY(-90deg);
-    -moz-transform: translate3d(-250px,0,-250px) rotateY(-90deg);
-    -ms-transform: translate3d(-250px,0,-250px) rotateY(-90deg);
-    -o-transform: translate3d(-250px,0,-250px) rotateY(-90deg);
-    transform: translate3d(-250px,0,-250px) rotateY(-90deg);
-}
-.no-animate{
-    -webkit-transition: 0s;
-    -moz-transition: 0s;
-    -o-transition: 0s;
-    transition: 0s;
-}
-</style>
 
 <!-- all tpls start -->
 <!-- inner-template -->
@@ -334,6 +206,55 @@ body{
         </div>
         <div class="item-icon" style="display: block;"><div class="photo"></div></div>
     </a>
+</div>
+</script>
+
+
+<!-- node-item-tpl -->
+<script type="text/tpl" id="user-page-template">
+<div class="user-page clear">
+    <div class="count">
+        <div class="count-item"><span>{{photos_count}}</span>PHOTOS POSTS</div>
+        <div class="count-item"><span>{{video_count}}</span>VIDEOS POSTS</div>
+        <div class="count-item"><span>{{count_by_day}}</span>CONTENUS DU JOUR</div>
+        <div class="count-item"><span>{{count_by_month}}</span>CONTENUS D MOIS</div>
+        <div class="count-item"><span>{{comments_count}}</span>COMMENTAIRES</div>
+        <div class="count-item"><span>{{like_counts}}</span>LIKES</div>
+    </div>
+    <!-- inner -->
+    <div class="count-inner">
+        <div class="count-user">
+            <div class="count-userpho"><img src="{{avatar}}" width="100"  /></div>
+            <div class="count-userinfo">
+                <p>{{firstname}}{{lastname}}</p>
+                <p>{{country.country_name}}</p>
+            </div>
+            <a class="count-edit" data-a="open_user_edit_page">edit profile</a>
+            <div class="avatar-file">CHOISISSEZ UN FICHIER</div>
+        </div>
+        <!--  -->
+        <div class="count-com">
+            <!--TODO: node items -->
+        </div>
+        <div class="user-edit-page">
+            <form>
+                <div class="edit-fi clear">
+                    <div class="editfi-tit">E-MAIL PROFESSIONNEL:</div>
+                    <div class="editfi-com">{{company_email}}</div>
+                </div>
+                <div class="edit-tips"><em>Si vous souhaitz envoyer du contenu sur le Wall avec une adresse e-maill diffent.Si vous souhaitz envoyer du contenu sur le Wall avec une adresse e-maill diffent:</em></div>
+                <div class="edit-fi clear">
+                    <div class="editfi-tit">E-MAIL PERSONNEL:</div>
+                    <div class="editfi-com"><input class="edit-email" type="text" value="{{personal_email}}" /></div>
+                </div>
+                <div class="edit-fi clear">
+                    <div class="editfi-tit">Country:</div>
+                    <div class="editfi-com"><select class="edit-pays"><option>PAYS</option><option>PAYSPAYS</option></select></div>
+                </div>
+                <a class="edit-btn" data-a="save_user">save</a>
+            </form>
+        </div>
+    </div>
 </div>
 </script>
 

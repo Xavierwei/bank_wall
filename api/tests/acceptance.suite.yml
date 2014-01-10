@@ -15,4 +15,4 @@ modules:
         - WebHelper
     config:
         PhpBrowser:
-            url: 'http://localhost:8888/bank_wall/api/'
+            url: 'http://localhost/bank_wall/api/'

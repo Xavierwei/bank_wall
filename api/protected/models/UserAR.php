@@ -27,7 +27,7 @@ class UserAR extends CActiveRecord{
   }
   
   public static function getAllowOutputFields() {
-    return array("uid", "firstname", "lastname", "avatar", "country" => array("country_name", "flag_icon"),
+    return array("uid", "firstname", "lastname", "avatar", "country" => array("country_id", "country_name", "flag_icon"),
         "company_email", "personal_email", "role", "status");
   }
   
@@ -41,7 +41,9 @@ class UserAR extends CActiveRecord{
         if (is_array($field)) {
           $ret_user[$key] = array();
           foreach ($field as $sub_field) {
-            $ret_user[$key][$sub_field] = $user[$key][$sub_field];
+            if (isset($user[$key])) {
+              $ret_user[$key][$sub_field] = $user[$key][$sub_field];
+            }
           }
         }
       }
@@ -65,7 +67,7 @@ class UserAR extends CActiveRecord{
         array("personal_email", "dbRowUnique"),
         //array("role", "type", 'type' => 'int'),
         array("password", "required"),
-        array("avadar, datetime, firstname, lastname, role", 'safe'),
+        array("avatar, datetime, firstname, lastname, role", 'safe'),
         array("country_id", "required"),
     );
   }
@@ -76,12 +78,12 @@ class UserAR extends CActiveRecord{
   }
   
   public function beforeSave() {
-    // 默认情况下， 添加新用户时 role 是 ROLE_AUTH
-    if (!$this->getAttribute("role")) {
-      $this->setAttribute("role", self::ROLE_AUTHEN);
-    }
+
+    
+
     return TRUE;
   }
+  
   
   // 初始化操作
   public function init() {
@@ -94,11 +96,13 @@ class UserAR extends CActiveRecord{
     $value = $this->{$attribute};
     
     $model = self::model();
-    $row = $model->find("$attribute = :attr", array(":attr" => $attribute));
+    $row = $model->findByAttributes(array("$attribute" => $value));
     
-    if ($row && $row->count()) {
-      return $this->addError($attribute, Yii::t("strings", "only allow unique value"));
+    if ($row) {
+      $this->addError($attribute, Yii::t("strings", "$attribute duplicated"));
+      return FALSE;
     }
+    return  TRUE;
   }
   
   public function postNewUser() {
@@ -109,8 +113,14 @@ class UserAR extends CActiveRecord{
     if ($this->getAttribute("password")) {
       $this->setAttribute("password", md5($this->getAttribute("password")));
     }
-    // 创建新用户时候 不能指定角色；增加安全性.
-    $this->role = 0;
+    if (!$this->getAttribute("name")) {
+      $this->setAttribute("name", $this->getAttribute("company_email"));
+    }
+    // 默认情况下， 添加新用户时 role 是 ROLE_AUTH
+    if (!$this->getAttribute("role")) {
+      $this->setAttribute("role", self::ROLE_AUTHEN);
+    }
+    
     if ($this->validate()) {
       return $this->save();
     }

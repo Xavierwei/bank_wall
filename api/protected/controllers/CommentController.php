@@ -57,7 +57,8 @@ class CommentController extends Controller {
     
     // 权限检查
     $node = $comment->node;
-    if (!Yii::app()->user->checkAccess("updateAnyComment", array("country_id" => $node->country_id))) {
+    if (!Yii::app()->user->checkAccess("updateAnyComment", array("country_id" => $node->country_id))  
+            && !Yii::app()->user->checkAccess("updateOwnComment", array("uid" => $comment->uid))) {
       return $this->responseError("permission deny");
     }
     
@@ -82,10 +83,18 @@ class CommentController extends Controller {
     if (!$request->isPostRequest) {
       $this->responseError("http error");
     }
+    $cid = $request->getPost("cid");
+    if (!$cid) {
+      $this->responseError("invalid params");
+    }
     
     $comment = CommentAR::model()->with("node")->findByPk($cid);
+    if (!$comment) {
+      $this->responseJSON(array(), "success");
+    }
     $node = $comment->node;
-    if (!Yii::app()->user->checkAccess("deleteAnyComment", array("country_id" => $node->country_id))) {
+    if (!Yii::app()->user->checkAccess("deleteAnyComment", array("country_id" => $node->country_id))
+            && !Yii::app()->user->checkAccess("deleteOwnComment", array("uid" => $comment->uid))) {
       return $this->responseError("permission deny");
     }
     
@@ -105,6 +114,7 @@ class CommentController extends Controller {
     $request = Yii::app()->getRequest();
     
     $nid = $request->getParam("nid");
+    $shownode = $request->getParam("shownode");
     
     $query = new CDbCriteria();
     if ($nid) {
@@ -122,13 +132,20 @@ class CommentController extends Controller {
       $commentdata = $comment->attributes;
       
       // 加载 评论相关的用户资料
-      $country = $comment->user->country;
-      $user = $comment->user->attributes;
-      $user["country"] = $country->attributes;
-      $commentdata["user"] = $comment->user->getOutputRecordInArray($user);
-      
+      $country = $comment->user? $comment->user->country: NULL;
+      $user = $comment->user? $comment->user->attributes: NULL;
+      $user["country"] = $country ? $country->attributes: NULL;
+      $commentdata["user"] = $comment->user? $comment->user->getOutputRecordInArray($user): NULL;
+      if ($shownode) {
+        $commentdata['node'] = NodeAR::model()->findByPk($comment->attributes['nid']);
+      }
       $retdata[] = $commentdata;
     }
+
+//    $retdata = array(
+//        "node" => $node,
+//        "comments" => $retdata,
+//    );
     
     $this->responseJSON($retdata, "success");
   }
@@ -181,6 +198,33 @@ class CommentController extends Controller {
     }
     
     $this->responseJSON($retdata, "success");
+  }
+  
+  public function actionGetbyid() {
+    $request = Yii::app()->getRequest();
+    
+    $cid = $request->getParam("cid");
+    if (!$cid) {
+      return $this->responseError("invalid params");
+    }
+    
+    $comment = CommentAR::model()->with(array("user", "node"))->findByPk($cid);
+    if (!$comment) {
+      return $this->responseError("invalid params");
+    }
+    
+    $retdata = $comment->attributes;
+    if ($comment->user) {
+      $user = $comment->user;
+      $country = $user->country;
+      $retdata["user"] = $user->getOutputRecordInArray(array("country" => $country->attributes) + $user->attributes);
+    }
+    if ($comment->node) {
+      $retdata["node"] = $comment->node->attributes;
+    }
+    
+    $this->responseJSON($retdata, "success");
+    
   }
 }
 

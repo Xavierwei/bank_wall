@@ -49,6 +49,19 @@ class FlagController extends Controller {
       $flagAr->cid = $cid;
     }
     
+    // 检查之前是否flag过
+    if ($flagAr->nid) {
+      $flagold = FlagAR::model()->findByAttributes(array("uid" => $flagAr->uid, "nid" => $flagAr->nid));
+    }
+    else {
+      $flagold = FlagAR::model()->findByAttributes(array("uid" => $flagAr->uid, "cid" => $flagAr->cid));
+    }
+    
+    if ($flagold) {
+      $this->responseError('flagged');
+    }
+    
+    
     if ($flagAr->validate()) {
       $flagAr->save();
       
@@ -70,20 +83,16 @@ class FlagController extends Controller {
     $cid = $request->getPost("cid");
     
     $node = NodeAR::model()->findByPk($nid);
-    if (!$node) {
-      $this->responseJSON(array(), "success");
-    }
-    
-    if (!Yii::app()->user->checkAccess("removeFlag", array("country_id" => $node->country_id))) {
-      return $this->responseError("permission deny");
-    }
-    
+
     if (!$nid && !$cid) {
       return $this->responseError("invalid params");
     }
     
-    $flagAr = new FlagAr();
+    $flagAr = new FlagAR();
     if ($nid) {
+      if (!Yii::app()->user->checkAccess("removeFlag", array("country_id" => $node->country_id))) {
+        return $this->responseError("permission deny");
+      }
       $flagAr->deleteNodeFlag($nid);
     }
     else if($cid) {

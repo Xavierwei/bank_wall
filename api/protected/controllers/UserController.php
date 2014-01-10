@@ -21,7 +21,7 @@ class UserController extends Controller {
     }
     
     $role = $request->getParam("role");
-    $country_id = $request->getParam("countryid");
+    $country_id = $request->getParam("country_id");
     $orderby = $request->getParam("orderby");
 
     // 验证参数
@@ -40,7 +40,7 @@ class UserController extends Controller {
 
     // Role 必须是数字
     if (!$role) {
-      $this->responseError("invalid params role");
+      //$this->responseError("invalid params role");
     }
     if ($role && !is_numeric($role)) {
       $this->responseError("invalid params role");
@@ -51,17 +51,23 @@ class UserController extends Controller {
     if (!isset($columns[$orderby])) {
       $this->responseError("invalid params orderby");
     }
-
+    
+    $params = array();
     $query = new CDbCriteria();
-    $query->addCondition("role=:role");
+    if ($role) {
+      $query->addCondition("role=:role");
+      $params[":role"] = $role;
+    }
+
 
     if ($country_id) {
       $query->addCondition(UserAR::model()->tableAlias . ".country_id = :country_id");
+      $params[":country_id"] = $country_id;
     }
 
     $query->order = $orderby . " DESC";
 
-    $query->params = array(":role" => $role, ":country_id" => $country_id);
+    $query->params = $params;
 
     $users = UserAR::model()->with("country")->findAll($query);
 
@@ -142,14 +148,13 @@ class UserController extends Controller {
     if ($this->isPost()) {
       $id = $arUser->postNewUser();
       if ($id) {
-        $mUser = UserAR::model()->findByPk($id);
-
+        $mUser = UserAR::model()->findByPk($arUser->uid);
         // 返回数据
         $this->responseJSON(array(
             "uid" => $id,
             "lastname" => $mUser->lastname,
             "firstname" => $mUser->firstname,
-            "avadar" => $mUser->avadar,
+            "avatar" => $mUser->avatar,
                 ), Yii::t("strings", "success"));
       } else {
         $this->responseError($arUser->errorsString());
@@ -200,6 +205,19 @@ class UserController extends Controller {
       $user = UserAR::model()->with("country")->findByPk($uid);
       $country = $user->country;
       $retdata = $user->getOutputRecordInArray(array("country" => $country) + $user->attributes);
+      // likes count
+      $likeAr = new LikeAR();
+      $likecount = $likeAr->totalLikeByUser($user->uid);
+      $retdata["likes"] = $likecount;
+      
+      // comments count
+      $commentAr = new CommentAR();
+      $retdata["comments"] = $commentAr->totalCommentsByUser($user->uid);
+      
+      // photos_count_by_day
+      $nodeAr = new NodeAR();
+      $retdata["photos_count_by_day"] = $nodeAr->photosCountByDay($user->uid);
+      $retdata["photos_count_by_month"] = $nodeAr->photosCountByMonth($user->uid);
       
       $this->responseJSON($retdata, "success");
     }
@@ -211,13 +229,13 @@ class UserController extends Controller {
   /**
    * 更改用户资料 
    */
-  public function actionUserput() {
+  public function actionPut() {
     $request = Yii::app()->getRequest();
     if (!$request->isPostRequest) {
       $this->responseError("http error");
     }
     
-    $uid = $request->getPost("uid");
+    $uid = Yii::app()->user->getId();
     
     if ($uid) {
       $user = UserAR::model()->findByPk($uid);
@@ -233,49 +251,74 @@ class UserController extends Controller {
       }
       
       $data = $_POST;
-      foreach ($data as $key => $value) {
-        if ($user->{$key}) {
-          $user->{$key} = $value;
-        }
-      }
-      UserAR::model()->updateByPk($uid, $user->attributes);
+      $update_uid = $data['uid'];
+      unset($data['uid']);
+      // 使用单点登陆后无需再修改密码，因此注销以下代码
+//      foreach ($data as $key => $value) {
+//        if ($key == "password") {
+//          $user->setAttribute($key, md5($value));
+//        }
+//        else {
+//          $user->setAttribute($key, $value);
+//        }
+//      }
+      UserAR::model()->updateByPk($update_uid, $data);
       
       $this->responseJSON($user, "success");
     }
     else {
-      $this->responseError("invalid params");
+      $this->responseError("not login");
     }
   }
-  
+
+
   public function actionLogin() {
-    $request = Yii::app()->getRequest();
-    
-    if (!$request->isPostRequest) {
-      $this->responseError("http error");
+      $request = Yii::app()->getRequest();
+
+      if (!$request->isPostRequest) {
+          $this->responseError("http error");
+      }
+
+      $company_email = $request->getPost("company_email");
+      $password = $request->getPost("password");
+
+      $userIdentify = new UserIdentity($company_email, $password);
+
+      // 验证没有通过
+      if (!$userIdentify->authenticate()) {
+          // 不必把对应的错误消息返回给客户端， 客户端只需知道登陆失败即可
+          // 可以避免Hacker 根据错误消息来推敲我们系统的运行机制和用户密码/帐号
+          $this->responseError("login failed");
+      }
+      else {
+          Yii::app()->user->login($userIdentify);
+
+          $userAr = new UserAR();
+          $this->responseJSON($userAr->getOutputRecordInArray(UserAR::model()->findByPk(Yii::app()->user->getId())), "success");
     }
+  }
+
+  public function actionLogout() {
     
-    $company_email = $request->getPost("company_email");
-    $password = $request->getPost("password");
+    $uid = Yii::app()->user->getId();
+    $user = UserAR::model()->with("country")->findByPk($uid);
     
-    $userIdentify = new UserIdentity($company_email, $password);
-    
-    // 验证没有通过
-    if (!$userIdentify->authenticate()) {
-      // 不必把对应的错误消息返回给客户端， 客户端只需知道登陆失败即可
-      // 可以避免Hacker 根据错误消息来推敲我们系统的运行机制和用户密码/帐号
-      $this->responseError("login failed");
+    if ($user) {
+      Yii::app()->user->logout();
+      $this->responseJSON(array(), "success");
     }
     else {
-      Yii::app()->user->login($userIdentify);
-      
-      $userAr = new UserAR();
-      $this->responseJSON($userAr->getOutputRecordInArray(UserAR::model()->findByPk(Yii::app()->user->getId())), "success");
+      $this->responseError("unkonwn error");
     }
   }
   
   public function actionLoginForm() {
     $request = Yii::app()->getRequest();
     $loginform = new LoginForm();
+    
+    if (Yii::app()->user->getId()) {
+      $this->redirect(Yii::app()->user->returnUrl);
+    }
     
     if (!$request->isPostRequest) {
       $params = array("model" => $loginform);
@@ -284,9 +327,8 @@ class UserController extends Controller {
     else {
       $loginform->attributes = $_POST["LoginForm"];
       if ($loginform->validate()) {
-        $res = Yii::app()->user->login($loginform->getUserIdentify());
-        echo $res;
-        //$this->redirect(Yii::app()->user->returnUrl);
+        Yii::app()->user->login($loginform->getUserIdentify());
+        $this->redirect(Yii::app()->user->returnUrl);
       }
       else {
         $params = array("model" => $loginform);
