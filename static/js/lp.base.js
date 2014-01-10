@@ -368,13 +368,11 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         // hide the inner info node
         var $info = $inner.find('.inner-info');
 
-        $info
-            .animate({
+        $info.animate({
                 bottom: -$info.height()
             } , infoTime);
         // back $inner and remove it
-        $inner
-            .delay(infoTime)
+        $inner.delay(infoTime)
             .animate({
                 left: - ( $(window).width() - _silderWidth )
             } , _animateTime , _animateEasing , function(){
@@ -382,8 +380,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             });
 
         // back $main
-        $main
-            .show()
+        $main.show()
             .css('position' , 'fixed')
             .delay(infoTime)
             .animate({
@@ -440,10 +437,9 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             } , 1000);
 
             // picture animation,
-            // prepend the new image to .image-wrap element
-            // set .image-wrap element margin-right css
-            // set .image-wrap's two image width style to it's width 
-            // set the first image's margin-left style 
+            // append or prepend image
+            // set image width
+            // set .image-wrap's margin-right
             // animate the first image's margin-left style
             var $imgWrap = $inner.find('.image-wrap');
             var wrapWidth = $imgWrap.width();
@@ -475,16 +471,14 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
 
             // desc animation
             var $info = $inner.find('.inner-info');
-            $info
-                .animate({
+            $info.animate({
                     bottom: -$info.height()
                 } , 500 )
                 .promise()
                 .done(function(){
                     $inner.find('.inner-infocom')
                         .html( node.description );
-                    $info
-                        .animate({
+                    $info.animate({
                             bottom: 0
                         } , 500 );
                 });
@@ -625,7 +619,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             case 39: // right
                 LP.triggerAction('next');
                 break;
-            case 27: //esc
+            case 27: // esc
                 LP.triggerAction('back');
                 break;
         }
