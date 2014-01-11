@@ -183,14 +183,16 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         // filte for date
         $.each( nodes , function( index , node ){
             // get date
-            var match = node.datetime.match(/^\d+-(\d+)-(\d+)/);
-            if( lastDate != match[0] ){
+            var datetime = new Date(node.datetime*1000);
+            var date = datetime.getFullYear() + "/" + (parseInt(datetime.getMonth()) + 1) + "/" + datetime.getDate();
+            //var match = node.datetime.match(/^\d+-(\d+)-(\d+)/);
+            if( lastDate != date ){
                 LP.compile( 'time-item-template' , 
-                    {day: parseInt(match[2]) , month: getMonth( parseInt(match[1]))} , 
+                    {day: parseInt(datetime.getDate()) , month: getMonth(parseInt(datetime.getMonth()) + 1)} ,
                     function( html ){
                         aHtml.push( html );
                     } );
-                lastDate = match[0];
+                lastDate = date;
             }
             if(node.type == 'video') {
                 node.image = node.file.replace('mp4','jpg');
@@ -199,7 +201,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             {
                 node.image = node.file;
             }
-            node.formatDate = match[0].replace(/-/g , '/');
+            node.formatDate = date;
 
             LP.compile( 'node-item-template' , 
                 node , 
@@ -289,9 +291,12 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         var nodes = $main.data('nodes');
         var node = nodes[ _currentNodeIndex ];
 
-        var match = node.datetime.match(/\d+-(\d+)-(\d+)/);
-        node.date = parseInt(match[2]);
-        node.month = getMonth( parseInt(match[1]));
+        // get date
+        var datetime = new Date(node.datetime*1000);
+        var date = datetime.getFullYear() + "/" + (parseInt(datetime.getMonth()) + 1) + "/" + datetime.getDate();
+
+        node.date = parseInt(datetime.getDate());
+        node.month = getMonth(parseInt(datetime.getMonth()) + 1);
         LP.compile( 'inner-template' , node , function( html ){
             var mainWidth = winWidth - _silderWidth;
             // inner animation
