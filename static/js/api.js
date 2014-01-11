@@ -28,8 +28,12 @@ define(function( require , exports , model ){
         getNode: {path: '../admin/app/json/node/photo.json'},
         nodeList: {path: '../admin/app/json/node/recent.json'},
         like: {path: '../admin/app/json/like/like.json'},
+        // 
         flag: {path: '../admin/app/json/flag/flag.json'},
-        user: {path: '../admin/app/json/user/user.json'}
+        // get user info
+        user: {path: '../admin/app/json/user/user.json' , method: 'get'},
+        // get user's nodes
+        userNode: {path: '../admin/app/json/node/recent.json' , data:{ uid: 0 , page: 1 } , method: 'get'}
     };
 
     // 内部API

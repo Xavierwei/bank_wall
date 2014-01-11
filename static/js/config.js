@@ -24,6 +24,14 @@ seajs.config({
       src: "../plugin/jquery.mousewheel.js"
       , deps: ['jquery']
     }
+    ,uiwidget: {
+      src: "../plugin/jquery.ui.widget.js"
+      , deps: ['jquery']
+    }
+    ,fileupload:{
+      src: "../plugin/jquery.fileupload.js"
+      , deps: ['jquery','uiwidget']
+    }
   }
   , alias: {
     api: '../api'
