@@ -4,6 +4,8 @@
 LP.use(['jquery' , 'api'] , function( $ , api ){
     'use strict'
 
+    var API_FOLDER = "../api";
+
     // get english month
     // TODO .... need I18
     var getMonth = (function(){
@@ -33,43 +35,190 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                 .fadeOut( 500 );
         })
 
-    // for select options
-    .delegate('.select-option p' , 'click' , function(){
-        var filter = $(this).data('param');
-        $(this).closest('.select-pop')
-            .prev()
-            .html( $(this).html() );
-        //TODO: loading animation
+        // for select options
+        .delegate('.select-option p' , 'click' , function(){
+            var filter = $(this).data('param');
+            $(this).closest('.select-pop')
+                .prev()
+                .html( $(this).html() );
+            //TODO: loading animation
 
-        $main.fadeOut(400,function(){
-            LP.triggerAction('close_user_page');
-            $main.html('');
-            $main.data('nodes','');
-            api.ajax(filter , function( result ){
-                $main.fadeIn().trigger('item-insert' , [result.data] );
+            $main.fadeOut(400,function(){
+                LP.triggerAction('close_user_page');
+                $main.html('');
+                $main.data('nodes','');
+                api.ajax(filter , function( result ){
+                    nodeActions.inserNode( $main.fadeIn() , result.data );
+                });
             });
-        });
 
-    })
+        })
 
-    // click to hide select options
-    .click(function( ev ){
-        $('.select-pop').hide()
-            .prev()
-            .show();
-        if( $(ev.target).hasClass('select-box') ){
-            $(ev.target).hide()
-                .next()
+        // click to hide select options
+        .click(function( ev ){
+            $('.select-pop').hide()
+                .prev()
                 .show();
-        }
-        
-    });
+            if( $(ev.target).hasClass('select-box') ){
+                $(ev.target).hide()
+                    .next()
+                    .show();
+            }
+
+        });
 
 
     var $main = $('.main');
     var minWidth = 170;
     var itemWidth = minWidth;
     var winWidth = $(window).width();
+    var nodeActions = {
+        inserNode: function( $dom , nodes ){
+            var aHtml = [];
+            var lastDate = null;
+            nodes = nodes || [];
+
+            // save nodes to cache
+            var cache = $dom.data('nodes') || [];
+            $dom.data('nodes' , cache.concat( nodes ) );
+
+            // filte for date
+            $.each( nodes , function( index , node ){
+                // get date
+                var datetime = new Date(node.datetime*1000);
+                var date = datetime.getFullYear() + "/" + (parseInt(datetime.getMonth()) + 1) + "/" + datetime.getDate();
+                if( lastDate != date ){
+                    LP.compile( 'time-item-template' ,
+                        {day: parseInt(datetime.getDate()) , month: getMonth(parseInt(datetime.getMonth()) + 1)} ,
+                        function( html ){
+                            aHtml.push( html );
+                        } );
+                    lastDate = date;
+                }
+                // fix video type
+                if(node.type == 'video') {
+                    node.image = node.file.replace('.mp4','_400_400.jpg');
+                } else {
+                    node.image = node.file.replace('.jpg','_400_400.jpg');
+                }
+                node.formatDate = date;
+
+                if(node.likecount > 1) {
+                    node.str_like = 'Likes';
+                }
+                else {
+                    node.str_like = 'Like';
+                }
+
+                LP.compile( 'node-item-template' ,
+                    node ,
+                    function( html ){
+                        aHtml.push( html );
+
+                        if( index == nodes.length - 1 ){
+                            // render html
+                            $dom.append(aHtml.join(''));
+                            nodeActions.setItemWidth( $dom );
+                            nodeActions.setItemReversal( $dom );
+                        }
+                    } );
+
+            } );
+        },
+        setItemWidth: function( $dom ){
+            var mainWidth = $dom.width();
+            var min = ~~( mainWidth / minWidth );
+            // save itemWidth and winWidth 
+            itemWidth = ~~( mainWidth / min );
+            winWidth = $(window).width();
+
+            $dom.find('.time-item, .main-item.reversal , .main-item.reversal img')
+                .width( itemWidth )
+                .height( itemWidth );
+        },
+        // start pic reversal animation
+        setItemReversal: function( $dom ){
+            // fix all the items , set position: relative
+            $dom.children()
+                .css('position' , 'relative');
+            if( $dom.children('.isotope-item').length )
+                $dom.isotope('destroy')
+            // get first time item , which is not opend
+            // wait for it's items prepared ( load images )
+            // run the animate
+            var $timeItem = $dom.find('.time-item:not(.opened)').eq(0)
+                .width( itemWidth )
+                .height( itemWidth );
+            var $itemPics = $timeItem.nextUntil('.time-item');
+
+            var startAnimate = function(){
+                $timeItem.addClass('opened');
+                $itemPics.each(function( index ){
+                    setTimeout(function(){
+                        var $item = $itemPics.eq( index )
+                            .addClass('reversal')
+                            .width( itemWidth )
+                            .height( itemWidth );
+
+                        // fix it's img width and height
+                        $item.find('img')
+                            .width( itemWidth )
+                            .height( itemWidth );
+
+                        // play next pic items
+                        if( index == $itemPics.length - 1 ){
+                            setTimeout(function(){
+                                nodeActions.setItemReversal( $dom );
+                            } , 1000);
+                        }
+                    } , index * 400 );
+                });
+            }
+            var imgLoadedNum = 0;
+            var $imgs = $itemPics.find('img')
+                .each(function(){
+                    // it means the img loaded complete
+                    if( this.complete ){
+                        imgLoadedNum++;
+                    }
+
+                    $(this).load(function(){
+                        imgLoadedNum++;
+                        if( imgLoadedNum == $itemPics.length ){
+                            startAnimate();
+                        }
+                    });
+                });
+            if( imgLoadedNum == $itemPics.length ){
+                startAnimate();
+            }
+        },
+        // set items auto fix it's width
+        setItemIsotope: function( $dom ){
+            // if the page has unreversaled node
+            if( $dom.find('.main-item:not(.time-item,.reversal)').length ) return;
+
+            if( $dom.children('.isotope-item').length ){
+                $dom.isotope('reLayout');
+                return;
+            }
+
+            LP.use('isotope' , function(){
+                // first init isotope , render no animate effect
+                $dom
+                    .addClass('no-animate')
+                    .isotope({
+                        resizable: false
+                    });
+
+                // after first isotope init
+                // remove no animate class
+                setTimeout(function(){
+                    $dom.removeClass('no-animate');
+                } , 100);
+            });
+        }
+    }
     // fix one day animation. It is start animate from the day which is not trigger the animation
     // After the day trigger the animation , it would be added 'opened' class.
     // Fix animation day by day
@@ -77,147 +226,145 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
     //      item-reversal   : fix image reversal effect
     //      item-width      : fix item width
     //      item-isotope    : isotope effect init and invoke
-    $main.bind('item-reversal' , function(){
-        // fix all the items , set position: relative
-        $main.children()
-            .css('position' , 'relative');
-        if( $main.children('.isotope-item').length )
-            $main.isotope('destroy')
-        // get first time item , which is not opend
-        // wait for it's items prepared ( load images )
-        // run the animate
-        var $timeItem = $('.time-item:not(.opened)').eq(0)
-            .width( itemWidth )
-            .height( itemWidth );
-        var $itemPics = $timeItem.nextUntil('.time-item');
+    // $main.bind('item-reversal' , function(){
+    //     // fix all the items , set position: relative
+    //     $main.children()
+    //         .css('position' , 'relative');
+    //     if( $main.children('.isotope-item').length )
+    //         $main.isotope('destroy')
+    //     // get first time item , which is not opend
+    //     // wait for it's items prepared ( load images )
+    //     // run the animate
+    //     var $timeItem = $('.time-item:not(.opened)').eq(0)
+    //         .width( itemWidth )
+    //         .height( itemWidth );
+    //     var $itemPics = $timeItem.nextUntil('.time-item');
 
-        var startAnimate = function(){
+    //     var startAnimate = function(){
 
-            $timeItem.addClass('opened');
+    //         $timeItem.addClass('opened');
 
-            $itemPics.each(function( index ){
-                setTimeout(function(){
-                    var $item = $itemPics.eq( index )
-                        .addClass('reversal')
-                        .width( itemWidth )
-                        .height( itemWidth );
+    //         $itemPics.each(function( index ){
+    //             setTimeout(function(){
+    //                 var $item = $itemPics.eq( index )
+    //                     .addClass('reversal')
+    //                     .width( itemWidth )
+    //                     .height( itemWidth );
 
-                    // fix it's img width and height
-                    $item.find('img')
-                        .width( itemWidth )
-                        .height( itemWidth );
+    //                 // fix it's img width and height
+    //                 $item.find('img')
+    //                     .width( itemWidth )
+    //                     .height( itemWidth );
 
-                    // play next pic items
-                    if( index == $itemPics.length - 1 ){
-                        setTimeout(function(){$main.trigger('item-reversal')} , 1000);
-                    }
-                } , index * 400 );
-            });
-        }
-        var imgLoadedNum = 0;
-        var $imgs = $itemPics.find('img')
-            .each(function(){
-                // it means the img loaded complete
-                if( this.complete ){
-                    imgLoadedNum++;
-                }
+    //                 // play next pic items
+    //                 if( index == $itemPics.length - 1 ){
+    //                     setTimeout(function(){$main.trigger('item-reversal')} , 1000);
+    //                 }
+    //             } , index * 400 );
+    //         });
+    //     }
+    //     var imgLoadedNum = 0;
+    //     var $imgs = $itemPics.find('img')
+    //         .each(function(){
+    //             // it means the img loaded complete
+    //             if( this.complete ){
+    //                 imgLoadedNum++;
+    //             }
 
-                $(this).load(function(){
-                    imgLoadedNum++;
-                    if( imgLoadedNum == $itemPics.length ){
-                        startAnimate();
-                    }
-                });
-            });
-        if( imgLoadedNum == $itemPics.length ){
-            startAnimate();
-        }
-    })
-    .bind('item-width' , function(){
-        var mainWidth = $(this).width();
+    //             $(this).load(function(){
+    //                 imgLoadedNum++;
+    //                 if( imgLoadedNum == $itemPics.length ){
+    //                     startAnimate();
+    //                 }
+    //             });
+    //         });
+    //     if( imgLoadedNum == $itemPics.length ){
+    //         startAnimate();
+    //     }
+    // })
+    // .bind('item-width' , function(){
+    //     var mainWidth = $(this).width();
 
-        var min = ~~( mainWidth / minWidth );
-        // save itemWidth and winWidth 
-        itemWidth = ~~( mainWidth / min );
-        winWidth = $(window).width();
+    //     var min = ~~( mainWidth / minWidth );
+    //     // save itemWidth and winWidth 
+    //     itemWidth = ~~( mainWidth / min );
+    //     winWidth = $(window).width();
 
-        $('.time-item, .main-item.reversal , .main-item.reversal img')
-            .width( itemWidth )
-            .height( itemWidth );
-    })
-    // isotope effect init and invoke
-    .bind('item-isotope' , function(){
+    //     $('.time-item, .main-item.reversal , .main-item.reversal img')
+    //         .width( itemWidth )
+    //         .height( itemWidth );
+    // })
+    // // isotope effect init and invoke
+    // .bind('item-isotope' , function(){
 
-        // if the page has unreversaled node
-        if( $('.main .main-item:not(.time-item,.reversal)').length ) return;
+    //     // if the page has unreversaled node
+    //     if( $('.main .main-item:not(.time-item,.reversal)').length ) return;
 
-        if( $main.children('.isotope-item').length ){
-            $main.isotope('reLayout');
-            return;
-        }
+    //     if( $main.children('.isotope-item').length ){
+    //         $main.isotope('reLayout');
+    //         return;
+    //     }
 
-        LP.use('isotope' , function(){
-            // first init isotope , render no animate effect
-            $main
-                .addClass('no-animate')
-                .isotope({
-                    resizable: false
-                });
+    //     LP.use('isotope' , function(){
+    //         // first init isotope , render no animate effect
+    //         $main
+    //             .addClass('no-animate')
+    //             .isotope({
+    //                 resizable: false
+    //             });
 
-            // after first isotope init
-            // remove no animate class
-            setTimeout(function(){
-                $main.removeClass('no-animate');
-            } , 100);
-        });
-    })
-    .bind('item-insert' , function( ev , nodes ){
-        var aHtml = [];
-        var lastDate = null;
-        nodes = nodes || [];
+    //         // after first isotope init
+    //         // remove no animate class
+    //         setTimeout(function(){
+    //             $main.removeClass('no-animate');
+    //         } , 100);
+    //     });
+    // })
+    // .bind('item-insert' , function( ev , nodes ){
+    //     var aHtml = [];
+    //     var lastDate = null;
+    //     nodes = nodes || [];
 
-        // save nodes to cache
-        var cache = $main.data('nodes') || [];
-        $main.data('nodes' , cache.concat( nodes ) );
+    //     // save nodes to cache
+    //     var cache = $main.data('nodes') || [];
+    //     $main.data('nodes' , cache.concat( nodes ) );
 
-        // filte for date
-        $.each( nodes , function( index , node ){
-            // get date
-            var datetime = new Date(node.datetime*1000);
-            var date = datetime.getFullYear() + "/" + (parseInt(datetime.getMonth()) + 1) + "/" + datetime.getDate();
-            //var match = node.datetime.match(/^\d+-(\d+)-(\d+)/);
-            if( lastDate != date ){
-                LP.compile( 'time-item-template' , 
-                    {day: parseInt(datetime.getDate()) , month: getMonth(parseInt(datetime.getMonth()) + 1)} ,
-                    function( html ){
-                        aHtml.push( html );
-                    } );
-                lastDate = date;
-            }
-            if(node.type == 'video') {
-                node.image = node.file.replace('mp4','jpg');
-            }
-            else
-            {
-                node.image = node.file;
-            }
-            node.formatDate = date;
+    //     // filte for date
+    //     $.each( nodes , function( index , node ){
+    //         // get date
+    //         var match = node.datetime.match(/^\d+-(\d+)-(\d+)/);
+    //         if( lastDate != match[0] ){
+    //             LP.compile( 'time-item-template' , 
+    //                 {day: parseInt(match[2]) , month: getMonth( parseInt(match[1]))} , 
+    //                 function( html ){
+    //                     aHtml.push( html );
+    //                 } );
+    //             lastDate = match[0];
+    //         }
+    //         if(node.type == 'video') {
+    //             node.image = node.file.replace('mp4','jpg');
+    //         }
+    //         else
+    //         {
+    //             node.image = node.file;
+    //         }
+    //         node.formatDate = match[0].replace(/-/g , '/');
 
-            LP.compile( 'node-item-template' , 
-                node , 
-                function( html ){
-                    aHtml.push( html );
+    //         LP.compile( 'node-item-template' , 
+    //             node , 
+    //             function( html ){
+    //                 aHtml.push( html );
 
-                    if( index == nodes.length - 1 ){
-                        // render html
-                        $main.append(aHtml.join(''))
-                            .trigger('item-width')
-                            .trigger('item-reversal');
-                    }
-                } );
+    //                 if( index == nodes.length - 1 ){
+    //                     // render html
+    //                     $main.append(aHtml.join(''))
+    //                         .trigger('item-width')
+    //                         .trigger('item-reversal');
+    //                 }
+    //             } );
 
-        } );
-    });
+    //     } );
+    // });
 
 
     // fix window resize event
@@ -228,37 +375,58 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         clearTimeout( _resizeTimer );
 
         _resizeTimer = setTimeout(function(){
-            $main.trigger('item-width');
-            // run isotope after item width fixed
-            setTimeout(function(){
-                $main.trigger('item-isotope');
-            } , 500);
-            
+            if( $main.is(':visible') ){
+                nodeActions.setItemWidth( $main );
+
+                // run isotope after item width fixed
+                setTimeout(function(){
+                    nodeActions.setItemIsotope( $main );
+                } , 500);
+            }
+
+            var $userPage = $('.user-page');
+            var $userCom = $userPage.find('.count-com');
+            if( $userPage.is(':visible') && $userCom.is(':visible') ){
+                nodeActions.setItemWidth( $userCom );
+                // run isotope after item width fixed
+                setTimeout(function(){
+                    nodeActions.setItemIsotope( $userCom );
+                } , 500);
+            }
+
+
         } , 200);
     })
-    .scroll(function(){
-        // if is ajaxing the scroll data
-        if( _scrollAjax ) return;
-        // if the page has unreversaled node
-        if( $('.main .main-item:not(.time-item,.reversal)').length ) return;
-
-        // if has inner element 
-        if( $('.inner').length ) return;
-
-        _scrollAjax = true;
-        // if scroll to the botton of the window 
-        // ajax the next datas
-        var st = $(window).scrollTop();
-        var bodyHeight = $(document.body).height();
-        var winHeight = $(window).height();
-        if( bodyHeight - winHeight - st < 100 ){
-            //TODO ajax next nodes
-            api.ajax('nodeList' , {nid: 10} , function( result ){
-                $main.trigger('item-insert' , [result.data] );
-                _scrollAjax = false;
-            });
-        }
-    });
+        .scroll(function(){
+            // if is ajaxing the scroll data
+            if( _scrollAjax ) return;
+            // if scroll to the botton of the window
+            // ajax the next datas
+            var st = $(window).scrollTop();
+            var bodyHeight = $(document.body).height();
+            var winHeight = $(window).height();
+            if( bodyHeight - winHeight - st < 100 ){
+                // fix main element
+                // it must visible and in main element has unreversaled node
+                if( $main.is(':visible') && !$main.find('.main-item:not(.time-item,.reversal)').length ){
+                    _scrollAjax = true;
+                    api.ajax('nodeList' , {nid: 10} , function( result ){
+                        nodeActions.inserNode( $main , result.data );
+                        _scrollAjax = false;
+                    });
+                }
+                // fix user page element
+                var $userCom = $('.user-page .count-com');
+                // it must visible and in main element has unreversaled node
+                if( $('.user-page').is(':visible') && !$userCom.find('.main-item:not(.time-item,.reversal)').length ){
+                    _scrollAjax = true;
+                    api.ajax('userNode' , {nid: 10} , function( result ){
+                        nodeActions.inserNode( $userCom , result.data );
+                        _scrollAjax = false;
+                    });
+                }
+            }
+        });
 
 
 
@@ -290,13 +458,11 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         _currentNodeIndex = $(this).prevAll(':not(.time-item)').length;
         var nodes = $main.data('nodes');
         var node = nodes[ _currentNodeIndex ];
-
-        // get date
         var datetime = new Date(node.datetime*1000);
-        var date = datetime.getFullYear() + "/" + (parseInt(datetime.getMonth()) + 1) + "/" + datetime.getDate();
+        node.date = datetime.getDate();
+        node.month = getMonth((parseInt(datetime.getMonth()) + 1));
+        node.image = node.file.replace('.jpg','_600_600.jpg');
 
-        node.date = parseInt(datetime.getDate());
-        node.month = getMonth(parseInt(datetime.getMonth()) + 1);
         LP.compile( 'inner-template' , node , function( html ){
             var mainWidth = winWidth - _silderWidth;
             // inner animation
@@ -334,6 +500,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                 });
 
             // loading comments
+            bindCommentSubmisson();
             getCommentList(node.nid);
 
             LP.use(['jscrollpane' , 'mousewheel'] , function(){
@@ -351,30 +518,9 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
 
             // loading image
         } );
-    
+
         // preload before and after images
         preLoadSiblings();
-        // // ajax the node info , then compile it to html
-        // // get the 21 nodes data , before current
-        // LP.use('api' , function( api ){
-        //     // TODO.. change request url
-        //     var nid = data.nid;
-        //     api.ajax( 'getNode' , data , function( result ){
-        //         // get current node data
-        //         // $.each( result.data , function( index , node ){
-        //         //     if( node.nid == nid ){
-        //         //         renderNode( node );
-        //         //         // save node cache
-        //         //         _nodeCache = _nodeCache.concat( result.data.slice( index ) );
-        //         //         return false;
-        //         //     }
-        //         // } );
-        //         var node = result.data;
-                
-        //     } );
-            
-        // });
-
         return false;
     });
 
@@ -385,13 +531,11 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         // hide the inner info node
         var $info = $inner.find('.inner-info');
 
-        $info
-            .animate({
-                bottom: -$info.height()
-            } , infoTime);
+        $info.animate({
+            bottom: -$info.height()
+        } , infoTime);
         // back $inner and remove it
-        $inner
-            .delay(infoTime)
+        $inner.delay(infoTime)
             .animate({
                 left: - ( $(window).width() - _silderWidth )
             } , _animateTime , _animateEasing , function(){
@@ -399,8 +543,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             });
 
         // back $main
-        $main
-            .show()
+        $main.show()
             .css('position' , 'fixed')
             .delay(infoTime)
             .animate({
@@ -425,9 +568,9 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         var cubeDir = 'cube-' + direction;
         var rotateDir = 'rotate-' + direction;
 
-        var match = node.datetime.match(/\d+-(\d+)-(\d+)/);
-        node.date = parseInt(match[2]);
-        node.month = getMonth( parseInt(match[1]));
+        var datetime = new Date(node.datetime*1000);
+        node.date = datetime.getDate();
+        node.month = getMonth((parseInt(datetime.getMonth()) + 1));
 
         var $inner = $('.inner');
         LP.compile( 'inner-template' , node , function( html ){
@@ -449,18 +592,17 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                     .removeClass(cubeDir);
                 setTimeout(function(){
                     $cube.removeClass( 'no-animate' )
-                        ;
+                    ;
                 },0);
 
                 $inner.removeClass('disabled');
-                
+
             } , 1000);
 
             // picture animation,
-            // prepend the new image to .image-wrap element
-            // set .image-wrap element margin-right css
-            // set .image-wrap's two image width style to it's width 
-            // set the first image's margin-left style 
+            // append or prepend image
+            // set image width
+            // set .image-wrap's margin-right
             // animate the first image's margin-left style
             var $imgWrap = $inner.find('.image-wrap');
             var wrapWidth = $imgWrap.width();
@@ -469,43 +611,41 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             // append dom
             var $oriImage = $imgWrap.children('img');
             var $newImage = $('<img/>')[ direction == 'left' ? 'insertBefore' : 'insertAfter' ]( $oriImage )
-                    .attr('src' , node.image);
+                .attr('src' , API_FOLDER+node.file.replace('.jpg','_600_600.jpg'));
             // set style and animation
             $imgWrap.children('img').css({
                 width: wrapWidth
             })
-            .eq(0)
-            .css('marginLeft' , direction == 'left' ? - wrapWidth : 0 )
-            .animate({
-                marginLeft: direction == 'left' ? 0 : - wrapWidth 
-            } , 1000)
-            // after animation
-            .promise()
-            .done(function(){
-                $imgWrap.css({
-                    'margin-right': 0
+                .eq(0)
+                .css('marginLeft' , direction == 'left' ? - wrapWidth : 0 )
+                .animate({
+                    marginLeft: direction == 'left' ? 0 : - wrapWidth
+                } , 1000)
+                // after animation
+                .promise()
+                .done(function(){
+                    $imgWrap.css({
+                        'margin-right': 0
+                    });
+                    $newImage.css('width' , '100%')
+                        .siblings('img')
+                        .remove();
                 });
-                $newImage.css('width' , '100%')
-                    .siblings('img')
-                    .remove();
-            });
 
             // desc animation
             var $info = $inner.find('.inner-info');
-            $info
-                .animate({
-                    bottom: -$info.height()
-                } , 500 )
+            $info.animate({
+                bottom: -$info.height()
+            } , 500 )
                 .promise()
                 .done(function(){
                     $inner.find('.inner-infocom')
                         .html( node.description );
-                    $info
-                        .animate({
-                            bottom: 0
-                        } , 500 );
+                    $info.animate({
+                        bottom: 0
+                    } , 500 );
                 });
-            
+
             // load comment
             getCommentList(node.nid);
         });
@@ -521,10 +661,10 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         // preload before and after images
         for( var i = 0 ; i < 5 ; i++ ){
             if( nodes[ _currentNodeIndex - i ] ){
-                $('<img/>').attr('src' , nodes[ _currentNodeIndex - i ].image);
+                $('<img/>').attr('src' , API_FOLDER + nodes[ _currentNodeIndex - i ].image);
             }
             if( nodes[ _currentNodeIndex + i ] ){
-                $('<img/>').attr('src' , nodes[ _currentNodeIndex + i ].image);
+                $('<img/>').attr('src' , API_FOLDER + nodes[ _currentNodeIndex + i ].image);
             }
         }
     }
@@ -545,7 +685,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
 
         preLoadSiblings();
     });
-    
+
     //for next action
     LP.action('next' , function( data ){
         // lock the animation
@@ -558,7 +698,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         if( !node ){
             // TODO..  ajax to get more node
             api.ajax('nodeList' , {nid: nodes[ _currentNodeIndex - 1 ].nid} , function( result ){
-                $main.trigger('item-insert' , [result.data] );
+                nodeActions.inserNode( $main , result.data );
                 cubeInnerNode( $main.data('nodes')[ _currentNodeIndex ] , 'right' );
                 preLoadSiblings();
             });
@@ -578,11 +718,13 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         }
         else {
             api.ajax('like', {nid:data.nid}, function( result ){
-                _likeWrap.animate({opacity:0},function(){
-                    _likeWrap.html(result.data.like_count);
-                    _this.data('liked',true);
-                    $(this).animate({opacity:1});
-                });
+                if(result.success) {
+                    _likeWrap.animate({opacity:0},function(){
+                        _likeWrap.html(result.data);
+                        _this.data('liked',true);
+                        $(this).animate({opacity:1});
+                    });
+                }
             });
         }
     });
@@ -614,7 +756,6 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
 
     //for flag comment action
     LP.action('flag_comment' , function( data ){
-        console.log(data);
         if(!$('.confirm-modal').is(':visible')) {
             $('.confirm-modal').fadeIn();
             $('.confirm-modal .modal-header span').html(data.type);
@@ -634,14 +775,60 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
     });
 
     //upload photo
-    LP.action('pop_upload_photo' , function( data ){
+    LP.action('pop_upload' , function( data ){
+        var acceptFileTypes;
+        var type = data.type;
+        $('#file-photo,#file-video').hide();
+        if(type == 'video') {
+            acceptFileTypes = /(\.|\/)(move|mp4|avi)$/i;
+            $('#file-video').show();
+        }
+        else {
+            acceptFileTypes = /(\.|\/)(gif|jpe?g|png)$/i;
+            $('#file-photo').show();
+        }
+        $('.pop .poptit').html('upload ' + data.type);
         $('.overlay').fadeIn();
         $('.pop').fadeIn();
         $('.pop-inner').hide();
         $('.pop-file').show();
         $('.pop-file .step1-btns').show();
         $('.pop-file .step2-btns').hide();
-        $('.pop .poptit').html(data.title);
+        $('#node-description').val('');
+        $('.poptxt-check input').prop('checked',false);
+
+        // bind popfile-btn file upload event
+        var $fileupload = $('#fileupload');
+        if( !$fileupload.data('init') ){
+            $fileupload.data('init' , 1 ) ;
+            LP.use('fileupload' , function(){
+                // Initialize the jQuery File Upload widget:
+                $fileupload.fileupload({
+                        // Uncomment the following to send cross-domain cookies:
+                        //xhrFields: {withCredentials: true},
+                        url: '../api/index.php/node/post',
+                        maxFileSize: 5000000,
+                        acceptFileTypes: acceptFileTypes
+                    })
+                    .bind('fileuploaddone', function (e, data) {
+                        if(type == 'video') {
+                            $('.poptxt-pic img').attr('src', API_FOLDER + data.result.data.file.replace('.mp4','_400_400.jpg'));
+                            $('.poptxt-submit').attr('data-d','nid=' + data.result.data.nid);
+                            $('.pop-inner').fadeOut(400);
+                            //TODO uploading
+                            $('.pop-load').delay(400).fadeIn(400);
+                            $('.pop-load').delay(400).fadeOut(400);
+                            $('.pop-txt').delay(800).fadeIn(400);
+                        }
+                        else {
+                            $('.poptxt-pic img').attr('src', API_FOLDER + data.result.data.file.replace('.jpg','_400_400.jpg'));
+                            $('.poptxt-submit').attr('data-d','nid=' + data.result.data.nid);
+                            $('.pop-file .step1-btns').fadeOut(400);
+                            $('.pop-file .step2-btns').delay(400).fadeIn(400);
+                        }
+                    });
+            });
+        }
     });
 
     //close pop
@@ -651,25 +838,62 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
     });
 
     //select photo
-    LP.action('select_photo' , function(){
-        $('#file-photo').trigger('click');
-    });
+    // LP.action('select_photo' , function(){
+    //     $('#file-photo').trigger('click');
+    // });
 
     //select photo
     LP.action('upload_photo' , function(){
         $('.pop-inner').fadeOut(400);
         //TODO uploading
-        $('.pop-load').delay(300).fadeIn(400);
-        $('.pop-load').delay(300).fadeOut(400);
-        $('.pop-txt').delay(300).fadeIn(400);
+        $('.pop-load').delay(400).fadeIn(400);
+        $('.pop-load').delay(400).fadeOut(400);
+        $('.pop-txt').delay(800).fadeIn(400);
+    });
+
+    //save the content description
+    LP.action('save_node' , function(data){
+        var description = $('#node-description').val();
+        if(description.length == 0) {
+            $('.poptxt-preview .error').html('Please write some description.').fadeIn();
+            return;
+        }
+        if(description.length > 140) {
+            $('.poptxt-preview .error').html('The description is limited to 140 characters.').fadeIn();
+            return;
+        }
+        if(!$('.poptxt-check input').is(':checked')) {
+            $('.poptxt-preview .error').fadeOut();
+            $('.poptxt-check .error').fadeIn();
+            return;
+        }
+        $('.poptxt-check .error').fadeOut();
+        api.ajax('saveNode' , {nid: data.nid, description: description}, function( result ){
+            if(result.success) {
+                //TODO: insert the content to photo wall
+                $('.pop-inner').fadeOut(400);
+                $('.pop-success').delay(400).fadeIn(400);
+                setTimeout(function() {
+                    LP.triggerAction('close_pop');
+                },1500);
+            };
+        });
     });
 
     //toggle user page
-    LP.action('toggle_user_page' , function(){
+    LP.action('toggle_user_page' , function( data ){
         if(!$('.user-page').is(':visible')) {
             $('.inner').fadeOut(400);
             $('.main').fadeOut(400);
-            $('.user-page').delay(400).fadeIn(400);
+            $('.user-page').delay(400).fadeIn(400 , function(){
+                // if first loaded , load user's nodes from server
+                var $countCom = $(this).find('.count-com');
+                if( !$countCom.children().length ){
+                    api.ajax('userNode' , {uid: data.uid } , function( result ){
+                        nodeActions.inserNode( $countCom , result.data );
+                    });
+                }
+            });
             $('.close-user-page').fadeIn();
         }
         else {
@@ -704,13 +928,15 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
     });
 
     //after selected photo
-    $('#file-photo').change(function(){
-        $('.pop-file .step1-btns').fadeOut(400);
-        $('.pop-file .step2-btns').delay(400).fadeIn(400);
-    });
+//    $('#file-photo').change(function(){
+//        $('.pop-file .step1-btns').fadeOut(400);
+//        $('.pop-file .step2-btns').delay(400).fadeIn(400);
+//    });
 
     // bind document key event for back , prev , next actions
     $(document).keydown(function( ev ){
+        var $inner = $('.inner');
+        if( !$inner.length || !$inner.is(':visible') ) return;
         switch( ev.which ){
             case 37: // left
                 LP.triggerAction('prev');
@@ -718,7 +944,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             case 39: // right
                 LP.triggerAction('next');
                 break;
-            case 27: //esc
+            case 27: // esc
                 LP.triggerAction('back');
                 break;
         }
@@ -726,7 +952,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
 
     // after page load , load the recent data from server
     api.ajax('recent' , function( result ){
-        $main.trigger('item-insert' , [result.data] );
+        nodeActions.inserNode( $main , result.data );
     });
 
     // after page load , load the current user information data from server
@@ -737,6 +963,23 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             $('.content').append(html);
         });
     });
+
+    var bindCommentSubmisson = function() {
+        LP.use('form' , function(){
+            $('.comment-form').ajaxForm({
+                beforeSubmit:  function($form){
+                    //return $('.form_register_home').valid();
+                },
+                complete: function(xhr) {
+                    var res = xhr.responseJSON;
+                    if(res.success) {
+                        $('.comment-form').fadeOut();
+                        $('.comment-msg-success').delay(500).fadeIn();
+                    }
+                }
+            });
+        });
+    }
 
 
     /**
@@ -750,9 +993,9 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             // filte for date
             $.each( comments , function( index , comment ){
                 // get date
-                var match = comment.datetime.match(/\d+-(\d+)-(\d+)/);
-                comment.date = parseInt(match[2]);
-                comment.month = getMonth( parseInt(match[1]));
+                var datetime = new Date(comment.datetime*1000);
+                comment.date = datetime.getDate();
+                comment.month = getMonth((parseInt(datetime.getMonth()) + 1));
 
                 LP.compile( 'comment-item-template' ,
                     comment ,
@@ -761,8 +1004,17 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                         $('.com-list-inner').append(html);
                     } );
             });
-
-
         });
     }
+
+    LP.use('handlebars' , function(){
+        //Handlebars helper
+        Handlebars.registerHelper('ifvideo', function(options) {
+            if(this.type == 'video')
+                return options.fn(this);
+            else
+                return options.inverse(this);
+        });
+    });
+
 });

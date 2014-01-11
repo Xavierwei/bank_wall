@@ -32,6 +32,14 @@ seajs.config({
       src: "../plugin/jquery.fileupload.js"
       , deps: ['jquery','uiwidget']
     }
+    ,form:{
+      src: "../plugin/jquery.form.js"
+      , deps: ['jquery']
+    }
+    ,validate:{
+      src: "../plugin/jquery.validate.js"
+      , deps: ['jquery']
+    }
   }
   , alias: {
     api: '../api'

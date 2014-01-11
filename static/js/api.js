@@ -23,17 +23,19 @@ define(function( require , exports , model ){
     // 配置
     var _api = {
         // searchHosts: {path: '/Ajax/searchHosts' , data: {key: ''} , m: '检索小组' , method: 'get' },
-        commentList: {path: '../admin/app/json/comment/recent.json'},
+        commentList: {path: '../api/index.php/comment/list', method:'get'},
         recent: {path: '../api/index.php/node/list?$orderby=datetime&pagenum=100'},
         getNode: {path: '../admin/app/json/node/photo.json'},
-        nodeList: {path: '../admin/app/json/node/recent.json'},
-        like: {path: '../admin/app/json/like/like.json'},
+        nodeList: {path: '../api/index.php/node/list?$orderby=datetime&pagenum=100'},
+        like: {path: '../api/index.php/like/post'},
         // 
         flag: {path: '../admin/app/json/flag/flag.json'},
         // get user info
+        login: {path: '../api/index.php/user/login'},
         user: {path: '../admin/app/json/user/user.json' , method: 'get'},
         // get user's nodes
-        userNode: {path: '../admin/app/json/node/recent.json' , data:{ uid: 0 , page: 1 } , method: 'get'}
+        userNode: {path: '../admin/app/json/node/recent.json' , data:{ uid: 0 , page: 1 } , method: 'get'},
+        saveNode: {path: '../api/index.php/node/put'}
     };
 
     // 内部API
