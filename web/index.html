@@ -26,21 +26,21 @@
 			<div class="select-item">
 				<div class="select-box">Country</div>
 				<div class="select-pop" style="display:none">
-					<div class="select-option"><p data-param="recent">France</p><p data-param="recent">Sweden</p><p data-param="recent">Switzerland</p><p data-param="recent">Italy</p><p data-param="recent">Portugal</p></div>
+					<div class="select-option"><p data-api="recent">France</p><p data-api="recent">Sweden</p><p data-api="recent">Switzerland</p><p data-api="recent">Italy</p><p data-api="recent">Portugal</p></div>
 				</div>
 			</div>
 			<!--  -->
 			<div class="select-item">
 				<div class="select-box" >Recent</div>
 				<div class="select-pop" style="display:none">
-					<div class="select-option"><p data-param="recent">Recent</p><p data-param="recent">Popular</p><p data-param="recent">Random</p></div>
+					<div class="select-option"><p data-api="recent">Recent</p><p data-api="recent">Popular</p><p data-api="recent">Random</p></div>
 				</div>
 			</div>
 			<!--  -->
 			<div class="select-item">
 				<div class="select-box">Type</div>
 				<div class="select-pop" style="display:none">
-					<div class="select-option"><p data-param="recent">Photo</p><p data-param="recent">Video</p></div>
+					<div class="select-option"><p data-api="recent" data-param="type=photo">Photo</p><p data-api="recent" data-param="type=video">Video</p></div>
 				</div>
 			</div>
 		</div>
@@ -71,22 +71,22 @@
 		</div>
 
 		<!-- side -->
-		<div class="side">
-			<!-- user -->
-			<div class="user" data-a="toggle_user_page">
-				<div class="user-pho"><img src="./tmp/_fe52ef6e6c5411e3b574122de6ce78ca_8.jpg" width="60"  /></div>
-				<div class="user-name">JULIEN</div>
-                <div class="close-user-page" data-a="toggle-user-page"></div>
-			</div>
-			<!-- menu -->
-			<div class="menu">
-				<div class="menu-item photo" data-a="pop_upload" data-d="type=photo"><p></p></div>
-				<div class="menu-item video" data-a="pop_upload" data-d="type=video"><p></p></div>
-				<div class="menu-item byday"><p></p></div>
-				<div class="menu-item bymonth"><p></p></div>
-				<div class="menu-item settings" data-a="toggle_user_page"><p></p></div>
-			</div>
-		</div>
+		<!--<div class="side">-->
+			<!--&lt;!&ndash; user &ndash;&gt;-->
+			<!--<div class="user" data-a="toggle_user_page">-->
+				<!--<div class="user-pho"><img src="./tmp/_fe52ef6e6c5411e3b574122de6ce78ca_8.jpg" width="60"  /></div>-->
+				<!--<div class="user-name">JULIEN</div>-->
+                <!--<div class="close-user-page" data-a="toggle-user-page"></div>-->
+			<!--</div>-->
+			<!--&lt;!&ndash; menu &ndash;&gt;-->
+			<!--<div class="menu">-->
+				<!--<div class="menu-item photo" data-a="pop_upload" data-d="type=photo"><p></p></div>-->
+				<!--<div class="menu-item video" data-a="pop_upload" data-d="type=video"><p></p></div>-->
+				<!--<div class="menu-item byday"><p></p></div>-->
+				<!--<div class="menu-item bymonth"><p></p></div>-->
+				<!--<div class="menu-item settings" data-a="toggle_user_page"><p></p></div>-->
+			<!--</div>-->
+		<!--</div>-->
 		<!--  -->
 
 
@@ -126,7 +126,7 @@
 		<!--  -->
 		<div class="pop-inner pop-txt">
 			<div class="poptxt-preview clear">
-				<div class="poptxt-pic"><img src="./tmp/_fe52ef6e6c5411e3b574122de6ce78ca_8.jpg" width="260"  /></div>
+				<div class="poptxt-pic"><img src="" width="260"  /></div>
 				<textarea id="node-description" class="poptxt-textarea"></textarea>
                 <div class="error"></div>
 			</div>
@@ -289,6 +289,27 @@
         <div class="comlist-flag" data-a="flag_comment" data-d="cid={{cid}}&type=comment"></div>
     </div>
 </script>
+
+<!-- side-tpl -->
+<script type="text/tpl" id="side-template">
+    <div class="side">
+        <!-- user -->
+        <div class="user" data-a="toggle_user_page">
+            <div class="user-pho"><img src="{{avatar}}" width="60"  /></div>
+            <div class="user-name">{{firstname}}</div>
+            <div class="close-user-page" data-a="toggle-user-page"></div>
+        </div>
+        <!-- menu -->
+        <div class="menu">
+            <div class="menu-item photo" data-a="pop_upload" data-d="type=photo"><p></p></div>
+            <div class="menu-item video" data-a="pop_upload" data-d="type=video"><p></p></div>
+            <div class="menu-item byday"><p></p></div>
+            <div class="menu-item bymonth"><p></p></div>
+            <div class="menu-item settings" data-a="toggle_user_page"><p></p></div>
+        </div>
+    </div>
+</script>
+
 <!--//all tpls end -->
 <script type="text/javascript" src="../static/js/sea/sea-debug.js" data-config="../config"></script>
 <script type="text/javascript" src="../static/js/sea/plugin-shim.js"></script>

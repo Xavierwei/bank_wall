@@ -8205,3 +8205,138 @@ Stack trace:
 REQUEST_URI=/bank_wall/api/uploads/v58.jpg
 in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php (23)
 in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/11 15:25:06 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php:128) (/Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php:153)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/v54_400_400.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php (153)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php (32)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/11 15:25:06 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php:128) (/Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php:153)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/v56_400_400.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php (153)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php (32)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/11 15:25:06 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php:128) (/Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php:153)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/v53_400_400.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php (153)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php (32)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/11 15:25:07 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php:128) (/Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php:153)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/v51_400_400.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php (153)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php (32)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/11 15:25:07 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php:128) (/Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php:153)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/v55_400_400.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php (153)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php (32)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/11 15:25:07 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php:128) (/Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php:153)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/v52_400_400.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php (153)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php (32)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/11 15:25:07 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php:128) (/Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php:153)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/v57_400_400.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php (153)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php (32)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/11 15:25:08 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php:128) (/Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php:153)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/v58_400_400.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php (153)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php (32)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/11 15:59:44 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/11 15:59:44 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/11 15:59:44 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/11 16:58:02 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/11 16:58:02 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/11 16:58:02 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/11 16:58:07 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php:128) (/Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php:153)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/v60_400_400.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php (153)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php (32)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/11 17:22:14 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/11 17:22:14 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/11 17:22:14 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)

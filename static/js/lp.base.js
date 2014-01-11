@@ -37,7 +37,9 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
 
         // for select options
         .delegate('.select-option p' , 'click' , function(){
-            var filter = $(this).data('param');
+            var filter = $(this).data('api');
+            var param = LP.query2json($(this).data('param'));
+            console.log(param);
             $(this).closest('.select-pop')
                 .prev()
                 .html( $(this).html() );
@@ -47,7 +49,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                 LP.triggerAction('close_user_page');
                 $main.html('');
                 $main.data('nodes','');
-                api.ajax(filter , function( result ){
+                api.ajax(filter, param , function( result ){
                     nodeActions.inserNode( $main.fadeIn() , result.data );
                 });
             });
@@ -795,6 +797,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         $('.pop-file .step1-btns').show();
         $('.pop-file .step2-btns').hide();
         $('#node-description').val('');
+        $('.poptxt-pic img').attr('src','');
         $('.poptxt-check input').prop('checked',false);
 
         // bind popfile-btn file upload event
@@ -809,22 +812,36 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                         url: '../api/index.php/node/post',
                         maxFileSize: 5000000,
                         acceptFileTypes: acceptFileTypes
+                        //autoUpload:false //TODO: 处理图片的时候需要关闭自动上传功能
+                    })
+                    .bind('fileuploadadd', function (e, data) {
+                        console.log('add');
+                        //TODO: 当用户选择图片后跳转到处理图片的流程
+                    })
+                    .bind('fileuploadstart', function (e, data) {
+                        $('.pop-inner').fadeOut(400);
+                        $('.pop-load').delay(400).fadeIn(400);
+                    })
+                    .bind('fileuploadprogress', function (e, data) {
+                        var rate = data._progress.loaded / data._progress.total * 100;
+                        console.log(rate);
+                        $('.popload-percent p').css({width:rate + '%'});
                     })
                     .bind('fileuploaddone', function (e, data) {
                         if(type == 'video') {
                             $('.poptxt-pic img').attr('src', API_FOLDER + data.result.data.file.replace('.mp4','_400_400.jpg'));
                             $('.poptxt-submit').attr('data-d','nid=' + data.result.data.nid);
                             $('.pop-inner').fadeOut(400);
-                            //TODO uploading
-                            $('.pop-load').delay(400).fadeIn(400);
-                            $('.pop-load').delay(400).fadeOut(400);
+                            $('.pop-inner').delay(400).fadeOut(400);
                             $('.pop-txt').delay(800).fadeIn(400);
                         }
                         else {
                             $('.poptxt-pic img').attr('src', API_FOLDER + data.result.data.file.replace('.jpg','_400_400.jpg'));
                             $('.poptxt-submit').attr('data-d','nid=' + data.result.data.nid);
-                            $('.pop-file .step1-btns').fadeOut(400);
-                            $('.pop-file .step2-btns').delay(400).fadeIn(400);
+//                            $('.pop-file .step1-btns').fadeOut(400);
+//                            $('.pop-file .step2-btns').delay(400).fadeIn(400);
+                            $('.pop-inner').delay(400).fadeOut(400);
+                            $('.pop-txt').delay(800).fadeIn(400);
                         }
                     });
             });
@@ -870,7 +887,12 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         $('.poptxt-check .error').fadeOut();
         api.ajax('saveNode' , {nid: data.nid, description: description}, function( result ){
             if(result.success) {
-                //TODO: insert the content to photo wall
+                //TODO: insert the content to photo wall instead of refresh
+                $main.html('');
+                api.ajax('recent' , function( result ){
+                    nodeActions.inserNode( $main , result.data );
+                });
+
                 $('.pop-inner').fadeOut(400);
                 $('.pop-success').delay(400).fadeIn(400);
                 setTimeout(function() {
@@ -962,6 +984,10 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         LP.compile( 'user-page-template' , result.data , function( html ){
             $('.content').append(html);
         });
+
+        LP.compile( 'side-template' , result.data , function( html ){
+            $('.content').append(html);
+        });
     });
 
     var bindCommentSubmisson = function() {
@@ -984,10 +1010,10 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
 
     /**
      * Get node comments
-     * @param cid
+     * @param nid
      */
-    var getCommentList = function(cid) {
-        api.ajax('commentList', {cid: cid}, function( result ){
+    var getCommentList = function(nid) {
+        api.ajax('commentList', {nid: nid}, function( result ){
             // TODO: 异常处理
             var comments = result.data;
             // filte for date

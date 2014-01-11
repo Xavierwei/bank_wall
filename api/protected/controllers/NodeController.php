@@ -294,7 +294,7 @@ class NodeController extends Controller {
       
       $order = "";
       if ($orderby == "datetime") {
-          $order .= " datetime DESC";
+          $order .= " ".$nodeAr->getTableAlias().".datetime DESC";
           $query->order = $order;
       }
       else if ($orderby == "like") {
