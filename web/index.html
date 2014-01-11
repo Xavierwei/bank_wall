@@ -103,10 +103,16 @@
 	<div class="popbd">
 		<!--  -->
 		<div class="pop-inner pop-file" style="display:none">
-            <input id="file-photo" type="file" name="photo" />
-			<div class="popfile-drag-box"></div>
-            <div class="step1-btns"><div class="popfile-btn" data-a="select_photo">SELECT PHOTO</div></div>
-            <div class="step2-btns"><div class="popfile-btn" data-a="upload_photo">UPLOAD</div><div class="popfile-btn" data-a="select_photo">SELECT AGAIN</div></div>
+            <form id="fileupload" action="#" method="POST" enctype="multipart/form-data">
+    			<div class="popfile-drag-box"></div>
+                <div class="step1-btns">
+                    <div class="popfile-btn" data-a="select_photo">
+                        SELECT PHOTO
+                        <input id="file-photo" type="file" name="photo" />
+                    </div>
+                </div>
+                <div class="step2-btns"><div class="popfile-btn" data-a="upload_photo">UPLOAD</div><div class="popfile-btn" data-a="select_photo">SELECT AGAIN</div></div>
+            </form>
 		</div>
 		<!--  -->
 		<div class="pop-inner pop-load" style="display:none">

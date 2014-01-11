@@ -46,7 +46,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             $main.html('');
             $main.data('nodes','');
             api.ajax(filter , function( result ){
-                $main.fadeIn().trigger('item-insert' , [result.data] );
+                nodeActions.inserNode( $main.fadeIn() , result.data );
             });
         });
 
@@ -70,6 +70,145 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
     var minWidth = 170;
     var itemWidth = minWidth;
     var winWidth = $(window).width();
+    var nodeActions = {
+        inserNode: function( $dom , nodes ){
+            var aHtml = [];
+            var lastDate = null;
+            nodes = nodes || [];
+
+            // save nodes to cache
+            var cache = $dom.data('nodes') || [];
+            $dom.data('nodes' , cache.concat( nodes ) );
+
+            // filte for date
+            $.each( nodes , function( index , node ){
+                // get date
+                var match = node.datetime.match(/^\d+-(\d+)-(\d+)/);
+                if( lastDate != match[0] ){
+                    LP.compile( 'time-item-template' , 
+                        {day: parseInt(match[2]) , month: getMonth( parseInt(match[1]))} , 
+                        function( html ){
+                            aHtml.push( html );
+                        } );
+                    lastDate = match[0];
+                }
+                // fix video type
+                if(node.type == 'video') {
+                    node.image = node.file.replace('mp4','jpg');
+                } else {
+                    node.image = node.file;
+                }
+                node.formatDate = match[0].replace(/-/g , '/');
+
+                LP.compile( 'node-item-template' , 
+                    node , 
+                    function( html ){
+                        aHtml.push( html );
+
+                        if( index == nodes.length - 1 ){
+                            // render html
+                            $dom.append(aHtml.join(''));
+                            nodeActions.setItemWidth( $dom );
+                            nodeActions.setItemReversal( $dom );
+                        }
+                    } );
+
+            } );
+        },
+        setItemWidth: function( $dom ){
+            var mainWidth = $dom.width();
+            var min = ~~( mainWidth / minWidth );
+            // save itemWidth and winWidth 
+            itemWidth = ~~( mainWidth / min );
+            winWidth = $(window).width();
+
+            $dom.find('.time-item, .main-item.reversal , .main-item.reversal img')
+                .width( itemWidth )
+                .height( itemWidth );
+        },
+        // start pic reversal animation
+        setItemReversal: function( $dom ){
+            // fix all the items , set position: relative
+            $dom.children()
+                .css('position' , 'relative');
+            if( $dom.children('.isotope-item').length )
+                $dom.isotope('destroy')
+            // get first time item , which is not opend
+            // wait for it's items prepared ( load images )
+            // run the animate
+            var $timeItem = $dom.find('.time-item:not(.opened)').eq(0)
+                .width( itemWidth )
+                .height( itemWidth );
+            var $itemPics = $timeItem.nextUntil('.time-item');
+
+            var startAnimate = function(){
+                $timeItem.addClass('opened');
+                $itemPics.each(function( index ){
+                    setTimeout(function(){
+                        var $item = $itemPics.eq( index )
+                            .addClass('reversal')
+                            .width( itemWidth )
+                            .height( itemWidth );
+
+                        // fix it's img width and height
+                        $item.find('img')
+                            .width( itemWidth )
+                            .height( itemWidth );
+
+                        // play next pic items
+                        if( index == $itemPics.length - 1 ){
+                            setTimeout(function(){
+                                nodeActions.setItemReversal( $dom );
+                            } , 1000);
+                        }
+                    } , index * 400 );
+                });
+            }
+            var imgLoadedNum = 0;
+            var $imgs = $itemPics.find('img')
+                .each(function(){
+                    // it means the img loaded complete
+                    if( this.complete ){
+                        imgLoadedNum++;
+                    }
+
+                    $(this).load(function(){
+                        imgLoadedNum++;
+                        if( imgLoadedNum == $itemPics.length ){
+                            startAnimate();
+                        }
+                    });
+                });
+            if( imgLoadedNum == $itemPics.length ){
+                startAnimate();
+            }
+        },
+        // set items auto fix it's width
+        setItemIsotope: function( $dom ){
+            // if the page has unreversaled node
+            if( $dom.find('.main-item:not(.time-item,.reversal)').length ) return;
+
+            if( $dom.children('.isotope-item').length ){
+                $dom.isotope('reLayout');
+                return;
+            }
+
+            LP.use('isotope' , function(){
+                // first init isotope , render no animate effect
+                $dom
+                    .addClass('no-animate')
+                    .isotope({
+                        resizable: false
+                    });
+
+                // after first isotope init
+                // remove no animate class
+                setTimeout(function(){
+                    $dom.removeClass('no-animate');
+                } , 100);
+            });
+        }
+    }
     // fix one day animation. It is start animate from the day which is not trigger the animation
     // After the day trigger the animation , it would be added 'opened' class.
     // Fix animation day by day
@@ -77,145 +216,145 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
     //      item-reversal   : fix image reversal effect
     //      item-width      : fix item width
     //      item-isotope    : isotope effect init and invoke
-    $main.bind('item-reversal' , function(){
-        // fix all the items , set position: relative
-        $main.children()
-            .css('position' , 'relative');
-        if( $main.children('.isotope-item').length )
-            $main.isotope('destroy')
-        // get first time item , which is not opend
-        // wait for it's items prepared ( load images )
-        // run the animate
-        var $timeItem = $('.time-item:not(.opened)').eq(0)
-            .width( itemWidth )
-            .height( itemWidth );
-        var $itemPics = $timeItem.nextUntil('.time-item');
+    // $main.bind('item-reversal' , function(){
+    //     // fix all the items , set position: relative
+    //     $main.children()
+    //         .css('position' , 'relative');
+    //     if( $main.children('.isotope-item').length )
+    //         $main.isotope('destroy')
+    //     // get first time item , which is not opend
+    //     // wait for it's items prepared ( load images )
+    //     // run the animate
+    //     var $timeItem = $('.time-item:not(.opened)').eq(0)
+    //         .width( itemWidth )
+    //         .height( itemWidth );
+    //     var $itemPics = $timeItem.nextUntil('.time-item');
 
-        var startAnimate = function(){
+    //     var startAnimate = function(){
 
-            $timeItem.addClass('opened');
+    //         $timeItem.addClass('opened');
 
-            $itemPics.each(function( index ){
-                setTimeout(function(){
-                    var $item = $itemPics.eq( index )
-                        .addClass('reversal')
-                        .width( itemWidth )
-                        .height( itemWidth );
+    //         $itemPics.each(function( index ){
+    //             setTimeout(function(){
+    //                 var $item = $itemPics.eq( index )
+    //                     .addClass('reversal')
+    //                     .width( itemWidth )
+    //                     .height( itemWidth );
 
-                    // fix it's img width and height
-                    $item.find('img')
-                        .width( itemWidth )
-                        .height( itemWidth );
+    //                 // fix it's img width and height
+    //                 $item.find('img')
+    //                     .width( itemWidth )
+    //                     .height( itemWidth );
 
-                    // play next pic items
-                    if( index == $itemPics.length - 1 ){
-                        setTimeout(function(){$main.trigger('item-reversal')} , 1000);
-                    }
-                } , index * 400 );
-            });
-        }
-        var imgLoadedNum = 0;
-        var $imgs = $itemPics.find('img')
-            .each(function(){
-                // it means the img loaded complete
-                if( this.complete ){
-                    imgLoadedNum++;
-                }
+    //                 // play next pic items
+    //                 if( index == $itemPics.length - 1 ){
+    //                     setTimeout(function(){$main.trigger('item-reversal')} , 1000);
+    //                 }
+    //             } , index * 400 );
+    //         });
+    //     }
+    //     var imgLoadedNum = 0;
+    //     var $imgs = $itemPics.find('img')
+    //         .each(function(){
+    //             // it means the img loaded complete
+    //             if( this.complete ){
+    //                 imgLoadedNum++;
+    //             }
 
-                $(this).load(function(){
-                    imgLoadedNum++;
-                    if( imgLoadedNum == $itemPics.length ){
-                        startAnimate();
-                    }
-                });
-            });
-        if( imgLoadedNum == $itemPics.length ){
-            startAnimate();
-        }
-    })
-    .bind('item-width' , function(){
-        var mainWidth = $(this).width();
+    //             $(this).load(function(){
+    //                 imgLoadedNum++;
+    //                 if( imgLoadedNum == $itemPics.length ){
+    //                     startAnimate();
+    //                 }
+    //             });
+    //         });
+    //     if( imgLoadedNum == $itemPics.length ){
+    //         startAnimate();
+    //     }
+    // })
+    // .bind('item-width' , function(){
+    //     var mainWidth = $(this).width();
 
-        var min = ~~( mainWidth / minWidth );
-        // save itemWidth and winWidth 
-        itemWidth = ~~( mainWidth / min );
-        winWidth = $(window).width();
+    //     var min = ~~( mainWidth / minWidth );
+    //     // save itemWidth and winWidth 
+    //     itemWidth = ~~( mainWidth / min );
+    //     winWidth = $(window).width();
 
-        $('.time-item, .main-item.reversal , .main-item.reversal img')
-            .width( itemWidth )
-            .height( itemWidth );
-    })
-    // isotope effect init and invoke
-    .bind('item-isotope' , function(){
+    //     $('.time-item, .main-item.reversal , .main-item.reversal img')
+    //         .width( itemWidth )
+    //         .height( itemWidth );
+    // })
+    // // isotope effect init and invoke
+    // .bind('item-isotope' , function(){
 
-        // if the page has unreversaled node
-        if( $('.main .main-item:not(.time-item,.reversal)').length ) return;
+    //     // if the page has unreversaled node
+    //     if( $('.main .main-item:not(.time-item,.reversal)').length ) return;
 
-        if( $main.children('.isotope-item').length ){
-            $main.isotope('reLayout');
-            return;
-        }
+    //     if( $main.children('.isotope-item').length ){
+    //         $main.isotope('reLayout');
+    //         return;
+    //     }
 
-        LP.use('isotope' , function(){
-            // first init isotope , render no animate effect
-            $main
-                .addClass('no-animate')
-                .isotope({
-                    resizable: false
-                });
+    //     LP.use('isotope' , function(){
+    //         // first init isotope , render no animate effect
+    //         $main
+    //             .addClass('no-animate')
+    //             .isotope({
+    //                 resizable: false
+    //             });
 
-            // after first isotope init
-            // remove no animate class
-            setTimeout(function(){
-                $main.removeClass('no-animate');
-            } , 100);
-        });
-    })
-    .bind('item-insert' , function( ev , nodes ){
-        var aHtml = [];
-        var lastDate = null;
-        nodes = nodes || [];
+    //         // after first isotope init
+    //         // remove no animate class
+    //         setTimeout(function(){
+    //             $main.removeClass('no-animate');
+    //         } , 100);
+    //     });
+    // })
+    // .bind('item-insert' , function( ev , nodes ){
+    //     var aHtml = [];
+    //     var lastDate = null;
+    //     nodes = nodes || [];
 
-        // save nodes to cache
-        var cache = $main.data('nodes') || [];
-        $main.data('nodes' , cache.concat( nodes ) );
+    //     // save nodes to cache
+    //     var cache = $main.data('nodes') || [];
+    //     $main.data('nodes' , cache.concat( nodes ) );
 
-        // filte for date
-        $.each( nodes , function( index , node ){
-            // get date
-            var match = node.datetime.match(/^\d+-(\d+)-(\d+)/);
-            if( lastDate != match[0] ){
-                LP.compile( 'time-item-template' , 
-                    {day: parseInt(match[2]) , month: getMonth( parseInt(match[1]))} , 
-                    function( html ){
-                        aHtml.push( html );
-                    } );
-                lastDate = match[0];
-            }
-            if(node.type == 'video') {
-                node.image = node.file.replace('mp4','jpg');
-            }
-            else
-            {
-                node.image = node.file;
-            }
-            node.formatDate = match[0].replace(/-/g , '/');
+    //     // filte for date
+    //     $.each( nodes , function( index , node ){
+    //         // get date
+    //         var match = node.datetime.match(/^\d+-(\d+)-(\d+)/);
+    //         if( lastDate != match[0] ){
+    //             LP.compile( 'time-item-template' , 
+    //                 {day: parseInt(match[2]) , month: getMonth( parseInt(match[1]))} , 
+    //                 function( html ){
+    //                     aHtml.push( html );
+    //                 } );
+    //             lastDate = match[0];
+    //         }
+    //         if(node.type == 'video') {
+    //             node.image = node.file.replace('mp4','jpg');
+    //         }
+    //         else
+    //         {
+    //             node.image = node.file;
+    //         }
+    //         node.formatDate = match[0].replace(/-/g , '/');
 
-            LP.compile( 'node-item-template' , 
-                node , 
-                function( html ){
-                    aHtml.push( html );
+    //         LP.compile( 'node-item-template' , 
+    //             node , 
+    //             function( html ){
+    //                 aHtml.push( html );
 
-                    if( index == nodes.length - 1 ){
-                        // render html
-                        $main.append(aHtml.join(''))
-                            .trigger('item-width')
-                            .trigger('item-reversal');
-                    }
-                } );
+    //                 if( index == nodes.length - 1 ){
+    //                     // render html
+    //                     $main.append(aHtml.join(''))
+    //                         .trigger('item-width')
+    //                         .trigger('item-reversal');
+    //                 }
+    //             } );
 
-        } );
-    });
+    //     } );
+    // });
 
 
     // fix window resize event
@@ -226,35 +365,56 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         clearTimeout( _resizeTimer );
 
         _resizeTimer = setTimeout(function(){
-            $main.trigger('item-width');
-            // run isotope after item width fixed
-            setTimeout(function(){
-                $main.trigger('item-isotope');
-            } , 500);
+            if( $main.is(':visible') ){
+                nodeActions.setItemWidth( $main );
+
+                // run isotope after item width fixed
+                setTimeout(function(){
+                    nodeActions.setItemIsotope( $main );
+                } , 500);
+            }
+
+            var $userPage = $('.user-page');
+            var $userCom = $userPage.find('.count-com');
+            if( $userPage.is(':visible') && $userCom.is(':visible') ){
+                nodeActions.setItemWidth( $userCom );
+                // run isotope after item width fixed
+                setTimeout(function(){
+                    nodeActions.setItemIsotope( $userCom );
+                } , 500);
+            }
+            
             
         } , 200);
     })
     .scroll(function(){
         // if is ajaxing the scroll data
         if( _scrollAjax ) return;
-        // if the page has unreversaled node
-        if( $('.main .main-item:not(.time-item,.reversal)').length ) return;
-
-        // if has inner element 
-        if( $('.inner').length ) return;
-
-        _scrollAjax = true;
         // if scroll to the botton of the window 
         // ajax the next datas
         var st = $(window).scrollTop();
         var bodyHeight = $(document.body).height();
         var winHeight = $(window).height();
         if( bodyHeight - winHeight - st < 100 ){
-            //TODO ajax next nodes
-            api.ajax('nodeList' , {nid: 10} , function( result ){
-                $main.trigger('item-insert' , [result.data] );
-                _scrollAjax = false;
-            });
+            // fix main element 
+            // it must visible and in main element has unreversaled node
+            if( $main.is(':visible') && !$main.find('.main-item:not(.time-item,.reversal)').length ){
+                _scrollAjax = true;
+                api.ajax('nodeList' , {nid: 10} , function( result ){
+                    nodeActions.inserNode( $main , result.data );
+                    _scrollAjax = false;
+                });
+            }
+            // fix user page element 
+            var $userCom = $('.user-page .count-com');
+            // it must visible and in main element has unreversaled node
+            if( $('.user-page').is(':visible') && !$userCom.find('.main-item:not(.time-item,.reversal)').length ){
+                _scrollAjax = true;
+                api.ajax('userNode' , {nid: 10} , function( result ){
+                    nodeActions.inserNode( $userCom , result.data );
+                    _scrollAjax = false;
+                });
+            } 
         }
     });
 
@@ -349,27 +509,6 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
     
         // preload before and after images
         preLoadSiblings();
-        // // ajax the node info , then compile it to html
-        // // get the 21 nodes data , before current
-        // LP.use('api' , function( api ){
-        //     // TODO.. change request url
-        //     var nid = data.nid;
-        //     api.ajax( 'getNode' , data , function( result ){
-        //         // get current node data
-        //         // $.each( result.data , function( index , node ){
-        //         //     if( node.nid == nid ){
-        //         //         renderNode( node );
-        //         //         // save node cache
-        //         //         _nodeCache = _nodeCache.concat( result.data.slice( index ) );
-        //         //         return false;
-        //         //     }
-        //         // } );
-        //         var node = result.data;
-                
-        //     } );
-            
-        // });
-
         return false;
     });
 
@@ -547,7 +686,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         if( !node ){
             // TODO..  ajax to get more node
             api.ajax('nodeList' , {nid: nodes[ _currentNodeIndex - 1 ].nid} , function( result ){
-                $main.trigger('item-insert' , [result.data] );
+                nodeActions.inserNode( $main , result.data );
                 cubeInnerNode( $main.data('nodes')[ _currentNodeIndex ] , 'right' );
                 preLoadSiblings();
             });
@@ -631,6 +770,22 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         $('.pop-file .step1-btns').show();
         $('.pop-file .step2-btns').hide();
         $('.pop .poptit').html(data.title);
+
+        // bind popfile-btn file upload event
+        var $fileupload = $('#fileupload');
+        if( !$fileupload.data('init') ){
+            $fileupload.data('init' , 1 ) ;
+            LP.use('fileupload' , function(){
+                // Initialize the jQuery File Upload widget:
+                $fileupload.fileupload({
+                    // Uncomment the following to send cross-domain cookies:
+                    //xhrFields: {withCredentials: true},
+                    url: 'server/php/',
+                    maxFileSize: 5000000,
+                    acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
+                });
+            });
+        }
     });
 
     //close pop
@@ -640,9 +795,9 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
     });
 
     //select photo
-    LP.action('select_photo' , function(){
-        $('#file-photo').trigger('click');
-    });
+    // LP.action('select_photo' , function(){
+    //     $('#file-photo').trigger('click');
+    // });
 
     //select photo
     LP.action('upload_photo' , function(){
@@ -654,11 +809,19 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
     });
 
     //toggle user page
-    LP.action('toggle_user_page' , function(){
+    LP.action('toggle_user_page' , function( data ){
         if(!$('.user-page').is(':visible')) {
             $('.inner').fadeOut(400);
             $('.main').fadeOut(400);
-            $('.user-page').delay(400).fadeIn(400);
+            $('.user-page').delay(400).fadeIn(400 , function(){
+                // if first loaded , load user's nodes from server
+                var $countCom = $(this).find('.count-com');
+                if( !$countCom.children().length ){
+                    api.ajax('userNode' , {uid: data.uid } , function( result ){
+                        nodeActions.inserNode( $countCom , result.data );
+                    });
+                }
+            });
             $('.close-user-page').fadeIn();
         }
         else {
@@ -700,6 +863,8 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
 
     // bind document key event for back , prev , next actions
     $(document).keydown(function( ev ){
+        var $inner = $('.inner');
+        if( !$inner.length || !$inner.is(':visible') ) return;
         switch( ev.which ){
             case 37: // left
                 LP.triggerAction('prev');
@@ -715,7 +880,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
 
     // after page load , load the recent data from server
     api.ajax('recent' , function( result ){
-        $main.trigger('item-insert' , [result.data] );
+        nodeActions.inserNode( $main , result.data );
     });
 
     // after page load , load the current user information data from server
@@ -750,8 +915,6 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                         $('.com-list-inner').append(html);
                     } );
             });
-
-
         });
     }
 });

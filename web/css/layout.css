@@ -158,10 +158,10 @@ a{text-decoration:none;color:#666}
 	.pophd{height:60px;background: #d3273f;font-size:28px;color:#fff;line-height: 60px;padding:0 18px;}
 /**/
 .popfile-drag-box{width: 400px;height: 400px;background: #f9f9f9 url(../img/icon_pop_upload.gif) no-repeat center;margin:15px auto;}
-	.popfile-btn{color:#fff;background: #db2842;border: #c0152d 3px solid;width: 500px;height: 60px;line-height: 60px;text-align: center;margin: 0 auto;font-size:28px;}
+	.popfile-btn{position: relative;overflow: hidden; color:#fff;background: #db2842;border: #c0152d 3px solid;width: 500px;height: 60px;line-height: 60px;text-align: center;margin: 0 auto;font-size:28px;}
     .step2-btns {text-align: center;display:none;}
     .step2-btns .popfile-btn {width:220px;display: inline-block;margin:0 10px;}
-    #file-photo {display: none;}
+    #file-photo {position: absolute;top: 0;right: 0;margin: 0;opacity: 0;-ms-filter: 'alpha(opacity=0)';font-size: 200px;direction: ltr;cursor: pointer;}
 /**/
 .popload-icon{width: 200px;height: 200px;background: #fcc;margin:90px auto;}
 .poploading{text-align: center;font-size: 28px;}
