@@ -782,15 +782,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
     LP.action('pop_upload' , function( data ){
         var acceptFileTypes;
         var type = data.type;
-        $('#file-photo,#file-video').hide();
-        if(type == 'video') {
-            acceptFileTypes = /(\.|\/)(move|mp4|avi)$/i;
-            $('#file-video').show();
-        }
-        else {
-            acceptFileTypes = /(\.|\/)(gif|jpe?g|png)$/i;
-            $('#file-photo').show();
-        }
+
         $('.pop .poptit').html('upload ' + data.type);
         $('.overlay').fadeIn();
         $('.pop').fadeIn();
@@ -804,8 +796,22 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
 
         // bind popfile-btn file upload event
         var $fileupload = $('#fileupload');
-        if( !$fileupload.data('init') ){
-            $fileupload.data('init' , 1 ) ;
+        if( $fileupload.data('init') != type ){
+
+            if($fileupload.data('init')) {
+                $fileupload.fileupload('destroy').unbind('fileuploadadd').unbind('fileuploadstart').unbind('fileuploadprogress').unbind('fileuploaddone');
+            }
+            $fileupload.data('init', type );
+            if(type == 'video') {
+                acceptFileTypes = /(\.|\/)(move|mp4|avi)$/i;
+                $('#file-photo').remove();
+                $('#select-btn').append('<input id="file-video" type="file" name="video" />');
+            }
+            else {
+                acceptFileTypes = /(\.|\/)(gif|jpe?g|png)$/i;
+                $('#file-video').remove();
+                $('#select-btn').append('<input id="file-photo" type="file" name="photo" />');
+            }
             LP.use('fileupload' , function(){
                 // Initialize the jQuery File Upload widget:
                 $fileupload.fileupload({
@@ -838,9 +844,8 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                                 $('.poptxt-pic img').attr('src',$('.poptxt-pic img').attr('src') + '?' +timestamp );
                             },2000);
                             $('.poptxt-submit').attr('data-d','nid=' + data.result.data.nid);
-                            $('.pop-inner').fadeOut(400);
                             $('.pop-inner').delay(400).fadeOut(400);
-                            $('.pop-txt').delay(800).fadeIn(400);
+                            $('.pop-txt').delay(900).fadeIn(400);
                         }
                         else {
                             $('.poptxt-pic img').attr('src', API_FOLDER + data.result.data.file.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg'));
@@ -848,7 +853,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
 //                            $('.pop-file .step1-btns').fadeOut(400);
 //                            $('.pop-file .step2-btns').delay(400).fadeIn(400);
                             $('.pop-inner').delay(400).fadeOut(400);
-                            $('.pop-txt').delay(800).fadeIn(400);
+                            $('.pop-txt').delay(1200).fadeIn(400);
                         }
                     });
             });
