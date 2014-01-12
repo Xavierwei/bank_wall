@@ -247,7 +247,7 @@ class NodeController extends Controller {
           $params[":type"] = $type;
       }
       if ($country_id) {
-          $query->addCondition("contry_id = :country_id", "AND");
+          $query->addCondition("country.country_id = :country_id", "AND");
           $params[":country_id"] = $country_id;
       }
       if ($uid) {
@@ -354,7 +354,7 @@ class NodeController extends Controller {
       // 集成 hashtag 搜索, 查询 hashtag 中的关键字
       $hashtag = $request->getParam("hashtag");
       if ($hashtag) {
-        $query->addSearchCondition("hashtag", '#'.$hashtag);
+        $query->addSearchCondition("hashtag", $hashtag);
       }
       
       $res = NodeAR::model()->with("user", "country")->findAll($query);

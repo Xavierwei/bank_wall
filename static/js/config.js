@@ -28,6 +28,10 @@ seajs.config({
       src: "../plugin/jquery.ui.widget.js"
       , deps: ['jquery']
     }
+      ,uicustom: {
+          src: "../plugin/jquery-ui-1.10.3.custom.js"
+          , deps: ['jquery']
+      }
     ,fileupload:{
       src: "../plugin/jquery.fileupload.js"
       , deps: ['jquery','uiwidget']

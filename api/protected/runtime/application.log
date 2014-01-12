@@ -10256,3 +10256,509 @@ Stack trace:
 #11 {main}
 REQUEST_URI=/bank_wall/api/index.php/node/list?pagenum=10&orderby=datetime&_=1389506939726
 ---
+2014/01/12 11:45:58 [error] [php] Missing argument 1 for TagAR::searchTag(), called in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php on line 21 and defined (/Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php:30)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): TagController->runAction()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): TagController->runActionWithFilters()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): TagController->run()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/tag/list
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php (30)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php (21)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 12:45:06 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined. The SQL statement executed was: SELECT tag FROM `tag` `t` WHERE tag LIKE :ycp0.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php (37)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php (21)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 12:45:06 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined. The SQL statement executed was: SELECT tag FROM `tag` `t` WHERE tag LIKE :ycp0' in /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1351): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php(37): CActiveRecord->findAll(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php(21): TagAR->searchTag('te')
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): TagController->actionList()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('tag/list')
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#13 {main}
+REQUEST_URI=/bank_wall/api/tag/list?term=te
+HTTP_REFERER=http://localhost/bank_wall/web/
+---
+2014/01/12 12:45:37 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined. The SQL statement executed was: SELECT tag FROM `tag` `t` WHERE tag LIKE :ycp0.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php (37)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php (21)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 12:45:37 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined. The SQL statement executed was: SELECT tag FROM `tag` `t` WHERE tag LIKE :ycp0' in /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1351): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php(37): CActiveRecord->findAll(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php(21): TagAR->searchTag('te')
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): TagController->actionList()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('tag/list')
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#13 {main}
+REQUEST_URI=/bank_wall/api/tag/list?term=te
+---
+2014/01/12 12:46:49 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined. The SQL statement executed was: SELECT tag FROM `tag` `t` WHERE tag LIKE :ycp0.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php (37)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php (21)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 12:46:49 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined. The SQL statement executed was: SELECT tag FROM `tag` `t` WHERE tag LIKE :ycp0' in /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1351): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php(37): CActiveRecord->findAll(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php(21): TagAR->searchTag('te')
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): TagController->actionList()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('tag/list')
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#13 {main}
+REQUEST_URI=/bank_wall/api/tag/list?term=te
+---
+2014/01/12 12:46:51 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined. The SQL statement executed was: SELECT tag FROM `tag` `t` WHERE tag LIKE :ycp0.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php (37)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php (21)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 12:46:51 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined. The SQL statement executed was: SELECT tag FROM `tag` `t` WHERE tag LIKE :ycp0' in /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1351): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php(37): CActiveRecord->findAll(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php(21): TagAR->searchTag('te')
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): TagController->actionList()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('tag/list')
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#13 {main}
+REQUEST_URI=/bank_wall/api/tag/list?term=te
+---
+2014/01/12 12:47:00 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined. The SQL statement executed was: SELECT tag FROM `tag` `t` WHERE tag LIKE :ycp0.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php (37)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php (21)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 12:47:00 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined. The SQL statement executed was: SELECT tag FROM `tag` `t` WHERE tag LIKE :ycp0' in /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1351): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php(37): CActiveRecord->findAll(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php(21): TagAR->searchTag('te')
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): TagController->actionList()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('tag/list')
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#13 {main}
+REQUEST_URI=/bank_wall/api/tag/list?term=te
+---
+2014/01/12 12:47:30 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined. The SQL statement executed was: SELECT tag FROM `tag` `t` WHERE tag LIKE :ycp0.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php (37)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php (21)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 12:47:30 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined. The SQL statement executed was: SELECT tag FROM `tag` `t` WHERE tag LIKE :ycp0' in /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1351): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php(37): CActiveRecord->findAll(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php(21): TagAR->searchTag('test')
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): TagController->actionList()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('tag/list')
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#13 {main}
+REQUEST_URI=/bank_wall/api/tag/list?term=test
+---
+2014/01/12 12:48:43 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php:37) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php(22): TagController->responseJSON()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): TagController->actionList()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): TagController->runAction()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): TagController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): TagController->run()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/tag/list?term=test
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php (22)
+2014/01/12 12:50:10 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 12:50:10 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 12:50:10 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 14:32:24 [error] [php] Use of undefined constant console - assumed 'console' (/Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php:46)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): TagController->runAction()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): TagController->runActionWithFilters()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): TagController->run()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/tag/add?term=test2
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php (46)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php (20)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 14:32:48 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php:46) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php(21): TagController->responseJSON()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): TagController->actionAdd()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): TagController->runAction()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): TagController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): TagController->run()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/tag/add?term=test
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php (21)
+2014/01/12 14:36:23 [warning] [application] Failed to set unsafe attribute "tag" of "TagAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php (37)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php (20)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 14:36:23 [warning] [application] Failed to set unsafe attribute "count" of "TagAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php (37)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php (20)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 14:36:23 [error] [php] Indirect modification of overloaded property TagAR::$attributes has no effect (/Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php:38)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): TagController->runAction()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): TagController->runActionWithFilters()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): TagController->run()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/tag/add?term=test
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php (38)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php (20)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 14:38:49 [warning] [application] Failed to set unsafe attribute "tag" of "TagAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php (42)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php (20)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 14:38:49 [error] [exception.CDbException] exception 'CDbException' with message 'No columns are being updated for table "tag".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/db/schema/CDbCommandBuilder.php:392
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1747): CDbCommandBuilder->createUpdateCommand(Object(CMysqlTableSchema), Array, Object(CDbCriteria))
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1124): CActiveRecord->updateByPk(NULL, Array)
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(806): CActiveRecord->update(NULL)
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php(45): CActiveRecord->save()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php(20): TagAR->saveTag('testf')
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): TagController->actionAdd()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('add')
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('tag/add')
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#13 {main}
+REQUEST_URI=/bank_wall/api/tag/add?term=testf
+---
+2014/01/12 14:39:24 [warning] [application] Failed to set unsafe attribute "tag" of "TagAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php (42)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php (20)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 14:39:24 [error] [exception.CDbException] exception 'CDbException' with message 'No columns are being updated for table "tag".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/db/schema/CDbCommandBuilder.php:392
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1747): CDbCommandBuilder->createUpdateCommand(Object(CMysqlTableSchema), Array, Object(CDbCriteria))
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1124): CActiveRecord->updateByPk(NULL, Array)
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(806): CActiveRecord->update(NULL)
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php(45): CActiveRecord->save()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php(20): TagAR->saveTag('testf')
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): TagController->actionAdd()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('add')
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('tag/add')
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#13 {main}
+REQUEST_URI=/bank_wall/api/tag/add?term=testf
+---
+2014/01/12 14:39:26 [warning] [application] Failed to set unsafe attribute "tag" of "TagAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php (42)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php (20)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 14:39:26 [error] [exception.CDbException] exception 'CDbException' with message 'No columns are being updated for table "tag".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/db/schema/CDbCommandBuilder.php:392
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1747): CDbCommandBuilder->createUpdateCommand(Object(CMysqlTableSchema), Array, Object(CDbCriteria))
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1124): CActiveRecord->updateByPk(NULL, Array)
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(806): CActiveRecord->update(NULL)
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php(45): CActiveRecord->save()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php(20): TagAR->saveTag('testf')
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): TagController->actionAdd()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('add')
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('tag/add')
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#13 {main}
+REQUEST_URI=/bank_wall/api/tag/add?term=testf
+---
+2014/01/12 14:39:38 [warning] [application] Failed to set unsafe attribute "tag" of "TagAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php (43)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php (20)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 14:39:38 [error] [exception.CDbException] exception 'CDbException' with message 'No columns are being updated for table "tag".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/db/schema/CDbCommandBuilder.php:392
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1747): CDbCommandBuilder->createUpdateCommand(Object(CMysqlTableSchema), Array, Object(CDbCriteria))
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1124): CActiveRecord->updateByPk(NULL, Array)
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(806): CActiveRecord->update(NULL)
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php(46): CActiveRecord->save()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php(20): TagAR->saveTag('testf')
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): TagController->actionAdd()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('add')
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('tag/add')
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#13 {main}
+REQUEST_URI=/bank_wall/api/tag/add?term=testf
+---
+2014/01/12 14:44:26 [warning] [application] Failed to set unsafe attribute "tag" of "TagAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php (43)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php (20)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 14:46:29 [warning] [application] Failed to set unsafe attribute "tag" of "TagAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php (43)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php (20)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 14:46:29 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'tag'. The SQL statement executed was: INSERT INTO `tag` (`count`) VALUES (:yp0).
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php (46)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php (20)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 14:46:29 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'tag'. The SQL statement executed was: INSERT INTO `tag` (`count`) VALUES (:yp0)' in /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php:358
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1077): CDbCommand->execute()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(806): CActiveRecord->insert(NULL)
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php(46): CActiveRecord->save()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php(20): TagAR->saveTag('test5')
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): TagController->actionAdd()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('add')
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('tag/add')
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#11 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#12 {main}
+REQUEST_URI=/bank_wall/api/tag/add?term=test5
+---
+2014/01/12 14:50:55 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php:36) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php(21): TagController->responseJSON()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): TagController->actionAdd()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): TagController->runAction()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): TagController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): TagController->run()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/tag/add?term=test5
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php (21)
+2014/01/12 14:51:34 [error] [php] Indirect modification of overloaded property TagAR::$attributes has no effect (/Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php:36)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): TagController->runAction()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): TagController->runActionWithFilters()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): TagController->run()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/tag/add?term=test5
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/TagAR.php (36)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/TagController.php (20)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 15:19:53 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'contry_id' in 'where clause'. The SQL statement executed was: SELECT `t`.`nid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`country_id` AS `t0_c2`, `t`.`type` AS `t0_c3`, `t`.`file` AS `t0_c4`, `t`.`datetime` AS `t0_c5`, `t`.`hashtag` AS `t0_c6`, `t`.`description` AS `t0_c7`, `t`.`status` AS `t0_c8`, count(like_id) AS likecount, `user`.`uid` AS `t1_c0`, `user`.`name` AS `t1_c1`, `user`.`personal_email` AS `t1_c2`, `user`.`company_email` AS `t1_c3`, `user`.`country_id` AS `t1_c4`, `user`.`avatar` AS `t1_c5`, `user`.`role` AS `t1_c6`, `user`.`datetime` AS `t1_c7`, `user`.`firstname` AS `t1_c8`, `user`.`lastname` AS `t1_c9`, `user`.`password` AS `t1_c10`, `user`.`status` AS `t1_c11`, `country`.`country_id` AS `t2_c0`, `country`.`country_name` AS `t2_c1`, `country`.`code` AS `t2_c2`, `country`.`flag_icon` AS `t2_c3` FROM `node` `t` left join `like`  on `like`.nid = t.nid LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE ((contry_id = :country_id) AND (t.status = :status)) GROUP BY t.nid ORDER BY  t.datetime DESC LIMIT 20.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (360)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 15:19:53 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'contry_id' in 'where clause'. The SQL statement executed was: SELECT `t`.`nid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`country_id` AS `t0_c2`, `t`.`type` AS `t0_c3`, `t`.`file` AS `t0_c4`, `t`.`datetime` AS `t0_c5`, `t`.`hashtag` AS `t0_c6`, `t`.`description` AS `t0_c7`, `t`.`status` AS `t0_c8`, count(like_id) AS likecount, `user`.`uid` AS `t1_c0`, `user`.`name` AS `t1_c1`, `user`.`personal_email` AS `t1_c2`, `user`.`company_email` AS `t1_c3`, `user`.`country_id` AS `t1_c4`, `user`.`avatar` AS `t1_c5`, `user`.`role` AS `t1_c6`, `user`.`datetime` AS `t1_c7`, `user`.`firstname` AS `t1_c8`, `user`.`lastname` AS `t1_c9`, `user`.`password` AS `t1_c10`, `user`.`status` AS `t1_c11`, `country`.`country_id` AS `t2_c0`, `country`.`country_name` AS `t2_c1`, `country`.`code` AS `t2_c2`, `country`.`flag_icon` AS `t2_c3` FROM `node` `t` left join `like`  on `like`.nid = t.nid LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE ((contry_id = :country_id) AND (t.status = :status)) GROUP BY t.nid ORDER BY  t.datetime DESC LIMIT 20' in /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(360): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionList()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('node/list')
+#13 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/index.php/node/list?page=1&pagenum=20&hashtag=&country_id=2&orderby=datetime&_=1389536389691
+HTTP_REFERER=http://localhost/bank_wall/web/
+---
+2014/01/12 15:20:27 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'contry_id' in 'where clause'. The SQL statement executed was: SELECT `t`.`nid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`country_id` AS `t0_c2`, `t`.`type` AS `t0_c3`, `t`.`file` AS `t0_c4`, `t`.`datetime` AS `t0_c5`, `t`.`hashtag` AS `t0_c6`, `t`.`description` AS `t0_c7`, `t`.`status` AS `t0_c8`, count(like_id) AS likecount, `user`.`uid` AS `t1_c0`, `user`.`name` AS `t1_c1`, `user`.`personal_email` AS `t1_c2`, `user`.`company_email` AS `t1_c3`, `user`.`country_id` AS `t1_c4`, `user`.`avatar` AS `t1_c5`, `user`.`role` AS `t1_c6`, `user`.`datetime` AS `t1_c7`, `user`.`firstname` AS `t1_c8`, `user`.`lastname` AS `t1_c9`, `user`.`password` AS `t1_c10`, `user`.`status` AS `t1_c11`, `country`.`country_id` AS `t2_c0`, `country`.`country_name` AS `t2_c1`, `country`.`code` AS `t2_c2`, `country`.`flag_icon` AS `t2_c3` FROM `node` `t` left join `like`  on `like`.nid = t.nid LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE ((contry_id = :country_id) AND (t.status = :status)) GROUP BY t.nid ORDER BY  t.datetime DESC LIMIT 20.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (360)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 15:20:27 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'contry_id' in 'where clause'. The SQL statement executed was: SELECT `t`.`nid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`country_id` AS `t0_c2`, `t`.`type` AS `t0_c3`, `t`.`file` AS `t0_c4`, `t`.`datetime` AS `t0_c5`, `t`.`hashtag` AS `t0_c6`, `t`.`description` AS `t0_c7`, `t`.`status` AS `t0_c8`, count(like_id) AS likecount, `user`.`uid` AS `t1_c0`, `user`.`name` AS `t1_c1`, `user`.`personal_email` AS `t1_c2`, `user`.`company_email` AS `t1_c3`, `user`.`country_id` AS `t1_c4`, `user`.`avatar` AS `t1_c5`, `user`.`role` AS `t1_c6`, `user`.`datetime` AS `t1_c7`, `user`.`firstname` AS `t1_c8`, `user`.`lastname` AS `t1_c9`, `user`.`password` AS `t1_c10`, `user`.`status` AS `t1_c11`, `country`.`country_id` AS `t2_c0`, `country`.`country_name` AS `t2_c1`, `country`.`code` AS `t2_c2`, `country`.`flag_icon` AS `t2_c3` FROM `node` `t` left join `like`  on `like`.nid = t.nid LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE ((contry_id = :country_id) AND (t.status = :status)) GROUP BY t.nid ORDER BY  t.datetime DESC LIMIT 20' in /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(360): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionList()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('node/list')
+#13 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/index.php/node/list?page=1&pagenum=20&hashtag=&country_id=2&orderby=datetime&_=1389536389691
+---
+2014/01/12 15:20:30 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'contry_id' in 'where clause'. The SQL statement executed was: SELECT `t`.`nid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`country_id` AS `t0_c2`, `t`.`type` AS `t0_c3`, `t`.`file` AS `t0_c4`, `t`.`datetime` AS `t0_c5`, `t`.`hashtag` AS `t0_c6`, `t`.`description` AS `t0_c7`, `t`.`status` AS `t0_c8`, count(like_id) AS likecount, `user`.`uid` AS `t1_c0`, `user`.`name` AS `t1_c1`, `user`.`personal_email` AS `t1_c2`, `user`.`company_email` AS `t1_c3`, `user`.`country_id` AS `t1_c4`, `user`.`avatar` AS `t1_c5`, `user`.`role` AS `t1_c6`, `user`.`datetime` AS `t1_c7`, `user`.`firstname` AS `t1_c8`, `user`.`lastname` AS `t1_c9`, `user`.`password` AS `t1_c10`, `user`.`status` AS `t1_c11`, `country`.`country_id` AS `t2_c0`, `country`.`country_name` AS `t2_c1`, `country`.`code` AS `t2_c2`, `country`.`flag_icon` AS `t2_c3` FROM `node` `t` left join `like`  on `like`.nid = t.nid LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE ((contry_id = :country_id) AND (t.status = :status)) GROUP BY t.nid ORDER BY  t.datetime DESC LIMIT 20.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (360)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 15:20:30 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'contry_id' in 'where clause'. The SQL statement executed was: SELECT `t`.`nid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`country_id` AS `t0_c2`, `t`.`type` AS `t0_c3`, `t`.`file` AS `t0_c4`, `t`.`datetime` AS `t0_c5`, `t`.`hashtag` AS `t0_c6`, `t`.`description` AS `t0_c7`, `t`.`status` AS `t0_c8`, count(like_id) AS likecount, `user`.`uid` AS `t1_c0`, `user`.`name` AS `t1_c1`, `user`.`personal_email` AS `t1_c2`, `user`.`company_email` AS `t1_c3`, `user`.`country_id` AS `t1_c4`, `user`.`avatar` AS `t1_c5`, `user`.`role` AS `t1_c6`, `user`.`datetime` AS `t1_c7`, `user`.`firstname` AS `t1_c8`, `user`.`lastname` AS `t1_c9`, `user`.`password` AS `t1_c10`, `user`.`status` AS `t1_c11`, `country`.`country_id` AS `t2_c0`, `country`.`country_name` AS `t2_c1`, `country`.`code` AS `t2_c2`, `country`.`flag_icon` AS `t2_c3` FROM `node` `t` left join `like`  on `like`.nid = t.nid LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE ((contry_id = :country_id) AND (t.status = :status)) GROUP BY t.nid ORDER BY  t.datetime DESC LIMIT 20' in /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(360): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionList()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('node/list')
+#13 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/index.php/node/list?page=1&pagenum=20&hashtag=&country_id=1&orderby=datetime&_=1389536389691
+---
+2014/01/12 15:20:37 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'contry_id' in 'where clause'. The SQL statement executed was: SELECT `t`.`nid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`country_id` AS `t0_c2`, `t`.`type` AS `t0_c3`, `t`.`file` AS `t0_c4`, `t`.`datetime` AS `t0_c5`, `t`.`hashtag` AS `t0_c6`, `t`.`description` AS `t0_c7`, `t`.`status` AS `t0_c8`, count(like_id) AS likecount, `user`.`uid` AS `t1_c0`, `user`.`name` AS `t1_c1`, `user`.`personal_email` AS `t1_c2`, `user`.`company_email` AS `t1_c3`, `user`.`country_id` AS `t1_c4`, `user`.`avatar` AS `t1_c5`, `user`.`role` AS `t1_c6`, `user`.`datetime` AS `t1_c7`, `user`.`firstname` AS `t1_c8`, `user`.`lastname` AS `t1_c9`, `user`.`password` AS `t1_c10`, `user`.`status` AS `t1_c11`, `country`.`country_id` AS `t2_c0`, `country`.`country_name` AS `t2_c1`, `country`.`code` AS `t2_c2`, `country`.`flag_icon` AS `t2_c3` FROM `node` `t` left join `like`  on `like`.nid = t.nid LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE ((contry_id = :country_id) AND (t.status = :status)) GROUP BY t.nid ORDER BY  t.datetime DESC LIMIT 20.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (360)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 15:20:37 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'contry_id' in 'where clause'. The SQL statement executed was: SELECT `t`.`nid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`country_id` AS `t0_c2`, `t`.`type` AS `t0_c3`, `t`.`file` AS `t0_c4`, `t`.`datetime` AS `t0_c5`, `t`.`hashtag` AS `t0_c6`, `t`.`description` AS `t0_c7`, `t`.`status` AS `t0_c8`, count(like_id) AS likecount, `user`.`uid` AS `t1_c0`, `user`.`name` AS `t1_c1`, `user`.`personal_email` AS `t1_c2`, `user`.`company_email` AS `t1_c3`, `user`.`country_id` AS `t1_c4`, `user`.`avatar` AS `t1_c5`, `user`.`role` AS `t1_c6`, `user`.`datetime` AS `t1_c7`, `user`.`firstname` AS `t1_c8`, `user`.`lastname` AS `t1_c9`, `user`.`password` AS `t1_c10`, `user`.`status` AS `t1_c11`, `country`.`country_id` AS `t2_c0`, `country`.`country_name` AS `t2_c1`, `country`.`code` AS `t2_c2`, `country`.`flag_icon` AS `t2_c3` FROM `node` `t` left join `like`  on `like`.nid = t.nid LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE ((contry_id = :country_id) AND (t.status = :status)) GROUP BY t.nid ORDER BY  t.datetime DESC LIMIT 20' in /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(360): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionList()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('node/list')
+#13 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/index.php/node/list?page=1&pagenum=20&hashtag=&country_id=1&orderby=datetime&_=1389536389691
+---
+2014/01/12 15:22:17 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'country.contry_id' in 'where clause'. The SQL statement executed was: SELECT `t`.`nid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`country_id` AS `t0_c2`, `t`.`type` AS `t0_c3`, `t`.`file` AS `t0_c4`, `t`.`datetime` AS `t0_c5`, `t`.`hashtag` AS `t0_c6`, `t`.`description` AS `t0_c7`, `t`.`status` AS `t0_c8`, count(like_id) AS likecount, `user`.`uid` AS `t1_c0`, `user`.`name` AS `t1_c1`, `user`.`personal_email` AS `t1_c2`, `user`.`company_email` AS `t1_c3`, `user`.`country_id` AS `t1_c4`, `user`.`avatar` AS `t1_c5`, `user`.`role` AS `t1_c6`, `user`.`datetime` AS `t1_c7`, `user`.`firstname` AS `t1_c8`, `user`.`lastname` AS `t1_c9`, `user`.`password` AS `t1_c10`, `user`.`status` AS `t1_c11`, `country`.`country_id` AS `t2_c0`, `country`.`country_name` AS `t2_c1`, `country`.`code` AS `t2_c2`, `country`.`flag_icon` AS `t2_c3` FROM `node` `t` left join `like`  on `like`.nid = t.nid LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE ((country.contry_id = :country_id) AND (t.status = :status)) GROUP BY t.nid ORDER BY  t.datetime DESC LIMIT 20.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (360)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 15:22:17 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'country.contry_id' in 'where clause'. The SQL statement executed was: SELECT `t`.`nid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`country_id` AS `t0_c2`, `t`.`type` AS `t0_c3`, `t`.`file` AS `t0_c4`, `t`.`datetime` AS `t0_c5`, `t`.`hashtag` AS `t0_c6`, `t`.`description` AS `t0_c7`, `t`.`status` AS `t0_c8`, count(like_id) AS likecount, `user`.`uid` AS `t1_c0`, `user`.`name` AS `t1_c1`, `user`.`personal_email` AS `t1_c2`, `user`.`company_email` AS `t1_c3`, `user`.`country_id` AS `t1_c4`, `user`.`avatar` AS `t1_c5`, `user`.`role` AS `t1_c6`, `user`.`datetime` AS `t1_c7`, `user`.`firstname` AS `t1_c8`, `user`.`lastname` AS `t1_c9`, `user`.`password` AS `t1_c10`, `user`.`status` AS `t1_c11`, `country`.`country_id` AS `t2_c0`, `country`.`country_name` AS `t2_c1`, `country`.`code` AS `t2_c2`, `country`.`flag_icon` AS `t2_c3` FROM `node` `t` left join `like`  on `like`.nid = t.nid LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE ((country.contry_id = :country_id) AND (t.status = :status)) GROUP BY t.nid ORDER BY  t.datetime DESC LIMIT 20' in /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(360): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionList()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('node/list')
+#13 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/index.php/node/list?page=1&pagenum=20&hashtag=&country_id=1&orderby=datetime&_=1389536389691
+---
+2014/01/12 15:22:54 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'country_id' in where clause is ambiguous. The SQL statement executed was: SELECT `t`.`nid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`country_id` AS `t0_c2`, `t`.`type` AS `t0_c3`, `t`.`file` AS `t0_c4`, `t`.`datetime` AS `t0_c5`, `t`.`hashtag` AS `t0_c6`, `t`.`description` AS `t0_c7`, `t`.`status` AS `t0_c8`, count(like_id) AS likecount, `user`.`uid` AS `t1_c0`, `user`.`name` AS `t1_c1`, `user`.`personal_email` AS `t1_c2`, `user`.`company_email` AS `t1_c3`, `user`.`country_id` AS `t1_c4`, `user`.`avatar` AS `t1_c5`, `user`.`role` AS `t1_c6`, `user`.`datetime` AS `t1_c7`, `user`.`firstname` AS `t1_c8`, `user`.`lastname` AS `t1_c9`, `user`.`password` AS `t1_c10`, `user`.`status` AS `t1_c11`, `country`.`country_id` AS `t2_c0`, `country`.`country_name` AS `t2_c1`, `country`.`code` AS `t2_c2`, `country`.`flag_icon` AS `t2_c3` FROM `node` `t` left join `like`  on `like`.nid = t.nid LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE ((country_id = :country_id) AND (t.status = :status)) GROUP BY t.nid ORDER BY  t.datetime DESC LIMIT 20.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (360)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 15:22:54 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'country_id' in where clause is ambiguous. The SQL statement executed was: SELECT `t`.`nid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`country_id` AS `t0_c2`, `t`.`type` AS `t0_c3`, `t`.`file` AS `t0_c4`, `t`.`datetime` AS `t0_c5`, `t`.`hashtag` AS `t0_c6`, `t`.`description` AS `t0_c7`, `t`.`status` AS `t0_c8`, count(like_id) AS likecount, `user`.`uid` AS `t1_c0`, `user`.`name` AS `t1_c1`, `user`.`personal_email` AS `t1_c2`, `user`.`company_email` AS `t1_c3`, `user`.`country_id` AS `t1_c4`, `user`.`avatar` AS `t1_c5`, `user`.`role` AS `t1_c6`, `user`.`datetime` AS `t1_c7`, `user`.`firstname` AS `t1_c8`, `user`.`lastname` AS `t1_c9`, `user`.`password` AS `t1_c10`, `user`.`status` AS `t1_c11`, `country`.`country_id` AS `t2_c0`, `country`.`country_name` AS `t2_c1`, `country`.`code` AS `t2_c2`, `country`.`flag_icon` AS `t2_c3` FROM `node` `t` left join `like`  on `like`.nid = t.nid LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE ((country_id = :country_id) AND (t.status = :status)) GROUP BY t.nid ORDER BY  t.datetime DESC LIMIT 20' in /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(360): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionList()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('node/list')
+#13 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/index.php/node/list?page=1&pagenum=20&hashtag=&country_id=1&orderby=datetime&_=1389536389691
+---

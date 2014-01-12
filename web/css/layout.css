@@ -27,6 +27,12 @@ a{text-decoration:none;color:#666}
 .header{height:130px;position: fixed;width: 100%;top:0;z-index: 2;left:0;right: 0;background: #fff}
 	.logo{width: 315px;height: 95px;background: url('../img/logo.jpg') no-repeat;margin:18px auto 0;}
 	.search{border:#333 solid 1px;position: absolute;left:60px;top:50px;}
+        .ui-autocomplete {position: fixed;z-index:999;border:1px solid #555;background: #fff;}
+        .ui-autocomplete li {border-bottom:1px solid #ccc;}
+        .ui-autocomplete li a {padding:3px 5px;display: block;}
+        .ui-autocomplete li a.ui-state-focus {background: #f8f8f8;}
+        .ui-autocomplete li:last-child {border: none;}
+        .ui-helper-hidden-accessible {display:none;}
 		.search-ipt{color:#666;border:0;float:left;padding:6px;width:250px;}
 		.search-sub{border:0;background:url('../img/icon_search.gif') no-repeat center center;font-size:0;width:26px;height:25px;border-left: #333 solid 1px;float:left;padding:5px 3px;}
 	.select{position: absolute;right:40px;top:50px}

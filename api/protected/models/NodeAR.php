@@ -88,7 +88,7 @@ class NodeAR extends CActiveRecord{
     $description = $this->description;
     
     $matches = array();
-    preg_match_all("/(?<!\w)#\w+/", $description, $matches);
+    preg_match_all("/(?<!\w#)\w+/", $description, $matches);
     $hashtags = array_shift($matches);
     return $hashtags;
   }
@@ -103,6 +103,9 @@ class NodeAR extends CActiveRecord{
         $this->setAttribute("datetime", time());
     }
     $this->setAttribute("hashtag", serialize($hashtags));
+		foreach($hashtags as $tag) {
+			TagAR::model()->saveTag($tag);
+		}
     
     return TRUE;
   }

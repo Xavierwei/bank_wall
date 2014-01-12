@@ -5,7 +5,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
     'use strict'
 
     var API_FOLDER = "../api";
-    var THUMBNAIL_IMG_SIZE = "_400_400";
+    var THUMBNAIL_IMG_SIZE = "_250_250";
     var BIG_IMG_SIZE = "_800_800";
     var page_num = 20; //TODO: 初始化的时候需要计算一整个屏幕能显示几个
 
@@ -67,7 +67,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                 $main.html('');
                 $main.data('nodes','');
                 api.ajax(filter, pageParam , function( result ){
-                    nodeActions.inserNode( $main.fadeIn() , result.data , pageParam.orderby == 'datetime' );
+                    nodeActions.inserNode( $main.show() , result.data , pageParam.orderby == 'datetime' );
                 });
             });
 
@@ -128,7 +128,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                     }
                 }
                 // fix video type
-                node.image = node.file.replace( node.type == 'video' ? '.mp4' : '.jpg' ,'_400_400.jpg');
+                node.image = node.file.replace( node.type == 'video' ? '.mp4' : '.jpg' , THUMBNAIL_IMG_SIZE + '.jpg');
                 node.formatDate = date;
 
                 node.str_like = node.likecount > 1 ? 'Likes' : 'Like';
@@ -174,6 +174,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             var $nodes = $dom.find('.pic-item:not(.reversal)');
 
             var startAnimate = function( $node ){
+                console.log(itemWidth);
                 $node.addClass('reversal')
                     .width( itemWidth )
                     .height( itemWidth );
@@ -827,7 +828,6 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
 
     //save user updates
     LP.action('search' , function(){
-        var hashtag = $('.search-ipt').val();
         $main.fadeOut(400,function(){
             LP.triggerAction('close_user_page');
             $main.html('');
@@ -835,6 +835,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             var param = refreshQuery();
             api.ajax('recent', param , function( result ){
                 nodeActions.inserNode( $main.fadeIn() , result.data , param.orderby == 'datetime');
+                $('.search-ipt').val('').blur();
             });
         });
     });
@@ -902,6 +903,33 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                 $('.content').append(html);
             });
         });
+
+        LP.use('uicustom',function(){
+            $( ".search-ipt").val('').autocomplete({
+                source: function( request, response ) {
+                    $.ajax({
+                        url: "../api/tag/list",
+                        dataType: "json",
+                        data: {
+                            term: request.term
+                        },
+                        success: function( data ) {
+                            response( $.map( data.data, function( item ) {
+                                return {
+                                    label: item.tag,
+                                    value: item.tag
+                                }
+                            }));
+                        }
+                    });
+                },
+                minLength: 2,
+                select: function( event, ui ) {
+                    console.log(ui);
+                }
+            });
+        });
+
 
         LP.use('handlebars' , function(){
             //Handlebars helper
