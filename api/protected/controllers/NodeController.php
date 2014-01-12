@@ -337,7 +337,7 @@ class NodeController extends Controller {
                   $nids[$nid] = $nid;
               }
           }
-          $query->addInCondition("nid", $nids, "AND");
+          $query->addInCondition($nodeAr->getTableAlias().".nid", $nids, "AND");
       }
       
       $query->limit = $pagenum;

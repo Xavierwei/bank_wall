@@ -24,7 +24,7 @@ define(function( require , exports , model ){
     var _api = {
         // searchHosts: {path: '/Ajax/searchHosts' , data: {key: ''} , m: '检索小组' , method: 'get' },
         commentList: {path: '../api/index.php/comment/list', method:'get'},
-        recent: {path: '../api/index.php/node/list?orderby=datetime&pagenum=100', method: 'get'},
+        recent: {path: '../api/index.php/node/list', method: 'get'},
         getNode: {path: '../admin/app/json/node/photo.json'},
         nodeList: {path: '../api/index.php/node/list?$orderby=datetime&pagenum=100'},
         like: {path: '../api/index.php/like/post'},

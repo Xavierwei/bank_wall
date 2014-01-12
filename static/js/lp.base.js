@@ -7,6 +7,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
     var API_FOLDER = "../api";
     var THUMBNAIL_IMG_SIZE = "_400_400";
     var BIG_IMG_SIZE = "_800_800";
+    var page_num = 20; //TODO: 初始化的时候需要计算一整个屏幕能显示几个
 
     // get english month
     // TODO .... need I18
@@ -23,6 +24,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             return aMonth[ month ];
         }
     })();
+
 
     // live for pic-item hover event
     $(document.body)
@@ -41,7 +43,19 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         .delegate('.select-option p' , 'click' , function(){
             var filter = $(this).data('api');
             var param = LP.query2json($(this).data('param'));
-            console.log(param);
+            var pageParam = {};
+            if($main.data('param')) {
+                pageParam = $main.data('param');
+            }
+            $.each(param, function(key, value){
+                if(value == 'all') {
+                    delete pageParam[key];
+                }
+                else {
+                    pageParam[key] = value;
+                }
+            });
+            $main.data('param', pageParam);
             $(this).closest('.select-pop')
                 .prev()
                 .html( $(this).html() );
@@ -51,7 +65,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                 LP.triggerAction('close_user_page');
                 $main.html('');
                 $main.data('nodes','');
-                api.ajax(filter, param , function( result ){
+                api.ajax(filter, pageParam , function( result ){
                     nodeActions.inserNode( $main.fadeIn() , result.data );
                 });
             });
@@ -80,6 +94,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         inserNode: function( $dom , nodes ){
             var aHtml = [];
             var lastDate = null;
+            var pageParm = $main.data('param'); //TODO:  pageParm.orderby == 'like' || pageParm.orderby == 'random' 此时不显示日历
             nodes = nodes || [];
 
             // save nodes to cache
@@ -91,7 +106,8 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                 // get date
                 var datetime = new Date(node.datetime*1000);
                 var date = datetime.getFullYear() + "/" + (parseInt(datetime.getMonth()) + 1) + "/" + datetime.getDate();
-                if( lastDate != date ){
+                //TODO:  pageParm.orderby == 'like' || pageParm.orderby == 'random' 此时不显示日历
+                if( lastDate != date){
                     LP.compile( 'time-item-template' ,
                         {day: parseInt(datetime.getDate()) , month: getMonth(parseInt(datetime.getMonth()) + 1)} ,
                         function( html ){
@@ -414,7 +430,10 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                 // it must visible and in main element has unreversaled node
                 if( $main.is(':visible') && !$main.find('.main-item:not(.time-item,.reversal)').length ){
                     _scrollAjax = true;
-                    api.ajax('nodeList' , {nid: 10} , function( result ){
+                    var pageIndex = $main.data('page-index');
+                    pageIndex ++;
+                    $main.data('page-index', pageIndex);
+                    api.ajax('recent' , {page: pageIndex} , function( result ){
                         nodeActions.inserNode( $main , result.data );
                         _scrollAjax = false;
                     });
@@ -967,6 +986,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
 //        $('.pop-file .step2-btns').delay(400).fadeIn(400);
 //    });
 
+
     // bind document key event for back , prev , next actions
     $(document).keydown(function( ev ){
         var $inner = $('.inner');
@@ -984,23 +1004,41 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         }
     });
 
-    // after page load , load the recent data from server
-    api.ajax('recent' , function( result ){
-        nodeActions.inserNode( $main , result.data );
-    });
 
-    // after page load , load the current user information data from server
-    api.ajax('user' , function( result ){
-        result.data.count_by_day = parseInt(result.data.photos_count_by_day) + parseInt(result.data.videos_count_by_day);
-        result.data.count_by_month = parseInt(result.data.photos_count_by_month) + parseInt(result.data.videos_count_by_month);
-        LP.compile( 'user-page-template' , result.data , function( html ){
-            $('.content').append(html);
+    var init = function() {
+        // after page load , load the recent data from server
+        var pageParam = {pagenum:page_num, orderby: 'datetime'};
+        $main.data('param', pageParam);
+        $main.data('page-index', 0);
+        api.ajax('recent', pageParam, function( result ){
+            nodeActions.inserNode( $main , result.data );
         });
 
-        LP.compile( 'side-template' , result.data , function( html ){
-            $('.content').append(html);
+        // after page load , load the current user information data from server
+        api.ajax('user' , function( result ){
+            result.data.count_by_day = parseInt(result.data.photos_count_by_day) + parseInt(result.data.videos_count_by_day);
+            result.data.count_by_month = parseInt(result.data.photos_count_by_month) + parseInt(result.data.videos_count_by_month);
+            LP.compile( 'user-page-template' , result.data , function( html ){
+                $('.content').append(html);
+            });
+
+            LP.compile( 'side-template' , result.data , function( html ){
+                $('.content').append(html);
+            });
         });
-    });
+
+        LP.use('handlebars' , function(){
+            //Handlebars helper
+            Handlebars.registerHelper('ifvideo', function(options) {
+                if(this.type == 'video')
+                    return options.fn(this);
+                else
+                    return options.inverse(this);
+            });
+        });
+    }
+
+
 
     var bindCommentSubmisson = function() {
         LP.use('form' , function(){
@@ -1045,14 +1083,6 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         });
     }
 
-    LP.use('handlebars' , function(){
-        //Handlebars helper
-        Handlebars.registerHelper('ifvideo', function(options) {
-            if(this.type == 'video')
-                return options.fn(this);
-            else
-                return options.inverse(this);
-        });
-    });
+    init();
 
 });
