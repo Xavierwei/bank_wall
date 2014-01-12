@@ -258,12 +258,12 @@ class NodeController extends Controller {
       if ($start) {
           $start = strtotime($start);
           $params[":start"] = $start;
-          $query->addCondition("datetime >= :start", "AND");
+          $query->addCondition($nodeAr->getTableAlias().".datetime >= :start", "AND");
       }
       if ($end) {
           $end = strtotime($end);
           $params[":end"] = $end;
-          $query->addCondition("datetime<= :end", "AND");
+          $query->addCondition($nodeAr->getTableAlias().".datetime<= :end", "AND");
       }
       
       // 需要验证用户权限

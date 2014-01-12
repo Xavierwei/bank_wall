@@ -841,6 +841,46 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         });
     });
 
+    // get last day nodes
+    LP.action('by_day' , function(){
+        $main.fadeOut(400,function(){
+            LP.triggerAction('close_user_page');
+            $main.html('');
+            $main.data('nodes','');
+            //TODO this method need to reset selected items to default value
+            var param = refreshQuery();
+            var d = new Date();
+            param = $.extend(param, {'start': d.getFullYear() + '-' + parseInt(d.getMonth() + 1) + '-' + d.getDate()});
+
+            //TODO save to dom cache date
+            api.ajax('recent', param , function( result ){
+                $('.search-ipt').val('').blur();
+                nodeActions.inserNode( $main.show() , result.data , param.orderby == 'datetime');
+            });
+        });
+    });
+
+    // get last month nodes
+    LP.action('by_month' , function(){
+        $main.fadeOut(400,function(){
+            LP.triggerAction('close_user_page');
+            $main.html('');
+            $main.data('nodes','');
+            //TODO this method need to reset selected items to default value
+            var param = refreshQuery();
+            var d = new Date();
+            param = $.extend(param, {'start': d.getFullYear() + '-' + parseInt(d.getMonth() + 1) + '-' + 1});
+
+            //TODO save to dom cache date
+            api.ajax('recent', param , function( result ){
+                $('.search-ipt').val('').blur();
+                nodeActions.inserNode( $main.show() , result.data , param.orderby == 'datetime');
+            });
+        });
+    });
+
+
+
     //after selected photo
 //    $('#file-photo').change(function(){
 //        $('.pop-file .step1-btns').fadeOut(400);
