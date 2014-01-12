@@ -66,7 +66,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                 $main.html('');
                 $main.data('nodes','');
                 api.ajax(filter, pageParam , function( result ){
-                    nodeActions.inserNode( $main.fadeIn() , result.data );
+                    nodeActions.inserNode( $main.fadeIn() , result.data , pageParam.orderby == 'datetime' );
                 });
             });
 
@@ -90,8 +90,14 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
     var minWidth = 170;
     var itemWidth = minWidth;
     var winWidth = $(window).width();
+    // fix one day animation. It is start animate from the day which is not trigger the animation
+    // After the day trigger the animation 
+    // Fix animation day by day
     var nodeActions = {
-        inserNode: function( $dom , nodes ){
+        // when current dom is main , and the recent ajax param orderby is 'like' or
+        // 'random' , the datetime would not be showed.
+        // TODO:  pageParm.orderby == 'like' || pageParm.orderby == 'random' 此时不显示日历
+        inserNode: function( $dom , nodes , bShowDate ){
             var aHtml = [];
             var lastDate = null;
             var pageParm = $main.data('param'); //TODO:  pageParm.orderby == 'like' || pageParm.orderby == 'random' 此时不显示日历
@@ -101,35 +107,30 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             var cache = $dom.data('nodes') || [];
             $dom.data('nodes' , cache.concat( nodes ) );
 
+            if( bShowDate ){
+                lastDate = $main.find('.time-item').last().data('date');
+            }
             // filte for date
             $.each( nodes , function( index , node ){
                 // get date
-                var datetime = new Date(node.datetime*1000);
-                var date = datetime.getFullYear() + "/" + (parseInt(datetime.getMonth()) + 1) + "/" + datetime.getDate();
-                //TODO:  pageParm.orderby == 'like' || pageParm.orderby == 'random' 此时不显示日历
-                if( lastDate != date){
-                    LP.compile( 'time-item-template' ,
-                        {day: parseInt(datetime.getDate()) , month: getMonth(parseInt(datetime.getMonth()) + 1)} ,
-                        function( html ){
-                            aHtml.push( html );
-                        } );
-                    lastDate = date;
+                if( bShowDate ){
+
+                    var datetime = new Date(node.datetime*1000);
+                    var date = datetime.getFullYear() + "/" + (parseInt(datetime.getMonth()) + 1) + "/" + datetime.getDate();
+                    if( lastDate != date){
+                        LP.compile( 'time-item-template' ,
+                            {date: date , day: parseInt(datetime.getDate()) , month: getMonth(parseInt(datetime.getMonth()) + 1)} ,
+                            function( html ){
+                                aHtml.push( html );
+                            } );
+                        lastDate = date;
+                    }
                 }
                 // fix video type
-                if(node.type == 'video') {
-                    node.image = node.file.replace('.mp4','_400_400.jpg');
-                } else {
-                    node.image = node.file.replace('.jpg','_400_400.jpg');
-                }
+                node.image = node.file.replace( node.type == 'video' ? '.mp4' : '.jpg' ,'_400_400.jpg');
                 node.formatDate = date;
 
-                if(node.likecount > 1) {
-                    node.str_like = 'Likes';
-                }
-                else {
-                    node.str_like = 'Like';
-                }
-
+                node.str_like = node.likecount > 1 ? 'Likes' : 'Like';
                 LP.compile( 'node-item-template' ,
                     node ,
                     function( html ){
@@ -166,51 +167,37 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             // get first time item , which is not opend
             // wait for it's items prepared ( load images )
             // run the animate
-            var $timeItem = $dom.find('.time-item:not(.opened)').eq(0)
-                .width( itemWidth )
-                .height( itemWidth );
-            var $itemPics = $timeItem.nextUntil('.time-item');
 
-            var startAnimate = function(){
-                $timeItem.addClass('opened');
-                $itemPics.each(function( index ){
-                    setTimeout(function(){
-                        var $item = $itemPics.eq( index )
-                            .addClass('reversal')
-                            .width( itemWidth )
-                            .height( itemWidth );
+            // if has time items, it means it needs to reversal from last node-item element
+            // which is not be resersaled
+            var $nodes = $dom.find('.pic-item:not(.reversal)');
+            // var $timeItem = $dom.find('.time-item:not(.opened)').eq(0)
+            //     .width( itemWidth )
+            //     .height( itemWidth );
+            // var $itemPics = $timeItem.nextUntil('.time-item');
 
-                        // fix it's img width and height
-                        $item.find('img')
-                            .width( itemWidth )
-                            .height( itemWidth );
-
-                        // play next pic items
-                        if( index == $itemPics.length - 1 ){
-                            setTimeout(function(){
-                                nodeActions.setItemReversal( $dom );
-                            } , 1000);
-                        }
-                    } , index * 400 );
-                });
+            var startAnimate = function( $node ){
+                $node.addClass('reversal')
+                    .width( itemWidth )
+                    .height( itemWidth );
+                // fix it's img width and height
+                $node.find('img')
+                    .width( itemWidth )
+                    .height( itemWidth );
+                setTimeout(function(){
+                    nodeActions.setItemReversal( $dom );
+                } , 400);
             }
-            var imgLoadedNum = 0;
-            var $imgs = $itemPics.find('img')
-                .each(function(){
-                    // it means the img loaded complete
-                    if( this.complete ){
-                        imgLoadedNum++;
-                    }
-
-                    $(this).load(function(){
-                        imgLoadedNum++;
-                        if( imgLoadedNum == $itemPics.length ){
-                            startAnimate();
-                        }
+            if( $nodes.length ){
+                var $img = $nodes.eq(0)
+                    .find('img');
+                if( $img[0].complete ){
+                    startAnimate( $nodes.eq(0) );
+                } else {
+                    $img.load(function(){
+                        startAnimate( $nodes.eq(0) );
                     });
-                });
-            if( imgLoadedNum == $itemPics.length ){
-                startAnimate();
+                }
             }
         },
         // set items auto fix it's width
@@ -239,153 +226,6 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             });
         }
     }
-    // fix one day animation. It is start animate from the day which is not trigger the animation
-    // After the day trigger the animation , it would be added 'opened' class.
-    // Fix animation day by day
-    // events: 
-    //      item-reversal   : fix image reversal effect
-    //      item-width      : fix item width
-    //      item-isotope    : isotope effect init and invoke
-    // $main.bind('item-reversal' , function(){
-    //     // fix all the items , set position: relative
-    //     $main.children()
-    //         .css('position' , 'relative');
-    //     if( $main.children('.isotope-item').length )
-    //         $main.isotope('destroy')
-    //     // get first time item , which is not opend
-    //     // wait for it's items prepared ( load images )
-    //     // run the animate
-    //     var $timeItem = $('.time-item:not(.opened)').eq(0)
-    //         .width( itemWidth )
-    //         .height( itemWidth );
-    //     var $itemPics = $timeItem.nextUntil('.time-item');
-
-    //     var startAnimate = function(){
-
-    //         $timeItem.addClass('opened');
-
-    //         $itemPics.each(function( index ){
-    //             setTimeout(function(){
-    //                 var $item = $itemPics.eq( index )
-    //                     .addClass('reversal')
-    //                     .width( itemWidth )
-    //                     .height( itemWidth );
-
-    //                 // fix it's img width and height
-    //                 $item.find('img')
-    //                     .width( itemWidth )
-    //                     .height( itemWidth );
-
-    //                 // play next pic items
-    //                 if( index == $itemPics.length - 1 ){
-    //                     setTimeout(function(){$main.trigger('item-reversal')} , 1000);
-    //                 }
-    //             } , index * 400 );
-    //         });
-    //     }
-    //     var imgLoadedNum = 0;
-    //     var $imgs = $itemPics.find('img')
-    //         .each(function(){
-    //             // it means the img loaded complete
-    //             if( this.complete ){
-    //                 imgLoadedNum++;
-    //             }
-
-    //             $(this).load(function(){
-    //                 imgLoadedNum++;
-    //                 if( imgLoadedNum == $itemPics.length ){
-    //                     startAnimate();
-    //                 }
-    //             });
-    //         });
-    //     if( imgLoadedNum == $itemPics.length ){
-    //         startAnimate();
-    //     }
-    // })
-    // .bind('item-width' , function(){
-    //     var mainWidth = $(this).width();
-
-    //     var min = ~~( mainWidth / minWidth );
-    //     // save itemWidth and winWidth 
-    //     itemWidth = ~~( mainWidth / min );
-    //     winWidth = $(window).width();
-
-    //     $('.time-item, .main-item.reversal , .main-item.reversal img')
-    //         .width( itemWidth )
-    //         .height( itemWidth );
-    // })
-    // // isotope effect init and invoke
-    // .bind('item-isotope' , function(){
-
-    //     // if the page has unreversaled node
-    //     if( $('.main .main-item:not(.time-item,.reversal)').length ) return;
-
-    //     if( $main.children('.isotope-item').length ){
-    //         $main.isotope('reLayout');
-    //         return;
-    //     }
-
-    //     LP.use('isotope' , function(){
-    //         // first init isotope , render no animate effect
-    //         $main
-    //             .addClass('no-animate')
-    //             .isotope({
-    //                 resizable: false
-    //             });
-
-    //         // after first isotope init
-    //         // remove no animate class
-    //         setTimeout(function(){
-    //             $main.removeClass('no-animate');
-    //         } , 100);
-    //     });
-    // })
-    // .bind('item-insert' , function( ev , nodes ){
-    //     var aHtml = [];
-    //     var lastDate = null;
-    //     nodes = nodes || [];
-
-    //     // save nodes to cache
-    //     var cache = $main.data('nodes') || [];
-    //     $main.data('nodes' , cache.concat( nodes ) );
-
-    //     // filte for date
-    //     $.each( nodes , function( index , node ){
-    //         // get date
-    //         var match = node.datetime.match(/^\d+-(\d+)-(\d+)/);
-    //         if( lastDate != match[0] ){
-    //             LP.compile( 'time-item-template' , 
-    //                 {day: parseInt(match[2]) , month: getMonth( parseInt(match[1]))} , 
-    //                 function( html ){
-    //                     aHtml.push( html );
-    //                 } );
-    //             lastDate = match[0];
-    //         }
-    //         if(node.type == 'video') {
-    //             node.image = node.file.replace('mp4','jpg');
-    //         }
-    //         else
-    //         {
-    //             node.image = node.file;
-    //         }
-    //         node.formatDate = match[0].replace(/-/g , '/');
-
-    //         LP.compile( 'node-item-template' , 
-    //             node , 
-    //             function( html ){
-    //                 aHtml.push( html );
-
-    //                 if( index == nodes.length - 1 ){
-    //                     // render html
-    //                     $main.append(aHtml.join(''))
-    //                         .trigger('item-width')
-    //                         .trigger('item-reversal');
-    //                 }
-    //             } );
-
-    //     } );
-    // });
-
 
     // fix window resize event
     // resize item width
@@ -413,43 +253,41 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                     nodeActions.setItemIsotope( $userCom );
                 } , 500);
             }
-
-
         } , 200);
     })
-        .scroll(function(){
-            // if is ajaxing the scroll data
-            if( _scrollAjax ) return;
-            // if scroll to the botton of the window
-            // ajax the next datas
-            var st = $(window).scrollTop();
-            var bodyHeight = $(document.body).height();
-            var winHeight = $(window).height();
-            if( bodyHeight - winHeight - st < 100 ){
-                // fix main element
-                // it must visible and in main element has unreversaled node
-                if( $main.is(':visible') && !$main.find('.main-item:not(.time-item,.reversal)').length ){
-                    _scrollAjax = true;
-                    var pageIndex = $main.data('page-index');
-                    pageIndex ++;
-                    $main.data('page-index', pageIndex);
-                    api.ajax('recent' , {page: pageIndex} , function( result ){
-                        nodeActions.inserNode( $main , result.data );
-                        _scrollAjax = false;
-                    });
-                }
-                // fix user page element
-                var $userCom = $('.user-page .count-com');
-                // it must visible and in main element has unreversaled node
-                if( $('.user-page').is(':visible') && !$userCom.find('.main-item:not(.time-item,.reversal)').length ){
-                    _scrollAjax = true;
-                    api.ajax('userNode' , {nid: 10} , function( result ){
-                        nodeActions.inserNode( $userCom , result.data );
-                        _scrollAjax = false;
-                    });
-                }
+    .scroll(function(){
+        // if is ajaxing the scroll data
+        if( _scrollAjax ) return;
+        // if scroll to the botton of the window
+        // ajax the next datas
+        var st = $(window).scrollTop();
+        var bodyHeight = $(document.body).height();
+        var winHeight = $(window).height();
+        if( bodyHeight - winHeight - st < 100 ){
+            // fix main element
+            // it must visible and in main element has unreversaled node
+            if( $main.is(':visible') && !$main.find('.main-item:not(.time-item,.reversal)').length ){
+                _scrollAjax = true;
+                var pageIndex = $main.data('page-index');
+                var param = $main.data('param');
+                $main.data('page-index', ++pageIndex);
+                api.ajax('recent' , $.extend( {page: pageIndex} , param ) , function( result ){
+                    nodeActions.inserNode( $main , result.data , param.orderby == 'datetime' );
+                    _scrollAjax = false;
+                });
             }
-        });
+            // fix user page element
+            var $userCom = $('.user-page .count-com');
+            // it must visible and in main element has unreversaled node
+            if( $('.user-page').is(':visible') && !$userCom.find('.main-item:not(.time-item,.reversal)').length ){
+                _scrollAjax = true;
+                api.ajax('userNode' , {nid: 10} , function( result ){
+                    nodeActions.inserNode( $userCom , result.data , true );
+                    _scrollAjax = false;
+                });
+            }
+        }
+    });
 
 
 
@@ -471,7 +309,6 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
     });
 
     // view node action
-
     var _silderWidth = 120;
     var _animateTime = 600;
     var _animateEasing = 'linear';
@@ -720,8 +557,9 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         var node = nodes[ _currentNodeIndex ];
         if( !node ){
             // TODO..  ajax to get more node
+            var param = $main.data('param');
             api.ajax('nodeList' , {nid: nodes[ _currentNodeIndex - 1 ].nid} , function( result ){
-                nodeActions.inserNode( $main , result.data );
+                nodeActions.inserNode( $main , result.data , param.orderby == 'datetime' );
                 cubeInnerNode( $main.data('nodes')[ _currentNodeIndex ] , 'right' );
                 preLoadSiblings();
             });
@@ -920,8 +758,9 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             if(result.success) {
                 //TODO: insert the content to photo wall instead of refresh
                 $main.html('');
+                var param = $main.data('param');
                 api.ajax('recent' , function( result ){
-                    nodeActions.inserNode( $main , result.data );
+                    nodeActions.inserNode( $main , result.data , param.orderby == 'datetime' );
                 });
 
                 $('.pop-inner').fadeOut(400);
@@ -943,7 +782,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                 var $countCom = $(this).find('.count-com');
                 if( !$countCom.children().length ){
                     api.ajax('userNode' , {uid: data.uid } , function( result ){
-                        nodeActions.inserNode( $countCom , result.data );
+                        nodeActions.inserNode( $countCom , result.data , true );
                     });
                 }
             });
@@ -1009,9 +848,9 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         // after page load , load the recent data from server
         var pageParam = {pagenum:page_num, orderby: 'datetime'};
         $main.data('param', pageParam);
-        $main.data('page-index', 0);
+        $main.data('page-index', 1);
         api.ajax('recent', pageParam, function( result ){
-            nodeActions.inserNode( $main , result.data );
+            nodeActions.inserNode( $main , result.data , pageParam.orderby == 'datetime' );
         });
 
         // after page load , load the current user information data from server
