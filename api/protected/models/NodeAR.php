@@ -99,10 +99,10 @@ class NodeAR extends CActiveRecord{
     $hashtags = $this->getHashTag();
     // 在添加时 需要制定一个默认的 status = publichsed
     if (!$this->{$this->getPrimaryKey()}) {
-      $this->setAttribute("status", self::PUBLICHSED);  
+        $this->setAttribute("status", self::PUBLICHSED);
+        $this->setAttribute("datetime", time());
     }
     $this->setAttribute("hashtag", serialize($hashtags));
-    $this->setAttribute("datetime", time());
     
     return TRUE;
   }

@@ -25,12 +25,15 @@ angular.module('SGWallAdmin.filters', [])
             return output;
         }
     })
-    .filter('thumbnail', function() {
+    .filter('thumbnail', function(ROOT_FOLDER) {
         return function(input) {
             var output = input;
             if(input.indexOf('mp4') > 0) {
-                output = input.replace('mp4','jpg');
+                output = input.replace('.mp4','_400_400.jpg');
             }
-            return output;
+            else {
+                output = input.replace('.jpg','_400_400.jpg');
+            }
+            return ROOT_FOLDER + output;
         }
     });

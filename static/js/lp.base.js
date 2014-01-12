@@ -38,6 +38,12 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                 //.stop( true , false )
                 .fadeOut( 500 );
         })
+        .delegate('.search-ipt' , 'keypress' , function(ev){
+            switch( ev.which ){
+                case 13: // enter
+                    LP.triggerAction('search');
+            }
+        })
 
         // for select options
         .delegate('.select-option p' , 'click' , function(){
@@ -431,9 +437,11 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                 if( $main.is(':visible') && !$main.find('.main-item:not(.time-item,.reversal)').length ){
                     _scrollAjax = true;
                     var pageIndex = $main.data('page-index');
+                    var pageParm = $main.data('param');
                     pageIndex ++;
+                    var param = $.extend({page:pageIndex}, pageParm);
                     $main.data('page-index', pageIndex);
-                    api.ajax('recent' , {page: pageIndex} , function( result ){
+                    api.ajax('recent' , param , function( result ){
                         nodeActions.inserNode( $main , result.data );
                         _scrollAjax = false;
                     });
@@ -980,6 +988,19 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         $('.count-userinfo').removeClass('count-userinfo-edit');
     });
 
+    //save user updates
+    LP.action('search' , function(){
+        var hashtag = $('.search-ipt').val();
+        $main.fadeOut(400,function(){
+            LP.triggerAction('close_user_page');
+            $main.html('');
+            $main.data('nodes','');
+            api.ajax('recent', {hashtag:hashtag, pagenum:100} , function( result ){
+                nodeActions.inserNode( $main.fadeIn() , result.data );
+            });
+        });
+    });
+
     //after selected photo
 //    $('#file-photo').change(function(){
 //        $('.pop-file .step1-btns').fadeOut(400);
@@ -1009,7 +1030,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         // after page load , load the recent data from server
         var pageParam = {pagenum:page_num, orderby: 'datetime'};
         $main.data('param', pageParam);
-        $main.data('page-index', 0);
+        $main.data('page-index', 1);
         api.ajax('recent', pageParam, function( result ){
             nodeActions.inserNode( $main , result.data );
         });
