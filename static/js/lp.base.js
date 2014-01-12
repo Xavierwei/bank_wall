@@ -67,7 +67,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                 $main.html('');
                 $main.data('nodes','');
                 api.ajax(filter, pageParam , function( result ){
-                    nodeActions.inserNode( $main.fadeIn() , result.data , pageParam.orderby == 'datetime' );
+                    nodeActions.inserNode( $main.show() , result.data , pageParam.orderby == 'datetime' );
                 });
             });
 
@@ -183,7 +183,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                     .height( itemWidth );
                 setTimeout(function(){
                     nodeActions.setItemReversal( $dom );
-                } , 400);
+                } , 500);
             }
             // if esist node , which is not reversaled , do the animation
             if( $nodes.length ){
@@ -834,7 +834,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             $main.data('nodes','');
             var param = refreshQuery();
             api.ajax('recent', param , function( result ){
-                nodeActions.inserNode( $main.fadeIn() , result.data , param.orderby == 'datetime');
+                nodeActions.inserNode( $main.show() , result.data , param.orderby == 'datetime');
             });
         });
     });
@@ -880,6 +880,10 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         $main.data('param' , $.extend( param , query || {} ) );
 
         return $main.data('param');
+    }
+
+    var renderMainPageIndex = function( ){
+
     }
 
     var init = function() {
