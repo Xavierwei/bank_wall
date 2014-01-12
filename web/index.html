@@ -17,8 +17,8 @@
 		<div class="logo"></div>
 		<!--  -->
 		<div class="search clear">
-			<input class="search-ipt" type="text" placeholder="#HASHTAG" />
-			<input class="search-sub" type="submit" value="search" />
+			<input class="search-ipt" name="hashtag" type="text" placeholder="#HASHTAG" />
+			<input data-a="search" class="search-sub" type="submit" value="search" />
 		</div>
 		<!--  -->
 		<div class="select clear">
@@ -26,21 +26,21 @@
 			<div class="select-item">
 				<div class="select-box">Country</div>
 				<div class="select-pop" style="display:none">
-					<div class="select-option"><p data-api="recent">France</p><p data-api="recent">Sweden</p><p data-api="recent">Switzerland</p><p data-api="recent">Italy</p><p data-api="recent">Portugal</p></div>
+					<div class="select-option"><p data-api="recent" data-param="country=France">France</p><p data-api="recent" data-param="country=Sweden">Sweden</p><p data-api="recent" data-param="country=Switzerland">Switzerland</p><p data-api="recent" data-param="country=Italy">Italy</p><p data-api="recent" data-param="country=Portugal">Portugal</p></div>
 				</div>
 			</div>
 			<!--  -->
 			<div class="select-item">
 				<div class="select-box" >Recent</div>
 				<div class="select-pop" style="display:none">
-					<div class="select-option"><p data-api="recent" data-param="orderby=datetime">Recent</p><p data-api="recent" data-param="orderby=like">Popular</p><p data-api="recent" data-param="orderby=random">Random</p></div>
+					<div class="select-option"><p data-api="recent" class="selected" data-param="orderby=datetime">Recent</p><p data-api="recent" data-param="orderby=like">Popular</p><p data-api="recent" data-param="orderby=random">Random</p></div>
 				</div>
 			</div>
 			<!--  -->
 			<div class="select-item">
 				<div class="select-box">Type</div>
 				<div class="select-pop" style="display:none">
-					<div class="select-option"><p data-api="recent" data-param="type=all">All</p><p data-api="recent" data-param="type=photo">Photo</p><p data-api="recent" data-param="type=video">Video</p></div>
+					<div class="select-option"><p data-api="recent">All</p><p data-api="recent" data-param="type=photo">Photo</p><p data-api="recent" data-param="type=video">Video</p></div>
 				</div>
 			</div>
 		</div>

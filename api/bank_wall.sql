@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 06, 2014 at 02:32 PM
+-- Generation Time: Jan 12, 2014 at 07:54 AM
 -- Server version: 5.5.33
 -- PHP Version: 5.5.3
 
@@ -33,7 +33,7 @@ CREATE TABLE `comment` (
   `datetime` int(11) DEFAULT NULL,
   `nid` int(11) DEFAULT '0',
   PRIMARY KEY (`cid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `comment`
@@ -43,7 +43,18 @@ INSERT INTO `comment` (`cid`, `uid`, `content`, `datetime`, `nid`) VALUES
 (2, 12, 'I am at #Starbar and work for #Shanghai Company', NULL, 1),
 (3, 12, 'I am at #Starbar and work for #Shanghai Company', NULL, 1),
 (4, 12, 'I am at #Starbar and work for #Shanghai Company', 1388271018, 1),
-(5, 12, 'I am at #Starbar and work for #Shanghai Company', 1388271027, 1);
+(5, 12, 'I am at #Starbar and work for #Shanghai Company', 1388271027, 1),
+(6, 12, 'test', 1389423952, 21),
+(7, 12, 'fsdf', 1389425642, 21),
+(8, 12, 'fsdf', 1389425696, 21),
+(9, 12, 'OK!', 1389425860, 21),
+(10, 12, 'fds', 1389425941, 21),
+(11, 12, 'fsdf', 1389426073, 21),
+(12, 12, 'fsdf', 1389426074, 21),
+(13, 12, 'fsdf', 1389426108, 21),
+(14, 12, 'fsdf', 1389426108, 21),
+(15, 12, 'fsd', 1389426150, 21),
+(16, 12, 'ccc', 1389450693, 25);
 
 -- --------------------------------------------------------
 
@@ -64,8 +75,8 @@ CREATE TABLE `country` (
 --
 
 INSERT INTO `country` (`country_id`, `country_name`, `code`, `flag_icon`) VALUES
-(1, 'China', 'cn', '/images/country/cn.png'),
-(3, 'Japanese', 'ja', 'flag');
+(1, 'France', 'fr', '/images/country/fr.png'),
+(2, 'China', 'cn', 'flag');
 
 -- --------------------------------------------------------
 
@@ -117,7 +128,7 @@ CREATE TABLE `like` (
   `uid` int(15) DEFAULT NULL,
   `datetime` int(15) DEFAULT NULL,
   PRIMARY KEY (`like_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data for table `like`
@@ -134,7 +145,12 @@ INSERT INTO `like` (`like_id`, `nid`, `uid`, `datetime`) VALUES
 (8, 2, 12, 1388263625),
 (11, 1, 12, 1388264144),
 (12, 1, 12, 1388264146),
-(13, 1, 12, 1388270972);
+(13, 1, 12, 1388270972),
+(14, 21, 12, 1389426331),
+(15, 22, 12, 1389426466),
+(16, 194, 12, 1389499163),
+(17, 185, 12, 1389499316),
+(18, 122, 12, 1389499469);
 
 -- --------------------------------------------------------
 
@@ -153,17 +169,117 @@ CREATE TABLE `node` (
   `description` text,
   `status` int(11) DEFAULT '0',
   PRIMARY KEY (`nid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=195 ;
 
 --
 -- Dumping data for table `node`
 --
 
 INSERT INTO `node` (`nid`, `uid`, `country_id`, `type`, `file`, `datetime`, `hashtag`, `description`, `status`) VALUES
-(21, 12, 1, 'video', '/uploads/v21.mp4', 1388585234, 'a:2:{i:0;s:8:"#Starbar";i:1;s:9:"#Shanghai";}', 'I am at #Starbar and work for #Shanghai Company', 1),
-(22, 12, 1, 'photo', '/uploads/p22.png', 1388844732, 'a:0:{}', 'I am from test', 1),
-(23, 12, 1, 'photo', '/uploads/p23.jpg', 1388892654, 'a:0:{}', 'fffff', 1),
-(24, 12, 1, 'photo', 'photo/1.jpg', 1364523465, 'a:2:{i:0;s:8:"#Starbar";i:1;s:9:"#Shanghai";}', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam', 1);
+(62, 12, 1, 'photo', '/uploads/p62.jpg', 1389489709, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(63, 12, 1, 'photo', '/uploads/p63.jpg', 1389489716, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(64, 12, 1, 'photo', '/uploads/p64.jpg', 1389489721, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(65, 12, 1, 'photo', '/uploads/p65.jpg', 1389489727, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(66, 12, 1, 'photo', '/uploads/p66.jpg', 1389489731, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(67, 12, 1, 'photo', '/uploads/p67.jpg', 1389489736, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(68, 12, 1, 'photo', '/uploads/p68.jpg', 1389489742, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(69, 12, 1, 'photo', '/uploads/p69.jpg', 1389489747, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(70, 12, 1, 'photo', '/uploads/p70.jpg', 1389489751, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(71, 12, 1, 'photo', '/uploads/p71.jpg', 1389489755, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(72, 12, 1, 'photo', '/uploads/p72.jpg', 1389489760, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(73, 12, 1, 'photo', '/uploads/p73.jpg', 1389489765, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(74, 12, 1, 'photo', '/uploads/p74.jpg', 1389489770, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(75, 12, 1, 'photo', '/uploads/p75.jpg', 1389489775, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(76, 12, 1, 'photo', '/uploads/p76.jpg', 1389489779, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(77, 12, 1, 'photo', '/uploads/p77.jpg', 1389489784, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(78, 12, 1, 'photo', '/uploads/p78.jpg', 1389489789, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(79, 12, 1, 'photo', '/uploads/p79.jpg', 1389489796, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(80, 12, 1, 'photo', '/uploads/p80.jpg', 1389489799, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(81, 12, 1, 'photo', '/uploads/p81.jpg', 1389489803, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(82, 12, 1, 'photo', '/uploads/p82.jpg', 1389489806, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(83, 12, 1, 'photo', '/uploads/p83.jpg', 1389489809, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(84, 12, 1, 'photo', '/uploads/p84.jpg', 1389489813, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(85, 12, 1, 'photo', '/uploads/p85.jpg', 1389489817, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(86, 12, 1, 'photo', '/uploads/p86.jpg', 1389489821, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(87, 12, 1, 'photo', '/uploads/p87.jpg', 1389489824, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(88, 12, 1, 'photo', '/uploads/p88.jpg', 1389489831, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(89, 12, 1, 'photo', '/uploads/p89.jpg', 1389489835, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(90, 12, 1, 'photo', '/uploads/p90.jpg', 1389489838, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(91, 12, 1, 'photo', '/uploads/p91.jpg', 1389489843, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(92, 12, 1, 'photo', '/uploads/p92.jpg', 1389489846, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(93, 12, 1, 'photo', '/uploads/p93.jpg', 1389489849, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(94, 12, 1, 'photo', '/uploads/p94.jpg', 1389489854, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(95, 12, 1, 'photo', '/uploads/p95.jpg', 1389489857, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(96, 12, 1, 'photo', '/uploads/p96.jpg', 1389489862, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(97, 12, 1, 'photo', '/uploads/p97.jpg', 1389489865, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(98, 12, 1, 'photo', '/uploads/p98.jpg', 1389489869, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(99, 12, 1, 'photo', '/uploads/p99.jpg', 1389489876, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(100, 12, 1, 'photo', '/uploads/p100.jpg', 1389489880, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(101, 12, 1, 'photo', '/uploads/p101.jpg', 1389489883, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(102, 12, 1, 'photo', '/uploads/p102.jpg', 1389489887, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(103, 12, 1, 'photo', '/uploads/p103.jpg', 1389489890, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(104, 12, 1, 'photo', '/uploads/p104.jpg', 1389489894, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(105, 12, 1, 'photo', '/uploads/p105.jpg', 1389489897, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(106, 12, 1, 'photo', '/uploads/p106.jpg', 1389489900, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(107, 12, 1, 'photo', '/uploads/p107.jpg', 1389489904, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(108, 12, 1, 'photo', '/uploads/p108.jpg', 1389489908, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(109, 12, 1, 'photo', '/uploads/p109.jpg', 1389489912, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(110, 12, 1, 'photo', '/uploads/p110.jpg', 1389490088, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(111, 12, 1, 'photo', '/uploads/p111.jpg', 1389490093, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(112, 12, 1, 'photo', '/uploads/p112.jpg', 1389490096, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(113, 12, 1, 'photo', '/uploads/p113.jpg', 1389490099, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(114, 12, 1, 'photo', '/uploads/p114.jpg', 1389490103, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(115, 12, 1, 'photo', '/uploads/p115.jpg', 1389490106, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(116, 12, 1, 'photo', '/uploads/p116.jpg', 1389490109, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(117, 12, 1, 'photo', '/uploads/p117.jpg', 1389490113, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(118, 12, 1, 'photo', '/uploads/p118.jpg', 1389490116, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(119, 12, 1, 'photo', '/uploads/p119.jpg', 1389490120, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(120, 12, 1, 'photo', '/uploads/p120.jpg', 1389490124, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(121, 12, 1, 'video', '/uploads/v121.mp4', 1389490986, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(122, 12, 1, 'video', '/uploads/v122.mp4', 1389491072, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(123, 12, 1, 'video', '/uploads/v123.mp4', 1389491201, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(124, 12, 1, 'video', '/uploads/v124.mp4', 1389491249, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(125, 12, 1, 'video', '/uploads/v125.mp4', 1389493079, 'a:0:{}', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1),
+(155, 12, 1, 'photo', '/uploads/p155.jpg', 1389496804, 'a:0:{}', NULL, 1),
+(156, 12, 1, 'photo', '/uploads/p156.jpg', 1389496808, 'a:0:{}', NULL, 1),
+(157, 12, 1, 'photo', '/uploads/p157.jpg', 1389496811, 'a:0:{}', NULL, 1),
+(158, 12, 1, 'photo', '/uploads/p158.jpg', 1389496816, 'a:0:{}', NULL, 1),
+(159, 12, 1, 'photo', '/uploads/p159.jpg', 1389496820, 'a:0:{}', NULL, 1),
+(160, 12, 1, 'photo', '/uploads/p160.jpg', 1389496824, 'a:0:{}', NULL, 1),
+(161, 12, 1, 'photo', '/uploads/p161.jpg', 1389496829, 'a:0:{}', NULL, 1),
+(162, 12, 1, 'photo', '/uploads/p162.jpg', 1389496835, 'a:0:{}', NULL, 1),
+(163, 12, 1, 'photo', '/uploads/p163.jpg', 1389496838, 'a:0:{}', NULL, 1),
+(164, 12, 1, 'photo', '/uploads/p164.jpg', 1389496842, 'a:0:{}', NULL, 1),
+(165, 12, 1, 'photo', '/uploads/p165.jpg', 1389496848, 'a:0:{}', NULL, 1),
+(166, 12, 1, 'photo', '/uploads/p166.jpg', 1389496851, 'a:0:{}', NULL, 1),
+(167, 12, 1, 'photo', '/uploads/p167.jpg', 1389496855, 'a:0:{}', NULL, 1),
+(168, 12, 1, 'video', '/uploads/v168.mp4', 1389496865, 'a:0:{}', NULL, 1),
+(169, 12, 1, 'photo', '/uploads/p169.jpg', 1389496892, 'a:0:{}', NULL, 1),
+(170, 12, 1, 'photo', '/uploads/p170.jpg', 1389496897, 'a:0:{}', NULL, 1),
+(171, 12, 1, 'photo', '/uploads/p171.jpg', 1389496900, 'a:0:{}', NULL, 1),
+(172, 12, 1, 'photo', '/uploads/p172.jpg', 1389496904, 'a:0:{}', NULL, 1),
+(173, 12, 1, 'photo', '/uploads/p173.jpg', 1389496907, 'a:0:{}', NULL, 1),
+(174, 12, 1, 'photo', '/uploads/p174.jpg', 1389496916, 'a:0:{}', NULL, 1),
+(175, 12, 1, 'photo', '/uploads/p175.jpg', 1389496920, 'a:0:{}', NULL, 1),
+(176, 12, 1, 'photo', '/uploads/p176.jpg', 1389496931, 'a:0:{}', NULL, 1),
+(177, 12, 1, 'photo', '/uploads/p177.jpg', 1389496934, 'a:0:{}', NULL, 1),
+(178, 12, 1, 'photo', '/uploads/p178.jpg', 1389496943, 'a:0:{}', NULL, 1),
+(179, 12, 1, 'photo', '/uploads/p179.jpg', 1389496948, 'a:0:{}', NULL, 1),
+(180, 12, 1, 'photo', '/uploads/p180.jpg', 1389496953, 'a:0:{}', NULL, 1),
+(181, 12, 1, 'photo', '/uploads/p181.jpg', 1389496998, 'a:0:{}', NULL, 1),
+(182, 12, 1, 'photo', '/uploads/p182.jpg', 1389497012, 'a:0:{}', NULL, 1),
+(183, 12, 1, 'photo', '/uploads/p183.jpg', 1389497061, 'a:0:{}', NULL, 1),
+(184, 12, 1, 'photo', '/uploads/p184.jpg', 1389497080, 'a:0:{}', NULL, 1),
+(185, 12, 1, 'photo', '/uploads/p185.jpg', 1389497114, 'a:0:{}', NULL, 1),
+(186, 12, 1, 'photo', '/uploads/p186.jpg', 1389497134, 'a:0:{}', NULL, 1),
+(187, 12, 1, 'photo', '/uploads/p187.jpg', 1389497166, 'a:0:{}', NULL, 1),
+(188, 12, 1, 'photo', '/uploads/p188.jpg', 1389497240, 'a:0:{}', NULL, 1),
+(189, 12, 1, 'photo', '/uploads/p189.jpg', 1389497333, 'a:0:{}', NULL, 1),
+(190, 12, 1, 'photo', '/uploads/p190.jpg', 1389497404, 'a:0:{}', NULL, 1),
+(191, 12, 1, 'photo', '/uploads/p191.jpg', 1389497413, 'a:0:{}', NULL, 1),
+(192, 12, 1, 'photo', '/uploads/p192.jpg', 1389497464, 'a:0:{}', NULL, 1),
+(193, 12, 1, 'photo', '/uploads/p193.jpg', 1389497478, 'a:0:{}', NULL, 1),
+(194, 12, 1, 'photo', '/uploads/p194.jpg', 1389497500, 'a:0:{}', NULL, 1);
 
 -- --------------------------------------------------------
 

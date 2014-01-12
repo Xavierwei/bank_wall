@@ -4,7 +4,7 @@
         <div class="type icon-{{node.type}}">{{node.type}}</div>
         <div class="user">
             <div class="avatar"><img ng-src="{{node.user.avatar}}" width="40" height="40" /></div>
-            <div class="date">{{node.datetime | date:'MMM d, y HH:mm a'}}</div>
+            <div class="date">{{node.datetime*1000 | date:'MMM d, y HH:mm a'}}</div>
             <div class="name"><strong>{{node.user.firstname}} {{node.user.lastname}}</strong></div>
         </div>
         <div class="clear"></div>

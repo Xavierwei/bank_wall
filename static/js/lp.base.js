@@ -25,7 +25,6 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         }
     })();
 
-
     // live for pic-item hover event
     $(document.body)
         .delegate('.pic-item' , 'mouseenter' , function(){
@@ -38,27 +37,29 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                 //.stop( true , false )
                 .fadeOut( 500 );
         })
+        .delegate('.search-ipt' , 'keypress' , function(ev){
+            switch( ev.which ){
+                case 13: // enter
+                    LP.triggerAction('search');
+            }
+        })
 
         // for select options
         .delegate('.select-option p' , 'click' , function(){
-            var filter = $(this).data('api');
-            var param = LP.query2json($(this).data('param'));
-            var pageParam = {};
-            if($main.data('param')) {
-                pageParam = $main.data('param');
-            }
-            $.each(param, function(key, value){
-                if(value == 'all') {
-                    delete pageParam[key];
-                }
-                else {
-                    pageParam[key] = value;
-                }
-            });
-            $main.data('param', pageParam);
-            $(this).closest('.select-pop')
+            $(this)
+                // add selected class
+                .addClass('selected')
+                // remove sibling class
+                .siblings()
+                .removeClass('selected')
+                .end()
+                .closest('.select-pop')
                 .prev()
                 .html( $(this).html() );
+
+            // refresh main query parameter
+            var pageParam = refreshQuery();
+            var filter = $(this).data('api');
             //TODO: loading animation
 
             $main.fadeOut(400,function(){
@@ -96,7 +97,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
     var nodeActions = {
         // when current dom is main , and the recent ajax param orderby is 'like' or
         // 'random' , the datetime would not be showed.
-        // TODO:  pageParm.orderby == 'like' || pageParm.orderby == 'random' 此时不显示日历
+        // pageParm.orderby == 'like' || pageParm.orderby == 'random' 此时不显示日历
         inserNode: function( $dom , nodes , bShowDate ){
             var aHtml = [];
             var lastDate = null;
@@ -171,10 +172,6 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             // if has time items, it means it needs to reversal from last node-item element
             // which is not be resersaled
             var $nodes = $dom.find('.pic-item:not(.reversal)');
-            // var $timeItem = $dom.find('.time-item:not(.opened)').eq(0)
-            //     .width( itemWidth )
-            //     .height( itemWidth );
-            // var $itemPics = $timeItem.nextUntil('.time-item');
 
             var startAnimate = function( $node ){
                 $node.addClass('reversal')
@@ -188,6 +185,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                     nodeActions.setItemReversal( $dom );
                 } , 400);
             }
+            // if esist node , which is not reversaled , do the animation
             if( $nodes.length ){
                 var $img = $nodes.eq(0)
                     .find('img');
@@ -198,6 +196,8 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                         startAnimate( $nodes.eq(0) );
                     });
                 }
+            } else { // judge if need to load next page 
+                $(window).trigger('scroll');
             }
         },
         // set items auto fix it's width
@@ -261,19 +261,22 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         // if scroll to the botton of the window
         // ajax the next datas
         var st = $(window).scrollTop();
-        var bodyHeight = $(document.body).height();
-        var winHeight = $(window).height();
-        if( bodyHeight - winHeight - st < 100 ){
+        var docHeight = $(document).height();
+        var winHeight = document.body.clientHeight;
+        if( docHeight - winHeight - st < 100 ){
+            
             // fix main element
             // it must visible and in main element has unreversaled node
             if( $main.is(':visible') && !$main.find('.main-item:not(.time-item,.reversal)').length ){
                 _scrollAjax = true;
-                var pageIndex = $main.data('page-index');
                 var param = $main.data('param');
-                $main.data('page-index', ++pageIndex);
-                api.ajax('recent' , $.extend( {page: pageIndex} , param ) , function( result ){
-                    nodeActions.inserNode( $main , result.data , param.orderby == 'datetime' );
+                param.page++;
+                $main.data('param' , param);
+                api.ajax('recent' , param , function( result ){
+                    nodeActions.inserNode( $main , result.data , param.orderby == 'datetime');
                     _scrollAjax = false;
+
+                    // TODO:: no more data tip
                 });
             }
             // fix user page element
@@ -284,7 +287,12 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                 api.ajax('userNode' , {nid: 10} , function( result ){
                     nodeActions.inserNode( $userCom , result.data , true );
                     _scrollAjax = false;
+
+                    // TODO:: no more data tip
                 });
+            }
+            if( _scrollAjax ){
+                // TODO: loading animation
             }
         }
     });
@@ -451,8 +459,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                 $nextComment
                     .removeClass(cubeDir);
                 setTimeout(function(){
-                    $cube.removeClass( 'no-animate' )
-                    ;
+                    $cube.removeClass( 'no-animate' );
                 },0);
 
                 $inner.removeClass('disabled');
@@ -538,11 +545,8 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         $('.inner').addClass('disabled');
 
         _currentNodeIndex -= 1;
-
         var node = $main.data('nodes')[ _currentNodeIndex ];
-
         cubeInnerNode( node , 'left' );
-
         preLoadSiblings();
     });
 
@@ -558,6 +562,8 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         if( !node ){
             // TODO..  ajax to get more node
             var param = $main.data('param');
+            param.page++;
+            $main.data('param' , param);
             api.ajax('nodeList' , {nid: nodes[ _currentNodeIndex - 1 ].nid} , function( result ){
                 nodeActions.inserNode( $main , result.data , param.orderby == 'datetime' );
                 cubeInnerNode( $main.data('nodes')[ _currentNodeIndex ] , 'right' );
@@ -819,6 +825,20 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         $('.count-userinfo').removeClass('count-userinfo-edit');
     });
 
+    //save user updates
+    LP.action('search' , function(){
+        var hashtag = $('.search-ipt').val();
+        $main.fadeOut(400,function(){
+            LP.triggerAction('close_user_page');
+            $main.html('');
+            $main.data('nodes','');
+            var param = refreshQuery();
+            api.ajax('recent', param , function( result ){
+                nodeActions.inserNode( $main.fadeIn() , result.data , param.orderby == 'datetime');
+            });
+        });
+    });
+
     //after selected photo
 //    $('#file-photo').change(function(){
 //        $('.pop-file .step1-btns').fadeOut(400);
@@ -844,11 +864,28 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
     });
 
 
+    // get all query parameter
+    var refreshQuery = function( query ){
+        // get search value
+        var $searchInput = $('.search-ipt');
+        var param = { page: 1 , pagenum: 20 };
+        param [ $searchInput.attr('name') ] = $searchInput.val();
+
+        // get select options
+        $('.header .select').find('.select-option p.selected')
+            .each( function(){
+                param = $.extend( param , LP.query2json( $(this).data('param') ) );
+            } );
+
+        $main.data('param' , $.extend( param , query || {} ) );
+
+        return $main.data('param');
+    }
+
     var init = function() {
+
         // after page load , load the recent data from server
-        var pageParam = {pagenum:page_num, orderby: 'datetime'};
-        $main.data('param', pageParam);
-        $main.data('page-index', 1);
+        var pageParam = refreshQuery();
         api.ajax('recent', pageParam, function( result ){
             nodeActions.inserNode( $main , result.data , pageParam.orderby == 'datetime' );
         });
