@@ -8340,3 +8340,803 @@ in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
 in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
 in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
 in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:21:49 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:21:49 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:21:49 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:21:56 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:21:56 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:21:56 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:01 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:01 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:01 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:07 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:07 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:07 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:11 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:11 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:11 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:16 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:16 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:16 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:22 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:22 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:22 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:27 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:27 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:27 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:31 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:31 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:31 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:35 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:35 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:35 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:40 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:40 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:40 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:45 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:45 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:45 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:50 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:50 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:50 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:55 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:55 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:55 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:59 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:59 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:22:59 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:04 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:04 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:04 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:09 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:09 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:09 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:16 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:16 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:16 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:19 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:19 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:19 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:23 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:23 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:23 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:26 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:26 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:26 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:29 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:29 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:29 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:33 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:33 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:33 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:37 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:37 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:37 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:41 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:41 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:41 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:44 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:44 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:44 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:51 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:51 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:51 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:55 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:55 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:55 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:58 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:58 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:23:58 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:03 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:03 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:03 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:06 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:06 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:06 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:09 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:09 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:09 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:14 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:14 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:14 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:17 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:17 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:17 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:22 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:22 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:22 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:25 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:25 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:25 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:29 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:29 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:29 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:36 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:36 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:36 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:40 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:40 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:40 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:43 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:43 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:43 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:47 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:47 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:47 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:50 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:50 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:50 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:54 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:54 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:54 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:57 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:57 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:24:57 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:25:00 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:25:00 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:25:00 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:25:04 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:25:04 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:25:04 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:25:08 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:25:08 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:25:08 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:25:12 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:25:12 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:25:12 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:28:08 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:28:08 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:28:08 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:28:13 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:28:13 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:28:13 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:28:16 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:28:16 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:28:16 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:28:19 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:28:19 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:28:19 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:28:23 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:28:23 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:28:23 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:28:26 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:28:26 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:28:26 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:28:29 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:28:29 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:28:29 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:28:33 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:28:33 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:28:33 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:28:36 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:28:36 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:28:36 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:28:40 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:28:40 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:28:40 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:28:44 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:28:44 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:28:44 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:42:21 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:42:21 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:42:21 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:42:21 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php:128) (/Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php:153)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/v121_400_400.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php (153)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php (32)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:44:01 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:44:01 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:44:01 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:44:01 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php:128) (/Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php:153)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/v122_400_400.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php (153)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php (32)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:46:20 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:46:20 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:46:20 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:46:20 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php:128) (/Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php:153)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/v123_400_400.jpg?1389491180229
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php (153)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php (32)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:47:29 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:47:29 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:47:29 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (162)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/12 02:47:30 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php:128) (/Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php:153)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/v124_400_400.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php (153)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php (32)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)

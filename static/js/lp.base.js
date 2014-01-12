@@ -5,6 +5,8 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
     'use strict'
 
     var API_FOLDER = "../api";
+    var THUMBNAIL_IMG_SIZE = "_400_400";
+    var BIG_IMG_SIZE = "_800_800";
 
     // get english month
     // TODO .... need I18
@@ -463,7 +465,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         var datetime = new Date(node.datetime*1000);
         node.date = datetime.getDate();
         node.month = getMonth((parseInt(datetime.getMonth()) + 1));
-        node.image = node.file.replace('.jpg','_600_600.jpg');
+        node.image = node.file.replace('.jpg', BIG_IMG_SIZE + '.jpg');
 
         LP.compile( 'inner-template' , node , function( html ){
             var mainWidth = winWidth - _silderWidth;
@@ -613,7 +615,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             // append dom
             var $oriImage = $imgWrap.children('img');
             var $newImage = $('<img/>')[ direction == 'left' ? 'insertBefore' : 'insertAfter' ]( $oriImage )
-                .attr('src' , API_FOLDER+node.file.replace('.jpg','_600_600.jpg'));
+                .attr('src' , API_FOLDER+node.file.replace('.jpg', BIG_IMG_SIZE + '.jpg'));
             // set style and animation
             $imgWrap.children('img').css({
                 width: wrapWidth
@@ -828,15 +830,20 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                         $('.popload-percent p').css({width:rate + '%'});
                     })
                     .bind('fileuploaddone', function (e, data) {
-                        if(type == 'video') {
-                            $('.poptxt-pic img').attr('src', API_FOLDER + data.result.data.file.replace('.mp4','_400_400.jpg'));
+                        console.log(data);
+                        if(data.result.data.type == 'video') {
+                            $('.poptxt-pic img').attr('src', API_FOLDER + data.result.data.file.replace('.mp4', THUMBNAIL_IMG_SIZE + '.jpg'));
+                            setTimeout(function(){
+                                var timestamp = new Date().getTime();
+                                $('.poptxt-pic img').attr('src',$('.poptxt-pic img').attr('src') + '?' +timestamp );
+                            },2000);
                             $('.poptxt-submit').attr('data-d','nid=' + data.result.data.nid);
                             $('.pop-inner').fadeOut(400);
                             $('.pop-inner').delay(400).fadeOut(400);
                             $('.pop-txt').delay(800).fadeIn(400);
                         }
                         else {
-                            $('.poptxt-pic img').attr('src', API_FOLDER + data.result.data.file.replace('.jpg','_400_400.jpg'));
+                            $('.poptxt-pic img').attr('src', API_FOLDER + data.result.data.file.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg'));
                             $('.poptxt-submit').attr('data-d','nid=' + data.result.data.nid);
 //                            $('.pop-file .step1-btns').fadeOut(400);
 //                            $('.pop-file .step2-btns').delay(400).fadeIn(400);

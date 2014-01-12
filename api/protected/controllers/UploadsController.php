@@ -125,7 +125,6 @@ class UploadsController extends Controller {
     // 做个检查
     if (!file_exists($absscreenImagePath)) {
       exec("ffmpeg -i $absvideoPath -ss 0.5 -t 1 -f image2 ".$absscreenImagePath. " 2>&1", $output, $status);
-      print_r($output);
       // 成功了
       if ($status) {
         // nothing
@@ -136,26 +135,30 @@ class UploadsController extends Controller {
         die();
       }
     }
-    
-    // 生成缩略图
-    $thumb = new EasyImage($absscreenImagePath);
-    
-    $size = getimagesize($absscreenImagePath);
-    
-    //TODO:: 这里需要更复杂点的 缩略图方式
-    
-    $thumb->resize($w, $h);
-    $thumb->save($abssaveTo);
-    
-    // 输出
-    $fp = fopen($abssaveTo, "rb");
-    if ($size && $fp) {
-        header("Content-type: {$size['mime']}");
-        fpassthru($fp);
-        exit;
-    } else {
-        // error
+
+    if($w && $h) {
+        $this->makeImageThumbnail($screenImagePath, $saveTo, $w, $h);
     }
+    
+//    // 生成缩略图
+//    $thumb = new EasyImage($absscreenImagePath);
+//
+//    $size = getimagesize($absscreenImagePath);
+//
+//    //TODO:: 这里需要更复杂点的 缩略图方式
+//
+//    $thumb->resize($w, $h);
+//    $thumb->save($abssaveTo);
+//
+//    // 输出
+//    $fp = fopen($abssaveTo, "rb");
+//    if ($size && $fp) {
+//        header("Content-type: {$size['mime']}");
+//        fpassthru($fp);
+//        exit;
+//    } else {
+//        // error
+//    }
     
   }
 }
