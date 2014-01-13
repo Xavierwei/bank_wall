@@ -188,10 +188,11 @@ class NodeAR extends CActiveRecord{
     // 检查是不是视频， 如果是, 就就做视频转换工作
     $extname = pathinfo($to, PATHINFO_EXTENSION);
     $videoexts = explode(",", self::ALLOW_UPLOADED_VIDEO_TYPES);
+
+
     if (in_array($extname, $videoexts)) {
       // 在这里做视频转换功能
       // 先检查 ffmpeg 是否已经安装
-      $output;
       exec("which ffmpeg", $output);
       if (!empty($output)) {
         $ffmpeg = array_shift($output);
@@ -202,8 +203,18 @@ class NodeAR extends CActiveRecord{
           if ($newpath != $to) {
             $status;
             $output;
+
             // 视频转换
-            exec("ffmpeg -i {$to}  -vcodec mpeg4 -b:v 1200k -flags +aic+mv4 {$newpath}", $output, $status);
+            switch($extname) {
+              case 'mpeg':
+                exec("ffmpeg -i {$to}  -vcodec mpeg4 -b:v 1200k -flags +aic+mv4 {$newpath}", $output, $status);
+                break;
+              case 'mov':
+                exec("ffmpeg -i {$to} -vcodec copy -acodec copy {$newpath}", $output, $status);
+                break;
+              default:
+                exec("ffmpeg -i {$to}  -vcodec mpeg4 -b:v 1200k -flags +aic+mv4 {$newpath}", $output, $status);
+            }
             
             // 视频转换完后 要删掉之前的视频文件
             unlink($to);

@@ -654,6 +654,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         $('.pop-file').show();
         $('.pop-file .step1-btns').show();
         $('.pop-file .step2-btns').hide();
+        $('#fileupload .error').hide();
         $('#node-description').val('');
         $('.poptxt-pic img').attr('src','');
         $('.poptxt-check input').prop('checked',false);
@@ -670,11 +671,13 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                 acceptFileTypes = /(\.|\/)(move|mp4|avi)$/i;
                 $('#file-photo').remove();
                 $('#select-btn').append('<input id="file-video" type="file" name="video" />');
+                var maxFileSize = 7 * 1024000;
             }
             else {
                 acceptFileTypes = /(\.|\/)(gif|jpe?g|png)$/i;
                 $('#file-video').remove();
                 $('#select-btn').append('<input id="file-photo" type="file" name="photo" />');
+                var maxFileSize = 5 * 1024000;
             }
             LP.use('fileupload' , function(){
                 // Initialize the jQuery File Upload widget:
@@ -683,12 +686,19 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                         //xhrFields: {withCredentials: true},
                         url: '../api/index.php/node/post',
                         maxFileSize: 5000000,
-                        acceptFileTypes: acceptFileTypes
-                        //autoUpload:false //TODO: 处理图片的时候需要关闭自动上传功能
+                        acceptFileTypes: acceptFileTypes,
+                        autoUpload:false
                     })
                     .bind('fileuploadadd', function (e, data) {
-                        console.log('add');
+                        console.log(data);
                         //TODO: 当用户选择图片后跳转到处理图片的流程
+                        if(data.files[0].size > maxFileSize) {
+                            $('#fileupload .error').fadeIn().html('Maximum file size is ' + parseInt(maxFileSize/1024000) + "MB");
+                        }
+                        else {
+                            $('#fileupload .error').hide();
+                            data.submit();
+                        }
                     })
                     .bind('fileuploadstart', function (e, data) {
                         $('.pop-inner').fadeOut(400);
@@ -696,11 +706,9 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                     })
                     .bind('fileuploadprogress', function (e, data) {
                         var rate = data._progress.loaded / data._progress.total * 100;
-                        console.log(rate);
                         $('.popload-percent p').css({width:rate + '%'});
                     })
                     .bind('fileuploaddone', function (e, data) {
-                        console.log(data);
                         if(data.result.data.type == 'video') {
                             $('.poptxt-pic img').attr('src', API_FOLDER + data.result.data.file.replace('.mp4', THUMBNAIL_IMG_SIZE + '.jpg'));
                             setTimeout(function(){

@@ -170,6 +170,7 @@ a{text-decoration:none;color:#666}
 	.popfile-btn{position: relative;overflow: hidden; color:#fff;background: #db2842;border: #c0152d 3px solid;width: 500px;height: 60px;line-height: 60px;text-align: center;margin: 0 auto;font-size:28px;}
     .step2-btns {text-align: center;display:none;}
     .step2-btns .popfile-btn {width:220px;display: inline-block;margin:0 10px;}
+    #fileupload .error {text-align: center;color:#db2842;}
     #file-photo,#file-video {position: absolute;top: 0;right: 0;margin: 0;opacity: 0;-ms-filter: 'alpha(opacity=0)';font-size: 200px;direction: ltr;cursor: pointer;}
 /**/
 .popload-icon{width: 200px;height: 200px;background: #fcc;margin:90px auto;}
