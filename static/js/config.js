@@ -28,10 +28,10 @@ seajs.config({
       src: "../plugin/jquery.ui.widget.js"
       , deps: ['jquery']
     }
-      ,uicustom: {
-          src: "../plugin/jquery-ui-1.10.3.custom.js"
-          , deps: ['jquery']
-      }
+    ,uicustom: {
+        src: "../plugin/jquery-ui-1.10.3.custom.js"
+        , deps: ['jquery']
+    }
     ,fileupload:{
       src: "../plugin/jquery.fileupload.js"
       , deps: ['jquery','uiwidget']
@@ -44,9 +44,15 @@ seajs.config({
       src: "../plugin/jquery.validate.js"
       , deps: ['jquery']
     }
+    ,raphael:{
+      src: "../raphael/raphaeljs.min.js"
+      , deps: ['eve']
+      , exports: "Raphael"
+    }
   }
   , alias: {
     api: '../api'
+    , eve : '../raphael/eve.js'
     , api4sjht: '../api4sjht'
     , util: '../util/util'
     , panel: "../panel/panel"

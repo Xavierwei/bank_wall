@@ -710,7 +710,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                     })
                     .bind('fileuploaddone', function (e, data) {
                         if(data.result.data.type == 'video') {
-                            $('.poptxt-pic img').attr('src', API_FOLDER + data.result.data.file.replace('.mp4', THUMBNAIL_IMG_SIZE + '.jpg'));
+                            $('.poptxt-pic img').attr('src', API_FOLDER + data.result.data.file/*.replace('.mp4', THUMBNAIL_IMG_SIZE + '.jpg')*/);
                             setTimeout(function(){
                                 var timestamp = new Date().getTime();
                                 $('.poptxt-pic img').attr('src',$('.poptxt-pic img').attr('src') + '?' +timestamp );
@@ -720,7 +720,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                             $('.pop-txt').delay(900).fadeIn(400);
                         }
                         else {
-                            $('.poptxt-pic img').attr('src', API_FOLDER + data.result.data.file.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg'));
+                            $('.poptxt-pic img').attr('src', API_FOLDER + data.result.data.file/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
                             $('.poptxt-submit').attr('data-d','nid=' + data.result.data.nid);
 //                            $('.pop-file .step1-btns').fadeOut(400);
 //                            $('.pop-file .step2-btns').delay(400).fadeIn(400);
@@ -769,7 +769,11 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             return;
         }
         $('.poptxt-check .error').fadeOut();
-        api.ajax('saveNode' , {nid: data.nid, description: description}, function( result ){
+
+        // get image scale , rotate , zoom arguments
+        var trsdata = transformMgr.result();
+
+        api.ajax('saveNode' , $.extend( {nid: data.nid, description: description} , trsdata ), function( result ){
             if(result.success) {
                 //TODO: insert the content to photo wall instead of refresh
                 $main.html('');
@@ -932,9 +936,288 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         return $main.data('param');
     }
 
-    var renderMainPageIndex = function( ){
+    //-----------------------------------------------------------------------
+    // init drag event for image upload
+    // after image upload, init it's size to fix the window
+    // use raephael js to rotate, scale , and drag the image photo
+    var transformMgr = (function(){
+        var isDragging      = false;
+        var isMousedown     = false;
+        var startPos        = null;
+        var totalMoveX      = 0;
+        var totalMoveY      = 0;
+        var lastMoveX       = 0;
+        var lastMoveY       = 0;
 
-    }
+        var maxDistance = 200;
+
+        var $poptxtpic = $('.poptxt-pic');
+        var $picInner = $('.poptxt-pic-inner');
+        var tarHeight   = $picInner.height();
+        var tarWidth    = $picInner.width();
+
+        var imgRaphael = null;
+        var raphael = null;
+
+        $picInner.find('img').load(function(){
+            $(this).css({
+                width: 'auto',
+                height: 'auto'
+            })
+            .show();
+
+            // remove last sav
+            var img = this;
+            var forExpr = 100;
+            
+            LP.use('raphael' , function(){
+                var width   = img.width;
+                var height  = img.height;
+                if( width / height > tarWidth / tarHeight ){
+                    width   = width / height * ( tarHeight + forExpr );
+                    height  = tarHeight + forExpr;
+                } else {
+                    height  = height / width * ( tarWidth + forExpr );
+                    width   = tarWidth + forExpr;
+                }
+                if( !raphael ){
+                    raphael = Raphael( img.parentNode , tarWidth, tarHeight);
+                    imgRaphael = raphael.image( img.src , 0 , 0 , width, height);
+                }
+                raphael.setSize( tarWidth , tarHeight );
+
+                // reset transform
+                imgRaphael.attr({
+                    src     : img.src,
+                    width   : width,
+                    height  : height
+                })
+                .transform('');
+                transformMgr.reset();
+                transformMgr.transform('T' + parseInt( (tarWidth - width ) / 2) + ',' + parseInt( ( tarHeight - height ) / 2 ) );
+                $(img).css({
+                    width: width,
+                    height : height
+                })
+                .hide();
+            });
+        });
+
+        $poptxtpic.mousedown( function( ev ){
+            isMousedown = true;
+            startPos = {
+                pageX     : ev.pageX
+                , pageY   : ev.pageY
+            }
+            return false;
+        })
+        .mousemove( function( ev ){
+            if( !isMousedown ) return;
+            if( !isDragging ){
+                if( Math.abs( ev.pageX - startPos.pageX ) + Math.abs( ev.pageY - startPos.pageY ) >= 10 ){
+                    isDragging = true;
+                } else {
+                    return false;
+                }
+            }
+            // move images
+            if( !imgRaphael ) return;
+
+            transform( ev.pageX - startPos.pageX - lastMoveX , ev.pageY - startPos.pageY - lastMoveY );
+            lastMoveX = ev.pageX - startPos.pageX;
+            lastMoveY = ev.pageY - startPos.pageY;
+
+            // move center icon
+            // $centerBtn.css({
+            //     marginLeft  : oMleft + lastMoveX / 2
+            //     , marginTop : oMtop + lastMoveY / 2
+            //     , opacity: 1 - Math.min( 0.5 , ( Math.abs( lastMoveX ) + Math.abs( lastMoveY ) ) / maxDistance )
+            // });
+        })
+        .bind('mousewheel' , function( ev ){
+            var deltay = ev.originalEvent.wheelDeltaY || ev.originalEvent.deltaY;
+            if( deltay < 0 ){
+                totalScale /= perScale;
+                transform( undefined , undefined , 1/perScale );
+            } else {
+                totalScale *= perScale;
+                transform( undefined , undefined , perScale );
+            }
+        });
+
+        $(document).mouseup(function(){
+            // reset states
+            if( !isMousedown ) return;
+            isDragging      = false;
+            isMousedown     = false;
+            startPos        = null;
+            totalMoveX += lastMoveX;
+            totalMoveY += lastMoveY;
+
+            lastMoveX = 0;
+            lastMoveY = 0;
+
+
+            // // reset center button
+            // $centerBtn.animate({
+            //     marginLeft  : oMleft,
+            //     marginTop   : oMtop,
+            //     opacity     : 1
+            // } , 300 );
+        });
+
+
+        // init ps_btn_up
+        var perRotate   = 10;
+        var perScale    = 1.1;
+
+        var totalScale  = 1;
+        var totalRotate = 0;
+        var transforms = [];
+
+        var trsReg = /T(-?[0-9.]+),(-?[0-9.]+)/;
+        var scaReg = /S(-?[0-9.]+),(-?[0-9.]+),(-?[0-9.]+),(-?[0-9.]+)/;
+        var rotReg = /R(-?[0-9.]+),(-?[0-9.]+),(-?[0-9.]+)/;
+
+        var transform = function( x , y , s , r ){
+            var left = x === undefined ? totalMoveX : x;
+            var top = y === undefined ? totalMoveY : y;
+            var scale = s === undefined ? totalScale : s;
+            var rotate = r === undefined ? totalRotate : r;
+            var transformValue = imgRaphael.transform();
+
+            var match = null;
+            // move 
+            if( x !== undefined ){
+                if( transforms.length && ( match = transforms[transforms.length-1].match( trsReg ) ) ){
+                    transforms[transforms.length-1] = "T" + ( x + parseFloat( match[1] ) ) + ',' + ( y + parseFloat( match[2] ) );
+                } else {
+                    transforms.push( "T" + x + ',' + y );
+                }
+
+                 imgRaphael.transform( transforms.join('') );
+            }
+            if( s !== undefined ){
+                if( transforms.length && ( match = transforms[transforms.length-1].match( scaReg ) ) ){
+                    transforms[transforms.length-1] = "S" + ( s * parseFloat( match[1] ) ) + ','
+                         + ( s * parseFloat( match[2] ) )
+                         + "," + match[3]
+                         + "," + match[4];
+                } else {
+                    transforms.push( "S" + s + ',' + s + ',' + (tarWidth/2) + "," + (tarHeight/2) );
+                }
+
+                imgRaphael.animate({
+                    transform: transforms.join('')
+                } , 200);
+            }
+            if( r !== undefined ) {
+                if( transforms.length && ( match = transforms[transforms.length-1].match( rotReg ) ) ){
+                    transforms[transforms.length-1] = "R" + ( r + parseFloat( match[1] ) ) 
+                        + "," + match[2]
+                        + "," + match[3];
+                } else {
+                    transforms.push( "R" + r + ',' + (tarWidth/2) + "," + (tarHeight/2) );
+                }
+
+                imgRaphael.animate({
+                    transform: transforms.join('')
+                } , 200);
+            }
+        }
+
+        // TODO.. for long click
+        var animateScale = function(  ){
+            
+        }
+        var longTimeout = null;
+        var longInterval = null;
+
+        $('.pop-zoomout-btn').mousedown(function(){
+            totalScale *= perScale;
+            transform( undefined , undefined , perScale );
+
+            longTimeout = setTimeout(function(){
+                longInterval = setInterval(function(){
+                    transform( undefined , undefined , perScale );
+                } , 500 );
+            } , 500);
+
+        });
+
+        $('.pop-zoomin-btn').mousedown(function(){
+            totalScale /= perScale;
+            transform( undefined , undefined , 1/perScale );
+
+            longTimeout = setTimeout(function(){
+                longInterval = setInterval(function(){
+                    transform( undefined , undefined , 1/perScale );
+                } , 500 );
+            } , 500);
+        });
+        
+        $('.pop-rright-btn').mousedown(function(){
+            totalRotate += perRotate
+            transform( undefined , undefined , undefined , perRotate);
+            longTimeout = setTimeout(function(){
+                longInterval = setInterval(function(){
+                    transform( undefined , undefined , undefined , perRotate);
+                } , 500 );
+            } , 500);
+        });
+
+        $('.pop-rleft-btn').mousedown(function(){
+            totalRotate -= perRotate;
+            transform( undefined , undefined , undefined , -perRotate );
+            longTimeout = setTimeout(function(){
+                longInterval = setInterval(function(){
+                    transform( undefined , undefined , undefined , -perRotate);
+                } , 500 );
+            } , 500);
+        });
+
+        $(document)
+            .mouseup(function(){
+                clearTimeout( longTimeout );
+                clearInterval( longInterval );
+            });
+
+
+        function reset(){
+            isDragging      = false;
+            isMousedown     = false;
+            startPos        = null;
+            totalMoveX      = 0;
+            totalMoveY      = 0;
+            lastMoveX       = 0;
+            lastMoveY       = 0;
+
+            totalScale  = 1;
+            totalRotate = 0;
+            transforms  = [];
+        }
+
+        return {
+            reset       : reset
+            , result    : function(){
+                var off  = imgRaphael.getBBox();
+                var width = parseInt($picInner.find('img').css('width'));
+                var height = parseInt($picInner.find('img').css('height'));
+                return {
+                    width       : width * totalScale,
+                    height      : height * totalScale,
+                    src         : $picInner.find('img').attr('src'),
+                    rotate      : totalRotate,
+                    x           : off.x,
+                    y           : off.y,
+                    cid         : 1
+                }
+            }
+            , transform  : transform
+        }
+    })();
+
+
 
     var init = function() {
 
