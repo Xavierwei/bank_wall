@@ -122,3 +122,32 @@ body{
 
 .count-userinfo
 {-webkit-transition:   all 0.3s ease;-moz-transition:  all 0.3s ease;-o-transition:  all 0.3s ease;-ms-transition:  all 0.3s ease;transition:  all 0.3s ease;}
+
+.poptxt-pic{
+    position: relative;
+}
+.poptxt-pic .pop-zoomout-btn,
+.poptxt-pic .pop-zoomin-btn,
+.poptxt-pic .pop-rright-btn,
+.poptxt-pic .pop-rleft-btn{
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    color: #FFF;
+    background: #000
+}
+.poptxt-pic .pop-zoomin-btn{
+    top: 20px;
+}
+.poptxt-pic .pop-rright-btn{
+    top: 40px;
+}
+.poptxt-pic .pop-rleft-btn{
+    top: 60px;
+}
+.poptxt-pic-inner{
+    width: 260px;
+    height: 260px;
+    overflow: hidden;
+}

@@ -112,7 +112,15 @@
 		<!--  -->
 		<div class="pop-inner pop-txt">
 			<div class="poptxt-preview clear">
-				<div class="poptxt-pic"><img src="" width="260"  /></div>
+				<div class="poptxt-pic">
+                    <a class="pop-zoomout-btn" data-a="pop-zoomout-btn" href="#">放大</a>
+                    <a class="pop-zoomin-btn" data-a="pop-zoomin-btn" href="#">缩小</a>
+                    <a class="pop-rright-btn" data-a="pop-rright-btn" href="#">向右旋转</a>
+                    <a class="pop-rleft-btn" data-a="pop-rleft-btn" href="#">向左旋转</a>
+                    <div class="poptxt-pic-inner">
+                        <img src="about:blank" />
+                    </div>
+                </div>
 				<textarea id="node-description" class="poptxt-textarea"></textarea>
                 <div class="error"></div>
 			</div>
@@ -301,6 +309,7 @@
 <script type="text/javascript" src="../static/js/sea/plugin-shim.js"></script>
 <script type="text/javascript" src="../static/js/lp.core.js"></script>
 <script type="text/javascript" src="../static/js/lp.base.js"></script>
+
 <!--  -->
 </body>
 </html>
