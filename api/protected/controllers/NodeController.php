@@ -184,6 +184,7 @@ class NodeController extends Controller {
       }
       
       $nid = $request->getPost("nid");
+      $uid = Yii::app()->user->getId();
       
       if (!$nid) {
           $this->responseError("invalid params");
@@ -191,11 +192,12 @@ class NodeController extends Controller {
       
       $nodeAr = NodeAR::model()->findByPk($nid);
       if(!$nodeAr) {
-          $this->responseError("invalid params");
+          $this->responseError("invalid params ( not found node)");
       }
       
       // 权限检查
-      if (!Yii::app()->user->checkAccess("deleteAnyNode", array("country_id" => $nodeAr->country_id))) {
+      if (!Yii::app()->user->checkAccess("deleteAnyNode", array("country_id" => $nodeAr->country_id)) 
+              && !Yii::app()->user->checkAccess("deleteOwnNode", array("uid" => $nodeAr->uid))) {
         return $this->responseError("permission deny");
       }
       
