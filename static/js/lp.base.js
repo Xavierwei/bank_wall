@@ -445,7 +445,8 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         LP.compile( 'inner-template' , node , function( html ){
             var $comment = $inner.find('.comment');
             // comment animation
-            var $nextComment = $(html).find('.comment')
+            var $newInner = $(html);
+            var $nextComment = $newInner.find('.comment')
                 .addClass(cubeDir)
                 .insertBefore( $comment );
 
@@ -477,13 +478,12 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             $imgWrap.css('margin-right' , - wrapWidth );
 
             // append dom
-            var $oriImage = $imgWrap.children('img');
-            var $newImage = $('<img/>')[ direction == 'left' ? 'insertBefore' : 'insertAfter' ]( $oriImage )
-                .attr('src' , API_FOLDER+node.file.replace('.jpg', BIG_IMG_SIZE + '.jpg'));
+            var $oriItem = $imgWrap.children('.image-wrap-inner');
+            var $newItem = $newInner.find('.image-wrap-inner')[ direction == 'left' ? 'insertBefore' : 'insertAfter' ]( $oriItem );
             // set style and animation
-            $imgWrap.children('img').css({
-                width: wrapWidth
-            })
+            $imgWrap.children('.image-wrap-inner').css({
+                    width: wrapWidth
+                })
                 .eq(0)
                 .css('marginLeft' , direction == 'left' ? - wrapWidth : 0 )
                 .animate({
@@ -495,23 +495,25 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                     $imgWrap.css({
                         'margin-right': 0
                     });
-                    $newImage.css('width' , '100%')
-                        .siblings('img')
+                    $newItem.css('width' , '100%')
+                        .siblings('.image-wrap-inner')
                         .remove();
                 });
 
             // desc animation
             var $info = $inner.find('.inner-info');
             $info.animate({
-                bottom: -$info.height()
-            } , 500 )
+                    bottom: -$info.height()
+                } , 500 )
                 .promise()
                 .done(function(){
-                    $inner.find('.inner-infocom')
-                        .html( node.description );
-                    $info.animate({
-                        bottom: 0
-                    } , 500 );
+                    var $newInfo = $newInner.find('.inner-info')
+                        .insertAfter( $info );
+                    $info.remove();
+                    $newInfo.css('bottom' , -$newInfo.height() )
+                        .animate({
+                            bottom: 0
+                        } , 500 );
                 });
 
             // load comment
@@ -669,14 +671,12 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             $fileupload.data('init', type );
             if(type == 'video') {
                 acceptFileTypes = /(\.|\/)(move|mp4|avi)$/i;
-                $('#file-photo').remove();
-                $('#select-btn').append('<input id="file-video" type="file" name="video" />');
+                $('#select-btn').html(' SELECT VIDEO <input id="file-video" type="file" name="video" />');
                 var maxFileSize = 7 * 1024000;
             }
             else {
                 acceptFileTypes = /(\.|\/)(gif|jpe?g|png)$/i;
-                $('#file-video').remove();
-                $('#select-btn').append('<input id="file-photo" type="file" name="photo" />');
+                $('#select-btn').html(' SELECT PHOTO <input id="file-photo" type="file" name="photo" />');
                 var maxFileSize = 5 * 1024000;
             }
             LP.use('fileupload' , function(){

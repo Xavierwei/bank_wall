@@ -118,6 +118,12 @@ body{
     -o-transition: 0s;
     transition: 0s;
 }
+.image-wrap{overflow: hidden;}
+.image-wrap-inner{
+    display: inline-block;
+    width: 100%;
+    vertical-align: top;
+}
 
 
 .count-userinfo
