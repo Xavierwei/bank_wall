@@ -49,6 +49,9 @@ seajs.config({
       , deps: ['eve']
       , exports: "Raphael"
     }
+    ,"video-js":{
+      src: "../video-js/video.js"
+    }
   }
   , alias: {
     api: '../api'

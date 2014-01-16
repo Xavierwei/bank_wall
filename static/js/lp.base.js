@@ -330,7 +330,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         var datetime = new Date(node.datetime*1000);
         node.date = datetime.getDate();
         node.month = getMonth((parseInt(datetime.getMonth()) + 1));
-        node.image = node.file.replace('.jpg', BIG_IMG_SIZE + '.jpg');
+        node.image = node.file.replace( node.type == "video" ? '.mp4' : '.jpg', BIG_IMG_SIZE + '.jpg');
 
         LP.compile( 'inner-template' , node , function( html ){
             var mainWidth = winWidth - _silderWidth;
@@ -385,6 +385,17 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                 );
             });
 
+            // init vide node
+            if( node.type == "video" ){
+                LP.use('video-js' , function(){
+                    videojs( "inner-video-" + node.nid , {}, function(){
+                      // Player (this) is initialized and ready.
+                    });
+                });
+            }
+
+            // change url
+            changeUrl('nid=' + node.nid);
             // loading image
         } );
 
@@ -480,6 +491,15 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             // append dom
             var $oriItem = $imgWrap.children('.image-wrap-inner');
             var $newItem = $newInner.find('.image-wrap-inner')[ direction == 'left' ? 'insertBefore' : 'insertAfter' ]( $oriItem );
+
+            // init video
+            if( node.type == "video" ){
+                LP.use('video-js' , function(){
+                    videojs( "inner-video-" + node.nid , {}, function(){
+                      // Player (this) is initialized and ready.
+                    });
+                });
+            }
             // set style and animation
             $imgWrap.children('.image-wrap-inner').css({
                     width: wrapWidth
@@ -649,35 +669,22 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         var acceptFileTypes;
         var type = data.type;
 
-        $('.pop .poptit').html('upload ' + data.type);
-        $('.overlay').fadeIn();
-        $('.pop').fadeIn();
-        $('.pop-inner').hide();
-        $('.pop-file').show();
-        $('.pop-file .step1-btns').show();
-        $('.pop-file .step2-btns').hide();
-        $('#fileupload .error').hide();
-        $('#node-description').val('');
-        $('.poptxt-pic img').attr('src','');
-        $('.poptxt-check input').prop('checked',false);
+        LP.compile( "pop-template" , data,  function( html ){
+            $(document.body).append( html );
+            $('.overlay').fadeIn();
+            $('.pop').fadeIn();
 
-        // bind popfile-btn file upload event
-        var $fileupload = $('#fileupload');
-        if( $fileupload.data('init') != type ){
-
-            if($fileupload.data('init')) {
-                $fileupload.fileupload('destroy').unbind('fileuploadadd').unbind('fileuploadstart').unbind('fileuploadprogress').unbind('fileuploaddone');
-            }
-            $fileupload.data('init', type );
+            var $fileupload = $('#fileupload');
             if(type == 'video') {
                 acceptFileTypes = /(\.|\/)(move|mp4|avi)$/i;
-                $('#select-btn').html(' SELECT VIDEO <input id="file-video" type="file" name="video" />');
+                //$('#select-btn').html(' SELECT VIDEO <input id="file-video" type="file" name="video" />');
                 var maxFileSize = 7 * 1024000;
-            }
-            else {
+            } else {
                 acceptFileTypes = /(\.|\/)(gif|jpe?g|png)$/i;
-                $('#select-btn').html(' SELECT PHOTO <input id="file-photo" type="file" name="photo" />');
+                //$('#select-btn').html(' SELECT PHOTO <input id="file-photo" type="file" name="photo" />');
                 var maxFileSize = 5 * 1024000;
+                // init event
+                transformMgr.initialize();
             }
             LP.use('fileupload' , function(){
                 // Initialize the jQuery File Upload widget:
@@ -729,13 +736,94 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                         }
                     });
             });
-        }
+        } );
+//         $('.pop .poptit').html('upload ' + data.type);
+//         $('.overlay').fadeIn();
+//         $('.pop').fadeIn();
+//         $('.pop-inner').hide();
+//         $('.pop-file').show();
+//         $('.pop-file .step1-btns').show();
+//         $('.pop-file .step2-btns').hide();
+//         $('#fileupload .error').hide();
+//         $('#node-description').val('');
+//         $('.poptxt-pic img').attr('src','');
+//         $('.poptxt-check input').prop('checked',false);
+
+//         // bind popfile-btn file upload event
+//         var $fileupload = $('#fileupload');
+//         if( $fileupload.data('init') != type ){
+
+//             if($fileupload.data('init')) {
+//                 $fileupload.fileupload('destroy').unbind('fileuploadadd').unbind('fileuploadstart').unbind('fileuploadprogress').unbind('fileuploaddone');
+//             }
+//             $fileupload.data('init', type );
+//             if(type == 'video') {
+//                 acceptFileTypes = /(\.|\/)(move|mp4|avi)$/i;
+//                 $('#select-btn').html(' SELECT VIDEO <input id="file-video" type="file" name="video" />');
+//                 var maxFileSize = 7 * 1024000;
+//             }
+//             else {
+//                 acceptFileTypes = /(\.|\/)(gif|jpe?g|png)$/i;
+//                 $('#select-btn').html(' SELECT PHOTO <input id="file-photo" type="file" name="photo" />');
+//                 var maxFileSize = 5 * 1024000;
+//             }
+//             LP.use('fileupload' , function(){
+//                 // Initialize the jQuery File Upload widget:
+//                 $fileupload.fileupload({
+//                         // Uncomment the following to send cross-domain cookies:
+//                         //xhrFields: {withCredentials: true},
+//                         url: '../api/index.php/node/post',
+//                         maxFileSize: 5000000,
+//                         acceptFileTypes: acceptFileTypes,
+//                         autoUpload:false
+//                     })
+//                     .bind('fileuploadadd', function (e, data) {
+//                         console.log(data);
+//                         //TODO: 当用户选择图片后跳转到处理图片的流程
+//                         if(data.files[0].size > maxFileSize) {
+//                             $('#fileupload .error').fadeIn().html('Maximum file size is ' + parseInt(maxFileSize/1024000) + "MB");
+//                         }
+//                         else {
+//                             $('#fileupload .error').hide();
+//                             data.submit();
+//                         }
+//                     })
+//                     .bind('fileuploadstart', function (e, data) {
+//                         $('.pop-inner').fadeOut(400);
+//                         $('.pop-load').delay(400).fadeIn(400);
+//                     })
+//                     .bind('fileuploadprogress', function (e, data) {
+//                         var rate = data._progress.loaded / data._progress.total * 100;
+//                         $('.popload-percent p').css({width:rate + '%'});
+//                     })
+//                     .bind('fileuploaddone', function (e, data) {
+//                         if(data.result.data.type == 'video') {
+//                             $('.poptxt-pic img').attr('src', API_FOLDER + data.result.data.file/*.replace('.mp4', THUMBNAIL_IMG_SIZE + '.jpg')*/);
+//                             setTimeout(function(){
+//                                 var timestamp = new Date().getTime();
+//                                 $('.poptxt-pic img').attr('src',$('.poptxt-pic img').attr('src') + '?' +timestamp );
+//                             },2000);
+//                             $('.poptxt-submit').attr('data-d','nid=' + data.result.data.nid);
+//                             $('.pop-inner').delay(400).fadeOut(400);
+//                             $('.pop-txt').delay(900).fadeIn(400);
+//                         }
+//                         else {
+//                             $('.poptxt-pic img').attr('src', API_FOLDER + data.result.data.file/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
+//                             $('.poptxt-submit').attr('data-d','nid=' + data.result.data.nid);
+// //                            $('.pop-file .step1-btns').fadeOut(400);
+// //                            $('.pop-file .step2-btns').delay(400).fadeIn(400);
+//                             $('.pop-inner').delay(400).fadeOut(400);
+//                             $('.pop-txt').delay(1200).fadeIn(400);
+//                         }
+//                     });
+//             });
+//         }
     });
 
     //close pop
     LP.action('close_pop' , function(){
-        $('.overlay').fadeOut();
-        $('.pop').fadeOut();
+        $('.overlay').fadeOut(function(){$(this).remove();});
+        $('.pop').fadeOut(function(){$(this).remove();});
     });
 
     //select photo
@@ -933,7 +1021,13 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
 
         $main.data('param' , $.extend( param , query || {} ) );
 
+        // change hash
+        changeUrl( LP.json2query( $main.data('param') ) );
         return $main.data('param');
+    }
+
+    var changeUrl = function( str ){
+        location.hash = '#' + str;
     }
 
     //-----------------------------------------------------------------------
@@ -950,100 +1044,6 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         var lastMoveY       = 0;
 
         var maxDistance = 200;
-
-        var $poptxtpic = $('.poptxt-pic');
-        var $picInner = $('.poptxt-pic-inner');
-        var tarHeight   = $picInner.height();
-        var tarWidth    = $picInner.width();
-
-        var imgRaphael = null;
-        var raphael = null;
-
-        $picInner.find('img').load(function(){
-            $(this).css({
-                width: 'auto',
-                height: 'auto'
-            })
-            .show();
-
-            // remove last sav
-            var img = this;
-            var forExpr = 100;
-            
-            LP.use('raphael' , function(){
-                var width   = img.width;
-                var height  = img.height;
-                if( width / height > tarWidth / tarHeight ){
-                    width   = width / height * ( tarHeight + forExpr );
-                    height  = tarHeight + forExpr;
-                } else {
-                    height  = height / width * ( tarWidth + forExpr );
-                    width   = tarWidth + forExpr;
-                }
-                if( !raphael ){
-                    raphael = Raphael( img.parentNode , tarWidth, tarHeight);
-                    imgRaphael = raphael.image( img.src , 0 , 0 , width, height);
-                }
-                raphael.setSize( tarWidth , tarHeight );
-
-                // reset transform
-                imgRaphael.attr({
-                    src     : img.src,
-                    width   : width,
-                    height  : height
-                })
-                .transform('');
-                transformMgr.reset();
-                transformMgr.transform('T' + parseInt( (tarWidth - width ) / 2) + ',' + parseInt( ( tarHeight - height ) / 2 ) );
-                $(img).css({
-                    width: width,
-                    height : height
-                })
-                .hide();
-            });
-        });
-
-        $poptxtpic.mousedown( function( ev ){
-            isMousedown = true;
-            startPos = {
-                pageX     : ev.pageX
-                , pageY   : ev.pageY
-            }
-            return false;
-        })
-        .mousemove( function( ev ){
-            if( !isMousedown ) return;
-            if( !isDragging ){
-                if( Math.abs( ev.pageX - startPos.pageX ) + Math.abs( ev.pageY - startPos.pageY ) >= 10 ){
-                    isDragging = true;
-                } else {
-                    return false;
-                }
-            }
-            // move images
-            if( !imgRaphael ) return;
-
-            transform( ev.pageX - startPos.pageX - lastMoveX , ev.pageY - startPos.pageY - lastMoveY );
-            lastMoveX = ev.pageX - startPos.pageX;
-            lastMoveY = ev.pageY - startPos.pageY;
-
-            // move center icon
-            // $centerBtn.css({
-            //     marginLeft  : oMleft + lastMoveX / 2
-            //     , marginTop : oMtop + lastMoveY / 2
-            //     , opacity: 1 - Math.min( 0.5 , ( Math.abs( lastMoveX ) + Math.abs( lastMoveY ) ) / maxDistance )
-            // });
-        })
-        .bind('mousewheel' , function( ev ){
-            var deltay = ev.originalEvent.wheelDeltaY || ev.originalEvent.deltaY;
-            if( deltay < 0 ){
-                totalScale /= perScale;
-                transform( undefined , undefined , 1/perScale );
-            } else {
-                totalScale *= perScale;
-                transform( undefined , undefined , perScale );
-            }
-        });
 
         $(document).mouseup(function(){
             // reset states
@@ -1065,7 +1065,6 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             //     opacity     : 1
             // } , 300 );
         });
-
 
         // init ps_btn_up
         var perRotate   = 10;
@@ -1126,62 +1125,14 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             }
         }
 
-        // TODO.. for long click
-        var animateScale = function(  ){
-            
-        }
-        var longTimeout = null;
-        var longInterval = null;
+        var $poptxtpic = null;
+        var $picInner = null;
+        var tarHeight   = null;
+        var tarWidth    = null;
 
-        $('.pop-zoomout-btn').mousedown(function(){
-            totalScale *= perScale;
-            transform( undefined , undefined , perScale );
-
-            longTimeout = setTimeout(function(){
-                longInterval = setInterval(function(){
-                    transform( undefined , undefined , perScale );
-                } , 500 );
-            } , 500);
-
-        });
-
-        $('.pop-zoomin-btn').mousedown(function(){
-            totalScale /= perScale;
-            transform( undefined , undefined , 1/perScale );
-
-            longTimeout = setTimeout(function(){
-                longInterval = setInterval(function(){
-                    transform( undefined , undefined , 1/perScale );
-                } , 500 );
-            } , 500);
-        });
-        
-        $('.pop-rright-btn').mousedown(function(){
-            totalRotate += perRotate
-            transform( undefined , undefined , undefined , perRotate);
-            longTimeout = setTimeout(function(){
-                longInterval = setInterval(function(){
-                    transform( undefined , undefined , undefined , perRotate);
-                } , 500 );
-            } , 500);
-        });
-
-        $('.pop-rleft-btn').mousedown(function(){
-            totalRotate -= perRotate;
-            transform( undefined , undefined , undefined , -perRotate );
-            longTimeout = setTimeout(function(){
-                longInterval = setInterval(function(){
-                    transform( undefined , undefined , undefined , -perRotate);
-                } , 500 );
-            } , 500);
-        });
-
-        $(document)
-            .mouseup(function(){
-                clearTimeout( longTimeout );
-                clearInterval( longInterval );
-            });
-
+        var imgRaphael = null;
+        var raphael = null;
+        var forExpr = 100;
 
         function reset(){
             isDragging      = false;
@@ -1197,8 +1148,169 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             transforms  = [];
         }
 
+        var initialize = function(){
+            perRotate   = 10;
+            perScale    = 1.1;
+
+            totalScale  = 1;
+            totalRotate = 0;
+            transforms = [];
+
+            $poptxtpic = $('.poptxt-pic');
+            $picInner = $('.poptxt-pic-inner');
+            tarHeight   = $picInner.height();
+            tarWidth    = $picInner.width();
+
+            imgRaphael = null;
+            raphael = null;
+
+            $picInner.find('img').load(function(){
+                $(this).css({
+                    width: 'auto',
+                    height: 'auto'
+                })
+                .show();
+
+                // remove last sav
+                var img = this;
+                
+                LP.use('raphael' , function(){
+                    var width   = img.width;
+                    var height  = img.height;
+                    if( width / height > tarWidth / tarHeight ){
+                        width   = width / height * ( tarHeight + forExpr );
+                        height  = tarHeight + forExpr;
+                    } else {
+                        height  = height / width * ( tarWidth + forExpr );
+                        width   = tarWidth + forExpr;
+                    }
+                    if( !raphael ){
+                        raphael = Raphael( img.parentNode , tarWidth, tarHeight);
+                        imgRaphael = raphael.image( img.src , 0 , 0 , width, height);
+                    }
+                    raphael.setSize( tarWidth , tarHeight );
+
+                    // reset transform
+                    imgRaphael.attr({
+                        src     : img.src,
+                        width   : width,
+                        height  : height
+                    })
+                    .transform('');
+                    transformMgr.reset();
+                    transformMgr.transform('T' + parseInt( (tarWidth - width ) / 2) + ',' + parseInt( ( tarHeight - height ) / 2 ) );
+                    $(img).css({
+                        width: width,
+                        height : height
+                    })
+                    .hide();
+                });
+            });
+
+            $poptxtpic.mousedown( function( ev ){
+                isMousedown = true;
+                startPos = {
+                    pageX     : ev.pageX
+                    , pageY   : ev.pageY
+                }
+                return false;
+            })
+            .mousemove( function( ev ){
+                if( !isMousedown ) return;
+                if( !isDragging ){
+                    if( Math.abs( ev.pageX - startPos.pageX ) + Math.abs( ev.pageY - startPos.pageY ) >= 10 ){
+                        isDragging = true;
+                    } else {
+                        return false;
+                    }
+                }
+                // move images
+                if( !imgRaphael ) return;
+
+                transform( ev.pageX - startPos.pageX - lastMoveX , ev.pageY - startPos.pageY - lastMoveY );
+                lastMoveX = ev.pageX - startPos.pageX;
+                lastMoveY = ev.pageY - startPos.pageY;
+
+                // move center icon
+                // $centerBtn.css({
+                //     marginLeft  : oMleft + lastMoveX / 2
+                //     , marginTop : oMtop + lastMoveY / 2
+                //     , opacity: 1 - Math.min( 0.5 , ( Math.abs( lastMoveX ) + Math.abs( lastMoveY ) ) / maxDistance )
+                // });
+            })
+            .bind('mousewheel' , function( ev ){
+                var deltay = ev.originalEvent.wheelDeltaY || ev.originalEvent.deltaY;
+                if( deltay < 0 ){
+                    totalScale /= perScale;
+                    transform( undefined , undefined , 1/perScale );
+                } else {
+                    totalScale *= perScale;
+                    transform( undefined , undefined , perScale );
+                }
+            });
+
+
+            // TODO.. for long click
+            // var animateScale = function(  ){
+                
+            // }
+            // var longTimeout = null;
+            // var longInterval = null;
+
+            $('.pop-zoomout-btn').mousedown(function(){
+                totalScale *= perScale;
+                transform( undefined , undefined , perScale );
+
+                // longTimeout = setTimeout(function(){
+                //     longInterval = setInterval(function(){
+                //         transform( undefined , undefined , perScale );
+                //     } , 500 );
+                // } , 500);
+
+            });
+
+            $('.pop-zoomin-btn').mousedown(function(){
+                totalScale /= perScale;
+                transform( undefined , undefined , 1/perScale );
+
+                // longTimeout = setTimeout(function(){
+                //     longInterval = setInterval(function(){
+                //         transform( undefined , undefined , 1/perScale );
+                //     } , 500 );
+                // } , 500);
+            });
+            
+            $('.pop-rright-btn').mousedown(function(){
+                totalRotate += perRotate
+                transform( undefined , undefined , undefined , perRotate);
+                // longTimeout = setTimeout(function(){
+                //     longInterval = setInterval(function(){
+                //         transform( undefined , undefined , undefined , perRotate);
+                //     } , 500 );
+                // } , 500);
+            });
+
+            $('.pop-rleft-btn').mousedown(function(){
+                totalRotate -= perRotate;
+                transform( undefined , undefined , undefined , -perRotate );
+                // longTimeout = setTimeout(function(){
+                //     longInterval = setInterval(function(){
+                //         transform( undefined , undefined , undefined , -perRotate);
+                //     } , 500 );
+                // } , 500);
+            });
+
+            // $(document)
+            //     .mouseup(function(){
+            //         clearTimeout( longTimeout );
+            //         clearInterval( longInterval );
+            //     });
+        }
+
+
         return {
             reset       : reset
+            , initialize: initialize
             , result    : function(){
                 var off  = imgRaphael.getBBox();
                 var width = parseInt($picInner.find('img').css('width'));

@@ -118,7 +118,7 @@ body{
     -o-transition: 0s;
     transition: 0s;
 }
-.image-wrap{overflow: hidden;}
+.image-wrap{overflow: hidden;height: 100%;}
 .image-wrap-inner{
     display: inline-block;
     width: 100%;
