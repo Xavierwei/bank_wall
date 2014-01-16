@@ -116,11 +116,25 @@ class CommentController extends Controller {
     $nid = $request->getParam("nid");
     $shownode = $request->getParam("shownode");
     
+    //$orderby = $request->getParam("orderby");
+    //if (!$orderby) {
+      $orderby = "datetime";
+    //}
+    
+    $order = $request->getParam("order");
+    if (!$order) {
+      $order = "DESC";
+    }
+    if (strtoupper($order) != "DESC" && strtoupper($order) != "ASC") {
+      $order = "DESC";
+    }
+    
     $query = new CDbCriteria();
     if ($nid) {
       $query->addCondition("nid=:nid");
       $query->params[":nid"] = $nid;
     }
+    $query->order = CommentAR::model()->getTableAlias().".$orderby $order";
     
     $query->with = array("user");
     
