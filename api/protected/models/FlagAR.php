@@ -4,6 +4,9 @@
  * @author  jackey <jziwenchen@gmail.com>
  */
 class FlagAR extends CActiveRecord {
+  
+  public $flagcount = 0;
+  
   // 3 次 flag 后， 把node 放到 blocked 状态下
   const COUNT_THAT_BLOckED = 3;
   public function tableName() {
@@ -72,6 +75,17 @@ class FlagAR extends CActiveRecord {
         "node" => array(self::BELONGS_TO, "NodeAR", "nid"),
         "comment" => array(self::BELONGS_TO, "CommentAR", "cid"),
     );
+  }
+  
+  public function flagCountInNode($nid) {
+    $query = new CDbCriteria();
+    $query->select = "count(*) as flagcount";
+    $query->addCondition("nid=:nid");
+    $query->params[":nid"] = $nid;
+    
+    $res = $this->find($query);
+    
+    return $res->flagcount;
   }
 }
 

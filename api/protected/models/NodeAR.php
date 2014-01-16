@@ -22,6 +22,8 @@ class NodeAR extends CActiveRecord{
   
   public $commentcount = 0;
   
+  public $flagcount = 0;
+  
   public $user_liked = FALSE;
   
   public $like = array();
@@ -129,12 +131,14 @@ class NodeAR extends CActiveRecord{
       }
     }
     
-    // 加载 flagcount/ commentflag
+    // 加载 flagcount/ commentflag / likecount
     $nid = $this->nid;
     $commentAr = new CommentAR();
     $this->commentcount = $commentAr->totalCommentsByNode($this->nid);
     $likeAr = new LikeAR();
     $this->likecount = $likeAr->getNodeCount($this->nid);
+    $flagAr = new FlagAR();
+    $this->flagcount = $flagAr->flagCountInNode($this->nid);
     
     
     return TRUE;
@@ -293,6 +297,7 @@ class NodeAR extends CActiveRecord{
     $attrs = parent::getAttributes($name);
     $attrs["commentcount"] = $this->commentcount;
     $attrs["likecount"] = $this->likecount;
+    $attrs["flagcount"] = $this->flagcount;
     return $attrs;
   }
 }
