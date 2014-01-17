@@ -208,16 +208,18 @@ class UserController extends Controller {
       // likes count
       $likeAr = new LikeAR();
       $likecount = $likeAr->totalLikeByUser($user->uid);
-      $retdata["likes"] = $likecount;
+      $retdata["likes_count"] = $likecount;
       
       // comments count
       $commentAr = new CommentAR();
-      $retdata["comments"] = $commentAr->totalCommentsByUser($user->uid);
+      $retdata["comments_count"] = $commentAr->totalCommentsByUser($user->uid);
       
       // photos_count_by_day
       $nodeAr = new NodeAR();
-      $retdata["photos_count_by_day"] = $nodeAr->photosCountByDay($user->uid);
-      $retdata["photos_count_by_month"] = $nodeAr->photosCountByMonth($user->uid);
+      $retdata["photos_count"] = $nodeAr->countByType($user->uid, 'photo');
+      $retdata["videos_count"] = $nodeAr->countByType($user->uid, 'video');
+      $retdata["count_by_day"] = $nodeAr->countByDay($user->uid);
+      $retdata["count_by_month"] = $nodeAr->countByMonth($user->uid);
       
       $this->responseJSON($retdata, "success");
     }

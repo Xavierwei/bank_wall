@@ -248,8 +248,24 @@ class NodeAR extends CActiveRecord{
       $this->updateByPk($this->nid, array("status" => self::BLOCKED));
     }
   }
-  
-  public function photosCountByDay($uid) {
+
+  public function countByType($uid, $type) {
+    $query = new CDbCriteria();
+    $query->select = array("count(*) AS nodecounts");
+    $query->addCondition("uid=:uid");
+    $query->addCondition("type=:type");
+
+    $query->params = array(
+      ":uid" => $uid,
+      ":type" => $type
+    );
+
+    $res = $this->find($query);
+
+    return $res->nodecounts;
+  }
+
+  public function countByDay($uid) {
     // 从今天00:00:00开始
     $start_time = strtotime(date("Y-m-d"));
     $end_time = time();
@@ -271,7 +287,7 @@ class NodeAR extends CActiveRecord{
     return $res->nodecounts;
   }
 
-  public function photosCountByMonth($uid) {
+  public function countByMonth($uid) {
     // 从今天00:00:00开始
     $start_time = strtotime(date("Y-m-1"));
     $end_time = time();

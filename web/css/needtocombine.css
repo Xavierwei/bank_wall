@@ -27,7 +27,8 @@ body{
     overflow: hidden;
 }
 
-.main{margin: 130px -10px 0 120px;}
+.main{margin: 130px -10px 0 0px;}
+.main.logged {margin:130px -10px 0 120px;}
 .no-animate .main-item{
     -webkit-transition-duration: 0;
     -moz-transition-duration: 0;

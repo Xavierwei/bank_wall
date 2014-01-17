@@ -331,7 +331,8 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         node.date = datetime.getDate();
         node.month = getMonth((parseInt(datetime.getMonth()) + 1));
         node.image = node.file.replace( node.type == "video" ? '.mp4' : '.jpg', BIG_IMG_SIZE + '.jpg');
-
+        node.currentUser = $('.side').data('user');
+        console.log(node);
         LP.compile( 'inner-template' , node , function( html ){
             var mainWidth = winWidth - _silderWidth;
             // inner animation
@@ -537,6 +538,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                 });
 
             // load comment
+            bindCommentSubmisson();
             getCommentList(node.nid);
         });
     }
@@ -601,7 +603,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
     //for like action
     LP.action('like' , function( data ){
         var _this = $(this);
-        var _likeWrap = _this.find('span');
+        var _likeWrap = _this.find('span').eq(0);
         if(_this.data('liked')) {
             //TODO.. if current user already liked this node, invoke the unlike function
             return;
@@ -612,11 +614,28 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                     _likeWrap.animate({opacity:0},function(){
                         _likeWrap.html(result.data);
                         _this.data('liked',true);
+                        _this.removeClass('clickable');
+                        _this.append('<span class="com-unlike clickable" data-d="nid={{nid}}" data-a="unlike">(unlike)</span>');
                         $(this).animate({opacity:1});
                     });
                 }
             });
         }
+    });
+
+    LP.action('unlike' , function( data ){
+        var _this = $(this);
+        var _likeWrap = _this.parent().find('span').eq(0);
+        api.ajax('unlike', {nid:data.nid}, function( result ){
+            if(result.success) {
+                _likeWrap.animate({opacity:0},function(){
+                    _likeWrap.html(result.data);
+                    _this.parent().data('liked',false);
+                    _this.fadeOut();
+                    $(this).animate({opacity:1});
+                });
+            }
+        });
     });
 
     //for comment action
@@ -924,6 +943,15 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         $('.count-com').delay(400).fadeIn(400);
         $('.count-edit').fadeIn();
         $('.count-userinfo').removeClass('count-userinfo-edit');
+    });
+
+    //close user page
+    LP.action('logout' , function(){
+        api.ajax('logout', function( result ){
+            if(result.success) {
+                window.location.reload();
+            }
+        });
     });
 
     //save user updates
@@ -1341,15 +1369,23 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
 
         // after page load , load the current user information data from server
         api.ajax('user' , function( result ){
-            result.data.count_by_day = parseInt(result.data.photos_count_by_day) + parseInt(result.data.videos_count_by_day);
-            result.data.count_by_month = parseInt(result.data.photos_count_by_month) + parseInt(result.data.videos_count_by_month);
-            LP.compile( 'user-page-template' , result.data , function( html ){
-                $('.content').append(html);
-            });
+            if(result.success) {
+                //bind user data after success logged
+                LP.compile( 'user-page-template' , result.data , function( html ){
+                    $('.content').append(html);
+                });
 
-            LP.compile( 'side-template' , result.data , function( html ){
-                $('.content').append(html);
-            });
+                LP.compile( 'side-template' , result.data , function( html ){
+                    $('.content').append(html);
+                    //cache the user data
+                    $('.side').data('user',result.data);
+                });
+                $('.main').addClass('logged');
+                $('.header .select').fadeIn();
+            }
+            else {
+                $('.header .login').fadeIn();
+            }
         });
 
         LP.use('uicustom',function(){
@@ -1387,6 +1423,26 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                 else
                     return options.inverse(this);
             });
+
+            Handlebars.registerHelper('ifliked', function(options) {
+                if(this.user_liked == true)
+                    return options.fn(this);
+                else
+                    return options.inverse(this);
+            });
+        });
+
+        $('body').on('mouseenter','.com-like',function(){
+            var needLogin = $(this).find('.need-login');
+            if(needLogin) {
+                needLogin.fadeIn();
+            }
+        });
+        $('body').on('mouseleave','.com-like',function(){
+            var needLogin = $(this).find('.need-login');
+            if(needLogin) {
+                needLogin.fadeOut();
+            }
         });
     }
 
@@ -1401,8 +1457,23 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                 complete: function(xhr) {
                     var res = xhr.responseJSON;
                     if(res.success) {
+                        var comment = res.data;
+                        var datetime = new Date(comment.datetime*1000);
+                        comment.date = datetime.getDate();
+                        comment.month = getMonth((parseInt(datetime.getMonth()) + 1));
                         $('.comment-form').fadeOut();
                         $('.comment-msg-success').delay(500).fadeIn();
+                        LP.compile( 'comment-item-template' ,
+                            comment,
+                            function( html ){
+                                // render html
+                                $('.com-list-inner').first().append(html);
+                            } );
+                    }
+                    else {
+                        if(res.message == 'need login') {
+                            $('.comment-msg-error').html('You need login before comment');
+                        }
                     }
                 }
             });
@@ -1429,7 +1500,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                     comment ,
                     function( html ){
                         // render html
-                        $('.com-list-inner').append(html);
+                        $('.com-list-inner').first().append(html);
                     } );
             });
         });

@@ -14,6 +14,9 @@
 <div class="page">
 	<!-- header -->
 	<div class="header">
+        <div class="login">
+            <a href="login.html">User Login</a>
+        </div>
 		<!--  -->
 		<div class="logo"></div>
 		<!--  -->
@@ -153,6 +156,7 @@
                         <div class="com-list-inner">
                         </div>
                     </div>
+                    {{#if currentUser}}
                     <div class="com-make">
                         <form class="comment-form" action="../api/index.php/comment/post" method="post">
                             <input type="text" name="content" class="com-ipt" />
@@ -160,11 +164,29 @@
                             <input class="submit" type="submit" value="submit" />
                         </form>
                         <div class="comment-msg-success">Thanks for your comment!</div>
+                        <div class="comment-msg-error"></div>
                     </div>
+                    {{else}}
+                    <div class="need-login">You need <a href="login.html">login</a> before comment.</div>
+                    {{/if}}
                 </div>
                 <!--  -->
                 <div class="com-info">
-                    <div class="com-num clear"><p class="com-day">{{date}} {{month}}</p><p data-a="like" data-d="nid={{nid}}" class="com-like"><span>{{likecount}}</span> {{str_like}}</p></div>
+                    <div class="com-num clear">
+                        <p class="com-day">{{date}} {{month}}</p>
+                        {{#ifliked}}
+                            <p class="com-like">
+                                <span>{{likecount}}</span> {{str_like}}<span class="com-unlike clickable" data-d="nid={{nid}}" data-a="unlike">(unlike)</span>
+                            </p>
+                        {{else}}
+                            <div data-a="like" data-d="nid={{nid}}" class="com-like clickable">
+                                <span>{{likecount}}</span> {{str_like}}
+                                {{#if currentUser}}{{else}}
+                                    <div class="need-login">You need login before like</div>
+                                {{/if}}
+                            </div>
+                        {{/ifliked}}
+                    </div>
                     <div class="com-btn">
                         <p data-a="back" class="com-back"></p>
                         <p data-a="prev" class="com-prev"></p>
@@ -225,11 +247,11 @@
 <div class="user-page clear">
     <div class="count">
         <div class="count-item"><span>{{photos_count}}</span>PHOTOS POSTS</div>
-        <div class="count-item"><span>{{video_count}}</span>VIDEOS POSTS</div>
-        <div class="count-item"><span>{{count_by_day}}</span>CONTENUS DU JOUR</div>
-        <div class="count-item"><span>{{count_by_month}}</span>CONTENUS D MOIS</div>
-        <div class="count-item"><span>{{comments_count}}</span>COMMENTAIRES</div>
-        <div class="count-item"><span>{{like_counts}}</span>LIKES</div>
+        <div class="count-item"><span>{{videos_count}}</span>VIDEOS POSTS</div>
+        <div class="count-item"><span>{{count_by_day}}</span>COUNT BY DAY</div>
+        <div class="count-item"><span>{{count_by_month}}</span>COUNT BY MONTH</div>
+        <div class="count-item"><span>{{comments_count}}</span>COMMENTS</div>
+        <div class="count-item"><span>{{likes_count}}</span>LIKES</div>
     </div>
     <!-- inner -->
     <div class="count-inner">
@@ -293,6 +315,8 @@
             <div class="menu-item byday" data-a="by_day"><p></p></div>
             <div class="menu-item bymonth" data-a="by_month"><p></p></div>
             <div class="menu-item settings" data-a="toggle_user_page"><p></p></div>
+            <div class="menu-item logout" data-a="logout"><p>Logout</p></div>
+
         </div>
     </div>
 </script>

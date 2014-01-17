@@ -11,6 +11,10 @@ class LikeController extends Controller {
     if (!$request->isPostRequest) {
       $this->responseError("http error");
     }
+
+    if(Yii::app()->user->isGuest) {
+      return $this->responseError("need login");
+    }
     
     if (!Yii::app()->user->checkAccess("flagNode")) {
       return $this->responseError("permission deny");
@@ -51,6 +55,10 @@ class LikeController extends Controller {
     if (!$request->isPostRequest) {
       $this->responseError("http error");
     }
+
+    if(Yii::app()->user->isGuest) {
+      return $this->responseError("need login");
+    }
     
     // 这里不需要检查权限，因为用户如果like了 就取消掉； 如果没有like过 就什么也不做
 //    if (!Yii::app()->user->checkAccess("cancelOwnLike", array("uid" => $uid))) {
@@ -63,8 +71,8 @@ class LikeController extends Controller {
     
     $likeAr = new LikeAR();
     $likeAr->deleteLike($uid, $nid);
-    
-    $this->responseJSON(array(), "success");
+
+    $this->responseJSON($likeAr->getNodeCount($nid), "success");
   }
 }
 
