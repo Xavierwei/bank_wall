@@ -65,7 +65,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             $main.fadeOut(400,function(){
                 LP.triggerAction('close_user_page');
                 $main.html('');
-                $main.data('nodes','');
+                $main.data( 'nodes', [] );
                 api.ajax(filter, pageParam , function( result ){
                     nodeActions.inserNode( $main.show() , result.data , pageParam.orderby == 'datetime' );
                 });
@@ -95,6 +95,62 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
     // After the day trigger the animation 
     // Fix animation day by day
     var nodeActions = {
+        prependNode: function( $dom , nodes , bShowDate ){
+            var aHtml = [];
+            var lastDate = null;
+            var pageParm = $main.data('param'); //TODO:  pageParm.orderby == 'like' || pageParm.orderby == 'random' 此时不显示日历
+            nodes = nodes || [];
+
+            // save nodes to cache
+            var cache = $dom.data('nodes') || [];
+            $dom.data('nodes' , nodes.concat( cache ) );
+
+            // if( bShowDate ){
+            //     lastDate = $main.find('.time-item').last().data('date');
+            // }
+            // filte for date
+            $.each( nodes , function( index , node ){
+                // get date
+                if( bShowDate ){
+
+                    var datetime = new Date(node.datetime*1000);
+                    var date = datetime.getFullYear() + "/" + (parseInt(datetime.getMonth()) + 1) + "/" + datetime.getDate();
+                    if( lastDate != date){
+                        LP.compile( 'time-item-template' ,
+                            {date: date , day: parseInt(datetime.getDate()) , month: getMonth(parseInt(datetime.getMonth()) + 1)} ,
+                            function( html ){
+                                aHtml.push( html );
+                            } );
+                        lastDate = date;
+                    }
+                }
+                // fix video type
+                node.image = node.file.replace( node.type == 'video' ? '.mp4' : '.jpg' , THUMBNAIL_IMG_SIZE + '.jpg');
+                node.formatDate = date;
+
+                node.str_like = node.likecount > 1 ? 'Likes' : 'Like';
+                LP.compile( 'node-item-template' ,
+                    node ,
+                    function( html ){
+                        aHtml.push( html );
+
+                        if( index == nodes.length - 1 ){
+                            // render html
+                            var $oFirstTimeNode = $dom.children().eq(0);
+                            // remove first time item;
+                            $dom.prepend(aHtml.join(''));
+                            if( bShowDate && 
+                                $oFirstTimeNode.prevAll('.time-item').first().data('date')
+                                == $oFirstTimeNode.data('date') ){
+                                $oFirstTimeNode.remove();
+                            }
+                            nodeActions.setItemWidth( $dom );
+                            nodeActions.setItemReversal( $dom );
+                        }
+                    } );
+
+            } );
+        },
         // when current dom is main , and the recent ajax param orderby is 'like' or
         // 'random' , the datetime would not be showed.
         // pageParm.orderby == 'like' || pageParm.orderby == 'random' 此时不显示日历
@@ -107,6 +163,22 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             // save nodes to cache
             var cache = $dom.data('nodes') || [];
             $dom.data('nodes' , cache.concat( nodes ) );
+
+            // filter for nodes , if there are nodes autoloaded in 5 minutes
+            // the page index is not right.  So you should delete the same nodes
+            var lastNode = cache[ cache.length - 1 ];
+            if( lastNode ){
+                var index = null ;
+                $.each( nodes , function( i , node ){
+                    if( lastNode.nid == node.nid ){
+                        index = i;
+                        return false;
+                    }
+                } );
+                if( index !== null ){
+                    nodes.splice( 0 , index + 1 );
+                }
+            }
 
             if( bShowDate ){
                 lastDate = $main.find('.time-item').last().data('date');
@@ -157,6 +229,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             $dom.find('.time-item, .main-item.reversal , .main-item.reversal img')
                 .width( itemWidth )
                 .height( itemWidth );
+            $dom.find('.main-item').height( itemWidth );
         },
         // start pic reversal animation
         setItemReversal: function( $dom ){
@@ -395,7 +468,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             }
 
             // change url
-            changeUrl('nid=' + node.nid);
+            changeUrl('/nid/' + node.nid);
             // loading image
         } );
 
@@ -1022,12 +1095,19 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         $main.data('param' , $.extend( param , query || {} ) );
 
         // change hash
-        changeUrl( LP.json2query( $main.data('param') ) );
+        var param = $main.data('param');
+        var str = '';
+        $.each( ['orderby' , 'type' , 'country'] , function( i , val){
+            if( param[val] ){
+                str += '/' + val + '/' + param[val];
+            }
+        } )
+        changeUrl( str );
         return $main.data('param');
     }
 
     var changeUrl = function( str ){
-        location.hash = '#' + str;
+        location.hash = '#!' + str;
     }
 
     //-----------------------------------------------------------------------
@@ -1388,6 +1468,18 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                     return options.inverse(this);
             });
         });
+
+
+        // every five minutes get the latest nodes
+        setInterval( function(){
+            // if main element is visible
+            if( !$main.is(':visible') ) return;
+            api.ajax( 'neighbor' , {nid: 1} , function( r ){
+                var nodes = r.data.left;
+                if( !nodes.length ) return;
+                nodeActions.prependNode( $main , nodes , $main.data('param').orderby == "datetime" );
+            } );
+        } , 5 * 60 * 1000 );
     }
 
 
