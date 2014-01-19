@@ -214,6 +214,8 @@ class NodeController extends Controller {
       $country_id = $request->getParam("country_id");
       $uid = $request->getParam("uid");
       $showall = $request->getParam("showall");
+			$mycomment = $request->getParam("mycomment");
+			$mylike = $request->getParam("mylike");
       
       // 3个参数必须填一个
 //      if (!$type && !$country_id && !$uid) {
@@ -253,8 +255,18 @@ class NodeController extends Controller {
           $params[":country_id"] = $country_id;
       }
       if ($uid) {
-          $query->addCondition("uid=:uid", "AND");
-          $params[":uid"] = $uid;
+					if($mycomment) { // filter my commented contents
+						$query->addCondition("comment.uid=:uid", "AND");
+						$params[":uid"] = $uid;
+					}
+					else if($mylike) { // filter my liked contents
+						$query->addCondition("like.uid=:uid", "AND");
+						$params[":uid"] = $uid;
+					}
+					else {  // filter my posted contents
+						$query->addCondition($nodeAr->getTableAlias().".uid=:uid", "AND");
+						$params[":uid"] = $uid;
+					}
       }
       
       if ($start) {
@@ -293,7 +305,17 @@ class NodeController extends Controller {
       $query->select = "*". ", count(like_id) AS likecount";
       $query->join = 'left join `like` '.' on '. '`like`' .".nid = ". $nodeAr->getTableAlias().".nid";
       $query->group = $nodeAr->getTableAlias().".nid";
-      
+
+			if($mycomment) {
+				$query->select = "*";
+				$query->join = 'right join `comment` on `comment`.nid = '.$nodeAr->getTableAlias().'.nid';
+			}
+
+			if($mylike) {
+				$query->select = "*";
+				$query->join = 'right join `like` on `like`.nid = '.$nodeAr->getTableAlias().'.nid';
+			}
+
       $order = "";
       if ($orderby == "datetime") {
           $order .= " ".$nodeAr->getTableAlias().".datetime DESC";

@@ -27,7 +27,12 @@ body{
     overflow: hidden;
 }
 
-.main{margin: 130px -10px 0 120px;}
+.main{margin: 130px -10px 0 0px;}
+.logged .main {margin:130px -10px 0 120px;}
+.inner {margin:130px 0 0 500px;}
+.logged .inner {margin:130px 0 0 620px;}
+.inner-info {left:500px;}
+.logged .inner-info {left:620px;}
 .no-animate .main-item{
     -webkit-transition-duration: 0;
     -moz-transition-duration: 0;
@@ -137,23 +142,22 @@ body{
 .poptxt-pic .pop-rright-btn,
 .poptxt-pic .pop-rleft-btn{
     position: absolute;
-    top: 0;
+    bottom: 0;
     right: 0;
     z-index: 1;
     color: #FFF;
-    background: #000
-}
-.poptxt-pic .pop-zoomin-btn{
-    top: 20px;
-}
-.poptxt-pic .pop-rright-btn{
-    top: 40px;
-}
-.poptxt-pic .pop-rleft-btn{
-    top: 60px;
+    background:url(../img/resize_icon.png) no-repeat;
+    width:23px;height:23px;
+    font-size:0;
 }
 .poptxt-pic-inner{
     width: 260px;
     height: 260px;
     overflow: hidden;
+    cursor: move;
 }
+
+.poptxt-pic .pop-zoomout-btn {background-position: -16px -14px;right: 25px;}
+.poptxt-pic .pop-zoomin-btn {background-position: -39px -13px;right: 0px;}
+.poptxt-pic .pop-rright-btn {background-position: -63px -12px;right: 25px;display:none;}
+.poptxt-pic .pop-rleft-btn {background-position: -86px -13px;display:none;}

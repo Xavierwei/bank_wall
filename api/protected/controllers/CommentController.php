@@ -12,9 +12,13 @@ class CommentController extends Controller {
     if (!$request->isPostRequest) {
       $this->responseError("http error");
     }
-    
+
     $nid = $request->getPost("nid");
-    
+
+    if(Yii::app()->user->isGuest) {
+      return $this->responseError("need login");
+    }
+
     $uid = Yii::app()->user->getId();
     if (Yii::app()->user->checkAccess("postComment")) {
       return $this->responseError("permission deny");

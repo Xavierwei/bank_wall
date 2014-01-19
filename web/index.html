@@ -14,6 +14,9 @@
 <div class="page">
 	<!-- header -->
 	<div class="header">
+        <div class="login">
+            <a href="login.html">User Login</a>
+        </div>
 		<!--  -->
 		<div class="logo"></div>
 		<!--  -->
@@ -131,7 +134,7 @@
         </div>
         <!--  -->
         <div class="pop-inner pop-success">
-            Your have published your photo.
+            Your have published your {{type}}.
         </div>
     </div>  
 </div>
@@ -153,6 +156,7 @@
                         <div class="com-list-inner">
                         </div>
                     </div>
+                    {{#if currentUser}}
                     <div class="com-make">
                         <form class="comment-form" action="../api/index.php/comment/post" method="post">
                             <input type="text" name="content" class="com-ipt" />
@@ -160,11 +164,29 @@
                             <input class="submit" type="submit" value="submit" />
                         </form>
                         <div class="comment-msg-success">Thanks for your comment!</div>
+                        <div class="comment-msg-error"></div>
                     </div>
+                    {{else}}
+                    <div class="need-login">You need <a href="login.html">login</a> before comment.</div>
+                    {{/if}}
                 </div>
                 <!--  -->
                 <div class="com-info">
-                    <div class="com-num clear"><p class="com-day">{{date}} {{month}}</p><p data-a="like" data-d="nid={{nid}}" class="com-like"><span>{{likecount}}</span> {{str_like}}</p></div>
+                    <div class="com-num clear">
+                        <p class="com-day">{{date}} {{month}}</p>
+                        {{#ifliked}}
+                            <p class="com-like">
+                                <span>{{likecount}}</span> {{str_like}}<span class="com-unlike clickable" data-d="nid={{nid}}" data-a="unlike">(unlike)</span>
+                            </p>
+                        {{else}}
+                            <div data-a="like" data-d="nid={{nid}}" class="com-like clickable">
+                                <span>{{likecount}}</span> {{str_like}}
+                                {{#if currentUser}}{{else}}
+                                    <div class="need-login">You need login before like</div>
+                                {{/if}}
+                            </div>
+                        {{/ifliked}}
+                    </div>
                     <div class="com-btn">
                         <p data-a="back" class="com-back"></p>
                         <p data-a="prev" class="com-prev"></p>
@@ -224,12 +246,12 @@
 <script type="text/tpl" id="user-page-template">
 <div class="user-page clear">
     <div class="count">
-        <div class="count-item"><span>{{photos_count}}</span>PHOTOS POSTS</div>
-        <div class="count-item"><span>{{video_count}}</span>VIDEOS POSTS</div>
-        <div class="count-item"><span>{{count_by_day}}</span>CONTENUS DU JOUR</div>
-        <div class="count-item"><span>{{count_by_month}}</span>CONTENUS D MOIS</div>
-        <div class="count-item"><span>{{comments_count}}</span>COMMENTAIRES</div>
-        <div class="count-item"><span>{{like_counts}}</span>LIKES</div>
+        <div data-a="list_user_nodes" data-d="type=photo" class="count-item"><span>{{photos_count}}</span>PHOTOS POSTS</div>
+        <div data-a="list_user_nodes" data-d="type=video" class="count-item"><span>{{videos_count}}</span>VIDEOS POSTS</div>
+        <div data-a="list_user_nodes" data-d="type=day" class="count-item"><span>{{count_by_day}}</span>COUNT BY DAY</div>
+        <div data-a="list_user_nodes" data-d="type=month" class="count-item"><span>{{count_by_month}}</span>COUNT BY MONTH</div>
+        <div data-a="list_user_nodes" data-d="type=comment" class="count-item"><span>{{comments_count}}</span>COMMENTS</div>
+        <div data-a="list_user_nodes" data-d="type=like" class="count-item"><span>{{likes_count}}</span>LIKES</div>
     </div>
     <!-- inner -->
     <div class="count-inner">
@@ -293,11 +315,26 @@
             <div class="menu-item byday" data-a="by_day"><p></p></div>
             <div class="menu-item bymonth" data-a="by_month"><p></p></div>
             <div class="menu-item settings" data-a="toggle_user_page"><p></p></div>
+            <div class="menu-item logout" data-a="logout"><p>Logout</p></div>
+
         </div>
     </div>
 </script>
 
+<!-- side-tpl -->
+<script type="text/tpl" id="wmv-template">
+<object classid="CLSID:22D6F312-B0F6-11D0-94AB-0080C74C7E95" standby="Loading Microsoft® Windows® Media Player components..." type="application/x-oleobject" codebase="http://activex.microsoft.com/activex/controls/mplayer/en/nsm p2inf.cab#Version=6,4,7,1112">
+    <param name="fileName" value="{{nid}}.wmv">
+    <param name="autoStart" value="true">
+    <param name="showControls" value="true">
+    <param name="AllowChangeDisplaySize" value="true">
+    <param name="ClickToPlay" value="true">
+    <embed type="application/x-mplayer2" pluginspage="http://www.microsoft.com/Windows/MediaPlayer/" src="{{nid}}.wmv" autoStart="false" ></embed>
+</object>
+</script>
+
 <!--//all tpls end -->
+<script type="text/javascript" src="../static/js/plugin/modernizr-2.5.3.min.js"></script>
 <script type="text/javascript" src="../static/js/sea/sea-debug.js" data-config="../config"></script>
 <script type="text/javascript" src="../static/js/sea/plugin-shim.js"></script>
 <script type="text/javascript" src="../static/js/lp.core.js"></script>

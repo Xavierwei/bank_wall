@@ -52,6 +52,9 @@ seajs.config({
     ,"video-js":{
       src: "../video-js/video.js"
     }
+    ,"flash-detect":{
+      src: "../plugin/flash_detect_min.js"
+    }
   }
   , alias: {
     api: '../api'

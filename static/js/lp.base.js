@@ -247,7 +247,6 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             var $nodes = $dom.find('.pic-item:not(.reversal)');
 
             var startAnimate = function( $node ){
-                console.log(itemWidth);
                 $node.addClass('reversal')
                     .width( itemWidth )
                     .height( itemWidth );
@@ -358,7 +357,9 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             // it must visible and in main element has unreversaled node
             if( $('.user-page').is(':visible') && !$userCom.find('.main-item:not(.time-item,.reversal)').length ){
                 _scrollAjax = true;
-                api.ajax('userNode' , {nid: 10} , function( result ){
+                var userPageParam = $('.side').data('param');
+                userPageParam.page++;
+                api.ajax('recent' , userPageParam , function( result ){
                     nodeActions.inserNode( $userCom , result.data , true );
                     _scrollAjax = false;
 
@@ -404,7 +405,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         node.date = datetime.getDate();
         node.month = getMonth((parseInt(datetime.getMonth()) + 1));
         node.image = node.file.replace( node.type == "video" ? '.mp4' : '.jpg', BIG_IMG_SIZE + '.jpg');
-
+        node.currentUser = $('.side').data('user');
         LP.compile( 'inner-template' , node , function( html ){
             var mainWidth = winWidth - _silderWidth;
             // inner animation
@@ -460,10 +461,21 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
 
             // init vide node
             if( node.type == "video" ){
-                LP.use('video-js' , function(){
-                    videojs( "inner-video-" + node.nid , {}, function(){
-                      // Player (this) is initialized and ready.
-                    });
+
+                LP.use('flash-detect', function(){
+                    if(FlashDetect.installed || $('html').hasClass('video')) { // need to validate html5 video as well
+                        LP.use('video-js' , function(){
+                            videojs( "inner-video-" + node.nid , {}, function(){
+                                // Player (this) is initialized and ready.
+                            });
+                        });
+                    }
+                    else
+                    {
+                        LP.compile( 'wmv-template' , {nid:node.nid} , function( html ){
+                            $('.image-wrap-inner').html(html);
+                        });
+                    }
                 });
             }
 
@@ -524,6 +536,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         var datetime = new Date(node.datetime*1000);
         node.date = datetime.getDate();
         node.month = getMonth((parseInt(datetime.getMonth()) + 1));
+        node.currentUser = $('.side').data('user');
 
         var $inner = $('.inner');
         LP.compile( 'inner-template' , node , function( html ){
@@ -610,6 +623,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                 });
 
             // load comment
+            bindCommentSubmisson();
             getCommentList(node.nid);
         });
     }
@@ -674,7 +688,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
     //for like action
     LP.action('like' , function( data ){
         var _this = $(this);
-        var _likeWrap = _this.find('span');
+        var _likeWrap = _this.find('span').eq(0);
         if(_this.data('liked')) {
             //TODO.. if current user already liked this node, invoke the unlike function
             return;
@@ -685,11 +699,28 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                     _likeWrap.animate({opacity:0},function(){
                         _likeWrap.html(result.data);
                         _this.data('liked',true);
+                        _this.removeClass('clickable');
+                        _this.append('<span class="com-unlike clickable" data-d="nid={{nid}}" data-a="unlike">(unlike)</span>');
                         $(this).animate({opacity:1});
                     });
                 }
             });
         }
+    });
+
+    LP.action('unlike' , function( data ){
+        var _this = $(this);
+        var _likeWrap = _this.parent().find('span').eq(0);
+        api.ajax('unlike', {nid:data.nid}, function( result ){
+            if(result.success) {
+                _likeWrap.animate({opacity:0},function(){
+                    _likeWrap.html(result.data);
+                    _this.parent().data('liked',false);
+                    _this.fadeOut();
+                    $(this).animate({opacity:1});
+                });
+            }
+        });
     });
 
     //for comment action
@@ -790,12 +821,12 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                     })
                     .bind('fileuploaddone', function (e, data) {
                         if(data.result.data.type == 'video') {
-                            $('.poptxt-pic img').attr('src', API_FOLDER + data.result.data.file/*.replace('.mp4', THUMBNAIL_IMG_SIZE + '.jpg')*/);
+                            $('.poptxt-pic img').attr('src', API_FOLDER + data.result.data.file.replace('.mp4', THUMBNAIL_IMG_SIZE + '.jpg'));
                             setTimeout(function(){
                                 var timestamp = new Date().getTime();
                                 $('.poptxt-pic img').attr('src',$('.poptxt-pic img').attr('src') + '?' +timestamp );
                             },2000);
-                            $('.poptxt-submit').attr('data-d','nid=' + data.result.data.nid);
+                            $('.poptxt-submit').attr('data-d','nid=' + data.result.data.nid+'&type=' + data.result.data.type);
                             $('.pop-inner').delay(400).fadeOut(400);
                             $('.pop-txt').delay(900).fadeIn(400);
                         }
@@ -932,7 +963,9 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         $('.poptxt-check .error').fadeOut();
 
         // get image scale , rotate , zoom arguments
-        var trsdata = transformMgr.result();
+        if(data.type == 'photo') {
+            var trsdata = transformMgr.result();
+        }
 
         api.ajax('saveNode' , $.extend( {nid: data.nid, description: description} , trsdata ), function( result ){
             if(result.success) {
@@ -953,15 +986,18 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
     });
 
     //toggle user page
-    LP.action('toggle_user_page' , function( data ){
+    LP.action('toggle_user_page' , function(){
         if(!$('.user-page').is(':visible')) {
             $('.inner').fadeOut(400);
             $('.main').fadeOut(400);
             $('.user-page').delay(400).fadeIn(400 , function(){
                 // if first loaded , load user's nodes from server
+                var user = $('.side').data('user');
+                var param = {page:1, uid:user.uid, orderby:'datetime'};
+                $('.side').data('param', param);
                 var $countCom = $(this).find('.count-com');
                 if( !$countCom.children().length ){
-                    api.ajax('userNode' , {uid: data.uid } , function( result ){
+                    api.ajax('recent' , param , function( result ){
                         nodeActions.inserNode( $countCom , result.data , true );
                     });
                 }
@@ -971,6 +1007,45 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         else {
             LP.triggerAction('close_user_page');
         }
+    });
+
+    // List user nodes
+    LP.action('list_user_nodes', function(data){
+        var type = data.type;
+        var param = $('.side').data('param');
+        param.page = 1;
+        delete param.type;
+        delete param.start;
+        delete param.mycomment;
+        delete param.mylike;
+        switch(data.type) {
+            case 'photo':
+                param.type = 'photo';
+                break;
+            case 'video':
+                param.type = 'video';
+                break;
+            case 'day':
+                var d = new Date();
+                param.start = d.getFullYear() + '-' + parseInt(d.getMonth() + 1) + '-' + d.getDate();
+                break;
+            case 'month':
+                var d = new Date();
+                param.start = d.getFullYear() + '-' + parseInt(d.getMonth() + 1) + '-' + 1;
+                break;
+            case 'comment':
+                param.mycomment = true;
+                break;
+            case 'like':
+                param.mylike = true;
+                break;
+        }
+        var $countCom = $('.count-com').removeData('nodes').fadeOut(function(){
+            $(this).html('').show();
+            api.ajax('recent' , param , function( result ){
+                nodeActions.inserNode( $countCom , result.data , true );
+            });
+        });
     });
 
     //close user page
@@ -997,6 +1072,15 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         $('.count-com').delay(400).fadeIn(400);
         $('.count-edit').fadeIn();
         $('.count-userinfo').removeClass('count-userinfo-edit');
+    });
+
+    //close user page
+    LP.action('logout' , function(){
+        api.ajax('logout', function( result ){
+            if(result.success) {
+                window.location.reload();
+            }
+        });
     });
 
     //save user updates
@@ -1412,7 +1496,6 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
 
 
     var init = function() {
-
         // after page load , load the recent data from server
         var pageParam = refreshQuery();
         api.ajax('recent', pageParam, function( result ){
@@ -1421,15 +1504,23 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
 
         // after page load , load the current user information data from server
         api.ajax('user' , function( result ){
-            result.data.count_by_day = parseInt(result.data.photos_count_by_day) + parseInt(result.data.videos_count_by_day);
-            result.data.count_by_month = parseInt(result.data.photos_count_by_month) + parseInt(result.data.videos_count_by_month);
-            LP.compile( 'user-page-template' , result.data , function( html ){
-                $('.content').append(html);
-            });
+            if(result.success) {
+                //bind user data after success logged
+                LP.compile( 'user-page-template' , result.data , function( html ){
+                    $('.content').append(html);
+                });
 
-            LP.compile( 'side-template' , result.data , function( html ){
-                $('.content').append(html);
-            });
+                LP.compile( 'side-template' , result.data , function( html ){
+                    $('.content').append(html);
+                    //cache the user data
+                    $('.side').data('user',result.data);
+                });
+                $('.page').addClass('logged');
+                $('.header .select').fadeIn();
+            }
+            else {
+                $('.header .login').fadeIn();
+            }
         });
 
         LP.use('uicustom',function(){
@@ -1467,6 +1558,26 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                 else
                     return options.inverse(this);
             });
+
+            Handlebars.registerHelper('ifliked', function(options) {
+                if(this.user_liked == true)
+                    return options.fn(this);
+                else
+                    return options.inverse(this);
+            });
+        });
+
+        $('body').on('mouseenter','.com-like',function(){
+            var needLogin = $(this).find('.need-login');
+            if(needLogin) {
+                needLogin.fadeIn();
+            }
+        });
+        $('body').on('mouseleave','.com-like',function(){
+            var needLogin = $(this).find('.need-login');
+            if(needLogin) {
+                needLogin.fadeOut();
+            }
         });
 
 
@@ -1488,13 +1599,36 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         LP.use('form' , function(){
             $('.comment-form').ajaxForm({
                 beforeSubmit:  function($form){
-                    //return $('.form_register_home').valid();
+                    $('.comment-msg-error').hide();
+                    if($('.com-ipt').val().length == 0) {
+                        $('.comment-msg-error').show().html('You should write something.');
+                        return false;
+                    }
                 },
                 complete: function(xhr) {
                     var res = xhr.responseJSON;
                     if(res.success) {
+                        var comment = res.data;
+                        var datetime = new Date(comment.datetime*1000);
+                        comment.date = datetime.getDate();
+                        comment.month = getMonth((parseInt(datetime.getMonth()) + 1));
+                        comment.user = $('.side').data('user');
                         $('.comment-form').fadeOut();
                         $('.comment-msg-success').delay(500).fadeIn();
+                        LP.compile( 'comment-item-template' ,
+                            comment,
+                            function( html ){
+                                // render html
+                                if($('.com-list-inner .comlist-item').length == 0) {
+                                    $('.com-list-inner').html('');
+                                }
+                                $('.com-list-inner').first().append(html);
+                            } );
+                    }
+                    else {
+                        if(res.message == 'need login') {
+                            $('.comment-msg-error').html('You need login before comment');
+                        }
                     }
                 }
             });
@@ -1510,20 +1644,24 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         api.ajax('commentList', {nid: nid}, function( result ){
             // TODO: 异常处理
             var comments = result.data;
-            // filte for date
-            $.each( comments , function( index , comment ){
-                // get date
-                var datetime = new Date(comment.datetime*1000);
-                comment.date = datetime.getDate();
-                comment.month = getMonth((parseInt(datetime.getMonth()) + 1));
+            if(comments.length == 0) {
+                $('.com-list-inner').html('You will be first one to comment this content.');
+            }
+            else {
+                $.each( comments , function( index , comment ){
+                    // get date
+                    var datetime = new Date(comment.datetime*1000);
+                    comment.date = datetime.getDate();
+                    comment.month = getMonth((parseInt(datetime.getMonth()) + 1));
 
-                LP.compile( 'comment-item-template' ,
-                    comment ,
-                    function( html ){
-                        // render html
-                        $('.com-list-inner').append(html);
-                    } );
-            });
+                    LP.compile( 'comment-item-template' ,
+                        comment ,
+                        function( html ){
+                            // render html
+                            $('.com-list-inner').first().append(html);
+                        } );
+                });
+            }
         });
     }
 
