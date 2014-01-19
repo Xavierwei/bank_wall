@@ -169,8 +169,11 @@ class NodeAR extends CActiveRecord{
 
         $this->file = $newpath;
       }
-      
 
+			// Generate WMV for no flash IE8
+			$topath = ROOT.$newpath;
+			$wmvpath = str_replace('.mp4','.wmv',$topath);
+			exec("ffmpeg -i {$topath} -y -vf scale=-1:360 {$wmvpath}", $output, $status);
       
       // Load user/country
       $userAr = new UserAR();
@@ -201,7 +204,6 @@ class NodeAR extends CActiveRecord{
     $extname = pathinfo($to, PATHINFO_EXTENSION);
     $videoexts = explode(",", self::ALLOW_UPLOADED_VIDEO_TYPES);
 
-
     if (in_array($extname, $videoexts)) {
       // 在这里做视频转换功能
       // 先检查 ffmpeg 是否已经安装
@@ -215,31 +217,38 @@ class NodeAR extends CActiveRecord{
           if ($newpath != $to) {
             $status;
             $output;
-
             // 视频转换
             switch($extname) {
-              case 'mpeg':
-                exec("ffmpeg -i {$to}  -vcodec mpeg4 -b:v 1200k -flags +aic+mv4 {$newpath}", $output, $status);
+              case 'mpg':
+                exec("ffmpeg -i {$to} -c:v libx264 -c:a libfaac -r 30 {$newpath}", $output, $status);
                 break;
               case 'mov':
                 exec("ffmpeg -i {$to} -vcodec copy -acodec copy {$newpath}", $output, $status);
                 break;
+							case 'wmv':
+								exec("ffmpeg -i {$to} -strict -2 -s size {$newpath}", $output, $status);
+								break;
+							case '3gp':
+								exec("ffmpeg -i {$to} -strict -2 -ab 64k -ar 44100 {$newpath}", $output, $status);
+								break;
+							case 'avi':
+								exec("ffmpeg -i {$to} -pix_fmt yuv420p -crf 19 -ac 2 {$newpath}", $output, $status);
+								break;
               default:
                 exec("ffmpeg -i {$to}  -vcodec mpeg4 -b:v 1200k -flags +aic+mv4 {$newpath}", $output, $status);
             }
             
             // 视频转换完后 要删掉之前的视频文件
             unlink($to);
-
             // 删除后， 再返回新的文件地址
             $to = $newpath;
           }
+
         }
       }
     }
     
     $to = str_replace(ROOT, "", $to);
-    
     return $to;
   }
   

@@ -134,7 +134,7 @@
         </div>
         <!--  -->
         <div class="pop-inner pop-success">
-            Your have published your photo.
+            Your have published your {{type}}.
         </div>
     </div>  
 </div>
@@ -246,12 +246,12 @@
 <script type="text/tpl" id="user-page-template">
 <div class="user-page clear">
     <div class="count">
-        <div class="count-item"><span>{{photos_count}}</span>PHOTOS POSTS</div>
-        <div class="count-item"><span>{{videos_count}}</span>VIDEOS POSTS</div>
-        <div class="count-item"><span>{{count_by_day}}</span>COUNT BY DAY</div>
-        <div class="count-item"><span>{{count_by_month}}</span>COUNT BY MONTH</div>
-        <div class="count-item"><span>{{comments_count}}</span>COMMENTS</div>
-        <div class="count-item"><span>{{likes_count}}</span>LIKES</div>
+        <div data-a="list_user_nodes" data-d="type=photo" class="count-item"><span>{{photos_count}}</span>PHOTOS POSTS</div>
+        <div data-a="list_user_nodes" data-d="type=video" class="count-item"><span>{{videos_count}}</span>VIDEOS POSTS</div>
+        <div data-a="list_user_nodes" data-d="type=day" class="count-item"><span>{{count_by_day}}</span>COUNT BY DAY</div>
+        <div data-a="list_user_nodes" data-d="type=month" class="count-item"><span>{{count_by_month}}</span>COUNT BY MONTH</div>
+        <div data-a="list_user_nodes" data-d="type=comment" class="count-item"><span>{{comments_count}}</span>COMMENTS</div>
+        <div data-a="list_user_nodes" data-d="type=like" class="count-item"><span>{{likes_count}}</span>LIKES</div>
     </div>
     <!-- inner -->
     <div class="count-inner">
@@ -321,7 +321,20 @@
     </div>
 </script>
 
+<!-- side-tpl -->
+<script type="text/tpl" id="wmv-template">
+<object classid="CLSID:22D6F312-B0F6-11D0-94AB-0080C74C7E95" standby="Loading Microsoft® Windows® Media Player components..." type="application/x-oleobject" codebase="http://activex.microsoft.com/activex/controls/mplayer/en/nsm p2inf.cab#Version=6,4,7,1112">
+    <param name="fileName" value="{{nid}}.wmv">
+    <param name="autoStart" value="true">
+    <param name="showControls" value="true">
+    <param name="AllowChangeDisplaySize" value="true">
+    <param name="ClickToPlay" value="true">
+    <embed type="application/x-mplayer2" pluginspage="http://www.microsoft.com/Windows/MediaPlayer/" src="{{nid}}.wmv" autoStart="false" ></embed>
+</object>
+</script>
+
 <!--//all tpls end -->
+<script type="text/javascript" src="../static/js/plugin/modernizr-2.5.3.min.js"></script>
 <script type="text/javascript" src="../static/js/sea/sea-debug.js" data-config="../config"></script>
 <script type="text/javascript" src="../static/js/sea/plugin-shim.js"></script>
 <script type="text/javascript" src="../static/js/lp.core.js"></script>

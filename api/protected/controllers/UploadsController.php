@@ -128,6 +128,7 @@ class UploadsController extends Controller {
       // 成功了
       if ($status) {
         // nothing
+				exec("ffmpeg -i $absvideoPath -ss 0.5 -t 1 -f image2 ".$absscreenImagePath. " 2>&1", $output, $status);
       }
       else {
         //TODO:: 不成功 我们可能需要返回一个默认的视频；因为客户端需要的是一个图片链接

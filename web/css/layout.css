@@ -47,7 +47,7 @@ a{text-decoration:none;color:#666}
 			.language-item p{width: 20px;height: 21px;cursor: pointer;}
 			.fr{background: url('../img/language.gif') no-repeat left 0;}
 			.en{background: url('../img/language.gif') no-repeat right 0;}
-	.login {display:none;background: #df2847;color:#fff;position: absolute;right:60px;top:50px;padding:3px 20px;width:150px;}
+	.login {display:none;background: #df2847;color:#fff;position: absolute;right:60px;top:50px;padding:3px 20px;}
     .login a {color:#fff;}
 
 /* content Used
@@ -139,7 +139,7 @@ a{text-decoration:none;color:#666}
                 .comlist-flag:hover {opacity:1;}
         .comlist-flag.flagged {background-position: 0 -22px;}
 		.com-ipt{background:#4b4b4b;color:#ccc;width:100%;margin:10px 0 0;padding:15px;font-size:14px;}
-        .com-make .submit {background:#222;color:#ccc;border: none;padding:10px;margin-top:5px;}
+        .com-make .submit {background:#222;color:#ccc;border: none;padding:10px;margin-top:5px;float:right;}
         .comment-msg-success {display: none;margin:20px 0 0;}
         .com-make {height: 85px;}
         .com-main .need-login {text-align: center;}
@@ -179,7 +179,7 @@ a{text-decoration:none;color:#666}
     #fileupload .error {text-align: center;color:#db2842;}
     #fileupload input[type="file"] {position: absolute;top: 0;right: 0;margin: 0;opacity: 0;-ms-filter: 'alpha(opacity=0)';font-size: 200px;direction: ltr;cursor: pointer;}
 /**/
-.popload-icon{width: 200px;height: 200px;background: #fcc;margin:90px auto;}
+.popload-icon{width: 200px;height: 30px;margin:90px auto;}
 .poploading{text-align: center;font-size: 28px;}
 	.popload-percent{width:400px;height: 30px;background: #666;margin:0 auto 20px;}
 	.popload-percent p{width:20%;height: 30px;background: #f66}
@@ -191,7 +191,7 @@ a{text-decoration:none;color:#666}
 .poptxt-check{padding:10px 0 0 325px;}
 	.poptxt-check input{vertical-align: middle;display: inline-block;margin: 0 8px 0 0}
     .poptxt-check .error {display: none;color:#c0152d;}
-.pop-success {color:#c0152d;font-size:40px;line-height: 200px;text-align: center;}
+.pop-success {color:#c0152d;font-size:40px;line-height: 200px;text-align: center;display: none;}
 .poptxt-btn{width: 640px;margin:50px auto 0; }
 	.poptxt-cancel{float:left;width: 254px;height: 60px;background: #db2842;border: #c0152d 3px solid;color:#fff;line-height: 60px;text-align: center;font-size:28px;}
 	.poptxt-submit{float:right;width: 354px;height: 60px;background: #3f3e3d;border: #5d5d5d 3px solid;color:#fff;line-height: 60px;text-align: center;font-size:28px;}
@@ -200,7 +200,7 @@ a{text-decoration:none;color:#666}
 /* comment Used
 ================================================================================================= */
 .count{color:#fff;position: fixed;width:360px;height: 100%;background: #e6e6e6;top:130px;left:120px;}
-	.count-item{background: #f4f4f4;height:95px;border-bottom:#eaeaea solid 2px;text-align: center;font-size: 18px;color:#333;padding:10px 0 0;}
+	.count-item{cursor:pointer;background: #f4f4f4;height:95px;border-bottom:#eaeaea solid 2px;text-align: center;font-size: 18px;color:#333;padding:10px 0 0;}
 		.count-item span{display: block;color:#de2643;font-size:48px;line-height:60px;}
 
 /* count-inner Used

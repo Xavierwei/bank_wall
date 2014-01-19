@@ -6419,3 +6419,919 @@ REQUEST_URI=/bank_wall/api/uploads/52cbdc4a46108_1_250_250.jpg
 in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
 in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
 in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/01/19 08:13:19 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 08:13:19 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 08:13:19 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 08:14:50 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'uid' in where clause is ambiguous. The SQL statement executed was: SELECT `t`.`nid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`country_id` AS `t0_c2`, `t`.`type` AS `t0_c3`, `t`.`file` AS `t0_c4`, `t`.`datetime` AS `t0_c5`, `t`.`hashtag` AS `t0_c6`, `t`.`description` AS `t0_c7`, `t`.`status` AS `t0_c8`, count(like_id) AS likecount, `user`.`uid` AS `t1_c0`, `user`.`name` AS `t1_c1`, `user`.`personal_email` AS `t1_c2`, `user`.`company_email` AS `t1_c3`, `user`.`country_id` AS `t1_c4`, `user`.`avatar` AS `t1_c5`, `user`.`role` AS `t1_c6`, `user`.`datetime` AS `t1_c7`, `user`.`firstname` AS `t1_c8`, `user`.`lastname` AS `t1_c9`, `user`.`password` AS `t1_c10`, `user`.`status` AS `t1_c11`, `country`.`country_id` AS `t2_c0`, `country`.`country_name` AS `t2_c1`, `country`.`code` AS `t2_c2`, `country`.`flag_icon` AS `t2_c3` FROM `node` `t` left join `like`  on `like`.nid = t.nid LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE ((uid=:uid) AND (t.status = :status)) GROUP BY t.nid ORDER BY  t.datetime DESC LIMIT 20.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (362)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 08:14:50 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'uid' in where clause is ambiguous. The SQL statement executed was: SELECT `t`.`nid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`country_id` AS `t0_c2`, `t`.`type` AS `t0_c3`, `t`.`file` AS `t0_c4`, `t`.`datetime` AS `t0_c5`, `t`.`hashtag` AS `t0_c6`, `t`.`description` AS `t0_c7`, `t`.`status` AS `t0_c8`, count(like_id) AS likecount, `user`.`uid` AS `t1_c0`, `user`.`name` AS `t1_c1`, `user`.`personal_email` AS `t1_c2`, `user`.`company_email` AS `t1_c3`, `user`.`country_id` AS `t1_c4`, `user`.`avatar` AS `t1_c5`, `user`.`role` AS `t1_c6`, `user`.`datetime` AS `t1_c7`, `user`.`firstname` AS `t1_c8`, `user`.`lastname` AS `t1_c9`, `user`.`password` AS `t1_c10`, `user`.`status` AS `t1_c11`, `country`.`country_id` AS `t2_c0`, `country`.`country_name` AS `t2_c1`, `country`.`code` AS `t2_c2`, `country`.`flag_icon` AS `t2_c3` FROM `node` `t` left join `like`  on `like`.nid = t.nid LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE ((uid=:uid) AND (t.status = :status)) GROUP BY t.nid ORDER BY  t.datetime DESC LIMIT 20' in /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(362): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionList()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('node/list')
+#13 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/index.php/node/list?page=1&pagenum=20&hashtag=&orderby=datetime&uid=223
+---
+2014/01/19 08:16:31 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'node.uid' in 'where clause'. The SQL statement executed was: SELECT `t`.`nid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`country_id` AS `t0_c2`, `t`.`type` AS `t0_c3`, `t`.`file` AS `t0_c4`, `t`.`datetime` AS `t0_c5`, `t`.`hashtag` AS `t0_c6`, `t`.`description` AS `t0_c7`, `t`.`status` AS `t0_c8`, count(like_id) AS likecount, `user`.`uid` AS `t1_c0`, `user`.`name` AS `t1_c1`, `user`.`personal_email` AS `t1_c2`, `user`.`company_email` AS `t1_c3`, `user`.`country_id` AS `t1_c4`, `user`.`avatar` AS `t1_c5`, `user`.`role` AS `t1_c6`, `user`.`datetime` AS `t1_c7`, `user`.`firstname` AS `t1_c8`, `user`.`lastname` AS `t1_c9`, `user`.`password` AS `t1_c10`, `user`.`status` AS `t1_c11`, `country`.`country_id` AS `t2_c0`, `country`.`country_name` AS `t2_c1`, `country`.`code` AS `t2_c2`, `country`.`flag_icon` AS `t2_c3` FROM `node` `t` left join `like`  on `like`.nid = t.nid LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE ((node.uid=:uid) AND (t.status = :status)) GROUP BY t.nid ORDER BY  t.datetime DESC LIMIT 20.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (362)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 08:16:31 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'node.uid' in 'where clause'. The SQL statement executed was: SELECT `t`.`nid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`country_id` AS `t0_c2`, `t`.`type` AS `t0_c3`, `t`.`file` AS `t0_c4`, `t`.`datetime` AS `t0_c5`, `t`.`hashtag` AS `t0_c6`, `t`.`description` AS `t0_c7`, `t`.`status` AS `t0_c8`, count(like_id) AS likecount, `user`.`uid` AS `t1_c0`, `user`.`name` AS `t1_c1`, `user`.`personal_email` AS `t1_c2`, `user`.`company_email` AS `t1_c3`, `user`.`country_id` AS `t1_c4`, `user`.`avatar` AS `t1_c5`, `user`.`role` AS `t1_c6`, `user`.`datetime` AS `t1_c7`, `user`.`firstname` AS `t1_c8`, `user`.`lastname` AS `t1_c9`, `user`.`password` AS `t1_c10`, `user`.`status` AS `t1_c11`, `country`.`country_id` AS `t2_c0`, `country`.`country_name` AS `t2_c1`, `country`.`code` AS `t2_c2`, `country`.`flag_icon` AS `t2_c3` FROM `node` `t` left join `like`  on `like`.nid = t.nid LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE ((node.uid=:uid) AND (t.status = :status)) GROUP BY t.nid ORDER BY  t.datetime DESC LIMIT 20' in /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(362): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionList()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('node/list')
+#13 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/index.php/node/list?page=1&pagenum=20&hashtag=&orderby=datetime&uid=223
+---
+2014/01/19 08:17:13 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 08:17:13 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 08:17:13 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 08:17:42 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 08:17:42 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 08:17:42 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 08:18:07 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 08:18:07 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 08:18:07 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 09:22:17 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'bank_wall.comment1' doesn't exist. The SQL statement executed was: SELECT `t`.`nid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`country_id` AS `t0_c2`, `t`.`type` AS `t0_c3`, `t`.`file` AS `t0_c4`, `t`.`datetime` AS `t0_c5`, `t`.`hashtag` AS `t0_c6`, `t`.`description` AS `t0_c7`, `t`.`status` AS `t0_c8`, `user`.`uid` AS `t1_c0`, `user`.`name` AS `t1_c1`, `user`.`personal_email` AS `t1_c2`, `user`.`company_email` AS `t1_c3`, `user`.`country_id` AS `t1_c4`, `user`.`avatar` AS `t1_c5`, `user`.`role` AS `t1_c6`, `user`.`datetime` AS `t1_c7`, `user`.`firstname` AS `t1_c8`, `user`.`lastname` AS `t1_c9`, `user`.`password` AS `t1_c10`, `user`.`status` AS `t1_c11`, `country`.`country_id` AS `t2_c0`, `country`.`country_name` AS `t2_c1`, `country`.`code` AS `t2_c2`, `country`.`flag_icon` AS `t2_c3` FROM `node` `t` left join `comment1` on `comment`.nid = t.nid LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (t.status = :status) GROUP BY t.nid ORDER BY  t.datetime DESC LIMIT 100.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (366)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 09:22:17 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'bank_wall.comment1' doesn't exist. The SQL statement executed was: SELECT `t`.`nid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`country_id` AS `t0_c2`, `t`.`type` AS `t0_c3`, `t`.`file` AS `t0_c4`, `t`.`datetime` AS `t0_c5`, `t`.`hashtag` AS `t0_c6`, `t`.`description` AS `t0_c7`, `t`.`status` AS `t0_c8`, `user`.`uid` AS `t1_c0`, `user`.`name` AS `t1_c1`, `user`.`personal_email` AS `t1_c2`, `user`.`company_email` AS `t1_c3`, `user`.`country_id` AS `t1_c4`, `user`.`avatar` AS `t1_c5`, `user`.`role` AS `t1_c6`, `user`.`datetime` AS `t1_c7`, `user`.`firstname` AS `t1_c8`, `user`.`lastname` AS `t1_c9`, `user`.`password` AS `t1_c10`, `user`.`status` AS `t1_c11`, `country`.`country_id` AS `t2_c0`, `country`.`country_name` AS `t2_c1`, `country`.`code` AS `t2_c2`, `country`.`flag_icon` AS `t2_c3` FROM `node` `t` left join `comment1` on `comment`.nid = t.nid LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (t.status = :status) GROUP BY t.nid ORDER BY  t.datetime DESC LIMIT 100' in /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(366): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionList()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('node/list')
+#13 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/index.php/node/list?page=1&pagenum=100&hashtag=&orderby=datetime
+---
+2014/01/19 09:22:24 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'bank_wall.comment1' doesn't exist. The SQL statement executed was: SELECT `t`.`nid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`country_id` AS `t0_c2`, `t`.`type` AS `t0_c3`, `t`.`file` AS `t0_c4`, `t`.`datetime` AS `t0_c5`, `t`.`hashtag` AS `t0_c6`, `t`.`description` AS `t0_c7`, `t`.`status` AS `t0_c8`, `user`.`uid` AS `t1_c0`, `user`.`name` AS `t1_c1`, `user`.`personal_email` AS `t1_c2`, `user`.`company_email` AS `t1_c3`, `user`.`country_id` AS `t1_c4`, `user`.`avatar` AS `t1_c5`, `user`.`role` AS `t1_c6`, `user`.`datetime` AS `t1_c7`, `user`.`firstname` AS `t1_c8`, `user`.`lastname` AS `t1_c9`, `user`.`password` AS `t1_c10`, `user`.`status` AS `t1_c11`, `country`.`country_id` AS `t2_c0`, `country`.`country_name` AS `t2_c1`, `country`.`code` AS `t2_c2`, `country`.`flag_icon` AS `t2_c3` FROM `node` `t` left join `comment1` on `comment`.nid = t.nid LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (t.status = :status) GROUP BY t.nid ORDER BY  t.datetime DESC LIMIT 100.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (366)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 09:22:24 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'bank_wall.comment1' doesn't exist. The SQL statement executed was: SELECT `t`.`nid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`country_id` AS `t0_c2`, `t`.`type` AS `t0_c3`, `t`.`file` AS `t0_c4`, `t`.`datetime` AS `t0_c5`, `t`.`hashtag` AS `t0_c6`, `t`.`description` AS `t0_c7`, `t`.`status` AS `t0_c8`, `user`.`uid` AS `t1_c0`, `user`.`name` AS `t1_c1`, `user`.`personal_email` AS `t1_c2`, `user`.`company_email` AS `t1_c3`, `user`.`country_id` AS `t1_c4`, `user`.`avatar` AS `t1_c5`, `user`.`role` AS `t1_c6`, `user`.`datetime` AS `t1_c7`, `user`.`firstname` AS `t1_c8`, `user`.`lastname` AS `t1_c9`, `user`.`password` AS `t1_c10`, `user`.`status` AS `t1_c11`, `country`.`country_id` AS `t2_c0`, `country`.`country_name` AS `t2_c1`, `country`.`code` AS `t2_c2`, `country`.`flag_icon` AS `t2_c3` FROM `node` `t` left join `comment1` on `comment`.nid = t.nid LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (t.status = :status) GROUP BY t.nid ORDER BY  t.datetime DESC LIMIT 100' in /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(366): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionList()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('node/list')
+#13 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/index.php/node/list?page=1&pagenum=100&hashtag=&orderby=datetime
+---
+2014/01/19 09:23:24 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'inner join `comment1` on `comment`.nid = t.nid LEFT OUTER JOIN `user` `user` ON ' at line 1. The SQL statement executed was: SELECT `t`.`nid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`country_id` AS `t0_c2`, `t`.`type` AS `t0_c3`, `t`.`file` AS `t0_c4`, `t`.`datetime` AS `t0_c5`, `t`.`hashtag` AS `t0_c6`, `t`.`description` AS `t0_c7`, `t`.`status` AS `t0_c8`, `user`.`uid` AS `t1_c0`, `user`.`name` AS `t1_c1`, `user`.`personal_email` AS `t1_c2`, `user`.`company_email` AS `t1_c3`, `user`.`country_id` AS `t1_c4`, `user`.`avatar` AS `t1_c5`, `user`.`role` AS `t1_c6`, `user`.`datetime` AS `t1_c7`, `user`.`firstname` AS `t1_c8`, `user`.`lastname` AS `t1_c9`, `user`.`password` AS `t1_c10`, `user`.`status` AS `t1_c11`, `country`.`country_id` AS `t2_c0`, `country`.`country_name` AS `t2_c1`, `country`.`code` AS `t2_c2`, `country`.`flag_icon` AS `t2_c3` FROM `node` `t` left inner join `comment1` on `comment`.nid = t.nid LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (t.status = :status) GROUP BY t.nid ORDER BY  t.datetime DESC LIMIT 100.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (366)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 09:23:24 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'inner join `comment1` on `comment`.nid = t.nid LEFT OUTER JOIN `user` `user` ON ' at line 1. The SQL statement executed was: SELECT `t`.`nid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`country_id` AS `t0_c2`, `t`.`type` AS `t0_c3`, `t`.`file` AS `t0_c4`, `t`.`datetime` AS `t0_c5`, `t`.`hashtag` AS `t0_c6`, `t`.`description` AS `t0_c7`, `t`.`status` AS `t0_c8`, `user`.`uid` AS `t1_c0`, `user`.`name` AS `t1_c1`, `user`.`personal_email` AS `t1_c2`, `user`.`company_email` AS `t1_c3`, `user`.`country_id` AS `t1_c4`, `user`.`avatar` AS `t1_c5`, `user`.`role` AS `t1_c6`, `user`.`datetime` AS `t1_c7`, `user`.`firstname` AS `t1_c8`, `user`.`lastname` AS `t1_c9`, `user`.`password` AS `t1_c10`, `user`.`status` AS `t1_c11`, `country`.`country_id` AS `t2_c0`, `country`.`country_name` AS `t2_c1`, `country`.`code` AS `t2_c2`, `country`.`flag_icon` AS `t2_c3` FROM `node` `t` left inner join `comment1` on `comment`.nid = t.nid LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (t.status = :status) GROUP BY t.nid ORDER BY  t.datetime DESC LIMIT 100' in /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(366): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionList()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('node/list')
+#13 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/index.php/node/list?page=1&pagenum=100&hashtag=&orderby=datetime
+---
+2014/01/19 09:23:32 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'inner join `comment` on `comment`.nid = t.nid LEFT OUTER JOIN `user` `user` ON (' at line 1. The SQL statement executed was: SELECT `t`.`nid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`country_id` AS `t0_c2`, `t`.`type` AS `t0_c3`, `t`.`file` AS `t0_c4`, `t`.`datetime` AS `t0_c5`, `t`.`hashtag` AS `t0_c6`, `t`.`description` AS `t0_c7`, `t`.`status` AS `t0_c8`, `user`.`uid` AS `t1_c0`, `user`.`name` AS `t1_c1`, `user`.`personal_email` AS `t1_c2`, `user`.`company_email` AS `t1_c3`, `user`.`country_id` AS `t1_c4`, `user`.`avatar` AS `t1_c5`, `user`.`role` AS `t1_c6`, `user`.`datetime` AS `t1_c7`, `user`.`firstname` AS `t1_c8`, `user`.`lastname` AS `t1_c9`, `user`.`password` AS `t1_c10`, `user`.`status` AS `t1_c11`, `country`.`country_id` AS `t2_c0`, `country`.`country_name` AS `t2_c1`, `country`.`code` AS `t2_c2`, `country`.`flag_icon` AS `t2_c3` FROM `node` `t` left inner join `comment` on `comment`.nid = t.nid LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (t.status = :status) GROUP BY t.nid ORDER BY  t.datetime DESC LIMIT 100.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (366)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 09:23:32 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'inner join `comment` on `comment`.nid = t.nid LEFT OUTER JOIN `user` `user` ON (' at line 1. The SQL statement executed was: SELECT `t`.`nid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`country_id` AS `t0_c2`, `t`.`type` AS `t0_c3`, `t`.`file` AS `t0_c4`, `t`.`datetime` AS `t0_c5`, `t`.`hashtag` AS `t0_c6`, `t`.`description` AS `t0_c7`, `t`.`status` AS `t0_c8`, `user`.`uid` AS `t1_c0`, `user`.`name` AS `t1_c1`, `user`.`personal_email` AS `t1_c2`, `user`.`company_email` AS `t1_c3`, `user`.`country_id` AS `t1_c4`, `user`.`avatar` AS `t1_c5`, `user`.`role` AS `t1_c6`, `user`.`datetime` AS `t1_c7`, `user`.`firstname` AS `t1_c8`, `user`.`lastname` AS `t1_c9`, `user`.`password` AS `t1_c10`, `user`.`status` AS `t1_c11`, `country`.`country_id` AS `t2_c0`, `country`.`country_name` AS `t2_c1`, `country`.`code` AS `t2_c2`, `country`.`flag_icon` AS `t2_c3` FROM `node` `t` left inner join `comment` on `comment`.nid = t.nid LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (t.status = :status) GROUP BY t.nid ORDER BY  t.datetime DESC LIMIT 100' in /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(366): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionList()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('node/list')
+#13 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/index.php/node/list?page=1&pagenum=100&hashtag=&orderby=datetime
+---
+2014/01/19 09:23:35 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'inner join `comment` on `comment`.nid = t.nid LEFT OUTER JOIN `user` `user` ON (' at line 1. The SQL statement executed was: SELECT `t`.`nid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`country_id` AS `t0_c2`, `t`.`type` AS `t0_c3`, `t`.`file` AS `t0_c4`, `t`.`datetime` AS `t0_c5`, `t`.`hashtag` AS `t0_c6`, `t`.`description` AS `t0_c7`, `t`.`status` AS `t0_c8`, `user`.`uid` AS `t1_c0`, `user`.`name` AS `t1_c1`, `user`.`personal_email` AS `t1_c2`, `user`.`company_email` AS `t1_c3`, `user`.`country_id` AS `t1_c4`, `user`.`avatar` AS `t1_c5`, `user`.`role` AS `t1_c6`, `user`.`datetime` AS `t1_c7`, `user`.`firstname` AS `t1_c8`, `user`.`lastname` AS `t1_c9`, `user`.`password` AS `t1_c10`, `user`.`status` AS `t1_c11`, `country`.`country_id` AS `t2_c0`, `country`.`country_name` AS `t2_c1`, `country`.`code` AS `t2_c2`, `country`.`flag_icon` AS `t2_c3` FROM `node` `t` left inner join `comment` on `comment`.nid = t.nid LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (t.status = :status) GROUP BY t.nid ORDER BY  t.datetime DESC LIMIT 100.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (366)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 09:23:35 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'inner join `comment` on `comment`.nid = t.nid LEFT OUTER JOIN `user` `user` ON (' at line 1. The SQL statement executed was: SELECT `t`.`nid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`country_id` AS `t0_c2`, `t`.`type` AS `t0_c3`, `t`.`file` AS `t0_c4`, `t`.`datetime` AS `t0_c5`, `t`.`hashtag` AS `t0_c6`, `t`.`description` AS `t0_c7`, `t`.`status` AS `t0_c8`, `user`.`uid` AS `t1_c0`, `user`.`name` AS `t1_c1`, `user`.`personal_email` AS `t1_c2`, `user`.`company_email` AS `t1_c3`, `user`.`country_id` AS `t1_c4`, `user`.`avatar` AS `t1_c5`, `user`.`role` AS `t1_c6`, `user`.`datetime` AS `t1_c7`, `user`.`firstname` AS `t1_c8`, `user`.`lastname` AS `t1_c9`, `user`.`password` AS `t1_c10`, `user`.`status` AS `t1_c11`, `country`.`country_id` AS `t2_c0`, `country`.`country_name` AS `t2_c1`, `country`.`code` AS `t2_c2`, `country`.`flag_icon` AS `t2_c3` FROM `node` `t` left inner join `comment` on `comment`.nid = t.nid LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (t.status = :status) GROUP BY t.nid ORDER BY  t.datetime DESC LIMIT 100' in /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(366): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionList()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('node/list')
+#13 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/index.php/node/list?page=1&pagenum=100&hashtag=&orderby=datetime
+---
+2014/01/19 09:36:06 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'bank_wall.comment1' doesn't exist. The SQL statement executed was: SELECT `t`.`nid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`country_id` AS `t0_c2`, `t`.`type` AS `t0_c3`, `t`.`file` AS `t0_c4`, `t`.`datetime` AS `t0_c5`, `t`.`hashtag` AS `t0_c6`, `t`.`description` AS `t0_c7`, `t`.`status` AS `t0_c8`, `user`.`uid` AS `t1_c0`, `user`.`name` AS `t1_c1`, `user`.`personal_email` AS `t1_c2`, `user`.`company_email` AS `t1_c3`, `user`.`country_id` AS `t1_c4`, `user`.`avatar` AS `t1_c5`, `user`.`role` AS `t1_c6`, `user`.`datetime` AS `t1_c7`, `user`.`firstname` AS `t1_c8`, `user`.`lastname` AS `t1_c9`, `user`.`password` AS `t1_c10`, `user`.`status` AS `t1_c11`, `country`.`country_id` AS `t2_c0`, `country`.`country_name` AS `t2_c1`, `country`.`code` AS `t2_c2`, `country`.`flag_icon` AS `t2_c3` FROM `node` `t` right join `comment1` on `comment`.nid = t.nid LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (((comment.uid=:uid) AND (t.uid=:uid)) AND (t.status = :status)) GROUP BY t.nid ORDER BY  t.datetime DESC LIMIT 100.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (384)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 09:36:06 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'bank_wall.comment1' doesn't exist. The SQL statement executed was: SELECT `t`.`nid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`country_id` AS `t0_c2`, `t`.`type` AS `t0_c3`, `t`.`file` AS `t0_c4`, `t`.`datetime` AS `t0_c5`, `t`.`hashtag` AS `t0_c6`, `t`.`description` AS `t0_c7`, `t`.`status` AS `t0_c8`, `user`.`uid` AS `t1_c0`, `user`.`name` AS `t1_c1`, `user`.`personal_email` AS `t1_c2`, `user`.`company_email` AS `t1_c3`, `user`.`country_id` AS `t1_c4`, `user`.`avatar` AS `t1_c5`, `user`.`role` AS `t1_c6`, `user`.`datetime` AS `t1_c7`, `user`.`firstname` AS `t1_c8`, `user`.`lastname` AS `t1_c9`, `user`.`password` AS `t1_c10`, `user`.`status` AS `t1_c11`, `country`.`country_id` AS `t2_c0`, `country`.`country_name` AS `t2_c1`, `country`.`code` AS `t2_c2`, `country`.`flag_icon` AS `t2_c3` FROM `node` `t` right join `comment1` on `comment`.nid = t.nid LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (((comment.uid=:uid) AND (t.uid=:uid)) AND (t.status = :status)) GROUP BY t.nid ORDER BY  t.datetime DESC LIMIT 100' in /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(384): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionList()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('node/list')
+#13 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/index.php/node/list?page=1&pagenum=100&hashtag=&orderby=datetime&uid=21&mycomment=true
+---
+2014/01/19 09:42:25 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'bank_wall.comment1' doesn't exist. The SQL statement executed was: SELECT `t`.`nid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`country_id` AS `t0_c2`, `t`.`type` AS `t0_c3`, `t`.`file` AS `t0_c4`, `t`.`datetime` AS `t0_c5`, `t`.`hashtag` AS `t0_c6`, `t`.`description` AS `t0_c7`, `t`.`status` AS `t0_c8`, `user`.`uid` AS `t1_c0`, `user`.`name` AS `t1_c1`, `user`.`personal_email` AS `t1_c2`, `user`.`company_email` AS `t1_c3`, `user`.`country_id` AS `t1_c4`, `user`.`avatar` AS `t1_c5`, `user`.`role` AS `t1_c6`, `user`.`datetime` AS `t1_c7`, `user`.`firstname` AS `t1_c8`, `user`.`lastname` AS `t1_c9`, `user`.`password` AS `t1_c10`, `user`.`status` AS `t1_c11`, `country`.`country_id` AS `t2_c0`, `country`.`country_name` AS `t2_c1`, `country`.`code` AS `t2_c2`, `country`.`flag_icon` AS `t2_c3` FROM `node` `t` right join `comment1` on `comment`.nid = t.nid LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (((comment.uid=:uid) AND (t.uid=:uid)) AND (t.status = :status)) GROUP BY t.nid LIMIT 10.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (384)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 09:42:25 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'bank_wall.comment1' doesn't exist. The SQL statement executed was: SELECT `t`.`nid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`country_id` AS `t0_c2`, `t`.`type` AS `t0_c3`, `t`.`file` AS `t0_c4`, `t`.`datetime` AS `t0_c5`, `t`.`hashtag` AS `t0_c6`, `t`.`description` AS `t0_c7`, `t`.`status` AS `t0_c8`, `user`.`uid` AS `t1_c0`, `user`.`name` AS `t1_c1`, `user`.`personal_email` AS `t1_c2`, `user`.`company_email` AS `t1_c3`, `user`.`country_id` AS `t1_c4`, `user`.`avatar` AS `t1_c5`, `user`.`role` AS `t1_c6`, `user`.`datetime` AS `t1_c7`, `user`.`firstname` AS `t1_c8`, `user`.`lastname` AS `t1_c9`, `user`.`password` AS `t1_c10`, `user`.`status` AS `t1_c11`, `country`.`country_id` AS `t2_c0`, `country`.`country_name` AS `t2_c1`, `country`.`code` AS `t2_c2`, `country`.`flag_icon` AS `t2_c3` FROM `node` `t` right join `comment1` on `comment`.nid = t.nid LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  LEFT OUTER JOIN `country` `country` ON (`t`.`country_id`=`country`.`country_id`)  WHERE (((comment.uid=:uid) AND (t.uid=:uid)) AND (t.status = :status)) GROUP BY t.nid LIMIT 10' in /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(384): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionList()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('node/list')
+#13 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/index.php/node/list?uid=12&mycomment=true
+---
+2014/01/19 09:45:29 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php:258) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(400): NodeController->responseJSON()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionList()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): NodeController->runAction()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): NodeController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): NodeController->run()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/node/list?uid=12&mycomment=true
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (400)
+2014/01/19 09:45:55 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php:259) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(400): NodeController->responseJSON()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionList()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): NodeController->runAction()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): NodeController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): NodeController->run()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/node/list?uid=12&mycomment=true
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (400)
+2014/01/19 09:46:01 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php:259) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(402): NodeController->responseJSON()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionList()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): NodeController->runAction()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): NodeController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): NodeController->run()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/node/list?uid=12&mycomment=true
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (402)
+2014/01/19 09:46:13 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php:259) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(402): NodeController->responseJSON()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionList()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): NodeController->runAction()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): NodeController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): NodeController->run()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/node/list?uid=12&mycomment=true
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (402)
+2014/01/19 15:28:43 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:28:43 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:28:43 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:39:02 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:39:02 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:39:02 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:40:27 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:40:27 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:40:27 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:40:46 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:40:46 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:40:46 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:42:19 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:42:19 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:42:19 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:43:40 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:43:40 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:43:40 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:45:28 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:45:28 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:45:28 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:45:49 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:45:49 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:45:49 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:46:06 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:46:06 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:46:06 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:47:00 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:47:00 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:47:00 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:47:25 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:47:25 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:47:25 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:48:10 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:48:10 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:48:10 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:48:45 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:48:45 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 15:48:45 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:18:36 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:18:36 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:18:36 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:19:42 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:19:42 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:19:42 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:20:59 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:20:59 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:20:59 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:22:16 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:22:16 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:22:16 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:22:16 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php:204) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(82): NodeController->responseJSON()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionPost()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): NodeController->runAction()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): NodeController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): NodeController->run()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/node/post
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (82)
+2014/01/19 16:23:35 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:23:35 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:23:35 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:23:35 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php:245) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(82): NodeController->responseJSON()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionPost()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): NodeController->runAction()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): NodeController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): NodeController->run()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/node/post
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (82)
+2014/01/19 16:24:06 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:24:06 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:24:06 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:24:53 [error] [php] Array to string conversion (/Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php:246)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): NodeController->runAction()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): NodeController->runActionWithFilters()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): NodeController->run()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/node/post
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (246)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (68)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:26:34 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:26:34 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:26:34 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:26:34 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php:246) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(82): NodeController->responseJSON()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionPost()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): NodeController->runAction()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): NodeController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): NodeController->run()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/node/post
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (82)
+2014/01/19 16:29:02 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:29:02 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:29:02 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:29:02 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php:245) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(82): NodeController->responseJSON()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionPost()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): NodeController->runAction()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): NodeController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): NodeController->run()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/node/post
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (82)
+2014/01/19 16:32:03 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:32:03 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:32:03 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (177)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:32:03 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php:245) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(82): NodeController->responseJSON()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionPost()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): NodeController->runAction()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): NodeController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): NodeController->run()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/node/post
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (82)
+2014/01/19 16:34:26 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (180)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:34:26 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (180)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:34:26 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (180)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:34:26 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php:252) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(82): NodeController->responseJSON()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionPost()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): NodeController->runAction()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): NodeController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): NodeController->run()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/node/post
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (82)
+2014/01/19 16:34:53 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (180)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:34:53 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (180)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:34:53 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (180)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:34:53 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php:252) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(82): NodeController->responseJSON()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionPost()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): NodeController->runAction()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): NodeController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): NodeController->run()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/node/post
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (82)
+2014/01/19 16:35:30 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (180)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:35:30 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (180)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:35:30 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (180)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:35:30 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php:176) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(82): NodeController->responseJSON()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionPost()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): NodeController->runAction()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): NodeController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): NodeController->run()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/node/post
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (82)
+2014/01/19 16:36:45 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (181)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:36:45 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (181)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:36:45 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (181)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:36:45 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php:175) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(82): NodeController->responseJSON()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionPost()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): NodeController->runAction()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): NodeController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): NodeController->run()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/node/post
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (82)
+2014/01/19 16:37:19 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (181)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:37:19 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (181)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:37:19 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (181)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:37:19 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php:175) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(82): NodeController->responseJSON()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionPost()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): NodeController->runAction()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): NodeController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): NodeController->run()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/node/post
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (82)
+2014/01/19 16:38:18 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (181)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:38:18 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (181)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:38:18 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (181)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:38:18 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php:175) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(82): NodeController->responseJSON()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionPost()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): NodeController->runAction()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): NodeController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): NodeController->run()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/node/post
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (82)
+2014/01/19 16:38:49 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (181)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:38:49 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (181)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:38:49 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (181)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:38:49 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php:175) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php(82): NodeController->responseJSON()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): NodeController->actionPost()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): NodeController->runAction()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): NodeController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): NodeController->run()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(15): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/node/post
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (82)
+2014/01/19 16:43:28 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (180)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:43:28 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (180)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:43:28 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (180)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:44:50 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (180)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:44:50 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (180)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:44:50 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (180)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:51:42 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (180)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:51:42 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (180)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:51:42 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (180)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:52:32 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (180)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:52:32 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (180)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:52:32 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (180)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:54:02 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (180)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:54:02 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (180)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
+2014/01/19 16:54:02 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (180)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (74)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (15)
