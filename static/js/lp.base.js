@@ -1191,7 +1191,11 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
     }
 
     var changeUrl = function( str ){
-        location.hash = '#!' + str;
+        if( history.pushState ){
+            //history.pushState( "" , null ,  str ) ;
+        } else {
+            location.hash = '#!' + str;
+        }
     }
 
     //-----------------------------------------------------------------------
@@ -1591,6 +1595,13 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                 nodeActions.prependNode( $main , nodes , $main.data('param').orderby == "datetime" );
             } );
         } , 5 * 60 * 1000 );
+
+
+        // fix language
+        var lang = LP.getCookie('lang') || 'en';
+        $('.language-item').removeClass('language-item-on')
+            .filter('[data-d="lang=' + lang + '"]')
+            .addClass('language-item-on');
     }
 
 
