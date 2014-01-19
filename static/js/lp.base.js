@@ -971,6 +971,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             if(result.success) {
                 //TODO: insert the content to photo wall instead of refresh
                 $main.html('');
+                $main.data('nodes' , []);
                 var param = $main.data('param');
                 api.ajax('recent' , function( result ){
                     nodeActions.inserNode( $main , result.data , param.orderby == 'datetime' );
