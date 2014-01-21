@@ -441,7 +441,7 @@ class NodeController extends Controller {
     if ($orderby) {
       $order = " ";
       if ($orderby == "datetime") {
-          $order .= " datetime DESC";
+          $order .= " ".$nodeAr->getTableAlias().".datetime DESC";
           $query->order = $order;
       }
       else if ($orderby == "like") {
@@ -544,7 +544,7 @@ class NodeController extends Controller {
     $nodedata["country"] = $node->country? $node->country->attributes : array();
     $nodedata["user"] = $node->user? $node->user->attributes : array();
     
-    $this->responseJSON(array("left" => $leftRet, "right" => $rightRet, "node" => $nodedata), "success");
+    $this->responseJSON(array( "left" => $rightRet,"right" => $leftRet, "node" => $nodedata), "success");
   }
   
   public function actionGetbyid() {

@@ -38,7 +38,7 @@ define(function( require , exports , model ){
         // get user's nodes
         userNode: {path: '../admin/app/json/node/recent.json' , data:{ uid: 0 , page: 1 }, method: 'get'},
         saveNode: {path: '../api/index.php/node/put'},
-        neighbor: {path: '../admin/app/json/node/neighbor.json'},
+        neighbor: {path: '../api/index.php/node/getneighbor', method:'get'}
     };
 
     // 内部API

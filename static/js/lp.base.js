@@ -1590,6 +1590,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         setInterval( function(){
             // if main element is visible
             if( !$main.is(':visible') ) return;
+            var lastNid = $main.data('nodes');
             api.ajax( 'neighbor' , {nid: 1} , function( r ){
                 var nodes = r.data.left;
                 if( !nodes.length ) return;
