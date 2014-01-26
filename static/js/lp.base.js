@@ -262,13 +262,15 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             if( $nodes.length ){
                 var $img = $nodes.eq(0)
                     .find('img');
-                if( $img[0].complete ){
-                    startAnimate( $nodes.eq(0) );
-                } else {
-                    $img.load(function(){
-                        startAnimate( $nodes.eq(0) );
-                    });
-                }
+                startAnimate( $nodes.eq(0) );
+                //TODO: commented the image loaded condition during testing
+//                if( $img[0].complete ){
+//                    startAnimate( $nodes.eq(0) );
+//                } else {
+//                    $img.load(function(){
+//                        startAnimate( $nodes.eq(0) );
+//                    });
+//                }
             } else { // judge if need to load next page 
                 $(window).trigger('scroll');
             }
@@ -973,7 +975,9 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                 $main.html('');
                 $main.data('nodes' , []);
                 var param = $main.data('param');
-                api.ajax('recent' , function( result ){
+                param.page = 0;
+                $main.data('param', param);
+                api.ajax('recent', param, function( result ){
                     nodeActions.inserNode( $main , result.data , param.orderby == 'datetime' );
                 });
 
@@ -1658,7 +1662,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             // TODO: 异常处理
             var comments = result.data;
             if(comments.length == 0) {
-                $('.com-list-inner').html('You will be first one to comment this content.');
+                $('.com-list-inner').html('<div class="no-comment">You will be first one to comment this content.</div>');
             }
             else {
                 $.each( comments , function( index , comment ){

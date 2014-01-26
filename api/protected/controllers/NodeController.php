@@ -306,11 +306,17 @@ class NodeController extends Controller {
       $query->join = 'left join `like` '.' on '. '`like`' .".nid = ". $nodeAr->getTableAlias().".nid";
       $query->group = $nodeAr->getTableAlias().".nid";
 
+      // 是否是本日最佳
+      $query->select = "*" . ",topday_id AS topday";
+      $query->join = 'left join `topday` '.' on '. '`topday`' .".nid = ". $nodeAr->getTableAlias().".nid";
+
+      // 我评论过的的内容
 			if($mycomment) {
 				$query->select = "*";
 				$query->join = 'right join `comment` on `comment`.nid = '.$nodeAr->getTableAlias().'.nid';
 			}
 
+      // 我喜欢过的内容
 			if($mylike) {
 				$query->select = "*";
 				$query->join = 'right join `like` on `like`.nid = '.$nodeAr->getTableAlias().'.nid';
@@ -393,6 +399,9 @@ class NodeController extends Controller {
           $data["country"] = $node->country ? $node->country->attributes: array();
           $data["user_liked"] = $node->user_liked;
           $data["like"] = $node->like;
+          if($node->topday) {
+            $data["topday"] = TRUE;
+          }
           $retdata[] = $data;
       }
       

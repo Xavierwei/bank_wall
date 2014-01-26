@@ -132,6 +132,7 @@ a{text-decoration:none;color:#666}
 	.com-main{padding:30px;}
 		.com-list{height: 200px;overflow: hidden;}
             .com-list-inner {width:430px;}
+            .com-list-inner .no-comment {text-align: center;}
 			.comlist-item{background: #474747;padding:10px;margin: 0 0 15px;position: relative;}
             .comlist-item:last-child {margin-bottom: 0;}
 				.comlist-tit span{font-size:18px;}
@@ -173,7 +174,7 @@ a{text-decoration:none;color:#666}
     .poptit {text-transform: uppercase;}
 /**/
 .popfile-drag-box{width: 400px;height: 400px;background: #f9f9f9 url(../img/icon_pop_upload.gif) no-repeat center;margin:15px auto;}
-	.popfile-btn{text-transform: uppercase;position: relative;overflow: hidden; color:#fff;background: #db2842;border: #c0152d 3px solid;width: 500px;height: 60px;line-height: 60px;text-align: center;margin: 0 auto;font-size:28px;}
+	.popfile-btn{cursor:pointer;text-transform: uppercase;position: relative;overflow: hidden; color:#fff;background: #db2842;border: #c0152d 3px solid;width: 500px;height: 60px;line-height: 60px;text-align: center;margin: 0 auto;font-size:28px;}
     .step2-btns {text-align: center;display:none;}
     .step2-btns .popfile-btn {width:220px;display: inline-block;margin:0 10px;}
     #fileupload .error {text-align: center;color:#db2842;}
@@ -193,8 +194,8 @@ a{text-decoration:none;color:#666}
     .poptxt-check .error {display: none;color:#c0152d;}
 .pop-success {color:#c0152d;font-size:40px;line-height: 200px;text-align: center;display: none;}
 .poptxt-btn{width: 640px;margin:50px auto 0; }
-	.poptxt-cancel{float:left;width: 254px;height: 60px;background: #db2842;border: #c0152d 3px solid;color:#fff;line-height: 60px;text-align: center;font-size:28px;}
-	.poptxt-submit{float:right;width: 354px;height: 60px;background: #3f3e3d;border: #5d5d5d 3px solid;color:#fff;line-height: 60px;text-align: center;font-size:28px;}
+	.poptxt-cancel{cursor:pointer;float:left;width: 254px;height: 60px;background: #db2842;border: #c0152d 3px solid;color:#fff;line-height: 60px;text-align: center;font-size:28px;text-transform: uppercase;}
+	.poptxt-submit{cursor:pointer;float:right;width: 354px;height: 60px;background: #3f3e3d;border: #5d5d5d 3px solid;color:#fff;line-height: 60px;text-align: center;font-size:28px;text-transform: uppercase;}
 .confirm-modal {width: 300px;height:100px;background: #fff;position:fixed;left:50%;top:50%;margin: -50px 0 0 -150px;z-index: 12}
 
 /* comment Used

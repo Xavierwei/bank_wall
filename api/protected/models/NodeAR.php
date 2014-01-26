@@ -25,6 +25,8 @@ class NodeAR extends CActiveRecord{
   public $flagcount = 0;
   
   public $user_liked = FALSE;
+
+  public $topday = FALSE;
   
   public $like = array();
   
@@ -53,7 +55,7 @@ class NodeAR extends CActiveRecord{
         array("uid, country_id, type", "required"),
         array("uid", "uidExist"),
         array("country_id", "countryExist"),
-        array("file, type, datetime, status, description, nid, hashtag, user_liked, like", "safe"),
+        array("file, type, datetime, status, description, nid, hashtag, user_liked, like, topday", "safe"),
     );
   }
   
@@ -201,7 +203,8 @@ class NodeAR extends CActiveRecord{
     $ret = $upload->saveAs($to);
     
     // 检查是不是视频， 如果是, 就就做视频转换工作
-    $extname = pathinfo($to, PATHINFO_EXTENSION);
+    $extname = strtolower(pathinfo($to, PATHINFO_EXTENSION));
+
     $videoexts = explode(",", self::ALLOW_UPLOADED_VIDEO_TYPES);
 
     if (in_array($extname, $videoexts)) {
