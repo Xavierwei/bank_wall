@@ -16,6 +16,9 @@ class NodeAR extends CActiveRecord{
   const PUBLICHSED = 1;
   const UNPUBLISHED = 2;
   const BLOCKED = 3;
+  
+  const PHOTO = 'photo';
+  const VIDEO = 'video';
     
     
   public $likecount = 0;
@@ -92,8 +95,8 @@ class NodeAR extends CActiveRecord{
     $description = $this->description;
     
     $matches = array();
-    preg_match_all("/(?<!\w#)\w+/", $description, $matches);
-    $hashtags = array_shift($matches);
+    preg_match_all("/#(\\w+)/", $description, $matches);
+    $hashtags = end($matches);
     return $hashtags;
   }
   

@@ -588,5 +588,78 @@ class NodeController extends Controller {
 
     $this->responseJSON($retdata, "success");
   }
+  
+  public function actionPostByMail() {
+    $request = Yii::app()->getRequest();
+    
+    if (!$request->isPostRequest) {
+      return $this->responseError("http error");
+    }
+    $userEmail = $request->getPost("user");
+    $desc = $request->getPost("desc");
+    
+    $user = UserAR::model()->findByAttributes(array("company_email" => $userEmail));
+    if (!$user) {
+      $user = UserAR::model()->findByAttributes(array("personal_email" => $userEmail));
+    }
+    
+    if (!$user) {
+      return $this->responseError("you are not register into our system");
+    }
+    
+    $photoUpload = CUploadedFile::getInstanceByName("photo");
+    $videoUpload = CUploadedFile::getInstanceByName("video");
+    
+    if (!$photoUpload && !$videoUpload) {
+      return $this->responseError("missed media");
+    }
+    
+    $type = NodeAR::PHOTO;
+    if ($photoUpload) {
+      $mime = $photoUpload->getType();
+      // TODO:: 大小限制
+      $size = $photoUpload->getSize(); //in bytes
+      $allowMime = array(
+          "image/gif", "image/png", "image/jpeg", "image/jpg"
+      );
+      if (!in_array($mime, $allowMime)) {
+        $this->responseError("photo's media type is not allowed");
+      }
+    }
+
+    if ($videoUpload) {
+      $type = NodeAR::VIDEO;
+      // TODO:: 暂时判断不出视频类型，需要更多测试实例
+    }
+    
+    $node = new NodeAR();
+    $node->uid = $user->uid;
+    $node->country_id = $user->country_id;
+    $node->type = $type;
+    if ($type == NodeAR::PHOTO) {
+      $node->file = $node->saveUploadedFile($photoUpload);
+    }
+    else {
+      $node->file = $node->saveUploadedFile($videoUpload);
+    }
+    $node->description = $desc;
+    
+    if ($node->validate()) {
+      $success = $node->save();
+      if (!$success) {
+        return $this->responseError("exception happend");
+      }
+      
+      return $this->responseJSON($node->attributes, "success");
+    }
+    else {
+      return $this->responseError(current(array_shift($node->getErrors())));
+    }
+    
+    // 发送邮件
+    
+    
+    return $this->responseJSON($user->attributes, "success");
+  }
 }
 
