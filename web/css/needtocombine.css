@@ -27,12 +27,12 @@ body{
     overflow: hidden;
 }
 
-.main{margin: 130px -10px 0 0px;}
-.logged .main {margin:130px -10px 0 120px;}
-.inner {margin:130px 0 0 500px;}
-.logged .inner {margin:130px 0 0 620px;}
+.main{margin: 86px -10px 0 0px;}
+.logged .main {margin:86px -10px 0 80px;}
+.inner {margin:86px 0 0 500px;}
+.logged .inner {margin:86px 0 0 410px;}
 .inner-info {left:500px;}
-.logged .inner-info {left:620px;}
+.logged .inner-info {left:410px;}
 .no-animate .main-item{
     -webkit-transition-duration: 0;
     -moz-transition-duration: 0;
@@ -75,11 +75,11 @@ body{
 
 .comment-wrap{
     height: 100%;
-    width: 500px;
+    width: 330px;
     position: absolute;
     -webkit-perspective: 1000px;
     perspective: 1000px;
-    left: -500px;
+    left: -330px;
     overflow: hidden;
     background: #000;
 }
@@ -131,8 +131,6 @@ body{
 }
 
 
-.count-userinfo
-{-webkit-transition:   all 0.3s ease;-moz-transition:  all 0.3s ease;-o-transition:  all 0.3s ease;-ms-transition:  all 0.3s ease;transition:  all 0.3s ease;}
 
 .poptxt-pic{
     position: relative;

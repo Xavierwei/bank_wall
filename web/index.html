@@ -7,6 +7,8 @@
     <title></title>
     <link href="css/jsPane.css" rel="stylesheet" type="text/css" />
     <link href="css/layout.css" rel="stylesheet" type="text/css" />
+    <link href="css/fonts.css" rel="stylesheet" type="text/css" />
+    <link href="css/animation.css" rel="stylesheet" type="text/css" />
     <link href="css/needtocombine.css" rel="stylesheet" type="text/css" />
     <link href="../static/js/video-js/video-js.min.css" rel="stylesheet" type="text/css" />
 </head>
@@ -15,17 +17,16 @@
 	<!-- header -->
 	<div class="header">
         <div class="login">
-            <a href="login.html">User Login</a>
+            <a href="login.html">se connecter</a>
         </div>
 		<!--  -->
 		<div class="logo"></div>
 		<!--  -->
 
 		<div class="search clear">
-            <div class="ui-widget">
-			<input class="search-ipt" name="hashtag" type="text" placeholder="#HASHTAG" />
-			<input data-a="search" class="search-sub" type="submit" value="search" />
-                </div>
+			    <input class="search-ipt" name="hashtag" type="text" placeholder="#HASHTAG" />
+			    <input data-a="search" class="search-sub" type="submit" value="search" />
+                <div class="search-tip btn"></div>
 		</div>
 		<!--  -->
 		<div class="select clear">
@@ -53,8 +54,8 @@
 		</div>
 		<!--  -->
 		<div class="language">
-			<div data-a="lang" data-d="lang=fr" class="language-item language-item-on"><p class="fr"></p></div>
-			<div data-a="lang" data-d="lang=en" class="language-item"><p class="en"></p></div>
+			<div data-a="lang" data-d="lang=fr" class="btn language-item language-item-on"><p class="fr"></p></div>
+			<div data-a="lang" data-d="lang=en" class="btn language-item"><p class="en"></p></div>
 		</div>
 	</div>
 	<!--  -->
@@ -146,9 +147,9 @@
         <div class="comment-cube">
             <div class="comment">
                 <div class="com-user">
-                    <div class="comuser-pho"><img src="{{user.avatar}}" width="50"  /></div>
-                    <div class="comuser-name">{{user.firstname}} {{user.lastname}}</div>
-                    <div class="comuser-addr">{{country.country_name}}</div>
+                    <div class="comuser-pho"><img src="{{user.avatar}}" width="32"  /></div>
+                    <div class="comuser-name"><p>{{user.firstname}} {{user.lastname}}</p></div>
+                    <div class="comuser-location"><p>{{country.country_name}}</p></div>
                 </div>
                 <!--  -->
                 <div class="com-main">
@@ -172,7 +173,7 @@
                 </div>
                 <!--  -->
                 <div class="com-info">
-                    <div class="com-num clear">
+                    <div class="com-counts clear">
                         <p class="com-day">{{date}} {{month}}</p>
                         {{#ifliked}}
                             <p class="com-like">
@@ -186,11 +187,12 @@
                                 {{/if}}
                             </div>
                         {{/ifliked}}
+                        <p class="com-com-count">{{commentcount}}</p>
                     </div>
                     <div class="com-btn">
-                        <p data-a="back" class="com-back"></p>
-                        <p data-a="prev" class="com-prev"></p>
-                        <p data-a="next" class="com-next"></p>
+                        <p data-a="back" class="com-back btn2"></p>
+                        <p data-a="prev" class="com-prev btn2"></p>
+                        <p data-a="next" class="com-next btn2"></p>
                     </div>
                 </div>
             </div>
@@ -256,13 +258,13 @@
     <!-- inner -->
     <div class="count-inner">
         <div class="count-user">
-            <div class="count-userpho"><img src="{{avatar}}" width="100"  /></div>
+            <div class="count-userpho"><img src="{{avatar}}" width="60"  /></div>
             <div class="count-userinfo">
-                <p>{{firstname}}{{lastname}}</p>
-                <p>{{country.country_name}}</p>
+                <p class="name">{{firstname}}{{lastname}}</p>
+                <p class="location">{{country.country_name}}</p>
             </div>
-            <a class="count-edit" data-a="open_user_edit_page">edit profile</a>
-            <div class="avatar-file">CHOISISSEZ UN FICHIER</div>
+            <a class="count-edit btn" data-a="open_user_edit_page">edit profile</a>
+            <div class="avatar-file btn">CHOISISSEZ UN FICHIER</div>
         </div>
         <!--  -->
         <div class="count-com">
@@ -283,7 +285,7 @@
                     <div class="editfi-tit">Country:</div>
                     <div class="editfi-com"><select class="edit-pays"><option>PAYS</option><option>PAYSPAYS</option></select></div>
                 </div>
-                <a class="edit-btn" data-a="save_user">save</a>
+                <a class="user-edit-save btn" data-a="save_user">save</a>
             </form>
         </div>
     </div>
@@ -310,12 +312,11 @@
         </div>
         <!-- menu -->
         <div class="menu">
-            <div class="menu-item photo" data-a="pop_upload" data-d="type=photo"><p></p></div>
-            <div class="menu-item video" data-a="pop_upload" data-d="type=video"><p></p></div>
-            <div class="menu-item byday" data-a="by_day"><p></p></div>
-            <div class="menu-item bymonth" data-a="by_month"><p></p></div>
-            <div class="menu-item settings" data-a="toggle_user_page"><p></p></div>
-            <div class="menu-item logout" data-a="logout"><p>Logout</p></div>
+            <div class="menu-item photo" data-a="pop_upload" data-d="type=photo"><div class="menu-item-arrow"></div><p></p><h6>Post a photo</h6></div>
+            <div class="menu-item video" data-a="pop_upload" data-d="type=video"><div class="menu-item-arrow"></div><p></p><h6>Post a video</h6></div>
+            <div class="menu-item day" data-a="by_day"><div class="menu-item-arrow"></div><p></p><h6>Content of the day</h6></div>
+            <div class="menu-item month" data-a="by_month"><div class="menu-item-arrow"></div><p></p><h6>Content of the month</h6></div>
+            <div class="menu-item logout" data-a="logout"><div class="menu-item-arrow"></div><p></p><h6>Logout</h6></div>
 
         </div>
     </div>

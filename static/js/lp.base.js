@@ -43,7 +43,18 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                     LP.triggerAction('search');
             }
         })
-
+        .delegate('.menu-item' , 'mouseenter' , function(){
+            $(this).find('h6')
+                .delay(200).stop( true , true).fadeIn( 500 );
+            $(this).find('p')
+                .delay(200).stop( true , true).fadeOut( 500 );
+        })
+        .delegate('.menu-item' , 'mouseleave' , function(){
+            $(this).find('h6')
+                .delay(200).stop( true , true).fadeOut( 500 );
+            $(this).find('p')
+                .delay(200).stop( true , true ).fadeIn( 500 );
+        })
         // for select options
         .delegate('.select-option p' , 'click' , function(){
             $(this)
@@ -88,7 +99,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
 
 
     var $main = $('.main');
-    var minWidth = 170;
+    var minWidth = 150;
     var itemWidth = minWidth;
     var winWidth = $(window).width();
     // fix one day animation. It is start animate from the day which is not trigger the animation
