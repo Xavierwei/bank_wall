@@ -1,6 +1,6 @@
 .jspContainer{overflow: hidden;position: relative;}
 .jspPane{position: absolute;}
-.jspVerticalBar{position: absolute;top: 0;right: 0;width: 7px;height: 100%;}
+.jspVerticalBar{position: absolute;top: 0;right: 0;width:4px;height: 100%;}
 .amet-list .jspVerticalBar {width:8px;}
 .jspVerticalBar *,
 .jspHorizontalBar *{margin: 0;padding: 0;}

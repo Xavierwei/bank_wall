@@ -23,5 +23,14 @@
 }
 
 
-
+body,input,textarea{font-family:'HelveticaNeueLTStd-MdCn', arial, sans-serif;text-transform: uppercase;}
 .count {letter-spacing:1px;}
+.item-info {font-family: 'Myriad Pro', arial;font-size:10px;}
+.menu-item h6 {font-size:12px;}
+.count-userinfo {text-transform:capitalize;}
+.count-userinfo .name {font-family: 'HelveticaNeueLTPro-BdCn', arial;}
+.inner-infocom {font-family: 'Myriad Pro', arial;font-size:15px;}
+.com-main,.com-main textarea {font-family: 'Myriad Pro', arial;text-transform: none;}
+.com-info {font-family: 'Myriad Pro', arial;}
+.comlist-tit {font-size:9px;}
+.comlist-tit span {font-size:14px;}

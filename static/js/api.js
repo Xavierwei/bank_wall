@@ -30,7 +30,7 @@ define(function( require , exports , model ){
         like: {path: '../api/index.php/like/post'},
         unlike: {path: '../api/index.php/like/delete'},
         // 
-        flag: {path: '../admin/app/json/flag/flag.json'},
+        flag: {path: '../api/index.php/flag/post', method:'post'},
         // get user info
         login: {path: '../api/index.php/user/login'},
         logout: {path: '../api/index.php/user/logout'},

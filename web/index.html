@@ -16,7 +16,7 @@
 <div class="page">
 	<!-- header -->
 	<div class="header">
-        <div class="login">
+        <div class="login btn">
             <a href="login.html">se connecter</a>
         </div>
 		<!--  -->
@@ -26,7 +26,7 @@
 		<div class="search clear">
 			    <input class="search-ipt" name="hashtag" type="text" placeholder="#HASHTAG" />
 			    <input data-a="search" class="search-sub" type="submit" value="search" />
-                <div class="search-tip btn"></div>
+                <div class="search-tip btn" data-a="search_tip"></div>
 		</div>
 		<!--  -->
 		<div class="select clear">
@@ -66,10 +66,16 @@
 <!--  -->
 
 
-<div class="confirm-modal" style="display: none;">
-    <div class="modal-header">Are you sure to flag this <span></span>?</div>
-    <button class="btn ok">Sure</button>
-    <button class="btn cancel" data-a="cancel_confirm_modal">Cancel</button>
+<div class="search-tip-modal pop-modal" >
+    <div class="tip-text">Le <span>HASHTAG</span></span> (mot dièse) est un mot clé précédé du signe # qui permet d’identifier un contenu lors de sa création, ou de le rechercher.</div>
+    <div class="example-text">Exemples : #espritd’équipe #sociétégénérale #olympiades</div>
+    <button class="btn cancel" data-a="cancel_modal">Cancel</button>
+</div>
+
+<div class="flag-confirm-modal pop-modal">
+    <div class="flag-confirm-text">Êtes-vous sûr de vouloir signaler ce <span></span>?</div>
+    <button class="btn cancel" data-a="cancel_modal">annuler</button>
+    <button class="btn ok" data-a="flag_node">confirmer</button>
 </div>
 
 
@@ -160,9 +166,9 @@
                     {{#if currentUser}}
                     <div class="com-make">
                         <form class="comment-form" action="../api/index.php/comment/post" method="post">
-                            <input type="text" name="content" class="com-ipt" />
+                            <textarea name="content" class="com-ipt" placeholder="écrire votre commentaire ..."></textarea>
                             <input type="hidden" name="nid" value="{{nid}}" />
-                            <input class="submit" type="submit" value="submit" />
+                            <input class="submit btn2" type="submit" value="submit" />
                         </form>
                         <div class="comment-msg-success">Thanks for your comment!</div>
                         <div class="comment-msg-error"></div>
@@ -176,12 +182,13 @@
                     <div class="com-counts clear">
                         <p class="com-day">{{date}} {{month}}</p>
                         {{#ifliked}}
-                            <p class="com-like">
-                                <span>{{likecount}}</span> {{str_like}}<span class="com-unlike clickable" data-d="nid={{nid}}" data-a="unlike">(unlike)</span>
-                            </p>
+                            <div data-a="unlike" data-d="nid={{nid}}" class="com-like com-unlike clickable">
+                                <span>{{likecount}}</span>
+                                <div class="com-unlike-tip">unlike</div>
+                            </div>
                         {{else}}
                             <div data-a="like" data-d="nid={{nid}}" class="com-like clickable">
-                                <span>{{likecount}}</span> {{str_like}}
+                                <span>{{likecount}}</span>
                                 {{#if currentUser}}{{else}}
                                     <div class="need-login">You need login before like</div>
                                 {{/if}}
@@ -214,7 +221,7 @@
             <div class="inner-infocom">{{description}}</div>
             <div class="inner-infoicon"><div class="{{type}}"></div></div>
         </div>
-        <div class="flag-node" data-d="nid={{nid}}&type={{type}}" data-a="flag_node">flag</div>
+        <div class="flag-node btn2" data-d="nid={{nid}}&type=node" data-a="confirm_flag_node">flag</div>
     </div>
 </div>
 </script>
@@ -231,12 +238,13 @@
     <a>
         <img src="../api{{image}}" width="180" />
         <div class="item-info" >
-            <div class="item-user"><span class="item-usericon"></span>{{user.firstname}} {{user.lastname}}</div>
+            <div class="item-time"><span class="item-timeicon">{{formatDate}}</span></div>
+            <div class="item-user"><span class="item-usericon">{{user.firstname}} {{user.lastname}}</span></div>
             <div class="item-source">
                 <div class="{{type}}"></div>
             </div>
-            <div class="item-time"><span class="item-timeicon"></span>{{formatDate}}</div>
             <div class="item-like">{{likecount}}</div>
+            <div class="item-comment">{{commentcount}}</div>
         </div>
         <div class="item-icon" style="display: block;"><div class="{{type}}"></div></div>
     </a>
@@ -260,7 +268,7 @@
         <div class="count-user">
             <div class="count-userpho"><img src="{{avatar}}" width="60"  /></div>
             <div class="count-userinfo">
-                <p class="name">{{firstname}}{{lastname}}</p>
+                <p class="name">{{firstname}} {{lastname}}</p>
                 <p class="location">{{country.country_name}}</p>
             </div>
             <a class="count-edit btn" data-a="open_user_edit_page">edit profile</a>
@@ -305,7 +313,7 @@
 <script type="text/tpl" id="side-template">
     <div class="side">
         <!-- user -->
-        <div class="user" data-a="toggle_user_page">
+        <div class="user btn" data-a="toggle_user_page">
             <div class="user-pho"><img src="{{avatar}}" width="60"  /></div>
             <div class="user-name">{{firstname}}</div>
             <div class="close-user-page" data-a="toggle-user-page"></div>

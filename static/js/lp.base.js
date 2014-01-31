@@ -1,7 +1,7 @@
 /*
  * page base action
  */
-LP.use(['jquery' , 'api'] , function( $ , api ){
+LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     'use strict'
 
     var API_FOLDER = "../api";
@@ -83,6 +83,30 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             });
 
         })
+        .delegate('.com-like','mouseenter',function(){
+            var needLogin = $(this).find('.need-login');
+            if(needLogin) {
+                needLogin.fadeIn();
+            }
+        })
+        .delegate('.com-like','mouseleave',function(){
+            var needLogin = $(this).find('.need-login');
+            if(needLogin) {
+                needLogin.fadeOut();
+            }
+        })
+        .delegate('.com-unlike','mouseenter',function(){
+            var unlikeTip = $(this).find('.com-unlike-tip');
+            if(unlikeTip) {
+                unlikeTip.fadeIn();
+            }
+        })
+        .delegate('.com-unlike','mouseleave',function(){
+            var unlikeTip = $(this).find('.com-unlike-tip');
+            if(unlikeTip) {
+                unlikeTip.fadeOut();
+            }
+        })
 
         // click to hide select options
         .click(function( ev ){
@@ -94,8 +118,8 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                     .next()
                     .show();
             }
-
         });
+
 
 
     var $main = $('.main');
@@ -340,6 +364,10 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                 } , 500);
             }
         } , 200);
+
+        // immediate resize
+        // resize big image
+        resizeInnerBox();
     })
     .scroll(function(){
         // if is ajaxing the scroll data
@@ -406,8 +434,8 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
 
     // view node action
     var _silderWidth = 120;
-    var _animateTime = 600;
-    var _animateEasing = 'linear';
+    var _animateTime = 800;
+    var _animateEasing = 'easeInOutQuart';
     var _nodeCache = [];
     var _currentNodeIndex = 0;
     LP.action('node' , function( data ){
@@ -495,6 +523,9 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             // change url
             changeUrl('/nid/' + node.nid);
             // loading image
+
+            // Resize Inner Box
+            resizeInnerBox();
         } );
 
         // preload before and after images
@@ -539,7 +570,6 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
      * @date:
      * @param node {node object}
      * @param direction { 'right' or 'left' }
-     * @author: hdg1988@gmail.com
      */
     function cubeInnerNode( node , direction ){
 
@@ -607,7 +637,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                 .css('marginLeft' , direction == 'left' ? - wrapWidth : 0 )
                 .animate({
                     marginLeft: direction == 'left' ? 0 : - wrapWidth
-                } , 1000)
+                } , _animateTime, _animateEasing)
                 // after animation
                 .promise()
                 .done(function(){
@@ -638,13 +668,24 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             // load comment
             bindCommentSubmisson();
             getCommentList(node.nid);
+            LP.use(['jscrollpane' , 'mousewheel'] , function(){
+                $('.com-list').jScrollPane({autoReinitialise:true}).bind(
+                    'jsp-scroll-y',
+                    function(event, scrollPositionY, isAtTop, isAtBottom)
+                    {
+                        if(isAtBottom) {
+                            //getCommentList(node.nid);
+                            console.log('Append next page');
+                        }
+                    }
+                );
+            });
         });
     }
 
     /**
      * @desc: preload sibling images
      * @date:
-     * @author: hdg1988@gmail.com
      */
     function preLoadSiblings(){
         var nodes = $main.data('nodes');
@@ -702,23 +743,18 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
     LP.action('like' , function( data ){
         var _this = $(this);
         var _likeWrap = _this.find('span').eq(0);
-        if(_this.data('liked')) {
-            //TODO.. if current user already liked this node, invoke the unlike function
-            return;
-        }
-        else {
-            api.ajax('like', {nid:data.nid}, function( result ){
-                if(result.success) {
-                    _likeWrap.animate({opacity:0},function(){
-                        _likeWrap.html(result.data);
-                        _this.data('liked',true);
-                        _this.removeClass('clickable');
-                        _this.append('<span class="com-unlike clickable" data-d="nid={{nid}}" data-a="unlike">(unlike)</span>');
-                        $(this).animate({opacity:1});
-                    });
-                }
-            });
-        }
+        api.ajax('like', {nid:data.nid}, function( result ){
+            if(result.success) {
+                _likeWrap.animate({opacity:0},function(){
+                    _likeWrap.html(result.data);
+                    _this.data('liked',true);
+                    _this.attr('data-a','unlike');
+                    _this.addClass('com-unlike');
+                    _this.append('<div class="com-unlike-tip">unlike</div>');
+                    $(this).animate({opacity:1});
+                });
+            }
+        });
     });
 
     LP.action('unlike' , function( data ){
@@ -729,7 +765,8 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                 _likeWrap.animate({opacity:0},function(){
                     _likeWrap.html(result.data);
                     _this.parent().data('liked',false);
-                    _this.fadeOut();
+                    _this.removeClass('com-unlike');
+                    _this.find('.com-unlike-tip').remove();
                     $(this).animate({opacity:1});
                 });
             }
@@ -742,23 +779,27 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
     });
 
     //for flag node action
-    LP.action('flag_node' , function( data ){
+    LP.action('confirm_flag_node' , function( data ){
         // if this node already flagged, return the action
         if($(this).hasClass('flagged')) {
             return false;
         }
         // display the modal before submit flag
-        if(!$('.confirm-modal').is(':visible')) {
-            $('.confirm-modal').fadeIn();
-            $('.confirm-modal .modal-header span').html(data.type);
-            $('.confirm-modal .ok').attr('data-a','flag_node');
-            $('.confirm-modal .ok').attr('data-d','nid='+data.nid);
+        if(!$('.flag-confirm-modal').is(':visible')) {
+            $('.flag-confirm-modal').fadeIn().dequeue().animate({top:'50%'}, 700, 'easeOutQuart');
+            $('.flag-confirm-modal .flag-modal-text span').html(data.type);
+            $('.flag-confirm-modal .ok').attr('data-a','flag_'+data.type);
+            if(data.type == 'node') {
+                $('.flag-confirm-modal .ok').attr('data-d','nid='+data.nid);
+            }
         }
         else {
-            api.ajax('flag', {nid:data.nid});
-            LP.triggerAction('cancel_confirm_modal');
-            $('.flag-node').addClass('flagged');
         }
+    });
+
+    LP.action('flag_node' , function( data ){
+        api.ajax('flag', {nid:data.nid});
+        LP.triggerAction('cancel_modal');
     });
 
     //for flag comment action
@@ -774,11 +815,6 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             LP.triggerAction('cancel_confirm_modal');
             $('.comlist-item-'+data.cid).find('.comlist-flag').addClass('flagged');
         }
-    });
-
-    //cancel confirm modal
-    LP.action('cancel_confirm_modal' , function(){
-        $('.confirm-modal').fadeOut();
     });
 
     //upload photo
@@ -941,6 +977,16 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
     LP.action('close_pop' , function(){
         $('.overlay').fadeOut(function(){$(this).remove();});
         $('.pop').fadeOut(function(){$(this).remove();});
+    });
+
+    //cancel confirm modal
+    LP.action('cancel_modal' , function(){
+        $('.pop-modal').fadeOut(700).dequeue().animate({top:'-40%'},700,'easeInQuart');
+    });
+
+    //close pop
+    LP.action('search_tip' , function(){
+        $('.search-tip-modal').fadeIn(700).dequeue().animate({top:'50%'},700,'easeOutQuart');
     });
 
     //select photo
@@ -1587,18 +1633,7 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
             });
         });
 
-        $('body').on('mouseenter','.com-like',function(){
-            var needLogin = $(this).find('.need-login');
-            if(needLogin) {
-                needLogin.fadeIn();
-            }
-        });
-        $('body').on('mouseleave','.com-like',function(){
-            var needLogin = $(this).find('.need-login');
-            if(needLogin) {
-                needLogin.fadeOut();
-            }
-        });
+
 
 
         // every five minutes get the latest nodes
@@ -1643,6 +1678,8 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                         comment.user = $('.side').data('user');
                         $('.comment-form').fadeOut();
                         $('.comment-msg-success').delay(500).fadeIn();
+                        $('.comment-msg-success').delay(1500).fadeOut();
+                        $('.comment-form').delay(2000).fadeIn();
                         LP.compile( 'comment-item-template' ,
                             comment,
                             function( html ){
@@ -1651,6 +1688,8 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                                     $('.com-list-inner').html('');
                                 }
                                 $('.com-list-inner').first().append(html);
+                                var comCount = $('.com-com-count');
+                                comCount.html(parseInt(comCount.html())+1);
                             } );
                     }
                     else {
@@ -1691,6 +1730,30 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
                 });
             }
         });
+    }
+
+    /**
+     * Resize Inner Box width Image and Video
+     */
+    var resizeInnerBox = function(){
+        // Resize Inner Box
+        var $inner = $('.inner');
+        var innerHeight = $(window).height() - $('.header').height();
+        $inner.height(innerHeight);
+
+        // Resize Image
+        var imgBoxWidth = $('.image-wrap').width();
+        var imgBoxHeight = $('.image-wrap').height();
+        var $img = $('.image-wrap-inner img');
+        if(imgBoxWidth > imgBoxHeight) {
+            var marginTop = (imgBoxWidth - imgBoxHeight) / 2;
+            $img.css('margin',0);
+            $img.height('auto').width('100%').css('margin-top', -marginTop);
+        } else {
+            var marginLeft = (imgBoxHeight - imgBoxWidth) / 2;
+            $img.css('margin',0);
+            $img.width('auto').height('100%').css('margin-left', -marginLeft);
+        }
     }
 
     init();

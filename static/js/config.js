@@ -12,6 +12,10 @@ seajs.config({
       src: "../handlebars/handlebars-v1.1.2.js"
       , exports: "Handlebars"
     }
+    ,easing:{
+      src: "../plugin/jquery.easing.1.3.js"
+      , deps: ['jquery']
+    }
     ,isotope:{
       src: "../plugin/jquery.isotope.min.js"
       , deps: ['jquery']
