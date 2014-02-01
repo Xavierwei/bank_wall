@@ -127,10 +127,10 @@ class CommentController extends Controller {
     
     $order = $request->getParam("order");
     if (!$order) {
-      $order = "DESC";
+      $order = "ASC";
     }
     if (strtoupper($order) != "DESC" && strtoupper($order) != "ASC") {
-      $order = "DESC";
+      $order = "ASC";
     }
     
     $query = new CDbCriteria();

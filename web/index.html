@@ -83,7 +83,7 @@
 <script type="text/tpl" id="pop-template">
 <div class="overlay" data-a="close_pop" style="display:none"></div>
 <div class="pop" style="display:none">
-    <div class="popclose" data-a="close_pop">×</div>
+    <div class="popclose" data-a="close_pop"></div>
     <div class="pophd">
         <div class="poptit">UPLOAD {{type}}</div>
     </div>
@@ -92,6 +92,12 @@
         <div class="pop-inner pop-file">
             <form id="fileupload" action="#" method="POST" enctype="multipart/form-data">
                 <div class="popfile-drag-box"></div>
+                <ul class="step1-tips">
+                    <li>Votre photo doit être au format JPG, PNG ou GIF</li>
+                    <li>Pour une résolution optimale, merci d’utiliser un format</li>
+                    <li>d’au moins 450x450 px</li>
+                    <li>La taille de votre fichier ne doit pas dépasser 5MB</li>
+                </ul>
                 <div class="error"></div>
                 <div class="step1-btns">
                     <div class="popfile-btn" id="select-btn" data-a="select_photo">
@@ -130,10 +136,12 @@
                     </video>
                 </div>
                 {{/if}}
-                <textarea id="node-description" class="poptxt-textarea"></textarea>
+                <textarea id="node-description" class="poptxt-textarea" placeholder="Entrez votre description ici avec les#hashtags correspondants(Ex : #Meeting très productif cematin à la #SG)"></textarea>
                 <div class="error"></div>
             </div>
-            <div class="poptxt-check"><input type="checkbox" />Read term condition<span class="error">(Please read term condition before save)</span></div>
+            <div class="poptxt-check"><input type="checkbox" />Je déclare posséder la totalité des droits sur cette image/vidéo et avoir obtenu l’autorisation
+                des personnes ainsi que des responsables des biens y figurant.
+                J’accepte les conditions d’utilisations de ce site.<span class="error">(Please read term condition before save)</span></div>
             <div class="poptxt-btn clear">
                 <p class="poptxt-cancel" data-a="close_pop">CANCEL</p>
                 <p class="poptxt-submit" data-a="save_node">PUBLISH {{type}}</p>

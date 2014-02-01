@@ -107,6 +107,16 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 unlikeTip.fadeOut();
             }
         })
+        .delegate('.com-ipt','keyup',function(){
+            var textLength = $(this).val().length;
+            if(textLength > 0 || textLength <= 140) {
+                $('.comment-msg-error').fadeOut();
+            }
+            if(textLength > 140) {
+                $('.comment-msg-error').fadeIn().html('Comment is limited to 140 characters.');
+                $('.comment-form .submit').attr('disabled','disabled');
+            }
+        })
 
         // click to hide select options
         .click(function( ev ){
@@ -291,7 +301,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     .height( itemWidth );
                 setTimeout(function(){
                     nodeActions.setItemReversal( $dom );
-                } , 500);
+                } , 300);
             }
             // if esist node , which is not reversaled , do the animation
             if( $nodes.length ){
@@ -520,6 +530,13 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 });
             }
 
+            // init photo node
+            if( node.type == "photo" ){
+                $('.image-wrap-inner img').ensureLoad(function(){
+                    $(this).fadeIn();
+                });
+            }
+
             // change url
             changeUrl('/nid/' + node.nid);
             // loading image
@@ -629,6 +646,14 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     });
                 });
             }
+            // init photo node
+            if( node.type == "photo" ){
+                $('.image-wrap-inner img').ensureLoad(function(){
+                    $(this).fadeIn();
+                });
+            }
+
+
             // set style and animation
             $imgWrap.children('.image-wrap-inner').css({
                     width: wrapWidth
@@ -680,6 +705,9 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     }
                 );
             });
+
+            // Resize Inner Box
+            resizeInnerBox();
         });
     }
 
@@ -1663,8 +1691,13 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             $('.comment-form').ajaxForm({
                 beforeSubmit:  function($form){
                     $('.comment-msg-error').hide();
+                    $('.com-ipt').val().length;
                     if($('.com-ipt').val().length == 0) {
-                        $('.comment-msg-error').show().html('You should write something.');
+                        $('.comment-msg-error').fadeIn().html('You should write something.');
+                        return false;
+                    }
+                    if($('.com-ipt').val().length > 140) {
+                        $('.comment-msg-error').fadeIn().html('The description is limited to 140 characters.');
                         return false;
                     }
                 },
@@ -1741,9 +1774,14 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         var innerHeight = $(window).height() - $('.header').height();
         $inner.height(innerHeight);
 
+        // Resize Comment Box
+        var $comList = $('.com-list');
+        var comListHeight = $(window).height() - 525;
+        $comList.height(comListHeight);
+
         // Resize Image
-        var imgBoxWidth = $('.image-wrap').width();
-        var imgBoxHeight = $('.image-wrap').height();
+        var imgBoxWidth = $(window).width() - 410;
+        var imgBoxHeight =$(window).height() - 86;
         var $img = $('.image-wrap-inner img');
         if(imgBoxWidth > imgBoxHeight) {
             var marginTop = (imgBoxWidth - imgBoxHeight) / 2;
@@ -1756,6 +1794,20 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         }
     }
 
+    jQuery.fn.extend({
+        ensureLoad: function(handler) {
+            return this.each(function() {
+                if(this.complete) {
+                    handler.call(this);
+                } else {
+                    $(this).load(handler);
+                }
+            });
+        }
+    });
+
     init();
 
 });
+
+
