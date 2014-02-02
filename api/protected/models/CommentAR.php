@@ -62,5 +62,12 @@ class CommentAR extends CActiveRecord {
     
     return $res->commentcountinnode;
   }
+
+	public function flaggedCommentsList($nid) {
+		if ($uid = Yii::app()->user->getId()) {
+			$flags = FlagAR::model()->findAllByAttributes(array("comment_nid" => $nid, "uid" => $uid));
+			return $flags;
+		}
+	}
 }
 

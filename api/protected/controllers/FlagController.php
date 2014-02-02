@@ -23,6 +23,7 @@ class FlagController extends Controller {
     
     $nid = $request->getPost("nid");
     $cid = $request->getPost("cid");
+		$comment_nid = $request->getPost("comment_nid");
     
     //2者任意有一个
     if (!$nid && !$cid) {
@@ -37,6 +38,9 @@ class FlagController extends Controller {
     if ($cid && !is_numeric($cid)) {
       $this->responseError("invalid params");
     }
+		if ($comment_nid && !is_numeric($comment_nid)) {
+			$this->responseError("invalid params");
+		}
     
     $uid = Yii::app()->user->getId();
     
@@ -48,6 +52,9 @@ class FlagController extends Controller {
     if ($cid) {
       $flagAr->cid = $cid;
     }
+		if ($comment_nid) {
+			$flagAr->comment_nid = $comment_nid;
+		}
     
     // 检查之前是否flag过
     if ($flagAr->nid) {

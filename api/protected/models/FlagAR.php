@@ -26,7 +26,7 @@ class FlagAR extends CActiveRecord {
         array("nid", "NidExist"),
         array("uid", "UidExist"),
         array("cid", "CidExist"),
-        array("datetime, flag_id", "safe"),
+        array("datetime, flag_id, comment_nid", "safe"),
     );
   }
   

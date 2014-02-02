@@ -157,6 +157,9 @@ class CommentController extends Controller {
       if ($shownode) {
         $commentdata['node'] = NodeAR::model()->findByPk($comment->attributes['nid']);
       }
+			if(isset($user['uid']) && Yii::app()->user->getId() == $user['uid']) {
+				$commentdata["mycomment"] = TRUE;
+			}
       $retdata[] = $commentdata;
     }
 
@@ -244,5 +247,13 @@ class CommentController extends Controller {
     $this->responseJSON($retdata, "success");
     
   }
+
+	public function actionFlaggedCommentsList() {
+		$request = Yii::app()->getRequest();
+		$nid = $request->getParam("nid");
+		$retdata = CommentAR::model()->flaggedCommentsList($nid);
+		$this->responseJSON($retdata, "success");
+	}
+
 }
 

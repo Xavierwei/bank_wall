@@ -216,6 +216,8 @@ class NodeController extends Controller {
       $showall = $request->getParam("showall");
 			$mycomment = $request->getParam("mycomment");
 			$mylike = $request->getParam("mylike");
+			$topday = $request->getParam("topday");
+			$topmonth = $request->getParam("topmonth");
       
       // 3个参数必须填一个
 //      if (!$type && !$country_id && !$uid) {
@@ -301,14 +303,23 @@ class NodeController extends Controller {
           $params[":status"] = $status;
       }
       // like count
-      $likeAr = new LikeAR();
-      $query->select = "*". ", count(like_id) AS likecount";
+      $query->select = "*". ", count(like_id) AS likecount". ",topday_id AS topday" . ",topmonth_id AS topmonth";
       $query->join = 'left join `like` '.' on '. '`like`' .".nid = ". $nodeAr->getTableAlias().".nid";
+			$query->join .= ' left join `topday` '.' on '. '`topday`' .".nid = ". $nodeAr->getTableAlias().".nid";
+			$query->join .= ' left join `topmonth` '.' on '. '`topmonth`' .".nid = ". $nodeAr->getTableAlias().".nid";
       $query->group = $nodeAr->getTableAlias().".nid";
 
-      // 是否是本日最佳
-      $query->select = "*" . ",topday_id AS topday";
-      $query->join = 'left join `topday` '.' on '. '`topday`' .".nid = ". $nodeAr->getTableAlias().".nid";
+      // 本日最佳
+			if($topday) {
+				$query->select = "*". ",topday_id AS topday";
+				$query->join = 'right join `topday` '.' on '. '`topday`' .".nid = ". $nodeAr->getTableAlias().".nid";
+			}
+
+			// 本月最佳
+			if($topmonth) {
+				$query->select = "*". ",topmonth_id AS topmonth";
+				$query->join = 'right join `topmonth` '.' on '. '`topmonth`' .".nid = ". $nodeAr->getTableAlias().".nid";
+			}
 
       // 我评论过的的内容
 			if($mycomment) {
@@ -398,10 +409,17 @@ class NodeController extends Controller {
           $data["user"] = $node->user ? $node->user->attributes : array();
           $data["country"] = $node->country ? $node->country->attributes: array();
           $data["user_liked"] = $node->user_liked;
-          $data["like"] = $node->like;
-          if($node->topday) {
-            $data["topday"] = TRUE;
-          }
+					$data["user_flagged"] = $node->user_flagged;
+					if($uid && isset($node->user['uid']) && Yii::app()->user->getId() == $node->user['uid']) {
+						$data["mynode"] = TRUE;
+					}
+          //$data["like"] = $node->like;
+					if($node->topday) {
+						$data["topday"] = TRUE;
+					}
+					if($node->topmonth) {
+						$data["topmonth"] = TRUE;
+					}
           $retdata[] = $data;
       }
       
@@ -588,6 +606,8 @@ class NodeController extends Controller {
 
     $this->responseJSON($retdata, "success");
   }
+
+
   
   public function actionPostByMail() {
     $request = Yii::app()->getRequest();

@@ -8,6 +8,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     var THUMBNAIL_IMG_SIZE = "_250_250";
     var BIG_IMG_SIZE = "_800_800";
     var page_num = 20; //TODO: 初始化的时候需要计算一整个屏幕能显示几个
+    var _waitingAjax = false;
 
     // get english month
     // TODO .... need I18
@@ -44,6 +45,9 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             }
         })
         .delegate('.menu-item' , 'mouseenter' , function(){
+            if($(this).hasClass('active')) {
+                return;
+            }
             $(this).find('h6')
                 .delay(200).stop( true , true).fadeIn( 500 );
             $(this).find('p')
@@ -73,15 +77,39 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             var filter = $(this).data('api');
             //TODO: loading animation
 
+            // reset status / back to homepage
+            if(!$main.is(':visible')){
+                LP.triggerAction('back');
+            }
+
+            $('.search-hd').fadeOut(400);
             $main.fadeOut(400,function(){
                 LP.triggerAction('close_user_page');
                 $main.html('');
                 $main.data( 'nodes', [] );
+                $listLoading.fadeIn();
                 api.ajax(filter, pageParam , function( result ){
                     nodeActions.inserNode( $main.show() , result.data , pageParam.orderby == 'datetime' );
+                    $listLoading.fadeOut();
                 });
             });
 
+        })
+        .delegate('.editfi-country-option p' , 'click' , function(){
+            $('.editfi-country-box').html($(this).html()).data('id', $(this).data('id'));
+        })
+        .delegate('.user-edit-page .edit-email' , 'blur' , function(){
+            var $error = $('.user-edit-page .edit-email-error');
+            var email = $(this).val();
+            var exp = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.(?:com|cn)$/;
+            if (!exp.test(email)) {
+                console.log('eror em');
+                $error.fadeIn();
+            }
+            else
+            {
+                $error.fadeOut();
+            }
         })
         .delegate('.com-like','mouseenter',function(){
             var needLogin = $(this).find('.need-login');
@@ -120,13 +148,18 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
         // click to hide select options
         .click(function( ev ){
-            $('.select-pop').hide()
-                .prev()
-                .show();
+            $('.select-pop').fadeOut();
             if( $(ev.target).hasClass('select-box') ){
-                $(ev.target).hide()
+                $(ev.target)
                     .next()
-                    .show();
+                    .fadeIn();
+            }
+
+            $('.editfi-country-pop').fadeOut();
+            if( $(ev.target).hasClass('editfi-country-box') ){
+                $(ev.target)
+                    .next()
+                    .fadeIn();
             }
         });
 
@@ -136,6 +169,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     var minWidth = 150;
     var itemWidth = minWidth;
     var winWidth = $(window).width();
+    var $listLoading = $('.loading-list');
     // fix one day animation. It is start animate from the day which is not trigger the animation
     // After the day trigger the animation 
     // Fix animation day by day
@@ -380,6 +414,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         resizeInnerBox();
     })
     .scroll(function(){
+            console.log('scroll');
         // if is ajaxing the scroll data
         if( _scrollAjax ) return;
         // if scroll to the botton of the window
@@ -396,17 +431,18 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 var param = $main.data('param');
                 param.page++;
                 $main.data('param' , param);
+                $listLoading.fadeIn();
                 api.ajax('recent' , param , function( result ){
                     nodeActions.inserNode( $main , result.data , param.orderby == 'datetime');
                     _scrollAjax = false;
-
+                    $listLoading.fadeOut();
                     // TODO:: no more data tip
                 });
             }
             // fix user page element
             var $userCom = $('.user-page .count-com');
             // it must visible and in main element has unreversaled node
-            if( $('.user-page').is(':visible') && !$userCom.find('.main-item:not(.time-item,.reversal)').length ){
+            if( $('.count-com').is(':visible') && !$userCom.find('.main-item:not(.time-item,.reversal)').length ){
                 _scrollAjax = true;
                 var userPageParam = $('.side').data('param');
                 userPageParam.page++;
@@ -449,9 +485,14 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     var _nodeCache = [];
     var _currentNodeIndex = 0;
     LP.action('node' , function( data ){
-        _currentNodeIndex = $(this).prevAll(':not(.time-item)').length;
-        var nodes = $main.data('nodes');
-        var node = nodes[ _currentNodeIndex ];
+        if(data.type) {
+            var node = data; // 如果直接传入单个node，不再从列表中获取
+        }
+        else {
+            _currentNodeIndex = $(this).prevAll(':not(.time-item)').length;
+            var nodes = $main.data('nodes');
+            var node = nodes[ _currentNodeIndex ];
+        }
         var datetime = new Date(node.datetime*1000);
         node.date = datetime.getDate();
         node.month = getMonth((parseInt(datetime.getMonth()) + 1));
@@ -459,7 +500,15 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         node.currentUser = $('.side').data('user');
         LP.compile( 'inner-template' , node , function( html ){
             var mainWidth = winWidth - _silderWidth;
+            // close user page if which opend
+            if($('.user-page').is(':visible')) {
+                LP.triggerAction('toggle_user_page');
+                $main.stop().hide();
+            }
             // inner animation
+            $('.inner').eq(0).fadeOut(function(){
+                $(this).remove();
+            })
             var $inner = $(html).insertBefore( $main )
                 .css({
                     left: - mainWidth ,
@@ -485,7 +534,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     position: 'fixed',
                     width: mainWidth,
                     left: 0,
-                    top: 0
+                    top: 86
                 })
                 .animate({
                     left: winWidth
@@ -576,10 +625,26 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 left: 0
             } , _animateTime , _animateEasing , function(){
                 $main.css({
+                    top: 'auto',
+                    left: 'auto',
                     position: 'relative',
                     width: 'auto'
                 })
             });
+    });
+
+    LP.action('back_home', function(){
+        LP.triggerAction('back');
+        resetQuery();
+
+        $('.search-hd').fadeOut(400);
+        $main.fadeOut(400,function(){
+            $main.html('');
+            $main.data( 'nodes', [] );
+            $listLoading.fadeIn();
+            LP.triggerAction('recent');
+        });
+
     });
 
     /**
@@ -609,6 +674,9 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
             var $cube = $comment.parent();
             $cube.addClass(rotateDir);
+
+            var $nextIcons = $newInner.find('.inner-icons');
+            $inner.find('.inner-icons').html($nextIcons.html());
 
             setTimeout(function(){
                 // reset css
@@ -767,11 +835,28 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         preLoadSiblings();
     });
 
+    // get default nodes
+    LP.action('recent', function(){
+        var pageParam = refreshQuery();
+        $listLoading.fadeIn();
+        api.ajax('recent', pageParam, function( result ){
+            $main.fadeIn();
+            $listLoading.fadeOut();
+            nodeActions.inserNode( $main , result.data , pageParam.orderby == 'datetime' );
+        });
+    });
+
     //for like action
     LP.action('like' , function( data ){
+        console.log(_waitingAjax);
+        if(_waitingAjax) return;
+        _waitingAjax = true;
         var _this = $(this);
         var _likeWrap = _this.find('span').eq(0);
         api.ajax('like', {nid:data.nid}, function( result ){
+            setTimeout(function(){
+                _waitingAjax = false;
+            },1000);
             if(result.success) {
                 _likeWrap.animate({opacity:0},function(){
                     _likeWrap.html(result.data);
@@ -786,14 +871,21 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     });
 
     LP.action('unlike' , function( data ){
+        console.log(_waitingAjax);
+        if(_waitingAjax) return;
+        _waitingAjax = true;
         var _this = $(this);
         var _likeWrap = _this.parent().find('span').eq(0);
         api.ajax('unlike', {nid:data.nid}, function( result ){
+            setTimeout(function(){
+                _waitingAjax = false;
+            },1000);
             if(result.success) {
                 _likeWrap.animate({opacity:0},function(){
                     _likeWrap.html(result.data);
                     _this.parent().data('liked',false);
                     _this.removeClass('com-unlike');
+                    _this.attr('data-a','like');
                     _this.find('.com-unlike-tip').remove();
                     $(this).animate({opacity:1});
                 });
@@ -801,47 +893,82 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         });
     });
 
-    //for comment action
-    LP.action('comment' , function( data ){
-        // TODO.. comment action here
-    });
 
     //for flag node action
-    LP.action('confirm_flag_node' , function( data ){
+    LP.action('flag' , function( data ){
         // if this node already flagged, return the action
         if($(this).hasClass('flagged')) {
             return false;
         }
         // display the modal before submit flag
         if(!$('.flag-confirm-modal').is(':visible')) {
-            $('.flag-confirm-modal').fadeIn().dequeue().animate({top:'50%'}, 700, 'easeOutQuart');
-            $('.flag-confirm-modal .flag-modal-text span').html(data.type);
-            $('.flag-confirm-modal .ok').attr('data-a','flag_'+data.type);
+            $('.modal-overlay').fadeIn(700);
+            $('.flag-confirm-modal').fadeIn(700).dequeue().animate({top:'50%'}, 700, 'easeOutQuart');
+            $('.flag-confirm-modal .flag-confirm-text span').html(data.type);
+            $('.flag-confirm-modal .ok').attr('data-a','flag');
             if(data.type == 'node') {
-                $('.flag-confirm-modal .ok').attr('data-d','nid='+data.nid);
+                $('.flag-confirm-modal .ok').attr('data-d','nid=' + data.nid + '&type=node');
+            }
+            if(data.type == 'comment') {
+                $('.flag-confirm-modal .ok').attr('data-d','cid=' + data.cid + '&nid=' + data.nid + '&type=comment');
             }
         }
         else {
+            if(data.type == 'node') {
+                api.ajax('flag', {nid:data.nid});
+                $('.inner-icons .flag-node').addClass('flagged').removeClass('btn2').removeAttr('data-a');
+            }
+            if(data.type == 'comment') {
+                api.ajax('flag', {cid:data.cid, comment_nid:data.nid});
+                $('.comlist-item-' + data.cid).find('.comlist-flag').addClass('flagged').removeClass('btn2').removeAttr('data-a');
+            }
+            LP.triggerAction('cancel_modal');
         }
     });
 
-    LP.action('flag_node' , function( data ){
-        api.ajax('flag', {nid:data.nid});
-        LP.triggerAction('cancel_modal');
-    });
 
-    //for flag comment action
-    LP.action('flag_comment' , function( data ){
-        if(!$('.confirm-modal').is(':visible')) {
-            $('.confirm-modal').fadeIn();
-            $('.confirm-modal .modal-header span').html(data.type);
-            $('.confirm-modal .ok').attr('data-a','flag_comment');
-            $('.confirm-modal .ok').attr('data-d','cid='+data.cid);
+//    //for flag comment action
+//    LP.action('flag_comment' , function( data ){
+//        if(!$('.flag-confirm-modal').is(':visible')) {
+//            $('.modal-overlay').fadeIn(700);
+//            $('.flag-confirm-modal').fadeIn(700).dequeue().animate({top:'50%'}, 700, 'easeOutQuart');
+//            $('.flag-confirm-modal .flag-confirm-text span').html(data.type);
+//            $('.flag-confirm-modal .ok').attr('data-a','flag_'+data.type);
+//            if(data.type == 'node') {
+//                $('.flag-confirm-modal .ok').attr('data-d','nid='+data.nid);
+//            }
+//        }
+//        else {
+//            api.ajax('flag', {nid:data.nid});
+//            LP.triggerAction('cancel_modal');
+//        }
+//    });
+
+    //for delete comment action
+    LP.action('delete' , function( data ){
+        if(!$('.delete-confirm-modal').is(':visible')) {
+            $('.modal-overlay').fadeIn(700);
+            $('.delete-confirm-modal').fadeIn(700).dequeue().animate({top:'50%'}, 700, 'easeOutQuart');
+            $('.delete-confirm-modal .flag-confirm-text span').html(data.type);
+            $('.delete-confirm-modal .ok').attr('data-a','delete');
+            if(data.type == 'node') {
+                $('.delete-confirm-modal .ok').attr('data-d','nid=' + data.nid + '&type=node');
+            }
+            if(data.type == 'comment') {
+                $('.delete-confirm-modal .ok').attr('data-d','cid=' + data.cid + '&type=comment');
+            }
         }
-        else {
-            api.ajax('flag', {cid:data.cid});
-            LP.triggerAction('cancel_confirm_modal');
-            $('.comlist-item-'+data.cid).find('.comlist-flag').addClass('flagged');
+        else
+        {
+            if(data.type == 'comment') {
+                $('.comlist-item-' + data.cid).fadeOut();
+                api.ajax('deleteComment', data);
+            }
+            if(data.type == 'node') {
+                $('.main-item-' + data.nid).fadeOut();
+                api.ajax('deleteNode', data);
+            }
+            LP.triggerAction('cancel_modal');
         }
     });
 
@@ -849,6 +976,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     LP.action('pop_upload' , function( data ){
         var acceptFileTypes;
         var type = data.type;
+        $('.side .menu-item.'+type).addClass('active');
 
         LP.compile( "pop-template" , data,  function( html ){
             $(document.body).append( html );
@@ -1005,16 +1133,19 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     LP.action('close_pop' , function(){
         $('.overlay').fadeOut(function(){$(this).remove();});
         $('.pop').fadeOut(function(){$(this).remove();});
+        $('.side .menu-item.video,.side .menu-item.photo').removeClass('active');
     });
 
     //cancel confirm modal
     LP.action('cancel_modal' , function(){
         $('.pop-modal').fadeOut(700).dequeue().animate({top:'-40%'},700,'easeInQuart');
+        $('.modal-overlay').fadeOut(700);
     });
 
     //close pop
     LP.action('search_tip' , function(){
         $('.search-tip-modal').fadeIn(700).dequeue().animate({top:'50%'},700,'easeOutQuart');
+        $('.modal-overlay').fadeIn(700);
     });
 
     //select photo
@@ -1101,6 +1232,13 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
     // List user nodes
     LP.action('list_user_nodes', function(data){
+        if($('.user-edit-page').is(':visible')) {
+            $('.user-edit-page').fadeOut(400);
+            $('.avatar-file').fadeOut();
+            $('.count-com').delay(400).fadeIn(400);
+            $('.count-edit').fadeIn();
+            $('.count-userinfo').removeClass('count-userinfo-edit');
+        }
         var type = data.type;
         var param = $('.side').data('param');
         param.page = 1;
@@ -1153,15 +1291,30 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         $('.user-edit-page').delay(400).fadeIn(400);
         $('.avatar-file').fadeIn();
         $('.count-userinfo').addClass('count-userinfo-edit');
+        var $countryList = $('.editfi-country-option');
+        LP.use(['jscrollpane' , 'mousewheel'] , function(){
+            $('.editfi-country-option-list').jScrollPane({autoReinitialise:true});
+        });
+        $countryList.empty();
+        api.ajax('countryList', function( result ){
+            $.each(result, function(index, item){
+                var html = '<p data-id="' + item.country_id + '">' + item.country + '</p>';
+                $countryList.append(html);
+            });
+        });
     });
 
     //save user updates
     LP.action('save_user' , function(){
+        if($('.edit-email-error').is(':visible')) return;
         $('.user-edit-page').fadeOut(400);
         $('.avatar-file').fadeOut();
         $('.count-com').delay(400).fadeIn(400);
         $('.count-edit').fadeIn();
         $('.count-userinfo').removeClass('count-userinfo-edit');
+        var user = {uid:$('.side').data('user').uid, personal_email: $('.user-edit-page .edit-email').val(), country_id: $('.user-edit-page .editfi-country-box').data('id')}
+        api.ajax('saveUser', user, function( result ){
+        });
     });
 
     //close user page
@@ -1175,30 +1328,74 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
     //save user updates
     LP.action('search' , function(){
+        if($('.search-ipt').val().length == 0) {
+            return false;
+        }
         $main.fadeOut(400,function(){
             LP.triggerAction('close_user_page');
             $main.html('');
             $main.data('nodes','');
             var param = refreshQuery();
+            $listLoading.fadeIn();
+            api.ajax('recent', param , function( result ){
+                $listLoading.fadeOut();
+                $('.search-ipt').val('').blur();
+                $('.search-hd').fadeIn().find('span').html(param.hashtag);
+                if(result.data.length > 0) {
+                    nodeActions.inserNode( $main.show() , result.data , param.orderby == 'datetime');
+                }
+                else {
+                    //TODO popular search result
+                    LP.compile( 'blank-search-template' ,
+                        {},
+                        function( html ){
+                            // render html
+                            $('.main').append(html);
+                        } );
+                }
+            });
+        });
+    });
+
+
+    // get last day nodes
+    LP.action('content_of_day' , function(){
+        if(!$main.is(':visible')) {
+            LP.triggerAction('back');
+        }
+        $main.fadeOut(400,function(){
+            LP.triggerAction('close_user_page');
+            $main.html('');
+            $main.data('nodes','');
+            //TODO this method need to reset selected items to default value
+            resetQuery();
+            var param = refreshQuery();
+            param = $.extend(param, {'topday': 1});
+            $('.side .menu-item.day').addClass('active');
+            $listLoading.fadeIn();
+            //TODO save to dom cache date
             api.ajax('recent', param , function( result ){
                 $('.search-ipt').val('').blur();
                 nodeActions.inserNode( $main.show() , result.data , param.orderby == 'datetime');
-
             });
         });
     });
 
     // get last day nodes
-    LP.action('by_day' , function(){
+    LP.action('content_of_month' , function(){
+        if(!$main.is(':visible')) {
+            LP.triggerAction('back');
+        }
         $main.fadeOut(400,function(){
             LP.triggerAction('close_user_page');
             $main.html('');
             $main.data('nodes','');
             //TODO this method need to reset selected items to default value
+            resetQuery();
             var param = refreshQuery();
-            var d = new Date();
-            param = $.extend(param, {'start': d.getFullYear() + '-' + parseInt(d.getMonth() + 1) + '-' + d.getDate()});
-
+            param = $.extend(param, {'topmonth': 1});
+            $('.side .menu-item.month').addClass('active');
+            $listLoading.fadeIn();
             //TODO save to dom cache date
             api.ajax('recent', param , function( result ){
                 $('.search-ipt').val('').blur();
@@ -1206,26 +1403,6 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             });
         });
     });
-
-    // get last month nodes
-    LP.action('by_month' , function(){
-        $main.fadeOut(400,function(){
-            LP.triggerAction('close_user_page');
-            $main.html('');
-            $main.data('nodes','');
-            //TODO this method need to reset selected items to default value
-            var param = refreshQuery();
-            var d = new Date();
-            param = $.extend(param, {'start': d.getFullYear() + '-' + parseInt(d.getMonth() + 1) + '-' + 1});
-
-            //TODO save to dom cache date
-            api.ajax('recent', param , function( result ){
-                $('.search-ipt').val('').blur();
-                nodeActions.inserNode( $main.show() , result.data , param.orderby == 'datetime');
-            });
-        });
-    });
-
 
 
     //after selected photo
@@ -1277,7 +1454,22 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             }
         } )
         changeUrl( str );
+
+        $('.side .menu-item').removeClass('active');
+
         return $main.data('param');
+    }
+
+    var resetQuery = function() {
+        var param = $main.data('param');
+        param.orderby = "datatime";
+        delete param.country_id;
+        $main.data('param',param);
+        $.each($('.select-item'), function(index, item){
+            $(item).find('.select-option p').removeClass('selected');
+            var defaultVal = $(item).find('.select-option p').eq(0).addClass('selected').html();
+            $(item).find('.select-box').html(defaultVal);
+        })
     }
 
     var changeUrl = function( str ){
@@ -1590,11 +1782,19 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
 
     var init = function() {
+//        var country = "South Africa,Albania,Algeria,Germany,Saudi,Arabia,Argentina,Australia,Austria,Bahamas,Belgium,Benin,Brazil,Bulgaria,Burkina Faso,Canada,Chile,China,Cyprus,Korea,Republic of Ivory Coast,Croatia,Denmark,Egypt,United Arab Emirates,Spain,Estonia,USA,Finland,France,Georgia,Ghana,Greece,Guinea,Equatorial Guinea,Hungary,India,Ireland,Italy,Japan,Jordan,Latvia,Lebanon,Lithuania,Luxembourg,Macedonia,Madagascar,Morocco,Mauritania,Mexico,Moldova,Republic of Montenegro,Norway,New Caledonia,Panama,Netherlands,Peru,Poland,Portugal,Reunion,Romania,UK,Russian Federation,Senegal,Serbia,Singapore,Slovakia,Slovenia,Sweden,Switzerland,Chad,Czech Republic,Tunisia,Turkey,Ukraine,Uruguay,Vietnam";
+//        var countryArray = country.split(',');
+//        var output;
+//        $.each(countryArray, function(i,e){
+//            var string = '{"country_id":'+(i+1)+',"country":"'+e+'"},';
+//            output += string;
+//        });
+//        console.log(output);
+
+
+
         // after page load , load the recent data from server
-        var pageParam = refreshQuery();
-        api.ajax('recent', pageParam, function( result ){
-            nodeActions.inserNode( $main , result.data , pageParam.orderby == 'datetime' );
-        });
+        LP.triggerAction('recent');
 
         // after page load , load the current user information data from server
         api.ajax('user' , function( result ){
@@ -1709,10 +1909,12 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                         comment.date = datetime.getDate();
                         comment.month = getMonth((parseInt(datetime.getMonth()) + 1));
                         comment.user = $('.side').data('user');
+                        comment.mycomment = true;
                         $('.comment-form').fadeOut();
                         $('.comment-msg-success').delay(500).fadeIn();
-                        $('.comment-msg-success').delay(1500).fadeOut();
-                        $('.comment-form').delay(2000).fadeIn();
+                        $('.comment-msg-success').delay(800).fadeOut();
+                        $('.comment-form').delay(1800).fadeIn();
+                        $('.com-ipt').val('');
                         LP.compile( 'comment-item-template' ,
                             comment,
                             function( html ){
@@ -1743,6 +1945,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     var getCommentList = function(nid) {
         api.ajax('commentList', {nid: nid}, function( result ){
             // TODO: 异常处理
+            $('.com-list-loading').fadeOut(100);
             var comments = result.data;
             if(comments.length == 0) {
                 $('.com-list-inner').html('<div class="no-comment">You will be first one to comment this content.</div>');
@@ -1760,6 +1963,15 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                             // render html
                             $('.com-list-inner').first().append(html);
                         } );
+                });
+            }
+            // check the flagged comment if is login user
+            var user = $('.side').data('user');
+            if(user) {
+                api.ajax('flaggedComments', {nid: nid}, function( result ){
+                    $.each(result.data, function(index, item){
+                        $('.comlist-item-' + item.cid).find('.comlist-flag').addClass('flagged').removeClass('btn2').removeAttr('data-a');
+                    });
                 });
             }
         });

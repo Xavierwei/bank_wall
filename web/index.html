@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <meta name="keywords" content="" />
     <meta name="description" content="" />
-    <title></title>
+    <title>SG WALL</title>
     <link href="css/jsPane.css" rel="stylesheet" type="text/css" />
     <link href="css/layout.css" rel="stylesheet" type="text/css" />
     <link href="css/fonts.css" rel="stylesheet" type="text/css" />
@@ -17,10 +17,10 @@
 	<!-- header -->
 	<div class="header">
         <div class="login btn">
-            <a href="login.html">se connecter</a>
+            <a href="login">se connecter</a>
         </div>
 		<!--  -->
-		<div class="logo"></div>
+		<div class="logo" data-a="back_home"></div>
 		<!--  -->
 
 		<div class="search clear">
@@ -32,25 +32,25 @@
 		<div class="select clear">
 			<!--  -->
 			<div class="select-item">
-				<div class="select-box">Country</div>
-				<div class="select-pop" style="display:none">
-					<div class="select-option"><p data-api="recent">All</p><p data-api="recent" data-param="country_id=1">France</p><p data-api="recent" data-param="country_id=2">China</p></div>
-				</div>
-			</div>
-			<!--  -->
-			<div class="select-item">
-				<div class="select-box" >Recent</div>
-				<div class="select-pop" style="display:none">
+				<div class="select-box btn2" >Recent</div>
+				<div class="select-pop">
 					<div class="select-option"><p data-api="recent" class="selected" data-param="orderby=datetime">Recent</p><p data-api="recent" data-param="orderby=like">Popular</p><p data-api="recent" data-param="orderby=random">Random</p></div>
 				</div>
 			</div>
 			<!--  -->
 			<div class="select-item">
-				<div class="select-box">Type</div>
-				<div class="select-pop" style="display:none">
-					<div class="select-option"><p data-api="recent">All</p><p data-api="recent" data-param="type=photo">Photo</p><p data-api="recent" data-param="type=video">Video</p></div>
+				<div class="select-box btn2">Photo/Video</div>
+				<div class="select-pop">
+					<div class="select-option"><p data-api="recent">Photo/Video</p><p data-api="recent" data-param="type=photo">Photo</p><p data-api="recent" data-param="type=video">Video</p></div>
 				</div>
 			</div>
+            <!--  -->
+            <div class="select-item">
+                <div class="select-box btn2">Country</div>
+                <div class="select-pop">
+                    <div class="select-option"><p data-api="recent">All</p><p data-api="recent" data-param="country_id=1">France</p><p data-api="recent" data-param="country_id=2">China</p></div>
+                </div>
+            </div>
 		</div>
 		<!--  -->
 		<div class="language">
@@ -60,12 +60,15 @@
 	</div>
 	<!--  -->
 	<div class="content clear">
+        <div class="search-hd">Résultats #<span></span></div>
 		<div class="main"></div>
+        <div class="loading-list"></div>
 	</div>
 </div>
 <!--  -->
 
-
+<!-- modal -->
+<div class="modal-overlay" data-a="cancel_modal"></div>
 <div class="search-tip-modal pop-modal" >
     <div class="tip-text">Le <span>HASHTAG</span></span> (mot dièse) est un mot clé précédé du signe # qui permet d’identifier un contenu lors de sa création, ou de le rechercher.</div>
     <div class="example-text">Exemples : #espritd’équipe #sociétégénérale #olympiades</div>
@@ -75,13 +78,19 @@
 <div class="flag-confirm-modal pop-modal">
     <div class="flag-confirm-text">Êtes-vous sûr de vouloir signaler ce <span></span>?</div>
     <button class="btn cancel" data-a="cancel_modal">annuler</button>
-    <button class="btn ok" data-a="flag_node">confirmer</button>
+    <button class="btn ok" data-a="">confirmer</button>
 </div>
 
+<div class="delete-confirm-modal pop-modal">
+    <div class="flag-confirm-text">Êtes-vous sûr de vouloir supprimer ce contenu <span></span>?</div>
+    <button class="btn cancel" data-a="cancel_modal">annuler</button>
+    <button class="btn ok" data-a="">confirmer</button>
+</div>
+<!-- modal -->
 
 <!-- all tpls start -->
 <script type="text/tpl" id="pop-template">
-<div class="overlay" data-a="close_pop" style="display:none"></div>
+<div class="overlay" data-a="close_pop"></div>
 <div class="pop" style="display:none">
     <div class="popclose" data-a="close_pop"></div>
     <div class="pophd">
@@ -100,12 +109,12 @@
                 </ul>
                 <div class="error"></div>
                 <div class="step1-btns">
-                    <div class="popfile-btn" id="select-btn" data-a="select_photo">
+                    <div class="popfile-btn btn" id="select-btn" data-a="select_photo">
                         SELECT {{type}}
                         <input type="file" name="{{type}}" />
                     </div>
                 </div>
-                <div class="step2-btns"><div class="popfile-btn" data-a="upload_photo">UPLOAD</div><div class="popfile-btn" data-a="select_photo">SELECT AGAIN</div></div>
+                <div class="step2-btns"><div class="popfile-btn btn" data-a="upload_photo">UPLOAD</div><div class="popfile-btn btn" data-a="select_photo">SELECT AGAIN</div></div>
             </form>
         </div>
         <!--  -->
@@ -169,6 +178,7 @@
                 <div class="com-main">
                     <div class="com-list">
                         <div class="com-list-inner">
+                            <div class="com-list-loading">Loading comments</div>
                         </div>
                     </div>
                     {{#if currentUser}}
@@ -182,7 +192,7 @@
                         <div class="comment-msg-error"></div>
                     </div>
                     {{else}}
-                    <div class="need-login">You need <a href="login.html">login</a> before comment.</div>
+                    <div class="need-login">You need <a href="login">login</a> before comment.</div>
                     {{/if}}
                 </div>
                 <!--  -->
@@ -229,7 +239,20 @@
             <div class="inner-infocom">{{description}}</div>
             <div class="inner-infoicon"><div class="{{type}}"></div></div>
         </div>
-        <div class="flag-node btn2" data-d="nid={{nid}}&type=node" data-a="confirm_flag_node">flag</div>
+        <div class="inner-icons">
+            {{#if user_flagged}}
+                <div class="flag-node flagged">flag</div>
+            {{else}}
+                <div class="flag-node btn2" data-d="nid={{nid}}&type=node" data-a="flag">flag</div>
+            {{/if}}
+
+            {{#if topday}}
+            <div class="inner-topday"></div>
+            {{/if}}
+            {{#if topmonth}}
+            <div class="inner-topmonth"></div>
+            {{/if}}
+        </div>
     </div>
 </div>
 </script>
@@ -242,7 +265,7 @@
 
 <!-- node-item-tpl -->
 <script type="text/tpl" id="node-item-template">
-<div data-a="node" data-d="nid={{nid}}" class="main-item pic-item {{#if topday}}topday{{/if}}">
+<div data-a="node" data-d="nid={{nid}}" class="main-item pic-item main-item-{{nid}}">
     <a>
         <img src="../api{{image}}" width="180" />
         <div class="item-info" >
@@ -251,10 +274,19 @@
             <div class="item-source">
                 <div class="{{type}}"></div>
             </div>
-            <div class="item-like">{{likecount}}</div>
+            <div class="item-like {{#if user_liked}}item-liked{{/if}}">{{likecount}}</div>
             <div class="item-comment">{{commentcount}}</div>
         </div>
         <div class="item-icon" style="display: block;"><div class="{{type}}"></div></div>
+        {{#if topday}}
+            <div class="item-topday"></div>
+        {{/if}}
+        {{#if topmonth}}
+        <div class="item-topmonth"></div>
+        {{/if}}
+        {{#if mynode}}
+        <div class="item-delete btn" data-a="delete" data-d="nid={{nid}}&type=node"></div>
+        {{/if}}
     </a>
 </div>
 </script>
@@ -290,16 +322,31 @@
             <form>
                 <div class="edit-fi clear">
                     <div class="editfi-tit">E-MAIL PROFESSIONNEL:</div>
-                    <div class="editfi-com">{{company_email}}</div>
+                    <div class="editfi-email">{{company_email}}</div>
                 </div>
                 <div class="edit-tips"><em>Si vous souhaitz envoyer du contenu sur le Wall avec une adresse e-maill diffent.Si vous souhaitz envoyer du contenu sur le Wall avec une adresse e-maill diffent:</em></div>
                 <div class="edit-fi clear">
                     <div class="editfi-tit">E-MAIL PERSONNEL:</div>
-                    <div class="editfi-com"><input class="edit-email" type="text" value="{{personal_email}}" /></div>
+                    <div class="editfi-com">
+                        <input class="edit-email" type="text" value="{{personal_email}}" /> <em>(optionnel)</em>
+                        <div class="edit-email-error">Please enter correct email.</div>
+                        <div class="editfi-condition">Je déclare posséder la totalité des droits sur cette image/vidéo et avoir obtenu l’autorisation des personnes ainsi que des responsables des biens y figurant. J’accepte les conditions d’utilisations de ce site.</div>
+                        <div class="editfi-information">Ces informations sont nécessaires pour permettre l'envoi d'image/vidéo via un mail autre que votre mail professionnel. Vous disposez d’un droit d'accès, de rectification aux données à caractère personnel vous concernant ainsi qu’un droit d'opposition aux traitements de vos données, sous réserve de justifier d’un motif légitime. Pour plus d’information <a href="#">cliquez ici</a></div>
+                    </div>
                 </div>
                 <div class="edit-fi clear">
                     <div class="editfi-tit">Country:</div>
-                    <div class="editfi-com"><select class="edit-pays"><option>PAYS</option><option>PAYSPAYS</option></select></div>
+                    <div class="editfi-com">
+                        <div class="editfi-country">
+                            <div class="editfi-country-box" data-id="{{country.country_id}}">sélectionner votre pays</div>
+                            <div class="editfi-country-pop">
+                                <div class="editfi-country-option-list">
+                                    <div class="editfi-country-option">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <a class="user-edit-save btn" data-a="save_user">save</a>
             </form>
@@ -313,7 +360,10 @@
     <div class="comlist-item comlist-item-{{cid}}">
         <div class="comlist-tit"><span>{{user.firstname}} {{user.lastname}} </span> - {{date}} {{month}}</div>
         <div class="comlist-con">{{content}}</div>
-        <div class="comlist-flag" data-a="flag_comment" data-d="cid={{cid}}&type=comment"></div>
+        {{#if mycomment}}
+        <div class="comlist-delete btn2" data-a="delete" data-d="cid={{cid}}&type=comment"></div>
+        {{/if}}
+        <div class="comlist-flag btn2" data-a="flag" data-d="cid={{cid}}&nid={{nid}}&type=comment"></div>
     </div>
 </script>
 
@@ -330,8 +380,8 @@
         <div class="menu">
             <div class="menu-item photo" data-a="pop_upload" data-d="type=photo"><div class="menu-item-arrow"></div><p></p><h6>Post a photo</h6></div>
             <div class="menu-item video" data-a="pop_upload" data-d="type=video"><div class="menu-item-arrow"></div><p></p><h6>Post a video</h6></div>
-            <div class="menu-item day" data-a="by_day"><div class="menu-item-arrow"></div><p></p><h6>Content of the day</h6></div>
-            <div class="menu-item month" data-a="by_month"><div class="menu-item-arrow"></div><p></p><h6>Content of the month</h6></div>
+            <div class="menu-item day" data-a="content_of_day"><div class="menu-item-arrow"></div><p></p><h6>Content of the day</h6></div>
+            <div class="menu-item month" data-a="content_of_month"><div class="menu-item-arrow"></div><p></p><h6>Content of the month</h6></div>
             <div class="menu-item logout" data-a="logout"><div class="menu-item-arrow"></div><p></p><h6>Logout</h6></div>
 
         </div>
@@ -348,6 +398,22 @@
     <param name="ClickToPlay" value="true">
     <embed type="application/x-mplayer2" pluginspage="http://www.microsoft.com/Windows/MediaPlayer/" src="{{nid}}.wmv" autoStart="false" ></embed>
 </object>
+</script>
+
+<!-- blank-search-tpl -->
+<script type="text/tpl" id="blank-search-template">
+    <div class="blank-search">
+        <div class="no-results">aucun résultat pour cette recherche</div>
+        <div class="no-results-line"></div>
+        <div class="popular-hashtags">
+            Les #hashtags les plus populaires :
+            <ul>
+                <li>#rugby</li>
+                <li>#france</li>
+                <li>#2014</li>
+            </ul>
+        </div>
+    </div>
 </script>
 
 <!--//all tpls end -->

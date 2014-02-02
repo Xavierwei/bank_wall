@@ -27,18 +27,23 @@ define(function( require , exports , model ){
         recent: {path: '../api/index.php/node/list', method: 'get'},
         getNode: {path: '../admin/app/json/node/photo.json'},
         nodeList: {path: '../api/index.php/node/list?$orderby=datetime&pagenum=100'},
+        deleteNode: {path: '../api/index.php/node/delete', method:'post'},
         like: {path: '../api/index.php/like/post'},
         unlike: {path: '../api/index.php/like/delete'},
         // 
         flag: {path: '../api/index.php/flag/post', method:'post'},
+        flaggedComments: {path: '../api/index.php/comment/flaggedcommentslist', method:'get'},
+        deleteComment: {path: '../api/index.php/comment/delete', method:'post'},
         // get user info
         login: {path: '../api/index.php/user/login'},
         logout: {path: '../api/index.php/user/logout'},
         user: {path: '../api/index.php/user/getcurrent' , method: 'get'},
+        saveUser: {path: '../api/index.php/user/put' , method: 'post'},
         // get user's nodes
         userNode: {path: '../admin/app/json/node/recent.json' , data:{ uid: 0 , page: 1 }, method: 'get'},
         saveNode: {path: '../api/index.php/node/put'},
-        neighbor: {path: '../api/index.php/node/getneighbor', method:'get'}
+        neighbor: {path: '../api/index.php/node/getneighbor', method:'get'},
+        countryList: {path: 'json/country.json', method:'get'}
     };
 
     // 内部API

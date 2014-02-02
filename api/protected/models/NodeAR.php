@@ -29,9 +29,15 @@ class NodeAR extends CActiveRecord{
   
   public $user_liked = FALSE;
 
+	public $user_flagged = FALSE;
+
   public $topday = FALSE;
+
+	public $topmonth = FALSE;
   
   public $like = array();
+
+	public $flag = array();
   
   // 这个只是允许上传的视频格式
   const ALLOW_UPLOADED_VIDEO_TYPES = "mp4,avi,mov,mpg";
@@ -58,7 +64,7 @@ class NodeAR extends CActiveRecord{
         array("uid, country_id, type", "required"),
         array("uid", "uidExist"),
         array("country_id", "countryExist"),
-        array("file, type, datetime, status, description, nid, hashtag, user_liked, like, topday", "safe"),
+        array("file, type, datetime, status, description, nid, hashtag, user_liked,user_flagged, like, flag, topday, topmonth", "safe"),
     );
   }
   
@@ -121,18 +127,25 @@ class NodeAR extends CActiveRecord{
     parent::afterFind();
     $this->hashtag = unserialize($this->hashtag);
     
-    // 加载当前用户的flag
+    // 加载当前用户的flag/like状态
     if ($uid = Yii::app()->user->getId() ) {
-      $user = UserAR::model()->findByPk($uid);
+      $user = UserAR::model()->findByPk($uid); // 此处是否有必要？多一次查询了
       if ($user) {
-        $flag = LikeAR::model()->findByAttributes(array("nid" => $this->nid, "uid" => $user->uid));
-        if (($flag)) {
-          $this->like = $flag->attributes;
+        $like = LikeAR::model()->findByAttributes(array("nid" => $this->nid, "uid" => $user->uid));
+        if (($like)) {
           $this->user_liked = TRUE;
         }
         else {
           $this->user_liked = FALSE;
         }
+
+				$flag = FlagAR::model()->findByAttributes(array("nid" => $this->nid, "uid" => $user->uid));
+				if (($flag)) {
+					$this->user_flagged = TRUE;
+				}
+				else {
+					$this->user_flagged = FALSE;
+				}
       }
     }
     
@@ -144,7 +157,7 @@ class NodeAR extends CActiveRecord{
     $this->likecount = $likeAr->getNodeCount($this->nid);
     $flagAr = new FlagAR();
     $this->flagcount = $flagAr->flagCountInNode($this->nid);
-    
+
     
     return TRUE;
   }
@@ -323,6 +336,8 @@ class NodeAR extends CActiveRecord{
 
     return $res->nodecounts;
   }
+
+
   
   public function getAttributes($name=NULL) {
     $attrs = parent::getAttributes($name);

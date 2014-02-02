@@ -27,10 +27,11 @@ body{
     overflow: hidden;
 }
 
-.main{margin: 86px -10px 0 0px;}
-.logged .main {margin:86px -10px 0 80px;}
-.inner {margin:86px 0 0 330px;}
-.logged .inner {margin:86px 0 0 410px;}
+.content {margin-top:85px;}
+.main{margin: 0 -10px 0 0px;}
+.logged .main {margin:0 -10px 0 80px;}
+.inner {margin:0 0 0 330px;}
+.logged .inner {margin:0 0 0 410px;}
 .inner-info {left:330px;}
 .logged .inner-info {left:410px;}
 .no-animate .main-item{
