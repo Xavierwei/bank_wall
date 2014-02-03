@@ -1,8 +1,5 @@
 <?php
 
-/**
- * @author jackey <jziwenchen@gmail.com>
- */
 class NodeController extends Controller {
   public function actionTest() {
     $nodeAr = new NodeAR();
@@ -205,7 +202,15 @@ class NodeController extends Controller {
       
       return $this->responseJSON($nodeAr->attributes, "success");
   }
-  
+
+	public function actionGetPageByNid(){
+		$request = Yii::app()->getRequest();
+		$nid = $request->getParam("nid");
+		$pagenum = $request->getParam("pagenum");
+		$page = NodeAR::model()->getPageByNid($nid, $pagenum);
+		$this->responseJSON($page, "success");
+	}
+
   public function actionList() {
       // TODO:: Order by like / Search by hashtag / Search by keyword
       $request = Yii::app()->getRequest();

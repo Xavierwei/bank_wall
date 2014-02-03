@@ -19,7 +19,6 @@ class TagAR extends CActiveRecord {
     );
   }
 
-  
   public function searchTag($term) {
 		$query=new CDbCriteria;
 		$query->addSearchCondition('tag',$term);
@@ -28,6 +27,14 @@ class TagAR extends CActiveRecord {
 		return $tags;
   }
 
+	public function topThree() {
+		$query=new CDbCriteria;
+		$query->limit = 3;
+		$query->order = 'count';
+		$tags = $this->findAll($query);
+		return $tags;
+	}
+
 	public function saveTag($term) {
 		$query=new CDbCriteria;
 		$query->addCondition('tag=:tag');
@@ -35,12 +42,14 @@ class TagAR extends CActiveRecord {
 		$res=$this->find($query);
 		if($res) {
 			$res->count = $res->attributes['count'] + 1;
+			$res->date = time();
 			$res->updateByPk($res->tag_id, $res->attributes);
 		}
 		else {
 			$tag = new TagAR();
 			$tag->attributes = array(
-				"tag" => $term
+				"tag" => $term,
+				"date" => time()
 			);
 			$tag->save();
 		}

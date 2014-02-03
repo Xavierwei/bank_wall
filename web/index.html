@@ -10,9 +10,17 @@
     <link href="css/fonts.css" rel="stylesheet" type="text/css" />
     <link href="css/animation.css" rel="stylesheet" type="text/css" />
     <link href="css/needtocombine.css" rel="stylesheet" type="text/css" />
-    <link href="../static/js/video-js/video-js.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/video-js.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
+<div class="preload">
+    <div class="preload1">a</div>
+    <div class="preload2">a</div>
+    <div class="preload3">a</div>
+</div>
+<div class="pageLoading">
+
+</div>
 <div class="page">
 	<!-- header -->
 	<div class="header">
@@ -48,7 +56,11 @@
             <div class="select-item">
                 <div class="select-box btn2">Country</div>
                 <div class="select-pop">
-                    <div class="select-option"><p data-api="recent">All</p><p data-api="recent" data-param="country_id=1">France</p><p data-api="recent" data-param="country_id=2">China</p></div>
+                    <div class="select-option select-country-option">
+                        <div class="select-country-option-list">
+                        <p data-api="recent">All</p><p data-api="recent" data-param="country_id=1">France</p><p data-api="recent" data-param="country_id=2">China</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 		</div>
@@ -119,7 +131,9 @@
         </div>
         <!--  -->
         <div class="pop-inner pop-load" style="display:none">
-            <div class="popload-icon"></div>
+            <div class="popload-icon-bg">
+                <div class="popload-icon"></div>
+            </div>
             <div class="poploading">
                 <div class="popload-percent"><p></p></div>
                 <p>TELECHARGEMENT EN COURS ...</p>
@@ -148,12 +162,12 @@
                 <textarea id="node-description" class="poptxt-textarea" placeholder="Entrez votre description ici avec les#hashtags correspondants(Ex : #Meeting très productif cematin à la #SG)"></textarea>
                 <div class="error"></div>
             </div>
-            <div class="poptxt-check"><input type="checkbox" />Je déclare posséder la totalité des droits sur cette image/vidéo et avoir obtenu l’autorisation
+            <div class="poptxt-check btn">Je déclare posséder la totalité des droits sur cette image/vidéo et avoir obtenu l’autorisation
                 des personnes ainsi que des responsables des biens y figurant.
                 J’accepte les conditions d’utilisations de ce site.<span class="error">(Please read term condition before save)</span></div>
             <div class="poptxt-btn clear">
-                <p class="poptxt-cancel" data-a="close_pop">CANCEL</p>
-                <p class="poptxt-submit" data-a="save_node">PUBLISH {{type}}</p>
+                <p class="poptxt-cancel btn" data-a="close_pop">CANCEL</p>
+                <p class="poptxt-submit btn" data-a="save_node">PUBLISH {{type}}</p>
             </div>
         </div>
         <!--  -->
@@ -227,9 +241,10 @@
     <div class="image-wrap">
         <div class="image-wrap-inner">
             {{#ifvideo}}
-            <video id="inner-video-{{nid}}" class="video-js vjs-big-play-centered vjs-default-skin" controls="controls" preload="none" width="100%" height="100%" poster="../api{{image}}" data-setup="{}">
+            <video id="inner-video-{{timestamp}}" class="video-js vjs-big-play-centered vjs-default-skin" controls="controls" preload="none" width="100%" height="100%" poster="../api{{image}}" data-setup="{}">
                 <source src="../api{{file}}" type='video/mp4' />
             </video>
+            <div class="video-btn-zoom btn2" data-a="video_zoom"></div>
             {{else}}
             <img src="../api{{image}}" width="100%" />
             {{/ifvideo}}
@@ -248,9 +263,10 @@
 
             {{#if topday}}
             <div class="inner-topday"></div>
-            {{/if}}
-            {{#if topmonth}}
-            <div class="inner-topmonth"></div>
+            {{else}}
+                {{#if topmonth}}
+                <div class="inner-topmonth"></div>
+                {{/if}}
             {{/if}}
         </div>
     </div>
@@ -298,8 +314,8 @@
     <div class="count">
         <div data-a="list_user_nodes" data-d="type=photo" class="count-item"><span>{{photos_count}}</span>PHOTOS POSTS</div>
         <div data-a="list_user_nodes" data-d="type=video" class="count-item"><span>{{videos_count}}</span>VIDEOS POSTS</div>
-        <div data-a="list_user_nodes" data-d="type=day" class="count-item"><span>{{count_by_day}}</span>COUNT BY DAY</div>
-        <div data-a="list_user_nodes" data-d="type=month" class="count-item"><span>{{count_by_month}}</span>COUNT BY MONTH</div>
+        {{#if count_by_day}}<div data-a="list_user_nodes" data-d="type=day" class="count-item"><span>{{count_by_day}}</span>COUNT BY DAY</div>{{/if}}
+        {{#if count_by_month}}<div data-a="list_user_nodes" data-d="type=month" class="count-item"><span>{{count_by_month}}</span>COUNT BY MONTH</div>{{/if}}
         <div data-a="list_user_nodes" data-d="type=comment" class="count-item"><span>{{comments_count}}</span>COMMENTS</div>
         <div data-a="list_user_nodes" data-d="type=like" class="count-item"><span>{{likes_count}}</span>LIKES</div>
     </div>
@@ -330,7 +346,8 @@
                     <div class="editfi-com">
                         <input class="edit-email" type="text" value="{{personal_email}}" /> <em>(optionnel)</em>
                         <div class="edit-email-error">Please enter correct email.</div>
-                        <div class="editfi-condition">Je déclare posséder la totalité des droits sur cette image/vidéo et avoir obtenu l’autorisation des personnes ainsi que des responsables des biens y figurant. J’accepte les conditions d’utilisations de ce site.</div>
+                        <div class="editfi-condition btn">Je déclare posséder la totalité des droits sur cette image/vidéo et avoir obtenu l’autorisation des personnes ainsi que des responsables des biens y figurant. J’accepte les conditions d’utilisations de ce site.</div>
+                        <div class="editfi-condition-error">Please check the condition</div>
                         <div class="editfi-information">Ces informations sont nécessaires pour permettre l'envoi d'image/vidéo via un mail autre que votre mail professionnel. Vous disposez d’un droit d'accès, de rectification aux données à caractère personnel vous concernant ainsi qu’un droit d'opposition aux traitements de vos données, sous réserve de justifier d’un motif légitime. Pour plus d’information <a href="#">cliquez ici</a></div>
                     </div>
                 </div>
@@ -408,11 +425,20 @@
         <div class="popular-hashtags">
             Les #hashtags les plus populaires :
             <ul>
-                <li>#rugby</li>
-                <li>#france</li>
-                <li>#2014</li>
+                {{#each data}}
+                    <li class="btn" data-a="search" data-d="tag={{tag}}">{{tag}}</li>
+                {{/each}}
+
             </ul>
         </div>
+    </div>
+</script>
+
+<!-- blank-filter-tpl -->
+<script type="text/tpl" id="blank-filter-template">
+    <div class="blank-filter">
+        <div class="no-results">aucun résultat pour cette recherche</div>
+        <div class="no-results-line"></div>
     </div>
 </script>
 

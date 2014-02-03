@@ -175,6 +175,23 @@
             };
             return str.join('&');
         }
+        , checkIllegalTags: function(string){
+            var reg = /#[^\s]*/g;
+            var tags = string.match(reg);
+            if(!tags) return true;
+            var illegalChars = false;
+            $.each(tags,function(i,e){
+                var tag = e.replace('#','');
+                var reg = /[`~\-!@#$%^&*()_+<>?:"{},.\/;[\]]/im;
+                if(reg.test(tag)) {
+                    illegalChars = true;
+                }
+            });
+            if(illegalChars) {
+                return false;
+            }
+            return true;
+        }
     };
 
 

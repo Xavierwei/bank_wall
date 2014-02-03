@@ -1,16 +1,6 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- * Description of NodeAR
- *
- * @author jackey
- */
 class NodeAR extends CActiveRecord{
     
   const PUBLICHSED = 1;
@@ -101,7 +91,7 @@ class NodeAR extends CActiveRecord{
     $description = $this->description;
     
     $matches = array();
-    preg_match_all("/#(\\w+)/", $description, $matches);
+    preg_match_all("/#([\\w']+)/", $description, $matches);
     $hashtags = end($matches);
     return $hashtags;
   }
@@ -346,4 +336,19 @@ class NodeAR extends CActiveRecord{
     $attrs["flagcount"] = $this->flagcount;
     return $attrs;
   }
+
+	public function getPageByNid($nid) {
+		$query = new CDbCriteria();
+		$query->select = array("count(*) as nodecounts");
+		$query->addCondition("nid>:nid");
+		$query->addCondition("status=1");
+		$query->order = "nid desc";
+		$query->params = array(
+			":nid" => $nid
+		);
+		$res = $this->find($query);
+		$page = ceil($res->nodecounts/20);
+		return $page;
+	}
+
 }

@@ -119,6 +119,15 @@ class CommentController extends Controller {
     
     $nid = $request->getParam("nid");
     $shownode = $request->getParam("shownode");
+
+		$page = $request->getParam("page");
+		if (!$page) {
+			$page = 1;
+		}
+		$pagenum = $request->getParam("pagenum");
+		if (!$pagenum) {
+			$pagenum = 10;
+		}
     
     //$orderby = $request->getParam("orderby");
     //if (!$orderby) {
@@ -138,6 +147,8 @@ class CommentController extends Controller {
       $query->addCondition("nid=:nid");
       $query->params[":nid"] = $nid;
     }
+		$query->limit = $pagenum;
+		$query->offset = ($page - 1 ) * $pagenum;
     $query->order = CommentAR::model()->getTableAlias().".$orderby $order";
     
     $query->with = array("user");

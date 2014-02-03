@@ -1,8 +1,6 @@
 <?php
 
-/**
- * @author  jackey <jziwenchen@gmail.com>
- */
+
 class LikeAR extends CActiveRecord {
   
   public $likecount = 0;
@@ -36,10 +34,87 @@ class LikeAR extends CActiveRecord {
     return TRUE;
   }
 
+	public function afterSave() {
+		$nid = $this->getAttribute("nid");
+		$node = NodeAR::model()->findByPk($nid);
+		$this->saveTopOfDay($node);
+		$this->saveTopOfMonth($node);
+	}
+
+
+	private function saveTopOfDay($node) {
+		$str_datetime = $node->datetime;
+		$datetime = date('Y-m-d',$str_datetime);
+		$start_time = strtotime($datetime);
+		$end_time = strtotime($datetime) + 1*24*60*60;
+		$query = new CDbCriteria();
+		$query->select = array("`node`.nid". ", count(like_id) AS likecount");
+		$query->addCondition("`node`.datetime>:start");
+		$query->addCondition("`node`.datetime<=:end");
+		$query->join = 'left join `node` '.' on '. $this->getTableAlias() .".nid = `node`.nid";
+		$query->params = array(
+			":start" => $start_time,
+			":end" => $end_time
+		);
+		$query->group = "`node`.nid";
+		$res = $this->find($query);
+		$updateRes = Yii::app()->db->createCommand()->update('topday', array(
+			'nid'=>$res->nid,
+		), 'date=:date', array(':date'=>$start_time));
+
+		if(!$updateRes) {
+			$count = Yii::app()->db->createCommand()->select('count(*) as count')
+				->from('topday')
+				->where('date=:date', array('date'=>$start_time))
+				->queryRow();
+			if(!$count['count'])
+			{
+				Yii::app()->db->createCommand()->insert('topday', array(
+					'nid'=>$res->nid,
+					'date'=>$start_time
+				));
+			}
+		}
+	}
+
+	private function saveTopOfMonth($node) {
+		$str_datetime = $node->datetime;
+		$datetime = date('Y-m-1',$str_datetime);
+		$start_time = strtotime($datetime);
+		$end_time = strtotime(date("Y-m-1", $start_time) . " +1 month");
+		$query = new CDbCriteria();
+		$query->select = array("`node`.nid". ", count(like_id) AS likecount");
+		$query->addCondition("`node`.datetime>:start");
+		$query->addCondition("`node`.datetime<=:end");
+		$query->join = 'left join `node` '.' on '. $this->getTableAlias() .".nid = `node`.nid";
+		$query->params = array(
+			":start" => $start_time,
+			":end" => $end_time
+		);
+		$query->group = "`node`.nid";
+		$res = $this->find($query);
+		$updateRes = Yii::app()->db->createCommand()->update('topmonth', array(
+			'nid'=>$res->nid,
+		), 'date=:date', array(':date'=>$start_time));
+
+		if(!$updateRes) {
+			$count = Yii::app()->db->createCommand()->select('count(*) as count')
+				->from('topmonth')
+				->where('date=:date', array('date'=>$start_time))
+				->queryRow();
+			if(!$count['count'])
+			{
+				Yii::app()->db->createCommand()->insert('topmonth', array(
+					'nid'=>$res->nid,
+					'date'=>$start_time
+				));
+			}
+		}
+	}
 
 
 
-  // Get node like count
+	// Get node like count
   public function getNodeCount($nid) {
     $query=new CDbCriteria;
     $query->condition='nid=:nid';

@@ -1,8 +1,6 @@
 <?php
 
-/**
- * @author Jackey <jziwenchen@gmail.com>
- */
+
 class LikeController extends Controller {
   
   public function actionPost() {

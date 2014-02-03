@@ -20,7 +20,10 @@ class TagController extends Controller {
 		$retdata = TagAR::model()->saveTag($term);
 		$this->responseJSON($retdata, "success");
 	}
-  
 
+	public function actionTopThree() {
+		$retdata = TagAR::model()->topThree();
+		$this->responseJSON($retdata, "success");
+	}
 }
 
