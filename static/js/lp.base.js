@@ -517,6 +517,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         if(!$('.side').is(':visible')) {
             _silderWidth = 0;
         }
+        $('.search-hd').hide();
         var datetime = new Date(node.datetime*1000);
         node.date = datetime.getDate();
         node.month = getMonth((parseInt(datetime.getMonth()) + 1));
@@ -1315,6 +1316,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         }
         else {
             LP.triggerAction('close_user_page');
+            LP.triggerAction('load_list');
         }
     });
 
@@ -1369,7 +1371,6 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         $('.user-page').fadeOut(400);
         $('.close-user-page').fadeOut();
         $main.css({position:'relative',top:'auto',left:'auto'});
-        LP.triggerAction('load_list');
     });
 
     //open user edit page
@@ -1428,7 +1429,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         }
         $main.fadeOut(400,function(){
             LP.triggerAction('close_user_page');
-            $main.html('');
+            $main.html('').fadeIn();
             $main.data('nodes','');
             var param = refreshQuery();
             $listLoading.fadeIn();

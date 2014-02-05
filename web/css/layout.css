@@ -6,7 +6,7 @@
 
 /* Reset
 ================================================================================================= */
-body{color:#000;font-size:12px;line-height:1.8em;background: #fff;overflow-x: hidden;padding:1px 0 0;}
+body{color:#000;font-size:12px;line-height:1.8em;background: #303030;overflow-x: hidden;padding:1px 0 0;}
 html,body {height:100%;}
 h1,h2,h3{font-size:100%;font-weight:600;}
 body,h1,h2,h3,h4,ul,li,p,img,input,textarea{margin:0;padding:0;border:0;}
@@ -70,8 +70,8 @@ a{text-decoration:none;color:#666}
 ================================================================================================= */
 .search-hd {display:none;margin:18px 0 18px 10px;color:#757575;}
 .logged .search-hd {margin:18px 0 18px 90px;}
-.no-results {color:#afafaf;text-align: center;font-size: 14px;background: url('../img/no-results.gif') no-repeat center 60px;padding:200px 0 42px;}
-.no-results-line {width:75px;border-bottom:1px solid #333;margin:0 auto;}
+.no-results {color:#afafaf;text-align: center;font-size: 14px;background: url('../img/no-results.png') no-repeat center 60px;padding:200px 0 42px;}
+.no-results-line {width:75px;border-bottom:1px solid #777;margin:0 auto;}
 .popular-hashtags {text-align: center;color:#545454;margin-top:40px;}
 .popular-hashtags ul {font-size:18px;margin-top:15px;}
 .popular-hashtags ul li {margin:4px 0;}
@@ -199,7 +199,7 @@ a{text-decoration:none;color:#666}
         .com-make {height: 85px;}
         .com-main .need-login {text-align: center;margin-top:10px;}
         .comlist-con {color:#ccc;word-break: break-all;word-wrap: break-word;}
-    .loading-list {display:none;background: url('../img/loading_list.gif') no-repeat;width:20px;height:20px;position:fixed;bottom:10px;right:10px;}
+    .loading-list {display:none;background: url('../img/loading_list.gif') no-repeat;width:30px;height:30px;position:fixed;bottom:10px;right:10px;}
 
 /* loginpage Used
 ================================================================================================= */
@@ -281,7 +281,7 @@ a{text-decoration:none;color:#666}
 
 /* count-inner Used
 ================================================================================================= */
-.user-page {position: relative;display: none;margin-left:80px;}
+.user-page {position: relative;display: none;margin-left:80px;height:100%;background:#fff;}
     .count-inner{margin:0 0 0 240px;}
 	.count-user{height: 130px;background:#323232 ;position: relative;}
 		.count-userpho{width:65px;height: 65px;position: absolute;top:31px;left:48px;z-index: 5}
