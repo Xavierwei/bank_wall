@@ -10,7 +10,7 @@ body{color:#000;font-size:12px;line-height:1.8em;background: #303030;overflow-x:
 html,body {height:100%;}
 h1,h2,h3{font-size:100%;font-weight:600;}
 body,h1,h2,h3,h4,ul,li,p,img,input,textarea{margin:0;padding:0;border:0;}
-img{margin:0;line-height:normal;}
+img{margin:0;line-height:normal;-webkit-user-drag:none;-moz-user-drag:none;-ms-user-drag:none;user-drag:none;}
 ul{list-style:none;}
 
 

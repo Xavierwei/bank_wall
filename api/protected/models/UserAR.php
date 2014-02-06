@@ -56,7 +56,7 @@ class UserAR extends CActiveRecord{
 				//array("sso_id", "dbRowUnique"),
         //array("role", "type", 'type' => 'int'),
         //array("password", "required"),
-        array("avatar,personal_email,company_email,name,sso_id, datetime, firstname, lastname, role", 'safe'),
+        array("avatar,personal_email,company_email,name,sso_id, country_id,datetime, firstname, lastname, role", 'safe'),
         //array("country_id", "required"),
     );
   }
@@ -103,6 +103,7 @@ class UserAR extends CActiveRecord{
 		$newUser->firstname = $attributes['givenName'][0];
 		$newUser->lastname = $attributes['sn'][0];
 		$newUser->role = self::ROLE_AUTHEN;
+		$newUser->country_id = 30;
 
 		if ($newUser->validate()) {
 			$newUser->save();

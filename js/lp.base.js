@@ -10,6 +10,12 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     var _waitingLikeAjax = false;
     var _waitingCommentSubmitAjax = false;
     var _waitingCommentListAjax = false;
+    var $main = $('.main');
+    var minWidth = 150;
+    var itemWidth = minWidth;
+    var winWidth = $(window).width();
+    var $listLoading = $('.loading-list');
+    var _e;
 
     // get english month
     // TODO .... need I18
@@ -180,11 +186,6 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
 
 
-    var $main = $('.main');
-    var minWidth = 150;
-    var itemWidth = minWidth;
-    var winWidth = $(window).width();
-    var $listLoading = $('.loading-list');
     // fix one day animation. It is start animate from the day which is not trigger the animation
     // After the day trigger the animation 
     // Fix animation day by day
@@ -524,6 +525,10 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         node.image = node.file.replace( node.type == "video" ? '.mp4' : '.jpg', BIG_IMG_SIZE + '.jpg');
         node.timestamp = (new Date()).getTime();
         node.currentUser = $('.side').data('user');
+        if(!node.user.avatar) {
+            node.user.avatar = "/uploads/default_avatar.gif";
+        }
+        node._e = _e;
         LP.compile( 'inner-template' , node , function( html ){
             var mainWidth = winWidth - _silderWidth;
             var mainWrapWidth = $main.width();
@@ -1060,7 +1065,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         var acceptFileTypes;
         var type = data.type;
         $('.side .menu-item.'+type).addClass('active');
-
+        data._e = _e;
         LP.compile( "pop-template" , data,  function( html ){
             $(document.body).append( html );
             $('.overlay').fadeIn();
@@ -1083,7 +1088,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 $fileupload.fileupload({
                         // Uncomment the following to send cross-domain cookies:
                         //xhrFields: {withCredentials: true},
-                        url: '../api/index.php/node/post',
+                        url: './api/index.php/node/post',
                         maxFileSize: 5000000,
                         acceptFileTypes: acceptFileTypes,
                         autoUpload:false
@@ -1129,87 +1134,6 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     });
             });
         } );
-//         $('.pop .poptit').html('upload ' + data.type);
-//         $('.overlay').fadeIn();
-//         $('.pop').fadeIn();
-//         $('.pop-inner').hide();
-//         $('.pop-file').show();
-//         $('.pop-file .step1-btns').show();
-//         $('.pop-file .step2-btns').hide();
-//         $('#fileupload .error').hide();
-//         $('#node-description').val('');
-//         $('.poptxt-pic img').attr('src','');
-//         $('.poptxt-check input').prop('checked',false);
-
-//         // bind popfile-btn file upload event
-//         var $fileupload = $('#fileupload');
-//         if( $fileupload.data('init') != type ){
-
-//             if($fileupload.data('init')) {
-//                 $fileupload.fileupload('destroy').unbind('fileuploadadd').unbind('fileuploadstart').unbind('fileuploadprogress').unbind('fileuploaddone');
-//             }
-//             $fileupload.data('init', type );
-//             if(type == 'video') {
-//                 acceptFileTypes = /(\.|\/)(move|mp4|avi)$/i;
-//                 $('#select-btn').html(' SELECT VIDEO <input id="file-video" type="file" name="video" />');
-//                 var maxFileSize = 7 * 1024000;
-//             }
-//             else {
-//                 acceptFileTypes = /(\.|\/)(gif|jpe?g|png)$/i;
-//                 $('#select-btn').html(' SELECT PHOTO <input id="file-photo" type="file" name="photo" />');
-//                 var maxFileSize = 5 * 1024000;
-//             }
-//             LP.use('fileupload' , function(){
-//                 // Initialize the jQuery File Upload widget:
-//                 $fileupload.fileupload({
-//                         // Uncomment the following to send cross-domain cookies:
-//                         //xhrFields: {withCredentials: true},
-//                         url: '../api/index.php/node/post',
-//                         maxFileSize: 5000000,
-//                         acceptFileTypes: acceptFileTypes,
-//                         autoUpload:false
-//                     })
-//                     .bind('fileuploadadd', function (e, data) {
-//                         console.log(data);
-//                         //TODO: 当用户选择图片后跳转到处理图片的流程
-//                         if(data.files[0].size > maxFileSize) {
-//                             $('#fileupload .error').fadeIn().html('Maximum file size is ' + parseInt(maxFileSize/1024000) + "MB");
-//                         }
-//                         else {
-//                             $('#fileupload .error').hide();
-//                             data.submit();
-//                         }
-//                     })
-//                     .bind('fileuploadstart', function (e, data) {
-//                         $('.pop-inner').fadeOut(400);
-//                         $('.pop-load').delay(400).fadeIn(400);
-//                     })
-//                     .bind('fileuploadprogress', function (e, data) {
-//                         var rate = data._progress.loaded / data._progress.total * 100;
-//                         $('.popload-percent p').css({width:rate + '%'});
-//                     })
-//                     .bind('fileuploaddone', function (e, data) {
-//                         if(data.result.data.type == 'video') {
-//                             $('.poptxt-pic img').attr('src', API_FOLDER + data.result.data.file/*.replace('.mp4', THUMBNAIL_IMG_SIZE + '.jpg')*/);
-//                             setTimeout(function(){
-//                                 var timestamp = new Date().getTime();
-//                                 $('.poptxt-pic img').attr('src',$('.poptxt-pic img').attr('src') + '?' +timestamp );
-//                             },2000);
-//                             $('.poptxt-submit').attr('data-d','nid=' + data.result.data.nid);
-//                             $('.pop-inner').delay(400).fadeOut(400);
-//                             $('.pop-txt').delay(900).fadeIn(400);
-//                         }
-//                         else {
-//                             $('.poptxt-pic img').attr('src', API_FOLDER + data.result.data.file/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
-//                             $('.poptxt-submit').attr('data-d','nid=' + data.result.data.nid);
-// //                            $('.pop-file .step1-btns').fadeOut(400);
-// //                            $('.pop-file .step2-btns').delay(400).fadeIn(400);
-//                             $('.pop-inner').delay(400).fadeOut(400);
-//                             $('.pop-txt').delay(1200).fadeIn(400);
-//                         }
-//                     });
-//             });
-//         }
     });
 
     //close pop
@@ -1441,8 +1365,8 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     nodeActions.inserNode( $main.show() , result.data , param.orderby == 'datetime');
                 }
                 else {
-                    //TODO popular search result
                     api.ajax('tagTopThree', function(result){
+                        result._e = _e;
                         LP.compile( 'blank-search-template' ,
                             result,
                             function( html ){
@@ -1918,121 +1842,151 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 //        });
 //        console.log(output);
 
+//        $(document).ajaxStop(function () {
+//            console.log(1);
+//        });
+
+        api.ajax('i18n_en' , function( result ){
+            _e = result;
+            LP.compile( 'base-template' , {_e:_e} , function( html ){
+                $('body').prepend(html);
+                $main = $('.main');
+                $listLoading = $('.loading-list');
 
 
-        // after page load , load the current user information data from server
+                // after page load , load the current user information data from server
+                api.ajax('user' , function( result ){
+                    if(result.success) {
+                        //bind user data after success logged
+                        if(result.data.count_by_day == 0) {
+                            delete result.data.count_by_day;
+                        }
+                        if(result.data.count_by_month == 0) {
+                            delete result.data.count_by_month;
+                        }
+                        if(!result.data.avatar) {
+                            result.data.avatar = "/uploads/default_avatar.gif";
+                        }
+                        result.data._e = _e;
+                        LP.compile( 'user-page-template' , result.data , function( html ){
+                            $('.content').append(html);
+                        });
 
-        api.ajax('user' , function( result ){
-            if(result.success) {
-                //bind user data after success logged
-                if(result.data.count_by_day == 0) {
-                    delete result.data.count_by_day;
-                }
-                if(result.data.count_by_month == 0) {
-                    delete result.data.count_by_month;
-                }
-                LP.compile( 'user-page-template' , result.data , function( html ){
-                    $('.content').append(html);
+                        LP.compile( 'side-template' , result.data , function( html ){
+                            $('.content').append(html);
+                            //cache the user data
+                            $('.side').data('user',result.data);
+                        });
+                        $('.page').addClass('logged');
+                        $('.header .select').fadeIn();
+                    }
+                    else {
+                        $('.header .login').fadeIn();
+                    }
+
+                    if(!openByHashId()) {
+                        // after page load , load the recent data from server
+                        LP.triggerAction('recent');
+                    }
                 });
 
-                LP.compile( 'side-template' , result.data , function( html ){
-                    $('.content').append(html);
-                    //cache the user data
-                    $('.side').data('user',result.data);
+
+                var $countryList = $('.select-country-option-list');
+                LP.use(['jscrollpane' , 'mousewheel'] , function(){
+                    $('.select-country-option-list').jScrollPane({autoReinitialise:true});
                 });
-                $('.page').addClass('logged');
-                $('.header .select').fadeIn();
-            }
-            else {
-                $('.header .login').fadeIn();
-            }
-
-            if(!openByHashId()) {
-                // after page load , load the recent data from server
-                $.when(LP.triggerAction('recent')).then(function(){
-                    pageLoaded(0);
+                $countryList.empty();
+                $countryList.append('<p data-api="recent">All</p>');
+                api.ajax('countryList', function( result ){
+                    $.each(result, function(index, item){
+                        var html = '<p data-param="country_id=' + item.country_id + '" data-api="recent">' + item.country + '</p>';
+                        $countryList.append(html);
+                    });
                 });
-            }
-        });
 
-        var $countryList = $('.select-country-option-list');
-        LP.use(['jscrollpane' , 'mousewheel'] , function(){
-            $('.select-country-option-list').jScrollPane({autoReinitialise:true});
-        });
-        $countryList.empty();
-        $countryList.append('<p data-api="recent">All</p>');
-        api.ajax('countryList', function( result ){
-            $.each(result, function(index, item){
-                var html = '<p data-param="country_id=' + item.country_id + '" data-api="recent">' + item.country + '</p>';
-                $countryList.append(html);
-            });
-        });
 
-        LP.use('uicustom',function(){
-            $( ".search-ipt").val('').autocomplete({
-                source: function( request, response ) {
-                    $.ajax({
-                        url: "../api/tag/list",
-                        dataType: "json",
-                        data: {
-                            term: request.term
-                        },
-                        success: function( data ) {
-                            response( $.map( data.data, function( item ) {
-                                return {
-                                    label: item.tag,
-                                    value: item.tag
+                LP.use('uicustom',function(){
+                    $( ".search-ipt").val('').autocomplete({
+                        source: function( request, response ) {
+                            $.ajax({
+                                url: "./api/tag/list",
+                                dataType: "json",
+                                data: {
+                                    term: request.term
+                                },
+                                success: function( data ) {
+                                    response( $.map( data.data, function( item ) {
+                                        return {
+                                            label: item.tag,
+                                            value: item.tag
+                                        }
+                                    }));
                                 }
-                            }));
+                            });
+                        },
+                        minLength: 2,
+                        select: function( event, ui ) {
+                            console.log(ui);
                         }
                     });
-                },
-                minLength: 2,
-                select: function( event, ui ) {
-                    console.log(ui);
-                }
+                });
+
+
+                LP.use('handlebars' , function(){
+                    //Handlebars helper
+                    Handlebars.registerHelper('ifvideo', function(options) {
+                        if(this.type == 'video')
+                            return options.fn(this);
+                        else
+                            return options.inverse(this);
+                    });
+
+                    Handlebars.registerHelper('ifliked', function(options) {
+                        if(this.user_liked == true)
+                            return options.fn(this);
+                        else
+                            return options.inverse(this);
+                    });
+
+                    Handlebars.registerHelper('ifzero', function(value, options) {
+                        if(value == 0)
+                            return options.fn(this);
+                        else
+                            return options.inverse(this);
+                    });
+                });
+
+                // every five minutes get the latest nodes
+                setInterval( function(){
+                    // if main element is visible
+                    if( !$main.is(':visible') ) return;
+                    var lastNid = $main.data('nodes');
+                    api.ajax( 'neighbor' , {nid: 1} , function( r ){
+                        var nodes = r.data.left;
+                        if( !nodes.length ) return;
+                        nodeActions.prependNode( $main , nodes , $main.data('param').orderby == "datetime" );
+                    } );
+                } , 5 * 60 * 1000 );
+
+
+                // fix language
+                var lang = LP.getCookie('lang') || 'en';
+                $('.language-item').removeClass('language-item-on')
+                    .filter('[data-d="lang=' + lang + '"]')
+                    .addClass('language-item-on');
+
             });
         });
 
 
-        LP.use('handlebars' , function(){
-            //Handlebars helper
-            Handlebars.registerHelper('ifvideo', function(options) {
-                if(this.type == 'video')
-                    return options.fn(this);
-                else
-                    return options.inverse(this);
-            });
 
-            Handlebars.registerHelper('ifliked', function(options) {
-                if(this.user_liked == true)
-                    return options.fn(this);
-                else
-                    return options.inverse(this);
-            });
+
+        // When the init AJAX all finished, fadeOut the loading layout
+        $(document).ajaxStop(function () {
+            pageLoaded(0);
+            $(this).unbind('ajaxStop');
         });
 
-
-
-
-        // every five minutes get the latest nodes
-        setInterval( function(){
-            // if main element is visible
-            if( !$main.is(':visible') ) return;
-            var lastNid = $main.data('nodes');
-            api.ajax( 'neighbor' , {nid: 1} , function( r ){
-                var nodes = r.data.left;
-                if( !nodes.length ) return;
-                nodeActions.prependNode( $main , nodes , $main.data('param').orderby == "datetime" );
-            } );
-        } , 5 * 60 * 1000 );
-
-
-        // fix language
-        var lang = LP.getCookie('lang') || 'en';
-        $('.language-item').removeClass('language-item-on')
-            .filter('[data-d="lang=' + lang + '"]')
-            .addClass('language-item-on');
     }
 
 
@@ -2206,7 +2160,6 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 pageParam.previouspage = result.data;
                 $main.data('param' , pageParam);
                 api.ajax('recent', pageParam , function( result ){
-                    pageLoaded(1000);
                     if(result.data.length > 0) {
                         nodeActions.inserNode( $main , result.data , pageParam.orderby == 'datetime' );
                         $listLoading.fadeOut();

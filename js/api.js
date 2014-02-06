@@ -45,7 +45,8 @@ define(function( require , exports , model ){
         userNode: {path: './admin/app/json/node/recent.json' , data:{ uid: 0 , page: 1 }, method: 'get'},
         saveNode: {path: './api/index.php/node/put'},
         neighbor: {path: './api/index.php/node/getneighbor', method:'get'},
-        countryList: {path: './json/country.json', method:'get'}
+        countryList: {path: './json/country.json', method:'get'},
+        i18n_en: {path: './lang/en.json', method:'get', async: false, cache:true}
     };
 
     // 内部API
@@ -76,6 +77,11 @@ define(function( require , exports , model ){
             method = method.toUpperCase();
         }
 
+        var async = ajaxConfig.async;
+        if ( async == undefined )  {
+            async = true;
+        }
+
         error = error || ajaxConfig.error;
 
         data = LP.mix( ajaxConfig.data || {} , data );
@@ -89,6 +95,7 @@ define(function( require , exports , model ){
                 , global   : ajaxConfig.alertOnError === false || ajaxConfig.global === false ? false : true
                 , error    : error
                 , complete : complete
+                , async    : async
                 , timeout  : ajaxConfig.timeout
                 , success: function(e) {
                     if ( e && typeof e == "string" ) {
