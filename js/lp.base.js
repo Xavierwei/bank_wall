@@ -712,7 +712,10 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         node.month = getMonth((parseInt(datetime.getMonth()) + 1));
         node.currentUser = $('.side').data('user');
         node.timestamp = (new Date()).getTime();
-
+        if(!node.user.avatar) {
+            node.user.avatar = "/uploads/default_avatar.gif";
+        }
+        node._e = _e;
         var $inner = $('.inner');
         LP.compile( 'inner-template' , node , function( html ){
             var $comment = $inner.find('.comment');
@@ -820,7 +823,6 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                         if(isAtBottom) {
                             var commentParam = $('.comment-wrap').data('param');
                             getCommentList(node.nid,commentParam.page + 1);
-                            console.log('Append next page');
                         }
                     }
                 );
