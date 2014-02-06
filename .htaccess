@@ -1,3 +1,10 @@
 AddType video/mp4 .mp4
 AddType audio/mpeg .mp3
 AddType video/webm .webm
+
+RewriteEngine On
+
+RewriteCond %{HTTP_HOST} !^$
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule (.*) $1.html [L]

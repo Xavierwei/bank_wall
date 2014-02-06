@@ -1,8 +1,7 @@
 <?php
 
 class TagController extends Controller {
-  
-  // 
+
   public function actionIndex() {
     $this->responseError("not support yet");
   }

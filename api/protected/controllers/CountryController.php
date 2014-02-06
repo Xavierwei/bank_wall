@@ -1,8 +1,5 @@
 <?php
 
-/**
- * @author Jackey <jziwenchen@gmail.com>
- */
 class CountryController extends Controller {
   
   public function actionList() {

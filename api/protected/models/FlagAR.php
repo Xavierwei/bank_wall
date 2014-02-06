@@ -1,8 +1,5 @@
 <?php
 
-/**
- * @author  jackey <jziwenchen@gmail.com>
- */
 class FlagAR extends CActiveRecord {
   
   public $flagcount = 0;

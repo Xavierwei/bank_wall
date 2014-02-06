@@ -1,8 +1,5 @@
 <?php
 
-/**
- * @author jackey <jziwenchen@gmail.com>
- */
 class FlagController extends Controller {
   
   // 

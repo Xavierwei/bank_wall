@@ -1,8 +1,5 @@
 <?php
 
-/**
- * @author jackey <jziwenchen@gmail.com>
- */
 class LoginForm extends CFormModel {
   public $company_email;
   public $password;

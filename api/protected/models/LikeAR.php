@@ -1,6 +1,5 @@
 <?php
 
-
 class LikeAR extends CActiveRecord {
   
   public $likecount = 0;

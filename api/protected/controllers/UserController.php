@@ -1,12 +1,9 @@
 <?php
 
-/**
- * @author Jackey <jziwenchen@gmail.com>
- */
 class UserController extends Controller {
 
   public function actionIndex() {
-    return $this->responseError("not support yet");
+    return $this->responseError("not support");
   }
   
   /**
@@ -196,25 +193,26 @@ class UserController extends Controller {
       $this->responseJSON(array(), "success");
     }
   }
-  
-  //获取当前用户资料
-  public function actionGetCurrent() {
-    $request = Yii::app()->getRequest();
-    
+
+	/**
+	 * Get current user status
+	 */
+	public function actionGetCurrent() {
     if ($uid = Yii::app()->user->getId()) {
       $user = UserAR::model()->with("country")->findByPk($uid);
       $country = $user->country;
       $retdata = $user->getOutputRecordInArray(array("country" => $country) + $user->attributes);
-      // likes count
+
+      // Get likes count
       $likeAr = new LikeAR();
       $likecount = $likeAr->totalLikeByUser($user->uid);
       $retdata["likes_count"] = $likecount;
       
-      // comments count
+      // Get comments count
       $commentAr = new CommentAR();
       $retdata["comments_count"] = $commentAr->totalCommentsByUser($user->uid);
       
-      // photos_count_by_day
+      // Get photos/photos counts
       $nodeAr = new NodeAR();
       $retdata["photos_count"] = $nodeAr->countByType($user->uid, 'photo');
       $retdata["videos_count"] = $nodeAr->countByType($user->uid, 'video');
@@ -273,76 +271,57 @@ class UserController extends Controller {
     }
   }
 
+	/**
+	 * SAML SSO Login
+	 * TODO: Need change to live SAML IdP
+	 */
+	public function actionSAMLLogin() {
+		$as = new SimpleSAML_Auth_Simple('default-sp');
+		$as->requireAuth();
+		$attributes = $as->getAttributes();
+		if(!$attributes) {
+			return $this->responseError("login failed");
+		}
 
-  public function actionLogin() {
-      $request = Yii::app()->getRequest();
+		// Create the new user if user doesn't exist in database
+		if( !$user = UserAR::model()->findByAttributes(array('company_email'=>$attributes['eduPersonPrincipalName'][0])) ) {
+			$user = UserAR::model()->createSAMLRegister($attributes);
+		}
 
-      if (!$request->isPostRequest) {
-          $this->responseError("http error");
-      }
+		// Identity local site user data
+		$userIdentify = new UserIdentity($user->company_email, $attributes['eduPersonTargetedID'][0]);
 
-      $company_email = $request->getPost("company_email");
-      $password = $request->getPost("password");
+		// Save user status in session
+		if (!$userIdentify->authenticate()) {
+			$this->responseError("login failed");
+		}
+		else {
+			Yii::app()->user->login($userIdentify);
+			$this->redirect('../../index');
+		}
+	}
 
-      $userIdentify = new UserIdentity($company_email, $password);
-
-      // 验证没有通过
-      if (!$userIdentify->authenticate()) {
-          // 不必把对应的错误消息返回给客户端， 客户端只需知道登陆失败即可
-          // 可以避免Hacker 根据错误消息来推敲我们系统的运行机制和用户密码/帐号
-          $this->responseError("login failed");
-      }
-      else {
-          Yii::app()->user->login($userIdentify);
-
-          $userAr = new UserAR();
-          $this->responseJSON($userAr->getOutputRecordInArray(UserAR::model()->findByPk(Yii::app()->user->getId())), "success");
-    }
-  }
-
-  public function actionLogout() {
-    
-    $uid = Yii::app()->user->getId();
-    $user = UserAR::model()->with("country")->findByPk($uid);
-    
-    if ($user) {
-      Yii::app()->user->logout();
-      $this->responseJSON(array(), "success");
-    }
-    else {
-      $this->responseError("unkonwn error");
-    }
-  }
-  
-  public function actionLoginForm() {
-    $request = Yii::app()->getRequest();
-    $loginform = new LoginForm();
-    
-    if (Yii::app()->user->getId()) {
-      $this->redirect(Yii::app()->user->returnUrl);
-    }
-    
-    if (!$request->isPostRequest) {
-      $params = array("model" => $loginform);
-      $this->render("login", $params);
-    }
-    else {
-      $loginform->attributes = $_POST["LoginForm"];
-      if ($loginform->validate()) {
-        Yii::app()->user->login($loginform->getUserIdentify());
-        $this->redirect(Yii::app()->user->returnUrl);
-      }
-      else {
-        $params = array("model" => $loginform);
-        $this->render("login", $params);
-      }
-    }
-  }
-  
-  public function actionTest() {
-    $user = UserAR::model()->findByPk(Yii::app()->user->getId());
-    
-    $this->responseError("test");
-  }
-
+	/**
+	 * SAML Logout
+	 */
+	public function actionSAMLLogout() {
+		$uid = Yii::app()->user->getId();
+		$user = UserAR::model()->findByPk($uid);
+		if ($user) {
+			// Clean session
+			Yii::app()->user->logout();
+			// Logout from SSO
+			$as = new SimpleSAML_Auth_Simple('default-sp');
+			$status = $as->isAuthenticated();
+			if($status){
+				$as->logout();
+			}
+			else {
+				$this->redirect('../../index');
+			}
+		}
+		else {
+			$this->redirect('../../index');
+		}
+	}
 }

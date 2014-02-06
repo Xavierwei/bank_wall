@@ -1,16 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of UserAR
- *
- * @author jackey
- */
 class UserAR extends CActiveRecord{
   
   const USER_DELETED = -2;
@@ -60,15 +49,15 @@ class UserAR extends CActiveRecord{
   // Validation rules
   public function rules() {
     return array(
-        array("name", "dbRowUnique"),
-        array("personal_email", "email"),
-        array("personal_email", "dbRowUnique"),
-        array("company_email", "email"),
-        array("personal_email", "dbRowUnique"),
+        //array("name", "dbRowUnique"),
+        //array("personal_email", "email"),
+        //array("company_email", "email"),
+        //array("personal_email", "dbRowUnique"),
+				//array("sso_id", "dbRowUnique"),
         //array("role", "type", 'type' => 'int'),
-        array("password", "required"),
-        array("avatar, datetime, firstname, lastname, role", 'safe'),
-        array("country_id", "required"),
+        //array("password", "required"),
+        array("avatar,personal_email,company_email,name,sso_id, datetime, firstname, lastname, role", 'safe'),
+        //array("country_id", "required"),
     );
   }
   
@@ -104,6 +93,25 @@ class UserAR extends CActiveRecord{
     }
     return  TRUE;
   }
+
+	public function createSAMLRegister($attributes) {
+		$newUser = new UserAR();
+		$newUser->datetime = time();
+		$newUser->name = $attributes['uid'][0];
+		$newUser->company_email = $attributes['eduPersonPrincipalName'][0];
+		$newUser->sso_id = md5($attributes['eduPersonTargetedID'][0]);
+		$newUser->firstname = $attributes['givenName'][0];
+		$newUser->lastname = $attributes['sn'][0];
+		$newUser->role = self::ROLE_AUTHEN;
+
+		if ($newUser->validate()) {
+			$newUser->save();
+			return $newUser;
+		}
+		else {
+			return FALSE;
+		}
+	}
   
   public function postNewUser() {
     $this->attributes = $_POST;

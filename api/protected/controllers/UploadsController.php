@@ -1,7 +1,6 @@
 <?php
 
 /**
- * @author Jackey <jziwenchen@gmail.com>
  * 这个 Controller 是为了缩略图准备
  * 比如 用户访问缩略图 /uploads/p20_400_400.png ， 
  * 在缩略图没有生成之前会把请求给 UploadsController 来生成缩略图
