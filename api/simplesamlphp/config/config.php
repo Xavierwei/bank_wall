@@ -547,7 +547,7 @@ $config = array (
 	 * See http://www.php.net/manual/en/pdo.drivers.php for the various
 	 * syntaxes.
 	 */
-	'store.sql.dsn' => 'mysql:host=localhost;dbname=saml',
+	'store.sql.dsn' => 'mysql:host=localhost;dbname=bank_wall',
 
 	/*
 	 * The username and password to use when connecting to the database.
@@ -558,7 +558,7 @@ $config = array (
 	/*
 	 * The prefix we should use on our tables.
 	 */
-	'store.sql.prefix' => '',
+	'store.sql.prefix' => 'saml',
 
 
 	/*

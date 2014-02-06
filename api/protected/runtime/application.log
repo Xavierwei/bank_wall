@@ -1183,3 +1183,47 @@ Stack trace:
 REQUEST_URI=/bank_wall/api/index.php/node/getneighbor?nid=1&_=1391656228396
 in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (575)
 in /Applications/MAMP/htdocs/bank_wall/api/index.php (20)
+2014/02/06 05:03:58 [error] [php] Trying to get property of non-object (/Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php:575)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): NodeController->runAction()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): NodeController->runActionWithFilters()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): NodeController->run()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /Applications/MAMP/htdocs/bank_wall/api/index.php(20): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/node/getneighbor?nid=1&_=1391659138197
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (575)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (20)
+2014/02/06 05:05:28 [error] [php] Trying to get property of non-object (/Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php:575)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): NodeController->runAction()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): NodeController->runActionWithFilters()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): NodeController->run()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /Applications/MAMP/htdocs/bank_wall/api/index.php(20): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/node/getneighbor?nid=1&_=1391656228397
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (575)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (20)
+2014/02/06 05:08:58 [error] [php] Trying to get property of non-object (/Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php:575)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): NodeController->runAction()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): NodeController->runActionWithFilters()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): NodeController->run()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /Applications/MAMP/htdocs/bank_wall/api/index.php(20): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/node/getneighbor?nid=1&_=1391659138198
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (575)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (20)
+2014/02/06 05:10:28 [error] [php] Trying to get property of non-object (/Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php:575)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): NodeController->runAction()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): NodeController->runActionWithFilters()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): NodeController->run()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /Applications/MAMP/htdocs/bank_wall/api/index.php(20): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/node/getneighbor?nid=1&_=1391656228398
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (575)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (20)
