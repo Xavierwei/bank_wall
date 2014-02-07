@@ -21,7 +21,6 @@
 <div class="pageLoading">
 
 </div>
-
 <?php
 	include('include/tpl.php');
 ?>

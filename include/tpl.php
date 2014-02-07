@@ -45,8 +45,8 @@
 			</div>
 			<!--  -->
 			<div class="language">
-				<div data-a="lang" data-d="lang=fr" class="btn language-item language-item-on"><p class="fr"></p></div>
-				<div data-a="lang" data-d="lang=en" class="btn language-item"><p class="en"></p></div>
+				<div data-a="lang" data-d="lang=fr" class="btn language-item language-item-fr"><p class="fr"></p></div>
+				<div data-a="lang" data-d="lang=en" class="btn language-item language-item-en"><p class="en"></p></div>
 			</div>
 		</div>
 		<!--  -->
@@ -215,12 +215,9 @@
 		</div>
 
 		<div class="image-wrap">
-			<div class="image-wrap-inner">
+			<div class="image-wrap-inner" style="height:1000px;">
 				{{#ifvideo}}
-				<video id="inner-video-{{timestamp}}" class="video-js vjs-big-play-centered vjs-default-skin" controls="controls" preload="none" width="100%" height="100%" poster="./api{{image}}" data-setup="{}">
-					<source src="./api{{file}}" type='video/mp4' />
-				</video>
-				<div class="video-btn-zoom btn2" data-a="video_zoom"></div>
+
 				{{else}}
 				<img src="./api{{image}}" width="100%" />
 				{{/ifvideo}}
@@ -381,16 +378,29 @@
 	</div>
 </script>
 
-<!-- side-tpl -->
-<script type="text/tpl" id="wmv-template">
-	<object classid="CLSID:22D6F312-B0F6-11D0-94AB-0080C74C7E95" standby="Loading Microsoft® Windows® Media Player components..." type="application/x-oleobject" codebase="http://activex.microsoft.com/activex/controls/mplayer/en/nsm p2inf.cab#Version=6,4,7,1112">
-		<param name="fileName" value="{{nid}}.wmv">
-		<param name="autoStart" value="true">
-		<param name="showControls" value="true">
-		<param name="AllowChangeDisplaySize" value="true">
-		<param name="ClickToPlay" value="true">
-		<embed type="application/x-mplayer2" pluginspage="http://www.microsoft.com/Windows/MediaPlayer/" src="{{nid}}.wmv" autoStart="false" ></embed>
-	</object>
+<!-- html5-player-tpl -->
+<script type="text/tpl" id="html5-player-template">
+  <video id="inner-video-{{timestamp}}" class="video-js vjs-big-play-centered vjs-default-skin" controls="controls" preload="none" width="100%" height="100%" poster="./api{{image}}" data-setup="{}">
+    <source src="./api{{file}}" type='video/mp4' />
+  </video>
+  <div class="video-btn-zoom btn2" data-a="video_zoom"></div>
+</script>
+
+<!-- wmv-player-tpl -->
+<script type="text/tpl" id="wmv-player-template">
+  <iframe src="player.php?{{file}}" scrolling="no" frameborder="0"></iframe>
+</script>
+
+
+<!-- flash-player-tpl -->
+<script type="text/tpl" id="flash-player-template">
+  <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="100%" height="100%">
+    <param name="allowScriptAccess" value="always"/>
+    <param name="movie" value="flash/player.swf"/>
+    <param name="flashVars" value="source=../api{{file}}&skinMode=show"/>
+    <param name="quality" value="high"/>
+    <embed name="player" src="flash/player.swf" flashVars="source=../api{{file}}&skinMode=show" quality="high" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="100%" height="100%" allowScriptAccess="always"></embed>
+  </object>
 </script>
 
 <!-- blank-search-tpl -->

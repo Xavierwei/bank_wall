@@ -4,6 +4,7 @@
 LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     'use strict'
 
+    var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > 0;
     var API_FOLDER = "./api";
     var THUMBNAIL_IMG_SIZE = "_250_250";
     var BIG_IMG_SIZE = "_800_800";
@@ -594,20 +595,30 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
             // init vide node
             if( node.type == "video" ){
-
                 LP.use('flash-detect', function(){
-                    if(FlashDetect.installed || $('html').hasClass('video')) { // need to validate html5 video as well
-                        LP.use('video-js' , function(){
 
-                            videojs( "inner-video-" + node.timestamp , {}, function(){
-                                // Player (this) is initialized and ready.
+                    if($('html').hasClass('video') && !isFirefox) { // need to validate html5 video as well
+                        LP.compile( 'html5-player-template' , node , function( html ){
+                            $('.image-wrap-inner').html(html);
+                            LP.use('video-js' , function(){
+                                videojs( "inner-video-" + node.timestamp , {}, function(){
+                                    // Player (this) is initialized and ready.
+                                });
                             });
+                        });
+                    }
+                    else if(!FlashDetect.installed)
+                    {
+                        LP.compile( 'flash-player-template' , node , function( html ){
+                            $('.image-wrap-inner').html(html);
                         });
                     }
                     else
                     {
-                        LP.compile( 'wmv-template' , {nid:node.nid} , function( html ){
+                        node.file = node.file.replace('mp4','wmv');
+                        LP.compile( 'wmv-player-template' , node , function( html ){
                             $('.image-wrap-inner').html(html);
+                            $('.image-wrap-inner iframe').width($('.image-wrap-inner').width());
                         });
                     }
                 });
@@ -1848,13 +1859,19 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 //            console.log(1);
 //        });
 
-        api.ajax('i18n_en' , function( result ){
+        // Get language
+        var lang = LP.getCookie('lang') || 'fr';
+
+        api.ajax('i18n_' + lang , function( result ){
             _e = result;
             LP.compile( 'base-template' , {_e:_e} , function( html ){
                 $('body').prepend(html);
                 $main = $('.main');
                 $listLoading = $('.loading-list');
 
+                $('.language-item').removeClass('language-item-on')
+                    .filter('[data-d="lang=' + lang + '"]')
+                    .addClass('language-item-on');
 
                 // after page load , load the current user information data from server
                 api.ajax('user' , function( result ){
@@ -1971,11 +1988,6 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 } , 5 * 60 * 1000 );
 
 
-                // fix language
-                var lang = LP.getCookie('lang') || 'en';
-                $('.language-item').removeClass('language-item-on')
-                    .filter('[data-d="lang=' + lang + '"]')
-                    .addClass('language-item-on');
 
             });
         });
