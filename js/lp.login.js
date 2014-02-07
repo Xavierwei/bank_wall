@@ -26,5 +26,11 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
         }
     });
 
+    $(document).ready(function(){
+alert(1);
+        alert($('#player'));
+        $('#player').prepend('body');
+    });
+
 
 });

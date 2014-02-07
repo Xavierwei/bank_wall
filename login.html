@@ -29,10 +29,24 @@
 		</form>
 	</div>
 </div>
-
-<script type="text/javascript" src="../static/js/sea/sea-debug.js" data-config="../config"></script>
-<script type="text/javascript" src="../static/js/sea/plugin-shim.js"></script>
-<script type="text/javascript" src="../static/js/lp.core.js"></script>
-<script type="text/javascript" src="../static/js/lp.login.js"></script>
+1111111
+<object id="player" classid="CLSID:22D6F312-B0F6-11D0-94AB-0080C74C7E95" standby="Loading Microsoft® Windows® Media Player components..." width="1000" height="1000" type="application/x-oleobject" codebase="http://activex.microsoft.com/activex/controls/mplayer/en/nsm p2inf.cab#Version=6,4,7,1112">
+    <param name="fileName" value="./api/uploads/v199.wmv">
+    <param name="animationatstart" value="true">
+    <param name="transparentatstart" value="true">
+    <param name="autostart" value="true">
+    <param name="showcontrols" value="true">
+    <param name="ShowStatusBar" value="true">
+    <param name="windowlessvideo" value="true">
+    <param name="AllowChangeDisplaySize" value="true">
+    <param name="StretchToFit" value="false">
+    <param name="AutoSize" value="false">
+    <param name="DisplaySize" value="1">
+    <param name="Rate" value="1.0">
+</object>
+<script src="js/jquery/jquery-1.102.js"></script>
+<script>
+    $('#player').appendTo('body');
+</script>
 </body>
 </html>

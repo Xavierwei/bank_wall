@@ -9,7 +9,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Generator: Poedit 1.6.3\n"
+"Language: en\n"
 
 msgid "CONNECT"
 msgstr "Connect"
@@ -19,12 +20,6 @@ msgstr "Post a photo"
 
 msgid "POST_A_VIDEO"
 msgstr "Post a video"
-
-msgid "CONTENT_OF_THE_DAY"
-msgstr "Content of the day"
-
-msgid "CONTENT_OF_THE_MONTH"
-msgstr "Content of the month"
 
 msgid "RECENT"
 msgstr "Recent"
@@ -41,9 +36,6 @@ msgstr "Photo"
 msgid "VIDEO"
 msgstr "Video"
 
-msgid "COUNTRY"
-msgstr "Country"
-
 msgid "All"
 msgstr "All"
 
@@ -56,12 +48,6 @@ msgstr "Cancel"
 msgid "CONFIRM"
 msgstr "Confirm"
 
-msgid "POST_A_PHOTO"
-msgstr "Post a photo"
-
-msgid "POST_A_VIDEO"
-msgstr "Post a video"
-
 msgid "CONTENT_OF_THE_DAY"
 msgstr "Content of the day"
 
@@ -72,7 +58,9 @@ msgid "LOGOUT"
 msgstr "Logout"
 
 msgid "HASHTAG_TIP"
-msgstr "<span> Hashtag </span>(sharp word) is a keyword preceded by the # sign which identifies content in its creation, or to search."
+msgstr ""
+"<span> Hashtag </span>(sharp word) is a keyword preceded by the # sign which "
+"identifies content in its creation, or to search."
 
 msgid "HASHTAG_EXAMPLES"
 msgstr "Examples: #espritd’équipe #sociétégénérale #olympiades"
@@ -105,10 +93,15 @@ msgid "UPLOAD_IN_PROGRESS"
 msgstr "Upload in progress"
 
 msgid "ENTER_DESCRIPTION"
-msgstr "Enter your description here with the corresponding hashtags # (Ex: Meeting # cematin very productive in # SG)"
+msgstr ""
+"Enter your description here with the corresponding hashtags # (Ex: Meeting # "
+"cematin very productive in # SG)"
 
 msgid "UPLOAD_TERM"
-msgstr "I represent that all rights to this image / video and obtaining permission people and officials goods contained therein. I accept the conditions of use of this site."
+msgstr ""
+"I represent that all rights to this image / video and obtaining permission "
+"people and officials goods contained therein. I accept the conditions of use "
+"of this site."
 
 msgid "PUBLISH"
 msgstr "Publish"
@@ -180,13 +173,22 @@ msgid "EMAIL_PERSONNEL"
 msgstr "E-MAIL personnel"
 
 msgid "COMPANY_EMAIL_TERM"
-msgstr "If you send souhaitz content on the Wall with an e-maill address diffent.Si souhaitz you send content to the Wall with an e-maill address diffent"
+msgstr ""
+"If you send souhaitz content on the Wall with an e-maill address diffent.Si "
+"souhaitz you send content to the Wall with an e-maill address diffent"
 
 msgid "PERSONAL_EMAIL_TERM"
-msgstr "I represent that all rights to this image / video and have obtained permission from the people and officials of property therein. I accept the conditions of use of this site."
+msgstr ""
+"I represent that all rights to this image / video and have obtained "
+"permission from the people and officials of property therein. I accept the "
+"conditions of use of this site."
 
 msgid "PERSONAL_EMAIL_INFO"
-msgstr "This information is necessary to enable the sending of image / video via an email other than your email professional. You have a right to access, rectify any personal data about you and a right to object to the processing of your data, subject to a legitimate reason. For more information"
+msgstr ""
+"This information is necessary to enable the sending of image / video via an "
+"email other than your email professional. You have a right to access, "
+"rectify any personal data about you and a right to object to the processing "
+"of your data, subject to a legitimate reason. For more information"
 
 msgid "CLICK_HERE"
 msgstr "click here"
@@ -212,12 +214,8 @@ msgstr "no results"
 msgid "POPULAR_HASHTAGS"
 msgstr "The most popular hashtags #"
 
-
-
-
 msgid "ERROR_CONDITION"
 msgstr "Please check the condition"
-
 
 msgid "ERROR_EMAIL"
 msgstr "Please enter correct email."
