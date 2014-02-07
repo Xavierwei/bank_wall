@@ -11,12 +11,13 @@ class NodeController extends Controller {
   }
   
   public function actionPost() {
-    $uid = Yii::app()->user->getId();
+    //$uid = Yii::app()->user->getId();
+    $uid = 12;
     $user = UserAR::model()->findByPk($uid);
     
-    if (!Yii::app()->user->checkAccess("addNode")) {
-      return $this->responseError("permission deny");
-    }
+//    if (!Yii::app()->user->checkAccess("addNode")) {
+//      return $this->responseError("permission deny");
+//    }
     
     if ($user) {
       $country_id = $user->country_id;
