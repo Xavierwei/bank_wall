@@ -53,7 +53,7 @@ class NodeAR extends CActiveRecord{
         array("uid, country_id, type", "required"),
         array("uid", "uidExist"),
         array("country_id", "countryExist"),
-        array("file, type, datetime, status, description, nid, hashtag, user_liked,user_flagged, like, flag, topday, topmonth", "safe"),
+        array("created ,file, type, datetime, status, description, nid, hashtag, user_liked,user_flagged, like, flag, topday, topmonth", "safe"),
     );
   }
   
@@ -103,6 +103,7 @@ class NodeAR extends CActiveRecord{
     if (!$this->{$this->getPrimaryKey()}) {
         $this->setAttribute("status", self::PUBLICHSED);
         $this->setAttribute("datetime", time());
+        $this->setAttribute("created", time());
     }
     $this->setAttribute("hashtag", serialize($hashtags));
 		foreach($hashtags as $tag) {
@@ -203,9 +204,16 @@ class NodeAR extends CActiveRecord{
       mkdir($dir, 0777, TRUE);
     }
     
+
+    $dir .= '/'.date("Y/n/j");
+    if (!is_dir($dir)) {
+      mkdir($dir, 0777, TRUE);
+    }
+    
     $extname = strtolower(pathinfo($upload->getName(), PATHINFO_EXTENSION));
 
     $filename = md5( uniqid() . '_' . $upload->getName() ) . '.' . $extname ;
+
     $to = $dir."/". $filename;
     $ret = $upload->saveAs($to);
     

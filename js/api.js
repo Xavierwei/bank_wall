@@ -46,7 +46,8 @@ define(function( require , exports , model ){
         saveNode: {path: './api/index.php/node/post'},
         neighbor: {path: './api/index.php/node/getneighbor', method:'get'},
         countryList: {path: './json/country.json', method:'get'},
-        i18n_en: {path: './lang/en.json', method:'get', async: false, cache:true}
+        i18n_en: {path: './lang/en.json', method:'get', async: false, cache:true},
+        i18n_fr: {path: './lang/fr.json', method:'get', async: false, cache:true}
     };
 
     // 内部API

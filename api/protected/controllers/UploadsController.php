@@ -63,33 +63,44 @@ class UploadsController extends Controller {
   // 生成
   public function missingAction($actionID) {
     $thumbnail_path = $actionID;
+    
+    $files = explode("/", substr($_SERVER["REQUEST_URI"], 1));
+    $filename = $files[count($files) - 1];
     // 先确定是视频的截图压缩图还是普通的图片
     //  如果是视频
-    if ($actionID[0]== "v") {
+    if ($filename[0]== "v") {
       $output;
       exec("which ffmpeg", $output);
       if (!empty($output)) {
         $ffmpeg = array_shift($output);
         if ($ffmpeg) {
           $matches = array();
-          preg_match("/_([0-9]+_[0-9]+)/", $actionID, $matches);
+          preg_match("/_([0-9]+_[0-9]+)/", $filename, $matches);
           if (!empty($matches)) {
             list($width, $height) = explode("_", $matches[1]);
-            $filename = str_replace("_{$width}_{$height}", "", $actionID);
-            $source_path = "uploads/".$filename;
-            $this->makeVideoThumbnail($source_path, 'uploads/'.$actionID, $width, $height);
+            $source_filename = str_replace("_{$width}_{$height}", "", $filename);
+            $basepath = implode("/",array_splice($files, 0, count($files) - 1));
+            $source_path = $basepath.'/'.$source_filename;
+            if (!is_file($source_path)) {
+              return ;
+            }
+            $this->makeVideoThumbnail($source_path, $basepath .'/' .$filename, $width, $height);
           }
         }
       }
     }
     else {
       $matches = array();
-      preg_match("/_([0-9]+_[0-9]+)/", $actionID, $matches);
+      $request_file_path = $_SERVER["REQUEST_URI"];
+      preg_match("/_([0-9]+_[0-9]+)/", $request_file_path, $matches);
       if (!empty($matches)) {
         list($width, $height) = explode("_", $matches[1]);
-        $filename = str_replace("_{$width}_{$height}", "", $actionID);
-        $source_path = "uploads/".$filename;
-        $this->makeImageThumbnail($source_path, 'uploads/'.$actionID, $width, $height);
+        $filename = str_replace("_{$width}_{$height}", "", $request_file_path);
+        $source_path = substr($filename, 1);
+        if (!is_file(ROOT. '/'.$source_path)) {
+          return;
+        }
+        $this->makeImageThumbnail($source_path, $request_file_path, $width, $height);
       }
     }
 
