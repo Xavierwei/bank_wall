@@ -101,7 +101,7 @@
 					<div class="step1-btns">
 						<div class="popfile-btn btn" id="select-btn" data-a="select_photo">
 							{{_e.SELECT}} {{type}}
-							<input type="file" name="{{type}}" />
+							<input type="file" name="file" />
 						</div>
 					</div>
 					<div class="step2-btns"><div class="popfile-btn btn" data-a="upload_photo">{{_e.UPLOAD}}</div><div class="popfile-btn btn" data-a="select_photo">{{_e.SELECT_AGAIN}}</div></div>
@@ -149,6 +149,71 @@
 			<!--  -->
 			<div class="pop-inner pop-success">
 				{{_e.YOU_PUBLISHED}} {{type}}.
+			</div>
+		</div>
+	</div>
+</script>
+
+
+<script type="text/tpl" id="pop-avatar-template">
+	<div class="overlay" data-a="close_pop"></div>
+	<div class="pop" style="display:none">
+		<div class="popclose" data-a="close_pop"></div>
+		<div class="pophd">
+			<div class="poptit">{{_e.AVATAR_UPLOAD}}</div>
+		</div>
+		<div class="popbd">
+			<!--  -->
+			<div class="pop-inner pop-file">
+				<form id="fileupload" action="#" method="POST" enctype="multipart/form-data">
+					<div class="popfile-drag-box"></div>
+					<ul class="step1-tips">
+						<li>{{_e.PHOTO_FORMATE}}</li>
+						<li>{{_e.PHOTO_RESOLUTION}}</li>
+						<li>{{_e.PHOTO_SIZE}}</li>
+					</ul>
+					<div class="error"></div>
+					<div class="step1-btns">
+						<div class="popfile-btn btn" id="select-btn" data-a="select_photo">
+							{{_e.SELECT}}
+							<input type="file" name="{{type}}" />
+						</div>
+					</div>
+					<div class="step2-btns"><div class="popfile-btn btn" data-a="upload_photo">{{_e.UPLOAD}}</div><div class="popfile-btn btn" data-a="select_photo">{{_e.SELECT_AGAIN}}</div></div>
+				</form>
+			</div>
+			<!--  -->
+			<div class="pop-inner pop-load" style="display:none">
+				<div class="popload-icon-bg">
+					<div class="popload-icon"></div>
+				</div>
+				<div class="poploading">
+					<div class="popload-percent"><p></p></div>
+					<p>{{_e.UPLOAD_IN_PROGRESS}} ...</p>
+				</div>
+			</div>
+			<!--  -->
+			<div class="pop-inner pop-txt"  style="display:none">
+				<div class="poptxt-preview clear">
+					<div class="poptxt-pic">
+						<a class="pop-zoomout-btn" data-a="pop-zoomout-btn" href="#">Zoom In</a>
+						<a class="pop-zoomin-btn" data-a="pop-zoomin-btn" href="#">Zoom Out</a>
+						<a class="pop-rright-btn" data-a="pop-rright-btn" href="#">Turn Right</a>
+						<a class="pop-rleft-btn" data-a="pop-rleft-btn" href="#">Turn Left</a>
+						<div class="poptxt-pic-inner">
+							<img src="about:blank" />
+						</div>
+					</div>
+					<div class="error"></div>
+				</div>
+				<div class="poptxt-btn clear">
+					<p class="poptxt-cancel btn" data-a="close_pop">{{_e.CANCEL}}</p>
+					<p class="poptxt-submit btn" data-a="avatar_save">{{_e.SAVE}}</p>
+				</div>
+			</div>
+			<!--  -->
+			<div class="pop-inner pop-success">
+				{{_e.SAVE_AVATAR_SUCCESS}}.
 			</div>
 		</div>
 	</div>
@@ -304,7 +369,7 @@
 					<p class="location">{{country.country_name}}</p>
 				</div>
 				<a class="count-edit btn" data-a="open_user_edit_page">{{_e.EDIT_PROFILE}}</a>
-				<div class="avatar-file btn">{{_e.CHOOSE_FILE}}</div>
+				<div data-a="avatar_upload" class="avatar-file btn">{{_e.CHOOSE_FILE}}</div>
 			</div>
 			<!--  -->
 			<div class="count-com">

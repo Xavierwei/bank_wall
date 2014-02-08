@@ -1090,6 +1090,88 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 $fileupload.fileupload({
                         // Uncomment the following to send cross-domain cookies:
                         //xhrFields: {withCredentials: true},
+                        url: './api/index.php/uploads/upload',
+                        maxFileSize: 5000000,
+                        acceptFileTypes: acceptFileTypes,
+                        autoUpload:false
+                    })
+                    .bind('fileuploadadd', function (e, data) {
+                        //TODO: 当用户选择图片后跳转到处理图片的流程
+                        console.log(data.files[0]);
+                        if(data.files[0].size > maxFileSize) {
+                            $('.step1-tips li').eq(3).addClass('error');
+                        }
+                        else {
+                            $('.step1-tips li').eq(3).removeClass('error');
+                            data.submit();
+                        }
+                    })
+                    .bind('fileuploadstart', function (e, data) {
+                        $('.pop-inner').fadeOut(400);
+                        $('.pop-load').delay(400).fadeIn(400);
+                    })
+                    .bind('fileuploadprogress', function (e, data) {
+                        var rate = data._progress.loaded / data._progress.total * 100;
+                        $('.popload-percent p').css({width:rate + '%'});
+                    })
+                    .bind('fileuploaddone', function (e, data) {
+                        // TODO:: deal with error
+                        if( !data.result.success ){
+                            console.log( data.result.message );
+                        } else{
+                            var rdata = data.result.data;
+                            if(rdata.type == 'video') {
+                                $('.poptxt-pic img').attr('src', API_FOLDER + rdata.file.replace('.mp4', /*THUMBNAIL_IMG_SIZE + */'.jpg'));
+                                // TODO:: why need timeout? 
+                                setTimeout(function(){
+                                    $('.poptxt-pic img').attr('src',$('.poptxt-pic img').attr('src') + '?' + new Date().getTime() );
+                                },2000);
+                                $('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
+                                $('.pop-inner').delay(400).fadeOut(400);
+                                $('.pop-txt').delay(900).fadeIn(400);
+                            } else {
+                                $('.poptxt-pic img').attr('src', API_FOLDER + rdata.file/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
+                                $('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
+    //                            $('.pop-file .step1-btns').fadeOut(400);
+    //                            $('.pop-file .step2-btns').delay(400).fadeIn(400);
+                                $('.pop-inner').delay(400).fadeOut(400);
+                                $('.pop-txt').delay(1200).fadeIn(400);
+                            }
+                        }
+                    });
+            });
+        } );
+    });
+    
+
+    //avatar upload
+    LP.action('avatar_upload' , function( data ){
+        var acceptFileTypes;
+        var type = data.type;
+        $('.side .menu-item.'+type).addClass('active');
+        data._e = _e;
+        LP.compile( "pop-avatar-template" , data,  function( html ){
+            $(document.body).append( html );
+            $('.overlay').fadeIn();
+            $('.pop').fadeIn(_animateTime).dequeue().animate({top:'50%'}, _animateTime , _animateEasing);
+
+            var $fileupload = $('#fileupload');
+            if(type == 'video') {
+                acceptFileTypes = /(\.|\/)(move|mp4|avi)$/i;
+                //$('#select-btn').html(' SELECT VIDEO <input id="file-video" type="file" name="video" />');
+                var maxFileSize = 7 * 1024000;
+            } else {
+                acceptFileTypes = /(\.|\/)(gif|jpe?g|png)$/i;
+                //$('#select-btn').html(' SELECT PHOTO <input id="file-photo" type="file" name="photo" />');
+                var maxFileSize = 5 * 1024000;
+                // init event
+                transformMgr.initialize();
+            }
+            LP.use('fileupload' , function(){
+                // Initialize the jQuery File Upload widget:
+                $fileupload.fileupload({
+                        // Uncomment the following to send cross-domain cookies:
+                        //xhrFields: {withCredentials: true},
                         url: './api/index.php/node/post',
                         maxFileSize: 5000000,
                         acceptFileTypes: acceptFileTypes,
@@ -1115,28 +1197,34 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                         $('.popload-percent p').css({width:rate + '%'});
                     })
                     .bind('fileuploaddone', function (e, data) {
-                        if(data.result.data.type == 'video') {
-                            $('.poptxt-pic img').attr('src', API_FOLDER + data.result.data.file.replace('.mp4', THUMBNAIL_IMG_SIZE + '.jpg'));
-                            setTimeout(function(){
-                                var timestamp = new Date().getTime();
-                                $('.poptxt-pic img').attr('src',$('.poptxt-pic img').attr('src') + '?' +timestamp );
-                            },2000);
-                            $('.poptxt-submit').attr('data-d','nid=' + data.result.data.nid+'&type=' + data.result.data.type);
-                            $('.pop-inner').delay(400).fadeOut(400);
-                            $('.pop-txt').delay(900).fadeIn(400);
-                        }
-                        else {
-                            $('.poptxt-pic img').attr('src', API_FOLDER + data.result.data.file/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
-                            $('.poptxt-submit').attr('data-d','nid=' + data.result.data.nid);
-//                            $('.pop-file .step1-btns').fadeOut(400);
-//                            $('.pop-file .step2-btns').delay(400).fadeIn(400);
-                            $('.pop-inner').delay(400).fadeOut(400);
-                            $('.pop-txt').delay(1200).fadeIn(400);
+                        // TODO:: deal with error
+                        if( !data.result.success ){
+                            console.log( data.result.message );
+                        } else{
+                            var rdata = data.result.data;
+                            if(rdata.type == 'video') {
+                                $('.poptxt-pic img').attr('src', API_FOLDER + rdata.file.replace('.mp4', THUMBNAIL_IMG_SIZE + '.jpg'));
+                                setTimeout(function(){
+                                    var timestamp = new Date().getTime();
+                                    $('.poptxt-pic img').attr('src',$('.poptxt-pic img').attr('src') + '?' +timestamp );
+                                },2000);
+                                $('.poptxt-submit').attr('data-d','nid=' + rdata.nid+'&type=' + rdata.type);
+                                $('.pop-inner').delay(400).fadeOut(400);
+                                $('.pop-txt').delay(900).fadeIn(400);
+                            } else {
+                                $('.poptxt-pic img').attr('src', API_FOLDER + rdata.file/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
+                                $('.poptxt-submit').attr('data-d','nid=' + rdata.nid);
+    //                            $('.pop-file .step1-btns').fadeOut(400);
+    //                            $('.pop-file .step2-btns').delay(400).fadeIn(400);
+                                $('.pop-inner').delay(400).fadeOut(400);
+                                $('.pop-txt').delay(1200).fadeIn(400);
+                            }
                         }
                     });
             });
         } );
     });
+
 
     //close pop
     LP.action('close_pop' , function(){
@@ -1198,7 +1286,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             var trsdata = transformMgr.result();
         }
 
-        api.ajax('saveNode' , $.extend( {nid: data.nid, description: description} , trsdata ), function( result ){
+        api.ajax('saveNode' , $.extend( {file: data.file, type: data.type, description: description} , trsdata ), function( result ){
             if(result.success) {
                 //TODO: insert the content to photo wall instead of refresh
                 $main.html('');
@@ -1635,7 +1723,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
         var imgRaphael = null;
         var raphael = null;
-        var forExpr = 100;
+        var forExpr = 20;
 
         function reset(){
             isDragging      = false;

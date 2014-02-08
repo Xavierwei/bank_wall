@@ -30,7 +30,7 @@ class NodeAR extends CActiveRecord{
   
   // 这个只是允许上传的视频格式
   const ALLOW_UPLOADED_VIDEO_TYPES = "mp4,avi,mov,mpg";
-  
+
   // 其他格式的视频需要转换到这个指定的格式
   const ALLOW_STORE_VIDE_TYPE = "mp4";
   
@@ -203,12 +203,14 @@ class NodeAR extends CActiveRecord{
       mkdir($dir, 0777, TRUE);
     }
     
-    $filename = uniqid().'_'.$upload->getName();
+    $extname = strtolower(pathinfo($upload->getName(), PATHINFO_EXTENSION));
+
+    $filename = md5( uniqid() . '_' . $upload->getName() ) . '.' . $extname ;
     $to = $dir."/". $filename;
     $ret = $upload->saveAs($to);
     
     // 检查是不是视频， 如果是, 就就做视频转换工作
-    $extname = strtolower(pathinfo($to, PATHINFO_EXTENSION));
+    
 
     $videoexts = explode(",", self::ALLOW_UPLOADED_VIDEO_TYPES);
 

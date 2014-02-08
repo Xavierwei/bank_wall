@@ -43,7 +43,7 @@ define(function( require , exports , model ){
         saveUser: {path: './api/index.php/user/put' , method: 'post'},
         // get user's nodes
         userNode: {path: './admin/app/json/node/recent.json' , data:{ uid: 0 , page: 1 }, method: 'get'},
-        saveNode: {path: './api/index.php/node/put'},
+        saveNode: {path: './api/index.php/node/post'},
         neighbor: {path: './api/index.php/node/getneighbor', method:'get'},
         countryList: {path: './json/country.json', method:'get'},
         i18n_en: {path: './lang/en.json', method:'get', async: false, cache:true}

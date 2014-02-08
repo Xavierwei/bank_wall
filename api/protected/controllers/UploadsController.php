@@ -7,8 +7,57 @@
  */
 class UploadsController extends Controller {
   
+  private $_max_photo_size = 5000000;
+  private $_max_video_size = 5000000;
+  private $_photo_mime = array(
+          "image/gif", "image/png", "image/jpeg", "image/jpg"
+      );
+  private $_video_mime = array(
+      );
+
   public function init() {
     Yii::import("application.vendor.*");
+  }
+
+  /**
+   * @desc: 上传文件接口
+   * @date:
+   * @author: hdg1988@gmail.com
+   */
+  public function actionUpload(){
+    $upload = CUploadedFile::getInstanceByName("file");
+    $mime = $upload->getType();
+    $size = $upload->getSize(); 
+    if( in_array($mime, $this->_photo_mime ) ){
+      $type = "photo";
+      // file size
+      if( $size > $this->_max_photo_size ){
+        $this->responseError("max photo size " . $this->_max_photo_size . ' is allowed');
+      }
+    } else if ( in_array($mime, $this->_video_mime ) ){
+      $type = "video";
+      if( $size > $this->_max_video_size ){
+        $this->responseError("max photo size " . $this->_max_video_size . ' is allowed');
+      }
+    } else {
+      $this->responseError("video or photo is mandatory");
+    }
+
+    // save file to dir
+    $nodeAr = new NodeAR();
+    $file = $nodeAr->saveUploadedFile($upload);
+
+    // if video , make screenshot
+    if( $type == "video" ){
+      // TODO....
+    }
+
+    // change mp4 to wmv for noflash ie8
+    // TODO...
+
+    // return result
+    $retdata = array( "type"=> $type , "file" => $file );
+    $this->responseJSON($retdata, "success");
   }
   
   // 生成

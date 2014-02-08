@@ -26,44 +26,45 @@ class NodeController extends Controller {
         $this->responseError("http error");
       }
       
-      $photoUpload = CUploadedFile::getInstanceByName("photo");
-      $videoUpload = CUploadedFile::getInstanceByName("video");
+      // $photoUpload = CUploadedFile::getInstanceByName("photo");
+      // $videoUpload = CUploadedFile::getInstanceByName("video");
       
-      if ($photoUpload) {
-        $type = "photo";
-      }
-      else if ($videoUpload){
-        $type = "video";
-      }
-      else {
-        $this->responseError("video or photo is mandatory");
-      }
+      // if ($photoUpload) {
+      //   $type = "photo";
+      // }
+      // else if ($videoUpload){
+      //   $type = "video";
+      // }
+      // else {
+      //   $this->responseError("video or photo is mandatory");
+      // }
       
-      if ($photoUpload) {
-        $mime = $photoUpload->getType();
-        // TODO:: 大小限制
-        $size = $photoUpload->getSize(); //in bytes
-        $allowMime = array(
-            "image/gif", "image/png", "image/jpeg", "image/jpg"
-        );
-        if (!in_array($mime, $allowMime)) {
-          $this->responseError("photo's media type is not allowed");
-        }
-      }
+      // if ($photoUpload) {
+      //   $mime = $photoUpload->getType();
+      //   // TODO:: 大小限制
+      //   $size = $photoUpload->getSize(); //in bytes
+      //   $allowMime = array(
+      //       "image/gif", "image/png", "image/jpeg", "image/jpg"
+      //   );
+      //   if (!in_array($mime, $allowMime)) {
+      //     $this->responseError("photo's media type is not allowed");
+      //   }
+      // }
       
-      if ($videoUpload) {
-        // TODO:: 暂时判断不出视频类型，需要更多测试实例
-      }
+      // if ($videoUpload) {
+      //   // TODO:: 暂时判断不出视频类型，需要更多测试实例
+      // }
       
       $nodeAr = new NodeAR();
       $nodeAr->description = $request->getPost("description");
-      $nodeAr->type = $type;
-      if ($type == "photo") {
-        $nodeAr->file = $nodeAr->saveUploadedFile($photoUpload);
-      }
-      else {
-        $nodeAr->file = $nodeAr->saveUploadedFile($videoUpload);
-      }
+      $nodeAr->type = $request->getPost("type");
+      $nodeAr->file = $request->getPost("file");
+      // if ($type == "photo") {
+      //   $nodeAr->file = $nodeAr->saveUploadedFile($photoUpload);
+      // }
+      // else {
+      //   $nodeAr->file = $nodeAr->saveUploadedFile($videoUpload);
+      // }
       $nodeAr->uid = $uid;
       $nodeAr->country_id = $country_id;
       
