@@ -219,3 +219,51 @@ msgstr "Please check the condition"
 
 msgid "ERROR_EMAIL"
 msgstr "Please enter correct email."
+
+msgid "ERROR_WRITE_DESCRIPTION"
+msgstr "Please write some description."
+
+msgid "ERROR_DESCRIPTION_LIMITED"
+msgstr "The description is limited to 140 characters."
+
+msgid "ERROR_DESCRIPTION_ILLEGAL"
+msgstr "The hashtag can\'t include illegal characters"
+
+msgid "DAY"
+msgstr "day"
+
+msgid "JANUARY"
+msgstr "January"
+
+msgid "FEBRUARY"
+msgstr "February"
+
+msgid "MARCH"
+msgstr "March"
+
+msgid "APRIL"
+msgstr "April"
+
+msgid "MAY"
+msgstr "May"
+
+msgid "JUNE"
+msgstr "June"
+
+msgid "JULY"
+msgstr "July"
+
+msgid "AUGUST"
+msgstr "August"
+
+msgid "SEPTEMBER"
+msgstr "September"
+
+msgid "OCTOBER"
+msgstr "October"
+
+msgid "NOVEMBER"
+msgstr "November"
+
+msgid "DECEMBER"
+msgstr "December"

@@ -5,6 +5,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     'use strict'
 
     var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > 0;
+    var isIE8 = $('html').hasClass('ie8');
     var API_FOLDER = "./api";
     var THUMBNAIL_IMG_SIZE = "_250_250";
     var BIG_IMG_SIZE = "_800_800";
@@ -16,12 +17,13 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     var itemWidth = minWidth;
     var winWidth = $(window).width();
     var $listLoading = $('.loading-list');
+    var aMonth;
     var _e;
 
     // get english month
     // TODO .... need I18
     var getMonth = (function(){
-        var aMonth = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+        //var aMonth = ["January","February","March","April","May","June","July","August","September","October","November","December"];
         return function( date ){
             date = date || new Date;
             var month;
@@ -87,10 +89,10 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 LP.triggerAction('back');
             }
 
-            $('.search-hd').fadeOut(400);
+            $('.search-hd').fadeOut(100);
 
 
-            $main.fadeOut(400,function(){
+            $main.fadeOut(100,function(){
                 LP.triggerAction('close_user_page');
                 LP.triggerAction('load_list');
             });
@@ -165,6 +167,16 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             } else {
                 $(this).addClass('checked');
                 $('.poptxt-check .error').fadeOut();
+            }
+        })
+        .delegate('textarea, input','focus',function(){
+            if(!isIE8) {
+                return;
+            }
+            if($(this).attr('placeholder'))
+            {
+                $(this).val('');
+                $(this).removeAttr('placeholder');
             }
         })
 
@@ -346,13 +358,18 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 $node.addClass('reversal')
                     .width( itemWidth )
                     .height( itemWidth );
+                var animationTimeout = 300;
+                if(isIE8) {
+                    $node.css({opacity:0}).animate({opacity:1});
+                    animationTimeout = 50;
+                }
                 // fix it's img width and height
                 $node.find('img')
                     .width( itemWidth )
                     .height( itemWidth );
                 setTimeout(function(){
                     nodeActions.setItemReversal( $dom );
-                } , 300);
+                } , animationTimeout);
             }
             // if esist node , which is not reversaled , do the animation
             if( $nodes.length ){
@@ -429,6 +446,8 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         // immediate resize
         // resize big image
         resizeInnerBox();
+        // resize user box
+        resizeUserBox();
     })
     .scroll(function(){
         // if is ajaxing the scroll data
@@ -489,7 +508,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             .removeClass('language-item-on');
 
         // set lang tag to cookie
-        LP.setCookie('lang' , data.lang , 1e10 );
+        LP.setCookie('lang' , data.lang );
 
         // reload document
         LP.reload();
@@ -575,9 +594,9 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 });
 
             // loading comments
-            bindCommentSubmisson();
-            _waitingCommentListAjax = false;
-            getCommentList(node.nid,1);
+//            bindCommentSubmisson();
+//            _waitingCommentListAjax = false;
+//            getCommentList(node.nid,1);
 
             LP.use(['jscrollpane' , 'mousewheel'] , function(){
                 $('.com-list').jScrollPane({autoReinitialise:true}).bind(
@@ -595,33 +614,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
             // init vide node
             if( node.type == "video" ){
-                LP.use('flash-detect', function(){
-
-                    if($('html').hasClass('video') && !isFirefox) { // need to validate html5 video as well
-                        LP.compile( 'html5-player-template' , node , function( html ){
-                            $('.image-wrap-inner').html(html);
-                            LP.use('video-js' , function(){
-                                videojs( "inner-video-" + node.timestamp , {}, function(){
-                                    // Player (this) is initialized and ready.
-                                });
-                            });
-                        });
-                    }
-                    else if(!FlashDetect.installed)
-                    {
-                        LP.compile( 'flash-player-template' , node , function( html ){
-                            $('.image-wrap-inner').html(html);
-                        });
-                    }
-                    else
-                    {
-                        node.file = node.file.replace('mp4','wmv');
-                        LP.compile( 'wmv-player-template' , node , function( html ){
-                            $('.image-wrap-inner').html(html);
-                            $('.image-wrap-inner iframe').width($('.image-wrap-inner').width());
-                        });
-                    }
-                });
+                renderVideo($('.image-wrap-inner'),node);
             }
 
             // init photo node
@@ -638,7 +631,9 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             // loading image
 
             // Resize Inner Box
-            resizeInnerBox();
+            setTimeout(function(){
+                resizeInnerBox();
+            },100);
         } );
 
         return false;
@@ -651,6 +646,8 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         var infoTime = 300;
         // hide the inner info node
         var $info = $inner.find('.inner-info');
+        // clean WMV player
+        $inner.find('iframe').remove();
 
         $info.animate({
             bottom: -$info.height()
@@ -769,14 +766,11 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             // append dom
             var $oriItem = $imgWrap.children('.image-wrap-inner');
             var $newItem = $newInner.find('.image-wrap-inner')[ direction == 'left' ? 'insertBefore' : 'insertAfter' ]( $oriItem );
+            $oriItem.find('iframe').remove();
 
             // init video
             if( node.type == "video" ){
-                LP.use('video-js' , function(){
-                    videojs( "inner-video-" + node.timestamp , {}, function(){
-                      // Player (this) is initialized and ready.
-                    });
-                });
+                renderVideo($newItem,node);
             }
             // init photo node
             if( node.type == "photo" ){
@@ -801,9 +795,8 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     $imgWrap.css({
                         'margin-right': 0
                     });
-                    $newItem.css('width' , '100%')
-                        .siblings('.image-wrap-inner')
-                        .remove();
+                    $newItem.css('width' , '100%');
+                    $newItem.siblings('.image-wrap-inner').remove();
                 });
 
             // desc animation
@@ -1077,6 +1070,11 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     LP.action('pop_upload' , function( data ){
         var acceptFileTypes;
         var type = data.type;
+        if(type == 'video') {
+            data.accept = 'video/*';
+        } else {
+            //data.accept = 'image/*';
+        }
         $('.side .menu-item.'+type).addClass('active');
         data._e = _e;
         LP.compile( "pop-template" , data,  function( html ){
@@ -1086,34 +1084,40 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
             var $fileupload = $('#fileupload');
             if(type == 'video') {
-                acceptFileTypes = /(\.|\/)(move|mp4|avi)$/i;
-                //$('#select-btn').html(' SELECT VIDEO <input id="file-video" type="file" name="video" />');
+                acceptFileTypes = /(\.|\/)(mov|wmv|mp4|avi|3gp)$/i;
                 var maxFileSize = 7 * 1024000;
             } else {
                 acceptFileTypes = /(\.|\/)(gif|jpe?g|png)$/i;
-                //$('#select-btn').html(' SELECT PHOTO <input id="file-photo" type="file" name="photo" />');
                 var maxFileSize = 5 * 1024000;
                 // init event
                 transformMgr.initialize();
             }
+            if(isIE8) {
+                $('#select-btn input').change(function(){
+                    $('.pop-inner').delay(400).fadeOut(400);
+                    $('.pop-txt').delay(1200).fadeIn(400);
+                });
+                $('#node_post_form').append('<input name="iframe" value="true" type="hidden" />');
+                $('#node-description').val($('#node-description').attr('placeholder'));
+                return;
+            }
             LP.use('fileupload' , function(){
-                // Initialize the jQuery File Upload widget:
                 $fileupload.fileupload({
                         // Uncomment the following to send cross-domain cookies:
                         //xhrFields: {withCredentials: true},
                         url: './api/index.php/uploads/upload',
-                        maxFileSize: 5000000,
-                        acceptFileTypes: acceptFileTypes,
+                        datatype:"json",
                         autoUpload:false
                     })
                     .bind('fileuploadadd', function (e, data) {
-                        //TODO: 当用户选择图片后跳转到处理图片的流程
-                        console.log(data.files[0]);
-                        if(data.files[0].size > maxFileSize) {
-                            $('.step1-tips li').eq(3).addClass('error');
+                        $('.step1-tips li').removeClass('error');
+                        if(!acceptFileTypes.test(data.files[0].name.toLowerCase())) {
+                            $('.step1-tips li').eq(0).addClass('error');
+                        }
+                        else if(data.files[0].size > maxFileSize) {
+                            $('.step1-tips li').eq(2).addClass('error');
                         }
                         else {
-                            $('.step1-tips li').eq(3).removeClass('error');
                             data.submit();
                         }
                     })
@@ -1126,10 +1130,22 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                         $('.popload-percent p').css({width:rate + '%'});
                     })
                     .bind('fileuploaddone', function (e, data) {
-                        // TODO:: deal with error
-                        if( !data.result.success ){
-                            console.log( data.result.message );
-                        } else{
+                        if(!data.result.success) {
+                            switch(data.result.message){
+                                case 502:
+                                    var errorIndex = 0;
+                                    break;
+                                case 501:
+                                    var errorIndex = 2;
+                                    break;
+                                case 503:
+                                    var errorIndex = 1;
+                                    break;
+                            }
+                            $('.pop-inner').fadeOut(400);
+                            $('.pop-file').delay(800).fadeIn(400);
+                            $('.step1-tips li').eq(errorIndex).addClass('error');
+                        } else {
                             var rdata = data.result.data;
                             if(rdata.type == 'video') {
                                 $('.poptxt-pic img').attr('src', API_FOLDER + rdata.file.replace('.mp4', /*THUMBNAIL_IMG_SIZE + */'.jpg'));
@@ -1211,7 +1227,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                         }
                     });
             });
-        } );
+        });
     });
 
 
@@ -1252,15 +1268,15 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     LP.action('save_node' , function(data){
         var description = $('#node-description').val();
         if(description.length == 0) {
-            $('.poptxt-preview .error').html('Please write some description.').fadeIn();
+            $('.poptxt-preview .error').html(_e.ERROR_WRITE_DESCRIPTION).fadeIn();
             return;
         }
         if(description.length > 140) {
-            $('.poptxt-preview .error').html('The description is limited to 140 characters.').fadeIn();
+            $('.poptxt-preview .error').html(_e.ERROR_DESCRIPTION_LIMITED).fadeIn();
             return;
         }
         if(!LP.checkIllegalTags(description)) {
-            $('.poptxt-preview .error').html('The hashtag can\'t include illegal characters').fadeIn();
+            $('.poptxt-preview .error').html(_e.ERROR_DESCRIPTION_ILLEGAL).fadeIn();
             return;
         }
         if(!$('.poptxt-check').hasClass('checked')) {
@@ -1269,6 +1285,11 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             return;
         }
         $('.poptxt-check .error').fadeOut();
+
+        if(isIE8) {
+            $('#node_post_form').submit();
+            return;
+        }
 
         // get image scale , rotate , zoom arguments
         if(data.type == 'photo') {
@@ -1313,10 +1334,16 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
     //toggle user page
     LP.action('toggle_user_page' , function(){
+        location.hash = '';
         if(!$('.user-page').is(':visible')) {
+            var mainWidth = winWidth;
             $('.inner').fadeOut(400);
             $('.main').fadeOut(400);
-            $('.user-page').delay(400).fadeIn(400 , function(){
+            $('.count').css({left:-240}).delay(600).animate({left:80});
+            $('.user-page').css({left:-mainWidth})
+                .delay(100)
+                .fadeIn()
+                .animate({left:0}, 400, 'easeOutQuart' , function(){
                 // if first loaded , load user's nodes from server
                 var user = $('.side').data('user');
                 var param = {page:1,pagenum:20, uid:user.uid, orderby:'datetime'};
@@ -1386,7 +1413,8 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
     //close user page
     LP.action('close_user_page' , function(){
-        $('.user-page').fadeOut(400);
+        var mainWidth = winWidth - _silderWidth;
+        $('.user-page').fadeOut(400).animate({left:-mainWidth},400,'easeInQuart');
         $('.close-user-page').fadeOut();
         $main.css({position:'relative',top:'auto',left:'auto'});
     });
@@ -1409,6 +1437,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 $countryList.append(html);
             });
         });
+        resizeUserBox();
     });
 
     //save user updates
@@ -1445,7 +1474,11 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         if($('.search-ipt').val().length == 0) {
             return false;
         }
-        $main.fadeOut(400,function(){
+        // back to homepage
+        if(!$main.is(':visible')){
+            LP.triggerAction('back');
+        }
+        $main.fadeOut(100,function(){
             LP.triggerAction('close_user_page');
             $main.html('').fadeIn();
             $main.data('nodes','');
@@ -1946,6 +1979,9 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
         api.ajax('i18n_' + lang , function( result ){
             _e = result;
+
+            aMonth = [_e.JANUARY,_e.FEBRUARY,_e.MARCH,_e.APRIL,_e.MAY,_e.JUNE,_e.JULY,_e.AUGUST,_e.SEPTEMBER,_e.OCTOBER,_e.NOVEMBER,_e.DECEMBER];
+
             LP.compile( 'base-template' , {_e:_e} , function( html ){
                 $('body').prepend(html);
                 $main = $('.main');
@@ -1993,15 +2029,15 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
 
                 var $countryList = $('.select-country-option-list');
-                LP.use(['jscrollpane' , 'mousewheel'] , function(){
-                    $('.select-country-option-list').jScrollPane({autoReinitialise:true});
-                });
                 $countryList.empty();
                 $countryList.append('<p data-api="recent">All</p>');
                 api.ajax('countryList', function( result ){
                     $.each(result, function(index, item){
                         var html = '<p data-param="country_id=' + item.country_id + '" data-api="recent">' + item.country + '</p>';
                         $countryList.append(html);
+                    });
+                    LP.use(['jscrollpane' , 'mousewheel'] , function(){
+                        $('.select-country-option-list').jScrollPane({autoReinitialise:true});
                     });
                 });
 
@@ -2060,13 +2096,13 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 // every five minutes get the latest nodes
                 setInterval( function(){
                     // if main element is visible
-                    if( !$main.is(':visible') ) return;
-                    var lastNid = $main.data('nodes');
-                    api.ajax( 'neighbor' , {nid: 1} , function( r ){
-                        var nodes = r.data.left;
-                        if( !nodes.length ) return;
-                        nodeActions.prependNode( $main , nodes , $main.data('param').orderby == "datetime" );
-                    } );
+//                    if( !$main.is(':visible') ) return;
+//                    var lastNid = $main.data('nodes');
+//                    api.ajax( 'neighbor' , {nid: 1} , function( r ){
+//                        var nodes = r.data.left;
+//                        if( !nodes.length ) return;
+//                        nodeActions.prependNode( $main , nodes , $main.data('param').orderby == "datetime" );
+//                    } );
                 } , 5 * 60 * 1000 );
 
 
@@ -2207,7 +2243,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         var imgBoxWidth = $(window).width() - 330 - $('.side').width();
         var imgBoxHeight =$(window).height() - 86;
         var $img = $('.image-wrap-inner img');
-        $('.image-wrap-inner').width(imgBoxWidth);
+        $('.image-wrap-inner').width(imgBoxWidth).height(imgBoxHeight);
         if(imgBoxWidth > imgBoxHeight) {
             var marginTop = (imgBoxWidth - imgBoxHeight) / 2;
             $img.css('margin',0);
@@ -2239,6 +2275,24 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 $video.css('margin-left',-videoMarginLeft);
                 $video.css('margin-top',0);
             }
+        }
+
+        // Resize WMV iframe
+        var $wmvIframe = $('.image-wrap-inner iframe');
+        if($wmvIframe.length > 0) {
+            $wmvIframe.width(imgBoxWidth).height(imgBoxHeight-36);
+        }
+    }
+
+    /**
+     * Resize User Box
+     */
+    var resizeUserBox = function(){
+        var userBoxHeight = $(window).height() - $('.header').height()-200;
+        var formHeight = $('.user-edit-page form').height();
+        $('.user-edit-page').height(userBoxHeight);
+        if(formHeight > userBoxHeight) {
+            $('.user-edit-page').height('auto');
         }
     }
 
@@ -2278,6 +2332,35 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     var pageLoaded = function(delay){
         $('.pageLoading').delay(delay).fadeOut(function(){
            $(this).remove();
+        });
+    }
+
+    var renderVideo = function($newItem,node){
+        LP.use('flash-detect', function(){
+            if($('html').hasClass('video') && !isFirefox) { // need to validate html5 video as well
+                LP.compile( 'html5-player-template' , node , function( html ){
+                    $newItem.html(html);
+                    LP.use('video-js' , function(){
+                        videojs( "inner-video-" + node.timestamp , {}, function(){
+                            // Player (this) is initialized and ready.
+                        });
+                    });
+                });
+            }
+            else if(FlashDetect.installed)
+            {
+                LP.compile( 'flash-player-template' , node , function( html ){
+                    $newItem.html(html);
+                });
+            }
+            else
+            {
+                node.file = node.file.replace('mp4','wmv');
+                LP.compile( 'wmv-player-template' , node , function( html ){
+                    $newItem.html(html);
+                    $('.image-wrap-inner iframe');
+                });
+            }
         });
     }
 

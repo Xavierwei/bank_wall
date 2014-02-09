@@ -7,12 +7,13 @@
  */
 class UploadsController extends Controller {
   
-  private $_max_photo_size = 5000000;
-  private $_max_video_size = 5000000;
+  private $_max_photo_size = 5120000;
+  private $_max_video_size = 7168000;
   private $_photo_mime = array(
           "image/gif", "image/png", "image/jpeg", "image/jpg"
       );
   private $_video_mime = array(
+      "video/mov", "video/wmv", "video/mp4", "video/avi", "video/3gp"
       );
 
   public function init() {
@@ -32,15 +33,15 @@ class UploadsController extends Controller {
       $type = "photo";
       // file size
       if( $size > $this->_max_photo_size ){
-        $this->responseError("max photo size " . $this->_max_photo_size . ' is allowed');
+        return $this->responseError(501); //photo size out of limition
       }
     } else if ( in_array($mime, $this->_video_mime ) ){
       $type = "video";
       if( $size > $this->_max_video_size ){
-        $this->responseError("max photo size " . $this->_max_video_size . ' is allowed');
+        $this->responseError(501); //photo media type is not allowed
       }
     } else {
-      $this->responseError("video or photo is mandatory");
+      $this->responseError(502); //photo media type is not allowed
     }
 
     // save file to dir
@@ -80,11 +81,12 @@ class UploadsController extends Controller {
             list($width, $height) = explode("_", $matches[1]);
             $source_filename = str_replace("_{$width}_{$height}", "", $filename);
             $basepath = implode("/",array_splice($files, 0, count($files) - 1));
-            $source_path = $basepath.'/'.$source_filename;
-            if (!is_file($source_path)) {
-              return ;
-            }
-            $this->makeVideoThumbnail($source_path, $basepath .'/' .$filename, $width, $height);
+            $source_path = DOCUMENT_ROOT.'/'.$basepath.'/'.$source_filename;//增加了DOCUMENT_ROOT，否则在子目录下路径不对了
+//						echo $source_path;
+//            if (!is_file($source_path)) {
+//              return ;
+//            }
+            $this->makeVideoThumbnail($source_path, DOCUMENT_ROOT.'/'.$basepath .'/' .$filename, $width, $height);
           }
         }
       }
@@ -96,10 +98,11 @@ class UploadsController extends Controller {
       if (!empty($matches)) {
         list($width, $height) = explode("_", $matches[1]);
         $filename = str_replace("_{$width}_{$height}", "", $request_file_path);
-        $source_path = substr($filename, 1);
-        if (!is_file(ROOT. '/'.$source_path)) {
+        $source_path = DOCUMENT_ROOT.'/'.substr($filename, 1);
+        if (!is_file($source_path)) {
           return;
         }
+				$request_file_path = DOCUMENT_ROOT.$request_file_path; //增加了DOCUMENT_ROOT，否则在子目录下路径不对了
         $this->makeImageThumbnail($source_path, $request_file_path, $width, $height);
       }
     }
@@ -108,8 +111,8 @@ class UploadsController extends Controller {
   }
   
   private function makeImageThumbnail($path, $save_to, $w, $h) {
-    $abspath = ROOT .'/'.$path;
-    $abssaveto = ROOT.'/'.$save_to;
+    $abspath = $path;
+    $abssaveto = $save_to;
     $thumb = new EasyImage($abspath);
     
     // 这里需要做下调整
@@ -176,9 +179,9 @@ class UploadsController extends Controller {
     $basename = array_shift($paths);
     $output = NULL;
     $status = NULL;
-    $absscreenImagePath = ROOT .'/'. $screenImagePath;
-    $abssaveTo = ROOT .'/'. $saveTo;
-    $absvideoPath = ROOT. '/' . $basename.'.'.NodeAR::ALLOW_STORE_VIDE_TYPE;
+    $absscreenImagePath = $screenImagePath;
+    $abssaveTo = $saveTo;
+    $absvideoPath = $basename.'.'.NodeAR::ALLOW_STORE_VIDE_TYPE;
 
     // 视频截图不能截2次
     // 做个检查
