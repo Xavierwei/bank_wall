@@ -31,11 +31,12 @@ class UploadsController extends Controller {
             list($width, $height) = explode("_", $matches[1]);
             $source_filename = str_replace("_{$width}_{$height}", "", $filename);
             $basepath = implode("/",array_splice($files, 0, count($files) - 1));
-            $source_path = $basepath.'/'.$source_filename;
-            if (!is_file($source_path)) {
-              return ;
-            }
-            $this->makeVideoThumbnail($source_path, $basepath .'/' .$filename, $width, $height);
+            $source_path = DOCUMENT_ROOT.'/'.$basepath.'/'.$source_filename;//增加了DOCUMENT_ROOT，否则在子目录下路径不对了
+//						echo $source_path;
+//            if (!is_file($source_path)) {
+//              return ;
+//            }
+            $this->makeVideoThumbnail($source_path, DOCUMENT_ROOT.'/'.$basepath .'/' .$filename, $width, $height);
           }
         }
       }
@@ -47,10 +48,11 @@ class UploadsController extends Controller {
       if (!empty($matches)) {
         list($width, $height) = explode("_", $matches[1]);
         $filename = str_replace("_{$width}_{$height}", "", $request_file_path);
-        $source_path = substr($filename, 1);
-        if (!is_file(ROOT. '/'.$source_path)) {
+        $source_path = DOCUMENT_ROOT.'/'.substr($filename, 1);
+        if (!is_file($source_path)) {
           return;
         }
+				$request_file_path = DOCUMENT_ROOT.$request_file_path; //增加了DOCUMENT_ROOT，否则在子目录下路径不对了
         $this->makeImageThumbnail($source_path, $request_file_path, $width, $height);
       }
     }
@@ -59,8 +61,8 @@ class UploadsController extends Controller {
   }
   
   private function makeImageThumbnail($path, $save_to, $w, $h) {
-    $abspath = ROOT .'/'.$path;
-    $abssaveto = ROOT.'/'.$save_to;
+    $abspath = $path;
+    $abssaveto = $save_to;
     $thumb = new EasyImage($abspath);
     
     // 这里需要做下调整
@@ -127,9 +129,9 @@ class UploadsController extends Controller {
     $basename = array_shift($paths);
     $output = NULL;
     $status = NULL;
-    $absscreenImagePath = ROOT .'/'. $screenImagePath;
-    $abssaveTo = ROOT .'/'. $saveTo;
-    $absvideoPath = ROOT. '/' . $basename.'.'.NodeAR::ALLOW_STORE_VIDE_TYPE;
+    $absscreenImagePath = $screenImagePath;
+    $abssaveTo = $saveTo;
+    $absvideoPath = $basename.'.'.NodeAR::ALLOW_STORE_VIDE_TYPE;
 
     // 视频截图不能截2次
     // 做个检查

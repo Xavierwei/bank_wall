@@ -3,9 +3,9 @@
 	<div class="page">
 		<!-- header -->
 		<div class="header">
-			<div class="login btn">
-				<a href="./api/user/samllogin">{{_e.CONNECT}}</a>
-			</div>
+			<a href="./api/user/samllogin" class="login btn">
+				{{_e.CONNECT}}
+			</a>
 			<!--  -->
 			<div class="logo" data-a="back_home"></div>
 			<!--  -->
@@ -215,7 +215,7 @@
 		</div>
 
 		<div class="image-wrap">
-			<div class="image-wrap-inner" style="height:1000px;">
+			<div class="image-wrap-inner">
 				{{#ifvideo}}
 
 				{{else}}
@@ -388,7 +388,7 @@
 
 <!-- wmv-player-tpl -->
 <script type="text/tpl" id="wmv-player-template">
-  <iframe src="player.php?{{file}}" scrolling="no" frameborder="0"></iframe>
+  <iframe src="wmv_player.php?file={{file}}" scrolling="no" frameborder="0"></iframe>
 </script>
 
 
@@ -399,7 +399,8 @@
     <param name="movie" value="flash/player.swf"/>
     <param name="flashVars" value="source=../api{{file}}&skinMode=show"/>
     <param name="quality" value="high"/>
-    <embed name="player" src="flash/player.swf" flashVars="source=../api{{file}}&skinMode=show" quality="high" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="100%" height="100%" allowScriptAccess="always"></embed>
+		<param name="wmode" value="opaque"/>
+    <embed name="player" src="flash/player.swf" flashVars="source=../api{{file}}&skinMode=show" quality="high" wmode="opaque" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="100%" height="100%" allowScriptAccess="always"></embed>
   </object>
 </script>
 

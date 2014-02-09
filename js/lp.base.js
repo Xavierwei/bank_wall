@@ -595,33 +595,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
             // init vide node
             if( node.type == "video" ){
-                LP.use('flash-detect', function(){
-
-                    if($('html').hasClass('video') && !isFirefox) { // need to validate html5 video as well
-                        LP.compile( 'html5-player-template' , node , function( html ){
-                            $('.image-wrap-inner').html(html);
-                            LP.use('video-js' , function(){
-                                videojs( "inner-video-" + node.timestamp , {}, function(){
-                                    // Player (this) is initialized and ready.
-                                });
-                            });
-                        });
-                    }
-                    else if(!FlashDetect.installed)
-                    {
-                        LP.compile( 'flash-player-template' , node , function( html ){
-                            $('.image-wrap-inner').html(html);
-                        });
-                    }
-                    else
-                    {
-                        node.file = node.file.replace('mp4','wmv');
-                        LP.compile( 'wmv-player-template' , node , function( html ){
-                            $('.image-wrap-inner').html(html);
-                            $('.image-wrap-inner iframe').width($('.image-wrap-inner').width());
-                        });
-                    }
-                });
+                renderVideo($('.image-wrap-inner'),node);
             }
 
             // init photo node
@@ -638,7 +612,9 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             // loading image
 
             // Resize Inner Box
-            resizeInnerBox();
+            setTimeout(function(){
+                resizeInnerBox();
+            },100);
         } );
 
         return false;
@@ -651,6 +627,8 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         var infoTime = 300;
         // hide the inner info node
         var $info = $inner.find('.inner-info');
+        // clean WMV player
+        $inner.find('iframe').remove();
 
         $info.animate({
             bottom: -$info.height()
@@ -769,14 +747,11 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             // append dom
             var $oriItem = $imgWrap.children('.image-wrap-inner');
             var $newItem = $newInner.find('.image-wrap-inner')[ direction == 'left' ? 'insertBefore' : 'insertAfter' ]( $oriItem );
+            $oriItem.find('iframe').remove();
 
             // init video
             if( node.type == "video" ){
-                LP.use('video-js' , function(){
-                    videojs( "inner-video-" + node.timestamp , {}, function(){
-                      // Player (this) is initialized and ready.
-                    });
-                });
+                renderVideo($newItem,node);
             }
             // init photo node
             if( node.type == "photo" ){
@@ -801,9 +776,8 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     $imgWrap.css({
                         'margin-right': 0
                     });
-                    $newItem.css('width' , '100%')
-                        .siblings('.image-wrap-inner')
-                        .remove();
+                    $newItem.css('width' , '100%');
+                    $newItem.siblings('.image-wrap-inner').remove();
                 });
 
             // desc animation
@@ -2125,7 +2099,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         var imgBoxWidth = $(window).width() - 330 - $('.side').width();
         var imgBoxHeight =$(window).height() - 86;
         var $img = $('.image-wrap-inner img');
-        $('.image-wrap-inner').width(imgBoxWidth);
+        $('.image-wrap-inner').width(imgBoxWidth).height(imgBoxHeight);
         if(imgBoxWidth > imgBoxHeight) {
             var marginTop = (imgBoxWidth - imgBoxHeight) / 2;
             $img.css('margin',0);
@@ -2157,6 +2131,12 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 $video.css('margin-left',-videoMarginLeft);
                 $video.css('margin-top',0);
             }
+        }
+
+        // Resize WMV iframe
+        var $wmvIframe = $('.image-wrap-inner iframe');
+        if($wmvIframe.length > 0) {
+            $wmvIframe.width(imgBoxWidth).height(imgBoxHeight-36);
         }
     }
 
@@ -2196,6 +2176,35 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     var pageLoaded = function(delay){
         $('.pageLoading').delay(delay).fadeOut(function(){
            $(this).remove();
+        });
+    }
+
+    var renderVideo = function($newItem,node){
+        LP.use('flash-detect', function(){
+            if($('html').hasClass('video') && !isFirefox) { // need to validate html5 video as well
+                LP.compile( 'html5-player-template' , node , function( html ){
+                    $newItem.html(html);
+                    LP.use('video-js' , function(){
+                        videojs( "inner-video-" + node.timestamp , {}, function(){
+                            // Player (this) is initialized and ready.
+                        });
+                    });
+                });
+            }
+            else if(FlashDetect.installed)
+            {
+                LP.compile( 'flash-player-template' , node , function( html ){
+                    $newItem.html(html);
+                });
+            }
+            else
+            {
+                node.file = node.file.replace('mp4','wmv');
+                LP.compile( 'wmv-player-template' , node , function( html ){
+                    $newItem.html(html);
+                    $('.image-wrap-inner iframe');
+                });
+            }
         });
     }
 
