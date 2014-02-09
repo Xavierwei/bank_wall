@@ -1156,10 +1156,9 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     
 
     //avatar upload
+     //upload photo
     LP.action('avatar_upload' , function( data ){
         var acceptFileTypes;
-        var type = data.type;
-        $('.side .menu-item.'+type).addClass('active');
         data._e = _e;
         LP.compile( "pop-avatar-template" , data,  function( html ){
             $(document.body).append( html );
@@ -1167,34 +1166,25 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             $('.pop').fadeIn(_animateTime).dequeue().animate({top:'50%'}, _animateTime , _animateEasing);
 
             var $fileupload = $('#fileupload');
-            if(type == 'video') {
-                acceptFileTypes = /(\.|\/)(move|mp4|avi)$/i;
-                //$('#select-btn').html(' SELECT VIDEO <input id="file-video" type="file" name="video" />');
-                var maxFileSize = 7 * 1024000;
-            } else {
-                acceptFileTypes = /(\.|\/)(gif|jpe?g|png)$/i;
-                //$('#select-btn').html(' SELECT PHOTO <input id="file-photo" type="file" name="photo" />');
-                var maxFileSize = 5 * 1024000;
-                // init event
-                transformMgr.initialize();
-            }
+            acceptFileTypes = /(\.|\/)(gif|jpe?g|png)$/i;
+            //$('#select-btn').html(' SELECT PHOTO <input id="file-photo" type="file" name="photo" />');
+            var maxFileSize = 5 * 1024000;
+            // init event
+            transformMgr.initialize();
             LP.use('fileupload' , function(){
                 // Initialize the jQuery File Upload widget:
                 $fileupload.fileupload({
                         // Uncomment the following to send cross-domain cookies:
                         //xhrFields: {withCredentials: true},
-                        url: './api/index.php/node/post',
+                        url: './api/index.php/uploads/upload',
                         maxFileSize: 5000000,
                         acceptFileTypes: acceptFileTypes,
                         autoUpload:false
                     })
                     .bind('fileuploadadd', function (e, data) {
-                        //TODO: 当用户选择图片后跳转到处理图片的流程
-                        console.log(data.files[0]);
                         if(data.files[0].size > maxFileSize) {
                             $('.step1-tips li').eq(3).addClass('error');
-                        }
-                        else {
+                        } else {
                             $('.step1-tips li').eq(3).removeClass('error');
                             data.submit();
                         }
@@ -1213,23 +1203,11 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                             console.log( data.result.message );
                         } else{
                             var rdata = data.result.data;
-                            if(rdata.type == 'video') {
-                                $('.poptxt-pic img').attr('src', API_FOLDER + rdata.file.replace('.mp4', THUMBNAIL_IMG_SIZE + '.jpg'));
-                                setTimeout(function(){
-                                    var timestamp = new Date().getTime();
-                                    $('.poptxt-pic img').attr('src',$('.poptxt-pic img').attr('src') + '?' +timestamp );
-                                },2000);
-                                $('.poptxt-submit').attr('data-d','nid=' + rdata.nid+'&type=' + rdata.type);
-                                $('.pop-inner').delay(400).fadeOut(400);
-                                $('.pop-txt').delay(900).fadeIn(400);
-                            } else {
-                                $('.poptxt-pic img').attr('src', API_FOLDER + rdata.file/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
-                                $('.poptxt-submit').attr('data-d','nid=' + rdata.nid);
-    //                            $('.pop-file .step1-btns').fadeOut(400);
-    //                            $('.pop-file .step2-btns').delay(400).fadeIn(400);
-                                $('.pop-inner').delay(400).fadeOut(400);
-                                $('.pop-txt').delay(1200).fadeIn(400);
-                            }
+                        
+                            $('.poptxt-pic img').attr('src', API_FOLDER + rdata.file/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
+                            $('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
+                            $('.pop-inner').delay(400).fadeOut(400);
+                            $('.pop-txt').delay(1200).fadeIn(400);
                         }
                     });
             });
@@ -1315,6 +1293,21 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     LP.triggerAction('close_pop');
                 },1500);
             };
+        });
+    });
+
+    LP.action('avatar_save' , function( data ){
+        var trsdata = transformMgr.result();
+        api.ajax('saveAvatar' , $.extend( trsdata , data ) , function( result ){
+            if( result.success ){
+                // hide the panel
+                $('.popclose').trigger('click');
+                // change all avatar image
+                $('.user-pho , .count-userpho').find('img')
+                    .attr('src' , './api' + result.data.file );
+            } else {
+                // TODO:: show error
+            }
         });
     });
 
@@ -1751,6 +1744,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         }
 
         var initialize = function(){
+            reset();
             perRotate   = 10;
             perScale    = 1.1;
 

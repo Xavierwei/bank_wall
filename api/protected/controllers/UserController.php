@@ -162,6 +162,46 @@ class UserController extends Controller {
   }
   
   /**
+   * @desc: 保存用户头像
+   * @date:
+   * @author: hdg1988@gmail.com
+   */
+  public function actionSaveAvatar(){
+    $request = Yii::app()->getRequest();
+    $file = $request->getParam("file");
+
+    if( empty( $file ) ){
+      $this->responseError('no file');
+    }
+    // cut the file
+    $thumb = new EasyImage( ROOT . '/' . $file );
+    $thumb->resize( $request->getParam("width") , $request->getParam("height") );
+    // TODO:: avatar size
+    $thumb->crop( 80 , 80 , $request->getParam("x") , $request->getParam("y") );
+    $fileto = ROOT . '/uploads/' . date('Y/m/d') . uniqid() . '.' . pathinfo($file, PATHINFO_EXTENSION);
+    $dir = dirname( $fileto );
+    if (!is_dir($dir)) {
+      mkdir($dir, 0777, TRUE);
+    }
+    $thumb->save( $fileto );
+
+    $uid = Yii::app()->user->getId();
+    if( empty( $uid ) ){
+      $this->responseError( "not login" );
+    }
+    $user = UserAR::model()->findByPk($uid);
+    if (!Yii::app()->user->checkAccess("updateOwnAccount", array("uid" => $user->uid ))) {
+      return $this->responseError("permission deny");
+    }
+    // elseif (!Yii::app()->user->checkAccess("updateAnyAccount", array("country_id" => $user->country_id))) {
+    //   return $this->responseError("permission deny");
+    // }
+    
+    $fileto = str_replace( ROOT, '', $fileto );
+    UserAR::model()->updateByPk($uid, array('avatar' => $fileto ));
+    $this->responseJSON(array( "file" => $fileto ) , "success");
+  }
+  /**
    * 删除用户
    */
   public function actionDelete() {

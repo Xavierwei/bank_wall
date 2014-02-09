@@ -41,6 +41,7 @@ define(function( require , exports , model ){
         logout: {path: './api/index.php/user/logout'},
         user: {path: './api/index.php/user/getcurrent' , method: 'get'},
         saveUser: {path: './api/index.php/user/put' , method: 'post'},
+        saveAvatar: {path: './api/index.php/user/saveavatar' , method: 'post'},
         // get user's nodes
         userNode: {path: './admin/app/json/node/recent.json' , data:{ uid: 0 , page: 1 }, method: 'get'},
         saveNode: {path: './api/index.php/node/post'},
@@ -123,8 +124,9 @@ define(function( require , exports , model ){
         var alertOnError = config.alertOnError;
 
         var error_no = result['code'] || result['status'];
-        // TODO .. success tag
-        error_no = 0;
+        //if( result.success === true ){
+            error_no = 0;
+        //}
         if ( error_no != 0 ) {
             if( alertOnError !== false ){
                 // 如果是未登录错误，弹出登录框
@@ -137,8 +139,7 @@ define(function( require , exports , model ){
                     */
                     return;
                 }
-
-                LP.error( result['info'] || _api[api].info + _e('出错啦，请稍候重试...') );
+                //LP.error( result['info'] || _api[api].info + _e('出错啦，请稍候重试...') );
             }
             error && error( result['info'] , result );
         } else if ( success ) {
