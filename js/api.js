@@ -39,8 +39,8 @@ define(function( require , exports , model ){
         // get user info
         login: {path: './api/index.php/user/login'},
         logout: {path: './api/index.php/user/logout'},
-        //user: {path: './api/index.php/user/getcurrent' , method: 'get'},
-        user: {path: './json/user.json' , method: 'get'},
+        user: {path: './api/index.php/user/getcurrent' , method: 'get'},
+        //user: {path: './json/user.json' , method: 'get'},
         saveUser: {path: './api/index.php/user/put' , method: 'post'},
         // get user's nodes
         userNode: {path: './admin/app/json/node/recent.json' , data:{ uid: 0 , page: 1 }, method: 'get'},
