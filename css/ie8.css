@@ -1,0 +1,18 @@
+.poptxt-pic {display: none;}
+.poptxt-textarea {float:none;width:400px;}
+.poptxt-check,.poptxt-check.checked {background-position:0 2px;}
+.poptxt-cancel,.poptxt-submit,.popfile-btn,.pophd {line-height:40px;}
+.search-tip-modal {height:240px;margin-top:-120px;}
+.menu-item h6 {font-size:9px;}
+
+.count-userpho img {border:none;}
+.count-userpho .avatar-ie-round {background:url('../img/ie8_avatar_round_62.png') no-repeat;width:62px;height: 62px;position: absolute;top:0;left:0;z-index: 2;}
+
+.comuser-pho {position: relative;}
+.comuser-pho img {border:none;}
+.comuser-pho .avatar-ie-round {background:url('../img/ie8_avatar_round_32.png') no-repeat;width:32px;height:32px;position: absolute;top:0;left:0;z-index: 2;}
+
+.user:hover {filter:alpha(opacity=100);}
+.user-pho {position: relative;}
+.user-pho img {border:none;}
+.user-pho .avatar-ie-round {background:url('../img/ie8_avatar_round_34.png') no-repeat;width:39px;height:39px;position: absolute;top:0;left:0;z-index: 2;}

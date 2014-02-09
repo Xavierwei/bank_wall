@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script>
+        function redirect()
+        {
+            document.getElementById('my_form').target = 'my_iframe'; //'my_iframe' is the name of the iframe
+            document.getElementById('my_form').submit();
+        }
+
+        function haha() {
+            alert(3338);
+        }
+    </script>
+</head>
+<body>
+<form id="my_form" name="form" action="./api/index.php/node/post" method="POST" enctype="multipart/form-data" >
+
+    <div id="main">
+        <input name="photo" id="my_file" size="27" type="file" />
+        <input name="description" id="description" size="27" type="text" />
+        <input type="button" name="action" value="Upload" onclick="redirect()"/>
+        <iframe id='my_iframe' name='my_iframe' src="">
+        </iframe>
+    </div>
+
+</form>
+
+</body>
+</html>

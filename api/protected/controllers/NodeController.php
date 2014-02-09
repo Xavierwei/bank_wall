@@ -25,7 +25,9 @@ class NodeController extends Controller {
       if (!$request->isPostRequest) {
         $this->responseError("http error");
       }
-      
+
+			$isIframe = $request->getPost("iframe");
+
       $photoUpload = CUploadedFile::getInstanceByName("photo");
       $videoUpload = CUploadedFile::getInstanceByName("video");
       
@@ -40,19 +42,36 @@ class NodeController extends Controller {
       }
       
       if ($photoUpload) {
-        $mime = $photoUpload->getType();
-        // TODO:: 大小限制
         $size = $photoUpload->getSize(); //in bytes
+				if($size > 5 * 1024000) {
+					return $this->responseError(501); //photo size out of limition
+				}
+				$mime = $photoUpload->getType();
         $allowMime = array(
             "image/gif", "image/png", "image/jpeg", "image/jpg"
         );
         if (!in_array($mime, $allowMime)) {
-          $this->responseError("photo's media type is not allowed");
+          $this->responseError(502); //photo media type is not allowed
         }
+				list($w, $h) = getimagesize($photoUpload->tempName);
+				if($w < 450 || $h < 450) {
+					return $this->responseError(503); //photo resolution is too small
+				}
       }
       
       if ($videoUpload) {
         // TODO:: 暂时判断不出视频类型，需要更多测试实例
+				$size = $videoUpload->getSize(); //in bytes
+				if($size > 7 * 1024000) {
+					return $this->responseError(501); //video size out of limition
+				}
+				$mime = $videoUpload->getType();
+				$allowMime = array(
+					"video/mov", "video/wmv", "video/mp4", "video/avi", "video/3gp"
+				);
+				if (!in_array($mime, $allowMime)) {
+					return $this->responseError(502); //video media type is not allowed
+				}
       }
       
       $nodeAr = new NodeAR();
@@ -75,8 +94,14 @@ class NodeController extends Controller {
         $retdata = $nodeAr->attributes;
         $retdata['user'] = $nodeAr->user->attributes;
         $retdata['country'] = $nodeAr->country->attributes;
-        
-        $this->responseJSON($retdata, "success");
+
+				if($isIframe){
+					$this->render('post', array(
+						'code'=>1
+					));
+				} else {
+					$this->responseJSON($retdata, "success");
+				}
       }
       else {
         $this->responseError(current(array_shift($nodeAr->getErrors())));

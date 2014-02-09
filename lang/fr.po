@@ -222,3 +222,51 @@ msgstr "S'il vous plaît vérifier l'état"
 
 msgid "ERROR_EMAIL"
 msgstr "S'il vous plaît entrer e-mail correcte."
+
+msgid "ERROR_WRITE_DESCRIPTION"
+msgstr "S'il vous plaît écrivez une description."
+
+msgid "ERROR_DESCRIPTION_LIMITED"
+msgstr "La description est limitée à 140 caractères."
+
+msgid "ERROR_DESCRIPTION_ILLEGAL"
+msgstr "Le hashtag peut \ 't comprennent des caractères illégaux."
+
+msgid "DAY"
+msgstr "jour"
+
+msgid "JANUARY"
+msgstr "Janvier"
+
+msgid "FEBRUARY"
+msgstr "Février"
+
+msgid "MARCH"
+msgstr "Mars"
+
+msgid "APRIL"
+msgstr "Avril"
+
+msgid "MAY"
+msgstr "Mai"
+
+msgid "JUNE"
+msgstr "Juin"
+
+msgid "JULY"
+msgstr "Juillet"
+
+msgid "AUGUST"
+msgstr "Août"
+
+msgid "SEPTEMBER"
+msgstr "Septembre"
+
+msgid "OCTOBER"
+msgstr "Octobre"
+
+msgid "NOVEMBER"
+msgstr "Novembre"
+
+msgid "DECEMBER"
+msgstr "Décembre"

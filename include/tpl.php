@@ -84,73 +84,82 @@
 	<div class="overlay" data-a="close_pop"></div>
 	<div class="pop" style="display:none">
 		<div class="popclose" data-a="close_pop"></div>
-		<div class="pophd">
-			<div class="poptit">{{_e.UPLOAD}} {{type}}</div>
-		</div>
-		<div class="popbd">
-			<!--  -->
-			<div class="pop-inner pop-file">
-				<form id="fileupload" action="#" method="POST" enctype="multipart/form-data">
-					<div class="popfile-drag-box"></div>
-					<ul class="step1-tips">
-						<li>{{_e.PHOTO_FORMATE}}</li>
-						<li>{{_e.PHOTO_RESOLUTION}}</li>
-						<li>{{_e.PHOTO_SIZE}}</li>
-					</ul>
-					<div class="error"></div>
-					<div class="step1-btns">
-						<div class="popfile-btn btn" id="select-btn" data-a="select_photo">
-							{{_e.SELECT}} {{type}}
-							<input type="file" name="{{type}}" />
+		<form target="node_upload_iframe" id="node_post_form" name="node_post_form" action="./api/index.php/node/post" method="post" enctype="multipart/form-data" >
+			<div class="pophd">
+				<div class="poptit">{{_e.UPLOAD}} {{type}}</div>
+			</div>
+			<div class="popbd">
+				<!--  -->
+				<div class="pop-inner pop-file">
+					<div id="fileupload">
+						<div class="popfile-drag-box"></div>
+						<ul class="step1-tips">
+							{{#ifvideo}}
+							<li>{{_e.PHOTO_FORMATE}}</li>
+							<li>{{_e.PHOTO_RESOLUTION}}</li>
+							<li>{{_e.PHOTO_SIZE}}</li>
+							{{else}}
+							<li>{{_e.PHOTO_FORMATE}}</li>
+							<li>{{_e.PHOTO_RESOLUTION}}</li>
+							<li>{{_e.PHOTO_SIZE}}</li>
+							{{/ifvideo}}
+						</ul>
+						<div class="error"></div>
+						<div class="step1-btns">
+							<div class="popfile-btn btn" id="select-btn" data-a="select_photo">
+								{{_e.SELECT}} {{type}}
+								<input type="file" name="{{type}}"  />
+							</div>
 						</div>
+						<div class="step2-btns"><div class="popfile-btn btn" data-a="upload_photo">{{_e.UPLOAD}}</div><div class="popfile-btn btn" data-a="select_photo">{{_e.SELECT_AGAIN}}</div></div>
 					</div>
-					<div class="step2-btns"><div class="popfile-btn btn" data-a="upload_photo">{{_e.UPLOAD}}</div><div class="popfile-btn btn" data-a="select_photo">{{_e.SELECT_AGAIN}}</div></div>
-				</form>
-			</div>
-			<!--  -->
-			<div class="pop-inner pop-load" style="display:none">
-				<div class="popload-icon-bg">
-					<div class="popload-icon"></div>
 				</div>
-				<div class="poploading">
-					<div class="popload-percent"><p></p></div>
-					<p>{{_e.UPLOAD_IN_PROGRESS}} ...</p>
+				<!--  -->
+				<div class="pop-inner pop-load" style="display:none">
+					<div class="popload-icon-bg">
+						<div class="popload-icon"></div>
+					</div>
+					<div class="poploading">
+						<div class="popload-percent"><p></p></div>
+						<p>{{_e.UPLOAD_IN_PROGRESS}} ...</p>
+					</div>
 				</div>
-			</div>
-			<!--  -->
-			<div class="pop-inner pop-txt"  style="display:none">
-				<div class="poptxt-preview clear">
-					{{#if type}}
-					<div class="poptxt-pic">
-						<a class="pop-zoomout-btn" data-a="pop-zoomout-btn" href="#">Zoom In</a>
-						<a class="pop-zoomin-btn" data-a="pop-zoomin-btn" href="#">Zoom Out</a>
-						<a class="pop-rright-btn" data-a="pop-rright-btn" href="#">Turn Right</a>
-						<a class="pop-rleft-btn" data-a="pop-rleft-btn" href="#">Turn Left</a>
-						<div class="poptxt-pic-inner">
-							<img src="about:blank" />
+				<!--  -->
+				<div class="pop-inner pop-txt"  style="display:none">
+					<div class="poptxt-preview clear">
+						{{#if type}}
+						<div class="poptxt-pic">
+							<a class="pop-zoomout-btn" data-a="pop-zoomout-btn" href="#">Zoom In</a>
+							<a class="pop-zoomin-btn" data-a="pop-zoomin-btn" href="#">Zoom Out</a>
+							<a class="pop-rright-btn" data-a="pop-rright-btn" href="#">Turn Right</a>
+							<a class="pop-rleft-btn" data-a="pop-rleft-btn" href="#">Turn Left</a>
+							<div class="poptxt-pic-inner">
+								<img src="about:blank" />
+							</div>
 						</div>
+						{{else}}
+						<div class="poptxt-video-wrap">
+							<video id="poptxt-video" class="video-js vjs-big-play-centered vjs-default-skin" controls="controls" preload="none" width="100%" height="100%" poster="about:blank" data-setup="{}">
+								<source src="about:blank" type='video/mp4' />
+							</video>
+						</div>
+						{{/if}}
+						<textarea id="node-description" name="description" class="poptxt-textarea" placeholder="{{_e.ENTER_DESCRIPTION}}"></textarea>
+						<div class="error"></div>
 					</div>
-					{{else}}
-					<div class="poptxt-video-wrap">
-						<video id="poptxt-video" class="video-js vjs-big-play-centered vjs-default-skin" controls="controls" preload="none" width="100%" height="100%" poster="about:blank" data-setup="{}">
-							<source src="about:blank" type='video/mp4' />
-						</video>
+					<div class="poptxt-check btn">{{_e.UPLOAD_TERM}}<span class="error">{{_e.ERROR_CONDITION}}</span></div>
+					<div class="poptxt-btn clear">
+						<p class="poptxt-cancel btn" data-a="close_pop">{{_e.CANCEL}}</p>
+						<p class="poptxt-submit btn" data-a="save_node">{{_e.PUBLISH}} {{type}}</p>
 					</div>
-					{{/if}}
-					<textarea id="node-description" class="poptxt-textarea" placeholder="{{_e.ENTER_DESCRIPTION}}"></textarea>
-					<div class="error"></div>
 				</div>
-				<div class="poptxt-check btn">{{_e.UPLOAD_TERM}}<span class="error">{{_e.ERROR_CONDITION}}</span></div>
-				<div class="poptxt-btn clear">
-					<p class="poptxt-cancel btn" data-a="close_pop">{{_e.CANCEL}}</p>
-					<p class="poptxt-submit btn" data-a="save_node">{{_e.PUBLISH}} {{type}}</p>
+				<!--  -->
+				<div class="pop-inner pop-success">
+					{{_e.YOU_PUBLISHED}} {{type}}.
 				</div>
 			</div>
-			<!--  -->
-			<div class="pop-inner pop-success">
-				{{_e.YOU_PUBLISHED}} {{type}}.
-			</div>
-		</div>
+			<iframe id='node_upload_iframe' name='node_upload_iframe' src=""></iframe>
+		</form>
 	</div>
 </script>
 <!-- inner-template -->
@@ -160,7 +169,7 @@
 			<div class="comment-cube">
 				<div class="comment">
 					<div class="com-user">
-						<div class="comuser-pho"><img src="./api{{user.avatar}}" width="32" /></div>
+						<div class="comuser-pho"><img src="./api{{user.avatar}}" width="32" /><div class="avatar-ie-round"></div></div>
 						<div class="comuser-name"><p>{{user.firstname}} {{user.lastname}}</p></div>
 						<div class="comuser-location"><p>{{country.country_name}}</p></div>
 					</div>
@@ -295,7 +304,7 @@
 		<!-- inner -->
 		<div class="count-inner">
 			<div class="count-user">
-				<div class="count-userpho"><img src="./api{{avatar}}" width="60"  /></div>
+				<div class="count-userpho"><img src="./api{{avatar}}" width="60"  /><div class="avatar-ie-round"></div></div>
 				<div class="count-userinfo">
 					<p class="name">{{firstname}} {{lastname}}</p>
 					<p class="location">{{country.country_name}}</p>
@@ -362,7 +371,7 @@
 	<div class="side">
 		<!-- user -->
 		<div class="user btn" data-a="toggle_user_page">
-			<div class="user-pho"><img src="./api{{avatar}}" width="60"  /></div>
+			<div class="user-pho"><img src="./api{{avatar}}" width="34" height="34" /><div class="avatar-ie-round"></div></div>
 			<div class="user-name">{{firstname}}</div>
 			<div class="close-user-page" data-a="toggle-user-page"></div>
 		</div>
@@ -370,10 +379,9 @@
 		<div class="menu">
 			<div class="menu-item photo" data-a="pop_upload" data-d="type=photo"><div class="menu-item-arrow"></div><p></p><h6>{{_e.POST_A_PHOTO}}</h6></div>
 			<div class="menu-item video" data-a="pop_upload" data-d="type=video"><div class="menu-item-arrow"></div><p></p><h6>{{_e.POST_A_VIDEO}}</h6></div>
-			<div class="menu-item day" data-a="content_of_day"><div class="menu-item-arrow"></div><p></p><h6>{{_e.CONTENT_OF_THE_DAY}}</h6></div>
+			<div class="menu-item {{_e.DAY}}" data-a="content_of_day"><div class="menu-item-arrow"></div><p></p><h6>{{_e.CONTENT_OF_THE_DAY}}</h6></div>
 			<div class="menu-item month" data-a="content_of_month"><div class="menu-item-arrow"></div><p></p><h6>{{_e.CONTENT_OF_THE_MONTH}}</h6></div>
 			<a class="menu-item logout" href="./api/user/samllogout"><div class="menu-item-arrow"></div><p></p><h6>{{_e.LOGOUT}}</h6></a>
-
 		</div>
 	</div>
 </script>
