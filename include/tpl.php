@@ -108,7 +108,8 @@
 						<div class="step1-btns">
 							<div class="popfile-btn btn" id="select-btn" data-a="select_photo">
 								{{_e.SELECT}} {{type}}
-								<input type="file" name="file" />
+								<input type="file" name="file" accept="{{accept}}" />
+								<input type="hidden" name="type" value="{{type}}" />
 							</div>
 						</div>
 						<div class="step2-btns"><div class="popfile-btn btn" data-a="upload_photo">{{_e.UPLOAD}}</div><div class="popfile-btn btn" data-a="select_photo">{{_e.SELECT_AGAIN}}</div></div>

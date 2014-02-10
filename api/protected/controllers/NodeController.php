@@ -20,73 +20,41 @@ class NodeController extends Controller {
     
     if ($user) {
       $country_id = $user->country_id;
-      
+
       $request = Yii::app()->getRequest();
       if (!$request->isPostRequest) {
         $this->responseError("http error");
       }
-     
-
+			$type = $request->getPost("type");
 			$isIframe = $request->getPost("iframe");
 
-    //   $photoUpload = CUploadedFile::getInstanceByName("photo");
-    //   $videoUpload = CUploadedFile::getInstanceByName("video");
-      
-    //   if ($photoUpload) {
-    //     $type = "photo";
-    //   }
-    //   else if ($videoUpload){
-    //     $type = "video";
-    //   }
-    //   else {
-    //     $this->responseError("video or photo is mandatory");
-    //   }
-      
-    //   if ($photoUpload) {
-    //     $size = $photoUpload->getSize(); //in bytes
-				// if($size > 5 * 1024000) {
-				// 	return $this->responseError(501); //photo size out of limition
-				// }
-				// $mime = $photoUpload->getType();
-    //     $allowMime = array(
-    //         "image/gif", "image/png", "image/jpeg", "image/jpg"
-    //     );
-    //     if (!in_array($mime, $allowMime)) {
-    //       $this->responseError(502); //photo media type is not allowed
-    //     }
-				// list($w, $h) = getimagesize($photoUpload->tempName);
-				// if($w < 450 || $h < 450) {
-				// 	return $this->responseError(503); //photo resolution is too small
-				// }
-    //   }
-      
-    //   if ($videoUpload) {
-    //     // TODO:: 暂时判断不出视频类型，需要更多测试实例
-				// $size = $videoUpload->getSize(); //in bytes
-				// if($size > 7 * 1024000) {
-				// 	return $this->responseError(501); //video size out of limition
-				// }
-				// $mime = $videoUpload->getType();
-				// $allowMime = array(
-				// 	"video/mov", "video/wmv", "video/mp4", "video/avi", "video/3gp"
-				// );
-				// if (!in_array($mime, $allowMime)) {
-				// 	return $this->responseError(502); //video media type is not allowed
-				// }
-    //   }
-      
-      $nodeAr = new NodeAR();
+			$nodeAr = new NodeAR();
+			if($isIframe) {
+				$fileUpload = CUploadedFile::getInstanceByName("file");
+				$validateUpload = $nodeAr->validateUpload($fileUpload, $type);
+				if($validateUpload !== true) {
+					$this->responseError($validateUpload);
+				}
+			}
       $nodeAr->description = $request->getPost("description");
-      $nodeAr->type = $request->getPost("type");
-      $nodeAr->file = $request->getPost("file");
-      // if ($type == "photo") {
-      //   $nodeAr->file = $nodeAr->saveUploadedFile($photoUpload);
-      // }
-      // else {
-      //   $nodeAr->file = $nodeAr->saveUploadedFile($videoUpload);
-      // }
+      $nodeAr->type = $type;
+			if($isIframe) {
+				$nodeAr->file = $nodeAr->saveUploadedFile($fileUpload);
+			}
+			else {
+				$file = $request->getPost("file");
+				$_x = $request->getPost("x");
+				if($_x) {
+					$_y = $request->getPost("y");
+					$_width = $request->getPost("width");
+					$_height = $request->getPost("height");
+					$nodeAr->file = $nodeAr->cropPhoto($file, $_x, $_y, $_width);
+				}
+			}
+
       $nodeAr->uid = $uid;
       $nodeAr->country_id = $country_id;
+			//print_r($nodeAr);
       
       if ($nodeAr->validate()) {
         $success = $nodeAr->save();
@@ -684,6 +652,11 @@ class NodeController extends Controller {
 					$ret = $begin.'The size of your image file should not exceed 5MB'.$end;
 					return $this->responseJSON(null, $ret, false);
 				}
+				list($w, $h) = getimagesize($uploadFile->tempName);
+				if($w < 450 || $h < 450) {
+					$ret = $begin.'For optimal resolution, please use a format of at least 450x450 px'.$end;
+					return $this->responseJSON(null, $ret, false);
+				}
       }
 			else if (in_array($mime, $allowVideoMime)) {
 				$type = 'video';
@@ -691,11 +664,6 @@ class NodeController extends Controller {
 					$ret = $begin.'The size of your image file should not exceed 7MB'.$end;
 					return $this->responseJSON(null, $ret, false);
 				}
-				list($w, $h) = getimagesize($uploadFile->tempName);
-				 if($w < 450 || $h < 450) {
-					 $ret = $begin.'For optimal resolution, please use a format of at least 450x450 px'.$end;
-					 return $this->responseJSON(null, $ret, false);
-				 }
 			}
 			else {
 				$ret = $begin.'The photo only support gif, png, jpeg, jpg\nThe video only support mov, wmv, mp4, avi, 3pg'.$end;

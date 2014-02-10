@@ -1076,7 +1076,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         if(type == 'video') {
             data.accept = 'video/*';
         } else {
-            //data.accept = 'image/*';
+            data.accept = 'image/*';
         }
         $('.side .menu-item.'+type).addClass('active');
         data._e = _e;

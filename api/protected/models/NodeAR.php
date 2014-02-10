@@ -29,7 +29,7 @@ class NodeAR extends CActiveRecord{
 	public $flag = array();
   
   // 这个只是允许上传的视频格式
-  const ALLOW_UPLOADED_VIDEO_TYPES = "mp4,avi,mov,mpg";
+  const ALLOW_UPLOADED_VIDEO_TYPES = "mp4,avi,mov,mpg,3pg,wmv";
 
   // 其他格式的视频需要转换到这个指定的格式
   const ALLOW_STORE_VIDE_TYPE = "mp4";
@@ -193,7 +193,46 @@ class NodeAR extends CActiveRecord{
       
       return TRUE;
   }
-  
+
+	public function validateUpload($fileUpload, $type) {
+		if(!$fileUpload) {
+			return 500; //video or photo is mandatory
+		}
+		if ($type == 'photo') {
+			$size = $fileUpload->getSize(); //in bytes
+			if($size > 5 * 1024000) {
+				return 501; //photo size out of limition
+			}
+			$mime = $fileUpload->getType();
+			$allowMime = array(
+				"image/gif", "image/png", "image/jpeg", "image/jpg"
+			);
+			if (!in_array($mime, $allowMime)) {
+				return 502; //photo media type is not allowed
+			}
+			list($w, $h) = getimagesize($fileUpload->tempName);
+			if($w < 450 || $h < 450) {
+				return 503; //photo resolution is too small
+			}
+		}
+
+		if ($type == 'video') {
+			$size = $fileUpload->getSize(); //in bytes
+			if($size > 7 * 1024000) {
+				return 501; //video size out of limitation
+			}
+			$mime = $fileUpload->getType();
+			$allowMime = array(
+				"video/mov", "video/wmv", "video/mp4", "video/avi", "video/3gp"
+			);
+			if (!in_array($mime, $allowMime)) {
+				return 502; //video media type is not allowed
+			}
+		}
+
+		return true;
+	}
+
   /**
    * 
    * @param CUploadedFile $upload
@@ -219,10 +258,7 @@ class NodeAR extends CActiveRecord{
     $ret = $upload->saveAs($to);
     
     // 检查是不是视频， 如果是, 就就做视频转换工作
-    
-
     $videoexts = explode(",", self::ALLOW_UPLOADED_VIDEO_TYPES);
-
     if (in_array($extname, $videoexts)) {
       // 在这里做视频转换功能
       // 先检查 ffmpeg 是否已经安装
@@ -270,6 +306,18 @@ class NodeAR extends CActiveRecord{
     $to = str_replace(ROOT, "", $to);
     return $to;
   }
+
+	public function cropPhoto($file, $x, $y, $width) {
+		list($srcWidth, $srcHeight) = getimagesize(ROOT.$file);
+		$scale = $srcWidth / $width;
+		$toX = -($x * $scale);
+		$toY = -($y * $scale);
+		$toWidth = 175 * $scale;
+		$thumb = new EasyImage(ROOT.$file);
+		$thumb->crop($toWidth, $toWidth, $toX, $toY);
+		$thumb->save(ROOT.$file);
+		return $file;
+	}
   
   public function blockIt() {
     if ($this->nid) {
