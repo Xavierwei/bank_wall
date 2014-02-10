@@ -691,6 +691,11 @@ class NodeController extends Controller {
 					$ret = $begin.'The size of your image file should not exceed 7MB'.$end;
 					return $this->responseJSON(null, $ret, false);
 				}
+				list($w, $h) = getimagesize($uploadFile->tempName);
+				 if($w < 450 || $h < 450) {
+					 $ret = $begin.'For optimal resolution, please use a format of at least 450x450 px'.$end;
+					 return $this->responseJSON(null, $ret, false);
+				 }
 			}
 			else {
 				$ret = $begin.'The photo only support gif, png, jpeg, jpg\nThe video only support mov, wmv, mp4, avi, 3pg'.$end;
