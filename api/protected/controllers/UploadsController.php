@@ -19,47 +19,6 @@ class UploadsController extends Controller {
   public function init() {
     Yii::import("application.vendor.*");
   }
-
-  /**
-   * @desc: 上传文件接口
-   * @date:
-   * @author: hdg1988@gmail.com
-   */
-  public function actionUpload(){
-    $upload = CUploadedFile::getInstanceByName("file");
-    $mime = $upload->getType();
-    $size = $upload->getSize(); 
-    if( in_array($mime, $this->_photo_mime ) ){
-      $type = "photo";
-      // file size
-      if( $size > $this->_max_photo_size ){
-        return $this->responseError(501); //photo size out of limition
-      }
-    } else if ( in_array($mime, $this->_video_mime ) ){
-      $type = "video";
-      if( $size > $this->_max_video_size ){
-        $this->responseError(501); //photo media type is not allowed
-      }
-    } else {
-      $this->responseError(502); //photo media type is not allowed
-    }
-
-    // save file to dir
-    $nodeAr = new NodeAR();
-    $file = $nodeAr->saveUploadedFile($upload);
-
-    // if video , make screenshot
-    if( $type == "video" ){
-      // TODO....
-    }
-
-    // change mp4 to wmv for noflash ie8
-    // TODO...
-
-    // return result
-    $retdata = array( "type"=> $type , "file" => $file );
-    $this->responseJSON($retdata, "success");
-  }
   
   // 生成
   public function missingAction($actionID) {
@@ -109,6 +68,34 @@ class UploadsController extends Controller {
 
     die();
   }
+
+
+	public function actionUpload() {
+		$fileUpload = CUploadedFile::getInstanceByName("file");
+		$mime = $fileUpload->getType();
+		if( in_array($mime, $this->_photo_mime ) ){
+			$type = "photo";
+
+		} else if ( in_array($mime, $this->_video_mime ) ){
+			$type = "video";
+		} else {
+			return $this->responseError(502); //photo media type is not allowed
+		}
+
+		$nodeAr = new NodeAR();
+		$validateUpload = $nodeAr->validateUpload($fileUpload, $type);
+		if($validateUpload !== true) {
+			return $this->responseError($validateUpload);
+		}
+
+		// save file to dir
+		$file = $nodeAr->saveUploadedFile($fileUpload);
+
+		// return result
+		$retdata = array( "type"=> $type , "file" => $file );
+		$this->responseJSON($retdata, "success");
+	}
+
   
   private function makeImageThumbnail($path, $save_to, $w, $h) {
     $abspath = $path;
