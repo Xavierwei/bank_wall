@@ -348,6 +348,7 @@ class NodeController extends Controller {
           // 随机查询需要特别处理
           // 如下， 首先随机出 $pagenum 个数的随机数，大小范围在 max(nid), min(nid) 之间
           // 再用 nid in (随机数) 去查询
+					$page = 1;
           $sql = "SELECT max(nid) as max, min(nid) as min FROM node";
           $ret = Yii::app()->db->createCommand($sql);
           $row = $ret->queryRow();

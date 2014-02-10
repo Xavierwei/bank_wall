@@ -690,3 +690,723 @@ Stack trace:
 REQUEST_URI=/bank_wall/api/Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg
 HTTP_REFERER=http://localhost/bank_wall/index
 ---
+2014/02/10 18:01:16 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(190): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v353_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/10 18:01:16 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(190): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v355_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/10 18:01:16 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(190): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v349_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/10 18:01:16 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(190): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v351_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/10 18:01:16 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(190): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v347_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/10 18:01:16 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(190): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v345_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/10 18:01:21 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('Applications/MA...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg
+HTTP_REFERER=http://localhost/bank_wall/index
+---
+2014/02/10 18:01:38 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('Applications/MA...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg
+HTTP_REFERER=http://localhost/bank_wall/index
+---
+2014/02/10 18:01:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('Applications/MA...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg
+HTTP_REFERER=http://localhost/bank_wall/index
+---
+2014/02/10 18:02:00 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('Applications/MA...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg
+HTTP_REFERER=http://localhost/bank_wall/index
+---
+2014/02/10 18:02:36 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(190): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v315_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/10 18:13:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('Applications/MA...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg
+HTTP_REFERER=http://localhost/bank_wall/index
+---
+2014/02/10 18:13:52 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(190): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v353_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/10 18:13:52 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(190): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v347_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/10 18:13:52 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(190): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v355_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/10 18:13:52 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(190): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v349_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/10 18:13:52 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(190): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v345_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/10 18:13:52 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(190): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v351_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/10 18:13:52 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(190): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v343_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/10 18:13:52 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(190): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v340_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/10 18:13:52 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(190): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v332_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/10 18:13:52 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(190): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v330_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/10 18:13:52 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(190): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v326_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/10 18:13:52 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(190): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v331_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/10 18:13:52 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(190): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v322_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/10 18:13:52 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(190): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v324_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/10 18:13:52 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(190): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v321_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/10 18:13:52 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(190): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v319_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/10 18:13:52 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(190): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v318_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/10 18:13:52 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(190): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v320_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/10 18:13:56 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('Applications/MA...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg
+HTTP_REFERER=http://localhost/bank_wall/index
+---
+2014/02/10 18:13:57 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('Applications/MA...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg
+HTTP_REFERER=http://localhost/bank_wall/index
+---
+2014/02/10 18:16:05 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('Applications/MA...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg
+HTTP_REFERER=http://localhost/bank_wall/index
+---
+2014/02/10 18:16:18 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('Applications/MA...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg
+HTTP_REFERER=http://localhost/bank_wall/index
+---
+2014/02/10 18:17:05 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('Applications/MA...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg
+HTTP_REFERER=http://localhost/bank_wall/index
+---
+2014/02/10 18:17:17 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('Applications/MA...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg
+HTTP_REFERER=http://localhost/bank_wall/index
+---
+2014/02/10 18:17:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('Applications/MA...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg
+HTTP_REFERER=http://localhost/bank_wall/index
+---
+2014/02/10 18:18:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('Applications/MA...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg
+HTTP_REFERER=http://localhost/bank_wall/index
+---
+2014/02/10 18:19:18 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('Applications/MA...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg
+HTTP_REFERER=http://localhost/bank_wall/index
+---
+2014/02/10 18:19:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('Applications/MA...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg
+HTTP_REFERER=http://localhost/bank_wall/index
+---
+2014/02/10 18:27:50 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('Applications/MA...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg
+HTTP_REFERER=http://localhost/bank_wall/index
+---
+2014/02/10 18:27:53 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(190): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v319_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/10 18:27:53 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(190): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v347_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/10 18:27:57 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(190): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v319_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/10 18:27:57 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(190): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v308_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/10 18:27:57 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(190): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v332_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/10 18:27:57 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(190): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v322_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/10 18:27:57 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(190): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v311_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/10 18:28:03 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(190): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v311_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/10 18:28:03 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(190): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v326_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/10 18:28:03 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(190): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v351_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/10 18:28:03 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(190): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v322_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
