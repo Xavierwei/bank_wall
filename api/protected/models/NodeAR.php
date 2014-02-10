@@ -162,7 +162,7 @@ class NodeAR extends CActiveRecord{
       else {
           $name = "v". $this->nid;
       }
-      
+
       $ext = pathinfo($this->file, PATHINFO_EXTENSION);
       $newname = $name.'.'.$ext;
       
@@ -179,10 +179,11 @@ class NodeAR extends CActiveRecord{
       }
 
 			// Generate WMV for no flash IE8
-			$topath = ROOT.$newpath;
-			$wmvpath = str_replace('.mp4','.wmv',$topath);
-			exec("ffmpeg -i {$topath} -y -vf scale=-1:360 {$wmvpath}", $output, $status);
-      
+      if ($type == "video") {
+        $topath = ROOT.$newpath;
+        $wmvpath = str_replace('.mp4','.wmv',$topath);
+        exec("ffmpeg -i {$topath} -y -vf scale=-1:360 {$wmvpath}", $output, $status);
+      }
       // Load user/country
       $userAr = new UserAR();
       $userAr->setAttributes($userAr->getOutputRecordInArray(UserAR::model()->findByPk($this->uid)));
