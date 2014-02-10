@@ -160,43 +160,39 @@ class UserController extends Controller {
       $this->responseError(Yii::t("strings", "http error"));
     }
   }
-  
+
+
   /**
-   * @desc: 保存用户头像
-   * @date:
-   * @author: hdg1988@gmail.com
+   * Upload avatar
    */
   public function actionSaveAvatar(){
-    $request = Yii::app()->getRequest();
-    $file = $request->getParam("file");
+		$uid = Yii::app()->user->getId();
+		if( empty( $uid ) ){
+			$this->responseError( "not login" );
+		}
+		$user = UserAR::model()->findByPk($uid);
+		if (!Yii::app()->user->checkAccess("updateOwnAccount", array("uid" => $user->uid ))) {
+			return $this->responseError("permission deny");
+		}
 
-    if( empty( $file ) ){
+    $request = Yii::app()->getRequest();
+
+		$fileUpload = $request->getPost("file");
+    if( empty( $fileUpload ) ){
       $this->responseError('no file');
     }
     // cut the file
-    $thumb = new EasyImage( ROOT . '/' . $file );
-    $thumb->resize( $request->getParam("width") , $request->getParam("height") );
-    // TODO:: avatar size
-    $thumb->crop( 80 , 80 , $request->getParam("x") , $request->getParam("y") );
-    $fileto = ROOT . '/uploads/' . date('Y/m/d') . uniqid() . '.' . pathinfo($file, PATHINFO_EXTENSION);
+    $thumb = new EasyImage( ROOT . '/' . $fileUpload );
+    $thumb->resize( $request->getPost("width") , $request->getPost("height") );
+    $thumb->crop( 220 , 220 , -$request->getPost("x") , -$request->getPost("y") );
+		$thumb->resize(80, 80);
+    $fileto = ROOT . '/uploads/avatar/' . $uid .'.'. pathinfo($fileUpload, PATHINFO_EXTENSION);
     $dir = dirname( $fileto );
     if (!is_dir($dir)) {
       mkdir($dir, 0777, TRUE);
     }
     $thumb->save( $fileto );
-
-    $uid = Yii::app()->user->getId();
-    if( empty( $uid ) ){
-      $this->responseError( "not login" );
-    }
-    $user = UserAR::model()->findByPk($uid);
-    if (!Yii::app()->user->checkAccess("updateOwnAccount", array("uid" => $user->uid ))) {
-      return $this->responseError("permission deny");
-    }
-    // elseif (!Yii::app()->user->checkAccess("updateAnyAccount", array("country_id" => $user->country_id))) {
-    //   return $this->responseError("permission deny");
-    // }
-    
+		unlink(ROOT . '/' . $fileUpload);
     $fileto = str_replace( ROOT, '', $fileto );
     UserAR::model()->updateByPk($uid, array('avatar' => $fileto ));
     $this->responseJSON(array( "file" => $fileto ) , "success");

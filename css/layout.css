@@ -233,7 +233,7 @@ a{text-decoration:none;color:#666}
     .poptit {text-transform: uppercase;}
     .pop iframe {display: none;}
 /**/
-.popfile-drag-box{width: 327px;height: 167px;background: #f9f9f9 url(../img/icon_pop_upload.gif) no-repeat center;margin:15px auto;}
+.popfile-drag-box{width: 327px;height: 167px;background: #f9f9f9 url(../img/icon_pop_upload.gif) no-repeat center;margin:25px auto 15px auto;}
 	.popfile-btn{text-transform: uppercase;position: relative;overflow: hidden; color:#fff;background: #db2842;border: #c0152d 3px solid;width: 326px;height: 40px;line-height: 44px;text-align: center;margin: 0 auto;font-size:16px;}
     .step1-tips {text-transform:none;color:#474747;line-height: 120%;margin:0 0 12px 75px;}
     .step1-tips li {background: url('../img/icon_list_li.gif') no-repeat 0 2px;padding:0 0 0 10px;}
@@ -276,6 +276,9 @@ a{text-decoration:none;color:#666}
     .tip-text span {color:#d62740;}
     .search-tip-modal .example-text {margin:20px 0 0 62px;text-transform:none;font-style:italic;}
     .search-tip-modal .cancel {background:#90918e;font-size:15px;color:#fff;width:120px;height:40px;line-height:40px;border:none;margin:25px auto 0 auto;display:block;}
+    .pop-avatar .poptxt-pic-inner {width:220px;height:220px;}
+    .pop-avatar .poptxt-pic {float:none;margin:0 auto;}
+
 
 /* comment Used
 ================================================================================================= */

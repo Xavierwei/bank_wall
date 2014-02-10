@@ -20,21 +20,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     var aMonth;
     var _e;
 
-    // get english month
-    // TODO .... need I18
-    var getMonth = (function(){
-        //var aMonth = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-        return function( date ){
-            date = date || new Date;
-            var month;
-            if( typeof date == 'object' ){
-                month = date.getMonth();
-            } else {
-                month = date - 1;
-            }
-            return aMonth[ month ];
-        }
-    })();
+
 
     // live for pic-item hover event
     $(document.body)
@@ -1200,7 +1186,6 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     
 
     //avatar upload
-     //upload photo
     LP.action('avatar_upload' , function( data ){
         var acceptFileTypes;
         data._e = _e;
@@ -1244,7 +1229,20 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     .bind('fileuploaddone', function (e, data) {
                         // TODO:: deal with error
                         if( !data.result.success ){
-                            console.log( data.result.message );
+                            switch(data.result.message){
+                                case 502:
+                                    var errorIndex = 0;
+                                    break;
+                                case 501:
+                                    var errorIndex = 2;
+                                    break;
+                                case 503:
+                                    var errorIndex = 1;
+                                    break;
+                            }
+                            $('.pop-inner').fadeOut(400);
+                            $('.pop-file').delay(800).fadeIn(400);
+                            $('.step1-tips li').eq(errorIndex).addClass('error');
                         } else{
                             var rdata = data.result.data;
                         
@@ -1353,7 +1351,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 $('.popclose').trigger('click');
                 // change all avatar image
                 $('.user-pho , .count-userpho').find('img')
-                    .attr('src' , './api' + result.data.file );
+                    .attr('src' , './api' + result.data.file+'?'+ new Date().getTime() );
             } else {
                 // TODO:: show error
             }
@@ -1632,6 +1630,20 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 break;
         }
     });
+
+    // get month
+    var getMonth = (function(){
+        return function( date ){
+            date = date || new Date;
+            var month;
+            if( typeof date == 'object' ){
+                month = date.getMonth();
+            } else {
+                month = date - 1;
+            }
+            return aMonth[ month ];
+        }
+    })();
 
 
     // get all query parameter

@@ -167,7 +167,7 @@
 
 <script type="text/tpl" id="pop-avatar-template">
 	<div class="overlay" data-a="close_pop"></div>
-	<div class="pop" style="display:none">
+	<div class="pop pop-avatar" style="display:none">
 		<div class="popclose" data-a="close_pop"></div>
 		<div class="pophd">
 			<div class="poptit">{{_e.AVATAR_UPLOAD}}</div>
