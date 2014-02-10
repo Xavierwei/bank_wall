@@ -265,7 +265,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         inserNode: function( $dom , nodes , bShowDate ){
             var aHtml = [];
             var lastDate = null;
-            var pageParm = $main.data('param'); //TODO:  pageParm.orderby == 'like' || pageParm.orderby == 'random' 此时不显示日历
+            var pageParm = $main.data('param'); 
             nodes = nodes || [];
 
             // save nodes to cache
@@ -328,6 +328,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             } );
         },
         setItemWidth: function( $dom ){
+            if( $dom.is(':hidden') ) return;
             var mainWidth = $dom.width();
             var min = ~~( mainWidth / minWidth );
             // save itemWidth and winWidth 
@@ -355,6 +356,8 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             var $nodes = $dom.find('.pic-item:not(.reversal)');
 
             var startAnimate = function( $node ){
+                if( $dom.is(':hidden') ) return;
+
                 $node.addClass('reversal')
                     .width( itemWidth )
                     .height( itemWidth );
@@ -372,7 +375,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 } , animationTimeout);
             }
             // if esist node , which is not reversaled , do the animation
-            if( $nodes.length ){
+            if( $nodes.length  ){
                 var $img = $nodes.eq(0)
                     .find('img');
                 startAnimate( $nodes.eq(0) );
@@ -1344,24 +1347,28 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 .delay(100)
                 .fadeIn()
                 .animate({left:0}, 400, 'easeOutQuart' , function(){
-                // if first loaded , load user's nodes from server
-                var user = $('.side').data('user');
-                var param = {page:1,pagenum:20, uid:user.uid, orderby:'datetime'};
-                $('.side').data('param', param);
-                var $countCom = $(this).find('.count-com');
-                if( !$countCom.children().length ){
-                    api.ajax('recent' , param , function( result ){
-                        nodeActions.inserNode( $countCom , result.data , true );
-                    });
-                }
-                // remove inner section
-                $('.inner').remove();
-            });
+                    // if first loaded , load user's nodes from server
+                    var user = $('.side').data('user');
+                    var param = {page:1,pagenum:20, uid:user.uid, orderby:'datetime'};
+                    $('.side').data('param', param);
+                    var $countCom = $(this).find('.count-com');
+                    if( !$countCom.children().length ){
+                        api.ajax('recent' , param , function( result ){
+                            nodeActions.inserNode( $countCom , result.data , true );
+                        });
+                    }
+                    // remove inner section
+                    $('.inner').remove();
+
+                    // reversal
+                    nodeActions.setItemReversal( $countCom );
+                });
             $('.close-user-page').fadeIn();
-        }
-        else {
+        } else {
             LP.triggerAction('close_user_page');
-            LP.triggerAction('load_list');
+            // LP.triggerAction('load_list');
+            // continue to res
+            nodeActions.setItemReversal( $main.show() );
         }
     });
 
