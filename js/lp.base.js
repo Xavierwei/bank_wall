@@ -482,9 +482,9 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             // it must visible and in main element has unreversaled node
             if( $('.count-com').is(':visible') && !$userCom.find('.main-item:not(.time-item,.reversal)').length ){
                 _scrollAjax = true;
-                var userPageParam = $('.side').data('param');
+                var userPageParam = $('.count-com').data('param');
                 userPageParam.page++;
-                $('.side').data('param',userPageParam);
+                $('.count-com').data('param',userPageParam);
                 api.ajax('recent' , userPageParam , function( result ){
                     nodeActions.inserNode( $userCom , result.data , true );
                     _scrollAjax = false;
@@ -524,6 +524,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     var _nodeCache = [];
     var _currentNodeIndex = 0;
     LP.action('node' , function( data ){
+        var $dom = $( this );
         if(data.type) {
             var node = data; // 如果直接传入单个node，不再从列表中获取
         }
@@ -608,7 +609,8 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     {
                         if(isAtBottom) {
                             var commentParam = $('.comment-wrap').data('param');
-                            getCommentList(node.nid,commentParam.page + 1);
+                            var page = commentParam ?  commentParam.page : 0;
+                            getCommentList(node.nid,page + 1);
                             console.log('Append next page');
                         }
                     }
@@ -637,6 +639,9 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             setTimeout(function(){
                 resizeInnerBox();
             },100);
+
+            // save node from
+            $inner.data('from' , $dom.parent() );
         } );
 
         return false;
@@ -664,13 +669,18 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             });
 
         // back $main
-        $main.show()
+        var $dom = $inner.data('from') || $main;
+        var $aniDom = $main;
+        if( $dom.get(0) != $main.get(0) ){
+            $aniDom = $(".user-page");
+        }
+        $aniDom.show()
             .css('position' , 'fixed')
             .delay(infoTime)
             .animate({
                 left: 0
             } , _animateTime , _animateEasing , function(){
-                $main.css({
+                $aniDom.css({
                     top: 'auto',
                     left: 'auto',
                     position: 'relative',
@@ -678,12 +688,12 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 })
             });
 
-        var pageParam = $main.data('param');
+        var pageParam = $dom.data('param');
         if(pageParam.previouspage != null) {
-            $main.html('');
-            $main.data( 'nodes', [] );
+            $dom.html('');
+            $dom.data( 'nodes', [] );
             $listLoading.fadeIn();
-            LP.triggerAction('recent');
+            LP.triggerAction('recent' , pageParam);
         }
 
     });
@@ -751,7 +761,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     .removeClass(cubeDir);
                 setTimeout(function(){
                     $cube.removeClass( 'no-animate' );
-                },0);
+                },20);
 
                 $inner.removeClass('disabled');
 
@@ -764,7 +774,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             // animate the first image's margin-left style
             var $imgWrap = $inner.find('.image-wrap');
             var wrapWidth = $imgWrap.width();
-            $imgWrap.css('margin-right' , - wrapWidth );
+            $imgWrap.css('width' , 2 * wrapWidth );
 
             // append dom
             var $oriItem = $imgWrap.children('.image-wrap-inner');
@@ -795,9 +805,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 // after animation
                 .promise()
                 .done(function(){
-                    $imgWrap.css({
-                        'margin-right': 0
-                    });
+                    $imgWrap.width( wrapWidth );
                     $newItem.css('width' , '100%');
                     $newItem.siblings('.image-wrap-inner').remove();
                 });
@@ -899,28 +907,45 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
     //for next action
     LP.action('next' , function( data ){
-        if($('.user-page').is(':visible')) {
-            var $dom = $('.count-dom');
-        }
-        else {
-            var $dom = $main;
-        }
+        var $inner = $('.inner');
+        var $dom = $inner.data('from') || $main;
+
         // lock the animation
-        if( $('.inner').hasClass('disabled') ) return;
-        $('.inner').addClass('disabled');
+        if( $inner.hasClass('disabled') ) return;
+        $inner.addClass('disabled');
 
         _currentNodeIndex++;
         var nodes = $dom.data('nodes');
+        console.log( 'nodes.length : ' + nodes.length );
         var node = nodes[ _currentNodeIndex ];
         if( !node ){
-            // TODO..  ajax to get more node
-            var param = $main.data('param');
+            // if no more data
+            if( $dom.data('end') ){
+                _currentNodeIndex--;
+                $inner.removeClass('disabled');
+                // TODO:: tip no more nodes
+                alert('no more nodes');
+                return;
+            }
+            //ajax to get more node
+            var param = $dom.data('param');
+            console.log( param );
             param.page++;
-            $main.data('param' , param);
+            $dom.data('param' , param);
+            // show loading 
+            $('.inner-loading').show();
             api.ajax('recent' , param , function( result ){
-                nodeActions.inserNode( $dom , result.data , param.orderby == 'datetime' );
-                cubeInnerNode( $dom.data('nodes')[ _currentNodeIndex ] , 'right' );
-                preLoadSiblings();
+                $('.inner-loading').hide();
+                if( result.data.length ){
+                    nodeActions.inserNode( $dom , result.data , param.orderby == 'datetime' );
+                    cubeInnerNode( $dom.data('nodes')[ _currentNodeIndex ] , 'right' );
+                    preLoadSiblings();
+                } else {
+                    $inner.removeClass('disabled');
+                    $dom.data('end' , true);
+                    // TODO:: tip no more nodes
+                    alert('no more nodes');
+                }
             });
             return;
         }
@@ -1350,8 +1375,8 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     // if first loaded , load user's nodes from server
                     var user = $('.side').data('user');
                     var param = {page:1,pagenum:20, uid:user.uid, orderby:'datetime'};
-                    $('.side').data('param', param);
                     var $countCom = $(this).find('.count-com');
+                    $countCom.data('param', param);
                     if( !$countCom.children().length ){
                         api.ajax('recent' , param , function( result ){
                             nodeActions.inserNode( $countCom , result.data , true );
@@ -1361,6 +1386,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     $('.inner').remove();
 
                     // reversal
+                    nodeActions.setItemWidth( $countCom );
                     nodeActions.setItemReversal( $countCom );
                 });
             $('.close-user-page').fadeIn();
@@ -1368,7 +1394,9 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             LP.triggerAction('close_user_page');
             // LP.triggerAction('load_list');
             // continue to res
-            nodeActions.setItemReversal( $main.show() );
+            $main.show();
+            nodeActions.setItemWidth( $main );
+            nodeActions.setItemReversal( $main );
         }
     });
 
@@ -1382,7 +1410,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             $('.count-userinfo').removeClass('count-userinfo-edit');
         }
         var type = data.type;
-        var param = $('.side').data('param');
+        var param = $('.count-com').data('param');
         param.page = 1;
         delete param.type;
         delete param.start;
@@ -1842,6 +1870,9 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     .hide();
                 });
             });
+    
+            var minWidth = $('.poptxt-pic-inner').width();
+            var minHeight = $('.poptxt-pic-inner').height();
 
             $poptxtpic.mousedown( function( ev ){
                 isMousedown = true;
@@ -1863,7 +1894,17 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 // move images
                 if( !imgRaphael ) return;
 
-                transform( ev.pageX - startPos.pageX - lastMoveX , ev.pageY - startPos.pageY - lastMoveY );
+                var mx = ev.pageX - startPos.pageX - lastMoveX;
+                var my = ev.pageY - startPos.pageY - lastMoveY;
+                var off = imgRaphael.getBBox();
+                if( off.x + mx >= 0 || off.width + off.x + mx <= minWidth ){
+                    mx = 0;
+                }
+                if( off.y + my >= 0 || off.height + off.y + my <= minHeight ){
+                    my = 0;
+                }
+
+                transform( mx , my );
                 lastMoveX = ev.pageX - startPos.pageX;
                 lastMoveY = ev.pageY - startPos.pageY;
 
@@ -1906,8 +1947,22 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             });
 
             $('.pop-zoomin-btn').mousedown(function(){
-                totalScale /= perScale;
-                transform( undefined , undefined , 1/perScale );
+                var width = parseInt($picInner.find('img').css('width'));
+                var height = parseInt($picInner.find('img').css('height'));
+
+                var lastScale = totalScale;
+                if( totalScale / perScale * width < minWidth || totalScale / perScale * height < minHeight ){
+                    totalScale = Math.max( minWidth / width , minHeight / height );
+                    var off = imgRaphael.getBBox();
+                    if( minWidth / width > minHeight / height ){
+                        transform( -off.x , 0 );
+                    } else {
+                        transform( 0 , -off.y );
+                    }
+                } else {
+                    totalScale /= perScale;
+                }
+                transform( undefined , undefined , totalScale/lastScale );
 
                 // longTimeout = setTimeout(function(){
                 //     longInterval = setInterval(function(){

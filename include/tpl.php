@@ -296,6 +296,7 @@
 				<img src="./api{{image}}" width="100%" />
 				{{/ifvideo}}
 			</div>
+			<div class="inner-loading"></div>
 			<div class="inner-info">
 				<div class="inner-shade"></div>
 				<div class="inner-infocom">{{description}}</div>
