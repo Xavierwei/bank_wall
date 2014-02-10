@@ -643,78 +643,81 @@ class NodeController extends Controller {
   
   public function actionPostByMail() {
     $request = Yii::app()->getRequest();
-
     if (!$request->isPostRequest) {
-      return $this->responseError("http error");
+      return $this->responseJSON(null, null, false);
     }
     $userEmail = $request->getPost("user");
     $desc = $request->getPost("desc");
-
-
     $user = UserAR::model()->findByAttributes(array("company_email" => $userEmail));
     if (!$user) {
       $user = UserAR::model()->findByAttributes(array("personal_email" => $userEmail));
     }
-
     if (!$user) {
-      return $this->responseError("you are not register into our system");
+			$ret = 'Debug Message (To be delete when live): your account not in our database'; //TODO: delete when live
+      return $this->responseJSON(null, $ret, false); //if the user not in our database then return nothing
     }
-
-    $photoUpload = CUploadedFile::getInstanceByName("photo");
-    $videoUpload = CUploadedFile::getInstanceByName("video");
-
-    if (!$photoUpload && !$videoUpload) {
-      return $this->responseError("missed media");
+		$begin = 'Dear '.$user->firstname.' '.$user->lastname.',\n\n';
+		$end = '\n\nSG WALL Team';
+		if(empty($desc)) {
+			$ret = $begin.'Please write the email subject.'.$end;
+			return $this->responseJSON(null, $ret, false);
+		}
+    $uploadFile = CUploadedFile::getInstanceByName("photo");
+    if (!$uploadFile) {
+			$ret = $begin.'Please attach photo or video in attachment.'.$end;
+			return $this->responseJSON(null, $ret, false);
     }
     else {
     }
-
-    $type = NodeAR::PHOTO;
-    if ($photoUpload) {
-      $mime = $photoUpload->getType();
-      // TODO:: 大小限制
-      $size = $photoUpload->getSize(); //in bytes
-      $allowMime = array(
-          "image/gif", "image/png", "image/jpeg", "image/jpg"
+    if ($uploadFile) {
+      $mime = $uploadFile->getType();
+      $size = $uploadFile->getSize();
+      $allowPhotoMime = array(
+      	"image/gif", "image/png", "image/jpeg", "image/jpg"
       );
-      if (!in_array($mime, $allowMime)) {
-        $this->responseError("photo's media type is not allowed");
+			$allowVideoMime = array(
+				"video/mov", "video/wmv", "video/mp4", "video/avi", "video/3gp"
+			);
+      if (in_array($mime, $allowPhotoMime)) {
+				$type = 'photo';
+				if($size > 5 * 1024000) {
+					$ret = $begin.'The size of your image file should not exceed 5MB'.$end;
+					return $this->responseJSON(null, $ret, false);
+				}
       }
+			else if (in_array($mime, $allowVideoMime)) {
+				$type = 'video';
+				if($size > 7 * 1024000) {
+					$ret = $begin.'The size of your image file should not exceed 7MB'.$end;
+					return $this->responseJSON(null, $ret, false);
+				}
+			}
+			else {
+				$ret = $begin.'The photo only support gif, png, jpeg, jpg\nThe video only support mov, wmv, mp4, avi, 3pg'.$end;
+				return $this->responseJSON(null, $ret, false);
+			}
     }
-
-    if ($videoUpload) {
-      $type = NodeAR::VIDEO;
-      // TODO:: 暂时判断不出视频类型，需要更多测试实例
-    }
-
     $node = new NodeAR();
     $node->uid = $user->uid;
     $node->country_id = $user->country_id;
     $node->type = $type;
-    if ($type == NodeAR::PHOTO) {
-      $node->file = $node->saveUploadedFile($photoUpload);
-    }
-    else {
-      $node->file = $node->saveUploadedFile($videoUpload);
-    }
+		$node->status = 0; // The default status is blocked when the content from email
+		$node->file = $node->saveUploadedFile($uploadFile);
     $node->description = $desc;
 
     if ($node->validate()) {
       $success = $node->save();
       if (!$success) {
-        return $this->responseError("exception happend");
+				return $this->responseJSON(null, null, false);
       }
-
-      return $this->responseJSON($node->attributes, "success");
     }
     else {
-      return $this->responseError(current(array_shift($node->getErrors())));
+			return $this->responseJSON(null, null, false);
     }
 
-    // 发送邮件
-
-
-    return $this->responseJSON($user->attributes, "success");
+		//success
+		$ret = $begin.'Your '.$type.' is success submit, after approved, you can visit the '.$type.' via this url:\nhttp://64.207.184.106/sgwall/#/nid/'.$node->nid.$end;
+		return $this->responseJSON(null, $ret, false);
   }
 }
 
