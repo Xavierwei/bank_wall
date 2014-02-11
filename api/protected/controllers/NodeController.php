@@ -27,9 +27,10 @@ class NodeController extends Controller {
       }
 			$type = $request->getPost("type");
 			$isIframe = $request->getPost("iframe");
+      $isFlash = $request->getPost("flash");
 
 			$nodeAr = new NodeAR();
-			if($isIframe) {
+			if($isIframe || $isFlash) {
 				$fileUpload = CUploadedFile::getInstanceByName("file");
 				$validateUpload = $nodeAr->validateUpload($fileUpload, $type);
 				if($validateUpload !== true) {
@@ -38,18 +39,21 @@ class NodeController extends Controller {
 			}
       $nodeAr->description = $request->getPost("description");
       $nodeAr->type = $type;
-			if($isIframe) {
+			if($isIframe || $isFlash) {
 				$nodeAr->file = $nodeAr->saveUploadedFile($fileUpload);
 			}
 			else {
 				$file = $request->getPost("file");
 				$_x = $request->getPost("x");
-				if($_x) {
+				if($_x && $type == 'video') {
 					$_y = $request->getPost("y");
 					$_width = $request->getPost("width");
 					$_height = $request->getPost("height");
 					$nodeAr->file = $nodeAr->cropPhoto($file, $_x, $_y, $_width);
 				}
+        else {
+          $nodeAr->file = $file;
+        }
 			}
 
       $nodeAr->uid = $uid;

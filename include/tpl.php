@@ -82,85 +82,86 @@
 
 <script type="text/tpl" id="pop-template">
 	<div class="overlay" data-a="close_pop"></div>
-	<div class="pop" style="display:none">
+	<div class="pop pop-{{type}}" style="display:none">
 		<div class="popclose" data-a="close_pop"></div>
-		<form target="node_upload_iframe" id="node_post_form" name="node_post_form" action="./api/index.php/node/post" method="post" enctype="multipart/form-data" >
 			<div class="pophd">
 				<div class="poptit">{{_e.UPLOAD}} {{type}}</div>
 			</div>
 			<div class="popbd">
-				<!--  -->
-				<div class="pop-inner pop-file">
-					<div id="fileupload">
-						<div class="popfile-drag-box"></div>
-						<ul class="step1-tips">
-							{{#ifvideo}}
-							<li>{{_e.PHOTO_FORMATE}}</li>
-							<li>{{_e.PHOTO_RESOLUTION}}</li>
-							<li>{{_e.PHOTO_SIZE}}</li>
-							{{else}}
-							<li>{{_e.PHOTO_FORMATE}}</li>
-							<li>{{_e.PHOTO_RESOLUTION}}</li>
-							<li>{{_e.PHOTO_SIZE}}</li>
-							{{/ifvideo}}
-						</ul>
-						<div class="error"></div>
-						<div class="step1-btns">
-							<div class="popfile-btn btn" id="select-btn" data-a="select_photo">
-								{{_e.SELECT}} {{type}}
-								<input type="file" name="file" accept="{{accept}}" />
-								<input type="hidden" name="type" value="{{type}}" />
-							</div>
-						</div>
-						<div class="step2-btns"><div class="popfile-btn btn" data-a="upload_photo">{{_e.UPLOAD}}</div><div class="popfile-btn btn" data-a="select_photo">{{_e.SELECT_AGAIN}}</div></div>
-					</div>
-				</div>
-				<!--  -->
-				<div class="pop-inner pop-load" style="display:none">
-					<div class="popload-icon-bg">
-						<div class="popload-icon"></div>
-					</div>
-					<div class="poploading">
-						<div class="popload-percent"><p></p></div>
-						<p>{{_e.UPLOAD_IN_PROGRESS}} ...</p>
-					</div>
-				</div>
-				<!--  -->
-				<div class="pop-inner pop-txt"  style="display:none">
-					<div class="poptxt-preview clear">
-						{{#if type}}
-						<div class="poptxt-pic">
-							<a class="pop-zoomout-btn" data-a="pop-zoomout-btn" href="#">Zoom In</a>
-							<a class="pop-zoomin-btn" data-a="pop-zoomin-btn" href="#">Zoom Out</a>
-							<a class="pop-rright-btn" data-a="pop-rright-btn" href="#">Turn Right</a>
-							<a class="pop-rleft-btn" data-a="pop-rleft-btn" href="#">Turn Left</a>
-							<div class="poptxt-pic-inner">
-								<img src="about:blank" />
-							</div>
-						</div>
-						{{else}}
-						<div class="poptxt-video-wrap">
-							<video id="poptxt-video" class="video-js vjs-big-play-centered vjs-default-skin" controls="controls" preload="none" width="100%" height="100%" poster="about:blank" data-setup="{}">
-								<source src="about:blank" type='video/mp4' />
-							</video>
-						</div>
-						{{/if}}
-						<textarea id="node-description" name="description" class="poptxt-textarea" placeholder="{{_e.ENTER_DESCRIPTION}}"></textarea>
-						<div class="error"></div>
-					</div>
-					<div class="poptxt-check btn">{{_e.UPLOAD_TERM}}<span class="error">{{_e.ERROR_CONDITION}}</span></div>
-					<div class="poptxt-btn clear">
-						<p class="poptxt-cancel btn" data-a="close_pop">{{_e.CANCEL}}</p>
-						<p class="poptxt-submit btn" data-a="save_node">{{_e.PUBLISH}} {{type}}</p>
-					</div>
-				</div>
-				<!--  -->
-				<div class="pop-inner pop-success">
-					{{_e.YOU_PUBLISHED}} {{type}}.
-				</div>
+        <form target="node_upload_iframe" id="node_post_form" name="node_post_form" action="./api/index.php/node/post" method="post" enctype="multipart/form-data" >
+          <!--  -->
+          <div class="pop-inner pop-file">
+            <div id="fileupload">
+              <div class="popfile-drag-box"></div>
+              <ul class="step1-tips">
+                {{#ifvideo}}
+                <li>{{_e.VIDEO_FORMATE}}</li>
+                <li>{{_e.VIDEO_RESOLUTION}}</li>
+                <li>{{_e.VIDEO_SIZE}}</li>
+                {{else}}
+                <li>{{_e.PHOTO_FORMATE}}</li>
+                <li>{{_e.PHOTO_RESOLUTION}}</li>
+                <li>{{_e.PHOTO_SIZE}}</li>
+                {{/ifvideo}}
+              </ul>
+              <div class="error"></div>
+              <div class="step1-btns">
+                <div class="popfile-btn btn" id="select-btn" data-a="select_photo">
+                  {{_e.SELECT}} {{type}}
+                  <input type="file" name="file" accept="{{accept}}" />
+                  <input type="hidden" name="type" value="{{type}}" />
+                </div>
+              </div>
+              <div class="step2-btns"><div class="popfile-btn btn" data-a="upload_photo">{{_e.UPLOAD}}</div><div class="popfile-btn btn" data-a="select_photo">{{_e.SELECT_AGAIN}}</div></div>
+            </div>
+          </div>
+          <!--  -->
+          <div class="pop-inner pop-load" style="display:none">
+            <div class="popload-icon-bg">
+              <div class="popload-icon"></div>
+            </div>
+            <div class="poploading">
+              <div class="popload-percent"><p></p></div>
+              <p>{{_e.UPLOAD_IN_PROGRESS}} ...</p>
+            </div>
+          </div>
+          <!--  -->
+          <div class="pop-inner pop-txt"  style="display:none">
+            <div class="poptxt-preview clear">
+              {{#if type}}
+              <div class="poptxt-pic">
+                <a class="pop-zoomout-btn" data-a="pop-zoomout-btn" href="#">Zoom In</a>
+                <a class="pop-zoomin-btn" data-a="pop-zoomin-btn" href="#">Zoom Out</a>
+                <a class="pop-rright-btn" data-a="pop-rright-btn" href="#">Turn Right</a>
+                <a class="pop-rleft-btn" data-a="pop-rleft-btn" href="#">Turn Left</a>
+                <div class="poptxt-pic-inner">
+                  <img src="about:blank" />
+                </div>
+              </div>
+              {{else}}
+              <div class="poptxt-video-wrap">
+                <video id="poptxt-video" class="video-js vjs-big-play-centered vjs-default-skin" controls="controls" preload="none" width="100%" height="100%" poster="about:blank" data-setup="{}">
+                  <source src="about:blank" type='video/mp4' />
+                </video>
+              </div>
+              {{/if}}
+              <textarea id="node-description" name="description" class="poptxt-textarea" placeholder="{{_e.ENTER_DESCRIPTION}}"></textarea>
+              <div class="error"></div>
+            </div>
+            <div class="poptxt-check btn">{{_e.UPLOAD_TERM}}<span class="error">{{_e.ERROR_CONDITION}}</span></div>
+            <div class="poptxt-btn clear">
+              <p class="poptxt-cancel btn" data-a="close_pop">{{_e.CANCEL}}</p>
+              <p class="poptxt-submit btn" data-a="save_node">{{_e.PUBLISH}} {{type}}</p>
+            </div>
+          </div>
+          <!--  -->
+          <div class="pop-inner pop-success">
+            {{_e.YOU_PUBLISHED}} {{type}}.
+          </div>
+          <iframe id='node_upload_iframe' name='node_upload_iframe' src=""></iframe>
+        </form>
+        <div id="node_post_flash"></div>
 			</div>
-			<iframe id='node_upload_iframe' name='node_upload_iframe' src=""></iframe>
-		</form>
 	</div>
 </script>
 
@@ -466,7 +467,6 @@
   <iframe src="wmv_player.php?file={{file}}" scrolling="no" frameborder="0"></iframe>
 </script>
 
-
 <!-- flash-player-tpl -->
 <script type="text/tpl" id="flash-player-template">
   <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="100%" height="100%">
@@ -479,6 +479,17 @@
   </object>
 </script>
 
+<!-- flash-uploder-tpl -->
+<script type="text/tpl" id="flash-uploader-template">
+  <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="443" height="330">
+    <param name="allowScriptAccess" value="always"/>
+    <param name="movie" value="flash/upload_photo.swf"/>
+    <param name="quality" value="high"/>
+    <param name="wmode" value="opaque"/>
+    <embed name="player" src="flash/upload_photo.swf" quality="high" wmode="opaque" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="443" height="330" allowScriptAccess="always"></embed>
+  </object>
+</script>
+
 <!-- blank-search-tpl -->
 <script type="text/tpl" id="blank-search-template">
 	<div class="blank-search">
@@ -488,7 +499,7 @@
 			{{_e.POPULAR_HASHTAGS}}:
 			<ul>
 				{{#each data}}
-				<li class="btn" data-a="search" data-d="tag={{tag}}">{{tag}}</li>
+				<li class="btn" data-a="search" data-d="tag={{tag}}">#{{tag}}</li>
 				{{/each}}
 			</ul>
 		</div>

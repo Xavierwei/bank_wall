@@ -85,6 +85,15 @@ msgstr ""
 msgid "PHOTO_SIZE"
 msgstr "La taille de votre fichier ne doit pas dépasser 5MB"
 
+msgid "VIDEO_FORMATE"
+msgstr "Votre vidéo doit être au format MOV, AVI, MPEG, MP4, WMV ou 3GP"
+
+msgid "VIDEO_RESOLUTION"
+msgstr "our une résolution optimale, merci d’utiliser un format d’au moins 400x400 px"
+
+msgid "VIDEO_SIZE"
+msgstr "La taille de votre fichier ne doit pas dépasser 7MB"
+
 msgid "SELECT"
 msgstr "Choisir un fichier"
 

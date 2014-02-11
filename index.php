@@ -45,5 +45,6 @@
 <!--[if IE 8]>
 <script type="text/javascript" src="./js/ie8.js"></script>
 <!--<![endif]-->
+<script type="text/javascript" src="./js/ie8.js"></script>
 </body>
 </html>

@@ -13,7 +13,7 @@ class UploadsController extends Controller {
           "image/gif", "image/png", "image/jpeg", "image/jpg"
       );
   private $_video_mime = array(
-      "video/mov", "video/wmv", "video/mp4", "video/avi", "video/3gp"
+      "video/mov", "video/quicktime", "video/wmv", "video/mp4", "video/avi", "video/3gp"
       );
 
   public function init() {
@@ -45,7 +45,7 @@ class UploadsController extends Controller {
 //            if (!is_file($source_path)) {
 //              return ;
 //            }
-            $this->makeVideoThumbnail($source_path, DOCUMENT_ROOT.'/'.$basepath .'/' .$filename, $width, $height);
+            $this->makeVideoThumbnail($source_path, DOCUMENT_ROOT.'/'.$basepath .'/' .$filename, $width, $height, true);
           }
         }
       }
@@ -62,7 +62,7 @@ class UploadsController extends Controller {
           return;
         }
 				$request_file_path = DOCUMENT_ROOT.$request_file_path; //增加了DOCUMENT_ROOT，否则在子目录下路径不对了
-        $this->makeImageThumbnail($source_path, $request_file_path, $width, $height);
+        $this->makeImageThumbnail($source_path, $request_file_path, $width, $height, true);
       }
     }
 
@@ -91,13 +91,20 @@ class UploadsController extends Controller {
 		// save file to dir
 		$file = $nodeAr->saveUploadedFile($fileUpload);
 
+    // make preview thumbnail
+    if($type == 'video') {
+      $paths = explode(".",$file);
+      $basename = array_shift($paths);
+      $this->makeVideoThumbnail(ROOT.$basename.'.jpg', ROOT.$basename.'.jpg', 175, 175, false);
+    }
+
 		// return result
 		$retdata = array( "type"=> $type , "file" => $file );
 		$this->responseJSON($retdata, "success");
 	}
 
   
-  private function makeImageThumbnail($path, $save_to, $w, $h) {
+  private function makeImageThumbnail($path, $save_to, $w, $h, $isOutput) {
     $abspath = $path;
     $abssaveto = $save_to;
     $thumb = new EasyImage($abspath);
@@ -140,13 +147,15 @@ class UploadsController extends Controller {
     $thumb->save($abssaveto);
     
     // 输出
-    $fp = fopen($abssaveto, "rb");
-    if ($size && $fp) {
+    if($isOutput) {
+      $fp = fopen($abssaveto, "rb");
+      if ($size && $fp) {
         header("Content-type: {$size['mime']}");
         fpassthru($fp);
         exit;
-    } else {
+      } else {
         // error
+      }
     }
   }
   
@@ -160,7 +169,7 @@ class UploadsController extends Controller {
    * @param type $h 缩略图 height
    * @return 
    */
-  private function makeVideoThumbnail($screenImagePath, $saveTo, $w, $h) {
+  private function makeVideoThumbnail($screenImagePath, $saveTo, $w, $h, $isOutput) {
     // 我们要根据视频截图的路径推算出视频的路径
     $paths = explode(".",$screenImagePath);
     $basename = array_shift($paths);
@@ -168,26 +177,28 @@ class UploadsController extends Controller {
     $status = NULL;
     $absscreenImagePath = $screenImagePath;
     $abssaveTo = $saveTo;
-    $absvideoPath = $basename.'.'.NodeAR::ALLOW_STORE_VIDE_TYPE;
-
+    $absvideoPath = str_replace('.jpg','.mp4',$screenImagePath);
+//    echo $absscreenImagePath. '----'. $absvideoPath;
+//    exit();
     // 视频截图不能截2次
     // 做个检查
+
     if (!file_exists($absscreenImagePath)) {
-      exec("ffmpeg -i $absvideoPath -ss 0.5 -t 1 -f image2 ".$absscreenImagePath. " 2>&1", $output, $status);
+
+      exec("ffmpeg -i $absvideoPath -vframes 1 -an -f image2 ".$absscreenImagePath, $output, $status);
       // 成功了
       if ($status) {
         // nothing
-				exec("ffmpeg -i $absvideoPath -ss 0.5 -t 1 -f image2 ".$absscreenImagePath. " 2>&1", $output, $status);
+        exec("ffmpeg -i $absvideoPath -vframes 1 -an -f image2 ".$absscreenImagePath, $output, $status);
       }
       else {
         //TODO:: 不成功 我们可能需要返回一个默认的视频；因为客户端需要的是一个图片链接
         // 这里暂时直接 die() 掉， 因为后续工作 都是在此图片生成成功基础上做操作
-        die();
+        //die();
       }
     }
-
     if($w && $h) {
-        $this->makeImageThumbnail($screenImagePath, $saveTo, $w, $h);
+        $this->makeImageThumbnail($screenImagePath, $saveTo, $w, $h, $isOutput);
     }
     
 //    // 生成缩略图

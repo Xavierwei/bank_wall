@@ -83,6 +83,15 @@ msgstr "For optimal resolution, thank you use a format of at least 450x450 px"
 msgid "PHOTO_SIZE"
 msgstr "The size of your image file should not exceed 5MB"
 
+msgid "VIDEO_FORMATE"
+msgstr "Your video must be to MOV, AVI, MPEG, MP4, WMV or 3GP"
+
+msgid "VIDEO_RESOLUTION"
+msgstr "For optimal resolution, thank you use a format at least 400x400 px"
+
+msgid "VIDEO_SIZE"
+msgstr "The size of your image file should not exceed 7MB"
+
 msgid "SELECT"
 msgstr "Select"
 

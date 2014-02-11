@@ -5,3 +5,8 @@
     <input name="user" type="text" />
     <input type="submit" value="submit" />
 </form>
+
+
+ffmpeg -i "4f78745fc067c55e9dc325d3816ef339.mp4" -ss 0.5 -t 1 -f image2 "4f78745fc067c55e9dc325d3816ef339.jpg" 2>&1
+
+ffmpeg -i "4f78745fc067c55e9dc325d3816ef339.mp4" -vframes 1 -an -f image2 "4f78745fc067c55e9dc325d3816ef339.jpg"

@@ -156,14 +156,29 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             }
         })
         .delegate('textarea, input','focus',function(){
-            if(!isIE8) {
-                return;
-            }
-            if($(this).attr('placeholder'))
-            {
+            if(isIE8) {
                 $(this).val('');
                 $(this).removeAttr('placeholder');
+            } else {
+                var placeholder = $(this).attr('placeholder');
+                if(placeholder)
+                {
+                    $(this).data('placeholder', placeholder);
+                    $(this).removeAttr('placeholder');
+                }
             }
+        })
+        .delegate('textarea, input','blur',function(){
+            if(!isIE8) {
+                var placeholder = $(this).data('placeholder');
+                if(placeholder)
+                {
+                    $(this).attr('placeholder', placeholder);
+                }
+            }
+        })
+        .delegate('video','click',function(){
+            $(this)[0].pause();
         })
 
         // click to hide select options
@@ -584,9 +599,9 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 });
 
             // loading comments
-//            bindCommentSubmisson();
-//            _waitingCommentListAjax = false;
-//            getCommentList(node.nid,1);
+            bindCommentSubmisson();
+            _waitingCommentListAjax = false;
+            getCommentList(node.nid,1);
 
             LP.use(['jscrollpane' , 'mousewheel'] , function(){
                 $('.com-list').jScrollPane({autoReinitialise:true}).bind(
@@ -597,7 +612,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                             var commentParam = $('.comment-wrap').data('param');
                             var page = commentParam ?  commentParam.page : 0;
                             getCommentList(node.nid,page + 1);
-                            console.log('Append next page');
+                            //console.log('Append next page');
                         }
                     }
                 );
@@ -718,6 +733,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         node.date = datetime.getDate();
         node.month = getMonth((parseInt(datetime.getMonth()) + 1));
         node.currentUser = $('.side').data('user');
+        node.image = node.file.replace( node.type == "video" ? '.mp4' : '.jpg', BIG_IMG_SIZE + '.jpg');
         node.timestamp = (new Date()).getTime();
         if(!node.user.avatar) {
             node.user.avatar = "/uploads/default_avatar.gif";
@@ -902,7 +918,6 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
         _currentNodeIndex++;
         var nodes = $dom.data('nodes');
-        console.log( 'nodes.length : ' + nodes.length );
         var node = nodes[ _currentNodeIndex ];
         if( !node ){
             // if no more data
@@ -915,7 +930,6 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             }
             //ajax to get more node
             var param = $dom.data('param');
-            console.log( param );
             param.page++;
             $dom.data('param' , param);
             // show loading 
@@ -1107,13 +1121,23 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 transformMgr.initialize();
             }
             if(isIE8) {
-                $('#select-btn input').change(function(){
-                    $('.pop-inner').delay(400).fadeOut(400);
-                    $('.pop-txt').delay(1200).fadeIn(400);
-                });
-                $('#node_post_form').append('<input name="iframe" value="true" type="hidden" />');
-                $('#node-description').val($('#node-description').attr('placeholder'));
-                return;
+                LP.use('flash-detect', function(){
+                    if(FlashDetect.installed) {
+                        $('#node_post_form').hide();
+                        LP.compile( "flash-uploader-template" , {},  function( html ){
+                            $('#node_post_flash').show().append(html);
+                        });
+                    }
+                    else {
+                        $('#select-btn input').change(function(){
+                            $('.pop-inner').delay(400).fadeOut(400);
+                            $('.pop-txt').delay(1200).fadeIn(400);
+                        });
+                        $('#node_post_form').append('<input name="iframe" value="true" type="hidden" />');
+                        $('#node-description').val($('#node-description').attr('placeholder'));
+                    }
+                    return;
+                })
             }
             LP.use('fileupload' , function(){
                 $fileupload.fileupload({
@@ -1466,7 +1490,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         $countryList.empty();
         api.ajax('countryList', function( result ){
             $.each(result, function(index, item){
-                var html = '<p data-id="' + item.country_id + '">' + item.country + '</p>';
+                var html = '<p data-id="' + item.country_id + '">' + item.country_name + '</p>';
                 $countryList.append(html);
             });
         });
@@ -2107,7 +2131,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 $countryList.append('<p data-api="recent">All</p>');
                 api.ajax('countryList', function( result ){
                     $.each(result, function(index, item){
-                        var html = '<p data-param="country_id=' + item.country_id + '" data-api="recent">' + item.country + '</p>';
+                        var html = '<p data-param="country_id=' + item.country_id + '" data-api="recent">' + item.country_name + '</p>';
                         $countryList.append(html);
                     });
                     LP.use(['jscrollpane' , 'mousewheel'] , function(){
@@ -2135,9 +2159,9 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                                 }
                             });
                         },
-                        minLength: 2,
+                        minLength: 1,
                         select: function( event, ui ) {
-                            console.log(ui);
+                            //console.log(ui);
                         }
                     });
                 });
@@ -2310,7 +2334,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
         // Resize Comment Box
         var $comList = $('.com-list');
-        var comListHeight = $(window).height() - 525;
+        var comListHeight = $(window).height() - 565;
         $comList.height(comListHeight);
 
         // Resize Image

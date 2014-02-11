@@ -3,10 +3,12 @@
 class CountryController extends Controller {
   
   public function actionList() {
-    $request = Yii::app()->getRequest(); 
-    
+    $request = Yii::app()->getRequest();
+
+    $query = new CDbCriteria();
+    $query->order = 'country_name';
     $countryAr = new CountryAR();
-    $list = $countryAr->findAll();
+    $list = $countryAr->findAll($query);
     
     $retdata = array();
     foreach ($list as $country) {

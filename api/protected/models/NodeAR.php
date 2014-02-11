@@ -153,8 +153,6 @@ class NodeAR extends CActiveRecord{
   }
   
   public function afterSave() {
-      $file = $this->file;
-      $nid = $this->nid;
       $type = $this->type;
       if ($type == "photo") {
           $name = "p". $this->nid;
@@ -174,9 +172,9 @@ class NodeAR extends CActiveRecord{
         rename(ROOT.$this->file, ROOT. $newpath);
         // 文件重命名后 修改数据库
         $this->updateByPk($this->nid, array("file" => $newpath));
-
         $this->file = $newpath;
       }
+
 
 			// Generate WMV for no flash IE8
       if ($type == "video") {
@@ -223,7 +221,7 @@ class NodeAR extends CActiveRecord{
 			}
 			$mime = $fileUpload->getType();
 			$allowMime = array(
-				"video/mov", "video/wmv", "video/mp4", "video/avi", "video/3gp"
+				"video/mov", "video/quicktime", "video/wmv", "video/mp4", "video/avi", "video/3gp"
 			);
 			if (!in_array($mime, $allowMime)) {
 				return 502; //video media type is not allowed

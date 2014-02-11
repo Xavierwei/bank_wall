@@ -73,7 +73,7 @@ a{text-decoration:none;color:#666}
 .logged .search-hd {margin:18px 0 18px 90px;}
 .no-results {color:#afafaf;text-align: center;font-size: 14px;background: url('../img/no-results.png') no-repeat center 60px;padding:200px 0 42px;}
 .no-results-line {width:75px;border-bottom:1px solid #777;margin:0 auto;}
-.popular-hashtags {text-align: center;color:#545454;margin-top:40px;}
+.popular-hashtags {text-align: center;color:#777;margin-top:40px;}
 .popular-hashtags ul {font-size:18px;margin-top:15px;}
 .popular-hashtags ul li {margin:4px 0;}
 
@@ -278,7 +278,8 @@ a{text-decoration:none;color:#666}
     .search-tip-modal .cancel {background:#90918e;font-size:15px;color:#fff;width:120px;height:40px;line-height:40px;border:none;margin:25px auto 0 auto;display:block;}
     .pop-avatar .poptxt-pic-inner {width:220px;height:220px;}
     .pop-avatar .poptxt-pic {float:none;margin:0 auto;}
-
+    #node_post_flash {text-align: center;}
+    .pop-video .pop-zoomout-btn, .pop-video .pop-zoomin-btn {display:none;}
 
 /* comment Used
 ================================================================================================= */
