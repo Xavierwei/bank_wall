@@ -2821,3 +2821,543 @@ REQUEST_URI=/bank_wall/api/index.php/uploads/upload
 in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
 in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
 in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php (103)
+2014/02/11 17:20:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('Applications/MA...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg
+HTTP_REFERER=http://localhost/bank_wall/index
+---
+2014/02/11 17:56:30 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(110): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(201): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(98): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): UploadsController->actionUpload()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): UploadsController->runAction()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): UploadsController->runActionWithFilters()
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/uploads/upload
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/11 17:58:42 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(111): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(202): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(99): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): UploadsController->actionUpload()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): UploadsController->runAction()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): UploadsController->runActionWithFilters()
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/uploads/upload
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/11 17:59:12 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(110): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(201): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(98): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): UploadsController->actionUpload()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): UploadsController->runAction()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): UploadsController->runActionWithFilters()
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/uploads/upload
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/11 18:00:15 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(110): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(201): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(98): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): UploadsController->actionUpload()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): UploadsController->runAction()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): UploadsController->runActionWithFilters()
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/uploads/upload
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/11 18:07:41 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(110): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(201): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(98): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): UploadsController->actionUpload()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): UploadsController->runAction()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): UploadsController->runActionWithFilters()
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/uploads/upload
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/11 18:15:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('Applications/MA...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg
+HTTP_REFERER=http://localhost/bank_wall/index
+---
+2014/02/11 18:16:06 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(110): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(201): UploadsController->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(98): UploadsController->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): UploadsController->actionUpload()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): UploadsController->runAction()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): UploadsController->runActionWithFilters()
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/uploads/upload
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/11 19:07:22 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php:262) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): UploadsController->responseJSON()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): UploadsController->actionUpload()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): UploadsController->runAction()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): UploadsController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/uploads/upload
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php (103)
+2014/02/11 19:07:47 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php:263) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): UploadsController->responseJSON()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): UploadsController->actionUpload()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): UploadsController->runAction()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): UploadsController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/uploads/upload
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php (103)
+2014/02/11 19:08:11 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php:264) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): UploadsController->responseJSON()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): UploadsController->actionUpload()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): UploadsController->runAction()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): UploadsController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/uploads/upload
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php (103)
+2014/02/11 19:08:33 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php:264) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): UploadsController->responseJSON()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): UploadsController->actionUpload()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): UploadsController->runAction()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): UploadsController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/uploads/upload
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php (103)
+2014/02/11 19:12:03 [error] [exception.CException] exception 'CException' with message 'Property "CUploadedFile._tempName" is not defined.' in /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CComponent.php:130
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php(263): CComponent->__get('_tempName')
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(92): NodeAR->saveUploadedFile(Object(CUploadedFile))
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): UploadsController->actionUpload()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('upload')
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('uploads/upload')
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#10 {main}
+REQUEST_URI=/bank_wall/api/index.php/uploads/upload
+HTTP_REFERER=http://localhost/bank_wall/index
+---
+2014/02/11 19:12:25 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php:256) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): UploadsController->responseJSON()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): UploadsController->actionUpload()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): UploadsController->runAction()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): UploadsController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/uploads/upload
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php (103)
+2014/02/11 19:12:59 [error] [php] Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php:256) (/Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php:59)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(103): UploadsController->responseJSON()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): UploadsController->actionUpload()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): UploadsController->runAction()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): UploadsController->runActionWithFilters()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/index.php/uploads/upload
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php (103)
+2014/02/11 19:14:38 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (189)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (64)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/11 19:14:38 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (189)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (64)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/11 19:14:38 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (189)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (64)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/11 19:14:38 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('Applications/MA...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg
+HTTP_REFERER=http://localhost/bank_wall/index
+---
+2014/02/11 19:14:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('Applications/MA...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg
+HTTP_REFERER=http://localhost/bank_wall/index
+---
+2014/02/11 19:17:04 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (189)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (64)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/11 19:17:04 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (189)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (64)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/11 19:17:04 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (189)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (64)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/11 19:17:05 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('Applications/MA...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg
+HTTP_REFERER=http://localhost/bank_wall/index
+---
+2014/02/11 19:26:08 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (193)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (64)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/11 19:26:08 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (193)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (64)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/11 19:26:08 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (193)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (64)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/11 19:26:08 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('Applications/MA...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg
+HTTP_REFERER=http://localhost/bank_wall/index
+---
+2014/02/11 19:34:52 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('Applications/MA...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg
+HTTP_REFERER=http://localhost/bank_wall/index
+---
+2014/02/11 19:34:59 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php(337): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php(428): NodeAR->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): NodeAR->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v353_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/11 19:34:59 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php(337): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php(428): NodeAR->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): NodeAR->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v355_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/11 19:34:59 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php(337): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php(428): NodeAR->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): NodeAR->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v351_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/11 19:34:59 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php(337): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php(428): NodeAR->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): NodeAR->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v349_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/11 19:35:33 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('Applications/MA...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg
+HTTP_REFERER=http://localhost/bank_wall/index
+---
+2014/02/11 19:35:34 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php(337): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php(428): NodeAR->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): NodeAR->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v355_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/11 19:35:34 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php(337): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php(428): NodeAR->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): NodeAR->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v353_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/11 19:35:34 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php(337): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php(428): NodeAR->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): NodeAR->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v351_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/11 19:35:34 [error] [php] getimagesize(): Filename cannot be empty (/Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php:96)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php(53): Image_GD->__construct()
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/EasyImage.php(71): factory()
+#2 /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php(337): EasyImage->__construct()
+#3 /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php(428): NodeAR->makeImageThumbnail()
+#4 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php(48): NodeAR->makeVideoThumbnail()
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): UploadsController->missingAction()
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): UploadsController->run()
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/uploads/2014/2/10/v349_250_250.jpg
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (96)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image_GD.php (82)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/extensions/easyimage/drivers/Image.php (53)
+2014/02/11 19:35:47 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (193)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (64)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/11 19:35:47 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (193)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (64)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/11 19:35:47 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (193)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (64)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/11 19:36:11 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (193)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (64)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/11 19:36:11 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (193)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (64)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/11 19:36:11 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (193)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (64)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/11 19:38:28 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (193)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (64)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/11 19:38:28 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (193)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (64)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/11 19:38:28 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (193)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (64)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/11 19:54:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "index/country/list".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('index/country/l...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/index/country/list
+---
+2014/02/11 19:55:05 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "index/country".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('index/country')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/index/country
+---
+2014/02/11 19:55:09 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "index/country/list".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('index/country/l...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/index/country/list
+---
+2014/02/11 19:55:15 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "index/country/list".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('index/country/l...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/index/country/list
+---
+2014/02/11 19:55:20 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "index/country/list".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('index/country/l...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/index/country/list
+---
+2014/02/11 19:55:20 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "index/country/list".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('index/country/l...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/index/country/list
+---

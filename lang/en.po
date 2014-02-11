@@ -122,7 +122,7 @@ msgid "THANKS_COMMENT"
 msgstr "Thanks for your comment!"
 
 msgid "LOGIN_BEFORE_COMMENT"
-msgstr "You need login before comment."
+msgstr "You have to be logged in before posting a comment"
 
 msgid "LOGIN_BEFORE_LIKE"
 msgstr "You need login before like."
@@ -150,6 +150,9 @@ msgstr "Submit"
 
 msgid "WRITE_YOUR_COMMENT"
 msgstr "Write your comment ..."
+
+msgid "FIRST_COMMENT"
+msgstr "Be the first to comment this content"
 
 msgid "PHOTOS_POSTED"
 msgstr "Photos posted"
@@ -238,6 +241,9 @@ msgstr "The description is limited to 140 characters."
 msgid "ERROR_DESCRIPTION_ILLEGAL"
 msgstr "The hashtag can\'t include illegal characters"
 
+msgid "ERROR_WRONG_USERNAME_PASSWORD"
+msgstr "Wrong login or password."
+
 msgid "DAY"
 msgstr "day"
 
@@ -276,3 +282,235 @@ msgstr "November"
 
 msgid "DECEMBER"
 msgstr "December"
+
+msgid "ALBANIA"
+msgstr "Albania"
+
+msgid "ALGERIA"
+msgstr "Algeria"
+
+msgid "ARABIA"
+msgstr "Arabia"
+
+msgid "ARGENTINA"
+msgstr "Argentina"
+
+msgid "AUSTRALIA"
+msgstr "Australia"
+
+msgid "AUSTRIA"
+msgstr "Austria"
+
+msgid "BAHAMAS"
+msgstr "Bahamas"
+
+msgid "BELGIUM"
+msgstr "Belgium"
+
+msgid "BENIN"
+msgstr "Benin"
+
+msgid "BRAZIL"
+msgstr "Brazil"
+
+msgid "BULGARIA"
+msgstr "Bulgaria"
+
+msgid "BURKINA_FASO"
+msgstr "Burkina Faso"
+
+msgid "CANADA"
+msgstr "Canada"
+
+msgid "CHAD"
+msgstr "Chad"
+
+msgid "CHILE"
+msgstr "Chile"
+
+msgid "CHINA"
+msgstr "China"
+
+msgid "CROATIA"
+msgstr "Croatia"
+
+msgid "CYPRUS"
+msgstr "Cyprus"
+
+msgid "CZECH_REPUBLIC"
+msgstr "Czech Republic"
+
+msgid "DENMARK"
+msgstr "Denmark"
+
+msgid "EGYPT"
+msgstr "Egypt"
+
+msgid "EQUATORIAL_GUINEA"
+msgstr "Equatorial Guinea"
+
+msgid "ESTONIA"
+msgstr "Estonia"
+
+msgid "FINLAND"
+msgstr "Finland"
+
+msgid "FRANCE"
+msgstr "France"
+
+msgid "GEORGIA"
+msgstr "Georgia"
+
+msgid "GERMANY"
+msgstr "Germany"
+
+msgid "GHANA"
+msgstr "Ghana"
+
+msgid "GREECE"
+msgstr "Greece"
+
+msgid "GUINEA"
+msgstr "Guinea"
+
+msgid "HUNGARY"
+msgstr "Hungary"
+
+msgid "INDIA"
+msgstr "India"
+
+msgid "IRELAND"
+msgstr "Ireland"
+
+msgid "ITALY"
+msgstr "Italy"
+
+msgid "JAPAN"
+msgstr "Japan"
+
+msgid "JORDAN"
+msgstr "Jordan"
+
+msgid "KOREA"
+msgstr "Korea"
+
+msgid "LATVIA"
+msgstr "Latvia"
+
+msgid "LEBANON"
+msgstr "Lebanon"
+
+msgid "LITHUANIA"
+msgstr "Lithuania"
+
+msgid "LUXEMBOURG"
+msgstr "Luxembourg"
+
+msgid "MACEDONIA"
+msgstr "Macedonia"
+
+msgid "MADAGASCAR"
+msgstr "Madagascar"
+
+msgid "MAURITANIA"
+msgstr "Mauritania"
+
+msgid "MEXICO"
+msgstr "Mexico"
+
+msgid "MOLDOVA"
+msgstr "Moldova"
+
+msgid "MOROCCO"
+msgstr "Morocco"
+
+msgid "NETHERLANDS"
+msgstr "Netherlands"
+
+msgid "NEW_CALEDONIA"
+msgstr "New Caledonia"
+
+msgid "NORWAY"
+msgstr "Norway"
+
+msgid "PANAMA"
+msgstr "Panama"
+
+msgid "PERU"
+msgstr "Peru"
+
+msgid "POLAND"
+msgstr "Poland"
+
+msgid "PORTUGAL"
+msgstr "Portugal"
+
+msgid "REPUBLIC_OF_IVORY_COAST"
+msgstr "Republic of Ivory Coast"
+
+msgid "REPUBLIC_OF_MONTENEGRO"
+msgstr "Republic of Montenegro"
+
+msgid "REUNION"
+msgstr "Reunion"
+
+msgid "ROMANIA"
+msgstr "Romania"
+
+msgid "RUSSIAN_FEDERATION"
+msgstr "Russian Federation"
+
+msgid "SAUDI"
+msgstr "Saudi"
+
+msgid "SENEGAL"
+msgstr "Senegal"
+
+msgid "SERBIA"
+msgstr "Serbia"
+
+msgid "SINGAPORE"
+msgstr "Singapore"
+
+msgid "SLOVAKIA"
+msgstr "Slovakia"
+
+msgid "SLOVENIA"
+msgstr "Slovenia"
+
+msgid "SOUTH_AFRICA"
+msgstr "South Africa"
+
+msgid "SPAIN"
+msgstr "Spain"
+
+msgid "SWEDEN"
+msgstr "Sweden"
+
+msgid "SWITZERLAND"
+msgstr "Switzerland"
+
+msgid "TUNISIA"
+msgstr "Tunisia"
+
+msgid "TURKEY"
+msgstr "Turkey"
+
+msgid "UK"
+msgstr "UK"
+
+msgid "UKRAINE"
+msgstr "Ukraine"
+
+msgid "UNITED_ARAB_EMIRATES"
+msgstr "United Arab Emirates"
+
+msgid "URUGUAY"
+msgstr "Uruguay"
+
+msgid "USA"
+msgstr "USA"
+
+msgid "VIETNAM"
+msgstr "Vietnam"
+

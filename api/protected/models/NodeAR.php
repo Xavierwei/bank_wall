@@ -27,9 +27,11 @@ class NodeAR extends CActiveRecord{
   public $like = array();
 
 	public $flag = array();
-  
-  // 这个只是允许上传的视频格式
-  const ALLOW_UPLOADED_VIDEO_TYPES = "mp4,avi,mov,mpg,3pg,wmv";
+
+
+	const ALLOW_UPLOADED_PHOTO_TYPES = "jpg,png,gif";
+
+  const ALLOW_UPLOADED_VIDEO_TYPES = "mp4,avi,mov,mpg,mpeg,3pg,wmv";
 
   // 其他格式的视频需要转换到这个指定的格式
   const ALLOW_STORE_VIDE_TYPE = "mp4";
@@ -173,7 +175,11 @@ class NodeAR extends CActiveRecord{
         // 文件重命名后 修改数据库
         $this->updateByPk($this->nid, array("file" => $newpath));
         $this->file = $newpath;
+				$this->makeVideoThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_250_250.jpg', $newpath), 250, 250, false);
+				$this->makeVideoThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_800_800.jpg', $newpath), 800, 800, false);
       }
+
+
 
 
 			// Generate WMV for no flash IE8
@@ -221,7 +227,7 @@ class NodeAR extends CActiveRecord{
 			}
 			$mime = $fileUpload->getType();
 			$allowMime = array(
-				"video/mov", "video/quicktime", "video/wmv", "video/mp4", "video/avi", "video/3gp"
+				"video/mov", "video/quicktime", "video/x-msvideo", "video/x-ms-wmv", "video/wmv", "video/mp4", "video/mpeg", "video/avi", "video/3gp"
 			);
 			if (!in_array($mime, $allowMime)) {
 				return 502; //video media type is not allowed
@@ -250,11 +256,25 @@ class NodeAR extends CActiveRecord{
     
     $extname = strtolower(pathinfo($upload->getName(), PATHINFO_EXTENSION));
 
-    $filename = md5( uniqid() . '_' . $upload->getName() ) . '.' . $extname ;
-
+    $filename = md5( uniqid() . '_' . $upload->getName() ) . '.jpg' ;
     $to = $dir."/". $filename;
-    $ret = $upload->saveAs($to);
-    
+    //$ret = $upload->saveAs($to);
+
+		$photoexts = explode(",", self::ALLOW_UPLOADED_PHOTO_TYPES);
+		if (in_array($extname, $photoexts)) {
+			switch($extname) {
+				case 'gif':
+					$srcImg = imagecreatefromgif($upload->tempName);
+					break;
+				case 'png':
+					$srcImg = imagecreatefrompng($upload->tempName);
+					break;
+				default:
+					$srcImg = imagecreatefromjpeg($upload->tempName);
+			}
+			imagejpeg($srcImg, $to, 90);
+		}
+
     // 检查是不是视频， 如果是, 就就做视频转换工作
     $videoexts = explode(",", self::ALLOW_UPLOADED_VIDEO_TYPES);
     if (in_array($extname, $videoexts)) {
@@ -272,24 +292,28 @@ class NodeAR extends CActiveRecord{
             $output;
             // 视频转换
             switch($extname) {
-              case 'mpg':
+							case 'mpg':
+								exec("ffmpeg -i {$to} -c:v libx264 -c:a libfaac -r 30 {$newpath}", $output, $status);
+								break;
+              case 'mpeg':
                 exec("ffmpeg -i {$to} -c:v libx264 -c:a libfaac -r 30 {$newpath}", $output, $status);
                 break;
               case 'mov':
                 exec("ffmpeg -i {$to} -vcodec copy -acodec copy {$newpath}", $output, $status);
                 break;
 							case 'wmv':
-								exec("ffmpeg -i {$to} -strict -2 -s size {$newpath}", $output, $status);
+								exec("ffmpeg -i {$to} -strict -2 {$newpath}", $output, $status);
 								break;
 							case '3gp':
 								exec("ffmpeg -i {$to} -strict -2 -ab 64k -ar 44100 {$newpath}", $output, $status);
 								break;
 							case 'avi':
-								exec("ffmpeg -i {$to} -pix_fmt yuv420p -crf 19 -ac 2 {$newpath}", $output, $status);
+								exec("ffmpeg -i {$to} -acodec libfaac -b:a 128k -vcodec mpeg4 -b:v 1200k -flags +aic+mv4 {$newpath}", $output, $status);
 								break;
               default:
                 exec("ffmpeg -i {$to}  -vcodec mpeg4 -b:v 1200k -flags +aic+mv4 {$newpath}", $output, $status);
             }
+
             
             // 视频转换完后 要删掉之前的视频文件
             unlink($to);
@@ -304,6 +328,107 @@ class NodeAR extends CActiveRecord{
     $to = str_replace(ROOT, "", $to);
     return $to;
   }
+
+
+
+	public function makeImageThumbnail($path, $save_to, $w, $h, $isOutput) {
+		$abspath = $path;
+		$abssaveto = $save_to;
+		$thumb = new EasyImage($abspath);
+
+		// 这里需要做下调整
+
+		$size = getimagesize($abspath);
+		$s_w = $size[0];
+		$s_h = $size[1];
+
+		$r1 = $w / $s_w;
+		$r2 = $h / $s_h;
+		$widthSamller = TRUE;
+		if ($r1 > $r2) {
+			$r = $r1;
+		}
+		else {
+			$widthSamller = FALSE;
+			$r = $r2;
+		}
+		$t_w = $r * $s_w;
+		$t_h = $r * $s_h;
+
+		// 先等比例 resize
+		$thumb->resize($t_w, $t_h);
+		// 再裁剪
+		// 裁剪 多余的宽
+		if (!$widthSamller) {
+			$start_x = ($t_w - $w)/2;
+			$start_y = 0;
+			$thumb->crop($w, $h, $start_x, $start_y);
+		}
+		// 裁剪多余的 高
+		else {
+			$start_x = 0;
+			$start_y = ($t_h - $h);
+			$thumb->crop($w, $h, $start_x, $start_y);
+		}
+
+		$thumb->save($abssaveto);
+
+		// 输出
+		if($isOutput) {
+			$fp = fopen($abssaveto, "rb");
+			if ($size && $fp) {
+				header("Content-type: {$size['mime']}");
+				fpassthru($fp);
+				exit;
+			} else {
+				// error
+			}
+		}
+	}
+
+	/**
+	 * 这个函数有2步；
+	 * 第一步 生成视频截图
+	 * 第二步 生成缩略图
+	 * @param type $screenImagePath 视频截图的相对路径
+	 * @param type $saveTo 缩略图保存路径
+	 * @param type $w 缩略图 width
+	 * @param type $h 缩略图 height
+	 * @return
+	 */
+	public function makeVideoThumbnail($screenImagePath, $saveTo, $w, $h, $isOutput) {
+		// 我们要根据视频截图的路径推算出视频的路径
+		$paths = explode(".",$screenImagePath);
+		$basename = array_shift($paths);
+		$output = NULL;
+		$status = NULL;
+		$absscreenImagePath = $screenImagePath;
+		$abssaveTo = $saveTo;
+		$absvideoPath = str_replace('.jpg','.mp4',$screenImagePath);
+//    echo $absscreenImagePath. '----'. $absvideoPath;
+//    exit();
+		// 视频截图不能截2次
+		// 做个检查
+
+		if (!file_exists($absscreenImagePath)) {
+
+			exec("ffmpeg -i $absvideoPath -vframes 1 -an -f image2 ".$absscreenImagePath, $output, $status);
+			// 成功了
+			if ($status) {
+				// nothing
+				exec("ffmpeg -i $absvideoPath -vframes 1 -an -f image2 ".$absscreenImagePath, $output, $status);
+			}
+			else {
+				//TODO:: 不成功 我们可能需要返回一个默认的视频；因为客户端需要的是一个图片链接
+				// 这里暂时直接 die() 掉， 因为后续工作 都是在此图片生成成功基础上做操作
+				//die();
+			}
+		}
+		if($w && $h) {
+			$this->makeImageThumbnail($screenImagePath, $saveTo, $w, $h, $isOutput);
+		}
+
+	}
 
 	public function cropPhoto($file, $x, $y, $width) {
 		list($srcWidth, $srcHeight) = getimagesize(ROOT.$file);

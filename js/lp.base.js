@@ -1154,7 +1154,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
             var $fileupload = $('#fileupload');
             if(type == 'video') {
-                acceptFileTypes = /(\.|\/)(mov|wmv|mp4|avi|3gp)$/i;
+                acceptFileTypes = /(\.|\/)(mov|wmv|mp4|avi|mpg|mpeg|3gp)$/i;
                 var maxFileSize = 7 * 1024000;
             } else {
                 acceptFileTypes = /(\.|\/)(gif|jpe?g|png)$/i;
@@ -1209,6 +1209,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                         var rate = data._progress.loaded / data._progress.total * 100;
                         $('.popload-percent p').css({width:rate + '%'});
                     })
+                    //TODO failed.
                     .bind('fileuploaddone', function (e, data) {
 
                         if(!data.result.success) {
@@ -1232,7 +1233,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
                             if(rdata.type == 'video') {
                                 $('.poptxt-pic img').attr('src', API_FOLDER + rdata.file.replace('.mp4', /*THUMBNAIL_IMG_SIZE + */'.jpg'));
-                                // TODO:: why need timeout? 
+                                // TODO:: why need timeout?
                                 setTimeout(function(){
                                     $('.poptxt-pic img').attr('src',$('.poptxt-pic img').attr('src') + '?' + new Date().getTime() );
                                 },2000);
@@ -1404,6 +1405,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         // get image scale , rotate , zoom arguments
         if(data.type == 'photo') {
             var trsdata = transformMgr.result();
+            delete trsdata.src;
         }
 
         api.ajax('saveNode' , $.extend( {file: data.file, type: data.type, description: description} , trsdata ), function( result ){
