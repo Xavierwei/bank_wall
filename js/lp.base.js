@@ -2403,8 +2403,14 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         var imgBoxWidth = $(window).width() - 330 - slideWidth;
         var imgBoxHeight =$(window).height() - $('.header').height();
         var minSize = Math.min( imgBoxHeight , imgBoxWidth );
-        var $img = $('.image-wrap-inner img');
+        var $img = $('.image-wrap-inner img').css('margin',0);
         $('.image-wrap-inner').width(minSize).height(minSize);
+
+        if( imgBoxHeight > imgBoxWidth ){
+            var marginLeft = (imgBoxHeight - imgBoxWidth) / 2;
+            $('.image-wrap-inner').height(imgBoxHeight);
+            $img.width('auto').height('100%').css('margin-left', -marginLeft);
+        }
         // if(imgBoxWidth > imgBoxHeight) {
         //     var marginTop = (imgBoxWidth - imgBoxHeight) / 2;
         //     $img.css('margin',0);
