@@ -1585,7 +1585,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
     //save user updates
     LP.action('search' , function(data){
-        if(data) {
+        if(data.tag) {
             $('.search-ipt').val(data.tag);
         }
         if($('.search-ipt').val().length == 0) {
@@ -2195,7 +2195,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                         $countryList.append(html);
                     });
                     LP.use(['jscrollpane' , 'mousewheel'] , function(){
-                        $('.select-country-option-list').jScrollPane({autoReinitialise:true});
+                        $countryList.jScrollPane({autoReinitialise:true});
                     });
                 });
 
