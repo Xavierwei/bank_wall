@@ -729,6 +729,17 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         var cubeDir = 'cube-' + direction;
         var rotateDir = 'rotate-' + direction;
 
+        // base on comment wrap width
+        var dist = $('.comment-wrap').width() / 2;
+        var dirData = {
+            dist: dist,
+            rotate: 90
+        }
+        if( direction == 'left' ){
+            dirData.dist = - dist;
+            dirData.rotate = -90;
+        }
+
         var datetime = new Date(node.datetime*1000);
         node.date = datetime.getDate();
         node.month = getMonth((parseInt(datetime.getMonth()) + 1));
@@ -744,12 +755,26 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             var $comment = $inner.find('.comment');
             // comment animation
             var $newInner = $(html);
+            var transform = "translatex(" + dirData.dist + "px) translatez(" + (-dist) + "px) rotateY(" + dirData.rotate + "deg)";;
             var $nextComment = $newInner.find('.comment')
                 .addClass(cubeDir)
+                .css({
+                    "-webkit-transform": transform,
+                    "-moz-transform": transform,
+                    "transform": transform
+                })
                 .insertBefore( $comment );
 
             var $cube = $comment.parent();
-            $cube.addClass(rotateDir);
+            var rotate = "translate3d(" + ( - dirData.dist ) + "px,0," + (-dist) + "px) rotateY(" + ( -dirData.rotate ) + "deg)";
+            $cube.addClass(rotateDir)
+                .css({
+                    "-webkit-transform": rotate,
+                    "-moz-transform": rotate,
+                    "-ms-transform": rotate,
+                    "-o-transform": rotate,
+                    "transform": rotate
+                });
 
             var $nextIcons = $newInner.find('.inner-icons');
             $inner.find('.inner-icons').html($nextIcons.html());
@@ -757,10 +782,22 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             setTimeout(function(){
                 // reset css
                 $cube.addClass( 'no-animate' )
-                    .removeClass( rotateDir );
+                    .removeClass( rotateDir )
+                    .css({
+                        "-webkit-transform": '',
+                        "-moz-transform": '',
+                        "-ms-transform": '',
+                        "-o-transform": '',
+                        "transform": ''
+                    });
                 $comment.remove();
                 $nextComment
-                    .removeClass(cubeDir);
+                    .removeClass(cubeDir)
+                    .css({
+                        "-webkit-transform": "",
+                        "-moz-transform": "",
+                        "transform": ""
+                    });
                 setTimeout(function(){
                     $cube.removeClass( 'no-animate' );
                 },20);
@@ -821,11 +858,16 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 .done(function(){
                     var $newInfo = $newInner.find('.inner-info')
                         .insertAfter( $info );
-                    $info.remove();
-                    $newInfo.css('bottom' , -$newInfo.height() )
+                    
+                    $newInfo.css({
+                            'bottom' : -$newInfo.height(),
+                            'width'  : $info.width(),
+                            'left'   : $info.css('left')
+                        })
                         .animate({
                             bottom: 0
                         } , 500 );
+                    $info.remove();
                 });
 
             // load comment
@@ -1168,6 +1210,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                         $('.popload-percent p').css({width:rate + '%'});
                     })
                     .bind('fileuploaddone', function (e, data) {
+
                         if(!data.result.success) {
                             switch(data.result.message){
                                 case 502:
@@ -1185,6 +1228,8 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                             $('.step1-tips li').eq(errorIndex).addClass('error');
                         } else {
                             var rdata = data.result.data;
+
+
                             if(rdata.type == 'video') {
                                 $('.poptxt-pic img').attr('src', API_FOLDER + rdata.file.replace('.mp4', /*THUMBNAIL_IMG_SIZE + */'.jpg'));
                                 // TODO:: why need timeout? 
@@ -1195,12 +1240,28 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                                 $('.pop-inner').delay(400).fadeOut(400);
                                 $('.pop-txt').delay(900).fadeIn(400);
                             } else {
-                                $('.poptxt-pic img').attr('src', API_FOLDER + rdata.file/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
-                                $('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
-    //                            $('.pop-file .step1-btns').fadeOut(400);
-    //                            $('.pop-file .step2-btns').delay(400).fadeIn(400);
-                                $('.pop-inner').delay(400).fadeOut(400);
-                                $('.pop-txt').delay(1200).fadeIn(400);
+                                if (data.files && data.files[0] && FileReader ) {
+                                    //..create loading
+                                    var reader = new FileReader();
+                                    reader.onload = function (e) {
+                                        console.log( e );
+                                        // change checkpage img
+                                        $('.poptxt-pic img').attr('src', e.target.result/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
+                                        $('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
+            //                            $('.pop-file .step1-btns').fadeOut(400);
+            //                            $('.pop-file .step2-btns').delay(400).fadeIn(400);
+                                        $('.pop-inner').delay(400).fadeOut(400);
+                                        $('.pop-txt').delay(1200).fadeIn(400);
+                                    };
+                                    reader.readAsDataURL(data.files[0]);
+                                } else {
+                                    $('.poptxt-pic img').attr('src', API_FOLDER + rdata.file/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
+                                    $('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
+        //                            $('.pop-file .step1-btns').fadeOut(400);
+        //                            $('.pop-file .step2-btns').delay(400).fadeIn(400);
+                                    $('.pop-inner').delay(400).fadeOut(400);
+                                    $('.pop-txt').delay(1200).fadeIn(400);
+                                }
                             }
                         }
                     });
@@ -1251,7 +1312,6 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                         $('.popload-percent p').css({width:rate + '%'});
                     })
                     .bind('fileuploaddone', function (e, data) {
-                        // TODO:: deal with error
                         if( !data.result.success ){
                             switch(data.result.message){
                                 case 502:
@@ -2327,6 +2387,8 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
      * Resize Inner Box width Image and Video
      */
     var resizeInnerBox = function(){
+        var $side = $('.side');
+        var slideWidth = $side.width();
         // Resize Inner Box
         var $inner = $('.inner');
         var innerHeight = $(window).height() - $('.header').height();
@@ -2338,19 +2400,20 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         $comList.height(comListHeight);
 
         // Resize Image
-        var imgBoxWidth = $(window).width() - 330 - $('.side').width();
-        var imgBoxHeight =$(window).height() - 86;
+        var imgBoxWidth = $(window).width() - 330 - slideWidth;
+        var imgBoxHeight =$(window).height() - $('.header').height();
+        var minSize = Math.min( imgBoxHeight , imgBoxWidth );
         var $img = $('.image-wrap-inner img');
-        $('.image-wrap-inner').width(imgBoxWidth).height(imgBoxHeight);
-        if(imgBoxWidth > imgBoxHeight) {
-            var marginTop = (imgBoxWidth - imgBoxHeight) / 2;
-            $img.css('margin',0);
-            $img.height('auto').width('100%').css('margin-top', -marginTop);
-        } else {
-            var marginLeft = (imgBoxHeight - imgBoxWidth) / 2;
-            $img.css('margin',0);
-            $img.width('auto').height('100%').css('margin-left', -marginLeft);
-        }
+        $('.image-wrap-inner').width(minSize).height(minSize);
+        // if(imgBoxWidth > imgBoxHeight) {
+        //     var marginTop = (imgBoxWidth - imgBoxHeight) / 2;
+        //     $img.css('margin',0);
+        //     $img.height('auto').width('100%').css('margin-top', -marginTop);
+        // } else {
+        //     var marginLeft = (imgBoxHeight - imgBoxWidth) / 2;
+        //     $img.css('margin',0);
+        //     $img.width('auto').height('100%').css('margin-left', -marginLeft);
+        // }
 
         // Resize Video
         var $video = $('.video-js .vjs-tech');
@@ -2380,6 +2443,28 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         if($wmvIframe.length > 0) {
             $wmvIframe.width(imgBoxWidth).height(imgBoxHeight-36);
         }
+
+        // resize inner width
+        var minLeft = $(window).width() - minSize;
+        $('.inner').css('margin-left' , minLeft )
+            // set inner info
+            .find('.inner-info')
+            .css({
+                'width': minSize,
+                'left' : minLeft 
+            })
+            // set .comment-wrap
+            .end()
+            .find('.comment-wrap')
+            .css({
+                'width' : minLeft - slideWidth,
+                'left'  : slideWidth - minLeft
+            })
+            // set image wrap width
+            .end()
+            .find('.image-wrap')
+            .width( minSize );
+
     }
 
     /**
