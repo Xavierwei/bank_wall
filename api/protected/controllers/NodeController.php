@@ -643,7 +643,10 @@ class NodeController extends Controller {
     else {
     }
     if ($uploadFile) {
-      $mime = $uploadFile->getType();
+      //$mime = $uploadFile->getType();
+      exec("/usr/bin/file -b --mime {$uploadFile->tempName}", $output, $status);
+      $mimeArray = explode(';',$output[0]);
+      $mime = $mimeArray[0];
       $size = $uploadFile->getSize();
       $allowPhotoMime = array(
       	"image/gif", "image/png", "image/jpeg", "image/jpg"
@@ -679,7 +682,7 @@ class NodeController extends Controller {
     $node->uid = $user->uid;
     $node->country_id = $user->country_id;
     $node->type = $type;
-		$node->status = 0; // The default status is blocked when the content from email
+		$node->status = 1; // The default status is blocked when the content from email
 		$node->file = $node->saveUploadedFile($uploadFile);
     $node->description = $desc;
 

@@ -257,11 +257,18 @@ class NodeAR extends CActiveRecord{
     if (!is_dir($dir)) {
       mkdir($dir, 0777, TRUE);
     }
-    
+
+
+    $photoexts = explode(",", self::ALLOW_UPLOADED_PHOTO_TYPES);
+    $videoexts = explode(",", self::ALLOW_UPLOADED_VIDEO_TYPES);
     $extname = strtolower(pathinfo($upload->getName(), PATHINFO_EXTENSION));
 
+//    if(!in_array($extname, $photoexts) && !in_array($extname, $videoexts)) {
+//      exec("/usr/bin/file -b --mime {$upload->tempName}", $output, $status);
+//      $mime = explode(';',$output[0])[0];
+//      $extname = explode('/',$mime)[1];
+//    }
 
-		$photoexts = explode(",", self::ALLOW_UPLOADED_PHOTO_TYPES);
 		if (in_array($extname, $photoexts)) {
       $filename = md5( uniqid() . '_' . $upload->getName() ) . '.jpg' ;
       $to = $dir."/". $filename;
@@ -279,7 +286,6 @@ class NodeAR extends CActiveRecord{
 		}
 
     // 检查是不是视频， 如果是, 就就做视频转换工作
-    $videoexts = explode(",", self::ALLOW_UPLOADED_VIDEO_TYPES);
     if (in_array($extname, $videoexts)) {
       $filename = md5( uniqid() . '_' . $upload->getName() ) . '.' .$extname ;
       $to = $dir."/". $filename;
