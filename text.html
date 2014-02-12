@@ -10,3 +10,29 @@
 ffmpeg -i "4f78745fc067c55e9dc325d3816ef339.mp4" -ss 0.5 -t 1 -f image2 "4f78745fc067c55e9dc325d3816ef339.jpg" 2>&1
 
 ffmpeg -i "4f78745fc067c55e9dc325d3816ef339.mp4" -vframes 1 -an -f image2 "4f78745fc067c55e9dc325d3816ef339.jpg"
+
+ffmpeg -i v236.mp4 v236.wmv
+
+ffmpeg -i v240.mp4 -y -vf scale=-1:360 v240.wmv
+ffmpeg -i v240.mp4 -y v240.wmv
+
+./configure --enable-version3 --enable-libopencore-amrnb \
+--enable-libopencore-amrwb --enable-libvpx --enable-libfaac \
+--enable-libmp3lame --enable-libtheora --enable-libvorbis \
+--enable-libx264 --enable-libxvid --enable-gpl --enable-postproc \
+--enable-nonfree
+
+
+
+/var/www/vhosts/polyardshanghai.com/httpdocs/sgwall/api/uploads/2014/2/11
+
+
+./configure ./configure --enable-static --disable-opencl
+
+ffmpeg -i sample.avi -pix_fmt yuv420p -ac 2 -strict 2.mp4
+
+ffmpeg -i sample.avi -acodec libfaac -b:a 128k -vcodec mpeg4 -b:v 1200k -flags +aic+mv4 output.mp4
+
+ffmpeg -i test.mpg -c:v libx264 -c:a libfaac -r 30 test1.mp4
+
+ffmpeg -i test1.mp4 -s 176x144 -vcodec h263 -acodec libfaac -ac 1 -ar 8000 -r 25 -ab 32k -y test.3gp

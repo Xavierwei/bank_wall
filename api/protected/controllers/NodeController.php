@@ -45,7 +45,7 @@ class NodeController extends Controller {
 			else {
 				$file = $request->getPost("file");
 				$_x = $request->getPost("x");
-				if($_x && $type == 'video') {
+				if($_x && $type == 'photo') {
 					$_y = $request->getPost("y");
 					$_width = $request->getPost("width");
 					$_height = $request->getPost("height");
