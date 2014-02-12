@@ -817,7 +817,11 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
             // append dom
             var $oriItem = $imgWrap.children('.image-wrap-inner');
-            var $newItem = $newInner.find('.image-wrap-inner')[ direction == 'left' ? 'insertBefore' : 'insertAfter' ]( $oriItem );
+            var imageSrc = $newInner.find('.image-wrap-inner img').attr('src');
+            var $newItem = $oriItem.clone()[ direction == 'left' ? 'insertBefore' : 'insertAfter' ]( $oriItem )
+                .find('img').attr('src' , imageSrc)
+                .end();
+
             $oriItem.find('iframe').remove();
 
             // init video
@@ -845,6 +849,8 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 .promise()
                 .done(function(){
                     $imgWrap.width( wrapWidth );
+                    // Resize Inner Box
+                    // resizeInnerBox();
                     $newItem.css('width' , '100%');
                     $newItem.siblings('.image-wrap-inner').remove();
                 });
@@ -889,9 +895,6 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
             // change url
             changeUrl('/nid/' + node.nid);
-
-            // Resize Inner Box
-            resizeInnerBox();
         });
     }
 
