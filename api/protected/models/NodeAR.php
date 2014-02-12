@@ -175,8 +175,12 @@ class NodeAR extends CActiveRecord{
         // 文件重命名后 修改数据库
         $this->updateByPk($this->nid, array("file" => $newpath));
         $this->file = $newpath;
-				$this->makeVideoThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_250_250.jpg', $newpath), 250, 250, false);
-				$this->makeVideoThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_800_800.jpg', $newpath), 800, 800, false);
+
+        if($type == 'photo') {
+          $this->makeVideoThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_250_250.jpg', $newpath), 250, 250, false);
+          $this->makeVideoThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_800_800.jpg', $newpath), 800, 800, false);
+        }
+
       }
 
 
@@ -256,12 +260,11 @@ class NodeAR extends CActiveRecord{
     
     $extname = strtolower(pathinfo($upload->getName(), PATHINFO_EXTENSION));
 
-    $filename = md5( uniqid() . '_' . $upload->getName() ) . '.jpg' ;
-    $to = $dir."/". $filename;
-    //$ret = $upload->saveAs($to);
 
 		$photoexts = explode(",", self::ALLOW_UPLOADED_PHOTO_TYPES);
 		if (in_array($extname, $photoexts)) {
+      $filename = md5( uniqid() . '_' . $upload->getName() ) . '.jpg' ;
+      $to = $dir."/". $filename;
 			switch($extname) {
 				case 'gif':
 					$srcImg = imagecreatefromgif($upload->tempName);
@@ -278,6 +281,9 @@ class NodeAR extends CActiveRecord{
     // 检查是不是视频， 如果是, 就就做视频转换工作
     $videoexts = explode(",", self::ALLOW_UPLOADED_VIDEO_TYPES);
     if (in_array($extname, $videoexts)) {
+      $filename = md5( uniqid() . '_' . $upload->getName() ) . '.' .$extname ;
+      $to = $dir."/". $filename;
+      $ret = $upload->saveAs($to);
       // 在这里做视频转换功能
       // 先检查 ffmpeg 是否已经安装
       exec("which ffmpeg", $output);

@@ -25,11 +25,17 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     // live for pic-item hover event
     $(document.body)
         .delegate('.pic-item' , 'mouseenter' , function(){
+            if(isIE8) {
+                $(this).find('.item-info-wrap').fadeIn(100);
+            }
             $(this).find('.item-info')
                 //.stop( true , false )
                 .fadeIn( 500 );
         })
         .delegate('.pic-item' , 'mouseleave' , function(){
+            if(isIE8) {
+                $(this).find('.item-info-wrap').fadeOut(100);
+            }
             $(this).find('.item-info')
                 //.stop( true , false )
                 .fadeOut( 500 );
@@ -90,7 +96,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         .delegate('.user-edit-page .edit-email' , 'blur' , function(){
             var $error = $('.user-edit-page .edit-email-error');
             var email = $(this).val();
-            var exp = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.(?:com|cn)$/;
+            var exp = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\_|\.]?)*[a-zA-Z0-9]+\.(?:com|cn)$/;
             if (!exp.test(email)) {
                 $error.fadeIn();
             }
@@ -160,9 +166,9 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 $(this).val('');
                 $(this).removeAttr('placeholder');
             } else {
-                var placeholder = $(this).attr('placeholder');
                 if(placeholder)
                 {
+                    var placeholder = $(this).attr('placeholder');
                     $(this).data('placeholder', placeholder);
                     $(this).removeAttr('placeholder');
                 }
@@ -864,7 +870,6 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 .done(function(){
                     var $newInfo = $newInner.find('.inner-info')
                         .insertAfter( $info );
-                    
                     $newInfo.css({
                             'bottom' : -$newInfo.height(),
                             'width'  : $info.width(),
@@ -1144,7 +1149,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         var acceptFileTypes;
         var type = data.type;
         if(type == 'video') {
-            data.accept = 'video/*';
+            data.accept = 'video/*,video/mp4';
         } else {
             data.accept = 'image/*';
         }
@@ -2204,8 +2209,8 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     });
                 });
 
-
                 LP.use('uicustom',function(){
+                    var placeHolder = $( ".search-ipt").attr('placeholder'); // TODO: use background instead
                     $( ".search-ipt").val('').autocomplete({
                         source: function( request, response ) {
                             $.ajax({

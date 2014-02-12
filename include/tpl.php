@@ -335,13 +335,15 @@
 		<a>
 			<img src="./api{{image}}" width="180" />
 			<div class="item-info" >
-				<div class="item-time"><span class="item-timeicon">{{formatDate}}</span></div>
-				<div class="item-user"><span class="item-usericon">{{user.firstname}} {{user.lastname}}</span></div>
-				<div class="item-source">
-					<div class="{{type}}"></div>
-				</div>
-				<div class="item-like {{#if user_liked}}item-liked{{/if}}">{{likecount}}</div>
-				<div class="item-comment">{{commentcount}}</div>
+        <div class="item-info-wrap">
+          <div class="item-time"><span class="item-timeicon">{{formatDate}}</span></div>
+          <div class="item-user"><span class="item-usericon">{{user.firstname}} {{user.lastname}}</span></div>
+          <div class="item-source">
+            <div class="{{type}}"></div>
+          </div>
+          <div class="item-like {{#if user_liked}}item-liked{{/if}}">{{likecount}}</div>
+          <div class="item-comment">{{commentcount}}</div>
+        </div>
 			</div>
 			<div class="item-icon" style="display: block;"><div class="{{type}}"></div></div>
 			{{#if topday}}

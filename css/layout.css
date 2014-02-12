@@ -157,7 +157,7 @@ a{text-decoration:none;color:#666}
     .image-wrap {background:#444 url('../img/loading_inner.gif') no-repeat center center;}
     .image-wrap-inner {overflow:hidden;}
     .image-wrap-inner img {display:none;}
-.image-wrap-inner iframe {height: 100%;}
+    .image-wrap-inner iframe {height: 100%;}
 
 /* comment Used
 ================================================================================================= */
