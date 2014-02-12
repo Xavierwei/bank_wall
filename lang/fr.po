@@ -66,10 +66,10 @@ msgid "HASHTAG_EXAMPLES"
 msgstr "Exemples : #espritd’équipe #sociétégénérale #olympiades"
 
 msgid "REPORT_THIS"
-msgstr "Are you sure you want to report this"
+msgstr "ÊTES-VOUS SÛR DE VOULOIR SIGNALER CE CONTENU ?"
 
 msgid "DELETE_THIS"
-msgstr "Are you sure you want to delete this content"
+msgstr "ÊTES-VOUS SÛR DE VOULOIR SUPPRIMER CE CONTENU ?"
 
 msgid "UPLOAD"
 msgstr "Télécharger"
@@ -124,7 +124,7 @@ msgid "THANKS_COMMENT"
 msgstr "Merci pour votre commentaire!"
 
 msgid "LOGIN_BEFORE_COMMENT"
-msgstr "Vous devez vous connecter avant de commentaire."
+msgstr "Vous devez vous connecter avant de poster un commentaire."
 
 msgid "LOGIN_BEFORE_LIKE"
 msgstr "Vous devez vous connecter avant comme."
@@ -152,6 +152,9 @@ msgstr "Soumettre"
 
 msgid "WRITE_YOUR_COMMENT"
 msgstr "écrire votre commentaire ..."
+
+msgid "FIRST_COMMENT"
+msgstr "Soyez le premier à commenter ce contenu"
 
 msgid "PHOTOS_POSTED"
 msgstr "Photos postées "
@@ -241,6 +244,9 @@ msgstr "La description est limitée à 140 caractères."
 msgid "ERROR_DESCRIPTION_ILLEGAL"
 msgstr "Le hashtag peut \ 't comprennent des caractères illégaux."
 
+msgid "ERROR_WRONG_USERNAME_PASSWORD"
+msgstr "Identifiants incorrects."
+
 msgid "DAY"
 msgstr "jour"
 
@@ -279,3 +285,235 @@ msgstr "Novembre"
 
 msgid "DECEMBER"
 msgstr "Décembre"
+
+msgid "ALBANIA"
+msgstr "Albania"
+
+msgid "ALGERIA"
+msgstr "Algeria"
+
+msgid "ARABIA"
+msgstr "Arabia"
+
+msgid "ARGENTINA"
+msgstr "Argentina"
+
+msgid "AUSTRALIA"
+msgstr "Australia"
+
+msgid "AUSTRIA"
+msgstr "Austria"
+
+msgid "BAHAMAS"
+msgstr "Bahamas"
+
+msgid "BELGIUM"
+msgstr "Belgium"
+
+msgid "BENIN"
+msgstr "Bénin"
+
+msgid "BRAZIL"
+msgstr "Brésil"
+
+msgid "BULGARIA"
+msgstr "Bulgarie"
+
+msgid "BURKINA_FASO"
+msgstr "Burkina Faso"
+
+msgid "CANADA"
+msgstr "Canada"
+
+msgid "CHAD"
+msgstr "Tchad"
+
+msgid "CHILE"
+msgstr "Chili"
+
+msgid "CHINA"
+msgstr "Chine"
+
+msgid "CROATIA"
+msgstr "Croatia"
+
+msgid "CYPRUS"
+msgstr "Cyprus"
+
+msgid "CZECH_REPUBLIC"
+msgstr "République tchèque"
+
+msgid "DENMARK"
+msgstr "Denmark"
+
+msgid "EGYPT"
+msgstr "Egypt"
+
+msgid "EQUATORIAL_GUINEA"
+msgstr "Guinée équatoriale"
+
+msgid "ESTONIA"
+msgstr "Etats-Unis"
+
+msgid "FINLAND"
+msgstr "Finlande"
+
+msgid "FRANCE"
+msgstr "France"
+
+msgid "GEORGIA"
+msgstr "Géorgie"
+
+msgid "GERMANY"
+msgstr "Germany"
+
+msgid "GHANA"
+msgstr "Ghana"
+
+msgid "GREECE"
+msgstr "Grèce"
+
+msgid "GUINEA"
+msgstr "Guinée"
+
+msgid "HUNGARY"
+msgstr "Hongrie"
+
+msgid "INDIA"
+msgstr "Inde"
+
+msgid "IRELAND"
+msgstr "Irlande"
+
+msgid "ITALY"
+msgstr "Italie"
+
+msgid "JAPAN"
+msgstr "Japon"
+
+msgid "JORDAN"
+msgstr "Jordanie"
+
+msgid "KOREA"
+msgstr "Korea"
+
+msgid "LATVIA"
+msgstr "Lettonie"
+
+msgid "LEBANON"
+msgstr "Liban"
+
+msgid "LITHUANIA"
+msgstr "Lituanie"
+
+msgid "LUXEMBOURG"
+msgstr "Luxembourg"
+
+msgid "MACEDONIA"
+msgstr "Macedonia"
+
+msgid "MADAGASCAR"
+msgstr "Madagascar"
+
+msgid "MAURITANIA"
+msgstr "Macédoine"
+
+msgid "MEXICO"
+msgstr "Mexico"
+
+msgid "MOLDOVA"
+msgstr "République de Moldavie"
+
+msgid "MOROCCO"
+msgstr "Maroc"
+
+msgid "NETHERLANDS"
+msgstr "Pays-Bas"
+
+msgid "NEW_CALEDONIA"
+msgstr "Nouvelle-Calédonie"
+
+msgid "NORWAY"
+msgstr "Norvège"
+
+msgid "PANAMA"
+msgstr "Panama"
+
+msgid "PERU"
+msgstr "Pérou"
+
+msgid "POLAND"
+msgstr "Pologne"
+
+msgid "PORTUGAL"
+msgstr "Portugal"
+
+msgid "REPUBLIC_OF_IVORY_COAST"
+msgstr "Republic of Ivory Coast"
+
+msgid "REPUBLIC_OF_MONTENEGRO"
+msgstr "Republic of Montenegro"
+
+msgid "REUNION"
+msgstr "Réunion, La"
+
+msgid "ROMANIA"
+msgstr "Roumanie"
+
+msgid "RUSSIAN_FEDERATION"
+msgstr "Russie"
+
+msgid "SAUDI"
+msgstr "Saoudite"
+
+msgid "SENEGAL"
+msgstr "Sénégal"
+
+msgid "SERBIA"
+msgstr "Serbie"
+
+msgid "SINGAPORE"
+msgstr "Singapour"
+
+msgid "SLOVAKIA"
+msgstr "Slovaquie"
+
+msgid "SLOVENIA"
+msgstr "Slovénie"
+
+msgid "SOUTH_AFRICA"
+msgstr "South Africa"
+
+msgid "SPAIN"
+msgstr "Spain"
+
+msgid "SWEDEN"
+msgstr "Suède"
+
+msgid "SWITZERLAND"
+msgstr "Suisse"
+
+msgid "TUNISIA"
+msgstr "Tunisie"
+
+msgid "TURKEY"
+msgstr "Turquie"
+
+msgid "UK"
+msgstr "Royaume-Uni"
+
+msgid "UKRAINE"
+msgstr "Ukraine"
+
+msgid "UNITED_ARAB_EMIRATES"
+msgstr "United Arab Emirates"
+
+msgid "URUGUAY"
+msgstr "Uruguay"
+
+msgid "USA"
+msgstr "USA"
+
+msgid "VIETNAM"
+msgstr "Vietnam"
+

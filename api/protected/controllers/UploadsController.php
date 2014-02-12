@@ -13,7 +13,7 @@ class UploadsController extends Controller {
           "image/gif", "image/png", "image/jpeg", "image/jpg"
       );
   private $_video_mime = array(
-      "video/mov", "video/quicktime", "video/wmv", "video/mp4", "video/avi", "video/3gp"
+      "video/mov", "video/quicktime","video/x-msvideo", "video/x-ms-wmv", "video/wmv", "video/mp4", "video/mpeg", "video/avi", "video/3gp"
       );
 
   public function init() {
@@ -45,7 +45,7 @@ class UploadsController extends Controller {
 //            if (!is_file($source_path)) {
 //              return ;
 //            }
-            $this->makeVideoThumbnail($source_path, DOCUMENT_ROOT.'/'.$basepath .'/' .$filename, $width, $height, true);
+            NodeAR::model()->makeVideoThumbnail($source_path, DOCUMENT_ROOT.'/'.$basepath .'/' .$filename, $width, $height, true);
           }
         }
       }
@@ -62,7 +62,7 @@ class UploadsController extends Controller {
           return;
         }
 				$request_file_path = DOCUMENT_ROOT.$request_file_path; //增加了DOCUMENT_ROOT，否则在子目录下路径不对了
-        $this->makeImageThumbnail($source_path, $request_file_path, $width, $height, true);
+				NodeAR::model()->makeImageThumbnail($source_path, $request_file_path, $width, $height, true);
       }
     }
 
@@ -95,7 +95,7 @@ class UploadsController extends Controller {
     if($type == 'video') {
       $paths = explode(".",$file);
       $basename = array_shift($paths);
-      $this->makeVideoThumbnail(ROOT.$basename.'.jpg', ROOT.$basename.'.jpg', 175, 175, false);
+			$nodeAr->makeVideoThumbnail(ROOT.$basename.'.jpg', ROOT.$basename.'.jpg', 175, 175, false);
     }
 
 		// return result
@@ -104,123 +104,6 @@ class UploadsController extends Controller {
 	}
 
   
-  private function makeImageThumbnail($path, $save_to, $w, $h, $isOutput) {
-    $abspath = $path;
-    $abssaveto = $save_to;
-    $thumb = new EasyImage($abspath);
-    
-    // 这里需要做下调整
-    
-    $size = getimagesize($abspath);
-    $s_w = $size[0];
-    $s_h = $size[1];
-    
-    $r1 = $w / $s_w;
-    $r2 = $h / $s_h;
-    $widthSamller = TRUE;
-    if ($r1 > $r2) {
-      $r = $r1;
-    }
-    else {
-      $widthSamller = FALSE;
-      $r = $r2;
-    }
-    $t_w = $r * $s_w;
-    $t_h = $r * $s_h;
-    
-    // 先等比例 resize
-    $thumb->resize($t_w, $t_h);
-    // 再裁剪
-    // 裁剪 多余的宽
-    if (!$widthSamller) {
-       $start_x = ($t_w - $w)/2;
-       $start_y = 0;
-       $thumb->crop($w, $h, $start_x, $start_y);
-    }
-    // 裁剪多余的 高
-    else {       
-       $start_x = 0;
-       $start_y = ($t_h - $h);
-       $thumb->crop($w, $h, $start_x, $start_y);
-    }
-    
-    $thumb->save($abssaveto);
-    
-    // 输出
-    if($isOutput) {
-      $fp = fopen($abssaveto, "rb");
-      if ($size && $fp) {
-        header("Content-type: {$size['mime']}");
-        fpassthru($fp);
-        exit;
-      } else {
-        // error
-      }
-    }
-  }
-  
-  /**
-   * 这个函数有2步；
-   * 第一步 生成视频截图
-   * 第二步 生成缩略图
-   * @param type $screenImagePath 视频截图的相对路径
-   * @param type $saveTo 缩略图保存路径
-   * @param type $w 缩略图 width
-   * @param type $h 缩略图 height
-   * @return 
-   */
-  private function makeVideoThumbnail($screenImagePath, $saveTo, $w, $h, $isOutput) {
-    // 我们要根据视频截图的路径推算出视频的路径
-    $paths = explode(".",$screenImagePath);
-    $basename = array_shift($paths);
-    $output = NULL;
-    $status = NULL;
-    $absscreenImagePath = $screenImagePath;
-    $abssaveTo = $saveTo;
-    $absvideoPath = str_replace('.jpg','.mp4',$screenImagePath);
-//    echo $absscreenImagePath. '----'. $absvideoPath;
-//    exit();
-    // 视频截图不能截2次
-    // 做个检查
 
-    if (!file_exists($absscreenImagePath)) {
-
-      exec("ffmpeg -i $absvideoPath -vframes 1 -an -f image2 ".$absscreenImagePath, $output, $status);
-      // 成功了
-      if ($status) {
-        // nothing
-        exec("ffmpeg -i $absvideoPath -vframes 1 -an -f image2 ".$absscreenImagePath, $output, $status);
-      }
-      else {
-        //TODO:: 不成功 我们可能需要返回一个默认的视频；因为客户端需要的是一个图片链接
-        // 这里暂时直接 die() 掉， 因为后续工作 都是在此图片生成成功基础上做操作
-        //die();
-      }
-    }
-    if($w && $h) {
-        $this->makeImageThumbnail($screenImagePath, $saveTo, $w, $h, $isOutput);
-    }
-    
-//    // 生成缩略图
-//    $thumb = new EasyImage($absscreenImagePath);
-//
-//    $size = getimagesize($absscreenImagePath);
-//
-//    //TODO:: 这里需要更复杂点的 缩略图方式
-//
-//    $thumb->resize($w, $h);
-//    $thumb->save($abssaveTo);
-//
-//    // 输出
-//    $fp = fopen($abssaveTo, "rb");
-//    if ($size && $fp) {
-//        header("Content-type: {$size['mime']}");
-//        fpassthru($fp);
-//        exit;
-//    } else {
-//        // error
-//    }
-    
-  }
 }
 
