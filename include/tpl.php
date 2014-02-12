@@ -176,7 +176,7 @@
 		<div class="popbd">
 			<!--  -->
 			<div class="pop-inner pop-file">
-				<form id="fileupload" action="#" method="POST" enctype="multipart/form-data">
+				<form target="avatar_upload_iframe" id="avatar_post_form" name="avatar_post_form" action="./api/index.php/user/saveavatar" method="post" enctype="multipart/form-data" >
 					<div class="popfile-drag-box"></div>
 					<ul class="step1-tips">
 						<li>{{_e.PHOTO_FORMATE}}</li>
@@ -192,6 +192,7 @@
 					</div>
 					<div class="step2-btns"><div class="popfile-btn btn" data-a="upload_photo">{{_e.UPLOAD}}</div><div class="popfile-btn btn" data-a="select_photo">{{_e.SELECT_AGAIN}}</div></div>
 				</form>
+        <iframe id='avatar_upload_iframe' name='avatar_upload_iframe' src=""></iframe>
 			</div>
 			<!--  -->
 			<div class="pop-inner pop-load" style="display:none">
@@ -510,8 +511,16 @@
 
 <!-- blank-filter-tpl -->
 <script type="text/tpl" id="blank-filter-template">
-	<div class="blank-filter">
-		<div class="no-results">{{_e.NO_RESULTS}}</div>
-		<div class="no-results-line"></div>
-	</div>
+  <div class="blank-search">
+    <div class="no-results">{{_e.NO_RESULTS_THIS_SEARCH}} {{#if country_name}}[{{country_name}}]{{/if}}</div>
+    <div class="no-results-line"></div>
+    <div class="popular-hashtags">
+      {{_e.POPULAR_HASHTAGS}}:
+      <ul>
+        {{#each data}}
+        <li class="btn" data-a="search" data-d="tag={{tag}}">#{{tag}}</li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
 </script>

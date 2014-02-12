@@ -177,25 +177,83 @@ class UserController extends Controller {
 
     $request = Yii::app()->getRequest();
 
-		$fileUpload = $request->getPost("file");
-    if( empty( $fileUpload ) ){
-      $this->responseError('no file');
+    $iframe = $request->getPost("iframe");
+    if($iframe) {
+      $fileUpload = CUploadedFile::getInstanceByName("file");
+      $validateUpload = NodeAR::model()->validateUpload($fileUpload, 'photo');
+      if($validateUpload !== true) {
+        return $this->responseError($validateUpload);
+      }
+
+      // save file to dir
+      $fileUpload = NodeAR::model()->saveUploadedFile($fileUpload);
+
+      $size = getimagesize(ROOT . '/' . $fileUpload);
+      $s_w = $size[0];
+      $s_h = $size[1];
+      $w = $h = 80;
+
+      $r1 = $w / $s_w;
+      $r2 = $h / $s_h;
+      $widthSamller = TRUE;
+      if ($r1 > $r2) {
+        $r = $r1;
+      }
+      else {
+        $widthSamller = FALSE;
+        $r = $r2;
+      }
+      $t_w = $r * $s_w;
+      $t_h = $r * $s_h;
+
+      // 先等比例 resize
+      $thumb = new EasyImage(ROOT . '/' . $fileUpload);
+      $thumb->resize($t_w, $t_h);
+      // 再裁剪
+      // 裁剪 多余的宽
+      if (!$widthSamller) {
+        $start_x = ($t_w - $w)/2;
+        $start_y = 0;
+        $thumb->crop($w, $h, $start_x, $start_y);
+      }
+      // 裁剪多余的 高
+      else {
+        $start_x = 0;
+        $start_y = ($t_h - $h);
+        $thumb->crop($w, $h, $start_x, $start_y);
+      }
+
+      unlink(ROOT . '/' . $fileUpload);
+      $fileto = ROOT . '/uploads/avatar/' . $uid .'.'. pathinfo($fileUpload, PATHINFO_EXTENSION);
+      $thumb->save($fileto);
+      $fileto = str_replace( ROOT, '', $fileto );
+      $this->render('post', array(
+        'url'=>$fileto
+      ));
     }
-    // cut the file
-    $thumb = new EasyImage( ROOT . '/' . $fileUpload );
-    $thumb->resize( $request->getPost("width") , $request->getPost("height") );
-    $thumb->crop( 220 , 220 , -$request->getPost("x") , -$request->getPost("y") );
-		$thumb->resize(80, 80);
-    $fileto = ROOT . '/uploads/avatar/' . $uid .'.'. pathinfo($fileUpload, PATHINFO_EXTENSION);
-    $dir = dirname( $fileto );
-    if (!is_dir($dir)) {
-      mkdir($dir, 0777, TRUE);
+    else {
+      $fileUpload = $request->getPost("file");
+      if( empty( $fileUpload ) ){
+        $this->responseError('no file');
+      }
+      // cut the file
+      $thumb = new EasyImage( ROOT . '/' . $fileUpload );
+      $thumb->resize( $request->getPost("width") , $request->getPost("height") );
+      $thumb->crop( 220 , 220 , -$request->getPost("x") , -$request->getPost("y") );
+      $thumb->resize(80, 80);
+      $fileto = ROOT . '/uploads/avatar/' . $uid .'.'. pathinfo($fileUpload, PATHINFO_EXTENSION);
+      $dir = dirname( $fileto );
+      if (!is_dir($dir)) {
+        mkdir($dir, 0777, TRUE);
+      }
+      $thumb->save( $fileto );
+      unlink(ROOT . '/' . $fileUpload);
+      $fileto = str_replace( ROOT, '', $fileto );
+      UserAR::model()->updateByPk($uid, array('avatar' => $fileto ));
+      $this->responseJSON(array( "file" => $fileto ) , "success");
     }
-    $thumb->save( $fileto );
-		unlink(ROOT . '/' . $fileUpload);
-    $fileto = str_replace( ROOT, '', $fileto );
-    UserAR::model()->updateByPk($uid, array('avatar' => $fileto ));
-    $this->responseJSON(array( "file" => $fileto ) , "success");
+
+
   }
   /**
    * 删除用户
