@@ -686,7 +686,10 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     left: 'auto',
                     position: 'relative',
                     width: 'auto'
-                })
+                });
+
+                // restart reverse
+                nodeActions.setItemReversal( $dom );
             });
 
         var pageParam = $dom.data('param');
@@ -1233,7 +1236,6 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                         } else {
                             var rdata = data.result.data;
 
-
                             if(rdata.type == 'video') {
                                 $('.poptxt-pic img').attr('src', API_FOLDER + rdata.file.replace('.mp4', /*THUMBNAIL_IMG_SIZE + */'.jpg'));
                                 // TODO:: why need timeout?
@@ -1248,7 +1250,6 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                                     //..create loading
                                     var reader = new FileReader();
                                     reader.onload = function (e) {
-                                        console.log( e );
                                         // change checkpage img
                                         $('.poptxt-pic img').attr('src', e.target.result/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
                                         $('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
@@ -1842,7 +1843,8 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         var scaReg = /S(-?[0-9.]+),(-?[0-9.]+),(-?[0-9.]+),(-?[0-9.]+)/;
         var rotReg = /R(-?[0-9.]+),(-?[0-9.]+),(-?[0-9.]+)/;
 
-        var transform = function( x , y , s , r ){
+        var transform = function( x , y , s , r , animate ){
+            animate = animate === undefined ? true : animate;
             var left = x === undefined ? totalMoveX : x;
             var top = y === undefined ? totalMoveY : y;
             var scale = s === undefined ? totalScale : s;
@@ -1870,9 +1872,13 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     transforms.push( "S" + s + ',' + s + ',' + (tarWidth/2) + "," + (tarHeight/2) );
                 }
 
-                imgRaphael.animate({
-                    transform: transforms.join('')
-                } , 200);
+                if( animate ){
+                    imgRaphael.animate({
+                        transform: transforms.join('')
+                    } , 200);
+                } else {
+                    imgRaphael.transform( transforms.join('') );
+                }
             }
             if( r !== undefined ) {
                 if( transforms.length && ( match = transforms[transforms.length-1].match( rotReg ) ) ){
@@ -2029,48 +2035,100 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
 
             // TODO.. for long click
-            // var animateScale = function(  ){
-                
-            // }
-            // var longTimeout = null;
-            // var longInterval = null;
+            var animateTimeout = null;
+            var animateScale = 1.02;
+            
+            var runZoomIn = function( scale ){
+                if( totalScale * imgWidth == minWidth || totalScale * imgHeight == minHeight ){
+                    return;
+                }
+                totalScale /= scale;
+                transform( undefined , undefined , 1/scale , undefined , false);
 
+                if( totalScale * imgWidth < minWidth || totalScale * imgHeight < minHeight ){
+                    var lastScale = totalScale;
+                    totalScale = Math.max( minWidth / imgWidth , minHeight / imgHeight );
+                    transform( undefined , undefined , totalScale/lastScale , undefined , false);
+                }
+                var off = imgRaphael.getBBox();
+                if( off.x > 0 ){
+                    transform( -off.x , 0 );
+                    off.x = 0;
+                }
+                if( off.x + off.width < minWidth ){
+                    transform( minWidth - ( off.x + off.width )  , 0 );
+                }
+                if( off.y > 0 ){
+                    transform( 0 , -off.y );
+                    off.y = 0;
+                }
+                if( off.y + off.height < minHeight ){
+                    transform( 0 ,  minHeight - ( off.y + off.height ) );
+                }
+            }
+            var imgWidth , imgHeight;
+            var startAnimateScale = function( zoomout ){
+                imgWidth = parseInt($picInner.find('img').css('width'));
+                imgHeight = parseInt($picInner.find('img').css('height'));
+
+                var duration = 1000 / 60 ;
+                var aniFn = function(){
+                    if( zoomout ){
+                        totalScale *= animateScale;
+                        transform( undefined , undefined , animateScale , undefined , false );
+                    } else {
+                        runZoomIn( animateScale );
+                    }
+                    animateTimeout = setTimeout( aniFn , duration );
+                };
+                animateTimeout = setTimeout( aniFn , duration );
+            }
+            var stopAnimate = function(){
+                clearTimeout( animateTimeout );
+            }
+            
+            var longInterval = null;
+            var longTimeout = null;
+            var runAnimate = false;
+            var mousedown = false;
             $('.pop-zoomout-btn').mousedown(function(){
-                totalScale *= perScale;
-                transform( undefined , undefined , perScale );
-
-                // longTimeout = setTimeout(function(){
-                //     longInterval = setInterval(function(){
-                //         transform( undefined , undefined , perScale );
-                //     } , 500 );
-                // } , 500);
-
-            });
+                mousedown = true;
+                longTimeout = setTimeout(function(){
+                    runAnimate = true;
+                    startAnimateScale( true );
+                } , 300);
+            })
+            .bind( "mouseup mouseout" , function(){
+                if( !mousedown ) return;
+                mousedown = false;
+                clearTimeout( longTimeout );
+                if( runAnimate ){
+                    runAnimate = false;
+                    stopAnimate();
+                } else {
+                    totalScale *= perScale;
+                    transform( undefined , undefined , perScale );
+                }
+            } );
 
             $('.pop-zoomin-btn').mousedown(function(){
-                var width = parseInt($picInner.find('img').css('width'));
-                var height = parseInt($picInner.find('img').css('height'));
-
-                var lastScale = totalScale;
-                if( totalScale / perScale * width < minWidth || totalScale / perScale * height < minHeight ){
-                    totalScale = Math.max( minWidth / width , minHeight / height );
-                    var off = imgRaphael.getBBox();
-                    if( minWidth / width > minHeight / height ){
-                        transform( -off.x , 0 );
-                    } else {
-                        transform( 0 , -off.y );
-                    }
+                mousedown = true;
+                longTimeout = setTimeout(function(){
+                    runAnimate = true;
+                    startAnimateScale( false );
+                } , 300);
+            })
+            .bind( "mouseup mouseout" , function(){
+                if( !mousedown ) return;
+                mousedown = false;
+                clearTimeout( longTimeout );
+                if( runAnimate ){
+                    runAnimate = false;
+                    stopAnimate();
                 } else {
-                    totalScale /= perScale;
+                    runZoomIn( perScale );
                 }
-                transform( undefined , undefined , totalScale/lastScale );
-
-                // longTimeout = setTimeout(function(){
-                //     longInterval = setInterval(function(){
-                //         transform( undefined , undefined , 1/perScale );
-                //     } , 500 );
-                // } , 500);
-            });
+            } );
             
             $('.pop-rright-btn').mousedown(function(){
                 totalRotate += perRotate
