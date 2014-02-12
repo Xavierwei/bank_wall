@@ -25,11 +25,17 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     // live for pic-item hover event
     $(document.body)
         .delegate('.pic-item' , 'mouseenter' , function(){
+            if(isIE8) {
+                $(this).find('.item-info-wrap').fadeIn(100);
+            }
             $(this).find('.item-info')
                 //.stop( true , false )
                 .fadeIn( 500 );
         })
         .delegate('.pic-item' , 'mouseleave' , function(){
+            if(isIE8) {
+                $(this).find('.item-info-wrap').fadeOut(100);
+            }
             $(this).find('.item-info')
                 //.stop( true , false )
                 .fadeOut( 500 );
@@ -90,7 +96,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         .delegate('.user-edit-page .edit-email' , 'blur' , function(){
             var $error = $('.user-edit-page .edit-email-error');
             var email = $(this).val();
-            var exp = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.(?:com|cn)$/;
+            var exp = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\_|\.]?)*[a-zA-Z0-9]+\.(?:com|cn)$/;
             if (!exp.test(email)) {
                 $error.fadeIn();
             }
@@ -160,9 +166,9 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 $(this).val('');
                 $(this).removeAttr('placeholder');
             } else {
-                var placeholder = $(this).attr('placeholder');
                 if(placeholder)
                 {
+                    var placeholder = $(this).attr('placeholder');
                     $(this).data('placeholder', placeholder);
                     $(this).removeAttr('placeholder');
                 }
@@ -867,7 +873,6 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 .done(function(){
                     var $newInfo = $newInner.find('.inner-info')
                         .insertAfter( $info );
-                    
                     $newInfo.css({
                             'bottom' : -$newInfo.height(),
                             'width'  : $info.width(),
@@ -1019,18 +1024,23 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         $main.data('nodes', []);
         $listLoading.fadeIn();
         api.ajax('recent', pageParam, function (result) {
-
             if (result.data.length > 0) {
                 nodeActions.inserNode($main.show(), result.data, pageParam.orderby == 'datetime');
                 $listLoading.fadeOut();
             }
             else {
-                LP.compile('blank-filter-template',
-                    {},
-                    function (html) {
-                        // render html
-                        $('.main').append(html);
-                    });
+                api.ajax('tagTopThree', function(result){
+                    if(pageParam.country_id) {
+                        var countryName = $('.select-country-option-list p[data-param="country_id='+pageParam.country_id+'"]').html();
+                        result.country_name = countryName;
+                    }
+                    result._e = _e;
+                    LP.compile( 'blank-filter-template' ,
+                        result,
+                        function( html ){
+                            $('.main').append(html).fadeIn();
+                        } );
+                });
             }
         });
     });
@@ -1147,7 +1157,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         var acceptFileTypes;
         var type = data.type;
         if(type == 'video') {
-            data.accept = 'video/*';
+            data.accept = 'video/*,video/mp4';
         } else {
             data.accept = 'image/*';
         }
@@ -1284,15 +1294,23 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             $('.overlay').fadeIn();
             $('.pop').fadeIn(_animateTime).dequeue().animate({top:'50%'}, _animateTime , _animateEasing);
 
-            var $fileupload = $('#fileupload');
+            var $fileupload = $('#avatar_post_form');
             acceptFileTypes = /(\.|\/)(gif|jpe?g|png)$/i;
             //$('#select-btn').html(' SELECT PHOTO <input id="file-photo" type="file" name="photo" />');
-            var maxFileSize = 5 * 1024000;
-            // init event
-            transformMgr.initialize();
-            LP.use('fileupload' , function(){
-                // Initialize the jQuery File Upload widget:
-                $fileupload.fileupload({
+            if(isIE8) {
+                $fileupload.append('<input type="hidden" name="iframe" value="true" />');
+                $fileupload.find('input').change(function(){
+                    $fileupload.submit();
+                    $('.step1-btns').fadeOut();
+                });
+            }
+            else {
+                var maxFileSize = 5 * 1024000;
+                // init event
+                transformMgr.initialize();
+                LP.use('fileupload' , function(){
+                    // Initialize the jQuery File Upload widget:
+                    $fileupload.fileupload({
                         // Uncomment the following to send cross-domain cookies:
                         //xhrFields: {withCredentials: true},
                         url: './api/index.php/uploads/upload',
@@ -1300,48 +1318,50 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                         acceptFileTypes: acceptFileTypes,
                         autoUpload:false
                     })
-                    .bind('fileuploadadd', function (e, data) {
-                        if(data.files[0].size > maxFileSize) {
-                            $('.step1-tips li').eq(3).addClass('error');
-                        } else {
-                            $('.step1-tips li').eq(3).removeClass('error');
-                            data.submit();
-                        }
-                    })
-                    .bind('fileuploadstart', function (e, data) {
-                        $('.pop-inner').fadeOut(400);
-                        $('.pop-load').delay(400).fadeIn(400);
-                    })
-                    .bind('fileuploadprogress', function (e, data) {
-                        var rate = data._progress.loaded / data._progress.total * 100;
-                        $('.popload-percent p').css({width:rate + '%'});
-                    })
-                    .bind('fileuploaddone', function (e, data) {
-                        if( !data.result.success ){
-                            switch(data.result.message){
-                                case 502:
-                                    var errorIndex = 0;
-                                    break;
-                                case 501:
-                                    var errorIndex = 2;
-                                    break;
-                                case 503:
-                                    var errorIndex = 1;
-                                    break;
+                        .bind('fileuploadadd', function (e, data) {
+                            if(data.files[0].size > maxFileSize) {
+                                $('.step1-tips li').eq(3).addClass('error');
+                            } else {
+                                $('.step1-tips li').eq(3).removeClass('error');
+                                data.submit();
                             }
+                        })
+                        .bind('fileuploadstart', function (e, data) {
                             $('.pop-inner').fadeOut(400);
-                            $('.pop-file').delay(800).fadeIn(400);
-                            $('.step1-tips li').eq(errorIndex).addClass('error');
-                        } else{
-                            var rdata = data.result.data;
-                        
-                            $('.poptxt-pic img').attr('src', API_FOLDER + rdata.file/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
-                            $('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
-                            $('.pop-inner').delay(400).fadeOut(400);
-                            $('.pop-txt').delay(1200).fadeIn(400);
-                        }
-                    });
-            });
+                            $('.pop-load').delay(400).fadeIn(400);
+                        })
+                        .bind('fileuploadprogress', function (e, data) {
+                            var rate = data._progress.loaded / data._progress.total * 100;
+                            $('.popload-percent p').css({width:rate + '%'});
+                        })
+                        .bind('fileuploaddone', function (e, data) {
+                            if( !data.result.success ){
+                                switch(data.result.message){
+                                    case 502:
+                                        var errorIndex = 0;
+                                        break;
+                                    case 501:
+                                        var errorIndex = 2;
+                                        break;
+                                    case 503:
+                                        var errorIndex = 1;
+                                        break;
+                                }
+                                $('.pop-inner').fadeOut(400);
+                                $('.pop-file').delay(800).fadeIn(400);
+                                $('.step1-tips li').eq(errorIndex).addClass('error');
+                            } else{
+                                var rdata = data.result.data;
+
+                                $('.poptxt-pic img').attr('src', API_FOLDER + rdata.file/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
+                                $('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
+                                $('.pop-inner').delay(400).fadeOut(400);
+                                $('.pop-txt').delay(1200).fadeIn(400);
+                            }
+                        });
+                });
+            }
+
         });
     });
 
@@ -2262,8 +2282,8 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     });
                 });
 
-
                 LP.use('uicustom',function(){
+                    var placeHolder = $( ".search-ipt").attr('placeholder'); // TODO: use background instead
                     $( ".search-ipt").val('').autocomplete({
                         source: function( request, response ) {
                             $.ajax({

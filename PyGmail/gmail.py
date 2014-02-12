@@ -25,7 +25,7 @@ def post_media_to_bankwall(desc="description", user="xx@xx.com", media="/path/to
   datagen, headers = multipart_encode({"photo": open(os.path.join(basepath , media), "rb"), 
     "desc": desc,
     "user": user})
-  request = urllib2.Request("http://localhost/bank_wall/api/node/postbymail", datagen, headers)
+  request = urllib2.Request("http://64.207.184.106/sgwall/api/node/postbymail", datagen, headers)
   res = urllib2.urlopen(request).read()
   res = json.loads(res)
   print res["message"]
@@ -52,7 +52,7 @@ def reply_mail(mail_obj, is_success=True):
 
 def is_media(file):
   """ 判断是否是Media (图片/视频) """
-  cmd = "/usr/bin/file -b --mime-type %s" % (file)
+  cmd = "/usr/bin/file -b --mime %s" % (file)
   mime = subprocess.Popen(cmd, shell=True, \
   stdout = subprocess.PIPE).communicate()[0]
   mime = mime.rstrip()
