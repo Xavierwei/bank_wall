@@ -1453,6 +1453,11 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             delete trsdata.src;
         }
 
+        var $dom = $(this);
+        if( $dom.hasClass('disabled') ) return;
+        $dom.addClass('disabled');
+        // add loading tag
+        $('.poploading').show();
         api.ajax('saveNode' , $.extend( {file: data.file, type: data.type, description: description} , trsdata ), function( result ){
             if(result.success) {
                 //TODO: insert the content to photo wall instead of refresh
@@ -1471,11 +1476,20 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     LP.triggerAction('close_pop');
                 },1500);
             };
+        } , null , function(){
+            $dom.removeClass('disabled');
+            // hide loading tag
+            $('.poploading').hide();
         });
     });
 
     LP.action('avatar_save' , function( data ){
         var trsdata = transformMgr.result();
+        var $dom = $(this);
+        if( $dom.hasClass('disabled') ) return;
+        $dom.addClass('disabled');
+        // add loading tag
+        $('.poploading').show();
         api.ajax('saveAvatar' , $.extend( trsdata , data ) , function( result ){
             if( result.success ){
                 // hide the panel
@@ -1486,6 +1500,9 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             } else {
                 // TODO:: show error
             }
+        } , null , function(){
+            $dom.removeClass('disabled');
+            $('.poploading').hide();
         });
     });
 

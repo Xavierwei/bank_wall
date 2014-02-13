@@ -84,84 +84,85 @@
 	<div class="overlay" data-a="close_pop"></div>
 	<div class="pop pop-{{type}}" style="display:none">
 		<div class="popclose" data-a="close_pop"></div>
-			<div class="pophd">
-				<div class="poptit">{{_e.UPLOAD}} {{type}}</div>
-			</div>
-			<div class="popbd">
-        <form target="node_upload_iframe" id="node_post_form" name="node_post_form" action="./api/index.php/node/post" method="post" enctype="multipart/form-data" >
-          <!--  -->
-          <div class="pop-inner pop-file">
-            <div id="fileupload">
-              <div class="popfile-drag-box" data-a="select_photo"></div>
-              <ul class="step1-tips">
-                {{#ifvideo}}
-                <li>{{_e.VIDEO_FORMATE}}</li>
-                <li>{{_e.VIDEO_RESOLUTION}}</li>
-                <li>{{_e.VIDEO_SIZE}}</li>
-                {{else}}
-                <li>{{_e.PHOTO_FORMATE}}</li>
-                <li>{{_e.PHOTO_RESOLUTION}}</li>
-                <li>{{_e.PHOTO_SIZE}}</li>
-                {{/ifvideo}}
-              </ul>
-              <div class="error"></div>
-              <div class="step1-btns">
-                <div class="popfile-btn btn" id="select-btn">
-                  {{_e.SELECT}} {{type}}
-                  <input type="file" name="file" accept="{{accept}}" />
-                  <input type="hidden" name="type" value="{{type}}" />
+		<div class="pophd">
+			<div class="poptit">{{_e.UPLOAD}} {{type}}</div>
+		</div>
+		<div class="popbd">
+            <form target="node_upload_iframe" id="node_post_form" name="node_post_form" action="./api/index.php/node/post" method="post" enctype="multipart/form-data" >
+              <!--  -->
+              <div class="pop-inner pop-file">
+                <div id="fileupload">
+                  <div class="popfile-drag-box" data-a="select_photo"></div>
+                  <ul class="step1-tips">
+                    {{#ifvideo}}
+                    <li>{{_e.VIDEO_FORMATE}}</li>
+                    <li>{{_e.VIDEO_RESOLUTION}}</li>
+                    <li>{{_e.VIDEO_SIZE}}</li>
+                    {{else}}
+                    <li>{{_e.PHOTO_FORMATE}}</li>
+                    <li>{{_e.PHOTO_RESOLUTION}}</li>
+                    <li>{{_e.PHOTO_SIZE}}</li>
+                    {{/ifvideo}}
+                  </ul>
+                  <div class="error"></div>
+                  <div class="step1-btns">
+                    <div class="popfile-btn btn" id="select-btn">
+                      {{_e.SELECT}} {{type}}
+                      <input type="file" name="file" accept="{{accept}}" />
+                      <input type="hidden" name="type" value="{{type}}" />
+                    </div>
+                  </div>
+                  <div class="step2-btns"><div class="popfile-btn btn" data-a="upload_photo">{{_e.UPLOAD}}</div><div class="popfile-btn btn">{{_e.SELECT_AGAIN}}</div></div>
                 </div>
               </div>
-              <div class="step2-btns"><div class="popfile-btn btn" data-a="upload_photo">{{_e.UPLOAD}}</div><div class="popfile-btn btn">{{_e.SELECT_AGAIN}}</div></div>
-            </div>
-          </div>
-          <!--  -->
-          <div class="pop-inner pop-load" style="display:none">
-            <div class="popload-icon-bg">
-              <div class="popload-icon"></div>
-            </div>
-            <div class="poploading">
-              <div class="popload-percent"><p></p></div>
-              <p>{{_e.UPLOAD_IN_PROGRESS}} ...</p>
-            </div>
-          </div>
-          <!--  -->
-          <div class="pop-inner pop-txt"  style="display:none">
-            <div class="poptxt-preview clear">
-              {{#if type}}
-              <div class="poptxt-pic">
-                <a class="pop-zoomout-btn" data-a="pop-zoomout-btn" href="#">Zoom In</a>
-                <a class="pop-zoomin-btn" data-a="pop-zoomin-btn" href="#">Zoom Out</a>
-                <a class="pop-rright-btn" data-a="pop-rright-btn" href="#">Turn Right</a>
-                <a class="pop-rleft-btn" data-a="pop-rleft-btn" href="#">Turn Left</a>
-                <div class="poptxt-pic-inner">
-                  <img src="about:blank" />
+              <!--  -->
+              <div class="pop-inner pop-load" style="display:none">
+                <div class="popload-icon-bg">
+                  <div class="popload-icon"></div>
+                </div>
+                <div class="poploading">
+                  <div class="popload-percent"><p></p></div>
+                  <p>{{_e.UPLOAD_IN_PROGRESS}} ...</p>
                 </div>
               </div>
-              {{else}}
-              <div class="poptxt-video-wrap">
-                <video id="poptxt-video" class="video-js vjs-big-play-centered vjs-default-skin" controls="controls" preload="none" width="100%" height="100%" poster="about:blank" data-setup="{}">
-                  <source src="about:blank" type='video/mp4' />
-                </video>
+              <!--  -->
+              <div class="pop-inner pop-txt"  style="display:none">
+                <div class="poptxt-preview clear">
+                  {{#if type}}
+                  <div class="poptxt-pic">
+                    <a class="pop-zoomout-btn" data-a="pop-zoomout-btn" href="#">Zoom In</a>
+                    <a class="pop-zoomin-btn" data-a="pop-zoomin-btn" href="#">Zoom Out</a>
+                    <a class="pop-rright-btn" data-a="pop-rright-btn" href="#">Turn Right</a>
+                    <a class="pop-rleft-btn" data-a="pop-rleft-btn" href="#">Turn Left</a>
+                    <div class="poptxt-pic-inner">
+                      <img src="about:blank" />
+                    </div>
+                  </div>
+                  {{else}}
+                  <div class="poptxt-video-wrap">
+                    <video id="poptxt-video" class="video-js vjs-big-play-centered vjs-default-skin" controls="controls" preload="none" width="100%" height="100%" poster="about:blank" data-setup="{}">
+                      <source src="about:blank" type='video/mp4' />
+                    </video>
+                  </div>
+                  {{/if}}
+                  <textarea id="node-description" name="description" class="poptxt-textarea" placeholder="{{_e.ENTER_DESCRIPTION}}"></textarea>
+                  <div class="error"></div>
+                </div>
+                <div class="poptxt-check btn">{{_e.UPLOAD_TERM}}<span class="error">{{_e.ERROR_CONDITION}}</span></div>
+                <div class="poptxt-btn clear">
+                  <p class="poptxt-cancel btn" data-a="close_pop">{{_e.CANCEL}}</p>
+                  <p class="poptxt-submit btn" data-a="save_node">{{_e.PUBLISH}} {{type}}</p>
+                </div>
               </div>
-              {{/if}}
-              <textarea id="node-description" name="description" class="poptxt-textarea" placeholder="{{_e.ENTER_DESCRIPTION}}"></textarea>
-              <div class="error"></div>
-            </div>
-            <div class="poptxt-check btn">{{_e.UPLOAD_TERM}}<span class="error">{{_e.ERROR_CONDITION}}</span></div>
-            <div class="poptxt-btn clear">
-              <p class="poptxt-cancel btn" data-a="close_pop">{{_e.CANCEL}}</p>
-              <p class="poptxt-submit btn" data-a="save_node">{{_e.PUBLISH}} {{type}}</p>
-            </div>
-          </div>
-          <!--  -->
-          <div class="pop-inner pop-success">
-            {{_e.YOU_PUBLISHED}} {{type}}.
-          </div>
-          <iframe id='node_upload_iframe' name='node_upload_iframe' src=""></iframe>
-        </form>
-        <div id="node_post_flash"></div>
-			</div>
+              <!--  -->
+              <div class="pop-inner pop-success">
+                {{_e.YOU_PUBLISHED}} {{type}}.
+              </div>
+              <iframe id='node_upload_iframe' name='node_upload_iframe' src=""></iframe>
+            </form>
+            <div id="node_post_flash"></div>
+		</div>
+        <div class="poploading"></div>
 	</div>
 </script>
 
@@ -228,6 +229,7 @@
 				{{_e.SAVE_AVATAR_SUCCESS}}.
 			</div>
 		</div>
+        <div class="poploading"></div>
 	</div>
 </script>
 <!-- inner-template -->
