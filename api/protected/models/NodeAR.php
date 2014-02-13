@@ -177,9 +177,13 @@ class NodeAR extends CActiveRecord{
         $this->file = $newpath;
 
         if($type == 'photo') {
-          $this->makeVideoThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_250_250.jpg', $newpath), 250, 250, false);
-          $this->makeVideoThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_650_650.jpg', $newpath), 650, 650, false);
+          $this->makeImageThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_250_250.jpg', $newpath), 250, 250, false);
+          $this->makeImageThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_650_650.jpg', $newpath), 650, 650, false);
         }
+				else {
+					$this->makeVideoThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_250_250.jpg', $newpath), 250, 250, false);
+					$this->makeVideoThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_650_650.jpg', $newpath), 650, 650, false);
+				}
 
       }
 
@@ -296,16 +300,17 @@ class NodeAR extends CActiveRecord{
       if (!empty($output)) {
         $ffmpeg = array_shift($output);
         if ($ffmpeg) {
-          $newpath = pathinfo($to, PATHINFO_FILENAME).".". self::ALLOW_STORE_VIDE_TYPE;
+          $newpath = pathinfo($to, PATHINFO_FILENAME)."_new.". self::ALLOW_STORE_VIDE_TYPE;
           $dir = pathinfo($to, PATHINFO_DIRNAME);
           $newpath = $dir.'/'. $newpath;
           if ($newpath != $to) {
+					//if (1) {
             $status;
             $output;
             // 视频转换
             switch($extname) {
               case 'mp4':
-                exec("ffmpeg -i {$to} -b 1500k -vcodec libx264 -g 30 {$newpath}", $output, $status);
+                exec("ffmpeg -i {$to} -vcodec libx264 -acodec aac -strict experimental -ac 2 {$newpath}", $output, $status);
                 break;
 							case 'mpg':
 								exec("ffmpeg -i {$to} -c:v libx264 -c:a libfaac -r 30 {$newpath}", $output, $status);
@@ -427,11 +432,11 @@ class NodeAR extends CActiveRecord{
 
 		if (!file_exists($absscreenImagePath)) {
 
-			exec("ffmpeg -i $absvideoPath -vframes 1 -an -f image2 ".$absscreenImagePath, $output, $status);
+			exec("ffmpeg -ss 00:00:03 -i $absvideoPath -vframes 1 -an -f image2 ".$absscreenImagePath, $output, $status);
 			// 成功了
 			if ($status) {
 				// nothing
-				exec("ffmpeg -i $absvideoPath -vframes 1 -an -f image2 ".$absscreenImagePath, $output, $status);
+				exec("ffmpeg -ss 00:00:03 -i $absvideoPath -vframes 1 -an -f image2 ".$absscreenImagePath, $output, $status);
 			}
 			else {
 				//TODO:: 不成功 我们可能需要返回一个默认的视频；因为客户端需要的是一个图片链接
