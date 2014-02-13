@@ -1486,13 +1486,15 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         location.hash = '';
         if(!$('.user-page').is(':visible')) {
             var mainWidth = winWidth;
+            var slidWidth = $('.side').width();
             $('.inner').fadeOut(400);
             $('.main').fadeOut(400);
-            $('.count').css({left:-240}).delay(600).animate({left:80});
-            $('.user-page').css({left:-mainWidth})
+            $('.count').css({left:-240}).delay(400).animate({left:80});
+            $('.user-page').css({left:- mainWidth , width: mainWidth - slidWidth })
                 .delay(100)
-                .fadeIn()
-                .animate({left:0}, 400, 'easeOutQuart' , function(){
+                .show()
+                .animate({left:slidWidth}, 600, 'easeOutQuart' , function(){
+                    $(this).css('width' , 'auto');
                     // if first loaded , load user's nodes from server
                     var user = $('.side').data('user');
                     var param = {page:1,pagenum:20, uid:user.uid, orderby:'datetime'};
@@ -1570,7 +1572,16 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     //close user page
     LP.action('close_user_page' , function(){
         var mainWidth = winWidth - _silderWidth;
-        $('.user-page').fadeOut(400).animate({left:-mainWidth},400,'easeInQuart');
+        $('.user-page').find('.count')
+            .animate({
+                'left': -240
+            } , 300 )
+            .end()
+            .delay( 100 )
+            .css('width' , mainWidth )
+            .animate({left:-mainWidth},400,'easeInQuart' , function(){
+                $(this).hide();
+            });
         $('.close-user-page').fadeOut();
         $main.css({position:'relative',top:'auto',left:'auto'});
     });
