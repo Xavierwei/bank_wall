@@ -591,12 +591,13 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             $info.css( 'bottom' , - $info.height() );
 
             // main animation
+            var scrollTop = $(window).scrollTop();
             $main
                 .css({
                     position: 'fixed',
                     width: mainWrapWidth,
                     left: 0,
-                    top: 86
+                    top: 86 - scrollTop
                 })
                 .animate({
                     left: winWidth
@@ -681,6 +682,8 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         if( $dom.get(0) != $main.get(0) ){
             $aniDom = $(".user-page");
         }
+
+        var lastScrollTop = 86 - parseInt( $aniDom.css('top') );
         $aniDom.show()
             .css('position' , 'fixed')
             .delay(infoTime)
@@ -693,7 +696,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     position: 'relative',
                     width: 'auto'
                 });
-
+                $(window).scrollTop( lastScrollTop );
                 // restart reverse
                 nodeActions.setItemReversal( $dom );
             });
