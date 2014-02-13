@@ -1624,10 +1624,11 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         });
         $countryList.empty();
         api.ajax('countryList', function( result ){
+            var htmls = [];
             $.each(result, function(index, item){
-                var html = '<p data-id="' + item.country_id + '">' + item.country_name + '</p>';
-                $countryList.append(html);
+                htmls.push( '<p data-id="' + item.country_id + '">' + item.country_name + '</p>' );
             });
+            $countryList.append(htmls.join(''));
         });
         resizeUserBox();
     });
