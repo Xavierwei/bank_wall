@@ -569,7 +569,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             // inner animation
             $('.inner').eq(0).fadeOut(function(){
                 $(this).remove();
-            })
+            });
             var $inner = $(html).insertBefore( $main )
                 .css({
                     left: - mainWidth ,
@@ -831,6 +831,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             var $newItem = $newInner.find('.image-wrap-inner')[ direction == 'left' ? 'insertBefore' : 'insertAfter' ]( $oriItem )
                 .attr('style' , $oriItem.attr('style'))
                 .find('img').attr('style' , style)
+                .hide()
                 .end();
 
             $oriItem.find('iframe').remove();
