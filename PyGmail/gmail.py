@@ -222,11 +222,13 @@ def fetching_gamil(user, password):
               subject, encoding = decode_header(subject)[0]
               try:
                 ret = post_media_to_bankwall(desc=subject, user=mfrom, media=filepath)
-              except:
-                # 错误后 要删除cache 文件
+              except Exception as e:
                 rm_cache_mail(eid)
-              if ret is not None:
-                reply_mail(gmail_mail, ret)
+                ret = None
+                print e
+              finally:
+                if ret is not None:
+                  reply_mail(gmail_mail, ret)
         else:
           print "File [%s] is not media " %(filepath)
   conn.close()
