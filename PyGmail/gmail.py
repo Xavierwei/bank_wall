@@ -231,6 +231,19 @@ def fetching_gamil(user, password):
           print "File [%s] is not media " %(filepath)
   conn.close()
   conn.logout()
+  
+  
+def clean_dir(dir):
+    if os.path.isdir(dir):
+        paths = os.listdir(dir)
+        for path in paths:
+            filepath = os.path.join(dir, path)
+            if os.path.isfile(filepath):
+                try:
+                    os.unlink(filepath)
+                except:
+                    print "error when remove attachment %s " %(filepath)
+    return True
 
 def load_config():
   try:
@@ -283,6 +296,8 @@ if __name__ == "__main__":
   
   finally:
     os.unlink(".lock")
+    # 删除attachments 所有文件
+    clean_dir("./attachments")
     
   
 
