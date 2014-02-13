@@ -773,7 +773,10 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     "-moz-transform": transform,
                     "transform": transform
                 })
-                .insertBefore( $comment );
+                .insertBefore( $comment )
+                .find( '.com-list' )
+                .css('height' , $comment.find('.com-list').height())
+                .end();
 
             var $cube = $comment.parent();
             var rotate = "translate3d(" + ( - dirData.dist ) + "px,0," + (-dist) + "px) rotateY(" + ( -dirData.rotate ) + "deg)";
