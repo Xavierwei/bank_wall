@@ -2337,17 +2337,28 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 // every five minutes get the latest nodes
                 setInterval( function(){
                     // if main element is visible
-//                    if( !$main.is(':visible') ) return;
-//                    var lastNid = $main.data('nodes');
-//                    api.ajax( 'neighbor' , {nid: 1} , function( r ){
-//                        var nodes = r.data.left;
-//                        if( !nodes.length ) return;
-//                        nodeActions.prependNode( $main , nodes , $main.data('param').orderby == "datetime" );
-//                    } );
+                   if( $main.is(':hidden') ) return;
+                   var nodes = $main.data('nodes');
+                   var param = $main.data('param');
+                   var lastNid = nodes && nodes.length ? nodes[0].nid : null;
+
+                   param = $.extend( {} , param );
+                   param.page = 1;
+                   api.ajax('recent' , param , function( r ){
+                        if( !r.data || !r.data.length ) return;
+                        var nodes = [];
+                        $.each( r.data , function( i , node ){
+                            if( node.nid == lastNid ){
+                                return false;
+                            } else {
+                                nodes.push( node );
+                            }
+                        } );
+
+                        // insert node
+                        nodeActions.prependNode( $main , nodes , param.orderby == "datetime" );
+                   } );
                 } , 5 * 60 * 1000 );
-
-
-
             });
         });
 
