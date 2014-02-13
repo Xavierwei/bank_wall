@@ -653,7 +653,7 @@ class NodeController extends Controller {
 					"image/gif", "image/png", "image/jpeg", "image/jpg"
 				);
 				$allowVideoMime = array(
-					"video/mov", "video/wmv", "video/mp4", "video/avi", "video/3gp", "video/3gpp", "video/mpeg", "video/mpg", "application/octet-stream"
+					"video/mov","video/quicktime", "video/x-msvideo", "video/x-ms-wmv", "video/wmv", "video/mp4", "video/avi", "video/3gp", "video/3gpp", "video/mpeg", "video/mpg", "application/octet-stream", "video/x-ms-asf"
 				);
 				if (in_array($mime, $allowPhotoMime)) {
 					$type = 'photo';

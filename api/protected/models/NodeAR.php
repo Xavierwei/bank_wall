@@ -181,6 +181,7 @@ class NodeAR extends CActiveRecord{
           $this->makeImageThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_650_650.jpg', $newpath), 650, 650, false);
         }
 				else {
+					$newpath = str_replace('.mp4', '.jpg', $newpath);
 					$this->makeVideoThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_250_250.jpg', $newpath), 250, 250, false);
 					$this->makeVideoThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_650_650.jpg', $newpath), 650, 650, false);
 				}
@@ -266,12 +267,13 @@ class NodeAR extends CActiveRecord{
     $photoexts = explode(",", self::ALLOW_UPLOADED_PHOTO_TYPES);
     $videoexts = explode(",", self::ALLOW_UPLOADED_VIDEO_TYPES);
     $extname = strtolower(pathinfo($upload->getName(), PATHINFO_EXTENSION));
-
-//    if(!in_array($extname, $photoexts) && !in_array($extname, $videoexts)) {
-//      exec("/usr/bin/file -b --mime {$upload->tempName}", $output, $status);
-//      $mime = explode(';',$output[0])[0];
-//      $extname = explode('/',$mime)[1];
-//    }
+		$extnameArray = explode("?", $extname);
+		$extname = $extnameArray[0];
+		if(empty($extname)){
+      exec("/usr/bin/file -b --mime {$upload->tempName}", $output, $status);
+      $mime = explode(';',$output[0])[0];
+      $extname = explode('/',$mime)[1];
+		}
 
 		if (in_array($extname, $photoexts)) {
       $filename = md5( uniqid() . '_' . $upload->getName() ) . '.jpg' ;
@@ -429,7 +431,6 @@ class NodeAR extends CActiveRecord{
 //    exit();
 		// 视频截图不能截2次
 		// 做个检查
-
 		if (!file_exists($absscreenImagePath)) {
 
 			exec("ffmpeg -ss 00:00:03 -i $absvideoPath -vframes 1 -an -f image2 ".$absscreenImagePath, $output, $status);
@@ -445,7 +446,7 @@ class NodeAR extends CActiveRecord{
 			}
 		}
 		if($w && $h) {
-			$this->makeImageThumbnail($screenImagePath, $saveTo, $w, $h, $isOutput);
+			$this->makeImageThumbnail($absscreenImagePath, $saveTo, $w, $h, $isOutput);
 		}
 
 	}
