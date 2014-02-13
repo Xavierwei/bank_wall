@@ -6948,3 +6948,12 @@ in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
 in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (202)
 in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (691)
 in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/13 21:30:30 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('Applications/MA...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/Applications/MAMP/htdocs/bank_wall/api/uploads/2014/2/10/a3f7761fcca7f0bf5821d3ba5a143c6d_250_250.jpg
+HTTP_REFERER=http://localhost/bank_wall/
+---

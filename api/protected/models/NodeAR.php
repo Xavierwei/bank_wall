@@ -271,8 +271,10 @@ class NodeAR extends CActiveRecord{
 		$extname = $extnameArray[0];
 		if(empty($extname)){
       exec("/usr/bin/file -b --mime {$upload->tempName}", $output, $status);
-      $mime = explode(';',$output[0])[0];
-      $extname = explode('/',$mime)[1];
+      $mime = explode(';',$output[0]);
+			$mime = $mime[0];
+      $extname = explode('/',$mime);
+			$extname = $extname[1];
 		}
 
 		if (in_array($extname, $photoexts)) {
