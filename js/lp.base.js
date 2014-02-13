@@ -915,13 +915,14 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
      */
     function preLoadSiblings(){
         var nodes = $main.data('nodes');
+        var aftfix = '_650_650.jpg';
         // preload before and after images
         for( var i = 0 ; i < 5 ; i++ ){
             if( nodes[ _currentNodeIndex - i ] ){
-                $('<img/>').attr('src' , API_FOLDER + nodes[ _currentNodeIndex - i ].image);
+                $('<img/>').attr('src' , API_FOLDER + nodes[ _currentNodeIndex - i ].image.replace(/_\d+_\d+\.jpg/ , aftfix ));
             }
             if( nodes[ _currentNodeIndex + i ] ){
-                $('<img/>').attr('src' , API_FOLDER + nodes[ _currentNodeIndex + i ].image);
+                $('<img/>').attr('src' , API_FOLDER + nodes[ _currentNodeIndex + i ].image.replace(/_\d+_\d+\.jpg/ , aftfix ));
             }
         }
     }
@@ -1265,7 +1266,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                                 $('.pop-inner').delay(400).fadeOut(400);
                                 $('.pop-txt').delay(900).fadeIn(400);
                             } else {
-                                if (data.files && data.files[0] && FileReader ) {
+                                if (data.files && data.files[0] && window.FileReader ) {
                                     //..create loading
                                     var reader = new FileReader();
                                     reader.onload = function (e) {
