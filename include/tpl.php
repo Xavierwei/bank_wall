@@ -92,7 +92,7 @@
           <!--  -->
           <div class="pop-inner pop-file">
             <div id="fileupload">
-              <div class="popfile-drag-box"></div>
+              <div class="popfile-drag-box" data-a="select_photo"></div>
               <ul class="step1-tips">
                 {{#ifvideo}}
                 <li>{{_e.VIDEO_FORMATE}}</li>
@@ -106,13 +106,13 @@
               </ul>
               <div class="error"></div>
               <div class="step1-btns">
-                <div class="popfile-btn btn" id="select-btn" data-a="select_photo">
+                <div class="popfile-btn btn" id="select-btn">
                   {{_e.SELECT}} {{type}}
                   <input type="file" name="file" accept="{{accept}}" />
                   <input type="hidden" name="type" value="{{type}}" />
                 </div>
               </div>
-              <div class="step2-btns"><div class="popfile-btn btn" data-a="upload_photo">{{_e.UPLOAD}}</div><div class="popfile-btn btn" data-a="select_photo">{{_e.SELECT_AGAIN}}</div></div>
+              <div class="step2-btns"><div class="popfile-btn btn" data-a="upload_photo">{{_e.UPLOAD}}</div><div class="popfile-btn btn">{{_e.SELECT_AGAIN}}</div></div>
             </div>
           </div>
           <!--  -->
@@ -177,7 +177,7 @@
 			<!--  -->
 			<div class="pop-inner pop-file">
 				<form target="avatar_upload_iframe" id="avatar_post_form" name="avatar_post_form" action="./api/index.php/user/saveavatar" method="post" enctype="multipart/form-data" >
-					<div class="popfile-drag-box"></div>
+					<div class="popfile-drag-box" data-a="select_photo"></div>
 					<ul class="step1-tips">
 						<li>{{_e.PHOTO_FORMATE}}</li>
 						<li>{{_e.PHOTO_RESOLUTION}}</li>
@@ -185,12 +185,12 @@
 					</ul>
 					<div class="error"></div>
 					<div class="step1-btns">
-						<div class="popfile-btn btn" id="select-btn" data-a="select_photo">
+						<div class="popfile-btn btn" id="select-btn">
 							{{_e.SELECT}}
 							<input type="file" name="file" />
 						</div>
 					</div>
-					<div class="step2-btns"><div class="popfile-btn btn" data-a="upload_photo">{{_e.UPLOAD}}</div><div class="popfile-btn btn" data-a="select_photo">{{_e.SELECT_AGAIN}}</div></div>
+					<div class="step2-btns"><div class="popfile-btn btn" data-a="upload_photo">{{_e.UPLOAD}}</div><div class="popfile-btn btn">{{_e.SELECT_AGAIN}}</div></div>
 				</form>
         <iframe id='avatar_upload_iframe' name='avatar_upload_iframe' src=""></iframe>
 			</div>
@@ -302,7 +302,7 @@
 			<div class="inner-loading"></div>
 			<div class="inner-info">
 				<div class="inner-shade"></div>
-				<div class="inner-infocom">{{description}}</div>
+				{{#if description}}<div class="inner-infocom">{{description}}</div>{{/if}}
 				<div class="inner-infoicon"><div class="{{type}}"></div></div>
 			</div>
 			<div class="inner-icons">

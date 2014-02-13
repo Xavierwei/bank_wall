@@ -336,12 +336,13 @@ class UserController extends Controller {
       if (!$user) {
         $this->responseError("invalid params");
       }
-      
+
+
       if (!Yii::app()->user->checkAccess("updateOwnAccount", array("uid" => $user->uid ))) {
-        return $this->responseError("permission deny");
-      }
-      elseif (!Yii::app()->user->checkAccess("updateAnyAccount", array("country_id" => $user->country_id))) {
-        return $this->responseError("permission deny");
+        if (!Yii::app()->user->checkAccess("updateAnyAccount", array("country_id" => $user->country_id))) {
+          return $this->responseError("permission deny2");
+        }
+        return $this->responseError("permission deny1");
       }
       
       $data = $_POST;

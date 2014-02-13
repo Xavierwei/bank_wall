@@ -36,3 +36,10 @@ ffmpeg -i sample.avi -acodec libfaac -b:a 128k -vcodec mpeg4 -b:v 1200k -flags +
 ffmpeg -i test.mpg -c:v libx264 -c:a libfaac -r 30 test1.mp4
 
 ffmpeg -i test1.mp4 -s 176x144 -vcodec h263 -acodec libfaac -ac 1 -ar 8000 -r 25 -ab 32k -y test.3gp
+
+
+ffmpeg -i /var/www/vhosts/polyardshanghai.com/httpdocs/sgwall/api/uploads/2014/2/13/v282.mp4 -vcodec libx264 -acodec libmp3lame /var/www/vhosts/polyardshanghai.com/httpdocs/sgwall/api/uploads/2014/2/13/v282_test.mp4
+
+ffmpeg -i /var/www/vhosts/polyardshanghai.com/httpdocs/sgwall/api/uploads/2014/2/13/v282.mp4 -vcodec libx264 -acodec aac -strict experimental -ac 2 /var/www/vhosts/polyardshanghai.com/httpdocs/sgwall/api/uploads/2014/2/13/v282_test.mp4
+
+ffmpeg -i /var/www/vhosts/polyardshanghai.com/httpdocs/sgwall/api/uploads/2014/2/13/v282.mp4 -b 1500k -vcodec libx264 -g 30 /var/www/vhosts/polyardshanghai.com/httpdocs/sgwall/api/uploads/2014/2/13/v282_test2.mp4
