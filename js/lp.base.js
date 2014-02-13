@@ -1198,6 +1198,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 })
             }
             LP.use('fileupload' , function(){
+                console.log('upload');
                 $fileupload.fileupload({
                         // Uncomment the following to send cross-domain cookies:
                         //xhrFields: {withCredentials: true},
@@ -1386,9 +1387,9 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     });
 
     //select photo
-    // LP.action('select_photo' , function(){
-    //     $('#file-photo').trigger('click');
-    // });
+    LP.action('select_photo' , function(){
+         $('#select-btn input[type="file"]').trigger('click');
+    });
 
     //select photo
     LP.action('upload_photo' , function(){
