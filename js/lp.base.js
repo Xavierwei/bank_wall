@@ -1260,35 +1260,43 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                             var rdata = data.result.data;
 
                             if(rdata.type == 'video') {
-                                $('.poptxt-pic img').attr('src', API_FOLDER + rdata.file.replace('.mp4', /*THUMBNAIL_IMG_SIZE + */'.jpg'));
+                                $('.poptxt-pic img').unbind('load.forinnershow')
+                                    .bind('load.forinnershow' , function(){
+                                        $('.pop-inner').delay(400).fadeOut(400);
+                                        $('.pop-txt').delay(900).fadeIn(400);
+                                    })
+                                    .attr('src', API_FOLDER + rdata.file.replace('.mp4', /*THUMBNAIL_IMG_SIZE + */'.jpg'));
                                 // TODO:: why need timeout?
                                 setTimeout(function(){
                                     $('.poptxt-pic img').attr('src',$('.poptxt-pic img').attr('src') + '?' + new Date().getTime() );
                                 },2000);
                                 $('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
-                                $('.pop-inner').delay(400).fadeOut(400);
-                                $('.pop-txt').delay(900).fadeIn(400);
+                                
                             } else {
                                 if (data.files && data.files[0] && window.FileReader ) {
                                     //..create loading
                                     var reader = new FileReader();
                                     reader.onload = function (e) {
                                         // change checkpage img
-                                        $('.poptxt-pic img').attr('src', e.target.result/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
+                                        $('.poptxt-pic img')
+                                            .unbind('load.forinnershow')
+                                            .bind('load.forinnershow' , function(){
+                                                $('.pop-inner').delay(400).fadeOut(400);
+                                                $('.pop-txt').delay(1200).fadeIn(400);
+                                            })
+                                            .attr('src', e.target.result/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
                                         $('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
-            //                            $('.pop-file .step1-btns').fadeOut(400);
-            //                            $('.pop-file .step2-btns').delay(400).fadeIn(400);
-                                        $('.pop-inner').delay(400).fadeOut(400);
-                                        $('.pop-txt').delay(1200).fadeIn(400);
                                     };
                                     reader.readAsDataURL(data.files[0]);
                                 } else {
-                                    $('.poptxt-pic img').attr('src', API_FOLDER + rdata.file/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
+                                    $('.poptxt-pic img')
+                                        .unbind('load.forinnershow')
+                                        .bind('load.forinnershow' , function(){
+                                            $('.pop-inner').delay(400).fadeOut(400);
+                                            $('.pop-txt').delay(1200).fadeIn(400);
+                                        })
+                                        .attr('src', API_FOLDER + rdata.file/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
                                     $('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
-        //                            $('.pop-file .step1-btns').fadeOut(400);
-        //                            $('.pop-file .step2-btns').delay(400).fadeIn(400);
-                                    $('.pop-inner').delay(400).fadeOut(400);
-                                    $('.pop-txt').delay(1200).fadeIn(400);
                                 }
                             }
                         }
