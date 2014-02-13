@@ -11,6 +11,11 @@ from ConfigParser import ConfigParser
 import os.path
 from smtplib import SMTP
 
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
+print sys.getdefaultencoding()
+
 basepath = os.path.abspath(os.path.dirname(__file__))
 
 def post_media_to_bankwall(desc="description", user="xx@xx.com", media="/path/to/media"):
@@ -52,13 +57,14 @@ def reply_mail(mail_obj, is_success=True):
 
 def is_media(file):
   """ 判断是否是Media (图片/视频) """
+  file = file.replace("(", "\(").replace(")", "\)")
   cmd = "/usr/bin/file -b --mime %s" % (file)
   mime = subprocess.Popen(cmd, shell=True, \
   stdout = subprocess.PIPE).communicate()[0]
   mime = mime.rstrip()
   print "mime is [%s]" %(mime)
   
-  if mime in ["image/jpeg", "image/png", "image/jpg", "image/gif", "video/mov", "video/wmv", "video/mp4", "video/avi", "video/3gp"]:
+  if mime in ["image/jpeg", "image/png", "image/jpg", "image/gif", "video/mov", "video/wmv", "video/mp4", "video/avi", "video/3gp", "video/mpeg", "video/mpg", "application/octet-stream", "video/3gpp"]:
     return True
   return False
 
@@ -89,6 +95,18 @@ def cache_mail(uuid, gmail_mail, filepath):
   
   return cache_data
 
+def rm_cache_mail(uuid):
+  cache_dir = os.path.join(basepath, "caches")
+  if not os.path.isdir(cache_dir):
+    os.mkdir(cache_dir)
+  
+  cache_file = os.path.join(cache_dir, uuid);
+  if os.path.isfile(cache_file) is False:
+    return True
+
+  os.unlink(cache_file)
+  return True
+
 def is_cached(uuid):
   cache_dir = os.path.join(basepath, "caches")
   
@@ -99,6 +117,17 @@ def is_cached(uuid):
   if not os.path.isfile(cache_file):
     return False
   return True
+
+def reconnect_gmail(user, password):
+  conn = imaplib.IMAP4_SSL("imap.gmail.com", 993)
+  try:
+    conn.login(user, password)
+    print "login in mail account [%s] success" %(user)
+    conn.select("inbox")
+  except:
+    print "Error when login with %s" %(user)
+    return None
+  return conn
 
 def fetching_gamil(user, password):
   # 只取最近10条邮件
@@ -132,7 +161,19 @@ def fetching_gamil(user, password):
   print "ids [%s] of mail that be fetched " %(id_list)
 
   for eid in id_list:
-    result, email_data = conn.uid("fetch", eid, "(RFC822)")
+      
+    # 对取每个邮件进行异常处理
+    try:
+      result, email_data = conn.uid("fetch", eid, "(RFC822)")
+    except:
+        while (True):
+          conn = reconnect_gmail(user, password)
+          if conn is None:
+              continue
+          result, email_data = conn.uid("fetch", eid, "(RFC822)")
+          break
+    if result != "OK":
+        continue
 
     gmail_mail = email.message_from_string(email_data[0][1])
 
@@ -146,14 +187,14 @@ def fetching_gamil(user, password):
       if part.get_filename() is None:
         continue
       filename = "".join(part.get_filename().split())
-
-      # new file name
       import time
-      nowtimestamp = int(time.time())
-      filename = str(nowtimestamp) + filename
+      nowtimestamp = unicode(int(time.time())).encode("utf-8")
+      filename = unicode(filename).encode("utf-8")
+      filename = ''.join([nowtimestamp , filename])
 
       if bool(filename):
         filepath = os.path.join(attachmentpath, filename)
+	print filepath
         if not os.path.isfile(filepath):
           fp = open(filepath, "wb")
           fp.write(part.get_payload(decode=True))
@@ -168,7 +209,7 @@ def fetching_gamil(user, password):
             print "Mail with uuid [%s] is cached " %(eid)
             continue
           else:
-          # 如果没有则先缓存图片再发送图片到网站
+            # 如果没有则先缓存图片再发送图片到网站
             data = cache_mail(eid, gmail_mail, filepath)
 
             if data is not None:
@@ -179,7 +220,11 @@ def fetching_gamil(user, password):
               # Subject
               subject = gmail_mail["Subject"]
               subject, encoding = decode_header(subject)[0]
-              ret = post_media_to_bankwall(desc=subject, user=mfrom, media=filepath)
+              try:
+                ret = post_media_to_bankwall(desc=subject, user=mfrom, media=filepath)
+              except:
+                # 错误后 要删除cache 文件
+                rm_cache_mail(eid)
               if ret is not None:
                 reply_mail(gmail_mail, ret)
         else:
@@ -229,9 +274,15 @@ if __name__ == "__main__":
 
   except Exception as e:
     print "Exception when fetch email !"
+    exc_type, exc_value, exc_traceback = sys.exc_info()
+    import traceback
+    traceback.print_exception(exc_type, exc_value, exc_traceback)
+
     os.unlink(".lock")
     print e
-
+  
+  finally:
+    os.unlink(".lock")
     
   
 

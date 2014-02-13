@@ -245,7 +245,7 @@ a{text-decoration:none;color:#666}
 
 /**/
 .popload-icon-bg{background:url('../img/upload_loading_bg.gif') no-repeat;width: 212px;height: 212px;padding:1px 0 0;margin:23px auto;}
-    .popload-icon {background: url('../img/icon_upload_loading.png') no-repeat;width:63px;height:63px;margin:69px 0 0 77px;}
+    .popload-icon {background: url('../img/icon_upload_loading.png') no-repeat;width:63px;height:63px;margin:72px 0 0 75px;}
 .poploading{text-align: center;color:#434343;}
 	.popload-percent{width:260px;height: 19px;background: #e6e6e6;margin:0 auto 20px;}
 	.popload-percent p{width:20%;height: 19px;background:url('../img/process_bar.gif') no-repeat -5px 0;}
