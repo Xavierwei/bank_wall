@@ -512,7 +512,7 @@
 <!-- blank-filter-tpl -->
 <script type="text/tpl" id="blank-filter-template">
   <div class="blank-search">
-    <div class="no-results">{{_e.NO_RESULTS_THIS_SEARCH}} {{#if country_name}}[{{country_name}}]{{/if}}</div>
+    <div class="no-results">{{_e.NO_RESULTS_THIS_SEARCH}} {{#if searchs}}{{searchs}}{{/if}}</div>
     <div class="no-results-line"></div>
     <div class="popular-hashtags">
       {{_e.POPULAR_HASHTAGS}}:

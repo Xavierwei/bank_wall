@@ -826,9 +826,10 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
             // append dom
             var $oriItem = $imgWrap.children('.image-wrap-inner');
-            var imageSrc = $newInner.find('.image-wrap-inner img').attr('src');
-            var $newItem = $oriItem.clone()[ direction == 'left' ? 'insertBefore' : 'insertAfter' ]( $oriItem )
-                .find('img').attr('src' , imageSrc)
+            var style = $imgWrap.find('.image-wrap-inner img').attr('style');
+            var $newItem = $newInner.find('.image-wrap-inner')[ direction == 'left' ? 'insertBefore' : 'insertAfter' ]( $oriItem )
+                .attr('style' , $oriItem.attr('style'))
+                .find('img').attr('style' , style)
                 .end();
 
             $oriItem.find('iframe').remove();
@@ -936,6 +937,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         {
             var param = $main.data('param');
             if(!param.previouspage || param.previouspage == 1) {
+                alert('no more nodes');
                 return;
             } else {
                 param.previouspage --;
@@ -1030,10 +1032,15 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             }
             else {
                 api.ajax('tagTopThree', function(result){
-                    if(pageParam.country_id) {
-                        var countryName = $('.select-country-option-list p[data-param="country_id='+pageParam.country_id+'"]').html();
-                        result.country_name = countryName;
-                    }
+                    var searchs = '';
+                    var $selectBox = $('.select-item .select-box').each(function(){
+                        searchs += '[' + $(this).html() + '] ';
+                    });
+                    // if(pageParam.country_id) {
+                    //     var countryName = $('.select-country-option-list p[data-param="country_id='+pageParam.country_id+'"]').html();
+                    //     result.country_name = countryName;
+                    // }
+                    result.searchs = searchs;
                     result._e = _e;
                     LP.compile( 'blank-filter-template' ,
                         result,
@@ -1761,7 +1768,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         // get search value
         var $searchInput = $('.search-ipt');
         var param = { page: 1 , pagenum: 20 };
-        param [ $searchInput.attr('name') ] = $searchInput.val();
+        param [ $searchInput.attr('name') ] = $.trim( $searchInput.val() ).replace( /^#+/ , '' );
 
         // get select options
         $('.header .select').find('.select-option p.selected')
