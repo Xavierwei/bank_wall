@@ -54,15 +54,14 @@ The default control bar that is a container for most of the controls.
   position: absolute;
   /* Place control bar at the bottom of the player box/video.
      If you want more margin below the control bar, add more height. */
-  bottom: 0;
+  bottom: 23px;
   /* Use left/right to stretch to 100% width of player div */
   left: 0;
   right: 0;
   /* Height includes any margin you want above or below control items */
-  height: 3.0em;
+  height: 70px;
   /* background-color-with-alpha */
-  background-color: #07141e;
-  background-color: rgba(7, 20, 30, 0.7);
+  background-color: none;
 }
 .vjs-control-bar>div {display: none;}
 /* Show the control bar only once the video has started playing */
@@ -209,7 +208,7 @@ The default control bar that is a container for most of the controls.
   font-size: 0.3em;
   height: 1em;
   /* Set above the rest of the controls. */
-  top: -30px;
+  top: 33px;
   /* Shrink the bar slower than it grows. */
   /* transition */
   -webkit-transition: all 0.4s;

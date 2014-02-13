@@ -178,7 +178,7 @@ class NodeAR extends CActiveRecord{
 
         if($type == 'photo') {
           $this->makeVideoThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_250_250.jpg', $newpath), 250, 250, false);
-          $this->makeVideoThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_800_800.jpg', $newpath), 800, 800, false);
+          $this->makeVideoThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_650_650.jpg', $newpath), 650, 650, false);
         }
 
       }
@@ -304,6 +304,9 @@ class NodeAR extends CActiveRecord{
             $output;
             // 视频转换
             switch($extname) {
+              case 'mp4':
+                exec("ffmpeg -i {$to} -b 1500k -vcodec libx264 -g 30 {$newpath}", $output, $status);
+                break;
 							case 'mpg':
 								exec("ffmpeg -i {$to} -c:v libx264 -c:a libfaac -r 30 {$newpath}", $output, $status);
 								break;

@@ -112,7 +112,7 @@
                   <input type="hidden" name="type" value="{{type}}" />
                 </div>
               </div>
-              <div class="step2-btns"><div class="popfile-btn btn" data-a="upload_photo">{{_e.UPLOAD}}</div><div class="popfile-btn btn" data-a="select_photo">{{_e.SELECT_AGAIN}}</div></div>
+              <div class="step2-btns"><div class="popfile-btn btn" data-a="upload_photo">{{_e.UPLOAD}}</div><div class="popfile-btn btn">{{_e.SELECT_AGAIN}}</div></div>
             </div>
           </div>
           <!--  -->
@@ -190,7 +190,7 @@
 							<input type="file" name="file" />
 						</div>
 					</div>
-					<div class="step2-btns"><div class="popfile-btn btn" data-a="upload_photo">{{_e.UPLOAD}}</div><div class="popfile-btn btn" data-a="select_photo">{{_e.SELECT_AGAIN}}</div></div>
+					<div class="step2-btns"><div class="popfile-btn btn" data-a="upload_photo">{{_e.UPLOAD}}</div><div class="popfile-btn btn">{{_e.SELECT_AGAIN}}</div></div>
 				</form>
         <iframe id='avatar_upload_iframe' name='avatar_upload_iframe' src=""></iframe>
 			</div>
@@ -302,7 +302,7 @@
 			<div class="inner-loading"></div>
 			<div class="inner-info">
 				<div class="inner-shade"></div>
-				<div class="inner-infocom">{{description}}</div>
+				{{#if description}}<div class="inner-infocom">{{description}}</div>{{/if}}
 				<div class="inner-infoicon"><div class="{{type}}"></div></div>
 			</div>
 			<div class="inner-icons">

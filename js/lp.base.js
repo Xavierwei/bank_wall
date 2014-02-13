@@ -8,7 +8,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     var isIE8 = $('html').hasClass('ie8');
     var API_FOLDER = "./api";
     var THUMBNAIL_IMG_SIZE = "_250_250";
-    var BIG_IMG_SIZE = "_800_800";
+    var BIG_IMG_SIZE = "_650_650";
     var _waitingLikeAjax = false;
     var _waitingCommentSubmitAjax = false;
     var _waitingCommentListAjax = false;
@@ -19,8 +19,6 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     var $listLoading = $('.loading-list');
     var aMonth;
     var _e;
-
-
 
     // live for pic-item hover event
     $(document.body)
@@ -1198,7 +1196,6 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 })
             }
             LP.use('fileupload' , function(){
-                console.log('upload');
                 $fileupload.fileupload({
                         // Uncomment the following to send cross-domain cookies:
                         //xhrFields: {withCredentials: true},
@@ -2328,7 +2325,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     });
 
                     Handlebars.registerHelper('ifzero', function(value, options) {
-                        if(value == 0)
+                        if(value <= 1)
                             return options.fn(this);
                         else
                             return options.inverse(this);
