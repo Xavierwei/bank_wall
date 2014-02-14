@@ -626,6 +626,16 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             // init vide node
             if( node.type == "video" ){
                 renderVideo($('.image-wrap-inner'),node);
+                $('#imgLoad').attr('src', './api' + node.image);
+                $('#imgLoad').ensureLoad(function(){
+                    setTimeout(function(){
+                        $('.image-wrap-inner object, .image-wrap-inner video').fadeIn();
+                        $('.image-wrap-inner .video-js').fadeIn();
+                    },400);
+
+                    // preload before and after images
+                    preLoadSiblings();
+                });
             }
 
             // init photo node
@@ -636,18 +646,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     preLoadSiblings();
                 });
             }
-            else {
-                $('#imgLoad').attr('src', './api' + node.image);
-                $('#imgLoad').ensureLoad(function(){
-                    setTimeout(function(){
-                        $('.image-wrap-inner object, .image-wrap-inner video').fadeIn();
-                        $('.image-wrap-inner .video-js').fadeIn();
-                    },200);
-
-                    // preload before and after images
-                    preLoadSiblings();
-                });
-            }
+            
 
             // change url
             changeUrl('/nid/' + node.nid , {event: 'back'});
@@ -854,32 +853,45 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
             // append dom
             var $oriItem = $imgWrap.children('.image-wrap-inner');
-            var style = $imgWrap.find('.image-wrap-inner img').attr('style');
+            // count the style
             var $newItem = $newInner.find('.image-wrap-inner')[ direction == 'left' ? 'insertBefore' : 'insertAfter' ]( $oriItem )
                 .attr('style' , $oriItem.attr('style'))
-                .find('img').attr('style' , style)
+                .find('img')
                 .hide()
                 .end();
 
-            $oriItem.find('iframe').remove();
+            // Resize Image
+            var slideWidth = $('.side').width();
+            var imgBoxWidth = $(window).width() - 330 - slideWidth;
+            var imgBoxHeight =$(window).height() - $('.header').height();
+            var minSize = Math.min( imgBoxHeight , imgBoxWidth );
+            var $img = $newItem.find('img').css('margin',0);
+            $newItem.width(minSize).height(minSize);
 
+            if( imgBoxHeight > imgBoxWidth ){
+                var marginLeft = (imgBoxHeight - imgBoxWidth) / 2;
+                $newItem.height(imgBoxHeight);
+                $img.width('auto').height('100%').css('margin-left', -marginLeft);
+            }
+
+            $oriItem.find('iframe').remove();
             // init video
             if( node.type == "video" ){
                 renderVideo($newItem,node);
+                $('#imgLoad').attr('src', './api' + node.image);
+                $('#imgLoad').ensureLoad(function(){
+                    setTimeout(function(){
+                        $('.image-wrap-inner object, .image-wrap-inner video').fadeIn();
+                        $('.image-wrap-inner .video-js').fadeIn();
+                    },400);
+                });
             }
             // init photo node
             if( node.type == "photo" ){
                 $('.image-wrap-inner img').ensureLoad(function(){
                     $(this).fadeIn();
                 });
-            } else {
-                $('#imgLoad').attr('src', './api' + node.image);
-                $('#imgLoad').ensureLoad(function(){
-                    $('.image-wrap-inner object, .image-wrap-inner video').fadeIn();
-                    $('.image-wrap-inner .video-js').fadeIn();
-                });
             }
-
 
 
             // set style and animation
@@ -939,8 +951,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             });
 
             // change url
-            var tmp = {'left':'next','right':'prev'};
-            changeUrl('/nid/' + node.nid , {event: tmp[direction]});
+            changeUrl('/nid/' + node.nid , {event: direction});
         });
     }
 
@@ -1832,18 +1843,6 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 //    });
 
 
-    $(window).on('hashchange',function(){
-        var urlHash = getUrlHash();
-        if(urlHash.length == 0) {
-            LP.triggerAction('back');
-        }
-        else if(urlHash.length == 2) {
-            if(!_changingUrlHash) {
-                var id = urlHash[1];
-                $('.main-item-'+id).click();
-            }
-        }
-    });
 
     // bind document key event for back , prev , next actions
     $(document).keydown(function( ev ){
@@ -1900,7 +1899,6 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 str += '/' + val + '/' + param[val];
             }
         } )
-        //changeUrl( str );
 
         $('.side .menu-item').removeClass('active');
 
@@ -1947,13 +1945,6 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             } );
             currentHash = location.hash;
         });
-        var routers = [];
-        function addRouter( reg , fn ){
-            routers.push( {
-                path: reg,
-                fn: fn
-            } );
-        }
 
         // run the right transition for back or prev btn event on browser.
         var transitions = [];
