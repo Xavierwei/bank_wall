@@ -638,7 +638,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             }
 
             // change url
-            changeUrl('/nid/' + node.nid);
+            changeUrl('/nid/' + node.nid , {event: 'back'});
             // loading image
 
             // Resize Inner Box
@@ -908,7 +908,8 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             });
 
             // change url
-            changeUrl('/nid/' + node.nid);
+            var tmp = {'left':'next','right':'prev'};
+            changeUrl('/nid/' + node.nid , {event: tmp[direction]});
         });
     }
 
@@ -1849,14 +1850,70 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     }
 
 
-    var changeUrl = function( str ){
+    var currentHash = location.hash;
+    var changeUrl = function( str , data ){
         location.hash = '#' + str; // removed the !, don't need search by google
-//        if( history.pushState ){
-//            //history.pushState( "" , null ,  str ) ;
-//        } else {
-//            location.hash = '#!' + str;
-//        }
-    }
+        if( history.pushState ){
+            history.replaceState( data , '' , location.href ) ;
+        } else {
+            location.hash = '#' + str;
+        }
+        currentHash = location.hash;
+    };
+
+    changeUrl( location.hash.replace('#' , '') , {event:'load'} );
+
+    // bind history change
+    (function(){
+        $(window).bind('popstate' , function( ev ){
+            if( !ev.originalEvent.state || !ev.originalEvent.state.event ) return;
+            $.each( transitions , function( i , trans ){
+                var lastUrl = currentHash.replace('#' , '');
+                var currUrl = location.hash.replace('#' , '');
+                if( trans.prev.test( lastUrl ) && 
+                    trans.curr.test( currUrl ) ){
+                    trans.fn( lastUrl , currUrl );
+                }
+            } );
+            currentHash = location.hash;
+        });
+        var routers = [];
+        function addRouter( reg , fn ){
+            routers.push( {
+                path: reg,
+                fn: fn
+            } );
+        }
+
+        // run the right transition for back or prev btn event on browser.
+        var transitions = [];
+        function addTransition( lastReg , currReg , fn ){
+            transitions.push({
+                prev: lastReg,
+                curr: currReg,
+                fn : fn
+            });
+        }
+
+        addTransition( /^\/nid\/\d+/ , /^\/nid\/\d+/ , function( lastUrl , currUrl ){
+            var lnid = lastUrl.match(/\d+/)[0];
+            var nid = currUrl.match(/\d+/)[0];
+            LP.triggerAction( lnid > nid ? 'next' : 'prev' );
+        } );
+
+        addTransition( /^#?$/ , /^\/nid\/\d+/ , function( lastUrl , currUrl ){
+            var nid = currUrl.match(/\d+/)[0];
+            $main.children('[data-d="nid=' + nid + '"]').trigger('click');
+        } );
+
+        addTransition( /^\/nid\/\d+/ , /^#?$/ , function( lastUrl , currUrl ){
+            LP.triggerAction('back');
+        } );
+
+
+    })();
+
+    
 
     var getUrlHash = function() {
         var hash = location.hash;
