@@ -37,11 +37,11 @@ class PhpAuthManager extends CPhpAuthManager{
     $this->createOperation("publichsNode", "publish one node");
     
     //修改自己的node
-    $bizrule = 'return Yii::app()->user->getId() == $params["uid"];';
+    $bizrule = 'return Yii::app()->user->getId() == $params["uid"]';
     $this->createOperation("updateOwnNode", "update Own node", $bizrule);
     
     // 删除自己的node
-    $bizrule = 'return Yii::app()->user->getId() == $params["uid"];';
+    $bizrule = 'return Yii::app()->user->getId() == $params["uid"]';
     $this->createOperation("deleteOwnNode", "delete own node", $bizrule);
     
     

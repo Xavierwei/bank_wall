@@ -171,6 +171,8 @@ class UserController extends Controller {
 			$this->responseError( "not login" );
 		}
 		$user = UserAR::model()->findByPk($uid);
+
+
 		if (!Yii::app()->user->checkAccess("updateOwnAccount", array("uid" => $user->uid ))) {
 			return $this->responseError("permission deny");
 		}
@@ -292,6 +294,7 @@ class UserController extends Controller {
 	 * Get current user status
 	 */
 	public function actionGetCurrent() {
+
     if ($uid = Yii::app()->user->getId()) {
       $user = UserAR::model()->with("country")->findByPk($uid);
       $country = $user->country;

@@ -181,6 +181,7 @@ class NodeAR extends CActiveRecord{
           $this->makeImageThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_650_650.jpg', $newpath), 650, 650, false);
         }
 				else {
+					$newpath = str_replace('.mp4', '.jpg', $newpath);
 					$this->makeVideoThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_250_250.jpg', $newpath), 250, 250, false);
 					$this->makeVideoThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_650_650.jpg', $newpath), 650, 650, false);
 				}
@@ -266,12 +267,15 @@ class NodeAR extends CActiveRecord{
     $photoexts = explode(",", self::ALLOW_UPLOADED_PHOTO_TYPES);
     $videoexts = explode(",", self::ALLOW_UPLOADED_VIDEO_TYPES);
     $extname = strtolower(pathinfo($upload->getName(), PATHINFO_EXTENSION));
-
-//    if(!in_array($extname, $photoexts) && !in_array($extname, $videoexts)) {
-//      exec("/usr/bin/file -b --mime {$upload->tempName}", $output, $status);
-//      $mime = explode(';',$output[0])[0];
-//      $extname = explode('/',$mime)[1];
-//    }
+		$extnameArray = explode("?", $extname);
+		$extname = $extnameArray[0];
+		if(empty($extname)){
+      exec("/usr/bin/file -b --mime {$upload->tempName}", $output, $status);
+      $mime = explode(';',$output[0]);
+			$mime = $mime[0];
+      $extname = explode('/',$mime);
+			$extname = $extname[1];
+		}
 
 		if (in_array($extname, $photoexts)) {
       $filename = md5( uniqid() . '_' . $upload->getName() ) . '.jpg' ;
@@ -429,23 +433,16 @@ class NodeAR extends CActiveRecord{
 //    exit();
 		// 视频截图不能截2次
 		// 做个检查
-
 		if (!file_exists($absscreenImagePath)) {
 
 			exec("ffmpeg -ss 00:00:03 -i $absvideoPath -vframes 1 -an -f image2 ".$absscreenImagePath, $output, $status);
-			// 成功了
-			if ($status) {
-				// nothing
-				exec("ffmpeg -ss 00:00:03 -i $absvideoPath -vframes 1 -an -f image2 ".$absscreenImagePath, $output, $status);
+
+			if (!file_exists($absscreenImagePath)) {
+        exec("ffmpeg -i $absvideoPath -vframes 1 -an -f image2 ".$absscreenImagePath, $output, $status);
 			}
-			else {
-				//TODO:: 不成功 我们可能需要返回一个默认的视频；因为客户端需要的是一个图片链接
-				// 这里暂时直接 die() 掉， 因为后续工作 都是在此图片生成成功基础上做操作
-				//die();
-			}
-		}
+		};
 		if($w && $h) {
-			$this->makeImageThumbnail($screenImagePath, $saveTo, $w, $h, $isOutput);
+			$this->makeImageThumbnail($absscreenImagePath, $saveTo, $w, $h, $isOutput);
 		}
 
 	}
@@ -485,47 +482,27 @@ class NodeAR extends CActiveRecord{
   }
 
   public function countByDay($uid) {
-    // 从今天00:00:00开始
-    $start_time = strtotime(date("Y-m-d"));
-    $end_time = time();
-    
     $query = new CDbCriteria();
-    $query->select = array("count(*) AS nodecounts");
-    $query->addCondition("datetime>:start");
-    $query->addCondition("datetime<=:end");
+    $query->select = "*". ",topday_id AS topday";
+    $query->join = 'right join `topday` '.' on '. '`topday`' .".nid = ". $this->getTableAlias().".nid";
     $query->addCondition("uid=:uid");
-    
     $query->params = array(
-        ":start" => $start_time,
-        ":end" => $end_time,
-        ":uid" => $uid
+      ":uid" => $uid
     );
-    
-    $res = $this->find($query);
-    
-    return $res->nodecounts;
+    $res = $this->count($query);
+    return $res;
   }
 
   public function countByMonth($uid) {
-    // 从今天00:00:00开始
-    $start_time = strtotime(date("Y-m-1"));
-    $end_time = time();
-
     $query = new CDbCriteria();
-    $query->select = array("count(*) AS nodecounts");
-    $query->addCondition("datetime>:start");
-    $query->addCondition("datetime<=:end");
+    $query->select = "*". ",topmonth_id AS topmonth";
+    $query->join = 'right join `topmonth` '.' on '. '`topmonth`' .".nid = ". $this->getTableAlias().".nid";
     $query->addCondition("uid=:uid");
-
     $query->params = array(
-        ":start" => $start_time,
-        ":end" => $end_time,
-        ":uid" => $uid
+      ":uid" => $uid
     );
-
-    $res = $this->find($query);
-
-    return $res->nodecounts;
+    $res = $this->count($query);
+    return $res;
   }
 
 

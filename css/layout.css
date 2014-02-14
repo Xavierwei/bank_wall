@@ -16,7 +16,7 @@ ul{list-style:none;}
 textarea,input {-webkit-user-select: text;-khtml-user-select: text;-moz-user-select: text;-ms-user-select: text;user-select: text;}
 
 /* Commonly Used
-================================================================================================= */
+=============================================.image-wrap-inner video==================================================== */
 a{text-decoration:none;color:#666}
 /*a:hover{color:#ccc;}*/
 .clear{+zoom:1;}
@@ -25,15 +25,16 @@ a{text-decoration:none;color:#666}
 .clickable {cursor: pointer;}
 .btn,.btn2 {cursor:pointer;-webkit-touch-callout: none;}
 
-/* Hader Used
+/* Global Used
 ================================================================================================= */
 .pageLoading {position: fixed;width:100%;height:100%;top:0;left:0;z-index:300;background:#fff url(../img/logo.gif) center no-repeat;}
+#imgLoad {display: none;}
 
-/* Hader Used
+/* Header Used
 ================================================================================================= */				
 .header{height:86px;position: fixed;width: 100%;top:0;z-index:12;left:0;right: 0;background: #fff;font-size:10px;}
 	.logo{cursor:pointer;width:196px;height: 58px;background: url('../img/logo.gif') no-repeat;margin:11px auto 0;}
-	.search{position: absolute;left:10px;top:50px;}
+	.search{position: absolute;left:10px;top:52px;}
         .ui-autocomplete {position: fixed;z-index:999;border:1px solid #555;background: #fff;}
         .ui-autocomplete li {border-bottom:1px solid #ccc;}
         .ui-autocomplete li a {padding:0px 5px;display: block;}
@@ -44,7 +45,7 @@ a{text-decoration:none;color:#666}
         .search-ipt:focus {border: 1px solid #888;}
         .search-sub{background:url('../img/icon_search.gif') no-repeat center center;font-size:0;width:21px;height:18px;border: 1px solid #2c2c2c;border-left:none;float:left;}
         .search-tip {background: url('../img/icon_search_tip.gif') no-repeat;width:15px;height:15px;float:left;margin:1px 0 0 6px;}
-    .select{position: absolute;right:20px;top:40px}
+    .select{position: absolute;right:20px;top:50px}
 		.select-item{position: relative;float:left;width:93px;height:18px;margin:0 0 0 20px;}
 			.select-box{width:93px;height:18px;line-height:21px;border:1px #2c2c2c solid;padding:0 3px;cursor: pointer;background:url('../img/selectbox_arrow.gif') no-repeat right center;}
 			.select-pop{display:none;border:#fff solid 1px;position: absolute;width:93px;top:19px;padding:0 3px;background: #666;opacity: 0.8;filter:alpha(opacity=80);}
@@ -158,6 +159,9 @@ a{text-decoration:none;color:#666}
     .image-wrap-inner {overflow:hidden;}
     .image-wrap-inner img {display:none;}
     .image-wrap-inner iframe {height: 100%;}
+    .image-wrap-inner video {display: none;}
+    .image-wrap-inner object {display: none;}
+    .image-wrap-inner .video-js {display: none;}
 
 /* comment Used
 ================================================================================================= */
@@ -232,7 +236,7 @@ a{text-decoration:none;color:#666}
 	.pophd{height:40px;background: #d3273f url('../img/pop_hd_bg.gif') no-repeat;font-size:15px;color:#fff;line-height:45px;padding:0 18px;}
     .poptit {text-transform: uppercase;}
     .pop iframe {display: none;}
-    .poploading{right: 0;position: absolute;width: 30px;height: 30px;bottom: 0px;display:none;background: #444 url('../img/loading_inner.gif') no-repeat center center;}
+    .pop-uploadloading {right: 0;position: absolute;width: 30px;height: 30px;bottom: 0px;display:none;background: #444 url('../img/loading_inner.gif') no-repeat center center;}
 /**/
 .popfile-drag-box{width: 327px;height: 167px;background: #f9f9f9 url(../img/icon_pop_upload.gif) no-repeat center;margin:25px auto 15px auto;}
 	.popfile-btn{text-transform: uppercase;position: relative;overflow: hidden; color:#fff;background: #db2842;border: #c0152d 3px solid;width: 326px;height: 40px;line-height: 44px;text-align: center;margin: 0 auto;font-size:16px;}
@@ -246,7 +250,7 @@ a{text-decoration:none;color:#666}
 /**/
 .popload-icon-bg{background:url('../img/upload_loading_bg.gif') no-repeat;width: 212px;height: 212px;padding:1px 0 0;margin:23px auto;}
     .popload-icon {background: url('../img/icon_upload_loading.png') no-repeat;width:63px;height:63px;margin:72px 0 0 75px;}
-.poploading{text-align: center;color:#434343;}
+    .poploading{text-align: center;color:#434343;}
 	.popload-percent{width:260px;height: 19px;background: #e6e6e6;margin:0 auto 20px;}
 	.popload-percent p{width:20%;height: 19px;background:url('../img/process_bar.gif') no-repeat -5px 0;}
 /**/
@@ -325,3 +329,12 @@ a{text-decoration:none;color:#666}
         .editfi-country-option p{padding:1px 0 0 5px;color:#fafafa;border:1px solid #444;border-bottom:1px solid #555;cursor: pointer;}
         .editfi-country-option p:hover {background:#323232;}
         .user-edit-save {position: absolute;right: 10px;top:10px;height:22px;line-height:25px;background: #eb1f40 url('../img/icon_user_save.gif') no-repeat 6px 4px;color:#fff;padding:0 10px 0 40px;}
+
+
+
+
+@media only screen and (max-width: 800px) {
+    .logo {margin:5px auto 0 auto;background-size:auto 46px;width:158px;height:48px;}
+    .search {top:60px;}
+    .select {top:58px;}
+}

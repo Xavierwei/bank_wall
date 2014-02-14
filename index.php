@@ -30,9 +30,8 @@
     <div class="preload2">a</div>
     <div class="preload3">a</div>
 </div>
-<div class="pageLoading">
-
-</div>
+<div class="pageLoading"></div>
+<img id="imgLoad" />
 <?php
 	include('include/tpl.php');
 ?>
