@@ -64,7 +64,7 @@ def is_media(file):
   mime = mime.rstrip()
   print "mime is [%s]" %(mime)
   
-  if mime in ["image/jpeg", "image/png", "image/jpg", "image/gif", "video/mov", "video/wmv", "video/mp4", "video/avi", "video/3gp", "video/mpeg", "video/mpg", "application/octet-stream", "video/3gpp"]:
+  if mime in ["image/jpeg", "image/png", "image/jpg", "image/gif", "video/mov", "video/quicktime", "video/wmv", "video/mp4", "video/avi", "video/3gp", "video/mpeg", "video/mpg", "application/octet-stream", "video/3gpp"]:
     return True
   return False
 

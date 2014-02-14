@@ -12,6 +12,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     var _waitingLikeAjax = false;
     var _waitingCommentSubmitAjax = false;
     var _waitingCommentListAjax = false;
+    var _changingUrlHash = false;
     var $main = $('.main');
     var minWidth = 150;
     var itemWidth = minWidth;
@@ -185,6 +186,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             $(this)[0].pause();
         })
 
+
         // click to hide select options
         .click(function( ev ){
             $('.select-pop').fadeOut();
@@ -225,15 +227,14 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             $.each( nodes , function( index , node ){
                 // get date
                 if( bShowDate ){
-
-                    var datetime = new Date(node.datetime*1000);
-                    var date = datetime.getFullYear() + "/" + (parseInt(datetime.getMonth()) + 1) + "/" + datetime.getDate();
+                    var datetime = new Date((parseInt(node.datetime)+1*3600)*1000);
+                    var date = datetime.getUTCFullYear() + "/" + (parseInt(datetime.getUTCMonth()) + 1) + "/" + datetime.getUTCDate();
                     if( lastDate != date){
                         LP.compile( 'time-item-template' ,
-                            {date: date , day: parseInt(datetime.getDate()) , month: getMonth(parseInt(datetime.getMonth()) + 1)} ,
+                            {date: date , day: parseInt(datetime.getUTCDate()) , month: getMonth(parseInt(datetime.getUTCMonth()) + 1)} ,
                             function( html ){
                                 aHtml.push( html );
-                            } );
+                            });
                         lastDate = date;
                     }
                 }
@@ -300,12 +301,11 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             $.each( nodes , function( index , node ){
                 // get date
                 if( bShowDate ){
-
-                    var datetime = new Date(node.datetime*1000);
-                    var date = datetime.getFullYear() + "/" + (parseInt(datetime.getMonth()) + 1) + "/" + datetime.getDate();
+                    var datetime = new Date((parseInt(node.datetime)+1*3600)*1000);
+                    var date = datetime.getUTCFullYear() + "/" + (parseInt(datetime.getUTCMonth()) + 1) + "/" + datetime.getUTCDate();
                     if( lastDate != date){
                         LP.compile( 'time-item-template' ,
-                            {date: date , day: parseInt(datetime.getDate()) , month: getMonth(parseInt(datetime.getMonth()) + 1)} ,
+                            {date: date , day: parseInt(datetime.getUTCDate()) , month: getMonth(parseInt(datetime.getUTCMonth()) + 1)} ,
                             function( html ){
                                 aHtml.push( html );
                             } );
@@ -548,9 +548,9 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             _silderWidth = 0;
         }
         $('.search-hd').hide();
-        var datetime = new Date(node.datetime*1000);
-        node.date = datetime.getDate();
-        node.month = getMonth((parseInt(datetime.getMonth()) + 1));
+        var datetime = new Date((parseInt(node.datetime)+1*3600)*1000);
+        node.date = datetime.getUTCDate();
+        node.month = getMonth((parseInt(datetime.getUTCMonth()) + 1));
         node.image = node.file.replace( node.type == "video" ? '.mp4' : '.jpg', BIG_IMG_SIZE + '.jpg');
         node.timestamp = (new Date()).getTime();
         node.currentUser = $('.side').data('user');
@@ -577,7 +577,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 })
                 .animate({
                     left: 0
-                } , _animateTime , _animateEasing , function(){
+                }, _animateTime , _animateEasing , function(){
                     // show up node info
                     $(this).find('.inner-info')
                         .animate({
@@ -636,6 +636,18 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     preLoadSiblings();
                 });
             }
+            else {
+                $('#imgLoad').attr('src', './api' + node.image);
+                $('#imgLoad').ensureLoad(function(){
+                    setTimeout(function(){
+                        $('.image-wrap-inner object, .image-wrap-inner video').fadeIn();
+                        $('.image-wrap-inner .video-js').fadeIn();
+                    },200);
+
+                    // preload before and after images
+                    preLoadSiblings();
+                });
+            }
 
             // change url
             changeUrl('/nid/' + node.nid);
@@ -682,18 +694,30 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         }
 
         var lastScrollTop = 86 - parseInt( $aniDom.css('top') );
+        var _left = 0;
+        if($aniDom.hasClass('user-page')) {
+            $('.count').delay(_animateTime).animate({left:80});
+            _left = 80;
+            $main.css({
+                width: 'auto',
+                height: 'auto'
+            });
+        }
         $aniDom.show()
             .css('position' , 'fixed')
             .delay(infoTime)
             .animate({
-                left: 0
+                left: _left
             } , _animateTime , _animateEasing , function(){
-                $aniDom.css({
-                    top: 'auto',
-                    left: 'auto',
-                    position: 'relative',
-                    width: 'auto'
-                });
+                if($aniDom.hasClass('main')) {
+                    $aniDom.css({
+                        top: 'auto',
+                        left: 'auto',
+                        position: 'relative',
+                        width: 'auto'
+                    });
+                }
+
                 $(window).scrollTop( lastScrollTop );
                 // restart reverse
                 nodeActions.setItemReversal( $dom );
@@ -750,9 +774,9 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             dirData.rotate = -90;
         }
 
-        var datetime = new Date(node.datetime*1000);
-        node.date = datetime.getDate();
-        node.month = getMonth((parseInt(datetime.getMonth()) + 1));
+        var datetime = new Date((parseInt(node.datetime)+1*3600)*1000);
+        node.date = datetime.getUTCDate();
+        node.month = getMonth((parseInt(datetime.getUTCMonth()) + 1));
         node.currentUser = $('.side').data('user');
         node.image = node.file.replace( node.type == "video" ? '.mp4' : '.jpg', BIG_IMG_SIZE + '.jpg');
         node.timestamp = (new Date()).getTime();
@@ -848,7 +872,14 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 $('.image-wrap-inner img').ensureLoad(function(){
                     $(this).fadeIn();
                 });
+            } else {
+                $('#imgLoad').attr('src', './api' + node.image);
+                $('#imgLoad').ensureLoad(function(){
+                    $('.image-wrap-inner object, .image-wrap-inner video').fadeIn();
+                    $('.image-wrap-inner .video-js').fadeIn();
+                });
             }
+
 
 
             // set style and animation
@@ -943,7 +974,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         {
             var param = $main.data('param');
             if(!param.previouspage || param.previouspage == 1) {
-                alert('no more nodes');
+                //alert('no more nodes');
                 return;
             } else {
                 param.previouspage --;
@@ -1077,6 +1108,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     _this.append('<div class="com-unlike-tip">unlike</div>');
                     $(this).animate({opacity:1});
                 });
+                LP.triggerAction('update_user_status');
             }
         });
     });
@@ -1099,6 +1131,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     _this.find('.com-unlike-tip').remove();
                     $(this).animate({opacity:1});
                 });
+                LP.triggerAction('update_user_status');
             }
         });
     });
@@ -1156,10 +1189,12 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             if(data.type == 'comment') {
                 $('.comlist-item-' + data.cid).fadeOut();
                 api.ajax('deleteComment', data);
+                LP.triggerAction('update_user_status');
             }
             if(data.type == 'node') {
                 $('.main-item-' + data.nid).fadeOut();
                 api.ajax('deleteNode', data);
+                LP.triggerAction('update_user_status');
             }
             LP.triggerAction('cancel_modal');
         }
@@ -1511,7 +1546,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         location.hash = '';
         if(!$('.user-page').is(':visible')) {
             var mainWidth = winWidth;
-            var slidWidth = $('.side').width();
+            var slidWidth = 80;
             $('.inner').fadeOut(400);
             $('.main').fadeOut(400);
             $('.count').css({left:-240}).delay(400).animate({left:80});
@@ -1564,6 +1599,8 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         delete param.start;
         delete param.mycomment;
         delete param.mylike;
+        delete param.topmonth;
+        delete param.topday;
         switch(data.type) {
             case 'photo':
                 param.type = 'photo';
@@ -1572,12 +1609,10 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 param.type = 'video';
                 break;
             case 'day':
-                var d = new Date();
-                param.start = d.getFullYear() + '-' + parseInt(d.getMonth() + 1) + '-' + d.getDate();
+                param.topday = 1;
                 break;
             case 'month':
-                var d = new Date();
-                param.start = d.getFullYear() + '-' + parseInt(d.getMonth() + 1) + '-' + 1;
+                param.topmonth = 1;
                 break;
             case 'comment':
                 param.mycomment = true;
@@ -1661,9 +1696,9 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
     //save user updates
     LP.action('search' , function(data){
-        if(data.tag) {
-            $('.search-ipt').val(data.tag);
-        }
+//        if(data.tag) {
+//            $('.search-ipt').val(data.tag);
+//        }
         if($('.search-ipt').val().length == 0) {
             return false;
         }
@@ -1766,6 +1801,28 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         }
     });
 
+    LP.action('update_user_status', function(){
+        // after page load , load the current user information data from server
+        api.ajax('user' , function( result ){
+            if(result.success) {
+                //bind user data after success logged
+                if(result.data.count_by_day == 0) {
+                    delete result.data.count_by_day;
+                }
+                if(result.data.count_by_month == 0) {
+                    delete result.data.count_by_month;
+                }
+                if(!result.data.avatar) {
+                    result.data.avatar = "/uploads/default_avatar.gif";
+                }
+                result.data._e = _e;
+                LP.compile( 'user-page-template' , result.data , function( html ){
+                    $('.user-page .count').html($(html).find('.count').html());
+                });
+            }
+        });
+    });
+
 
     //after selected photo
 //    $('#file-photo').change(function(){
@@ -1773,6 +1830,19 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 //        $('.pop-file .step2-btns').delay(400).fadeIn(400);
 //    });
 
+
+    $(window).on('hashchange',function(){
+        var urlHash = getUrlHash();
+        if(urlHash.length == 0) {
+            LP.triggerAction('back');
+        }
+        else if(urlHash.length == 2) {
+            if(!_changingUrlHash) {
+                var id = urlHash[1];
+                $('.main-item-'+id).click();
+            }
+        }
+    });
 
     // bind document key event for back , prev , next actions
     $(document).keydown(function( ev ){
@@ -1797,7 +1867,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             date = date || new Date;
             var month;
             if( typeof date == 'object' ){
-                month = date.getMonth();
+                month = date.getUTCMonth();
             } else {
                 month = date - 1;
             }
@@ -1850,7 +1920,13 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
 
     var changeUrl = function( str ){
+        _changingUrlHash = true;
         location.hash = '#' + str; // removed the !, don't need search by google
+        setTimeout(function(){
+            _changingUrlHash = false;
+        },2000);
+
+
 //        if( history.pushState ){
 //            //history.pushState( "" , null ,  str ) ;
 //        } else {
@@ -2252,6 +2328,8 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
 
     var init = function() {
+
+        var datetime = new Date(((1392175200+1*3600)*1000));
 //        var country = "South Africa,Albania,Algeria,Germany,Saudi,Arabia,Argentina,Australia,Austria,Bahamas,Belgium,Benin,Brazil,Bulgaria,Burkina Faso,Canada,Chile,China,Cyprus,Korea,Republic of Ivory Coast,Croatia,Denmark,Egypt,United Arab Emirates,Spain,Estonia,USA,Finland,France,Georgia,Ghana,Greece,Guinea,Equatorial Guinea,Hungary,India,Ireland,Italy,Japan,Jordan,Latvia,Lebanon,Lithuania,Luxembourg,Macedonia,Madagascar,Morocco,Mauritania,Mexico,Moldova,Republic of Montenegro,Norway,New Caledonia,Panama,Netherlands,Peru,Poland,Portugal,Reunion,Romania,UK,Russian Federation,Senegal,Serbia,Singapore,Slovakia,Slovenia,Sweden,Switzerland,Chad,Czech Republic,Tunisia,Turkey,Ukraine,Uruguay,Vietnam";
 //        var countryArray = country.split(',');
 //        var output;
@@ -2447,9 +2525,9 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     var res = xhr.responseJSON;
                     if(res.success) {
                         var comment = res.data;
-                        var datetime = new Date(comment.datetime*1000);
-                        comment.date = datetime.getDate();
-                        comment.month = getMonth((parseInt(datetime.getMonth()) + 1));
+                        var datetime = new Date((parseInt(comment.datetime)+1*3600)*1000);
+                        comment.date = datetime.getUTCDate();
+                        comment.month = getMonth((parseInt(datetime.getUTCMonth()) + 1));
                         comment.user = $('.side').data('user');
                         comment.mycomment = true;
                         $('.comment-form').fadeOut();
@@ -2467,6 +2545,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                                 $('.com-list-inner').first().append(html);
                                 var comCount = $('.com-com-count');
                                 comCount.html(parseInt(comCount.html())+1);
+                                LP.triggerAction('update_user_status');
                             } );
                     }
                     else {
@@ -2503,9 +2582,9 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             else {
                 $.each( comments , function( index , comment ){
                     // get date
-                    var datetime = new Date(comment.datetime*1000);
-                    comment.date = datetime.getDate();
-                    comment.month = getMonth((parseInt(datetime.getMonth()) + 1));
+                    var datetime = new Date((parseInt(comment.datetime)+1*3600)*1000);
+                    comment.date = datetime.getUTCDate();
+                    comment.month = getMonth((parseInt(datetime.getUTCMonth()) + 1));
 
                     LP.compile( 'comment-item-template' ,
                         comment ,
@@ -2675,7 +2754,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     $newItem.html(html);
                     LP.use('video-js' , function(){
                         videojs( "inner-video-" + node.timestamp , {}, function(){
-                            // Player (this) is initialized and ready.
+                            $('.video-js').append('<div class="video-btn-zoom btn2" data-a="video_zoom"></div>');
                         });
                     });
                 });

@@ -192,10 +192,14 @@ class NodeController extends Controller {
       }
       
       // 权限检查
-      if (!Yii::app()->user->checkAccess("deleteAnyNode", array("country_id" => $nodeAr->country_id)) 
-              && !Yii::app()->user->checkAccess("deleteOwnNode", array("uid" => $nodeAr->uid))) {
-        return $this->responseError("permission deny");
-      }
+//      if(!Yii::app()->user->checkAccess("deleteOwnNode", array("uid" => $nodeAr->uid))) {
+//        if(!Yii::app()->user->checkAccess("deleteAnyNode", array("country_id" => $nodeAr->country_id))) {
+//          return $this->responseError("permission deny1");
+//        }
+//        else {
+//          return $this->responseError("permission deny2");
+//        }
+//      }
       
       $nodeAr->deleteByPk($nodeAr->nid);
       
@@ -626,6 +630,10 @@ class NodeController extends Controller {
 			if (!$user) {
 				$user = UserAR::model()->findByAttributes(array("personal_email" => $userEmail));
 			}
+      if (!$desc) {
+        $ret = 'Please write the subject use for description';
+        return $this->responseJSON(null, $ret, false);
+      }
 			if (!$user) {
 				$ret = 'Debug Message (To be delete when live): your account not in our database'; //TODO: delete when live
 				return $this->responseJSON(null, $ret, false); //if the user not in our database then return nothing

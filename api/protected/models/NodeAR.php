@@ -436,17 +436,11 @@ class NodeAR extends CActiveRecord{
 		if (!file_exists($absscreenImagePath)) {
 
 			exec("ffmpeg -ss 00:00:03 -i $absvideoPath -vframes 1 -an -f image2 ".$absscreenImagePath, $output, $status);
-			// 成功了
-			if ($status) {
-				// nothing
-				exec("ffmpeg -ss 00:00:03 -i $absvideoPath -vframes 1 -an -f image2 ".$absscreenImagePath, $output, $status);
+
+			if (!file_exists($absscreenImagePath)) {
+        exec("ffmpeg -i $absvideoPath -vframes 1 -an -f image2 ".$absscreenImagePath, $output, $status);
 			}
-			else {
-				//TODO:: 不成功 我们可能需要返回一个默认的视频；因为客户端需要的是一个图片链接
-				// 这里暂时直接 die() 掉， 因为后续工作 都是在此图片生成成功基础上做操作
-				//die();
-			}
-		}
+		};
 		if($w && $h) {
 			$this->makeImageThumbnail($absscreenImagePath, $saveTo, $w, $h, $isOutput);
 		}
@@ -488,47 +482,27 @@ class NodeAR extends CActiveRecord{
   }
 
   public function countByDay($uid) {
-    // 从今天00:00:00开始
-    $start_time = strtotime(date("Y-m-d"));
-    $end_time = time();
-    
     $query = new CDbCriteria();
-    $query->select = array("count(*) AS nodecounts");
-    $query->addCondition("datetime>:start");
-    $query->addCondition("datetime<=:end");
+    $query->select = "*". ",topday_id AS topday";
+    $query->join = 'right join `topday` '.' on '. '`topday`' .".nid = ". $this->getTableAlias().".nid";
     $query->addCondition("uid=:uid");
-    
     $query->params = array(
-        ":start" => $start_time,
-        ":end" => $end_time,
-        ":uid" => $uid
+      ":uid" => $uid
     );
-    
-    $res = $this->find($query);
-    
-    return $res->nodecounts;
+    $res = $this->count($query);
+    return $res;
   }
 
   public function countByMonth($uid) {
-    // 从今天00:00:00开始
-    $start_time = strtotime(date("Y-m-1"));
-    $end_time = time();
-
     $query = new CDbCriteria();
-    $query->select = array("count(*) AS nodecounts");
-    $query->addCondition("datetime>:start");
-    $query->addCondition("datetime<=:end");
+    $query->select = "*". ",topmonth_id AS topmonth";
+    $query->join = 'right join `topmonth` '.' on '. '`topmonth`' .".nid = ". $this->getTableAlias().".nid";
     $query->addCondition("uid=:uid");
-
     $query->params = array(
-        ":start" => $start_time,
-        ":end" => $end_time,
-        ":uid" => $uid
+      ":uid" => $uid
     );
-
-    $res = $this->find($query);
-
-    return $res->nodecounts;
+    $res = $this->count($query);
+    return $res;
   }
 
 

@@ -464,7 +464,6 @@
   <video id="inner-video-{{timestamp}}" class="video-js vjs-big-play-centered vjs-default-skin" preload="none" width="100%" height="100%" poster="./api{{image}}" data-setup="{}">
     <source src="./api{{file}}" type='video/mp4' />
   </video>
-  <div class="video-btn-zoom btn2" data-a="video_zoom"></div>
 </script>
 
 <!-- wmv-player-tpl -->
