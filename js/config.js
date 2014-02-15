@@ -59,6 +59,15 @@ seajs.config({
     ,"flash-detect":{
       src: "../plugin/flash_detect_min.js"
     }
+    ,"swfupload":{
+      src: "../plugin/swfupload.js"
+    }
+    ,"swfupload-speed":{
+      src: "../plugin/swfupload.speed.js"
+    }
+    ,"swfupload-queue":{
+      src: "../plugin/swfupload.queue.js"
+    }
   }
   , alias: {
     api: '../api'

@@ -64,7 +64,7 @@ def is_media(file):
   mime = mime.rstrip()
   print "mime is [%s]" %(mime)
   
-  if mime in ["image/jpeg", "image/png", "image/jpg", "image/gif", "video/mov", "video/quicktime", "video/wmv", "video/mp4", "video/avi", "video/3gp", "video/mpeg", "video/mpg", "application/octet-stream", "video/3gpp"]:
+  if mime in ["image/jpeg", "image/png", "image/jpg", "image/gif", "video/mov", "video/wmv", "video/mp4", "video/avi", "video/3gp", "video/mpeg", "video/mpg", "application/octet-stream", "video/3gpp", "video/quicktime"]:
     return True
   return False
 
@@ -128,6 +128,7 @@ def reconnect_gmail(user, password):
     print "Error when login with %s" %(user)
     return None
   return conn
+    
 
 def fetching_gamil(user, password):
   # 只取最近10条邮件
@@ -176,7 +177,7 @@ def fetching_gamil(user, password):
         continue
 
     gmail_mail = email.message_from_string(email_data[0][1])
-
+    files_downloaded = []
     # Get attachment
     for part in gmail_mail.walk():
       if part.get_content_maintype() == "multipart":
@@ -187,23 +188,33 @@ def fetching_gamil(user, password):
       if part.get_filename() is None:
         continue
       filename = "".join(part.get_filename().split())
-      import time
-      nowtimestamp = unicode(int(time.time())).encode("utf-8")
-      filename = unicode(filename).encode("utf-8")
-      filename = ''.join([nowtimestamp , filename])
+      import time,hashlib
+      #nowtimestamp = unicode(int(time.time())).encode("utf-8")
+      #filename = unicode(filename).encode("utf-8")
+      nowtimestamp =str(int(time.time()))
+      md5 = hashlib.md5()
+      md5.update(str(filename))
+      ext=os.path.splitext(filename)[1]
+      filename = ''.join([nowtimestamp , md5.hexdigest(), ext])
 
       if bool(filename):
         filepath = os.path.join(attachmentpath, filename)
 	print filepath
         if not os.path.isfile(filepath):
-          fp = open(filepath, "wb")
-          fp.write(part.get_payload(decode=True))
-          fp.close()
+            try:                
+              fp = open(filepath, "wb")
+              fp.write(part.get_payload(decode=True))
+              fp.close()
+            except Exception as e:
+                print e
+                continue
+                
         else:
           # Exist same name file
           print "File : [%s] is downloaded" %(filepath)
 
         if is_media(filepath):
+          files_downloaded.append(filepath)
           # 在这里，先看是否已经有了缓存文件，如果有则不去发送图片到网站了
           if is_cached(eid):
             print "Mail with uuid [%s] is cached " %(eid)
@@ -231,6 +242,7 @@ def fetching_gamil(user, password):
                   reply_mail(gmail_mail, ret)
         else:
           print "File [%s] is not media " %(filepath)
+        print files_downloaded
   conn.close()
   conn.logout()
   
@@ -292,13 +304,12 @@ if __name__ == "__main__":
     exc_type, exc_value, exc_traceback = sys.exc_info()
     import traceback
     traceback.print_exception(exc_type, exc_value, exc_traceback)
-
-    os.unlink(".lock")
     print e
   
   finally:
     os.unlink(".lock")
     # 删除attachments 所有文件
+    print "Clean attachment files"
     clean_dir("./attachments")
     
   

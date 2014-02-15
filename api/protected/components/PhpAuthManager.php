@@ -37,12 +37,14 @@ class PhpAuthManager extends CPhpAuthManager{
     $this->createOperation("publichsNode", "publish one node");
     
     //修改自己的node
-    $bizrule = 'return Yii::app()->user->getId() == $params["uid"]';
+    $bizrule = 'return Yii::app()->user->getId() == $params["uid"];';
     $this->createOperation("updateOwnNode", "update Own node", $bizrule);
     
     // 删除自己的node
-    $bizrule = 'return Yii::app()->user->getId() == $params["uid"]';
+    $bizrule = 'return Yii::app()->user->getId() == $params["uid"];';
     $this->createOperation("deleteOwnNode", "delete own node", $bizrule);
+
+
     
     
     // 首先检查用户角色，用户如果是country 管理员，只能修改自己国家的media; 如果是admin 就没有权限

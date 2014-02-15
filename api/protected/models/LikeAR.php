@@ -41,7 +41,7 @@ class LikeAR extends CActiveRecord {
 	}
 
 
-	private function saveTopOfDay($node) {
+	public function saveTopOfDay($node) {
 		$str_datetime = $node->datetime;
 		$datetime = date('Y-m-d',$str_datetime);
 		$start_time = strtotime($datetime);
@@ -57,9 +57,14 @@ class LikeAR extends CActiveRecord {
 		);
 		$query->group = "`node`.nid";
 		$res = $this->find($query);
-		$updateRes = Yii::app()->db->createCommand()->update('topday', array(
-			'nid'=>$res->nid,
-		), 'date=:date', array(':date'=>$start_time));
+		if(!$res) {
+			return Yii::app()->db->createCommand()->delete('topday', 'date=:date', array(':date'=>$start_time));
+		}
+		else {
+			$updateRes = Yii::app()->db->createCommand()->update('topday', array(
+				'nid'=>$res->nid,
+			), 'date=:date', array(':date'=>$start_time));
+		}
 
 		if(!$updateRes) {
 			$count = Yii::app()->db->createCommand()->select('count(*) as count')
@@ -76,7 +81,7 @@ class LikeAR extends CActiveRecord {
 		}
 	}
 
-	private function saveTopOfMonth($node) {
+	public function saveTopOfMonth($node) {
 		$str_datetime = $node->datetime;
 		$datetime = date('Y-m-1',$str_datetime);
 		$start_time = strtotime($datetime);
@@ -92,6 +97,9 @@ class LikeAR extends CActiveRecord {
 		);
 		$query->group = "`node`.nid";
 		$res = $this->find($query);
+		if(!$res) {
+			return Yii::app()->db->createCommand()->delete('topmonth', 'date=:date', array(':date'=>$start_time));
+		}
 		$updateRes = Yii::app()->db->createCommand()->update('topmonth', array(
 			'nid'=>$res->nid,
 		), 'date=:date', array(':date'=>$start_time));
@@ -142,8 +150,11 @@ class LikeAR extends CActiveRecord {
     $query->addCondition("uid = :uid");
     $query->params[":uid"] = $uid;
     $query->params[":nid"] = $nid;
-
-    return $this->deleteAll($query);
+    $this->deleteAll($query);
+		$node = NodeAR::model()->findByPk($nid);
+		$this->saveTopOfDay($node);
+		$this->saveTopOfMonth($node);
+		return;
   }
   
   // get total like count 
