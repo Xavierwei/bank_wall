@@ -42,14 +42,9 @@ class CommentAR extends CActiveRecord {
   }
   
   public function totalCommentsByUser($uid) {
-    $query = new CDbCriteria();
-    $query->select = array("count(*) AS commentscount");
-    $query->addCondition("uid=:uid");
-    $query->params[":uid"] = $uid;
-    
-    $res = $this->find($query);
-    
-    return $res->commentscount;
+		$query = 'select count(*) as count from (SELECT nid FROM `comment` where uid = '.$uid.' group by nid) `comment`';
+		$res = Yii::app()->db->createCommand($query)->queryRow();
+		return $res['count'];
   }
   
   public function totalCommentsByNode($nid) {

@@ -52,10 +52,10 @@ class NodeAR extends CActiveRecord{
   
   public function rules() {
     return array(
-        array("uid, country_id, type", "required"),
+        array("uid, file, country_id, type", "required"),
         array("uid", "uidExist"),
         array("country_id", "countryExist"),
-        array("created ,file, type, datetime, status, description, nid, hashtag, user_liked,user_flagged, like, flag, topday, topmonth", "safe"),
+        array("created , type, datetime, status, description, nid, hashtag, user_liked,user_flagged, like, flag, topday, topmonth", "safe"),
     );
   }
   
@@ -155,56 +155,72 @@ class NodeAR extends CActiveRecord{
   }
   
   public function afterSave() {
-      $type = $this->type;
-      if ($type == "photo") {
-          $name = "p". $this->nid;
-      }
-      else {
-          $name = "v". $this->nid;
-      }
+		$type = $this->type;
+		if ($type == "photo") {
+				$name = "p". $this->nid;
+		}
+		else {
+				$name = "v". $this->nid;
+		}
 
-      $ext = pathinfo($this->file, PATHINFO_EXTENSION);
-      $newname = $name.'.'.$ext;
-      
-      $paths = explode("/", $this->file);
-      $paths[count($paths) - 1] = $newname;
-      $newpath = implode("/", $paths);
-      
-      if (file_exists(ROOT.$this->file)) {
-        rename(ROOT.$this->file, ROOT. $newpath);
-        // 文件重命名后 修改数据库
-        $this->updateByPk($this->nid, array("file" => $newpath));
-        $this->file = $newpath;
+		$ext = pathinfo($this->file, PATHINFO_EXTENSION);
+		$newname = $name.'.'.$ext;
 
-        if($type == 'photo') {
-          $this->makeImageThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_250_250.jpg', $newpath), 250, 250, false);
-          $this->makeImageThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_650_650.jpg', $newpath), 650, 650, false);
-        }
-				else {
-					$this->makeVideoThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_250_250.jpg', $newpath), 250, 250, false);
-					$this->makeVideoThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_650_650.jpg', $newpath), 650, 650, false);
-				}
+		$paths = explode("/", $this->file);
+		$paths[count($paths) - 1] = $newname;
+		$newpath = implode("/", $paths);
 
-      }
+		if (file_exists(ROOT.$this->file)) {
+			rename(ROOT.$this->file, ROOT. $newpath);
+			// 文件重命名后 修改数据库
+			$this->updateByPk($this->nid, array("file" => $newpath));
+			$this->file = $newpath;
 
+			if($type == 'photo') {
+				$this->makeImageThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_250_250.jpg', $newpath), 250, 250, false);
+				$this->makeImageThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_650_650.jpg', $newpath), 650, 650, false);
+			}
+			else {
+				$newpath = str_replace('.mp4', '.jpg', $newpath);
+				$this->makeVideoThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_250_250.jpg', $newpath), 250, 250, false);
+				$this->makeVideoThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_650_650.jpg', $newpath), 650, 650, false);
+			}
+		}
 
+		// Generate WMV for no flash IE8
+		if ($type == "video") {
+			$topath = ROOT.$newpath;
+			$wmvpath = str_replace('.mp4','.wmv',$topath);
+			exec("ffmpeg -i {$topath} -y -vf scale=-1:360 {$wmvpath}", $output, $status);
+		}
+		// Load user/country
+		$userAr = new UserAR();
+		$userAr->setAttributes($userAr->getOutputRecordInArray(UserAR::model()->findByPk($this->uid)));
+		$this->user = $userAr;
 
+		$this->country = CountryAR::model()->findByPk($this->country_id);
 
-			// Generate WMV for no flash IE8
-      if ($type == "video") {
-        $topath = ROOT.$newpath;
-        $wmvpath = str_replace('.mp4','.wmv',$topath);
-        exec("ffmpeg -i {$topath} -y -vf scale=-1:360 {$wmvpath}", $output, $status);
-      }
-      // Load user/country
-      $userAr = new UserAR();
-      $userAr->setAttributes($userAr->getOutputRecordInArray(UserAR::model()->findByPk($this->uid)));
-      $this->user = $userAr;
-      
-      $this->country = CountryAR::model()->findByPk($this->country_id);
-      
-      return TRUE;
+		return TRUE;
   }
+
+	public function deleteRelatedData($nid) {
+		// Delete related comments
+		Yii::app()->db->createCommand()
+			->delete('comment', 'nid=:nid', array(':nid'=>$nid));
+		// Delete related likes
+		Yii::app()->db->createCommand()
+			->delete('like', 'nid=:nid', array(':nid'=>$nid));
+		// Delete related flags
+		Yii::app()->db->createCommand()
+			->delete('flag', 'nid=:nid', array(':nid'=>$nid));
+		// Delete related topday
+		Yii::app()->db->createCommand()
+			->delete('topday', 'nid=:nid', array(':nid'=>$nid));
+		// Delete related topmonth
+		Yii::app()->db->createCommand()
+			->delete('topmonth', 'nid=:nid', array(':nid'=>$nid));
+	}
+
 
 	public function validateUpload($fileUpload, $type) {
 		if(!$fileUpload) {
@@ -235,7 +251,7 @@ class NodeAR extends CActiveRecord{
 			}
 			$mime = $fileUpload->getType();
 			$allowMime = array(
-				"video/mov", "video/quicktime", "video/x-msvideo", "video/x-ms-wmv", "video/wmv", "video/mp4", "video/mpeg", "video/avi", "video/3gp"
+				"video/mov", "video/quicktime", "video/x-msvideo", "video/x-ms-wmv", "video/wmv", "video/mp4", "video/mpeg", "video/avi", "video/3gp", "application/octet-stream"
 			);
 			if (!in_array($mime, $allowMime)) {
 				return 502; //video media type is not allowed
@@ -266,12 +282,15 @@ class NodeAR extends CActiveRecord{
     $photoexts = explode(",", self::ALLOW_UPLOADED_PHOTO_TYPES);
     $videoexts = explode(",", self::ALLOW_UPLOADED_VIDEO_TYPES);
     $extname = strtolower(pathinfo($upload->getName(), PATHINFO_EXTENSION));
-
-//    if(!in_array($extname, $photoexts) && !in_array($extname, $videoexts)) {
-//      exec("/usr/bin/file -b --mime {$upload->tempName}", $output, $status);
-//      $mime = explode(';',$output[0])[0];
-//      $extname = explode('/',$mime)[1];
-//    }
+		$extnameArray = explode("?", $extname);
+		$extname = $extnameArray[0];
+		if(empty($extname)){
+      exec("/usr/bin/file -b --mime {$upload->tempName}", $output, $status);
+      $mime = explode(';',$output[0]);
+			$mime = $mime[0];
+      $extname = explode('/',$mime);
+			$extname = $extname[1];
+		}
 
 		if (in_array($extname, $photoexts)) {
       $filename = md5( uniqid() . '_' . $upload->getName() ) . '.jpg' ;
@@ -310,7 +329,9 @@ class NodeAR extends CActiveRecord{
             // 视频转换
             switch($extname) {
               case 'mp4':
-                exec("ffmpeg -i {$to} -vcodec libx264 -acodec aac -strict experimental -ac 2 {$newpath}", $output, $status);
+								copy($to, $newpath);
+								//exec("ffmpeg -i {$to} {$newpath}", $output, $status);
+                //exec("ffmpeg -i {$to} -vcodec libx264 -acodec aac -strict experimental -ac 2 {$newpath}", $output, $status);
                 break;
 							case 'mpg':
 								exec("ffmpeg -i {$to} -c:v libx264 -c:a libfaac -r 30 {$newpath}", $output, $status);
@@ -344,8 +365,8 @@ class NodeAR extends CActiveRecord{
         }
       }
     }
-    
-    $to = str_replace(ROOT, "", $to);
+
+		$to = str_replace(ROOT, "", $to);
     return $to;
   }
 
@@ -429,23 +450,16 @@ class NodeAR extends CActiveRecord{
 //    exit();
 		// 视频截图不能截2次
 		// 做个检查
-
 		if (!file_exists($absscreenImagePath)) {
 
 			exec("ffmpeg -ss 00:00:03 -i $absvideoPath -vframes 1 -an -f image2 ".$absscreenImagePath, $output, $status);
-			// 成功了
-			if ($status) {
-				// nothing
-				exec("ffmpeg -ss 00:00:03 -i $absvideoPath -vframes 1 -an -f image2 ".$absscreenImagePath, $output, $status);
+
+			if (!file_exists($absscreenImagePath)) {
+        exec("ffmpeg -i $absvideoPath -vframes 1 -an -f image2 ".$absscreenImagePath, $output, $status);
 			}
-			else {
-				//TODO:: 不成功 我们可能需要返回一个默认的视频；因为客户端需要的是一个图片链接
-				// 这里暂时直接 die() 掉， 因为后续工作 都是在此图片生成成功基础上做操作
-				//die();
-			}
-		}
+		};
 		if($w && $h) {
-			$this->makeImageThumbnail($screenImagePath, $saveTo, $w, $h, $isOutput);
+			$this->makeImageThumbnail($absscreenImagePath, $saveTo, $w, $h, $isOutput);
 		}
 
 	}
@@ -485,47 +499,27 @@ class NodeAR extends CActiveRecord{
   }
 
   public function countByDay($uid) {
-    // 从今天00:00:00开始
-    $start_time = strtotime(date("Y-m-d"));
-    $end_time = time();
-    
     $query = new CDbCriteria();
-    $query->select = array("count(*) AS nodecounts");
-    $query->addCondition("datetime>:start");
-    $query->addCondition("datetime<=:end");
+    $query->select = "*". ",topday_id AS topday";
+    $query->join = 'right join `topday` '.' on '. '`topday`' .".nid = ". $this->getTableAlias().".nid";
     $query->addCondition("uid=:uid");
-    
     $query->params = array(
-        ":start" => $start_time,
-        ":end" => $end_time,
-        ":uid" => $uid
+      ":uid" => $uid
     );
-    
-    $res = $this->find($query);
-    
-    return $res->nodecounts;
+    $res = $this->count($query);
+    return $res;
   }
 
   public function countByMonth($uid) {
-    // 从今天00:00:00开始
-    $start_time = strtotime(date("Y-m-1"));
-    $end_time = time();
-
     $query = new CDbCriteria();
-    $query->select = array("count(*) AS nodecounts");
-    $query->addCondition("datetime>:start");
-    $query->addCondition("datetime<=:end");
+    $query->select = "*". ",topmonth_id AS topmonth";
+    $query->join = 'right join `topmonth` '.' on '. '`topmonth`' .".nid = ". $this->getTableAlias().".nid";
     $query->addCondition("uid=:uid");
-
     $query->params = array(
-        ":start" => $start_time,
-        ":end" => $end_time,
-        ":uid" => $uid
+      ":uid" => $uid
     );
-
-    $res = $this->find($query);
-
-    return $res->nodecounts;
+    $res = $this->count($query);
+    return $res;
   }
 
 

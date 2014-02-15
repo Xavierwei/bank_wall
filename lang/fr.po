@@ -9,11 +9,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
-"X-Generator: Poedit 1.6.3\n"
+"X-Generator: Poedit 1.6.4\n"
 "Language: fr\n"
 
 msgid "CONNECT"
-msgstr "se connecter"
+msgstr "Se connecter"
 
 msgid "POST_A_PHOTO"
 msgstr "Poster une photo"
@@ -89,7 +89,9 @@ msgid "VIDEO_FORMATE"
 msgstr "Votre vidéo doit être au format MOV, AVI, MPEG, MP4, WMV ou 3GP"
 
 msgid "VIDEO_RESOLUTION"
-msgstr "our une résolution optimale, merci d’utiliser un format d’au moins 400x400 px"
+msgstr ""
+"Pour une résolution optimale, merci d’utiliser un format d’au moins 400x400 "
+"px"
 
 msgid "VIDEO_SIZE"
 msgstr "La taille de votre fichier ne doit pas dépasser 7MB"
@@ -101,12 +103,12 @@ msgid "SELECT_AGAIN"
 msgstr "Sélectionnez à nouveau"
 
 msgid "UPLOAD_IN_PROGRESS"
-msgstr "Téléchargement en cours..."
+msgstr "Téléchargement en cours…"
 
 msgid "ENTER_DESCRIPTION"
 msgstr ""
-"Enter your description here with the corresponding hashtags # (Ex: Meeting # "
-"cremation very productive in # SG)"
+"Entrez votre description ici avec les hashtags correspondants # (Ex: "
+"#Meeting très productif à la #SG)"
 
 msgid "UPLOAD_TERM"
 msgstr ""
@@ -127,7 +129,7 @@ msgid "LOGIN_BEFORE_COMMENT"
 msgstr "Vous devez vous connecter avant de poster un commentaire."
 
 msgid "LOGIN_BEFORE_LIKE"
-msgstr "Vous devez vous connecter avant comme."
+msgstr "Vous devez vous connecter avant de liker."
 
 msgid "COMMENTS"
 msgstr "commentaires"
@@ -151,16 +153,16 @@ msgid "SUBMIT"
 msgstr "Soumettre"
 
 msgid "WRITE_YOUR_COMMENT"
-msgstr "écrire votre commentaire ..."
+msgstr "écrire votre commentaire …"
 
 msgid "FIRST_COMMENT"
 msgstr "Soyez le premier à commenter ce contenu"
 
 msgid "PHOTOS_POSTED"
-msgstr "Photos postées "
+msgstr "Photos postée"
 
 msgid "PHOTO_POSTED"
-msgstr "Photo postées "
+msgstr "Photo postée"
 
 msgid "VIDEOS_POSTED"
 msgstr "Vidéos postées"
@@ -189,7 +191,7 @@ msgstr "E-mail personnel"
 msgid "COMPANY_EMAIL_TERM"
 msgstr ""
 "Si vous souhaitez envoyer du contenu sur le Wall avec une adresse email "
-"autreque votre e-mail professionnel"
+"autre que votre e-mail professionnel"
 
 msgid "PERSONAL_EMAIL_TERM"
 msgstr ""
@@ -235,14 +237,20 @@ msgstr "S'il vous plaît vérifier l'état"
 msgid "ERROR_EMAIL"
 msgstr "S'il vous plaît entrer e-mail correcte."
 
+msgid "ERROR_EXIST_EMAIL"
+msgstr "Votre adresse e-mail déjà utilisée."
+
 msgid "ERROR_WRITE_DESCRIPTION"
 msgstr "S'il vous plaît écrivez une description."
 
 msgid "ERROR_DESCRIPTION_LIMITED"
 msgstr "La description est limitée à 140 caractères."
 
+msgid "ERROR_COMMENT_LIMITED"
+msgstr "The comment is limited to 140 characters."
+
 msgid "ERROR_DESCRIPTION_ILLEGAL"
-msgstr "Le hashtag peut \ 't comprennent des caractères illégaux."
+msgstr "Le hashtag peut ne peut avoir des caractères illégaux."
 
 msgid "ERROR_WRONG_USERNAME_PASSWORD"
 msgstr "Identifiants incorrects."
@@ -287,28 +295,28 @@ msgid "DECEMBER"
 msgstr "Décembre"
 
 msgid "ALBANIA"
-msgstr "Albania"
+msgstr "Albanie"
 
 msgid "ALGERIA"
-msgstr "Algeria"
+msgstr "Algérie"
 
 msgid "ARABIA"
 msgstr "Arabia"
 
 msgid "ARGENTINA"
-msgstr "Argentina"
+msgstr "Argentine"
 
 msgid "AUSTRALIA"
-msgstr "Australia"
+msgstr "Australie"
 
 msgid "AUSTRIA"
-msgstr "Austria"
+msgstr "Autriche"
 
 msgid "BAHAMAS"
 msgstr "Bahamas"
 
 msgid "BELGIUM"
-msgstr "Belgium"
+msgstr "Belgique"
 
 msgid "BENIN"
 msgstr "Bénin"
@@ -335,19 +343,19 @@ msgid "CHINA"
 msgstr "Chine"
 
 msgid "CROATIA"
-msgstr "Croatia"
+msgstr "Croatie"
 
 msgid "CYPRUS"
-msgstr "Cyprus"
+msgstr "Chypre"
 
 msgid "CZECH_REPUBLIC"
 msgstr "République tchèque"
 
 msgid "DENMARK"
-msgstr "Denmark"
+msgstr "Danemark"
 
 msgid "EGYPT"
-msgstr "Egypt"
+msgstr "Egypte"
 
 msgid "EQUATORIAL_GUINEA"
 msgstr "Guinée équatoriale"
@@ -365,7 +373,7 @@ msgid "GEORGIA"
 msgstr "Géorgie"
 
 msgid "GERMANY"
-msgstr "Germany"
+msgstr "Allemagne"
 
 msgid "GHANA"
 msgstr "Ghana"
@@ -395,7 +403,7 @@ msgid "JORDAN"
 msgstr "Jordanie"
 
 msgid "KOREA"
-msgstr "Korea"
+msgstr "Corée"
 
 msgid "LATVIA"
 msgstr "Lettonie"
@@ -410,16 +418,16 @@ msgid "LUXEMBOURG"
 msgstr "Luxembourg"
 
 msgid "MACEDONIA"
-msgstr "Macedonia"
+msgstr "Macédoine"
 
 msgid "MADAGASCAR"
 msgstr "Madagascar"
 
 msgid "MAURITANIA"
-msgstr "Macédoine"
+msgstr "Mauritanie"
 
 msgid "MEXICO"
-msgstr "Mexico"
+msgstr "Mexique"
 
 msgid "MOLDOVA"
 msgstr "République de Moldavie"
@@ -449,10 +457,10 @@ msgid "PORTUGAL"
 msgstr "Portugal"
 
 msgid "REPUBLIC_OF_IVORY_COAST"
-msgstr "Republic of Ivory Coast"
+msgstr "Cote d'Ivoire"
 
 msgid "REPUBLIC_OF_MONTENEGRO"
-msgstr "Republic of Montenegro"
+msgstr "Montenegro"
 
 msgid "REUNION"
 msgstr "Réunion, La"
@@ -464,7 +472,7 @@ msgid "RUSSIAN_FEDERATION"
 msgstr "Russie"
 
 msgid "SAUDI"
-msgstr "Saoudite"
+msgstr "Arabie Saoudite"
 
 msgid "SENEGAL"
 msgstr "Sénégal"
@@ -482,10 +490,10 @@ msgid "SLOVENIA"
 msgstr "Slovénie"
 
 msgid "SOUTH_AFRICA"
-msgstr "South Africa"
+msgstr "Afrique du Sud"
 
 msgid "SPAIN"
-msgstr "Spain"
+msgstr "Espagne"
 
 msgid "SWEDEN"
 msgstr "Suède"
@@ -506,14 +514,13 @@ msgid "UKRAINE"
 msgstr "Ukraine"
 
 msgid "UNITED_ARAB_EMIRATES"
-msgstr "United Arab Emirates"
+msgstr "Emirats Arabes Units"
 
 msgid "URUGUAY"
 msgstr "Uruguay"
 
 msgid "USA"
-msgstr "USA"
+msgstr "Etats-Unis"
 
 msgid "VIETNAM"
 msgstr "Vietnam"
-

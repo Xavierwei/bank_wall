@@ -11,7 +11,7 @@ class NodeController extends Controller {
   }
   
   public function actionPost() {
-    $uid = Yii::app()->user->getId();
+		$uid = Yii::app()->user->getId();
     $user = UserAR::model()->findByPk($uid);
     
     if (!Yii::app()->user->checkAccess("addNode")) {
@@ -34,7 +34,14 @@ class NodeController extends Controller {
 				$fileUpload = CUploadedFile::getInstanceByName("file");
 				$validateUpload = $nodeAr->validateUpload($fileUpload, $type);
 				if($validateUpload !== true) {
-					$this->responseError($validateUpload);
+					if($isIframe){
+						$this->render('post', array(
+							'code'=>$validateUpload
+						));
+					}
+					else {
+						$this->responseError($validateUpload);
+					}
 				}
 			}
       $nodeAr->description = $request->getPost("description");
@@ -44,6 +51,9 @@ class NodeController extends Controller {
 			}
 			else {
 				$file = $request->getPost("file");
+				if(!file_exists(ROOT.$file)) {
+					exit();
+				}
 				$_x = $request->getPost("x");
 				if($_x && $type == 'photo') {
 					$_y = $request->getPost("y");
@@ -58,8 +68,6 @@ class NodeController extends Controller {
 
       $nodeAr->uid = $uid;
       $nodeAr->country_id = $country_id;
-			//print_r($nodeAr);
-      
       if ($nodeAr->validate()) {
         $success = $nodeAr->save();
         if (!$success) {
@@ -78,7 +86,7 @@ class NodeController extends Controller {
 				}
       }
       else {
-        $this->responseError(current(array_shift($nodeAr->getErrors())));
+        $this->responseError($nodeAr->getErrors());
       }
     }
     else {
@@ -180,8 +188,7 @@ class NodeController extends Controller {
       }
       
       $nid = $request->getPost("nid");
-      $uid = Yii::app()->user->getId();
-      
+
       if (!$nid) {
           $this->responseError("invalid params");
       }
@@ -192,12 +199,19 @@ class NodeController extends Controller {
       }
       
       // 权限检查
-      if (!Yii::app()->user->checkAccess("deleteAnyNode", array("country_id" => $nodeAr->country_id)) 
-              && !Yii::app()->user->checkAccess("deleteOwnNode", array("uid" => $nodeAr->uid))) {
-        return $this->responseError("permission deny");
+      if(!Yii::app()->user->checkAccess("deleteOwnNode", array("uid" => $nodeAr->uid))) {
+        if(!Yii::app()->user->checkAccess("deleteAnyNode", array("country_id" => $nodeAr->country_id))) {
+          return $this->responseError("permission deny1");
+        }
+        else {
+          return $this->responseError("permission deny2");
+        }
       }
       
       $nodeAr->deleteByPk($nodeAr->nid);
+			$nodeAr->deleteRelatedData($nodeAr->nid);
+			LikeAR::model()->saveTopOfDay($nodeAr);
+			LikeAR::model()->saveTopOfMonth($nodeAr);
       
       return $this->responseJSON($nodeAr->attributes, "success");
   }
@@ -626,6 +640,10 @@ class NodeController extends Controller {
 			if (!$user) {
 				$user = UserAR::model()->findByAttributes(array("personal_email" => $userEmail));
 			}
+      if (!$desc) {
+        $ret = 'Please write the subject use for description';
+        return $this->responseJSON(null, $ret, false);
+      }
 			if (!$user) {
 				$ret = 'Debug Message (To be delete when live): your account not in our database'; //TODO: delete when live
 				return $this->responseJSON(null, $ret, false); //if the user not in our database then return nothing
@@ -653,7 +671,7 @@ class NodeController extends Controller {
 					"image/gif", "image/png", "image/jpeg", "image/jpg"
 				);
 				$allowVideoMime = array(
-					"video/mov", "video/wmv", "video/mp4", "video/avi", "video/3gp", "video/3gpp", "video/mpeg", "video/mpg", "application/octet-stream"
+					"video/mov","video/quicktime", "video/x-msvideo", "video/x-ms-wmv", "video/wmv", "video/mp4", "video/avi", "video/3gp", "video/3gpp", "video/mpeg", "video/mpg", "application/octet-stream", "video/x-ms-asf"
 				);
 				if (in_array($mime, $allowPhotoMime)) {
 					$type = 'photo';
