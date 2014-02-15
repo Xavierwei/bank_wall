@@ -1,7 +1,7 @@
 /*
  * page base action
  */
-LP.use(['jquery', 'api', 'easing',  'swfupload', 'swfupload-speed', 'swfupload-queue'] , function( $ , api ){
+LP.use(['jquery', 'api', 'easing', 'fileupload', 'swfupload', 'swfupload-speed', 'swfupload-queue'] , function( $ , api ){
     'use strict'
 
     var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > 0;
@@ -1451,9 +1451,14 @@ LP.use(['jquery', 'api', 'easing',  'swfupload', 'swfupload-speed', 'swfupload-q
 								var rdata = data.result.data;
 
 								if(rdata.type == 'video') {
-									$('.pop-inner').delay(400).fadeOut(400);
-									$('.pop-txt').delay(900).fadeIn(400);
-									$('.poptxt-pic img').attr('src', API_FOLDER + rdata.file.replace('.mp4', /*THUMBNAIL_IMG_SIZE + */'.jpg'));
+									$('.poptxt-pic-inner').show();
+									$('.poptxt-pic img')
+                                        .unbind('load.forinnershow')
+                                        .bind('load.forinnershow' , function(){
+                                            $('.pop-inner').delay(400).fadeOut(400);
+                                            $('.pop-txt').delay(1200).fadeIn(400);
+                                        })
+										.attr('src', API_FOLDER + rdata.file.replace('.mp4', /*THUMBNAIL_IMG_SIZE + */'.jpg'));
 									// TODO:: why need timeout?
 //                                setTimeout(function(){
 //                                    $('.poptxt-pic img').attr('src',$('.poptxt-pic img').attr('src') + '?' + new Date().getTime() );
