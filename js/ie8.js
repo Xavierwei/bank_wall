@@ -28,7 +28,6 @@ var uploadPopError = function(code) {
 }
 
 var close_pop = function() {
-	alert(1);
     LP.triggerAction('get_fresh_nodes');
     $('#node_post_flash object').fadeOut(400);
     $('.pop-success').delay(400).fadeIn(400);

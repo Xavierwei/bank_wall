@@ -5,7 +5,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'swfupload', 'swfupload-speed',
     'use strict'
 
     var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > 0;
-    var isIE8 = $('html').hasClass('ie8');
+    var isIE8 = true;// $('html').hasClass('ie8');
     var API_FOLDER = "./api";
     var THUMBNAIL_IMG_SIZE = "_250_250";
     var BIG_IMG_SIZE = "_650_650";

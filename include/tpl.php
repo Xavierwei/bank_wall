@@ -490,7 +490,7 @@
 
 <!-- flash-uploder-tpl -->
 <script type="text/tpl" id="flash-uploader-template">
-  <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="443" height="330">
+  <object id="flash-uploader" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="443" height="330">
     <param name="allowScriptAccess" value="always"/>
     <param name="movie" value="flash/upload_photo.swf"/>
     <param name="quality" value="high"/>
