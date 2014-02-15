@@ -345,6 +345,9 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 .height( itemWidth );
             $dom.find('.main-item').height( itemWidth );
         },
+        stopItemReversal: function(){
+            clearTimeout( nodeActions._reversalTimeout );
+        },
         // start pic reversal animation
         setItemReversal: function( $dom ){
             // fix all the items , set position: relative
@@ -375,7 +378,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 $node.find('img')
                     .width( itemWidth )
                     .height( itemWidth );
-                setTimeout(function(){
+                nodeActions._reversalTimeout =  setTimeout(function(){
                     nodeActions.setItemReversal( $dom );
                 } , animationTimeout);
             }
@@ -666,7 +669,6 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
     // for back action
     LP.action('back' , function( data ){
-        location.hash = '';
         var $inner = $('.inner');
         var infoTime = 300;
         // hide the inner info node
@@ -702,7 +704,9 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 height: 'auto'
             });
         }
-        $aniDom.show()
+        $aniDom
+            .stop()
+            .show()
             .css('position' , 'fixed')
             .delay(infoTime)
             .animate({
@@ -727,12 +731,16 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             $dom.html('');
             $dom.data( 'nodes', [] );
             $listLoading.fadeIn();
+
             LP.triggerAction('recent' , pageParam);
         }
+
+        changeUrl('' , {event:'back'});
 
     });
 
     LP.action('back_home', function(){
+        nodeActions.stopItemReversal();
         var delay = 400;
         if(!$main.is(':visible')) {
             LP.triggerAction('back');
@@ -748,7 +756,6 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         $main.data( 'nodes', [] );
         $listLoading.fadeIn();
         LP.triggerAction('recent');
-
     });
 
     /**
@@ -1555,7 +1562,6 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
     //toggle user page
     LP.action('toggle_user_page' , function(){
-        location.hash = '';
         if(!$('.user-page').is(':visible')) {
             var mainWidth = winWidth;
             var slidWidth = 80;
@@ -1585,7 +1591,11 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     nodeActions.setItemReversal( $countCom );
                 });
             $('.close-user-page').fadeIn();
+            console.log(3);
+            changeUrl('/user' , { event: 'user' });
         } else {
+            console.log(4);
+            changeUrl('' , { event: 'user' });
             LP.triggerAction('close_user_page');
             // LP.triggerAction('load_list');
             // continue to res
@@ -1769,6 +1779,8 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 nodeActions.inserNode( $main.show() , result.data , param.orderby == 'datetime');
             });
         });
+
+        changeUrl( '/cod' , {event:'com'} );
     });
 
     // get last day nodes
@@ -1793,6 +1805,9 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 nodeActions.inserNode( $main.show() , result.data , param.orderby == 'datetime');
             });
         });
+
+        // change url
+        changeUrl( '/com' , {event:'com'} );
     });
 
     // zoom video
@@ -1906,7 +1921,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     }
 
     var resetQuery = function() {
-        var param = $main.data('param');
+        var param = $main.data('param') || {};
         param.orderby = "datatime";
         delete param.country_id;
         $main.data('param',param);
@@ -1941,6 +1956,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 if( trans.prev.test( lastUrl ) && 
                     trans.curr.test( currUrl ) ){
                     trans.fn( lastUrl , currUrl );
+                    return false;
                 }
             } );
             currentHash = location.hash;
@@ -1956,22 +1972,57 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             });
         }
 
+        // /nid/xx ==> /nid/xx
         addTransition( /^\/nid\/\d+/ , /^\/nid\/\d+/ , function( lastUrl , currUrl ){
             var lnid = lastUrl.match(/\d+/)[0];
             var nid = currUrl.match(/\d+/)[0];
             LP.triggerAction( lnid > nid ? 'next' : 'prev' );
         } );
-
+        //  ==> /nid/xx
         addTransition( /^#?$/ , /^\/nid\/\d+/ , function( lastUrl , currUrl ){
             var nid = currUrl.match(/\d+/)[0];
             $main.children('[data-d="nid=' + nid + '"]').trigger('click');
         } );
-
+        //  /nid/xx ==> 
         addTransition( /^\/nid\/\d+/ , /^#?$/ , function( lastUrl , currUrl ){
             LP.triggerAction('back');
         } );
 
+        // * ==> /user 
+        addTransition( /.*/ , /^\/user/ , function( lastUrl , currUrl ){
+            console.log(1);
+            LP.triggerAction('toggle_user_page');
+        } );
 
+        // /user ==> *
+        addTransition( /^\/user/ , /.*/ , function( lastUrl , currUrl ){
+            console.log(2);
+            LP.triggerAction('toggle_user_page');
+        } );
+
+
+        // * ==> /com
+        addTransition( /.*/ , /^\/com/ , function( lastUrl , currUrl ){
+            LP.triggerAction('content_of_month');
+        } );
+        // /com ==> /nid
+        addTransition( /^\/(com|cod)/ ,  /^\/nid\/\d+/ , function( lastUrl , currUrl ){
+            var nid = currUrl.match(/\d+/)[0];
+            $main.children('[data-d="nid=' + nid + '"]').trigger('click');
+        } );
+        // /com ==> /user
+        addTransition( /^\/(com|cod)/ ,  /^\/nid\/\d+/ , function( lastUrl , currUrl ){
+            LP.triggerAction('toggle_user_page');
+        } );
+        // /com ==> /^$/
+        addTransition( /^\/(com|cod)/ ,  /^$/ , function( lastUrl , currUrl ){
+            LP.triggerAction('back_home');
+        } );
+        
+        // * ==> /cod
+        addTransition( /.*/ , /^\/cod/ , function( lastUrl , currUrl ){
+            LP.triggerAction('content_of_day');
+        } );
     })();
 
 
@@ -2227,6 +2278,8 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             var animateScale = 1.02;
             
             var runZoomIn = function( scale ){
+                imgWidth = parseInt($picInner.find('img').css('width'));
+                imgHeight = parseInt($picInner.find('img').css('height'));
                 if( totalScale * imgWidth == minWidth || totalScale * imgHeight == minHeight ){
                     return;
                 }
@@ -2432,10 +2485,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                         $('.header .login').fadeIn();
                     }
 
-                    if(!openByHashId()) {
-                        // after page load , load the recent data from server
-                        LP.triggerAction('recent');
-                    }
+                    openByHash();
                 });
 
 
@@ -2754,11 +2804,13 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     /**
      * Open the content via url hash id
      */
-    var openByHashId = function(){
+    var openByHash = function(){
         //获取nid所在的页码，然后加载该list
-        var path = getUrlHash();
-        var pageParam = refreshQuery();
-        if(path[0]=='nid' && !isNaN(path[1])) {
+        var hash = location.hash;
+        var match;
+        if( ( match = hash.match( /#\/nid\/(\d+)/ ) ) ){
+            var nid = match[1];
+            var pageParam = refreshQuery();
             api.ajax('getPageByNid', {nid:path[1]}, function(result){
                 pageParam.page = result.data;
                 pageParam.previouspage = result.data;
@@ -2773,10 +2825,15 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     }
                 });
             });
-            return true;
-        }
-        else {
-            return false;
+        } else if( ( match = hash.match( /#\/user/ ) ) ){
+            LP.triggerAction('toggle_user_page');
+            LP.triggerAction('recent');
+        } else if( ( match = hash.match( /#\/com/ ) ) ){
+            LP.triggerAction('content_of_month');
+        } else if( ( match = hash.match( /#\/cod/ ) ) ){
+            LP.triggerAction('content_of_day');
+        } else {
+            LP.triggerAction('recent');
         }
     }
 
