@@ -182,9 +182,10 @@ a{text-decoration:none;color:#666}
         .com-unlike-tip {display:none;background:#333;font-size:0.9em;color:#fff;position: absolute;left:-8px;top:20px;padding:0 5px;}
         .com-like .need-login {display: none;position: absolute;background:#333;font-size:0.9em;width:140px;margin-left:-70px;}
         .com-com-count{display: inline-block;background: url('../img/icon_inner_comment.gif') no-repeat 0 3px;padding:0 0 0 23px;}
-
+    .comment-form {position: relative;}
 	.com-btn{height: 44px;width:125px;margin:30px auto;background: url('../img/icon_inner_line.gif') no-repeat center;}
-		.com-btn p{float:left;cursor: pointer;}
+		.com-loading {display:none;background:url('../img/loading_comment.gif') no-repeat;width:15px;height:15px;bottom:3px;right:-12px;position:absolute;}
+        .com-btn p{float:left;cursor: pointer;}
 		.com-back{background:url('../img/icon_inner_back.gif') no-repeat center;width:44px;height: 44px;}
 		.com-prev{background:url('../img/icon_inner_left.gif') no-repeat center;width:25px;height: 44px;margin-left:30px;}
 		.com-next{background:url('../img/icon_inner_right.gif') no-repeat center;width:25px;height: 44px}
@@ -237,11 +238,11 @@ a{text-decoration:none;color:#666}
 	.pophd{height:40px;background: #d3273f url('../img/pop_hd_bg.gif') no-repeat;font-size:15px;color:#fff;line-height:45px;padding:0 18px;}
     .poptit {text-transform: uppercase;}
     .pop iframe {display: none;}
-    .pop-uploadloading {right: 10px;position: absolute;width: 20px;height: 20px;bottom: 10px;display:none;background: #444 url('../img/loading_white.gif') no-repeat;}
+    .pop-uploadloading {right: 10px;position: absolute;width: 15px;height: 15px;bottom: 10px;display:none;background: #444 url('../img/loading_white_s.gif') no-repeat;}
 /**/
-.popfile-drag-box{width: 327px;height: 167px;background: #f9f9f9 url(../img/icon_pop_upload.gif) no-repeat center;margin:25px auto 15px auto;}
+.popfile-drag-box{width: 327px;height: 167px;background: #f9f9f9 url(../img/icon_pop_upload.gif) no-repeat center;margin:18px auto 13px auto;}
 	.popfile-btn{text-transform: uppercase;position: relative;overflow: hidden; color:#fff;background: #db2842;border: #c0152d 3px solid;width: 326px;height: 40px;line-height: 44px;text-align: center;margin: 0 auto;font-size:16px;}
-    .step1-tips {text-transform:none;color:#474747;line-height: 120%;margin:0 0 12px 75px;}
+    .step1-tips {width:340px;text-transform:none;color:#474747;line-height: 120%;margin:0 0 12px 75px;}
     .step1-tips li {background: url('../img/icon_list_li.gif') no-repeat 0 2px;padding:0 0 0 10px;}
     .step1-tips li.error {color:#db2842;}
     .step2-btns {text-align: center;display:none;}
@@ -255,7 +256,7 @@ a{text-decoration:none;color:#666}
     .popload-icon {background: url('../img/icon_upload_loading.png') no-repeat;width:63px;height:63px;margin:72px 0 0 75px;}
     .poploading{text-align: center;color:#434343;}
 	.popload-percent{width:260px;height: 19px;background: #e6e6e6;margin:0 auto 20px;}
-	.popload-percent p{width:20%;height: 19px;background:url('../img/process_bar.gif') no-repeat -5px 0;}
+	.popload-percent p{width:0%;height: 19px;background:url('../img/process_bar.gif') no-repeat -5px 0;}
 /**/
 .poptxt-preview{margin:24px 31px 0;position:relative;}
 	.poptxt-pic{float:left;}

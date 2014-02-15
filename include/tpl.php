@@ -206,7 +206,7 @@
 				</div>
 				<div class="poploading">
 					<div class="popload-percent"><p></p></div>
-					<p>{{_e.UPLOAD_IN_PROGRESS}} ...</p>
+					<p>{{_e.UPLOAD_IN_PROGRESS}}</p>
 				</div>
 			</div>
 			<!--  -->
@@ -259,7 +259,9 @@
 							<form class="comment-form" action="./api/index.php/comment/post" method="post">
 								<textarea name="content" class="com-ipt" placeholder="{{_e.WRITE_YOUR_COMMENT}}"></textarea>
 								<input type="hidden" name="nid" value="{{nid}}" />
+								<div class="com-loading"></div>
 								<input class="submit btn2" type="submit" value="{{_e.SUBMIT}}" />
+								<div class="clear"></div>
 							</form>
 							<div class="comment-msg-success">{{_e.THANKS_COMMENT}}</div>
 							<div class="comment-msg-error"></div>
