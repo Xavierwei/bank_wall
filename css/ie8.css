@@ -2,6 +2,8 @@
 .poptxt-textarea {float:none;width:400px;}
 .poptxt-check,.poptxt-check.checked {background-position:0 2px;}
 .poptxt-cancel,.poptxt-submit,.popfile-btn,.pophd {line-height:40px;}
+.search-ipt {background: url('../img/search_input_placeholder.gif') no-repeat 3px 3px;}
+.search-ipt.focus {background: none;}
 .search-tip-modal {height:240px;margin-top:-120px;}
 .menu-item h6 {font-size:9px;}
 

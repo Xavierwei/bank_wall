@@ -159,6 +159,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'swfupload', 'swfupload-speed',
             }
         })
         .delegate('textarea, input','focus',function(){
+			$(this).addClass('focus');
             var placeholder = $(this).attr('placeholder');
             if(placeholder)
             {
@@ -172,6 +173,9 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'swfupload', 'swfupload-speed',
 
         })
         .delegate('textarea, input','blur',function(){
+			if($(this).val().length == 0) {
+				$(this).removeClass('focus');
+			}
             if(!isIE8) {
                 var placeholder = $(this).data('placeholder');
                 if(placeholder)
