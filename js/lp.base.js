@@ -529,7 +529,10 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'swfupload', 'swfupload-speed',
     var _animateEasing = 'easeInOutQuart';
     var _nodeCache = [];
     var _currentNodeIndex = 0;
+    var _innerLock = false;
     LP.action('node' , function( data ){
+        if( _innerLock ) return;
+        _innerLock = true;
         var $dom = $( this );
         if(data.type) {
             var node = data; // 如果直接传入单个node，不再从列表中获取
@@ -580,7 +583,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'swfupload', 'swfupload-speed',
                     left: 0
                 }, _animateTime , _animateEasing , function(){
                     // show up node info
-
                 });
             // set inner-info bottom css
 
@@ -597,6 +599,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'swfupload', 'swfupload-speed',
                     left: winWidth
                 } , _animateTime , _animateEasing , function(){
                     $main.hide();
+                    _innerLock = false;
                 });
 
             // loading comments
@@ -668,6 +671,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'swfupload', 'swfupload-speed',
 
     // for back action
     LP.action('back' , function( data ){
+        if( _innerLock ) return;
         var $inner = $('.inner');
         var infoTime = 300;
         // hide the inner info node
@@ -846,6 +850,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'swfupload', 'swfupload-speed',
                     });
                 setTimeout(function(){
                     $cube.removeClass( 'no-animate' );
+                    _innerLock = false;
                 },20);
 
                 $inner.removeClass('disabled');
@@ -1012,19 +1017,20 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'swfupload', 'swfupload-speed',
 
     //for prev action
     LP.action('prev' , function( data ){
+        if( _innerLock ) return;
+        _innerLock = true;
         if($('.user-page').is(':visible')) {
             var $dom = $('.count-dom');
-        }
-        else {
+        } else {
             var $dom = $main;
         }
 
         // when reach the first, if the content opened via url id, need to check if has previous page
-        if( _currentNodeIndex == 0 )
-        {
+        if( _currentNodeIndex == 0 ){
             var param = $main.data('param');
             if(!param.previouspage || param.previouspage == 1) {
                 //alert('no more nodes');
+                _innerLock = false;
                 return;
             } else {
                 param.previouspage --;
@@ -1051,6 +1057,8 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'swfupload', 'swfupload-speed',
 
     //for next action
     LP.action('next' , function( data ){
+        if( _innerLock ) return;
+        _innerLock = true;
         var $inner = $('.inner');
         var $dom = $inner.data('from') || $main;
 
@@ -1068,6 +1076,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'swfupload', 'swfupload-speed',
                 $inner.removeClass('disabled');
                 // TODO:: tip no more nodes
                 //alert('no more nodes');
+                _innerLock = false;
                 return;
             }
             //ajax to get more node
@@ -1087,6 +1096,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'swfupload', 'swfupload-speed',
                     $dom.data('end' , true);
                     // TODO:: tip no more nodes
                     alert('no more nodes');
+                    _innerLock = false;
                 }
             });
             return;
@@ -3049,7 +3059,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'swfupload', 'swfupload-speed',
         if( ( match = hash.match( /#\/nid\/(\d+)/ ) ) ){
             var nid = match[1];
             var pageParam = refreshQuery();
-            api.ajax('getPageByNid', {nid:path[1]}, function(result){
+            api.ajax('getPageByNid', {nid:nid}, function(result){
                 pageParam.page = result.data;
                 pageParam.previouspage = result.data;
                 $main.data('param' , pageParam);
@@ -3058,7 +3068,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'swfupload', 'swfupload-speed',
                         nodeActions.inserNode( $main , result.data , pageParam.orderby == 'datetime' );
                         $listLoading.fadeOut();
                         setTimeout(function(){
-                            $('.main-item-'+path[1]).click();
+                            $('.main-item-'+nid).click();
                         },100);
                     }
                 });
