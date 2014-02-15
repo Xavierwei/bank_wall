@@ -106,6 +106,10 @@
                   </ul>
                   <div class="error"></div>
                   <div class="step1-btns">
+										<div id="flash-select-btn" class="popfile-btn btn">
+											{{_e.SELECT}} {{type}}
+											<div id="flash-video-popfile-btn"></div>
+										</div>
                     <div class="popfile-btn btn" id="select-btn">
                       {{_e.SELECT}} {{type}}
                       <input type="file" name="file" accept="{{accept}}" />
@@ -307,21 +311,19 @@
 				{{#if description}}<div class="inner-infocom">{{description}}</div>{{/if}}
 				<div class="inner-infoicon"><div class="{{type}}"></div></div>
 			</div>
-			<div class="inner-icons">
-				{{#if user_flagged}}
-				<div class="flag-node flagged">flag</div>
-				{{else}}
-				<div class="flag-node btn2" data-d="nid={{nid}}&type=node" data-a="flag">flag</div>
-				{{/if}}
+			{{#if user_flagged}}
+			<div class="flag-node flagged">flag</div>
+			{{else}}
+			<div class="flag-node btn2" data-d="nid={{nid}}&type=node" data-a="flag">flag</div>
+			{{/if}}
 
-				{{#if topday}}
-				<div class="inner-topday"></div>
-				{{else}}
+			{{#if topday}}
+				<div class="inner-top inner-topday"></div>
+			{{else}}
 				{{#if topmonth}}
-				<div class="inner-topmonth"></div>
+					<div class="inner-top inner-topmonth"></div>
 				{{/if}}
-				{{/if}}
-			</div>
+			{{/if}}
 		</div>
 	</div>
 </script>
@@ -493,6 +495,10 @@
     <param name="wmode" value="opaque"/>
     <embed name="player" src="flash/upload_photo.swf" quality="high" wmode="opaque" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="443" height="330" allowScriptAccess="always"></embed>
   </object>
+
+	<div class="pop-inner pop-success">
+		{{_e.YOU_PUBLISHED}} {{type}}.
+	</div>
 </script>
 
 <!-- blank-search-tpl -->

@@ -10,11 +10,11 @@ class UploadsController extends Controller {
   private $_max_photo_size = 5120000;
   private $_max_video_size = 7168000;
   private $_photo_mime = array(
-          "image/gif", "image/png", "image/jpeg", "image/jpg"
-      );
+		"image/gif", "image/png", "image/jpeg", "image/jpg", "image/pjpeg", "image/x-png"
+	);
   private $_video_mime = array(
-      "video/mov", "video/quicktime","video/x-msvideo", "video/x-ms-wmv", "video/wmv", "video/mp4", "video/mpeg", "video/avi", "video/3gp"
-      );
+		"video/mov","video/quicktime", "video/x-msvideo", "video/x-ms-wmv", "video/wmv", "video/mp4", "video/avi", "video/3gp", "video/3gpp", "video/mpeg", "video/mpg", "application/octet-stream", "video/x-ms-asf"
+	);
 
   public function init() {
     Yii::import("application.vendor.*");
@@ -72,16 +72,22 @@ class UploadsController extends Controller {
 
 	public function actionUpload() {
 		$fileUpload = CUploadedFile::getInstanceByName("file");
-		$mime = $fileUpload->getType();
-		if( in_array($mime, $this->_photo_mime ) ){
-			$type = "photo";
 
-		} else if ( in_array($mime, $this->_video_mime ) ){
-			$type = "video";
-		} else {
-			return $this->responseError(502); //photo media type is not allowed
+		$request = Yii::app()->getRequest();
+		$type = $request->getPost("type");
+//		$mime = $fileUpload->getType();
+//		echo $mime;
+		if(!isset($type)) {
+			$mime = $fileUpload->getType();
+			if( in_array($mime, $this->_photo_mime ) ){
+				$type = "photo";
+
+			} else if ( in_array($mime, $this->_video_mime ) ){
+				$type = "video";
+			} else {
+				return $this->responseError(502); //photo media type is not allowed
+			}
 		}
-
 		$nodeAr = new NodeAR();
 		$validateUpload = $nodeAr->validateUpload($fileUpload, $type);
 		if($validateUpload !== true) {

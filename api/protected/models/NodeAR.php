@@ -52,10 +52,10 @@ class NodeAR extends CActiveRecord{
   
   public function rules() {
     return array(
-        array("uid, country_id, type", "required"),
+        array("uid, file, country_id, type", "required"),
         array("uid", "uidExist"),
         array("country_id", "countryExist"),
-        array("created ,file, type, datetime, status, description, nid, hashtag, user_liked,user_flagged, like, flag, topday, topmonth", "safe"),
+        array("created , type, datetime, status, description, nid, hashtag, user_liked,user_flagged, like, flag, topday, topmonth", "safe"),
     );
   }
   
@@ -155,57 +155,72 @@ class NodeAR extends CActiveRecord{
   }
   
   public function afterSave() {
-      $type = $this->type;
-      if ($type == "photo") {
-          $name = "p". $this->nid;
-      }
-      else {
-          $name = "v". $this->nid;
-      }
+		$type = $this->type;
+		if ($type == "photo") {
+				$name = "p". $this->nid;
+		}
+		else {
+				$name = "v". $this->nid;
+		}
 
-      $ext = pathinfo($this->file, PATHINFO_EXTENSION);
-      $newname = $name.'.'.$ext;
-      
-      $paths = explode("/", $this->file);
-      $paths[count($paths) - 1] = $newname;
-      $newpath = implode("/", $paths);
-      
-      if (file_exists(ROOT.$this->file)) {
-        rename(ROOT.$this->file, ROOT. $newpath);
-        // 文件重命名后 修改数据库
-        $this->updateByPk($this->nid, array("file" => $newpath));
-        $this->file = $newpath;
+		$ext = pathinfo($this->file, PATHINFO_EXTENSION);
+		$newname = $name.'.'.$ext;
 
-        if($type == 'photo') {
-          $this->makeImageThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_250_250.jpg', $newpath), 250, 250, false);
-          $this->makeImageThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_650_650.jpg', $newpath), 650, 650, false);
-        }
-				else {
-					$newpath = str_replace('.mp4', '.jpg', $newpath);
-					$this->makeVideoThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_250_250.jpg', $newpath), 250, 250, false);
-					$this->makeVideoThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_650_650.jpg', $newpath), 650, 650, false);
-				}
+		$paths = explode("/", $this->file);
+		$paths[count($paths) - 1] = $newname;
+		$newpath = implode("/", $paths);
 
-      }
+		if (file_exists(ROOT.$this->file)) {
+			rename(ROOT.$this->file, ROOT. $newpath);
+			// 文件重命名后 修改数据库
+			$this->updateByPk($this->nid, array("file" => $newpath));
+			$this->file = $newpath;
 
+			if($type == 'photo') {
+				$this->makeImageThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_250_250.jpg', $newpath), 250, 250, false);
+				$this->makeImageThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_650_650.jpg', $newpath), 650, 650, false);
+			}
+			else {
+				$newpath = str_replace('.mp4', '.jpg', $newpath);
+				$this->makeVideoThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_250_250.jpg', $newpath), 250, 250, false);
+				$this->makeVideoThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_650_650.jpg', $newpath), 650, 650, false);
+			}
+		}
 
+		// Generate WMV for no flash IE8
+		if ($type == "video") {
+			$topath = ROOT.$newpath;
+			$wmvpath = str_replace('.mp4','.wmv',$topath);
+			exec("ffmpeg -i {$topath} -y -vf scale=-1:360 {$wmvpath}", $output, $status);
+		}
+		// Load user/country
+		$userAr = new UserAR();
+		$userAr->setAttributes($userAr->getOutputRecordInArray(UserAR::model()->findByPk($this->uid)));
+		$this->user = $userAr;
 
+		$this->country = CountryAR::model()->findByPk($this->country_id);
 
-			// Generate WMV for no flash IE8
-      if ($type == "video") {
-        $topath = ROOT.$newpath;
-        $wmvpath = str_replace('.mp4','.wmv',$topath);
-        exec("ffmpeg -i {$topath} -y -vf scale=-1:360 {$wmvpath}", $output, $status);
-      }
-      // Load user/country
-      $userAr = new UserAR();
-      $userAr->setAttributes($userAr->getOutputRecordInArray(UserAR::model()->findByPk($this->uid)));
-      $this->user = $userAr;
-      
-      $this->country = CountryAR::model()->findByPk($this->country_id);
-      
-      return TRUE;
+		return TRUE;
   }
+
+	public function deleteRelatedData($nid) {
+		// Delete related comments
+		Yii::app()->db->createCommand()
+			->delete('comment', 'nid=:nid', array(':nid'=>$nid));
+		// Delete related likes
+		Yii::app()->db->createCommand()
+			->delete('like', 'nid=:nid', array(':nid'=>$nid));
+		// Delete related flags
+		Yii::app()->db->createCommand()
+			->delete('flag', 'nid=:nid', array(':nid'=>$nid));
+		// Delete related topday
+		Yii::app()->db->createCommand()
+			->delete('topday', 'nid=:nid', array(':nid'=>$nid));
+		// Delete related topmonth
+		Yii::app()->db->createCommand()
+			->delete('topmonth', 'nid=:nid', array(':nid'=>$nid));
+	}
+
 
 	public function validateUpload($fileUpload, $type) {
 		if(!$fileUpload) {
@@ -236,7 +251,7 @@ class NodeAR extends CActiveRecord{
 			}
 			$mime = $fileUpload->getType();
 			$allowMime = array(
-				"video/mov", "video/quicktime", "video/x-msvideo", "video/x-ms-wmv", "video/wmv", "video/mp4", "video/mpeg", "video/avi", "video/3gp"
+				"video/mov", "video/quicktime", "video/x-msvideo", "video/x-ms-wmv", "video/wmv", "video/mp4", "video/mpeg", "video/avi", "video/3gp", "application/octet-stream"
 			);
 			if (!in_array($mime, $allowMime)) {
 				return 502; //video media type is not allowed
@@ -314,7 +329,9 @@ class NodeAR extends CActiveRecord{
             // 视频转换
             switch($extname) {
               case 'mp4':
-                exec("ffmpeg -i {$to} -vcodec libx264 -acodec aac -strict experimental -ac 2 {$newpath}", $output, $status);
+								copy($to, $newpath);
+								//exec("ffmpeg -i {$to} {$newpath}", $output, $status);
+                //exec("ffmpeg -i {$to} -vcodec libx264 -acodec aac -strict experimental -ac 2 {$newpath}", $output, $status);
                 break;
 							case 'mpg':
 								exec("ffmpeg -i {$to} -c:v libx264 -c:a libfaac -r 30 {$newpath}", $output, $status);
@@ -348,8 +365,8 @@ class NodeAR extends CActiveRecord{
         }
       }
     }
-    
-    $to = str_replace(ROOT, "", $to);
+
+		$to = str_replace(ROOT, "", $to);
     return $to;
   }
 

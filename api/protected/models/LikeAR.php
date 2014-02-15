@@ -41,7 +41,7 @@ class LikeAR extends CActiveRecord {
 	}
 
 
-	private function saveTopOfDay($node) {
+	public function saveTopOfDay($node) {
 		$str_datetime = $node->datetime;
 		$datetime = date('Y-m-d',$str_datetime);
 		$start_time = strtotime($datetime);
@@ -81,7 +81,7 @@ class LikeAR extends CActiveRecord {
 		}
 	}
 
-	private function saveTopOfMonth($node) {
+	public function saveTopOfMonth($node) {
 		$str_datetime = $node->datetime;
 		$datetime = date('Y-m-1',$str_datetime);
 		$start_time = strtotime($datetime);
