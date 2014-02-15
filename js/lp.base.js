@@ -1591,10 +1591,8 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     nodeActions.setItemReversal( $countCom );
                 });
             $('.close-user-page').fadeIn();
-            console.log(3);
             changeUrl('/user' , { event: 'user' });
         } else {
-            console.log(4);
             changeUrl('' , { event: 'user' });
             LP.triggerAction('close_user_page');
             // LP.triggerAction('load_list');
@@ -1990,13 +1988,11 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
         // * ==> /user 
         addTransition( /.*/ , /^\/user/ , function( lastUrl , currUrl ){
-            console.log(1);
             LP.triggerAction('toggle_user_page');
         } );
 
         // /user ==> *
         addTransition( /^\/user/ , /.*/ , function( lastUrl , currUrl ){
-            console.log(2);
             LP.triggerAction('toggle_user_page');
         } );
 
