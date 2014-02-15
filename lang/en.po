@@ -232,11 +232,17 @@ msgstr "Please check the condition"
 msgid "ERROR_EMAIL"
 msgstr "Please enter correct email."
 
+msgid "ERROR_EXIST_EMAIL"
+msgstr "Votre adresse e-mail déjà utilisée."
+
 msgid "ERROR_WRITE_DESCRIPTION"
 msgstr "Please write some description."
 
 msgid "ERROR_DESCRIPTION_LIMITED"
 msgstr "The description is limited to 140 characters."
+
+msgid "ERROR_COMMENT_LIMITED"
+msgstr "The comment is limited to 140 characters."
 
 msgid "ERROR_DESCRIPTION_ILLEGAL"
 msgstr "The hashtag can\'t include illegal characters"

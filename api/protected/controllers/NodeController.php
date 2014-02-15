@@ -44,6 +44,9 @@ class NodeController extends Controller {
 			}
 			else {
 				$file = $request->getPost("file");
+				if(!file_exists(ROOT.$file)) {
+					exit();
+				}
 				$_x = $request->getPost("x");
 				if($_x && $type == 'photo') {
 					$_y = $request->getPost("y");

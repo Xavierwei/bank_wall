@@ -162,7 +162,7 @@
             </form>
             <div id="node_post_flash"></div>
 		</div>
-        <div class="poploading"></div>
+        <div class="pop-uploadloading"></div>
 	</div>
 </script>
 
@@ -229,7 +229,7 @@
 				{{_e.SAVE_AVATAR_SUCCESS}}.
 			</div>
 		</div>
-        <div class="poploading"></div>
+        <div class="pop-uploadloading"></div>
 	</div>
 </script>
 <!-- inner-template -->
@@ -422,6 +422,7 @@
 					</div>
 					<a class="user-edit-save btn" data-a="save_user">{{_e.SAVE}}</a>
 				</form>
+				<div class="user-edit-loading"></div>
 			</div>
 		</div>
 	</div>

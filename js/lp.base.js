@@ -134,7 +134,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 $('.comment-msg-error').fadeOut();
             }
             if(textLength > 140) {
-                $('.comment-msg-error').fadeIn().html('Comment is limited to 140 characters.');
+                $('.comment-msg-error').fadeIn().html(_e.ERROR_COMMENT_LIMITED);
                 $('.comment-form .submit').attr('disabled','disabled');
             }
         })
@@ -1117,7 +1117,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     _this.data('liked',true);
                     _this.attr('data-a','unlike');
                     _this.addClass('com-unlike');
-                    _this.append('<div class="com-unlike-tip">unlike</div>');
+                    _this.append('<div class="com-unlike-tip">' + _e.UNLIKE + '</div>');
                     $(this).animate({opacity:1});
                 });
                 LP.triggerAction('update_user_status');
@@ -1259,8 +1259,6 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             }
             LP.use('fileupload' , function(){
                 $fileupload.fileupload({
-                        // Uncomment the following to send cross-domain cookies:
-                        //xhrFields: {withCredentials: true},
                         url: './api/index.php/uploads/upload',
                         datatype:"json",
                         autoUpload:false
@@ -1285,9 +1283,11 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                         var rate = data._progress.loaded / data._progress.total * 100;
                         $('.popload-percent p').css({width:rate + '%'});
                     })
-                    //TODO failed.
+                    .bind('fileuploadfail', function() {
+                        $('.pop-inner').fadeOut(400);
+                        $('.pop-file').delay(400).fadeIn(400);
+                    })
                     .bind('fileuploaddone', function (e, data) {
-
                         if(!data.result.success) {
                             switch(data.result.message){
                                 case 502:
@@ -1314,9 +1314,9 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                                     })
                                     .attr('src', API_FOLDER + rdata.file.replace('.mp4', /*THUMBNAIL_IMG_SIZE + */'.jpg'));
                                 // TODO:: why need timeout?
-                                setTimeout(function(){
-                                    $('.poptxt-pic img').attr('src',$('.poptxt-pic img').attr('src') + '?' + new Date().getTime() );
-                                },2000);
+//                                setTimeout(function(){
+//                                    $('.poptxt-pic img').attr('src',$('.poptxt-pic img').attr('src') + '?' + new Date().getTime() );
+//                                },2000);
                                 $('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
                                 
                             } else {
@@ -1401,6 +1401,10 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                         .bind('fileuploadprogress', function (e, data) {
                             var rate = data._progress.loaded / data._progress.total * 100;
                             $('.popload-percent p').css({width:rate + '%'});
+                        })
+                        .bind('fileuploadfail', function() {
+                            $('.pop-inner').fadeOut(400);
+                            $('.pop-file').delay(400).fadeIn(400);
                         })
                         .bind('fileuploaddone', function (e, data) {
                             if( !data.result.success ){
@@ -1504,7 +1508,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         if( $dom.hasClass('disabled') ) return;
         $dom.addClass('disabled');
         // add loading tag
-        $('.poploading').show();
+        $('.pop-uploadloading').show();
         api.ajax('saveNode' , $.extend( {file: data.file, type: data.type, description: description} , trsdata ), function( result ){
             if(result.success) {
                 //TODO: insert the content to photo wall instead of refresh
@@ -1526,7 +1530,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         } , null , function(){
             $dom.removeClass('disabled');
             // hide loading tag
-            $('.poploading').hide();
+            $('.pop-uploadloading').hide();
         });
     });
 
@@ -1536,7 +1540,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         if( $dom.hasClass('disabled') ) return;
         $dom.addClass('disabled');
         // add loading tag
-        $('.poploading').show();
+        $('.pop-uploadloading').show();
         api.ajax('saveAvatar' , $.extend( trsdata , data ) , function( result ){
             if( result.success ){
                 // hide the panel
@@ -1549,7 +1553,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             }
         } , null , function(){
             $dom.removeClass('disabled');
-            $('.poploading').hide();
+            $('.pop-uploadloading').hide();
         });
     });
 
@@ -1682,18 +1686,27 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
     //save user updates
     LP.action('save_user' , function(){
+        $('.user-edit-loading').fadeIn();
         if($('.edit-email-error').is(':visible')) return;
         if(!$('.editfi-condition').hasClass('checked')) {
             $('.editfi-condition-error').fadeIn();
+            $('.user-edit-loading').fadeOut();
             return;
         }
-        $('.user-edit-page').fadeOut(400);
-        $('.avatar-file').fadeOut();
-        $('.count-com').delay(400).fadeIn(400);
-        $('.count-edit').fadeIn();
-        $('.count-userinfo').removeClass('count-userinfo-edit');
         var user = {uid:$('.side').data('user').uid, personal_email: $('.user-edit-page .edit-email').val(), country_id: $('.user-edit-page .editfi-country-box').data('id')}
         api.ajax('saveUser', user, function( result ){
+            if(result.success) {
+                $('.user-edit-page').fadeOut(400);
+                $('.avatar-file').fadeOut();
+                $('.count-com').delay(400).fadeIn(400);
+                $('.count-edit').fadeIn();
+                $('.count-userinfo').removeClass('count-userinfo-edit');
+            }
+            else if(result.message === 603) {
+                $('.edit-email-error').html(_e.ERROR_EXIST_EMAIL).fadeIn();
+            }
+        }, null, function(){
+            $('.user-edit-loading').fadeOut();
         });
     });
 
@@ -2371,7 +2384,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
     var init = function() {
 
-        var datetime = new Date(((1392175200+1*3600)*1000));
+//        var datetime = new Date(((1392175200+1*3600)*1000));
 //        var country = "South Africa,Albania,Algeria,Germany,Saudi,Arabia,Argentina,Australia,Austria,Bahamas,Belgium,Benin,Brazil,Bulgaria,Burkina Faso,Canada,Chile,China,Cyprus,Korea,Republic of Ivory Coast,Croatia,Denmark,Egypt,United Arab Emirates,Spain,Estonia,USA,Finland,France,Georgia,Ghana,Greece,Guinea,Equatorial Guinea,Hungary,India,Ireland,Italy,Japan,Jordan,Latvia,Lebanon,Lithuania,Luxembourg,Macedonia,Madagascar,Morocco,Mauritania,Mexico,Moldova,Republic of Montenegro,Norway,New Caledonia,Panama,Netherlands,Peru,Poland,Portugal,Reunion,Romania,UK,Russian Federation,Senegal,Serbia,Singapore,Slovakia,Slovenia,Sweden,Switzerland,Chad,Czech Republic,Tunisia,Turkey,Ukraine,Uruguay,Vietnam";
 //        var countryArray = country.split(',');
 //        var output;
@@ -2547,23 +2560,28 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
     var bindCommentSubmisson = function() {
         LP.use('form' , function(){
+            var $submitBtn = $('.comment-form .submit');
             $('.comment-form').ajaxForm({
                 beforeSubmit:  function($form){
-                    if(_waitingCommentSubmitAjax) return;
-                    _waitingCommentSubmitAjax = true;
+                    if($submitBtn.hasClass('disabled')) {
+                        return false;
+                    }
+                    $submitBtn.addClass('disabled');
                     $('.comment-msg-error').hide();
                     $('.com-ipt').val().length;
                     if($('.com-ipt').val().length == 0) {
                         $('.comment-msg-error').fadeIn().html('You should write something.');
+                        $submitBtn.removeClass('disabled');
                         return false;
                     }
                     if($('.com-ipt').val().length > 140) {
+                        $submitBtn.removeClass('disabled');
                         $('.comment-msg-error').fadeIn().html('The description is limited to 140 characters.');
                         return false;
                     }
                 },
                 complete: function(xhr) {
-                    _waitingCommentSubmitAjax = false;
+                    $submitBtn.removeClass('disabled');
                     var res = xhr.responseJSON;
                     if(res.success) {
                         var comment = res.data;
@@ -2591,8 +2609,8 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                             } );
                     }
                     else {
-                        if(res.message == 'need login') {
-                            $('.comment-msg-error').html('You need login before comment');
+                        if(res.message === 601) {
+                            $('.comment-msg-error').html(_e.LOGIN_BEFORE_COMMENT);
                         }
                     }
                 }
@@ -2606,20 +2624,20 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
      * @param nid
      */
     var getCommentList = function(nid, page) {
-        if(_waitingCommentListAjax) return;
-        _waitingCommentListAjax = true;
-        var commentParam = {nid: nid, pagenum:5, page:page};
-        $('.comment-wrap').data('param', commentParam);
+        var $commentWrap = $('.comment-wrap');
+        if($commentWrap.hasClass('loading')) return;
+        $commentWrap.addClass('loading');
+        var commentParam = {nid: nid, pagenum:10, page:page};
+        $commentWrap.data('param', commentParam);
         api.ajax('commentList', commentParam, function( result ){
-            // TODO: 异常处理
-            _waitingCommentListAjax = false;
+            $commentWrap.removeClass('loading');
             $('.com-list-loading').fadeOut(100);
             var comments = result.data;
             if(comments.length == 0){
-                _waitingCommentListAjax = true;
+                $commentWrap.addClass('loading');
             }
             if(comments.length == 0 && page == 1) {
-                $('.com-list-inner').html('<div class="no-comment">You will be first one to comment this content.</div>');
+                $('.com-list-inner').html('<div class="no-comment">' + _e.FIRST_COMMENT + '</div>');
             }
             else {
                 $.each( comments , function( index , comment ){
@@ -2627,7 +2645,6 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     var datetime = new Date((parseInt(comment.datetime)+1*3600)*1000);
                     comment.date = datetime.getUTCDate();
                     comment.month = getMonth((parseInt(datetime.getUTCMonth()) + 1));
-
                     LP.compile( 'comment-item-template' ,
                         comment ,
                         function( html ){

@@ -16,15 +16,23 @@ class CommentController extends Controller {
     $nid = $request->getPost("nid");
 
     if(Yii::app()->user->isGuest) {
-      return $this->responseError("need login");
+      return $this->responseError(601);
     }
 
     $uid = Yii::app()->user->getId();
     if (Yii::app()->user->checkAccess("postComment")) {
-      return $this->responseError("permission deny");
+      return $this->responseError(602);
     }
     
     $content = $request->getPost("content");
+
+		if(empty($content)) {
+			return $this->responseError(701);
+		}
+
+		if(strlen($content) > 140) {
+			return $this->responseError(702);
+		}
     
     $commentAr = new CommentAR();
     $commentAr->attributes = array(

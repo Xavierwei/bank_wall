@@ -11,7 +11,7 @@ class LikeController extends Controller {
     }
 
     if(Yii::app()->user->isGuest) {
-      return $this->responseError("need login");
+      return $this->responseError(601);
     }
     
     if (!Yii::app()->user->checkAccess("flagNode")) {
@@ -55,7 +55,7 @@ class LikeController extends Controller {
     }
 
     if(Yii::app()->user->isGuest) {
-      return $this->responseError("need login");
+      return $this->responseError(601);
     }
     
     // 这里不需要检查权限，因为用户如果like了 就取消掉； 如果没有like过 就什么也不做

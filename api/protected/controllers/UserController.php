@@ -329,7 +329,7 @@ class UserController extends Controller {
   public function actionPut() {
     $request = Yii::app()->getRequest();
     if (!$request->isPostRequest) {
-      $this->responseError("http error");
+      $this->responseError(602);
     }
     
     $uid = Yii::app()->user->getId();
@@ -340,6 +340,8 @@ class UserController extends Controller {
         $this->responseError("invalid params");
       }
 
+			echo Yii::app()->user->checkAccess("updateOwnNode", array("uid" => $user->uid ));
+			exit();
 
       if (!Yii::app()->user->checkAccess("updateOwnAccount", array("uid" => $user->uid ))) {
         if (!Yii::app()->user->checkAccess("updateAnyAccount", array("country_id" => $user->country_id))) {
@@ -349,23 +351,23 @@ class UserController extends Controller {
       }
       
       $data = $_POST;
+
+			$query = new CDbCriteria();
+			$query->addCondition('uid != :uid');
+			$query->params[":uid"] = $uid;
+			$existUserCount = UserAR::model()->countByAttributes(array("personal_email"=>$data['personal_email']), $query);
+			if($existUserCount > 0) {
+				return $this->responseError(603); // Personal Email already exsit
+			}
+
       $update_uid = $data['uid'];
       unset($data['uid']);
-      // 使用单点登陆后无需再修改密码，因此注销以下代码
-//      foreach ($data as $key => $value) {
-//        if ($key == "password") {
-//          $user->setAttribute($key, md5($value));
-//        }
-//        else {
-//          $user->setAttribute($key, $value);
-//        }
-//      }
       UserAR::model()->updateByPk($update_uid, $data);
       
       $this->responseJSON($user, "success");
     }
     else {
-      $this->responseError("not login");
+      $this->responseError(601);
     }
   }
 

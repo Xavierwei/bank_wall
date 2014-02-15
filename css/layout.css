@@ -236,7 +236,7 @@ a{text-decoration:none;color:#666}
 	.pophd{height:40px;background: #d3273f url('../img/pop_hd_bg.gif') no-repeat;font-size:15px;color:#fff;line-height:45px;padding:0 18px;}
     .poptit {text-transform: uppercase;}
     .pop iframe {display: none;}
-    .pop-uploadloading {right: 0;position: absolute;width: 30px;height: 30px;bottom: 0px;display:none;background: #444 url('../img/loading_inner.gif') no-repeat center center;}
+    .pop-uploadloading {right: 10px;position: absolute;width: 20px;height: 20px;bottom: 10px;display:none;background: #444 url('../img/loading_white.gif') no-repeat;}
 /**/
 .popfile-drag-box{width: 327px;height: 167px;background: #f9f9f9 url(../img/icon_pop_upload.gif) no-repeat center;margin:25px auto 15px auto;}
 	.popfile-btn{text-transform: uppercase;position: relative;overflow: hidden; color:#fff;background: #db2842;border: #c0152d 3px solid;width: 326px;height: 40px;line-height: 44px;text-align: center;margin: 0 auto;font-size:16px;}
@@ -308,7 +308,9 @@ a{text-decoration:none;color:#666}
 		.count-userinfo-edit{left:450px;}
 		.count-edit{position: absolute;right: 10px;top: 10px;background:#5e5e5e url('../img/icon_user_edit.gif') no-repeat 13px 6px;padding:0 15px 0 44px;color:#e4e4e4;font-size:11px;height:23px;line-height: 26px;}
 		.avatar-file{display:none;background: #6b6b6b url('../img/icon_user_change_avatar.gif') no-repeat 15px 5px;height:28px;line-height:28px;border:2px solid #2c2c2c;color: #FFF;position: absolute;left:103px;top:49px;padding:0 15px 0 54px;}
-.user-edit-page{position: relative;padding:70px 0 100px 0;display: none;color:#323232;background:#fff;}
+.user-edit-page{position: relative;padding:0;display: none;color:#323232;background:#fff;}
+        .user-edit-page form {padding-top:70px;}
+        .user-edit-loading {display:none;background: url('../img/loading_white.gif') no-repeat;width:20px;height:20px;position: absolute;bottom:10px;right:10px;}
 	    .edit-fi{margin: 0 0 20px}
 		.editfi-tit{text-align: right;width:204px;float: left;padding:0;line-height: 32px}
         .editfi-com {margin:0 50px 0 210px;}
