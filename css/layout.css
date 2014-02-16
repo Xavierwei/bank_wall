@@ -28,7 +28,7 @@ a{text-decoration:none;color:#666}
 /* Global Used
 ================================================================================================= */
 .page-loading {position: fixed;width:100%;height:100%;top:0;left:0;z-index:300;background:#fff;}
-.page-loading-logo {position: absolute;width:196px;height:58px;display: none;top:40%;left:50%;margin:-30px 0 0 -100px;}
+.page-loading-logo {opacity:0;position: absolute;width:196px;height:58px;top:40%;left:50%;margin:-30px 0 0 -100px;}
 #imgLoad {display: none;}
 
 /* Header Used
@@ -67,7 +67,7 @@ a{text-decoration:none;color:#666}
 /* content Used
 ================================================================================================= */					
 .content, .page, .inner {}
-.page {padding:1px 0 0;}
+.page {padding: 0;}
 
 /* search Used
 ================================================================================================= */
@@ -145,7 +145,7 @@ a{text-decoration:none;color:#666}
 /* inner Used
 ================================================================================================= */
 .inner{margin:130px 0 0 620px;position: relative;z-index:10;}
-	.inner-info{position: fixed;right: 0;left: 620px;}
+	.inner-info{position: fixed;right: 0;left: 620px;display: none;}
 	.inner-shade{position: absolute; height: 100%; width:100%;z-index: 1; background: #000;opacity: 0.5;filter: alpha(opacity=50);}
 	.inner-infocom{z-index:2;position:relative;bottom: 0;color:#fff;padding:5px 20px;font-size: 15px;border-bottom:1px solid #cb223a;}
 	.inner-infoicon{position: absolute;bottom: 13px;right:10px;z-index:2;}
@@ -312,7 +312,7 @@ a{text-decoration:none;color:#666}
 		.count-userinfo-edit{left:450px;}
 		.count-edit{position: absolute;right: 10px;top: 10px;background:#5e5e5e url('../img/icon_user_edit.gif') no-repeat 13px 6px;padding:0 15px 0 44px;color:#e4e4e4;font-size:11px;height:23px;line-height: 26px;}
 		.avatar-file{display:none;background: #6b6b6b url('../img/icon_user_change_avatar.gif') no-repeat 15px 5px;height:28px;line-height:28px;border:2px solid #2c2c2c;color: #FFF;position: absolute;left:103px;top:49px;padding:0 15px 0 54px;}
-.user-edit-page{position: relative;padding:0;display: none;color:#323232;background:#fff;}
+        .user-edit-page{position: relative;padding:0;display: none;color:#323232;background:#fff;}
         .user-edit-page form {padding-top:70px;}
         .user-edit-loading {display:none;background: url('../img/loading_white.gif') no-repeat;width:20px;height:20px;position: absolute;bottom:10px;right:10px;}
 	    .edit-fi{margin: 0 0 20px}

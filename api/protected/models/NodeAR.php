@@ -2,84 +2,84 @@
 
 class NodeAR extends CActiveRecord{
     
-  const PUBLICHSED = 1;
-  const UNPUBLISHED = 2;
-  const BLOCKED = 3;
-  
-  const PHOTO = 'photo';
-  const VIDEO = 'video';
-    
-    
-  public $likecount = 0;
-  
-  public $commentcount = 0;
-  
-  public $flagcount = 0;
-  
-  public $user_liked = FALSE;
+	const PUBLICHSED = 1;
+	const UNPUBLISHED = 2;
+	const BLOCKED = 3;
+
+	const PHOTO = 'photo';
+	const VIDEO = 'video';
+
+
+	public $likecount = 0;
+
+	public $commentcount = 0;
+
+	public $flagcount = 0;
+
+	public $user_liked = FALSE;
 
 	public $user_flagged = FALSE;
 
-  public $topday = FALSE;
+	public $topday = FALSE;
 
 	public $topmonth = FALSE;
-  
-  public $like = array();
+
+	public $like = array();
 
 	public $flag = array();
 
 
 	const ALLOW_UPLOADED_PHOTO_TYPES = "jpg,png,gif";
 
-  const ALLOW_UPLOADED_VIDEO_TYPES = "mp4,avi,mov,mpg,mpeg,3pg,wmv";
+	const ALLOW_UPLOADED_VIDEO_TYPES = "mp4,avi,mov,mpg,mpeg,3pg,wmv";
 
-  // 其他格式的视频需要转换到这个指定的格式
-  const ALLOW_STORE_VIDE_TYPE = "mp4";
+	// 其他格式的视频需要转换到这个指定的格式
+	const ALLOW_STORE_VIDE_TYPE = "mp4";
+
+	public $nodecounts;
   
-  public $nodecounts;
+	public static function model($class = __CLASS__) {
+		return parent::model($class);
+	}
+
+	public function tableName() {
+		return "node";
+	}
+
+	public function getPrimaryKey() {
+		return "nid";
+	}
+
+	public function rules() {
+		return array(
+		    array("uid, file, country_id, type", "required"),
+		    array("uid", "uidExist"),
+		    array("country_id", "countryExist"),
+		    array("created , type, datetime, status, description, nid, hashtag, user_liked,user_flagged, like, flag, topday, topmonth", "safe"),
+		);
+	}
   
-  public static function model($class = __CLASS__) {
-    return parent::model($class);
-  }
+	public function uidExist($attribute, $params = array()) {
+		$uid = $this->{$attribute};
+
+		if ($uid) {
+		  $user = UserAR::model()->findByPk($uid);
+		  if (!$user) {
+		    $this->addError($attribute, "user is not exist our system");
+		  }
+		}
+	}
   
-  public function tableName() {
-    return "node";
-  }
-  
-  public function getPrimaryKey() {
-    return "nid";
-  }
-  
-  public function rules() {
-    return array(
-        array("uid, file, country_id, type", "required"),
-        array("uid", "uidExist"),
-        array("country_id", "countryExist"),
-        array("created , type, datetime, status, description, nid, hashtag, user_liked,user_flagged, like, flag, topday, topmonth", "safe"),
-    );
-  }
-  
-  public function uidExist($attribute, $params = array()) {
-    $uid = $this->{$attribute};
-        
-    if ($uid) {
-      $user = UserAR::model()->findByPk($uid);
-      if (!$user) {
-        $this->addError($attribute, "user is not exist our system");
-      }
-    }
-  }
-  
-  public function countryExist($attribute, $params = array()) {
-    $country_id = $this->{$attribute};
-        
-    if ($country_id) {
-      $country = CountryAR::model()->findByPk($country_id);
-      if (!$country) {
-        $this->addError($attribute, "country is not exist our system");
-      }
-    }
-  }
+	public function countryExist($attribute, $params = array()) {
+		$country_id = $this->{$attribute};
+
+		if ($country_id) {
+		  $country = CountryAR::model()->findByPk($country_id);
+		  if (!$country) {
+		    $this->addError($attribute, "country is not exist our system");
+		  }
+		}
+	}
   
   public function relations() {
     return array(
@@ -90,7 +90,6 @@ class NodeAR extends CActiveRecord{
   
   public function getHashTag() {
     $description = $this->description;
-    
     $matches = array();
     preg_match_all("/#([\\w']+)/", $description, $matches);
     $hashtags = end($matches);
@@ -108,10 +107,10 @@ class NodeAR extends CActiveRecord{
         $this->setAttribute("created", time());
     }
     $this->setAttribute("hashtag", serialize($hashtags));
-		foreach($hashtags as $tag) {
-			TagAR::model()->saveTag($tag);
-		}
-    
+	foreach($hashtags as $tag) {
+		TagAR::model()->saveTag($tag);
+	}
+
     return TRUE;
   }
   
@@ -131,13 +130,13 @@ class NodeAR extends CActiveRecord{
           $this->user_liked = FALSE;
         }
 
-				$flag = FlagAR::model()->findByAttributes(array("nid" => $this->nid, "uid" => $user->uid));
-				if (($flag)) {
-					$this->user_flagged = TRUE;
-				}
-				else {
-					$this->user_flagged = FALSE;
-				}
+		$flag = FlagAR::model()->findByAttributes(array("nid" => $this->nid, "uid" => $user->uid));
+		if (($flag)) {
+			$this->user_flagged = TRUE;
+		}
+		else {
+			$this->user_flagged = FALSE;
+		}
       }
     }
     
@@ -181,9 +180,9 @@ class NodeAR extends CActiveRecord{
 				$this->makeImageThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_650_650.jpg', $newpath), 650, 650, false);
 			}
 			else {
-				$newpath = str_replace('.mp4', '.jpg', $newpath);
-				$this->makeVideoThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_250_250.jpg', $newpath), 250, 250, false);
-				$this->makeVideoThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_650_650.jpg', $newpath), 650, 650, false);
+				$newImgPath = str_replace('.mp4', '.jpg', $newpath);
+				$this->makeVideoThumbnail(ROOT.$newImgPath, ROOT.str_replace('.jpg', '_250_250.jpg', $newImgPath), 250, 250, false);
+				$this->makeVideoThumbnail(ROOT.$newImgPath, ROOT.str_replace('.jpg', '_650_650.jpg', $newImgPath), 650, 650, false);
 			}
 		}
 
@@ -328,31 +327,31 @@ class NodeAR extends CActiveRecord{
             $output;
             // 视频转换
             switch($extname) {
-              case 'mp4':
-								copy($to, $newpath);
-								//exec("ffmpeg -i {$to} {$newpath}", $output, $status);
-                //exec("ffmpeg -i {$to} -vcodec libx264 -acodec aac -strict experimental -ac 2 {$newpath}", $output, $status);
-                break;
-							case 'mpg':
-								exec("ffmpeg -i {$to} -c:v libx264 -c:a libfaac -r 30 {$newpath}", $output, $status);
-								break;
-              case 'mpeg':
-                exec("ffmpeg -i {$to} -c:v libx264 -c:a libfaac -r 30 {$newpath}", $output, $status);
-                break;
-              case 'mov':
-                exec("ffmpeg -i {$to} -vcodec copy -acodec copy {$newpath}", $output, $status);
-                break;
-							case 'wmv':
-								exec("ffmpeg -i {$to} -strict -2 {$newpath}", $output, $status);
-								break;
-							case '3gp':
-								exec("ffmpeg -i {$to} -strict -2 -ab 64k -ar 44100 {$newpath}", $output, $status);
-								break;
-							case 'avi':
-								exec("ffmpeg -i {$to} -acodec libfaac -b:a 128k -vcodec mpeg4 -b:v 1200k -flags +aic+mv4 {$newpath}", $output, $status);
-								break;
-              default:
-                exec("ffmpeg -i {$to}  -vcodec mpeg4 -b:v 1200k -flags +aic+mv4 {$newpath}", $output, $status);
+				case 'mp4':
+					//copy($to, $newpath);
+					//exec("ffmpeg -i {$to} {$newpath}", $output, $status);
+					exec("ffmpeg -i {$to} -vcodec libx264 -acodec aac -strict experimental -ac 2 {$newpath}", $output, $status);
+					break;
+				case 'mpg':
+					exec("ffmpeg -i {$to} -c:v libx264 -c:a libfaac -r 30 {$newpath}", $output, $status);
+					break;
+				case 'mpeg':
+					exec("ffmpeg -i {$to} -c:v libx264 -c:a libfaac -r 30 {$newpath}", $output, $status);
+					break;
+				case 'mov':
+					exec("ffmpeg -i {$to} -vcodec copy -acodec copy {$newpath}", $output, $status);
+					break;
+				case 'wmv':
+					exec("ffmpeg -i {$to} -strict -2 {$newpath}", $output, $status);
+					break;
+				case '3gp':
+					exec("ffmpeg -i {$to} -strict -2 -ab 64k -ar 44100 {$newpath}", $output, $status);
+					break;
+				case 'avi':
+					exec("ffmpeg -i {$to} -acodec libfaac -b:a 128k -vcodec mpeg4 -b:v 1200k -flags +aic+mv4 {$newpath}", $output, $status);
+					break;
+				default:
+					exec("ffmpeg -i {$to}  -vcodec mpeg4 -b:v 1200k -flags +aic+mv4 {$newpath}", $output, $status);
             }
 
             

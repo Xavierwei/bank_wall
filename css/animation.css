@@ -22,6 +22,26 @@ a
     animation: flashing 2s linear infinite;
 }
 
+.page-loading-logo {
+    -moz-animation: slideDown 0.5s ease 1s 1 forwards;
+    -webkit-animation: slideDown 0.5s ease 1s 1 forwards;
+    animation: slideDown 0.5s ease 1s 1 forwards;
+}
+
+@-webkit-keyframes slideDown {
+    0% {opacity:0;top:40%;}
+    100% {opacity:1;top:50%;}
+}
+
+@-moz-keyframes slideDown {
+    0% {opacity:0;top:40%;}
+    100% {opacity:1;top:50%;}
+}
+
+@keyframes slideDown {
+    0% {opacity:0;top:40%;}
+    100% {opacity:1;top:50%;}
+}
 
 @-webkit-keyframes rotate {
     0% {-webkit-transform: rotate(0deg);}

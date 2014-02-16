@@ -1,18 +1,18 @@
 /*
  * page base action
  */
-LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 'swfupload-speed', 'swfupload-queue'] , function( $ , api ){
+LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload', 'flash-detect', 'swfupload', 'swfupload-speed', 'swfupload-queue'] , function( $ , api ){
     'use strict'
 
     var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > 0;
     var isIE8 = $('html').hasClass('ie8');
-    var API_FOLDER = "./api";
-    var THUMBNAIL_IMG_SIZE = "_250_250";
-    var BIG_IMG_SIZE = "_650_650";
+    var API_FOLDER = "../api";
+    var THUMBNAIL_IMG_SIZE = "_640_640";
+    var BIG_IMG_SIZE = "_640_640";
     var _waitingLikeAjax = false;
     var _waitingCommentListAjax = false;
     var $main = $('.main');
-    var minWidth = 150;
+    var minWidth = 640;
     var itemWidth = minWidth;
     var winWidth = $(window).width();
     var $listLoading = $('.loading-list');
@@ -43,21 +43,21 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                     LP.triggerAction('search');
             }
         })
-        .delegate('.menu-item' , 'mouseenter' , function(){
-            if($(this).hasClass('active')) {
-                return;
-            }
-            $(this).find('h6')
-                .delay(200).stop( true , true).fadeIn( 500 );
-            $(this).find('p')
-                .delay(200).stop( true , true).fadeOut( 500 );
-        })
-        .delegate('.menu-item' , 'mouseleave' , function(){
-            $(this).find('h6')
-                .delay(200).stop( true , true).fadeOut( 500 );
-            $(this).find('p')
-                .delay(200).stop( true , true ).fadeIn( 500 );
-        })
+//        .delegate('.menu-item' , 'mouseenter' , function(){
+//            if($(this).hasClass('active')) {
+//                return;
+//            }
+//            $(this).find('h6')
+//                .delay(200).stop( true , true).fadeIn( 500 );
+//            $(this).find('p')
+//                .delay(200).stop( true , true).fadeOut( 500 );
+//        })
+//        .delegate('.menu-item' , 'mouseleave' , function(){
+//            $(this).find('h6')
+//                .delay(200).stop( true , true).fadeOut( 500 );
+//            $(this).find('p')
+//                .delay(200).stop( true , true ).fadeIn( 500 );
+//        })
         // for select options
         .delegate('.select-option p' , 'click' , function(){
             $(this)
@@ -260,7 +260,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                                 == $oFirstTimeNode.data('date') ){
                                 $oFirstTimeNode.remove();
                             }
-                            nodeActions.setItemWidth( $dom );
+                            //nodeActions.setItemWidth( $dom );
                             nodeActions.setItemReversal( $dom );
                         }
                     } );
@@ -327,7 +327,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                         if( index == nodes.length - 1 ){
                             // render html
                             $dom.append(aHtml.join(''));
-                            nodeActions.setItemWidth( $dom );
+                            //nodeActions.setItemWidth( $dom );
                             nodeActions.setItemReversal( $dom );
                         }
                     } );
@@ -335,17 +335,17 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             } );
         },
         setItemWidth: function( $dom ){
-            if( $dom.is(':hidden') ) return;
-            var mainWidth = $dom.width();
-            var min = ~~( mainWidth / minWidth );
-            // save itemWidth and winWidth 
-            itemWidth = ~~( mainWidth / min );
-            winWidth = $(window).width();
-
-            $dom.find('.time-item, .main-item.reversal , .main-item.reversal img')
-                .width( itemWidth )
-                .height( itemWidth );
-            $dom.find('.main-item').height( itemWidth );
+//            if( $dom.is(':hidden') ) return;
+//            var mainWidth = $dom.width();
+//            var min = ~~( mainWidth / minWidth );
+//            // save itemWidth and winWidth
+//            itemWidth = ~~( mainWidth / min );
+//            winWidth = $(window).width();
+//
+//            $dom.find('.time-item, .main-item.reversal , .main-item.reversal img')
+//                .width( itemWidth )
+//                .height( itemWidth );
+//            $dom.find('.main-item').height( itemWidth );
         },
         stopItemReversal: function(){
             clearTimeout( nodeActions._reversalTimeout );
@@ -402,30 +402,30 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             }
         },
         // set items auto fix it's width
-        setItemIsotope: function( $dom ){
-            // if the page has unreversaled node
-            if( $dom.find('.main-item:not(.time-item,.reversal)').length ) return;
-
-            if( $dom.children('.isotope-item').length ){
-                $dom.isotope('reLayout');
-                return;
-            }
-
-            LP.use('isotope' , function(){
-                // first init isotope , render no animate effect
-                $dom
-                    .addClass('no-animate')
-                    .isotope({
-                        resizable: false
-                    });
-
-                // after first isotope init
-                // remove no animate class
-                setTimeout(function(){
-                    $dom.removeClass('no-animate');
-                } , 100);
-            });
-        }
+//        setItemIsotope: function( $dom ){
+//            // if the page has unreversaled node
+//            if( $dom.find('.main-item:not(.time-item,.reversal)').length ) return;
+//
+//            if( $dom.children('.isotope-item').length ){
+//                $dom.isotope('reLayout');
+//                return;
+//            }
+//
+//            LP.use('isotope' , function(){
+//                // first init isotope , render no animate effect
+//                $dom
+//                    .addClass('no-animate')
+//                    .isotope({
+//                        resizable: false
+//                    });
+//
+//                // after first isotope init
+//                // remove no animate class
+//                setTimeout(function(){
+//                    $dom.removeClass('no-animate');
+//                } , 100);
+//            });
+//        }
     }
 
     // fix window resize event
@@ -529,14 +529,14 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 
     // view node action
     var _silderWidth = 80;
-    var _animateTime = 800;
+    var _animateTime = 400;
     var _animateEasing = 'easeInOutQuart';
     var _nodeCache = [];
     var _currentNodeIndex = 0;
     var _innerLock = false;
     LP.action('node' , function( data ){
-        if( _innerLock ) return;
-        _innerLock = true;
+//        if( _innerLock ) return;
+//        _innerLock = true;
         var $dom = $( this );
         if(data.type) {
             var node = data; // 如果直接传入单个node，不再从列表中获取
@@ -567,7 +567,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         }
         node._e = _e;
         LP.compile( 'inner-template' , node , function( html ){
-            var mainWidth = winWidth - _silderWidth;
+            var mainWidth = winWidth;
             var mainWrapWidth = $main.width();
             // close user page if which opend
             if($('.user-page').is(':visible')) {
@@ -580,53 +580,57 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             });
             var $inner = $(html).insertBefore( $main )
                 .css({
-                    left: - mainWidth
+                    x: - mainWidth
                     //position: 'relative'
                 })
-                .animate({
-                    left: 0
-                }, _animateTime , _animateEasing , function(){
-                    // show up node info
-                });
+				.transit({
+					x: 0
+				}, _animateTime , _animateEasing);
+//                .animate({
+//                    left: 0
+//                }, _animateTime , _animateEasing , function(){
+//                    // show up node info
+//                });
             // set inner-info bottom css
 
 
             // main animation
             var scrollTop = $(window).scrollTop();
-            $main
-                .css({
-                    //position: 'fixed',
-                    width: mainWrapWidth,
-                    left: 0
-                    //top: 86 - scrollTop
-                })
-                .animate({
-                    left: winWidth
-                } , _animateTime , _animateEasing , function(){
-                    //$main.hide();
-					$('body').css({overflow:'hidden'});
-					$main.addClass('closed');
-                    _innerLock = false;
-                });
+			$('body').css({overflow:'hidden'});
+//            $main
+//                .css({
+//                    //position: 'fixed',
+//                    width: mainWrapWidth,
+//                    left: 0
+//                    //top: 86 - scrollTop
+//                })
+//                .animate({
+//                    left: winWidth
+//                } , _animateTime , _animateEasing , function(){
+//                    //$main.hide();
+//					$('body').css({overflow:'hidden'});
+//					$main.addClass('closed');
+//                    _innerLock = false;
+//                });
             // loading comments
             bindCommentSubmisson();
             _waitingCommentListAjax = false;
             getCommentList(node.nid,1);
 
-            LP.use(['jscrollpane' , 'mousewheel'] , function(){
-                $('.com-list').jScrollPane({autoReinitialise:true}).bind(
-                    'jsp-scroll-y',
-                    function(event, scrollPositionY, isAtTop, isAtBottom)
-                    {
-                        if(isAtBottom) {
-                            var commentParam = $('.comment-wrap').data('param');
-                            var page = commentParam ?  commentParam.page : 0;
-                            getCommentList(node.nid,page + 1);
-                            //console.log('Append next page');
-                        }
-                    }
-                );
-            });
+//            LP.use(['jscrollpane' , 'mousewheel'] , function(){
+//                $('.com-list').jScrollPane({autoReinitialise:true}).bind(
+//                    'jsp-scroll-y',
+//                    function(event, scrollPositionY, isAtTop, isAtBottom)
+//                    {
+//                        if(isAtBottom) {
+//                            var commentParam = $('.comment-wrap').data('param');
+//                            var page = commentParam ?  commentParam.page : 0;
+//                            getCommentList(node.nid,page + 1);
+//                            //console.log('Append next page');
+//                        }
+//                    }
+//                );
+//            });
 
             // init vide node
             if( node.type == "video" ){
@@ -641,8 +645,8 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                     // preload before and after images
                     preLoadSiblings();
                     var $info = $inner.find('.inner-info');
-                    $info.css( 'bottom' , - $info.height() );
-                    slideIntroBar($info, _animateTime);
+                    //$info.css( 'bottom' , - $info.height() );
+                    //slideIntroBar($info, _animateTime);
                 });
             }
 
@@ -653,8 +657,8 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                     // preload before and after images
                     preLoadSiblings();
                     var $info = $inner.find('.inner-info');
-                    $info.css( 'bottom' , - $info.height() );
-                    slideIntroBar($info, _animateTime);
+                    //$info.css( 'bottom' , - $info.height() );
+                    //slideIntroBar($info, _animateTime);
                 });
             }
             
@@ -664,9 +668,9 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             // loading image
 
             // Resize Inner Box
-            setTimeout(function(){
-                resizeInnerBox();
-            },100);
+//            setTimeout(function(){
+//                resizeInnerBox();
+//            },100);
 
             // save node from
             $inner.data('from' , $dom.parent() );
@@ -677,7 +681,8 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 
     // for back action
     LP.action('back' , function( data ){
-        if( _innerLock ) return;
+		console.log('back');
+        //if( _innerLock ) return;
         var $inner = $('.inner');
         var infoTime = 300;
         // hide the inner info node
@@ -689,9 +694,9 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             bottom: -$info.height()
         } , infoTime);
         // back $inner and remove it
-        $inner.delay(infoTime)
-            .animate({
-                left: - ( $(window).width() - _silderWidth )
+        $inner
+            .transit({
+                x: - $(window).width()
             } , _animateTime , _animateEasing , function(){
                 $inner.remove();
             });
@@ -708,10 +713,10 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         if($aniDom.hasClass('user-page')) {
             $('.count').delay(_animateTime).animate({left:80});
             _left = 80;
-            $main.css({
-                width: 'auto',
-                height: 'auto'
-            });
+//            $main.css({
+//                width: 'auto',
+//                height: 'auto'
+//            });
         }
         $aniDom
             .stop()
@@ -722,13 +727,13 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 left: _left
             } , _animateTime , _animateEasing , function(){
                 if($aniDom.hasClass('main')) {
-                    $aniDom.css({
-                        //top: 'auto',
-                        left: 'auto',
-                        //position: 'relative',
-                        width: 'auto'
-                    });
-					$main.removeClass('closed');
+//                    $aniDom.css({
+//                        //top: 'auto',
+//                        left: 'auto',
+//                        //position: 'relative',
+//                        width: 'auto'
+//                    });
+//					$main.removeClass('closed');
                 }
                 else {
                     $aniDom.css({
@@ -977,18 +982,18 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             bindCommentSubmisson();
             _waitingCommentListAjax = false;
             getCommentList(node.nid,1);
-            LP.use(['jscrollpane' , 'mousewheel'] , function(){
-                $('.com-list').jScrollPane({autoReinitialise:true}).bind(
-                    'jsp-scroll-y',
-                    function(event, scrollPositionY, isAtTop, isAtBottom)
-                    {
-                        if(isAtBottom) {
-                            var commentParam = $('.comment-wrap').data('param');
-                            getCommentList(node.nid,commentParam.page + 1);
-                        }
-                    }
-                );
-            });
+//            LP.use(['jscrollpane' , 'mousewheel'] , function(){
+//                $('.com-list').jScrollPane({autoReinitialise:true}).bind(
+//                    'jsp-scroll-y',
+//                    function(event, scrollPositionY, isAtTop, isAtBottom)
+//                    {
+//                        if(isAtBottom) {
+//                            var commentParam = $('.comment-wrap').data('param');
+//                            getCommentList(node.nid,commentParam.page + 1);
+//                        }
+//                    }
+//                );
+//            });
 
             // change url
             changeUrl('/nid/' + node.nid , {event: direction});
@@ -1199,6 +1204,22 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         LP.triggerAction('update_user_status');
     }
 
+	LP.action('toggle_comment', function( data ){
+		var $comMain = $('.com-main');
+		if(!$comMain.is(':visible')) {
+			$comMain.show()
+				.css({y:1000, opacity:0})
+				.transit({y:0, opacity:1}, _animateTime, _animateEasing);
+		}
+		else {
+			$comMain.transit({y:1000, opacity:0}, _animateTime, _animateEasing, function(){
+				$(this).hide();
+			});
+		}
+
+	});
+
+
     LP.action('like' , function( data ){
         var _this = $(this);
 		if(_this.hasClass('disabled')){
@@ -1310,15 +1331,9 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 });
             }
             if(data.type == 'node') {
-                api.ajax('deleteNode', data, function(){
-                    var $node = $('.count-com .main-item-' + data.nid);
-                    if( $node.prev().hasClass('time-item')
-                        && ( !$node.next().length || $node.next().hasClass('time-item') ) ){
-                        $node.prev().remove();
-                    }
-                    $node.remove();
-                    LP.triggerAction('update_user_status');
-
+                $('.main-item-' + data.nid).css({width:0, opacity:0});
+                setTimeout(function(){
+                    $('.main-item-' + data.nid).remove();
                     (function(){
                         var nodes = $('.count-com').data('nodes');
                         var index = -1;
@@ -1344,6 +1359,10 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                             nodes.splice(index, 1);
                         }
                     })();
+
+                },1000);
+                api.ajax('deleteNode', data, function(){
+                    LP.triggerAction('update_user_status');
                 });
             }
             LP.triggerAction('cancel_modal');
@@ -1365,7 +1384,9 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         LP.compile( "pop-template" , data,  function( html ){
             $(document.body).append( html );
             $('.overlay').fadeIn();
-            $('.pop').fadeIn(_animateTime).dequeue().animate({top:'50%'}, _animateTime , _animateEasing);
+            $('.pop').fadeIn(_animateTime).dequeue()
+				.css({y:-500, opacity:0})
+				.transit({y:127, opacity:1}, _animateTime , _animateEasing);
 
             var $fileupload = $('#fileupload');
             if(type == 'video') {
@@ -1377,158 +1398,109 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 // init event
                 transformMgr.initialize();
             }
-            if(isIE8) {
-                LP.use('flash-detect', function(){
-                    if(FlashDetect.installed) {
-                        if(type == 'photo') {
-                            $('#node_post_form').hide();
-                            LP.compile( "flash-uploader-template" , data,  function( html ){
-                                $('#node_post_flash').show().append(html);
-                            });
-                        }
-                        else {
-                            $('#flash-select-btn').show();
-                            $('#select-btn').hide();
-                            LP.use(['swfupload', 'swfupload-speed', 'swfupload-queue'], function(){
-                                var settings = {
-                                    flash_url : "./flash/swfupload.swf",
-                                    upload_url: "./api/index.php/uploads/upload",
-									debug: true,
-                                    file_post_name: "file",
-                                    post_params : {type:'video'},
-                                    file_size_limit : "7 MB",
-                                    file_types : "*.mp4;*.mov;*.wmv;*.3gp;*.mpg;*.mpeg",
-                                    file_upload_limit : 1,
-                                    button_width: "326",
-                                    button_height: "40",
-                                    button_placeholder_id: "flash-video-popfile-btn",
-									button_window_mode : SWFUpload.WINDOW_MODE.OPAQUE,
-									button_image_url : "img/trans.gif",
-                                    file_dialog_complete_handler: fileDialogComplete,
-                                    upload_start_handler : uploadStart,
-                                    upload_progress_handler : uploadProgress,
-                                    upload_success_handler : uploadSuccess,
-                                    upload_error_handler : uploadError
-                                };
-                                var swfu = new SWFUpload(settings);
-                            });
-                        }
-                    }
-                    else {
-                        $('#select-btn input').change(function(){
-                            $('.pop-file').fadeOut(400);
-                            $('.pop-txt').delay(400).fadeIn(400);
-                        });
-                        $('#node_post_form').append('<input name="iframe" value="true" type="hidden" />');
-                        $('#node-description').val($('#node-description').attr('placeholder'));
-                    }
-                    return;
-                })
-            }
-            else {
-                LP.use('fileupload' , function(){
-                    $fileupload.fileupload({
-                        url: './api/index.php/uploads/upload',
-                        datatype:"json",
-                        autoUpload:false
-                    })
-						.bind('fileuploadadd', function (e, data) {
+			LP.use('fileupload' , function(){
+				$fileupload.fileupload({
+					url: '../api/index.php/uploads/upload',
+					datatype:"json",
+					autoUpload:false
+				})
+					.bind('fileuploadadd', function (e, data) {
+						$('.step1-tips li').removeClass('error');
+						if(!acceptFileTypes.test(data.files[0].name.toLowerCase())) {
+							$('.step1-tips li').eq(0).addClass('error');
+						}
+						else if(data.files[0].size > maxFileSize) {
+							$('.step1-tips li').eq(2).addClass('error');
+						}
+						else {
+							data.submit();
+						}
+					})
+					.bind('fileuploadstart', function (e, data) {
+						$('.pop-inner').fadeOut(400);
+						$('.pop-load').delay(400).fadeIn(400);
+					})
+					.bind('fileuploadprogress', function (e, data) {
+						var rate = data._progress.loaded / data._progress.total * 100;
+						var $bar = $('.popload-percent p');
+						var currentRate = $bar.data('rate');
+						if(!currentRate) {
+							currentRate = 0;
+						}
+						if(rate > currentRate) {
+							$bar.data('rate',rate).css({width:rate + '%'});
+						}
+					})
+					.bind('fileuploadfail', function() {
+						$('.pop-inner').fadeOut(400);
+						$('.pop-file').delay(400).fadeIn(400);
+					})
+					.bind('fileuploaddone', function (e, data) {
+						if(!data.result.success) {
+							switch(data.result.message){
+								case 502:
+									var errorIndex = 0;
+									break;
+								case 501:
+									var errorIndex = 2;
+									break;
+								case 503:
+									var errorIndex = 1;
+									break;
+							}
+							$('.pop-inner').fadeOut(400);
+							$('.pop-file').delay(800).fadeIn(400);
 							$('.step1-tips li').removeClass('error');
-							if(!acceptFileTypes.test(data.files[0].name.toLowerCase())) {
-								$('.step1-tips li').eq(0).addClass('error');
-							}
-							else if(data.files[0].size > maxFileSize) {
-								$('.step1-tips li').eq(2).addClass('error');
-							}
-							else {
-								data.submit();
-							}
-						})
-						.bind('fileuploadstart', function (e, data) {
-							$('.pop-inner').fadeOut(400);
-							$('.pop-load').delay(400).fadeIn(400);
-						})
-						.bind('fileuploadprogress', function (e, data) {
-							var rate = data._progress.loaded / data._progress.total * 100;
-							var $bar = $('.popload-percent p');
-							var currentRate = $bar.data('rate');
-							if(!currentRate) {
-								currentRate = 0;
-							}
-							if(rate > currentRate) {
-								$bar.data('rate',rate).css({width:rate + '%'});
-							}
-						})
-						.bind('fileuploadfail', function() {
-							$('.pop-inner').fadeOut(400);
-							$('.pop-file').delay(400).fadeIn(400);
-						})
-						.bind('fileuploaddone', function (e, data) {
-							if(!data.result.success) {
-								switch(data.result.message){
-									case 502:
-										var errorIndex = 0;
-										break;
-									case 501:
-										var errorIndex = 2;
-										break;
-									case 503:
-										var errorIndex = 1;
-										break;
-								}
-								$('.pop-inner').fadeOut(400);
-								$('.pop-file').delay(800).fadeIn(400);
-								$('.step1-tips li').removeClass('error');
-								$('.step1-tips li').eq(errorIndex).addClass('error');
-							} else {
-								var rdata = data.result.data;
+							$('.step1-tips li').eq(errorIndex).addClass('error');
+						} else {
+							var rdata = data.result.data;
 
-								if(rdata.type == 'video') {
-									$('.poptxt-pic-inner').show();
-									$('.poptxt-pic img')
-                                        .unbind('load.forinnershow')
-                                        .bind('load.forinnershow' , function(){
-                                            $('.pop-inner').delay(400).fadeOut(400);
-                                            $('.pop-txt').delay(1200).fadeIn(400);
-                                        })
-										.attr('src', API_FOLDER + rdata.file.replace('.mp4', /*THUMBNAIL_IMG_SIZE + */'.jpg'));
-									// TODO:: why need timeout?
+							if(rdata.type == 'video') {
+								$('.poptxt-pic-inner').show();
+								$('.poptxt-pic img')
+									.unbind('load.forinnershow')
+									.bind('load.forinnershow' , function(){
+										$('.pop-inner').delay(400).fadeOut(400);
+										$('.pop-txt').delay(1200).fadeIn(400);
+									})
+									.attr('src', API_FOLDER + rdata.file.replace('.mp4', /*THUMBNAIL_IMG_SIZE + */'.jpg'));
+								// TODO:: why need timeout?
 //                                setTimeout(function(){
 //                                    $('.poptxt-pic img').attr('src',$('.poptxt-pic img').attr('src') + '?' + new Date().getTime() );
 //                                },2000);
-									$('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
+								$('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
 
-								} else {
-									if (data.files && data.files[0] && window.FileReader ) {
-										//..create loading
-										var reader = new FileReader();
-										reader.onload = function (e) {
-											// change checkpage img
-											$('.poptxt-pic img')
-												.unbind('load.forinnershow')
-												.bind('load.forinnershow' , function(){
-													$('.pop-inner').delay(400).fadeOut(400);
-													$('.pop-txt').delay(1200).fadeIn(400);
-												})
-												.attr('src', e.target.result/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
-											$('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
-										};
-										reader.readAsDataURL(data.files[0]);
-									} else {
+							} else {
+								if (data.files && data.files[0] && window.FileReader ) {
+									//..create loading
+									var reader = new FileReader();
+									reader.onload = function (e) {
+										// change checkpage img
 										$('.poptxt-pic img')
 											.unbind('load.forinnershow')
 											.bind('load.forinnershow' , function(){
 												$('.pop-inner').delay(400).fadeOut(400);
 												$('.pop-txt').delay(1200).fadeIn(400);
 											})
-											.attr('src', API_FOLDER + rdata.file/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
+											.attr('src', e.target.result/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
 										$('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
-									}
+									};
+									reader.readAsDataURL(data.files[0]);
+								} else {
+									$('.poptxt-pic img')
+										.unbind('load.forinnershow')
+										.bind('load.forinnershow' , function(){
+											$('.pop-inner').delay(400).fadeOut(400);
+											$('.pop-txt').delay(1200).fadeIn(400);
+										})
+										.attr('src', API_FOLDER + rdata.file/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
+									$('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
 								}
 							}
-						});
-                });
-            }
+						}
+					});
+			});
+
 
         } );
     });
@@ -1756,6 +1728,18 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         });
     });
 
+	//toggle side bar
+	LP.action('toggle_side_bar', function(){
+		console.log('toggle');
+		var $side = $('.side');
+		if($side.hasClass('closed')) {
+			$side.removeClass('closed').transit({x:0}, 300, 'easeOutQuart');
+		}
+		else {
+			$side.addClass('closed').transit({x:-165}, 300, 'easeInQuart');
+		}
+	});
+
     //toggle user page
     LP.action('toggle_user_page' , function(){
         if(!$('.user-page').is(':visible')) {
@@ -1864,7 +1848,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 $(this).hide();
             });
         $('.close-user-page').fadeOut();
-        $main.css({position:'relative',top:'auto',left:'auto'});
+        //$main.css({position:'relative',top:'auto',left:'auto'});
     });
 
     //open user edit page
@@ -2971,89 +2955,89 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
      * Resize Inner Box width Image and Video
      */
     var resizeInnerBox = function(){
-        var $side = $('.side');
-        var slideWidth = $side.width();
-        // Resize Inner Box
-        var $inner = $('.inner');
-        var innerHeight = $(window).height() - $('.header').height();
-        $inner.height(innerHeight);
-
-        // Resize Comment Box
-        var $comList = $('.com-list');
-        var comListHeight = $(window).height() - 390 - $('.com-user').height();
-        $comList.height(comListHeight);
-
-        // Resize Image
-        var imgBoxWidth = $(window).width() - 330 - slideWidth;
-        var imgBoxHeight =$(window).height() - $('.header').height();
-        var minSize = Math.min( imgBoxHeight , imgBoxWidth );
-        var $img = $('.image-wrap-inner img').css('margin',0);
-        $('.image-wrap-inner').width(minSize).height(minSize);
-
-        if( imgBoxHeight > imgBoxWidth ){
-            var marginLeft = (imgBoxHeight - imgBoxWidth) / 2;
-            $('.image-wrap-inner').height(imgBoxHeight);
-            $img.width('auto').height('100%').css('margin-left', -marginLeft);
-        }
-        // if(imgBoxWidth > imgBoxHeight) {
-        //     var marginTop = (imgBoxWidth - imgBoxHeight) / 2;
-        //     $img.css('margin',0);
-        //     $img.height('auto').width('100%').css('margin-top', -marginTop);
-        // } else {
-        //     var marginLeft = (imgBoxHeight - imgBoxWidth) / 2;
-        //     $img.css('margin',0);
-        //     $img.width('auto').height('100%').css('margin-left', -marginLeft);
-        // }
-
-        // Resize Video
-        var $video = $('.video-js .vjs-tech');
-        if($video.hasClass('zoom')) {
-            var $videoWrap = $('.video-js');
-            var videoWrapWidth = $videoWrap.width();
-            var videoWrapHeight = $videoWrap.height();
-            var videoWrapRatio = videoWrapWidth/videoWrapHeight;
-            var videoWidth = $video.width();
-            var videoHeight = $video.height();
-            var videoRatio = videoWidth/videoHeight;
-            if(videoRatio < videoWrapRatio) {
-                $video.width('100%').height('auto');
-                var videoMarginTop = (videoHeight - videoWrapHeight)/2;
-                $video.css('margin-top',-videoMarginTop);
-                $video.css('margin-left',0);
-            } else {
-                $video.width('auto').height('100%');
-                var videoMarginLeft = (videoWidth - videoWrapWidth)/2;
-                $video.css('margin-left',-videoMarginLeft);
-                $video.css('margin-top',0);
-            }
-        }
-
-        // Resize WMV iframe
-        var $wmvIframe = $('.image-wrap-inner iframe');
-        if($wmvIframe.length > 0) {
-            $wmvIframe.width('100%').height(imgBoxHeight-36);
-        }
-
-        // resize inner width
-        var minLeft = $(window).width() - minSize;
-        $('.inner').css('margin-left' , minLeft )
-            // set inner info
-            .find('.inner-info')
-            .css({
-                'width': minSize,
-                'left' : minLeft 
-            })
-            // set .comment-wrap
-            .end()
-            .find('.comment-wrap')
-            .css({
-                'width' : minLeft - slideWidth,
-                'left'  : slideWidth - minLeft
-            })
-            // set image wrap width
-            .end()
-            .find('.image-wrap')
-            .width( minSize );
+//        var $side = $('.side');
+//        var slideWidth = $side.width();
+//        // Resize Inner Box
+//        var $inner = $('.inner');
+//        var innerHeight = $(window).height() - $('.header').height();
+//        $inner.height(innerHeight);
+//
+//        // Resize Comment Box
+//        var $comList = $('.com-list');
+//        var comListHeight = $(window).height() - 390 - $('.com-user').height();
+//        $comList.height(comListHeight);
+//
+//        // Resize Image
+//        var imgBoxWidth = $(window).width() - 330 - slideWidth;
+//        var imgBoxHeight =$(window).height() - $('.header').height();
+//        var minSize = Math.min( imgBoxHeight , imgBoxWidth );
+//        var $img = $('.image-wrap-inner img').css('margin',0);
+//        $('.image-wrap-inner').width(minSize).height(minSize);
+//
+//        if( imgBoxHeight > imgBoxWidth ){
+//            var marginLeft = (imgBoxHeight - imgBoxWidth) / 2;
+//            $('.image-wrap-inner').height(imgBoxHeight);
+//            $img.width('auto').height('100%').css('margin-left', -marginLeft);
+//        }
+//        // if(imgBoxWidth > imgBoxHeight) {
+//        //     var marginTop = (imgBoxWidth - imgBoxHeight) / 2;
+//        //     $img.css('margin',0);
+//        //     $img.height('auto').width('100%').css('margin-top', -marginTop);
+//        // } else {
+//        //     var marginLeft = (imgBoxHeight - imgBoxWidth) / 2;
+//        //     $img.css('margin',0);
+//        //     $img.width('auto').height('100%').css('margin-left', -marginLeft);
+//        // }
+//
+//        // Resize Video
+//        var $video = $('.video-js .vjs-tech');
+//        if($video.hasClass('zoom')) {
+//            var $videoWrap = $('.video-js');
+//            var videoWrapWidth = $videoWrap.width();
+//            var videoWrapHeight = $videoWrap.height();
+//            var videoWrapRatio = videoWrapWidth/videoWrapHeight;
+//            var videoWidth = $video.width();
+//            var videoHeight = $video.height();
+//            var videoRatio = videoWidth/videoHeight;
+//            if(videoRatio < videoWrapRatio) {
+//                $video.width('100%').height('auto');
+//                var videoMarginTop = (videoHeight - videoWrapHeight)/2;
+//                $video.css('margin-top',-videoMarginTop);
+//                $video.css('margin-left',0);
+//            } else {
+//                $video.width('auto').height('100%');
+//                var videoMarginLeft = (videoWidth - videoWrapWidth)/2;
+//                $video.css('margin-left',-videoMarginLeft);
+//                $video.css('margin-top',0);
+//            }
+//        }
+//
+//        // Resize WMV iframe
+//        var $wmvIframe = $('.image-wrap-inner iframe');
+//        if($wmvIframe.length > 0) {
+//            $wmvIframe.width('100%').height(imgBoxHeight-36);
+//        }
+//
+//        // resize inner width
+//        var minLeft = $(window).width() - minSize;
+//        $('.inner').css('margin-left' , minLeft )
+//            // set inner info
+//            .find('.inner-info')
+//            .css({
+//                'width': minSize,
+//                'left' : minLeft
+//            })
+//            // set .comment-wrap
+//            .end()
+//            .find('.comment-wrap')
+//            .css({
+//                'width' : minLeft - slideWidth,
+//                'left'  : slideWidth - minLeft
+//            })
+//            // set image wrap width
+//            .end()
+//            .find('.image-wrap')
+//            .width( minSize );
 
     }
 

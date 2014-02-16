@@ -19,12 +19,12 @@ body{
     -webkit-perspective: 500;  Safari 和 Chrome 
     transition: transform 1s, opacity 1s , width 0.01s ease 0.2s;
     -webkit-transition: -webkit-transform 1s , opacity 1s, width 0.01s ease 0.2s; /* Safari */
-    transform:rotateY(0deg);
-    -webkit-transform:rotateY(0deg);
-}
-.pic-item{
-    width: 0px;
-    overflow: hidden;
+    /*transform:rotateY(0deg);*/
+    /*-webkit-transform:rotateY(0deg);*/
+/*}*/
+/*.pic-item{*/
+    /*width: 0px;*/
+    /*overflow: hidden;*/
 }*/
 
 /*.content {margin-top:85px;}

@@ -23,33 +23,33 @@ define(function( require , exports , model ){
     // 配置
     var _api = {
         // searchHosts: {path: '/Ajax/searchHosts' , data: {key: ''} , m: '检索小组' , method: 'get' },
-        commentList: {path: './api/index.php/comment/list', method:'get'},
-        recent: {path: './api/index.php/node/list', method: 'get'},
-        getPageByNid: {path: './api/index.php/node/getPageByNid', method: 'get'},
-        getNode: {path: './admin/app/json/node/photo.json'},
-        nodeList: {path: './api/index.php/node/list?$orderby=datetime&pagenum=100'},
-        tagTopThree: {path: './api/index.php/tag/topthree', method:'get'},
-        deleteNode: {path: './api/index.php/node/delete', method:'post'},
-        like: {path: './api/index.php/like/post'},
-        unlike: {path: './api/index.php/like/delete'},
+        commentList: {path: '../api/index.php/comment/list', method:'get'},
+        recent: {path: '../api/index.php/node/list', method: 'get'},
+        getPageByNid: {path: '../api/index.php/node/getPageByNid', method: 'get'},
+        getNode: {path: '../admin/app/json/node/photo.json'},
+        nodeList: {path: '../api/index.php/node/list?$orderby=datetime&pagenum=100'},
+        tagTopThree: {path: '../api/index.php/tag/topthree', method:'get'},
+        deleteNode: {path: '../api/index.php/node/delete', method:'post'},
+        like: {path: '../api/index.php/like/post'},
+        unlike: {path: '../api/index.php/like/delete'},
         // 
-        flag: {path: './api/index.php/flag/post', method:'post'},
-        flaggedComments: {path: './api/index.php/comment/flaggedcommentslist', method:'get'},
-        deleteComment: {path: './api/index.php/comment/delete', method:'post'},
+        flag: {path: '../api/index.php/flag/post', method:'post'},
+        flaggedComments: {path: '../api/index.php/comment/flaggedcommentslist', method:'get'},
+        deleteComment: {path: '../api/index.php/comment/delete', method:'post'},
         // get user info
-        login: {path: './api/index.php/user/login'},
-        logout: {path: './api/index.php/user/logout'},
-        user: {path: './api/index.php/user/getcurrent' , method: 'get'},
+        login: {path: '../api/index.php/user/login'},
+        logout: {path: '../api/index.php/user/logout'},
+        user: {path: '../api/index.php/user/getcurrent' , method: 'get'},
         //user: {path: './json/user.json' , method: 'get'},
-        saveUser: {path: './api/index.php/user/put' , method: 'post'},
-        saveAvatar: {path: './api/index.php/user/saveavatar' , method: 'post'},
+        saveUser: {path: '../api/index.php/user/put' , method: 'post'},
+        saveAvatar: {path: '../api/index.php/user/saveavatar' , method: 'post'},
         // get user's nodes
-        userNode: {path: './admin/app/json/node/recent.json' , data:{ uid: 0 , page: 1 }, method: 'get'},
-        saveNode: {path: './api/index.php/node/post'},
-        neighbor: {path: './api/index.php/node/getneighbor', method:'get'},
-        countryList: {path: './json/country.json', method:'get'},
-        i18n_en: {path: './lang/en.json', method:'get', async: false, cache:true},
-        i18n_fr: {path: './lang/fr.json', method:'get', async: false, cache:true}
+        userNode: {path: '../admin/app/json/node/recent.json' , data:{ uid: 0 , page: 1 }, method: 'get'},
+        saveNode: {path: '../api/index.php/node/post'},
+        neighbor: {path: '../api/index.php/node/getneighbor', method:'get'},
+        countryList: {path: '../json/country.json', method:'get'},
+        i18n_en: {path: '../lang/en.json', method:'get', async: false, cache:true},
+        i18n_fr: {path: '../lang/fr.json', method:'get', async: false, cache:true}
     };
 
     // 内部API
