@@ -50,8 +50,8 @@ var fileDialogComplete = function(numFilesSelected, numFilesQueued) {
 }
 
 var uploadStart = function(file) {
-    $('.pop-file').fadeOut(400);
-    $('.pop-load').delay(600).fadeIn(400);
+    //$('.pop-file').fadeOut(400);
+    $('.pop-load').fadeIn(400);
 }
 
 var uploadProgress = function(file, bytesLoaded, bytesTotal) {
@@ -73,20 +73,20 @@ var uploadSuccess = function(file, serverData) {
                 var errorIndex = 1;
                 break;
         }
-        $('.pop-inner').fadeOut(400);
-        $('.pop-file').delay(800).fadeIn(400);
+        $('.pop-file').fadeOut(400);
         $('.step1-tips li').removeClass('error');
         $('.step1-tips li').eq(errorIndex).addClass('error');
     }
     else {
+		$('.poptxt-pic-inner').fadeIn();
         $('.poptxt-pic img').attr('src', API_FOLDER + data.data.file.replace('.mp4', '.jpg'));
         $('.poptxt-submit').attr('data-d','file='+ data.data.file +'&type=' + data.data.type);
     }
-    $('.pop-load').fadeOut(400);
-    $('.pop-txt').delay(1500).fadeIn(400);
+    //$('.pop-load').fadeOut(400);
+    $('.pop-txt').fadeIn(400);
 }
 
 var uploadError = function(object, error, message){
-    $('.pop-inner').fadeOut(400);
-    $('.pop-file').delay(800).fadeIn(400);
+    $('.pop-load').fadeOut(400);
+    //$('.pop-file').delay(800).fadeIn(400);
 }

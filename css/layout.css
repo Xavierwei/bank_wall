@@ -105,7 +105,7 @@ a{text-decoration:none;color:#666}
             .item-icon .video{background: url('../img/icon_video_ws.png') no-repeat center;width:14px;height:10px;}
             .item-topday {background: url('../img/icon_topday_s.gif') no-repeat center;width:34px;height:21px;position:absolute;top:0;left:0;}
             .item-topmonth {background: url('../img/icon_topmonth_s.gif') no-repeat center;width:34px;height:21px;position:absolute;top:0;left:0;}
-            .item-delete {background:rgba(0,0,0,0.7) url('../img/icon_node_delete.png') no-repeat center;width:14px;height:14px;position:absolute;top:0;right:2px;}
+            .item-delete {background:#333 url('../img/icon_node_delete.png') no-repeat center;background-color:rgba(0,0,0,0.7);width:14px;height:14px;position:absolute;top:0;right:2px;}
 
 /* side Used
 ================================================================================================= */

@@ -1,11 +1,11 @@
 /*
  * page base action
  */
-LP.use(['jquery', 'api', 'easing', 'fileupload', 'swfupload', 'swfupload-speed', 'swfupload-queue'] , function( $ , api ){
+LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 'swfupload-speed', 'swfupload-queue'] , function( $ , api ){
     'use strict'
 
     var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > 0;
-    var isIE8 = true;// $('html').hasClass('ie8');
+    var isIE8 = $('html').hasClass('ie8');
     var API_FOLDER = "./api";
     var THUMBNAIL_IMG_SIZE = "_250_250";
     var BIG_IMG_SIZE = "_650_650";
@@ -590,6 +590,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'swfupload', 'swfupload-speed',
                 });
             // set inner-info bottom css
 
+
             // main animation
             var scrollTop = $(window).scrollTop();
             $main
@@ -605,7 +606,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'swfupload', 'swfupload-speed',
                     $main.hide();
                     _innerLock = false;
                 });
-
             // loading comments
             bindCommentSubmisson();
             _waitingCommentListAjax = false;
@@ -1381,17 +1381,18 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'swfupload', 'swfupload-speed',
                             LP.use(['swfupload', 'swfupload-speed', 'swfupload-queue'], function(){
                                 var settings = {
                                     flash_url : "./flash/swfupload.swf",
-                                    flash9_url : "./flash/swfupload_fp9.swf",
                                     upload_url: "./api/index.php/uploads/upload",
+									debug: true,
                                     file_post_name: "file",
                                     post_params : {type:'video'},
                                     file_size_limit : "7 MB",
-                                    file_types : "*.mp4;*.mov,*.wmv,*.3gp,*.mpg,*.mpeg",
+                                    file_types : "*.mp4;*.mov;*.wmv;*.3gp;*.mpg;*.mpeg",
                                     file_upload_limit : 1,
-                                    window_mode: 'transparent',
                                     button_width: "326",
                                     button_height: "40",
                                     button_placeholder_id: "flash-video-popfile-btn",
+									button_window_mode : SWFUpload.WINDOW_MODE.OPAQUE,
+									button_image_url : "img/trans.gif",
                                     file_dialog_complete_handler: fileDialogComplete,
                                     upload_start_handler : uploadStart,
                                     upload_progress_handler : uploadProgress,
@@ -1635,7 +1636,10 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'swfupload', 'swfupload-speed',
 
     //select photo
     LP.action('select_photo' , function(){
-         $('#select-btn input[type="file"]').trigger('click');
+		if(isIE8 && FlashDetect.installed) {
+			$('#flash-select-btn object').trigger('click');
+		}
+		$('#select-btn input[type="file"]').trigger('click');
     });
 
     //select photo
