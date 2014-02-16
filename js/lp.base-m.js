@@ -762,21 +762,22 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload', 'flash-detect', 'swf
     });
 
     LP.action('back_home', function(){
-        nodeActions.stopItemReversal();
-        var delay = 400;
-//        if(!$main.is(':visible')) {
-//            delay = 0;
-//        }
-        if($('.user-page').is(':visible')) {
-            LP.triggerAction('toggle_user_page');
-        }
-		LP.triggerAction('back');
-        resetQuery();
-        $('.search-hd').hide();
-        $main.html('');
-        $main.data( 'nodes', [] );
-        $listLoading.fadeIn();
-        LP.triggerAction('recent');
+		nodeActions.stopItemReversal();
+		var delay = 400;
+		if($main.hasClass('closed')) {
+			LP.triggerAction('back');
+			delay = 0;
+		}
+		if($('.user-page').is(':visible')) {
+			LP.triggerAction('toggle_user_page');
+			delay = 0;
+		}
+		resetQuery();
+		$('.search-hd').hide();
+		$main.html('');
+		$main.data( 'nodes', [] );
+		$listLoading.fadeIn();
+		LP.triggerAction('recent');
     });
 
     /**

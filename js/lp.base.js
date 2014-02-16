@@ -758,20 +758,21 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 
     LP.action('back_home', function(){
         nodeActions.stopItemReversal();
-        var delay = 400;
-//        if(!$main.is(':visible')) {
-//            delay = 0;
-//        }
-        if($('.user-page').is(':visible')) {
-            LP.triggerAction('toggle_user_page');
-        }
-		LP.triggerAction('back');
-        resetQuery();
-        $('.search-hd').hide();
-        $main.html('');
-        $main.data( 'nodes', [] );
-        $listLoading.fadeIn();
-        LP.triggerAction('recent');
+		var delay = 400;
+		if($main.hasClass('close')) {
+			LP.triggerAction('back');
+			delay = 0;
+		}
+		if($('.user-page').is(':visible')) {
+			LP.triggerAction('toggle_user_page');
+			delay = 0;
+		}
+		resetQuery();
+		$('.search-hd').hide();
+		$main.html('');
+		$main.data( 'nodes', [] );
+		$listLoading.fadeIn();
+		LP.triggerAction('recent');
     });
 
     /**
@@ -1803,6 +1804,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 
     // List user nodes
     LP.action('list_user_nodes', function(data){
+		nodeActions.stopItemReversal();
         if($('.user-edit-page').is(':visible')) {
             $('.user-edit-page').fadeOut(400);
             $('.avatar-file').fadeOut();
