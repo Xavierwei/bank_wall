@@ -1311,40 +1311,40 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 });
             }
             if(data.type == 'node') {
+				// directly remove from ui whatever the backend deleted or not. TODO: add a deleting loading later
+				$('.main-item-' + data.nid).css({width:0, opacity:0});
+				var $node = $('.count-com .main-item-' + data.nid);
+				if( $node.prev().hasClass('time-item')
+					&& ( !$node.next().length || $node.next().hasClass('time-item') ) ){
+					$node.prev().remove();
+				}
+				(function(){
+					var nodes = $('.count-com').data('nodes');
+					var index = -1;
+					jQuery.grep(nodes, function (node, i) {
+						if(node.nid == data.nid) {
+							index = i;
+						}
+					});
+					if(index != -1) {
+						nodes.splice(index, 1);
+					}
+				})();
+
+				(function(){
+					var nodes = $('.main').data('nodes');
+					var index = -1;
+					jQuery.grep(nodes, function (node, i) {
+						if(node.nid == data.nid) {
+							index = i;
+						}
+					});
+					if(index != -1) {
+						nodes.splice(index, 1);
+					}
+				})();
                 api.ajax('deleteNode', data, function(){
-                    var $node = $('.count-com .main-item-' + data.nid);
-                    if( $node.prev().hasClass('time-item')
-                        && ( !$node.next().length || $node.next().hasClass('time-item') ) ){
-                        $node.prev().remove();
-                    }
-                    $node.remove();
                     LP.triggerAction('update_user_status');
-
-                    (function(){
-                        var nodes = $('.count-com').data('nodes');
-                        var index = -1;
-                        jQuery.grep(nodes, function (node, i) {
-                            if(node.nid == data.nid) {
-                                index = i;
-                            }
-                        });
-                        if(index != -1) {
-                            nodes.splice(index, 1);
-                        }
-                    })();
-
-                    (function(){
-                        var nodes = $('.main').data('nodes');
-                        var index = -1;
-                        jQuery.grep(nodes, function (node, i) {
-                            if(node.nid == data.nid) {
-                                index = i;
-                            }
-                        });
-                        if(index != -1) {
-                            nodes.splice(index, 1);
-                        }
-                    })();
                 });
             }
             LP.triggerAction('cancel_modal');
