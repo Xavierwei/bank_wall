@@ -10,12 +10,13 @@ a
 
 
 
-.popload-icon
+.popload-icon, .inner-loading, .loading-list
 {
     -moz-animation: rotate 5s linear infinite;
     -webkit-animation: rotate 5s linear infinite;
     animation: rotate 5s linear infinite;
 }
+
 
 
 @-webkit-keyframes rotate {

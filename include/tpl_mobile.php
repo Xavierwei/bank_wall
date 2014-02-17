@@ -23,7 +23,7 @@
 				<div data-a="lang" data-d="lang=fr" class="btn language-item language-item-fr"><p class="fr"></p></div>
 				<div data-a="lang" data-d="lang=en" class="btn language-item language-item-en"><p class="en"></p></div>
 			</div>
-			<div class="filtrer">filtrer</div>
+
 		</div>
 		<!--  -->
 		<div class="content clear">
@@ -315,28 +315,7 @@
 <script type="text/tpl" id="node-item-template">
 	<div data-a="node" data-d="nid={{nid}}" class="main-item pic-item main-item-{{nid}}">
 		<a>
-			<img src="../api{{image}}" width="180" />
-			<div class="item-info" >
-        <div class="item-info-wrap">
-          <div class="item-time"><span class="item-timeicon">{{formatDate}}</span></div>
-          <div class="item-user"><span class="item-usericon">{{user.firstname}} {{user.lastname}}</span></div>
-          <div class="item-source">
-            <div class="{{type}}"></div>
-          </div>
-          <div class="item-like {{#if user_liked}}item-liked{{/if}}">{{likecount}}</div>
-          <div class="item-comment">{{commentcount}}</div>
-        </div>
-			</div>
-			<div class="item-icon" style="display: block;"><div class="{{type}}"></div></div>
-			{{#if topday}}
-			<div class="item-topday"></div>
-			{{/if}}
-			{{#if topmonth}}
-			<div class="item-topmonth"></div>
-			{{/if}}
-			{{#if mynode}}
-			<div class="item-delete btn" data-a="delete" data-d="nid={{nid}}&type=node"></div>
-			{{/if}}
+			<img src="../api{{image}}" width="640" />
 		</a>
 	</div>
 </script>

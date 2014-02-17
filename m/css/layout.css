@@ -79,16 +79,18 @@ a{text-decoration:none;color:#666}
 /* main Used
 ================================================================================================= */
 .main{background: #2c2c2c;position:absolute;bottom:0;top:238px;width:100%;overflow: scroll;-webkit-overflow-scrolling: touch;}
+.logged .main {top:183px;}
 .time-item{padding:56px 0;}
     .time-date{background: url('../img/time_item.png') no-repeat;width:279px;height:279px;text-align: center;color:#666;font-size:44px;margin:0px auto;}
     .time-date span{display: block;font-size:110px;line-height:180px;padding:40px 0 0; }
-.item-info{display: none}
+    .item-info{display: none}
+    .loading-list {position: fixed;background:url('../img/loading_trans_white.png') no-repeat;width:40px;height:40px;right:20px;bottom:30px;}
 
 /* inner Used
 ================================================================================================= */
 .inner{position: fixed;z-index:10;top: 127px;left:0;right:0;bottom:0;background:#404040;}
     .logged .inner {left:20px;}
-    .image-wrap-inner{position: absolute;left:0;top:66px;bottom:88px;background:#404040}
+    .image-wrap-inner{position: absolute;left:0;top:66px;bottom:88px;background:#404040 url('../img/loading_inner.gif') no-repeat center;}
     .com-user{height: 66px;position: absolute;top: 0;left:0;right: 0;background: #404040;color:#e4e4e4;font-size: 20px}
         .comuser-pho{display: none}
         .comuser-name{position: absolute;top: 22px;left:88px;line-height: 23px;}
@@ -105,7 +107,7 @@ a{text-decoration:none;color:#666}
     .com-btn{position: absolute;left:130px;top:0;}
         .com-prev{background:url('../img/icon_inner_left.gif') no-repeat center;width:70px;height: 88px;float:left;border-right:#616161 solid 1px;}
         .com-next{background:url('../img/icon_inner_right.gif') no-repeat center;width:70px;height: 88px;float:left;border-right:#fff solid 1px;}
-
+    .inner-loading {display:none;background:url('../img/loading_trans_white.png') no-repeat;width:40px;height:40px;position: absolute;left:50%;top:40%;margin-left:-20px;}
     .inner-info{position: absolute;right: 0;left:0px;bottom:88px;z-index: 5;height: 53px}
         .inner-shade{position: absolute; height: 100%; width:100%;z-index: 1; background: #000;opacity: 0.5;filter: alpha(opacity=50);}
         .inner-infocom{z-index:2;position:relative;bottom: 0;color:#fff;padding:0 20px ;line-height: 55px}

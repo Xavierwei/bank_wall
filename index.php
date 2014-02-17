@@ -1,3 +1,9 @@
+<?php
+if (preg_match('/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|phone|android)/i', strtolower($_SERVER['HTTP_USER_AGENT']))) {
+	header("Location: m",true,303);
+	die();
+}
+?>
 <!DOCTYPE html>
 <!--[if IE 6]>
 <html class="ie6"><![endif]-->

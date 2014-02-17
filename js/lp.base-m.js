@@ -22,7 +22,6 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
     var dragDirection;
     $(document).hammer({drag_block_horizontal: true,swipe_velocity:1})
         .on("release dragup dragdown dragleft dragright swipeleft swiperight", function(ev) {
-            console.log(ev.type);
             switch(ev.type) {
                 case 'swipeleft':
                 case 'dragleft':
@@ -55,6 +54,13 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
             }
         }
     );
+
+	$('body').hammer()
+		.on("tap swipeleft swiperight", '.main-item', function(ev) {
+			console.log(ev.type);
+			$(this).click();
+		}
+	);
 
     // live for pic-item hover event
     $(document.body)
@@ -388,8 +394,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
             // fix all the items , set position: relative
             $dom.children()
                 .css('position' , 'relative');
-            if( $dom.children('.isotope-item').length )
-                $dom.isotope('destroy')
+
             // get first time item , which is not opend
             // wait for it's items prepared ( load images )
             // run the animate
@@ -405,10 +410,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
                     .width( itemWidth )
                     .height( itemWidth );
                 var animationTimeout = 300;
-                if(isIE8) {
-                    $node.css({opacity:0}).animate({opacity:1});
-                    animationTimeout = 50;
-                }
+
                 // fix it's img width and height
                 $node.find('img')
                     .width( itemWidth )
@@ -431,7 +433,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
 //                    });
 //                }
             } else { // judge if need to load next page 
-                $(window).trigger('scroll');
+                //$(window).trigger('scroll');
             }
         }
         // set items auto fix it's width
@@ -692,6 +694,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
     // for back action
     LP.action('back' , function( data ){
 		console.log('back');
+		_innerLock = false;
         //if( _innerLock ) return;
         var $inner = $('.inner');
         var infoTime = 300;
@@ -910,7 +913,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
 			$newItem[ direction == 'left' ? 'insertBefore' : 'insertAfter' ]( $oriItem )
 				.attr('style' , $oriItem.attr('style'))
 				.find('img')
-				//.hide()
+				.hide()
 				.end();
 			// Resize Image
 			var slideWidth = $('.side').width();
@@ -1008,7 +1011,9 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
                 param.previouspage --;
                 $dom.data('param' , param);
                 param.page = param.previouspage;
+				$('.inner-loading').fadeIn();
                 api.ajax('recent' , param , function( result ){
+					$('.inner-loading').fadeOut();
                     _currentNodeIndex = param.pagenum - 1;
                     nodeActions.prependNode( $dom , result.data , param.orderby == 'datetime' );
                     cubeInnerNode( $dom.data('nodes')[ _currentNodeIndex ] , 'left' , drag);
@@ -1057,9 +1062,9 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
             param.page++;
             $dom.data('param' , param);
             // show loading 
-            $('.inner-loading').show();
+            $('.inner-loading').fadeIn();
             api.ajax('recent' , param , function( result ){
-                $('.inner-loading').hide();
+                $('.inner-loading').fadeOut();
                 if( result.data.length ){
                     nodeActions.inserNode( $dom , result.data , param.orderby == 'datetime' );
                     cubeInnerNode( $dom.data('nodes')[ _currentNodeIndex ] , 'right', drag );
@@ -1691,7 +1696,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
 	LP.action('toggle_side_bar', function(type){
 		var $side = $('.side');
         if(typeof type == 'string') {
-            if(type == 'right') {
+            if(type == 'left') {
                 $side.removeClass('closed').transit({x:0}, 300, 'easeOutQuart');
             }
             else {
@@ -1725,7 +1730,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
                     $(this).css('width' , 'auto');
                     // if first loaded , load user's nodes from server
                     var user = $('.side').data('user');
-                    var param = {page:1,pagenum:20, uid:user.uid, orderby:'datetime'};
+                    var param = {page:1,pagenum:8, uid:user.uid, orderby:'datetime'};
                     var $countCom = $(this).find('.count-com');
                     $countCom.data('param', param);
                     if( !$countCom.children().length ){
@@ -2080,7 +2085,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
     var refreshQuery = function( query ){
         // get search value
         var $searchInput = $('.search-ipt');
-        var param = { page: 1 , pagenum: 20 };
+        var param = { page: 1 , pagenum: 8 };
         param [ $searchInput.attr('name') ] = $.trim( $searchInput.val() ).replace( /^#+/ , '' );
 
         // get select options
