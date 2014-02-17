@@ -26,14 +26,14 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
             switch(ev.type) {
                 case 'swipeleft':
                 case 'dragleft':
-                    dragDirection = 'left';
+                    dragDirection = 'right';
                     LP.triggerAction('next', true);
                     draggingNode(dragDirection,  ev.gesture.deltaX);
                     _innerDragging = true;
                     break;
                 case 'swiperight':
                 case 'dragright':
-                    dragDirection = 'right';
+                    dragDirection = 'left';
                     LP.triggerAction('prev', true);
                     draggingNode(dragDirection,  ev.gesture.deltaX);
                     //LP.triggerAction('next', true);
@@ -74,11 +74,8 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
                 //.stop( true , false )
                 .fadeOut( 500 );
         })
-        .delegate('.search-ipt' , 'keypress' , function(ev){
-            switch( ev.which ){
-                case 13: // enter
-                    LP.triggerAction('search');
-            }
+        .delegate('.search-ipt' , 'change' , function(ev){
+			LP.triggerAction('search');
         })
 //        .delegate('.menu-item' , 'mouseenter' , function(){
 //            if($(this).hasClass('active')) {
@@ -571,8 +568,8 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
     var _currentNodeIndex = 0;
     var _innerLock = false;
     LP.action('node' , function( data ){
-//        if( _innerLock ) return;
-//        _innerLock = true;
+        if( _innerLock ) return;
+        _innerLock = true;
         var $dom = $( this );
         if(data.type) {
             var node = data; // 如果直接传入单个node，不再从列表中获取
@@ -621,33 +618,10 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
                 })
 				.transit({
 					x: 0
-				}, _animateTime , _animateEasing);
-//                .animate({
-//                    left: 0
-//                }, _animateTime , _animateEasing , function(){
-//                    // show up node info
-//                });
-            // set inner-info bottom css
+				}, _animateTime , _animateEasing, function(){
+					_innerLock = false;
+				});
 
-
-            // main animation
-            var scrollTop = $(window).scrollTop();
-			$('body').css({overflow:'hidden'});
-//            $main
-//                .css({
-//                    //position: 'fixed',
-//                    width: mainWrapWidth,
-//                    left: 0
-//                    //top: 86 - scrollTop
-//                })
-//                .animate({
-//                    left: winWidth
-//                } , _animateTime , _animateEasing , function(){
-//                    //$main.hide();
-//					$('body').css({overflow:'hidden'});
-//					$main.addClass('closed');
-//                    _innerLock = false;
-//                });
             // loading comments
             bindCommentSubmisson();
             _waitingCommentListAjax = false;
@@ -670,12 +644,12 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
 
             // init vide node
             if( node.type == "video" ){
-                renderVideo($('.image-wrap-inner'),node);
+                //renderVideo($('.image-wrap-inner'),node);
                 $('#imgLoad').attr('src', './api' + node.image);
                 $('#imgLoad').ensureLoad(function(){
                     setTimeout(function(){
-                        $('.image-wrap-inner object, .image-wrap-inner video').fadeIn();
-                        $('.image-wrap-inner .video-js').fadeIn();
+                        $('.image-wrap-inner video').fadeIn();
+                        //$('.image-wrap-inner .video-js').fadeIn();
                     },400);
 
                     // preload before and after images
@@ -821,10 +795,10 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
         if($imageWrapInner.length == 2) {
             var wrapWidth = $imageWrapInner.eq(0).width();
             $('.image-wrap-inner')
-                .eq(direction == 'left' ? 0 : 1)
+                .eq(direction == 'right' ? 0 : 1)
                 .css({x:deltaX})
                 .siblings('.image-wrap-inner')
-                .css({x: direction == 'left' ? (wrapWidth + deltaX) : (- wrapWidth + deltaX)  });
+                .css({x: direction == 'right' ? (wrapWidth + deltaX) : (- wrapWidth + deltaX)  });
         }
     }
 
@@ -838,28 +812,47 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
 
             $('.image-wrap-inner')
                 .eq(0)
-                .transit({x: direction == 'left' ? - wrapWidth : 0})
+                .transit({x: direction == 'right' ? - wrapWidth : 0})
                 .next()
-                .transit({x: direction == 'left' ? 0 : wrapWidth}, function(){
+                .transit({x: direction == 'right' ? 0 : wrapWidth}, function(){
                     updateInnerNode(node, direction);
                 });
         }
     }
 
     function updateInnerNode(node, direction) {
-
-        console.log(direction);
-        $('.image-wrap-inner').eq(direction == 'left' ? 0 : 1).remove();
-
-
+        $('.image-wrap-inner').eq(direction == 'right' ? 0 : 1).remove();
         LP.compile( 'inner-template' , node , function( html ){
+			var $inner = $('.inner');
             var $newInner = $(html);
+			var $comment = $inner.find('.comment');
+
+			//update comment
+			var $nextComment = $newInner.find('.comment');
+			$comment.html($nextComment.html());
+
+			//update info
+			var $info = $inner.find('.inner-info');
+			$info.transit({
+				y: $info.height()
+			} , 500, function(){
+				$info.remove();
+			})
+			var $newInfo = $newInner.find('.inner-info')
+				.insertAfter( $info );
+			$newInfo.css({
+				bottom: 88,
+				y: $info.height(),
+				width: $info.width(),
+				left: $info.css('left')
+			}).transit({y:0});
+
+			// update top icon
+			var $nextTop = $newInner.find('.inner-top');
+			_innerLock = false;
 
         });
-
         changeUrl('/nid/' + node.nid , {event: direction});
-
-
     }
 
     /**
@@ -871,19 +864,19 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
     function cubeInnerNode( node , direction, drag ){
 
 
-        var cubeDir = 'cube-' + direction;
-        var rotateDir = 'rotate-' + direction;
-
-        // base on comment wrap width
-        var dist = $('.comment-wrap').width() / 2;
-        var dirData = {
-            dist: dist,
-            rotate: 90
-        }
-        if( direction == 'left' ){
-            dirData.dist = - dist;
-            dirData.rotate = -90;
-        }
+//        var cubeDir = 'cube-' + direction;
+//        var rotateDir = 'rotate-' + direction;
+//
+//        // base on comment wrap width
+//        var dist = $('.comment-wrap').width() / 2;
+//        var dirData = {
+//            dist: dist,
+//            rotate: 90
+//        }
+//        if( direction == 'left' ){
+//            dirData.dist = - dist;
+//            dirData.rotate = -90;
+//        }
 
         var datetime = new Date((parseInt(node.datetime)+1*3600)*1000);
         node.date = datetime.getUTCDate();
@@ -897,7 +890,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
         node._e = _e;
         var $inner = $('.inner');
         LP.compile( 'inner-template' , node , function( html ){
-            var $comment = $inner.find('.comment');
+//            var $comment = $inner.find('.comment');
             // comment animation
             var $newInner = $(html);
 
@@ -914,125 +907,63 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
                 return;
             };
 
-            if(drag != false)
-            {
-                //$imgWrap.css('width' , 2 * wrapWidth );
+			$newItem[ direction == 'left' ? 'insertBefore' : 'insertAfter' ]( $oriItem )
+				.attr('style' , $oriItem.attr('style'))
+				.find('img')
+				//.hide()
+				.end();
+			// Resize Image
+			var slideWidth = $('.side').width();
+			var imgBoxWidth = $(window).width() - 330 - slideWidth;
+			var imgBoxHeight =$(window).height() - $('.header').height();
+			var minSize = Math.min( imgBoxHeight , imgBoxWidth );
+			var $img = $newItem.find('img').css('margin',0);
+			$newItem.width(minSize).height(minSize);
 
-                $newItem[ direction == 'left' ? 'insertBefore' : 'insertAfter' ]( $oriItem )
-                    .attr('style' , $oriItem.attr('style'))
-                    .find('img')
-                    //.hide()
-                    .end();
-                // Resize Image
-                var slideWidth = $('.side').width();
-                var imgBoxWidth = $(window).width() - 330 - slideWidth;
-                var imgBoxHeight =$(window).height() - $('.header').height();
-                var minSize = Math.min( imgBoxHeight , imgBoxWidth );
-                var $img = $newItem.find('img').css('margin',0);
-                $newItem.width(minSize).height(minSize);
+			if( imgBoxHeight > imgBoxWidth ){
+				var marginLeft = (imgBoxHeight - imgBoxWidth) / 2;
+				$newItem.height(imgBoxHeight);
+				//$img.width('auto').height('100%').css('margin-left', -marginLeft);
+			}
 
-                if( imgBoxHeight > imgBoxWidth ){
-                    var marginLeft = (imgBoxHeight - imgBoxWidth) / 2;
-                    $newItem.height(imgBoxHeight);
-                    //$img.width('auto').height('100%').css('margin-left', -marginLeft);
-                }
+			$imgWrap.children('.image-wrap-inner').css({
+				width: wrapWidth
+			})
+				.eq(0)
+				.css('x' , direction == 'left' ? - wrapWidth : 0 )
+				.next()
+				.css('x' , direction == 'left' ? 0 : wrapWidth );
 
-                $imgWrap.children('.image-wrap-inner').css({
-                    width: wrapWidth
-                })
-                    .eq(0)
-                    .css('x' , direction == 'left' ? - wrapWidth : 0 )
-                    .next()
-                    .css('x' , direction == 'left' ? 0 : wrapWidth );
-            }
 
+			// init video
+			if( node.type == "video" ){
+				$('.image-wrap-inner video').fadeIn();
+			}
+			// init photo node
+			if( node.type == "photo" ){
+				$newItem.find('img').ensureLoad(function(){
+					$(this).fadeIn();
+				});
+			}
 
             if(drag != true) {
-                console.log(direction + '111');
-                $imgWrap.children('.image-wrap-inner')
-                    .eq(0)
-                    .transit({
-                        x: direction == 'left' ? 0 : - wrapWidth
-                    } , 800, _animateEasing)
-                    .next()
-                    .transit({
-                        x: direction == 'left' ? wrapWidth : 0
-                    } , 800, _animateEasing, function(){
-                        $imgWrap.width( wrapWidth );
-                        // Resize Inner Box
-                        // resizeInnerBox();
-                        $newItem.css('width' , '100%');
-                        $newItem.siblings('.image-wrap-inner').remove();
-                    });
+				$imgWrap.children('.image-wrap-inner')
+					.eq(0)
+					.transit({
+						x: direction == 'left' ? 0 : - wrapWidth
+					} , 800, _animateEasing)
+					.next()
+					.transit({
+						x: direction == 'left' ? wrapWidth : 0
+					} , 800, _animateEasing, function(){
+						$imgWrap.width( wrapWidth );
+						// Resize Inner Box
+						// resizeInnerBox();
+						$newItem.css('width' , '100%');
+						updateInnerNode(node,direction);
+					});
+			}
 
-                var $nextComment = $newInner.find('.comment');
-                $comment.html($nextComment.html());
-
-                var $nextFlag = $newInner.find('.flag-node');
-                $inner.find('.flag-node').remove();
-                $newItem.append($nextFlag);
-
-                var $nextTop = $newInner.find('.inner-top');
-                $inner.find('.inner-top').animate({top:-33});
-                $newItem.append($nextTop);
-                var $info = $inner.find('.inner-info');
-                $info.animate({
-                    bottom: -$info.height()
-                } , 500 )
-                    .promise()
-                    .done(function(){
-                        $info.remove();
-                    });
-                var $newInfo = $newInner.find('.inner-info')
-                    .insertAfter( $info );
-                $newInfo.css({
-                    'bottom' : -$newInfo.height(),
-                    'width'  : $info.width(),
-                    'left'   : $info.css('left')
-                })
-
-                // day icon animation
-
-
-                // init video
-                if( node.type == "video" ){
-                    renderVideo($newItem,node);
-                    $('#imgLoad').attr('src', './api' + node.image);
-                    $('#imgLoad').ensureLoad(function(){
-                        setTimeout(function(){
-                            $('.image-wrap-inner object, .image-wrap-inner video').fadeIn();
-                            $('.image-wrap-inner .video-js').fadeIn();
-                            slideIntroBar($newInfo, _animateTime);
-                        },400);
-                    });
-                }
-                // init photo node
-                if( node.type == "photo" ){
-                    $('.image-wrap-inner img').ensureLoad(function(){
-                        $(this).fadeIn();
-                        slideIntroBar($newInfo, _animateTime);
-                    });
-                }
-
-                // load comment
-                bindCommentSubmisson();
-                _waitingCommentListAjax = false;
-                getCommentList(node.nid,1);
-
-                // change url
-                changeUrl('/nid/' + node.nid , {event: direction});
-            }
-
-
-//            $imgWrap.done(function(){
-//                    $imgWrap.width( wrapWidth );
-//                    // Resize Inner Box
-//                    // resizeInnerBox();
-//                    $newItem.css('width' , '100%');
-//                    $newItem.siblings('.image-wrap-inner').remove();
-//                });
-
-            // desc animation
 
         });
     }
@@ -1045,7 +976,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
         var nodes = $main.data('nodes');
         var aftfix = '_650_650.jpg';
         // preload before and after images
-        for( var i = 0 ; i < 5 ; i++ ){
+        for( var i = 0 ; i < 2 ; i++ ){
             if( nodes[ _currentNodeIndex - i ] ){
                 $('<img/>').attr('src' , API_FOLDER + nodes[ _currentNodeIndex - i ].image.replace(/_\d+_\d+\.jpg/ , aftfix ));
             }
@@ -1055,26 +986,11 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
         }
     }
 
-    function slideIntroBar($info, _animateTime){
-        $info.delay(_animateTime).fadeIn().dequeue()
-            .animate({
-                bottom: 0
-            } , 300);
-        $('.inner-topday').delay(_animateTime)
-            .animate({
-                top: 0
-            } , 300);
-        $('.inner-topmonth').delay(_animateTime)
-            .animate({
-                top: 0
-            } , 300);
-    }
-
     //for prev action
     LP.action('prev' , function( drag ){
         if(_innerDragging) return;
-//        if( _innerLock ) return;
-//        _innerLock = true;
+        if( _innerLock ) return;
+        _innerLock = true;
         if($('.user-page').is(':visible')) {
             var $dom = $('.count-dom');
         } else {
@@ -1114,8 +1030,8 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
     //for next action
     LP.action('next' , function( drag ){
         if(_innerDragging) return;
-//        if( _innerLock ) return;
-//        _innerLock = true;
+        if( _innerLock ) return;
+        _innerLock = true;
         var $inner = $('.inner');
         var $dom = $inner.data('from') || $main;
 
@@ -3156,32 +3072,14 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
     }
 
     var renderVideo = function($newItem,node){
-        LP.use('flash-detect', function(){
-            if($('html').hasClass('video') && !isFirefox) { // need to validate html5 video as well
-                LP.compile( 'html5-player-template' , node , function( html ){
-                    $newItem.html(html);
-                    LP.use('video-js' , function(){
-                        videojs( "inner-video-" + node.timestamp , {}, function(){
-                            $('.video-js').append('<div class="video-btn-zoom btn2" data-a="video_zoom"></div>');
-                        });
-                    });
-                });
-            }
-            else if(FlashDetect.installed)
-            {
-                LP.compile( 'flash-player-template' , node , function( html ){
-                    $newItem.html(html);
-                });
-            }
-            else
-            {
-                node.file = node.file.replace('mp4','wmv');
-                LP.compile( 'wmv-player-template' , node , function( html ){
-                    $newItem.html(html);
-                    $('.image-wrap-inner iframe');
-                });
-            }
-        });
+		LP.compile( 'html5-player-template' , node , function( html ){
+			$newItem.html(html);
+			LP.use('video-js' , function(){
+				videojs( "inner-video-" + node.timestamp , {}, function(){
+					$('.video-js').append('<div class="video-btn-zoom btn2" data-a="video_zoom"></div>');
+				});
+			});
+		});
     }
 
 

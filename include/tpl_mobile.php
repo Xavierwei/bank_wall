@@ -3,12 +3,14 @@
 	<div class="page">
 		<!-- header -->
 		<div class="header">
-			<a href="../api/user/samllogin" class="login btn">
-				{{_e.CONNECT}}
-			</a>
+
 			<!--  -->
 			<div class="logo" data-a="back_home"></div>
 			<!--  -->
+
+			<a href="../api/user/samllogin" class="login btn">
+				{{_e.CONNECT}}
+			</a>
 
 			<div class="search clear">
 				<input class="search-ipt" name="hashtag" type="text" placeholder="#HASHTAG" />
@@ -278,9 +280,11 @@
 		<div class="image-wrap">
 			<div class="image-wrap-inner">
 				{{#ifvideo}}
-
+					<video preload="none" width="100%" height="100%" poster="../api{{image}}">
+						<source src="../api{{file}}" type='video/mp4' />
+					</video>
 				{{else}}
-				<img src="../api{{image}}" width="100%" />
+					<img src="../api{{image}}" width="100%" />
 				{{/ifvideo}}
 			</div>
 			<div class="inner-loading"></div>

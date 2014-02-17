@@ -24,12 +24,7 @@ a{text-decoration:none;color:#666}
 .clear:after{clear:both;content:".";font-size:0;display:block;height:0;overflow:hidden;visibility:hidden;}
 .clickable {cursor: pointer;}
 .btn,.btn2 {cursor:pointer;-webkit-touch-callout: none;}
-.iphone_fixed {z-index: 100000; /* should be bigger than everything else */
-    position: fixed;
-    overflow: scroll;
-    -webkit-overflow-scrolling: touch;
 
-}
 
 /* Hader Used
 ================================================================================================= */
@@ -83,7 +78,7 @@ a{text-decoration:none;color:#666}
 
 /* main Used
 ================================================================================================= */
-.main{background: #2c2c2c;position:absolute;bottom:0;top:184px;width:100%;overflow: scroll;x-webkit-overflow-scrolling: touch;}
+.main{background: #2c2c2c;position:absolute;bottom:0;top:238px;width:100%;overflow: scroll;-webkit-overflow-scrolling: touch;}
 .time-item{padding:56px 0;}
     .time-date{background: url('../img/time_item.png') no-repeat;width:279px;height:279px;text-align: center;color:#666;font-size:44px;margin:0px auto;}
     .time-date span{display: block;font-size:110px;line-height:180px;padding:40px 0 0; }
@@ -91,7 +86,8 @@ a{text-decoration:none;color:#666}
 
 /* inner Used
 ================================================================================================= */
-.inner{position: fixed;z-index:10;top: 127px;left:20px;right:0;bottom:0;}
+.inner{position: fixed;z-index:10;top: 127px;left:0;right:0;bottom:0;background:#404040;}
+    .logged .inner {left:20px;}
     .image-wrap-inner{position: absolute;left:0;top:66px;bottom:88px;background:#404040}
     .com-user{height: 66px;position: absolute;top: 0;left:0;right: 0;background: #404040;color:#e4e4e4;font-size: 20px}
         .comuser-pho{display: none}
@@ -102,9 +98,9 @@ a{text-decoration:none;color:#666}
         .com-back{background:url('../img/icon_inner_back.gif') no-repeat center;width:68px;height: 66px;position: absolute;top:0;left:0;z-index:5;border-right:1px #fff solid ;}
     .com-info{height: 88px;position: absolute;bottom: 0;left:0;right: 0;background: #404040;z-index: 9;font-size: 20px;color:#e4e4e4;text-transform:none;}
         .com-day{width:90px;overflow:hidden;font-size: 18px;background: url('../img/icon_inner_time.gif') no-repeat left center;padding:0 0 0 32px;margin:0 0 0 8px;border-right: 1px #fff solid;float:left;height: 88px;line-height: 88px}
-        .com-like{text-align:center;background: url('../img/icon_inner_like.gif') no-repeat center 18px;float:left;border-right:#fff solid 1px;height: 34px;padding: 54px 0 0;width:99px;}
+        .com-like{text-align:center;background: url('../img/icon_inner_like.gif') no-repeat center 18px;float:left;border-right:#fff solid 1px;height: 34px;padding: 54px 0 0;width:105px;}
         .com-unlike {background-position:center -71px;}
-        .com-com-count{width:136px;text-align:center;background: url('../img/icon_inner_comment.gif') no-repeat center 18px;float:left;border-right:#fff solid 1px;height: 34px;padding: 54px 10px 0;margin-left:142px;display: inline}
+        .com-com-count{width:156px;text-align:center;background: url('../img/icon_inner_comment.gif') no-repeat center 18px;float:left;border-right:#fff solid 1px;height: 34px;padding: 54px 10px 0;margin-left:142px;display: inline}
         .flag-node {background: url('../img/icon_inner_signaler.gif') no-repeat center 18px;height: 34px;padding: 54px 10px 0;position: absolute;right: 0}
     .com-btn{position: absolute;left:130px;top:0;}
         .com-prev{background:url('../img/icon_inner_left.gif') no-repeat center;width:70px;height: 88px;float:left;border-right:#616161 solid 1px;}
