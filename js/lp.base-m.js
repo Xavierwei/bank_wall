@@ -467,36 +467,37 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
     // resize item width
     var _resizeTimer = null;
     var _scrollAjax = false;
-    $(window).resize(function(){
-        clearTimeout( _resizeTimer );
+    $(window)
+    // .resize(function(){
+    //     clearTimeout( _resizeTimer );
 
-        _resizeTimer = setTimeout(function(){
-            if( $main.is(':visible') ){
-                nodeActions.setItemWidth( $main );
+    //     _resizeTimer = setTimeout(function(){
+    //         if( $main.is(':visible') ){
+    //             nodeActions.setItemWidth( $main );
 
-                // run isotope after item width fixed
-                setTimeout(function(){
-                    nodeActions.setItemIsotope( $main );
-                } , 500);
-            }
+    //             // run isotope after item width fixed
+    //             setTimeout(function(){
+    //                 nodeActions.setItemIsotope( $main );
+    //             } , 500);
+    //         }
 
-            var $userPage = $('.user-page');
-            var $userCom = $userPage.find('.count-com');
-            if( $userPage.is(':visible') && $userCom.is(':visible') ){
-                nodeActions.setItemWidth( $userCom );
-                // run isotope after item width fixed
-                setTimeout(function(){
-                    nodeActions.setItemIsotope( $userCom );
-                } , 500);
-            }
-        } , 200);
+    //         var $userPage = $('.user-page');
+    //         var $userCom = $userPage.find('.count-com');
+    //         if( $userPage.is(':visible') && $userCom.is(':visible') ){
+    //             nodeActions.setItemWidth( $userCom );
+    //             // run isotope after item width fixed
+    //             setTimeout(function(){
+    //                 nodeActions.setItemIsotope( $userCom );
+    //             } , 500);
+    //         }
+    //     } , 200);
 
-        // immediate resize
-        // resize big image
-        resizeInnerBox();
-        // resize user box
-        resizeUserBox();
-    })
+    //     // immediate resize
+    //     // resize big image
+    //     resizeInnerBox();
+    //     // resize user box
+    //     resizeUserBox();
+    // })
     .scroll(function(){
         // if is ajaxing the scroll data
         if( _scrollAjax ) return;
@@ -1360,7 +1361,6 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
                 acceptFileTypes = /(\.|\/)(gif|jpe?g|png)$/i;
                 var maxFileSize = 5 * 1024000;
                 // init event
-                transformMgr.initialize();
             }
 			LP.use('fileupload' , function(){
 				$fileupload.fileupload({
@@ -1445,6 +1445,9 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
 											.bind('load.forinnershow' , function(){
 												$('.pop-inner').delay(400).fadeOut(400);
 												$('.pop-txt').delay(1200).fadeIn(400);
+                                                setTimeout(function(){
+                                                    transformMgr.initialize( $('.poptxt-pic-inner') );
+                                                } , 1600 );
 											})
 											.attr('src', e.target.result/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
 										$('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
@@ -1456,9 +1459,13 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
 										.bind('load.forinnershow' , function(){
 											$('.pop-inner').delay(400).fadeOut(400);
 											$('.pop-txt').delay(1200).fadeIn(400);
+                                            setTimeout(function(){
+                                                transformMgr.initialize( $('.poptxt-pic-inner') );
+                                            } , 1600 );
 										})
 										.attr('src', API_FOLDER + rdata.file/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
 									$('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
+
 								}
 							}
 						}
@@ -2232,365 +2239,213 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
     // after image upload, init it's size to fix the window
     // use raephael js to rotate, scale , and drag the image photo
     var transformMgr = (function(){
-        var isDragging      = false;
-        var isMousedown     = false;
-        var startPos        = null;
-        var totalMoveX      = 0;
-        var totalMoveY      = 0;
-        var lastMoveX       = 0;
-        var lastMoveY       = 0;
-
-        var maxDistance = 200;
-
-        $(document).mouseup(function(){
-            // reset states
-            if( !isMousedown ) return;
-            isDragging      = false;
-            isMousedown     = false;
-            startPos        = null;
-            totalMoveX += lastMoveX;
-            totalMoveY += lastMoveY;
-
-            lastMoveX = 0;
-            lastMoveY = 0;
-
-
-            // // reset center button
-            // $centerBtn.animate({
-            //     marginLeft  : oMleft,
-            //     marginTop   : oMtop,
-            //     opacity     : 1
-            // } , 300 );
-        });
-
-        // init ps_btn_up
-        var perRotate   = 10;
-        var perScale    = 1.1;
-
-        var totalScale  = 1;
-        var totalRotate = 0;
-        var transforms = [];
-
-        var trsReg = /T(-?[0-9.]+),(-?[0-9.]+)/;
-        var scaReg = /S(-?[0-9.]+),(-?[0-9.]+),(-?[0-9.]+),(-?[0-9.]+)/;
-        var rotReg = /R(-?[0-9.]+),(-?[0-9.]+),(-?[0-9.]+)/;
-
-        var transform = function( x , y , s , r , animate ){
-            animate = animate === undefined ? true : animate;
-            var left = x === undefined ? totalMoveX : x;
-            var top = y === undefined ? totalMoveY : y;
-            var scale = s === undefined ? totalScale : s;
-            var rotate = r === undefined ? totalRotate : r;
-            var transformValue = imgRaphael.transform();
-
-            var match = null;
-            // move 
-            if( x !== undefined ){
-                if( transforms.length && ( match = transforms[transforms.length-1].match( trsReg ) ) ){
-                    transforms[transforms.length-1] = "T" + ( x + parseFloat( match[1] ) ) + ',' + ( y + parseFloat( match[2] ) );
-                } else {
-                    transforms.push( "T" + x + ',' + y );
-                }
-
-                 imgRaphael.transform( transforms.join('') );
-            }
-            if( s !== undefined ){
-                if( transforms.length && ( match = transforms[transforms.length-1].match( scaReg ) ) ){
-                    transforms[transforms.length-1] = "S" + ( s * parseFloat( match[1] ) ) + ','
-                         + ( s * parseFloat( match[2] ) )
-                         + "," + match[3]
-                         + "," + match[4];
-                } else {
-                    transforms.push( "S" + s + ',' + s + ',' + (tarWidth/2) + "," + (tarHeight/2) );
-                }
-
-                if( animate ){
-                    imgRaphael.animate({
-                        transform: transforms.join('')
-                    } , 200);
-                } else {
-                    imgRaphael.transform( transforms.join('') );
-                }
-            }
-            if( r !== undefined ) {
-                if( transforms.length && ( match = transforms[transforms.length-1].match( rotReg ) ) ){
-                    transforms[transforms.length-1] = "R" + ( r + parseFloat( match[1] ) ) 
-                        + "," + match[2]
-                        + "," + match[3];
-                } else {
-                    transforms.push( "R" + r + ',' + (tarWidth/2) + "," + (tarHeight/2) );
-                }
-
-                imgRaphael.animate({
-                    transform: transforms.join('')
-                } , 200);
-            }
-        }
-
-        var $poptxtpic = null;
-        var $picInner = null;
-        var tarHeight   = null;
-        var tarWidth    = null;
-
-        var imgRaphael = null;
-        var raphael = null;
-        var forExpr = 20;
+        var _totalScale = 1;
+        var _totalRotate = 0;
+        var _totalTx = 0; 
+        var _totalTy = 0; 
+        var _lastScale ;
+        var _lastRotate ;
+        var _lastTx = 0 ;
+        var _lastTy = 0 ;
+        var _isTransforming = false;
+        var _$img ;
 
         function reset(){
-            isDragging      = false;
-            isMousedown     = false;
-            startPos        = null;
-            totalMoveX      = 0;
-            totalMoveY      = 0;
-            lastMoveX       = 0;
-            lastMoveY       = 0;
-
-            totalScale  = 1;
-            totalRotate = 0;
-            transforms  = [];
+          _totalScale = 1;
+          _totalRotate = 0;
+          _totalTx = 0; 
+          _totalTy = 0; 
+          _lastScale ;
+          _lastRotate ;
+          _lastTx = 0 ;
+          _lastTy = 0 ;
+          _isTransforming = false;
         }
+        
+        function initialize( $dom ){
 
-        var initialize = function(){
             reset();
-            perRotate   = 10;
-            perScale    = 1.1;
 
-            totalScale  = 1;
-            totalRotate = 0;
-            transforms = [];
+            _$img = $dom.find('img');
+            var _imgWidth = _$img.width();
+            var _imgHeight = _$img.height();
+            var _wrapWidth = $dom.width();
+            var _wrapHeight = $dom.height();
+            var _wrapOff = $dom.offset();
+            var _imgOff = _$img.offset();
+            var _ox , _oy , _cx , _cy;
+            var index = 0;
+            var forExpr = 20;
+            
+            _totalTx = parseInt( _$img.css( 'margin-left' ) );
+            _totalTy = parseInt( _$img.css( 'margin-top' ) );
 
-            $poptxtpic = $('.poptxt-pic');
-            $picInner = $('.poptxt-pic-inner');
-            tarHeight   = $picInner.height();
-            tarWidth    = $picInner.width();
+            if( _imgWidth / _imgHeight > _wrapWidth / _wrapHeight ){
+                _imgWidth   = _imgWidth / _imgHeight * ( _wrapHeight + forExpr );
+                _imgHeight  = _wrapHeight + forExpr;
+            } else {
+                _imgHeight  = _imgHeight / _imgWidth * ( _wrapWidth + forExpr );
+                _imgWidth   = _wrapWidth + forExpr;
+            }
+            _$img.css({
+                width: _imgWidth,
+                height: _imgHeight
+            });
+            _totalTx = ( _wrapWidth - _imgWidth ) / 2;
+            _totalTy = ( _wrapHeight - _imgHeight ) / 2;
+            _$img.css( {
+              marginLeft: _totalTx,
+              marginTop: _totalTy
+            } );
 
-            imgRaphael = null;
-            raphael = null;
+            var transX = 0;
+            var transY = 0;
+            $dom.hammer({
+                transform_always_block: true,
+                drag_block_vertical: true,
+                drag_block_horizontal: true
+            })
+            .on("transformstart" , function( event ){
+                _isTransforming = true;
+                var gesture = event.gesture;
+                var center = gesture.center;
+                _imgOff = _$img.offset();
+                _cx = center.pageX;
+                _cy = center.pageY;
+                _ox = ( center.pageX - _imgOff.left ) / _totalScale;
+                _oy = ( center.pageY - _imgOff.top ) / _totalScale;
+                var dom = $dom.children().get(0);
+                dom.style.webkitTransformOrigin = _ox + 'px ' + _oy + 'px';
+                dom.style.transformOrigin = _ox + 'px ' + _oy + 'px';
+                _lastScale = 1;
+                $('<div></div>')
+                    .css({
+                      width: '100%',
+                      height: '100%',
+                      background: 'rgba(0,0,0,.4)'
+                    })
+                    .append( $dom.children() )
+                    .appendTo( $dom );
+                  transX = 0;
+                  transY = 0;
+            })
+            .on("transform", function(event) {
+                var gesture = event.gesture;
 
-            $picInner.find('img').load(function(){
-                $(this).css({
-                    width: 'auto',
-                    height: 'auto'
-                })
-                .show();
-                $picInner.delay(2000).fadeIn();
-                // remove last sav
-                var img = this;
                 
-                LP.use('raphael' , function(){
-                    var width   = img.width;
-                    var height  = img.height;
-                    if( width / height > tarWidth / tarHeight ){
-                        width   = width / height * ( tarHeight + forExpr );
-                        height  = tarHeight + forExpr;
-                    } else {
-                        height  = height / width * ( tarWidth + forExpr );
-                        width   = tarWidth + forExpr;
-                    }
-                    if( !raphael ){
-                        raphael = Raphael( img.parentNode , tarWidth, tarHeight);
-                        imgRaphael = raphael.image( img.src , 0 , 0 , width, height);
-                    }
-                    raphael.setSize( tarWidth , tarHeight );
+                if( _imgWidth * _totalScale * gesture.scale < _wrapWidth || 
+                _imgHeight * _totalScale * gesture.scale < _wrapHeight ) return;
+                _lastScale = gesture.scale;
+                //$('.poptit').html( 'scale(' + _totalScale * _lastScale + ')' );
+                var transform = 'scale(' + _lastScale + ')';
+                var dom = $dom.children().get(0);
+                dom.style.webkitTransform = transform;
+                dom.style.transform = transform;
+                // var off = _$img.offset();
+                // var tmp = $dom.children()[0];
+                // if( off.left > _wrapOff.left ){
+                //   transX = _wrapOff.left - off.left;
+                // }
+                // if( off.left + _imgWidth * _totalScale * _lastScale < _wrapOff.left + _wrapWidth ){
+                //   //_totalTx += _wrapOff.left + _wrapWidth - ( off.left + _imgWidth * _totalScale * _lastScale );
+                //   transX = _wrapOff.left + _wrapWidth - ( off.left + _imgWidth * _totalScale * _lastScale )
+                // }
+                // //$('.poptit').html( off.top + ' : ' + _wrapOff.top + ':' + ( ++index  ));
+                // if( off.top > _wrapOff.top ){
+                //   transY = _wrapOff.top - off.top;
+                //   //_totalTy += _wrapOff.top - off.top;
+                //   //_$img.css( 'marginTop' , _totalTy );
+                // }
+                // if( off.top + _imgHeight * _totalScale * _lastScale < _wrapOff.top + _wrapHeight ){
+                //   transY = _wrapOff.top + _wrapHeight - ( off.top + _imgHeight * _totalScale * _lastScale );
+                // }
+                // if( transX !=0 || transY != 0 ){
+                //   var trs = _$img[0].style.transform.replace(/\s/g , '');
+                //   var tmpMatch = trs.match(/translate\(-?(\d+)px,-?(\d+)/i);
+                //   _$img[0].style.webkitTransform = 'translate( ' + ( parseInt( tmpMatch[1] ) + transX ) + 'px , ' + ( parseInt( tmpMatch[2] ) + transY ) +  'px ) scale(' + _totalScale + ')';
+                // }
 
-                    // reset transform
-                    imgRaphael.attr({
-                        src     : img.src,
-                        width   : width,
-                        height  : height
-                    })
-                    .transform('');
-                    transformMgr.reset();
-                    transformMgr.transform('T' + parseInt( (tarWidth - width ) / 2) + ',' + parseInt( ( tarHeight - height ) / 2 ) );
-                    $(img).css({
-                        width: width,
-                        height : height
-                    })
-                    .hide();
-                });
-            });
-    
-            var minWidth = $('.poptxt-pic-inner').width();
-            var minHeight = $('.poptxt-pic-inner').height();
-
-            $poptxtpic.mousedown( function( ev ){
-                isMousedown = true;
-                startPos = {
-                    pageX     : ev.pageX
-                    , pageY   : ev.pageY
-                }
-                return false;
+                // $('.poptit').html( _cx + ' : ' + _cy + ' : ' + minScale.toFixed(2) + ' : ' + gesture.scale.toFixed(2) + ' : ' + _imgOff.left );
+                // $(document.body).append('<div>' + gesture.scale + ' : ' + minScale + '</div>');
+                // if( gesture.scale < minScale  ) return;
+                
+                // //if( _imgWidth * _totalScale * gesture.scale )
+                // _lastScale = gesture.scale;
+                // //_lastRotate = (gesture.rotation || 0);
+                // // change image transform
+                // // var transform = 'scale(' + _lastScale + ') rotate(' + _lastRotate + 'deg)';
+                //  $(document.body).append('<div>' + _cx + ' : ' + _cy + ' : ' + 'scale(' + _totalScale * _lastScale + ')' + '</div>');
+                // var transform = 'scale(' + _totalScale * _lastScale + ')';
+                // _$img[0].style.webkitTransform = transform;
+                // _$img[0].style.transform = transform;
             })
-            .mousemove( function( ev ){
-                if( !isMousedown ) return;
-                if( !isDragging ){
-                    if( Math.abs( ev.pageX - startPos.pageX ) + Math.abs( ev.pageY - startPos.pageY ) >= 10 ){
-                        isDragging = true;
-                    } else {
-                        return false;
-                    }
+            .on('transformend' , function( event ){
+                _totalScale *= _lastScale;
+                setTimeout(function(){
+                    _isTransforming = false;
+                } , 100);
+                var off = _$img.offset();
+                var transform = 'scale(' + _totalScale + ')';
+                _$img[0].style.webkitTransform = transform;
+                _$img[0].style.transform = transform;
+                _$img.appendTo( $dom )
+                  .prevAll()
+                  .remove();
+                if( off.left > _wrapOff.left ){
+                  off.left = _wrapOff.left;
                 }
-                // move images
-                if( !imgRaphael ) return;
-
-                var mx = ev.pageX - startPos.pageX - lastMoveX;
-                var my = ev.pageY - startPos.pageY - lastMoveY;
-                var off = imgRaphael.getBBox();
-                if( off.x + mx >= 0 || off.width + off.x + mx <= minWidth ){
-                    mx = 0;
+                if( off.left + _imgWidth * _totalScale < _wrapOff.left + _wrapWidth ){
+                  off.left = _wrapOff.left + _wrapWidth - _imgWidth * _totalScale;
                 }
-                if( off.y + my >= 0 || off.height + off.y + my <= minHeight ){
-                    my = 0;
+                if( off.top > _wrapOff.top ){
+                  off.top = _wrapOff.top;
                 }
+                if( off.top + _imgHeight * _totalScale < _wrapOff.top + _wrapHeight ){
+                  off.top = _wrapOff.top + _wrapHeight - _imgHeight * _totalScale;
+                }
+                var offt = _$img.offset();
+                transform = 'translate( ' + ~~( off.left - offt.left) + 'px , ' + ~~( off.top - offt.top)  + 'px ) scale(' + _totalScale + ')';
+                _$img[0].style.webkitTransform = transform;
+                _$img[0].style.transform = transform;
 
-                transform( mx , my );
-                lastMoveX = ev.pageX - startPos.pageX;
-                lastMoveY = ev.pageY - startPos.pageY;
-
-                // move center icon
-                // $centerBtn.css({
-                //     marginLeft  : oMleft + lastMoveX / 2
-                //     , marginTop : oMtop + lastMoveY / 2
-                //     , opacity: 1 - Math.min( 0.5 , ( Math.abs( lastMoveX ) + Math.abs( lastMoveY ) ) / maxDistance )
-                // });
+                
             })
-            .bind('mousewheel' , function( ev ){
-                var deltay = ev.originalEvent.wheelDeltaY || ev.originalEvent.deltaY;
-                if( deltay < 0 ){
-                    totalScale /= perScale;
-                    transform( undefined , undefined , 1/perScale );
-                } else {
-                    totalScale *= perScale;
-                    transform( undefined , undefined , perScale );
-                }
-            });
-
-
-            // TODO.. for long click
-            var animateTimeout = null;
-            var animateScale = 1.02;
-            
-            var runZoomIn = function( scale ){
-                imgWidth = parseInt($picInner.find('img').css('width'));
-                imgHeight = parseInt($picInner.find('img').css('height'));
-                if( totalScale * imgWidth == minWidth || totalScale * imgHeight == minHeight ){
-                    return;
-                }
-                totalScale /= scale;
-                transform( undefined , undefined , 1/scale , undefined , false);
-
-                if( totalScale * imgWidth < minWidth || totalScale * imgHeight < minHeight ){
-                    var lastScale = totalScale;
-                    totalScale = Math.max( minWidth / imgWidth , minHeight / imgHeight );
-                    transform( undefined , undefined , totalScale/lastScale , undefined , false);
-                }
-                var off = imgRaphael.getBBox();
-                if( off.x > 0 ){
-                    transform( -off.x , 0 );
-                    off.x = 0;
-                }
-                if( off.x + off.width < minWidth ){
-                    transform( minWidth - ( off.x + off.width )  , 0 );
-                }
-                if( off.y > 0 ){
-                    transform( 0 , -off.y );
-                    off.y = 0;
-                }
-                if( off.y + off.height < minHeight ){
-                    transform( 0 ,  minHeight - ( off.y + off.height ) );
-                }
-            }
-            var imgWidth , imgHeight;
-            var startAnimateScale = function( zoomout ){
-                imgWidth = parseInt($picInner.find('img').css('width'));
-                imgHeight = parseInt($picInner.find('img').css('height'));
-
-                var duration = 1000 / 60 ;
-                var aniFn = function(){
-                    if( zoomout ){
-                        totalScale *= animateScale;
-                        transform( undefined , undefined , animateScale , undefined , false );
-                    } else {
-                        runZoomIn( animateScale );
-                    }
-                    animateTimeout = setTimeout( aniFn , duration );
-                };
-                animateTimeout = setTimeout( aniFn , duration );
-            }
-            var stopAnimate = function(){
-                clearTimeout( animateTimeout );
-            }
-            
-            var longInterval = null;
-            var longTimeout = null;
-            var runAnimate = false;
-            var mousedown = false;
-            $('.pop-zoomout-btn').mousedown(function(){
-                mousedown = true;
-                longTimeout = setTimeout(function(){
-                    runAnimate = true;
-                    startAnimateScale( true );
-                } , 300);
+            .on('dragstart' , function( event ){
+               _lastTx = 0;
+               _lastTy = 0;
+               _imgOff = _$img.offset();
             })
-            .bind( "mouseup mouseout" , function(){
-                if( !mousedown ) return;
-                mousedown = false;
-                clearTimeout( longTimeout );
-                if( runAnimate ){
-                    runAnimate = false;
-                    stopAnimate();
-                } else {
-                    totalScale *= perScale;
-                    transform( undefined , undefined , perScale );
-                }
-            } );
+            .on('drag' , function( event ){
+                if( _isTransforming ) return;
+                //$('.poptit').html( _wrapOff.left + ' : ' + _imgOff.left + ' : ' + ( _imgOff.left + event.gesture.deltaX ).toFixed(2) + " : : "  + (_totalTx + event.gesture.deltaX).toFixed(2));
+                if( _wrapOff.left > _imgOff.left + event.gesture.deltaX && _imgOff.left + _imgWidth * _totalScale + event.gesture.deltaX > _wrapOff.left + _wrapWidth ){
+                  //$('.poptit').html( _wrapOff.left + ' : ' + _imgOff.left + ' : ' + ( _imgOff.left + event.gesture.deltaX ).toFixed(2) + " : : "  + (_totalTx + event.gesture.deltaX).toFixed(2));
 
-            $('.pop-zoomin-btn').mousedown(function(){
-                mousedown = true;
-                longTimeout = setTimeout(function(){
-                    runAnimate = true;
-                    startAnimateScale( false );
-                } , 300);
+                  _lastTx = event.gesture.deltaX;
+                  _$img.css({
+                    marginLeft: _totalTx + event.gesture.deltaX
+                  });
+                }
+                if( _wrapOff.top > _imgOff.top + event.gesture.deltaY && _imgOff.top + _imgHeight * _totalScale + event.gesture.deltaY > _wrapOff.top + _wrapHeight ){
+                  _lastTy = event.gesture.deltaY;
+                  _$img.css({
+                    marginTop: _totalTy + event.gesture.deltaY
+                  });
+                }
             })
-            .bind( "mouseup mouseout" , function(){
-                if( !mousedown ) return;
-                mousedown = false;
-                clearTimeout( longTimeout );
-                if( runAnimate ){
-                    runAnimate = false;
-                    stopAnimate();
-                } else {
-                    runZoomIn( perScale );
-                }
-            } );
-            
-            $('.pop-rright-btn').mousedown(function(){
-                totalRotate += perRotate
-                transform( undefined , undefined , undefined , perRotate);
-                // longTimeout = setTimeout(function(){
-                //     longInterval = setInterval(function(){
-                //         transform( undefined , undefined , undefined , perRotate);
-                //     } , 500 );
-                // } , 500);
+            .on('dragend' , function( event ){
+                _totalTx += _lastTx;
+                _totalTy += _lastTy;
+                // $('<div></div>')
+                //     .css({
+                //       width: '100%',
+                //       height: '100%'
+                //     })
+                //     .append( $dom.children() )
+                //     .appendTo( $dom );
             });
-
-            $('.pop-rleft-btn').mousedown(function(){
-                totalRotate -= perRotate;
-                transform( undefined , undefined , undefined , -perRotate );
-                // longTimeout = setTimeout(function(){
-                //     longInterval = setInterval(function(){
-                //         transform( undefined , undefined , undefined , -perRotate);
-                //     } , 500 );
-                // } , 500);
-            });
-
-            // $(document)
-            //     .mouseup(function(){
-            //         clearTimeout( longTimeout );
-            //         clearInterval( longInterval );
-            //     });
         }
-
+        
 
         return {
             reset       : reset
@@ -2609,7 +2464,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
                     cid         : 1
                 }
             }
-            , transform  : transform
+            //, transform  : transform
         }
     })();
 
