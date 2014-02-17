@@ -25,9 +25,9 @@ class NodeController extends Controller {
       if (!$request->isPostRequest) {
         $this->responseError("http error");
       }
-			$type = $request->getPost("type");
-			$isIframe = $request->getPost("iframe");
-      $isFlash = $request->getPost("flash");
+			$type = htmlspecialchars($request->getPost("type"));
+			$isIframe = htmlspecialchars($request->getPost("iframe"));
+      $isFlash = htmlspecialchars($request->getPost("flash"));
 
 			$nodeAr = new NodeAR();
 			if($isIframe || $isFlash) {
@@ -44,7 +44,7 @@ class NodeController extends Controller {
 					}
 				}
 			}
-      $nodeAr->description = $request->getPost("description");
+      $nodeAr->description = htmlspecialchars($request->getPost("description"));
       $nodeAr->type = $type;
 			if($isIframe || $isFlash) {
 				$nodeAr->file = $nodeAr->saveUploadedFile($fileUpload);
@@ -423,22 +423,23 @@ class NodeController extends Controller {
       $commentAr = new CommentAR();
       foreach ($res as $node) {
           $data = $node->attributes;
+          $data["description"] = htmlentities($node->description);
           $data["likecount"] = $node->likecount;
           $data["commentcount"] = $commentAr->totalCommentsByNode($node->nid);
           $data["user"] = $node->user ? $node->user->attributes : array();
           $data["country"] = $node->country ? $node->country->attributes: array();
           $data["user_liked"] = $node->user_liked;
-					$data["user_flagged"] = $node->user_flagged;
-					if($uid && isset($node->user['uid']) && Yii::app()->user->getId() == $node->user['uid']) {
-						$data["mynode"] = TRUE;
-					}
+          $data["user_flagged"] = $node->user_flagged;
+          if($uid && isset($node->user['uid']) && Yii::app()->user->getId() == $node->user['uid']) {
+            $data["mynode"] = TRUE;
+          }
           //$data["like"] = $node->like;
-					if($node->topday) {
-						$data["topday"] = TRUE;
-					}
-					if($node->topmonth) {
-						$data["topmonth"] = TRUE;
-					}
+          if($node->topday) {
+            $data["topday"] = TRUE;
+          }
+          if($node->topmonth) {
+            $data["topmonth"] = TRUE;
+          }
           $retdata[] = $data;
       }
       
@@ -703,7 +704,7 @@ class NodeController extends Controller {
 			$node->type = $type;
 			$node->status = 1; // The default status is blocked when the content from email
 			$node->file = $node->saveUploadedFile($uploadFile);
-			$node->description = $desc;
+			$node->description = htmlspecialchars($desc);
 
 			if ($node->validate()) {
 				$success = $node->save();

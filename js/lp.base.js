@@ -1168,34 +1168,32 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         $('.main-item-' + nid).find('.item-like').html(count).toggleClass('item-liked');
         (function(){
             var nodes = $('.main').data('nodes');
-			if(!nodes) {
-				return;
-			}
-            var node = jQuery.grep(nodes, function (node) {
-                if(node.nid == nid) {
-                    return node;
+			if(nodes) {
+                var node = jQuery.grep(nodes, function (node) {
+                    if(node.nid == nid) {
+                        return node;
+                    }
+                });
+                if(node) {
+                    node[0].likecount = count;
+                    node[0].user_liked = !node[0].user_liked;
                 }
-            });
-            if(node) {
-                node[0].likecount = count;
-                node[0].user_liked = !node[0].user_liked;
-            }
+			}
         })();
 
         (function(){
             var nodes = $('.count-com').data('nodes');
-			if(!nodes) {
-				return;
-			}
-            var node = jQuery.grep(nodes, function (node) {
-                if(node.nid == nid) {
-                    return node;
+			if(nodes) {
+                var node = jQuery.grep(nodes, function (node) {
+                    if(node.nid == nid) {
+                        return node;
+                    }
+                });
+                if(node) {
+                    node[0].likecount = count;
+                    node[0].user_liked = !node[0].user_liked;
                 }
-            });
-            if(node) {
-                node[0].likecount = count;
-                node[0].user_liked = !node[0].user_liked;
-            }
+			}
         })();
         LP.triggerAction('update_user_status');
     }
@@ -1320,28 +1318,32 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 				}
 				(function(){
 					var nodes = $('.count-com').data('nodes');
-					var index = -1;
-					jQuery.grep(nodes, function (node, i) {
-						if(node.nid == data.nid) {
-							index = i;
-						}
-					});
-					if(index != -1) {
-						nodes.splice(index, 1);
-					}
+                    if(nodes) {
+                        var index = -1;
+                        jQuery.grep(nodes, function (node, i) {
+                            if(node.nid == data.nid) {
+                                index = i;
+                            }
+                        });
+                        if(index != -1) {
+                            nodes.splice(index, 1);
+                        }
+                    }
 				})();
 
 				(function(){
 					var nodes = $('.main').data('nodes');
-					var index = -1;
-					jQuery.grep(nodes, function (node, i) {
-						if(node.nid == data.nid) {
-							index = i;
-						}
-					});
-					if(index != -1) {
-						nodes.splice(index, 1);
-					}
+                    if(nodes) {
+                        var index = -1;
+                        jQuery.grep(nodes, function (node, i) {
+                            if(node.nid == data.nid) {
+                                index = i;
+                            }
+                        });
+                        if(index != -1) {
+                            nodes.splice(index, 1);
+                        }
+                    }
 				})();
                 api.ajax('deleteNode', data, function(){
                     LP.triggerAction('update_user_status');
@@ -2887,25 +2889,29 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 
                                 (function(){
                                     var nodes = $('.main').data('nodes');
-                                    var node = jQuery.grep(nodes, function (node) {
-                                        if(node.nid == nid) {
-                                            return node;
+                                    if(nodes) {
+                                        var node = jQuery.grep(nodes, function (node) {
+                                            if(node.nid == nid) {
+                                                return node;
+                                            }
+                                        });
+                                        if(node) {
+                                            node[0].commentcount = newComCount;
                                         }
-                                    });
-                                    if(node) {
-                                        node[0].commentcount = newComCount;
                                     }
                                 })();
 
                                 (function(){
                                     var nodes = $('.count-com').data('nodes');
-                                    var node = jQuery.grep(nodes, function (node) {
-                                        if(node.nid == nid) {
-                                            return node;
+                                    if(nodes) {
+                                        var node = jQuery.grep(nodes, function (node) {
+                                            if(node.nid == nid) {
+                                                return node;
+                                            }
+                                        });
+                                        if(node) {
+                                            node[0].commentcount = newComCount;
                                         }
-                                    });
-                                    if(node) {
-                                        node[0].commentcount = newComCount;
                                     }
                                 })();
 

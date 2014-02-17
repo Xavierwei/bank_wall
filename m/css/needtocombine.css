@@ -1,74 +1,5 @@
-body{
-    overflow-y: scroll;
-}
-/*
-.pic-item .item-info{
-    display: none;
-}
 
-.pic-item img{
-    width: 0px;
-    opacity: 0;
-    transform:rotateY(-90deg);
-    -webkit-transform:rotateY(-90deg);
-}
-.pic-item.reversal img{
-    width: 180px;
-    opacity: 1;
-    perspective: 500;
-    -webkit-perspective: 500;  Safari 和 Chrome 
-    transition: transform 1s, opacity 1s , width 0.01s ease 0.2s;
-    -webkit-transition: -webkit-transform 1s , opacity 1s, width 0.01s ease 0.2s; /* Safari */
-    /*transform:rotateY(0deg);*/
-    /*-webkit-transform:rotateY(0deg);*/
-/*}*/
-/*.pic-item{*/
-    /*width: 0px;*/
-    /*overflow: hidden;*/
-}*/
 
-/*.content {margin-top:85px;}
-.main{margin: 0 -10px 0 0px;}
-.logged .main {margin:0 -10px 0 80px;}*/
-/*.inner {margin:0 0 0 330px;}*/
-/*.logged .inner {margin:0 0 0 410px;}*/
-/*.inner-info {left:330px;}*/
-/*.logged .inner-info {left:410px;}*//*
-.no-animate .main-item{
-    -webkit-transition-duration: 0;
-    -moz-transition-duration: 0;
-    -ms-transition-duration: 0;
-    -o-transition-duration: 0;
-    transition-duration: 0;
-}
-.main-item{
-    -webkit-transition-property: width, -webkit-transform, opacity;
-    -moz-transition-property:  width, -moz-transform, opacity;
-    -ms-transition-property:  width, -ms-transform, opacity;
-    -o-transition-property:  width, -o-transform, opacity;
-    transition-property:  width, transform, opacity;
-
-    -webkit-transition-duration: 0.6s, 0.8s, 0.8s;
-    -moz-transition-duration: 0.6s, 0.8s, 0.8s;
-    -ms-transition-duration: 0.6s, 0.8s, 0.8s;
-    -o-transition-duration: 0.6s, 0.8s, 0.8s;
-    transition-duration: 0.6s, 0.8s, 0.8s;
-}
-.pic-item.reversal{
-    width: 180px;
-}*/
-
-/*
-.comment{
-    left: 0 !important;
-    -webkit-transition: -webkit-transform 1s;
-    -moz-transform-style: preserve-3d;
-    -webkit-transform-style: preserve-3d;
-    -webkit-backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    -moz-backface-visibility: hidden;
-    backface-visibility: hidden;
-}*/
 .comment.cube-right{
     -webkit-transform: translatex(165px) translatez(-165px) rotateY(90deg);
     -moz-transform: translatex(165px) translatez(-165px) rotateY(90deg);
@@ -79,38 +10,7 @@ body{
     -moz-transform: translatex(-165px) translatez(-165px) rotateY(-90deg);
     transform: translatex(-165px) translatez(-165px) rotateY(-90deg);
 }
-/*
-.comment-wrap{
-    height: 100%;
-    width: 330px;
-    position: absolute;
-    -webkit-perspective: 1000px;
-    -moz-perspective: 1000px;
-    perspective: 1000px;
-    left: -330px;
-    overflow: hidden;
-    background: #000;
-}*/
-/*
-.comment-cube{
-    position: absolute;
-    width: 330px;
-    height: 100%;
-    -webkit-transition: -webkit-transform, .7s;
-    -moz-transition: -moz-transform, .7s;
-    -o-transition: -o-transform, .7s;
-    transition: transform, .7s;
-    -webkit-transform-style: preserve-3d;
-    -moz-transform-style: preserve-3d;
-    -ms-transform-style: preserve-3d;
-    -o-transform-style: preserve-3d;
-    transform-style: preserve-3d;
-    -webkit-transform: rotateY(0deg);
-    -moz-transform: rotateY(0deg);
-    -ms-transform: rotateY(0deg);
-    -o-transform: rotateY(0deg);
-    transform: rotateY(0deg);
-}*/
+
 .comment-cube.rotate-left{
     -webkit-transform: translate3d(165px,0,-165px) rotateY(90deg);
     -moz-transform: translate3d(165px,0,-165px) rotateY(90deg);
@@ -131,13 +31,6 @@ body{
     -o-transition: 0s;
     transition: 0s;
 }
-/*.image-wrap{overflow: hidden;height: 100%;}*/
-/*.image-wrap-inner{
-    display: inline-block;
-    width: 100%;
-    vertical-align: top;
-}*/
-
 
 
 .poptxt-pic{

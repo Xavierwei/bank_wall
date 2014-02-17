@@ -114,18 +114,18 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload', 'flash-detect', 'swf
                 needLogin.fadeOut();
             }
         })
-        .delegate('.com-unlike','mouseenter',function(){
-            var unlikeTip = $(this).find('.com-unlike-tip');
-            if(unlikeTip) {
-                unlikeTip.fadeIn();
-            }
-        })
-        .delegate('.com-unlike','mouseleave',function(){
-            var unlikeTip = $(this).find('.com-unlike-tip');
-            if(unlikeTip) {
-                unlikeTip.fadeOut();
-            }
-        })
+//        .delegate('.com-unlike','mouseenter',function(){
+//            var unlikeTip = $(this).find('.com-unlike-tip');
+//            if(unlikeTip) {
+//                unlikeTip.fadeIn();
+//            }
+//        })
+//        .delegate('.com-unlike','mouseleave',function(){
+//            var unlikeTip = $(this).find('.com-unlike-tip');
+//            if(unlikeTip) {
+//                unlikeTip.fadeOut();
+//            }
+//        })
         .delegate('.com-ipt','keyup',function(){
             var textLength = $(this).val().length;
             if(textLength > 0 || textLength <= 140) {
@@ -1173,33 +1173,31 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload', 'flash-detect', 'swf
         $('.main-item-' + nid).find('.item-like').html(count).toggleClass('item-liked');
         (function(){
             var nodes = $('.main').data('nodes');
-			if(!nodes) {
-				return;
-			}
-            var node = jQuery.grep(nodes, function (node) {
-                if(node.nid == nid) {
-                    return node;
+            if(nodes) {
+                var node = jQuery.grep(nodes, function (node) {
+                    if(node.nid == nid) {
+                        return node;
+                    }
+                });
+                if(node) {
+                    node[0].likecount = count;
+                    node[0].user_liked = !node[0].user_liked;
                 }
-            });
-            if(node) {
-                node[0].likecount = count;
-                node[0].user_liked = !node[0].user_liked;
             }
         })();
 
         (function(){
             var nodes = $('.count-com').data('nodes');
-			if(!nodes) {
-				return;
-			}
-            var node = jQuery.grep(nodes, function (node) {
-                if(node.nid == nid) {
-                    return node;
+            if(nodes) {
+                var node = jQuery.grep(nodes, function (node) {
+                    if(node.nid == nid) {
+                        return node;
+                    }
+                });
+                if(node) {
+                    node[0].likecount = count;
+                    node[0].user_liked = !node[0].user_liked;
                 }
-            });
-            if(node) {
-                node[0].likecount = count;
-                node[0].user_liked = !node[0].user_liked;
             }
         })();
         LP.triggerAction('update_user_status');
@@ -1240,7 +1238,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload', 'flash-detect', 'swf
                     _this.data('liked',true);
                     _this.attr('data-a','unlike');
                     _this.addClass('com-unlike');
-                    _this.append('<div class="com-unlike-tip">' + _e.UNLIKE + '</div>');
+                    //_this.append('<div class="com-unlike-tip">' + _e.UNLIKE + '</div>');
                     $(this).animate({opacity:1});
                 });
                 updateLikeCount(data.nid, result.data);
@@ -1253,7 +1251,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload', 'flash-detect', 'swf
 		if(_this.hasClass('disabled')){
 			return;
 		}
-        var _likeWrap = _this.parent().find('span').eq(0);
+        var _likeWrap = _this.find('span').eq(0);
 		_this.addClass('disabled');
 		_this.addClass('flashing');
         api.ajax('unlike', {nid:data.nid}, function( result ){
@@ -1337,27 +1335,31 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload', 'flash-detect', 'swf
                     $('.main-item-' + data.nid).remove();
                     (function(){
                         var nodes = $('.count-com').data('nodes');
-                        var index = -1;
-                        jQuery.grep(nodes, function (node, i) {
-                            if(node.nid == data.nid) {
-                                index = i;
+                        if(nodes) {
+                            var index = -1;
+                            jQuery.grep(nodes, function (node, i) {
+                                if(node.nid == data.nid) {
+                                    index = i;
+                                }
+                            });
+                            if(index != -1) {
+                                nodes.splice(index, 1);
                             }
-                        });
-                        if(index != -1) {
-                            nodes.splice(index, 1);
                         }
                     })();
 
                     (function(){
                         var nodes = $('.main').data('nodes');
-                        var index = -1;
-                        jQuery.grep(nodes, function (node, i) {
-                            if(node.nid == data.nid) {
-                                index = i;
+                        if(nodes) {
+                            var index = -1;
+                            jQuery.grep(nodes, function (node, i) {
+                                if(node.nid == data.nid) {
+                                    index = i;
+                                }
+                            });
+                            if(index != -1) {
+                                nodes.splice(index, 1);
                             }
-                        });
-                        if(index != -1) {
-                            nodes.splice(index, 1);
                         }
                     })();
 
@@ -2870,25 +2872,29 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload', 'flash-detect', 'swf
 
                                 (function(){
                                     var nodes = $('.main').data('nodes');
-                                    var node = jQuery.grep(nodes, function (node) {
-                                        if(node.nid == nid) {
-                                            return node;
+                                    if(nodes) {
+                                        var node = jQuery.grep(nodes, function (node) {
+                                            if(node.nid == nid) {
+                                                return node;
+                                            }
+                                        });
+                                        if(node) {
+                                            node[0].commentcount = newComCount;
                                         }
-                                    });
-                                    if(node) {
-                                        node[0].commentcount = newComCount;
                                     }
                                 })();
 
                                 (function(){
                                     var nodes = $('.count-com').data('nodes');
-                                    var node = jQuery.grep(nodes, function (node) {
-                                        if(node.nid == nid) {
-                                            return node;
+                                    if(nodes) {
+                                        var node = jQuery.grep(nodes, function (node) {
+                                            if(node.nid == nid) {
+                                                return node;
+                                            }
+                                        });
+                                        if(node) {
+                                            node[0].commentcount = newComCount;
                                         }
-                                    });
-                                    if(node) {
-                                        node[0].commentcount = newComCount;
                                     }
                                 })();
 

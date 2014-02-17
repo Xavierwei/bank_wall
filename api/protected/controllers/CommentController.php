@@ -24,7 +24,7 @@ class CommentController extends Controller {
       return $this->responseError(602);
     }
     
-    $content = $request->getPost("content");
+    $content = htmlspecialchars($request->getPost("content"));
 
 		if(empty($content)) {
 			return $this->responseError(701);
@@ -167,7 +167,7 @@ class CommentController extends Controller {
     
     foreach ($comments as $comment) {
       $commentdata = $comment->attributes;
-      
+      $commentdata['content'] = htmlentities($commentdata['content']);
       // 加载 评论相关的用户资料
       $country = $comment->user? $comment->user->country: NULL;
       $user = $comment->user? $comment->user->attributes: NULL;

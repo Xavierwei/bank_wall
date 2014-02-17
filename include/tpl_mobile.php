@@ -15,39 +15,13 @@
 				<input data-a="search" class="search-sub" type="submit" value="search" />
 				<div class="search-tip btn" data-a="search_tip"></div>
 			</div>
-			<!--  -->
-			<div class="select clear">
-				<!--  -->
-				<div class="select-item">
-					<div class="select-box btn2">{{_e.RECENT}}</div>
-					<div class="select-pop">
-						<div class="select-option"><p data-api="recent" class="selected" data-param="orderby=datetime">{{_e.RECENT}}</p><p data-api="recent" data-param="orderby=like">{{_e.POPULAR}}</p><p data-api="recent" data-param="orderby=random">{{_e.RANDOM}}</p></div>
-					</div>
-				</div>
-				<!--  -->
-				<div class="select-item">
-					<div class="select-box btn2">{{_e.PHOTO}}/{{_e.VIDEO}}</div>
-					<div class="select-pop">
-						<div class="select-option"><p data-api="recent">{{_e.PHOTO}}/{{_e.VIDEO}}</p><p data-api="recent" data-param="type=photo">{{_e.PHOTO}}</p><p data-api="recent" data-param="type=video">{{_e.VIDEO}}</p></div>
-					</div>
-				</div>
-				<!--  -->
-				<div class="select-item">
-					<div class="select-box btn2">{{_e.COUNTRY}}</div>
-					<div class="select-pop">
-						<div class="select-option select-country-option">
-							<div class="select-country-option-list">
-								<p data-api="recent">All</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+
 			<!--  -->
 			<div class="language">
 				<div data-a="lang" data-d="lang=fr" class="btn language-item language-item-fr"><p class="fr"></p></div>
 				<div data-a="lang" data-d="lang=en" class="btn language-item language-item-en"><p class="en"></p></div>
 			</div>
+			<div class="filtrer">filtrer</div>
 		</div>
 		<!--  -->
 		<div class="content clear">
@@ -254,7 +228,7 @@
 						</div>
 						{{#if currentUser}}
 						<div class="com-make">
-							<form class="comment-form" action="./api/index.php/comment/post" method="post">
+							<form class="comment-form" action="../api/index.php/comment/post" method="post">
 								<textarea name="content" class="com-ipt" placeholder="{{_e.WRITE_YOUR_COMMENT}}"></textarea>
 								<input type="hidden" name="nid" value="{{nid}}" />
 								<div class="com-loading"></div>
@@ -272,11 +246,10 @@
 					<div class="com-info">
 						<div class="com-counts clear">
 							<p class="com-day">{{date}} {{month}}</p>
-							<div class="btn2 com-com-count" data-a="toggle_comment">{{commentcount}}</div>
+							<div class="btn2 com-com-count" data-a="toggle_comment"><span>{{commentcount}}</span>  {{#ifzero commentcount}}{{_e.COMMENT}}{{else}}{{_e.COMMENTS}}{{/ifzero}}</div>
 							{{#ifliked}}
 							<div data-a="unlike" data-d="nid={{nid}}" class="com-like com-unlike clickable">
-								<span>{{likecount}}</span>
-								<div class="com-unlike-tip">unlike</div>
+								<span>{{likecount}}</span> {{#ifzero likecount}}{{_e.LIKE}}{{else}}{{_e.LIKES}}{{/ifzero}}
 							</div>
 							{{else}}
 							<div data-a="like" data-d="nid={{nid}}" class="com-like clickable">
