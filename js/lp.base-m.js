@@ -1,7 +1,7 @@
 /*
  * page base action
  */
-LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload', 'flash-detect', 'swfupload', 'swfupload-speed', 'swfupload-queue'] , function( $ , api ){
+LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , function( $ , api ){
     'use strict'
 
     var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > 0;
@@ -9,7 +9,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload', 'flash-detect', 'swf
     var API_FOLDER = "../api";
     var THUMBNAIL_IMG_SIZE = "_640_640";
     var BIG_IMG_SIZE = "_640_640";
-    var _waitingLikeAjax = false;
+    var _innerDragging = false;
     var _waitingCommentListAjax = false;
     var $main = $('.main');
     var minWidth = 640;
@@ -18,6 +18,43 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload', 'flash-detect', 'swf
     var $listLoading = $('.loading-list');
     var aMonth;
     var _e;
+
+    var dragDirection;
+    $(document).hammer({drag_block_horizontal: true,swipe_velocity:1})
+        .on("release dragup dragdown dragleft dragright swipeleft swiperight", function(ev) {
+            console.log(ev.type);
+            switch(ev.type) {
+                case 'swipeleft':
+                case 'dragleft':
+                    dragDirection = 'left';
+                    LP.triggerAction('next', true);
+                    draggingNode(dragDirection,  ev.gesture.deltaX);
+                    _innerDragging = true;
+                    break;
+                case 'swiperight':
+                case 'dragright':
+                    dragDirection = 'right';
+                    LP.triggerAction('prev', true);
+                    draggingNode(dragDirection,  ev.gesture.deltaX);
+                    //LP.triggerAction('next', true);
+                    _innerDragging = true;
+                    break;
+                case 'release':;
+                    if(dragDirection && !$('.inner').is(':visible')) {
+                        LP.triggerAction('toggle_side_bar', dragDirection);
+                        dragDirection = '';
+                    }
+                    if(dragDirection && $('.inner').is(':visible')) {
+                        releaseDragNode(dragDirection);
+                    }
+                    _innerDragging = false;
+                    //dragDirection = 'right';
+                    break;
+                default:
+                    dragDirection = '';
+            }
+        }
+    );
 
     // live for pic-item hover event
     $(document.body)
@@ -264,7 +301,6 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload', 'flash-detect', 'swf
                             nodeActions.setItemReversal( $dom );
                         }
                     } );
-
             } );
         },
         // when current dom is main , and the recent ajax param orderby is 'like' or
@@ -400,7 +436,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload', 'flash-detect', 'swf
             } else { // judge if need to load next page 
                 $(window).trigger('scroll');
             }
-        },
+        }
         // set items auto fix it's width
 //        setItemIsotope: function( $dom ){
 //            // if the page has unreversaled node
@@ -780,13 +816,60 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload', 'flash-detect', 'swf
 		LP.triggerAction('recent');
     });
 
+    function draggingNode(direction, deltaX) {
+        var $imageWrapInner = $('.image-wrap-inner');
+        if($imageWrapInner.length == 2) {
+            var wrapWidth = $imageWrapInner.eq(0).width();
+            $('.image-wrap-inner')
+                .eq(direction == 'left' ? 0 : 1)
+                .css({x:deltaX})
+                .siblings('.image-wrap-inner')
+                .css({x: direction == 'left' ? (wrapWidth + deltaX) : (- wrapWidth + deltaX)  });
+        }
+    }
+
+    function releaseDragNode(direction) {
+        var $imageWrapInner = $('.image-wrap-inner');
+        if($imageWrapInner.length == 2) {
+            var wrapWidth = $imageWrapInner.eq(0).width();
+            var nodes = $('.main').data('nodes');
+            var node = nodes[ _currentNodeIndex ];
+            //cubeInnerNode(node, direction, false );
+
+            $('.image-wrap-inner')
+                .eq(0)
+                .transit({x: direction == 'left' ? - wrapWidth : 0})
+                .next()
+                .transit({x: direction == 'left' ? 0 : wrapWidth}, function(){
+                    updateInnerNode(node, direction);
+                });
+        }
+    }
+
+    function updateInnerNode(node, direction) {
+
+        console.log(direction);
+        $('.image-wrap-inner').eq(direction == 'left' ? 0 : 1).remove();
+
+
+        LP.compile( 'inner-template' , node , function( html ){
+            var $newInner = $(html);
+
+        });
+
+        changeUrl('/nid/' + node.nid , {event: direction});
+
+
+    }
+
     /**
      * @desc: 立方体旋转inner node
      * @date:
      * @param node {node object}
      * @param direction { 'right' or 'left' }
      */
-    function cubeInnerNode( node , direction ){
+    function cubeInnerNode( node , direction, drag ){
+
 
         var cubeDir = 'cube-' + direction;
         var rotateDir = 'rotate-' + direction;
@@ -817,187 +900,140 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload', 'flash-detect', 'swf
             var $comment = $inner.find('.comment');
             // comment animation
             var $newInner = $(html);
-            var transform = "translatex(" + dirData.dist + "px) translatez(" + (-dist) + "px) rotateY(" + dirData.rotate + "deg)";;
-            var $nextComment = $newInner.find('.comment')
-                .addClass(cubeDir)
-                .css({
-                    "-webkit-transform": transform,
-                    "-moz-transform": transform,
-                    "transform": transform
-                })
-                .insertBefore( $comment )
-                .find( '.com-list' )
-                .css('height' , $comment.find('.com-list').height())
-                .end();
 
-            var $cube = $comment.parent();
-            var rotate = "translate3d(" + ( - dirData.dist ) + "px,0," + (-dist) + "px) rotateY(" + ( -dirData.rotate ) + "deg)";
-            $cube.addClass(rotateDir)
-                .css({
-                    "-webkit-transform": rotate,
-                    "-moz-transform": rotate,
-                    "-ms-transform": rotate,
-                    "-o-transform": rotate,
-                    "transform": rotate
-                });
-
-
-
-            setTimeout(function(){
-                // reset css
-                $cube.addClass( 'no-animate' )
-                    .removeClass( rotateDir )
-                    .css({
-                        "-webkit-transform": '',
-                        "-moz-transform": '',
-                        "-ms-transform": '',
-                        "-o-transform": '',
-                        "transform": ''
-                    });
-                $comment.remove();
-                $nextComment
-                    .removeClass(cubeDir)
-                    .css({
-                        "-webkit-transform": "",
-                        "-moz-transform": "",
-                        "transform": ""
-                    });
-                setTimeout(function(){
-                    $cube.removeClass( 'no-animate' );
-                    _innerLock = false;
-                },20);
-
-                $inner.removeClass('disabled');
-
-            } , 1000);
-
-            // picture animation,
-            // append or prepend image
-            // set image width
-            // set .image-wrap's margin-right
             // animate the first image's margin-left style
             var $imgWrap = $inner.find('.image-wrap');
             var wrapWidth = $imgWrap.width();
-            $imgWrap.css('width' , 2 * wrapWidth );
 
             // append dom
             var $oriItem = $imgWrap.children('.image-wrap-inner');
             // count the style
-            var $newItem = $newInner.find('.image-wrap-inner')[ direction == 'left' ? 'insertBefore' : 'insertAfter' ]( $oriItem )
-                .attr('style' , $oriItem.attr('style'))
-                .find('img')
-                .hide()
-                .end();
+            var $newItem = $newInner.find('.image-wrap-inner');
 
-            var $nextFlag = $newInner.find('.flag-node');
-            $inner.find('.flag-node').remove();
-            $newItem.append($nextFlag);
+            if(!$newItem) {
+                return;
+            };
 
-            var $nextTop = $newInner.find('.inner-top');
-            $inner.find('.inner-top').animate({top:-33});
-            $newItem.append($nextTop);
+            if(drag != false)
+            {
+                //$imgWrap.css('width' , 2 * wrapWidth );
 
-            // Resize Image
-            var slideWidth = $('.side').width();
-            var imgBoxWidth = $(window).width() - 330 - slideWidth;
-            var imgBoxHeight =$(window).height() - $('.header').height();
-            var minSize = Math.min( imgBoxHeight , imgBoxWidth );
-            var $img = $newItem.find('img').css('margin',0);
-            $newItem.width(minSize).height(minSize);
+                $newItem[ direction == 'left' ? 'insertBefore' : 'insertAfter' ]( $oriItem )
+                    .attr('style' , $oriItem.attr('style'))
+                    .find('img')
+                    //.hide()
+                    .end();
+                // Resize Image
+                var slideWidth = $('.side').width();
+                var imgBoxWidth = $(window).width() - 330 - slideWidth;
+                var imgBoxHeight =$(window).height() - $('.header').height();
+                var minSize = Math.min( imgBoxHeight , imgBoxWidth );
+                var $img = $newItem.find('img').css('margin',0);
+                $newItem.width(minSize).height(minSize);
 
-            if( imgBoxHeight > imgBoxWidth ){
-                var marginLeft = (imgBoxHeight - imgBoxWidth) / 2;
-                $newItem.height(imgBoxHeight);
-                $img.width('auto').height('100%').css('margin-left', -marginLeft);
-            }
+                if( imgBoxHeight > imgBoxWidth ){
+                    var marginLeft = (imgBoxHeight - imgBoxWidth) / 2;
+                    $newItem.height(imgBoxHeight);
+                    //$img.width('auto').height('100%').css('margin-left', -marginLeft);
+                }
 
-            $oriItem.find('iframe').remove();
-
-
-
-            // set style and animation
-            $imgWrap.children('.image-wrap-inner').css({
+                $imgWrap.children('.image-wrap-inner').css({
                     width: wrapWidth
                 })
-                .eq(0)
-                .css('marginLeft' , direction == 'left' ? - wrapWidth : 0 )
-                .animate({
-                    marginLeft: direction == 'left' ? 0 : - wrapWidth
-                } , _animateTime, _animateEasing)
-                // after animation
-                .promise()
-                .done(function(){
-                    $imgWrap.width( wrapWidth );
-                    // Resize Inner Box
-                    // resizeInnerBox();
-                    $newItem.css('width' , '100%');
-                    $newItem.siblings('.image-wrap-inner').remove();
-                });
+                    .eq(0)
+                    .css('x' , direction == 'left' ? - wrapWidth : 0 )
+                    .next()
+                    .css('x' , direction == 'left' ? 0 : wrapWidth );
+            }
 
-            // desc animation
-            var $info = $inner.find('.inner-info');
-            $info.animate({
+
+            if(drag != true) {
+                console.log(direction + '111');
+                $imgWrap.children('.image-wrap-inner')
+                    .eq(0)
+                    .transit({
+                        x: direction == 'left' ? 0 : - wrapWidth
+                    } , 800, _animateEasing)
+                    .next()
+                    .transit({
+                        x: direction == 'left' ? wrapWidth : 0
+                    } , 800, _animateEasing, function(){
+                        $imgWrap.width( wrapWidth );
+                        // Resize Inner Box
+                        // resizeInnerBox();
+                        $newItem.css('width' , '100%');
+                        $newItem.siblings('.image-wrap-inner').remove();
+                    });
+
+                var $nextComment = $newInner.find('.comment');
+                $comment.html($nextComment.html());
+
+                var $nextFlag = $newInner.find('.flag-node');
+                $inner.find('.flag-node').remove();
+                $newItem.append($nextFlag);
+
+                var $nextTop = $newInner.find('.inner-top');
+                $inner.find('.inner-top').animate({top:-33});
+                $newItem.append($nextTop);
+                var $info = $inner.find('.inner-info');
+                $info.animate({
                     bottom: -$info.height()
                 } , 500 )
-                .promise()
-                .done(function(){
-                    $info.remove();
-                });
-            var $newInfo = $newInner.find('.inner-info')
-                .insertAfter( $info );
-            $newInfo.css({
-                'bottom' : -$newInfo.height(),
-                'width'  : $info.width(),
-                'left'   : $info.css('left')
-            })
+                    .promise()
+                    .done(function(){
+                        $info.remove();
+                    });
+                var $newInfo = $newInner.find('.inner-info')
+                    .insertAfter( $info );
+                $newInfo.css({
+                    'bottom' : -$newInfo.height(),
+                    'width'  : $info.width(),
+                    'left'   : $info.css('left')
+                })
 
-            // day icon animation
+                // day icon animation
 
 
-            // init video
-            if( node.type == "video" ){
-                renderVideo($newItem,node);
-                $('#imgLoad').attr('src', './api' + node.image);
-                $('#imgLoad').ensureLoad(function(){
-                    setTimeout(function(){
-                        $('.image-wrap-inner object, .image-wrap-inner video').fadeIn();
-                        $('.image-wrap-inner .video-js').fadeIn();
+                // init video
+                if( node.type == "video" ){
+                    renderVideo($newItem,node);
+                    $('#imgLoad').attr('src', './api' + node.image);
+                    $('#imgLoad').ensureLoad(function(){
+                        setTimeout(function(){
+                            $('.image-wrap-inner object, .image-wrap-inner video').fadeIn();
+                            $('.image-wrap-inner .video-js').fadeIn();
+                            slideIntroBar($newInfo, _animateTime);
+                        },400);
+                    });
+                }
+                // init photo node
+                if( node.type == "photo" ){
+                    $('.image-wrap-inner img').ensureLoad(function(){
+                        $(this).fadeIn();
                         slideIntroBar($newInfo, _animateTime);
-                    },400);
-                });
-				// resize WMV
-				var $wmvIframe = $('.image-wrap-inner iframe');
-				if($wmvIframe.length > 0) {
-					$wmvIframe.width('100%').height(imgBoxHeight-36);
-				}
-            }
-            // init photo node
-            if( node.type == "photo" ){
-                $('.image-wrap-inner img').ensureLoad(function(){
-                    $(this).fadeIn();
-                    slideIntroBar($newInfo, _animateTime);
-                });
+                    });
+                }
+
+                // load comment
+                bindCommentSubmisson();
+                _waitingCommentListAjax = false;
+                getCommentList(node.nid,1);
+
+                // change url
+                changeUrl('/nid/' + node.nid , {event: direction});
             }
 
-            // load comment
-            bindCommentSubmisson();
-            _waitingCommentListAjax = false;
-            getCommentList(node.nid,1);
-//            LP.use(['jscrollpane' , 'mousewheel'] , function(){
-//                $('.com-list').jScrollPane({autoReinitialise:true}).bind(
-//                    'jsp-scroll-y',
-//                    function(event, scrollPositionY, isAtTop, isAtBottom)
-//                    {
-//                        if(isAtBottom) {
-//                            var commentParam = $('.comment-wrap').data('param');
-//                            getCommentList(node.nid,commentParam.page + 1);
-//                        }
-//                    }
-//                );
-//            });
 
-            // change url
-            changeUrl('/nid/' + node.nid , {event: direction});
+//            $imgWrap.done(function(){
+//                    $imgWrap.width( wrapWidth );
+//                    // Resize Inner Box
+//                    // resizeInnerBox();
+//                    $newItem.css('width' , '100%');
+//                    $newItem.siblings('.image-wrap-inner').remove();
+//                });
+
+            // desc animation
+
         });
     }
 
@@ -1035,9 +1071,10 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload', 'flash-detect', 'swf
     }
 
     //for prev action
-    LP.action('prev' , function( data ){
-        if( _innerLock ) return;
-        _innerLock = true;
+    LP.action('prev' , function( drag ){
+        if(_innerDragging) return;
+//        if( _innerLock ) return;
+//        _innerLock = true;
         if($('.user-page').is(':visible')) {
             var $dom = $('.count-dom');
         } else {
@@ -1049,7 +1086,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload', 'flash-detect', 'swf
             var param = $main.data('param');
             if(!param.previouspage || param.previouspage == 1) {
                 //alert('no more nodes');
-                _innerLock = false;
+                //_innerLock = false;
                 return;
             } else {
                 param.previouspage --;
@@ -1058,32 +1095,33 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload', 'flash-detect', 'swf
                 api.ajax('recent' , param , function( result ){
                     _currentNodeIndex = param.pagenum - 1;
                     nodeActions.prependNode( $dom , result.data , param.orderby == 'datetime' );
-                    cubeInnerNode( $dom.data('nodes')[ _currentNodeIndex ] , 'left' );
+                    cubeInnerNode( $dom.data('nodes')[ _currentNodeIndex ] , 'left' , drag);
                     preLoadSiblings();
                 });
             }
             return;
         }
         // lock the animation
-        if( $('.inner').hasClass('disabled') ) return;
-        $('.inner').addClass('disabled');
+//        if( $('.inner').hasClass('disabled') ) return;
+//        $('.inner').addClass('disabled');
 
         _currentNodeIndex -= 1;
         var node = $dom.data('nodes')[ _currentNodeIndex ];
-        cubeInnerNode( node , 'left' );
+        cubeInnerNode( node , 'left', drag );
         preLoadSiblings();
     });
 
     //for next action
-    LP.action('next' , function( data ){
-        if( _innerLock ) return;
-        _innerLock = true;
+    LP.action('next' , function( drag ){
+        if(_innerDragging) return;
+//        if( _innerLock ) return;
+//        _innerLock = true;
         var $inner = $('.inner');
         var $dom = $inner.data('from') || $main;
 
         // lock the animation
-        if( $inner.hasClass('disabled') ) return;
-        $inner.addClass('disabled');
+//        if( $inner.hasClass('disabled') ) return;
+//        $inner.addClass('disabled');
 
         _currentNodeIndex++;
         var nodes = $dom.data('nodes');
@@ -1108,7 +1146,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload', 'flash-detect', 'swf
                 $('.inner-loading').hide();
                 if( result.data.length ){
                     nodeActions.inserNode( $dom , result.data , param.orderby == 'datetime' );
-                    cubeInnerNode( $dom.data('nodes')[ _currentNodeIndex ] , 'right' );
+                    cubeInnerNode( $dom.data('nodes')[ _currentNodeIndex ] , 'right', drag );
                     preLoadSiblings();
                 } else {
                     $inner.removeClass('disabled');
@@ -1120,13 +1158,15 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload', 'flash-detect', 'swf
             });
             return;
         }
-        cubeInnerNode( node , 'right' );
+        cubeInnerNode( node , 'right', drag );
         preLoadSiblings();
     });
 
     // get default nodes
     LP.action('recent', function(){
         var pageParam = refreshQuery();
+        //TODO remove
+        pageParam.orderby = 'datetime';
         $listLoading.fadeIn();
         api.ajax('recent', pageParam, function( result ){
             $main.show();
@@ -1732,15 +1772,25 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload', 'flash-detect', 'swf
     });
 
 	//toggle side bar
-	LP.action('toggle_side_bar', function(){
-		console.log('toggle');
+	LP.action('toggle_side_bar', function(type){
 		var $side = $('.side');
-		if($side.hasClass('closed')) {
-			$side.removeClass('closed').transit({x:0}, 300, 'easeOutQuart');
-		}
-		else {
-			$side.addClass('closed').transit({x:-165}, 300, 'easeInQuart');
-		}
+        if(typeof type == 'string') {
+            if(type == 'right') {
+                $side.removeClass('closed').transit({x:0}, 300, 'easeOutQuart');
+            }
+            else {
+                $side.addClass('closed').transit({x:-165}, 300, 'easeInQuart');
+            }
+        }
+        else {
+            if($side.hasClass('closed')) {
+                $side.removeClass('closed').transit({x:0}, 300, 'easeOutQuart');
+            }
+            else {
+                $side.addClass('closed').transit({x:-165}, 300, 'easeInQuart');
+            }
+        }
+
 	});
 
     //toggle user page
@@ -2092,23 +2142,8 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload', 'flash-detect', 'swf
 
 
 
-    // bind document key event for back , prev , next actions
-    $(document).keydown(function( ev ){
-        var $inner = $('.inner');
-        if( !$inner.length || !$inner.is(':visible') ) return;
-        switch( ev.which ){
-            case 37: // left
-                LP.triggerAction('prev');
-                break;
-            case 39: // right
-                LP.triggerAction('next');
-                break;
-            case 27: // esc
-				ev.preventDefault();
-                LP.triggerAction('back');
-                break;
-        }
-    });
+
+
 
     // get month
     var getMonth = (function(){
@@ -2156,7 +2191,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload', 'flash-detect', 'swf
 
     var resetQuery = function() {
         var param = $main.data('param') || {};
-        param.orderby = "datatime";
+        param.orderby = "datetime";
         delete param.country_id;
         $main.data('param',param);
         $.each($('.select-item'), function(index, item){
@@ -2720,6 +2755,9 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload', 'flash-detect', 'swf
                             $('.side').data('user',result.data);
                         });
                         $('.page').addClass('logged');
+                        setTimeout(function(){
+                            LP.triggerAction('toggle_side_bar','left');
+                        }, 2000);
                         $('.header .select').fadeIn();
                     }
                     else {
@@ -3081,6 +3119,10 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload', 'flash-detect', 'swf
             api.ajax('getPageByNid', {nid:nid}, function(result){
                 pageParam.page = result.data;
                 pageParam.previouspage = result.data;
+
+                //TODO remove
+                pageParam.orderby = 'datetime';
+
                 $main.data('param' , pageParam);
                 api.ajax('recent', pageParam , function( result ){
                     if(result.data.length > 0) {

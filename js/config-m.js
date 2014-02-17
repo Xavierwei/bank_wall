@@ -57,20 +57,12 @@ seajs.config({
       , deps: ['eve']
       , exports: "Raphael"
     }
+    ,hammer:{
+      src: "../plugin/jquery.hammer.js"
+      ,deps: ['jquery']
+    }
     ,"video-js":{
       src: "../video-js/video.js"
-    }
-    ,"flash-detect":{
-      src: "../plugin/flash_detect_min.js"
-    }
-    ,"swfupload":{
-      src: "../plugin/swfupload.js"
-    }
-    ,"swfupload-speed":{
-      src: "../plugin/swfupload.speed.js"
-    }
-    ,"swfupload-queue":{
-      src: "../plugin/swfupload.queue.js"
     }
   }
   , alias: {

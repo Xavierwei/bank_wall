@@ -214,7 +214,7 @@
 				<div class="comment">
 					<div class="com-user">
 						<p data-a="back" class="com-back btn2"></p>
-						<div class="comuser-pho"><img src="./api{{user.avatar}}" width="32" /><div class="avatar-ie-round"></div></div>
+						<div class="comuser-pho"><img src="../api{{user.avatar}}" width="32" /><div class="avatar-ie-round"></div></div>
 						<div class="comuser-name"><p>{{user.firstname}} {{user.lastname}}</p></div>
 						<div class="comuser-location"><p>{{country.country_name}}</p></div>
 					</div>
@@ -342,7 +342,7 @@
 <script type="text/tpl" id="user-page-template">
 	<div class="user-page clear" style="display:none;">
 		<div class="count-user">
-			<div class="count-userpho"><img src="./api{{avatar}}" width="60"  /><div class="avatar-ie-round"></div></div>
+			<div class="count-userpho"><img src="../api{{avatar}}" width="100" height="100" /><div class="avatar-ie-round"></div></div>
 			<div class="count-userinfo">
 				<p class="name">{{firstname}} {{lastname}}</p>
 				<p class="location">{{country.country_name}}</p>
@@ -357,7 +357,7 @@
 				<div data-a="list_user_nodes" data-d="type=video" class="count-item"><span>{{videos_count}}</span>{{#ifzero videos_count}}{{_e.VIDEO_POSTED}}{{else}}{{_e.VIDEOS_POSTED}}{{/ifzero}}</div>
 				{{#if count_by_day}}<div data-a="list_user_nodes" data-d="type=day" class="count-item"><span>{{count_by_day}}</span>{{_e.CONTENTS_OF_DAY}}</div>{{/if}}
 				{{#if count_by_month}}<div data-a="list_user_nodes" data-d="type=month" class="count-item"><span>{{count_by_month}}</span>{{_e.CONTENTS_OF_MONTH}}</div>{{/if}}
-				<div data-a="list_user_nodes" data-d="type=comment" class="count-item"><span>{{comments_count}}</span>{{#ifzero videos_count}}{{_e.COMMENT}}{{else}}{{_e.COMMENTS}}{{/ifzero}}</div>
+				<div data-a="list_user_nodes" data-d="type=comment" class="count-item"><span>{{comments_count}}</span>{{#ifzero comments_count}}{{_e.COMMENT}}{{else}}{{_e.COMMENTS}}{{/ifzero}}</div>
 				<div data-a="list_user_nodes" data-d="type=like" class="count-item"><span>{{likes_count}}</span>{{#ifzero likes_count}}{{_e.LIKE}}{{else}}{{_e.LIKES}}{{/ifzero}}</div>
 			</div>
 			<!--  -->
@@ -377,10 +377,12 @@
 					<div class="editfi-com">
 						<input class="edit-email" type="text" value="{{personal_email}}" /> <em>({{_e.OPTIONAL}})</em>
 						<div class="edit-email-error">{{_e.ERROR_EMAIL}}</div>
-						<div class="editfi-condition btn">{{_e.PERSONAL_EMAIL_TERM}}</div>
-						<div class="editfi-condition-error">{{_e.ERROR_CONDITION}}</div>
-						<div class="editfi-information">{{_e.PERSONAL_EMAIL_INFO}} <a href="#">{{_e.CLICK_HERE}}</a></div>
 					</div>
+				</div>
+				<div class="edit-email-condition">
+					<div class="editfi-condition btn">{{_e.PERSONAL_EMAIL_TERM}}</div>
+					<div class="editfi-condition-error">{{_e.ERROR_CONDITION}}</div>
+					<div class="editfi-information">{{_e.PERSONAL_EMAIL_INFO}} <a href="#">{{_e.CLICK_HERE}}</a></div>
 				</div>
 				<div class="edit-fi clear">
 					<div class="editfi-tit">{{_e.COUNTRY}}:</div>
@@ -424,9 +426,8 @@
 		</div>
 		<!-- user -->
 		<div class="user btn" data-a="toggle_user_page">
-			<div class="user-pho"><img src="./api{{avatar}}" width="34" height="34" /><div class="avatar-ie-round"></div></div>
+			<div class="user-pho"><img src="../api{{avatar}}" width="34" height="34" /><div class="avatar-ie-round"></div></div>
 			<div class="user-name">{{firstname}}</div>
-			<div class="close-user-page" data-a="toggle-user-page"></div>
 		</div>
 		<!-- menu -->
 		<div class="menu">
@@ -434,7 +435,7 @@
 			<div class="menu-item video" data-a="pop_upload" data-d="type=video"><div class="menu-item-arrow"></div><p></p><h6>{{_e.POST_A_VIDEO}}</h6></div>
 			<div class="menu-item {{_e.DAY}}" data-a="content_of_day"><div class="menu-item-arrow"></div><p></p><h6>{{_e.CONTENT_OF_THE_DAY}}</h6></div>
 			<div class="menu-item month" data-a="content_of_month"><div class="menu-item-arrow"></div><p></p><h6>{{_e.CONTENT_OF_THE_MONTH}}</h6></div>
-			<a class="menu-item logout" href="./api/user/samllogout"><div class="menu-item-arrow"></div><p></p><h6>{{_e.LOGOUT}}</h6></a>
+			<a class="menu-item logout" href="../api/user/samllogout"><div class="menu-item-arrow"></div><p></p><h6>{{_e.LOGOUT}}</h6></a>
 		</div>
 	</div>
 </script>
@@ -442,40 +443,8 @@
 <!-- html5-player-tpl -->
 <script type="text/tpl" id="html5-player-template">
   <video id="inner-video-{{timestamp}}" class="video-js vjs-big-play-centered vjs-default-skin" preload="none" width="100%" height="100%" poster="./api{{image}}" data-setup="{}">
-    <source src="./api{{file}}" type='video/mp4' />
+    <source src="../api{{file}}" type='video/mp4' />
   </video>
-</script>
-
-<!-- wmv-player-tpl -->
-<script type="text/tpl" id="wmv-player-template">
-  <iframe src="wmv_player.php?file={{file}}" scrolling="no" frameborder="0"></iframe>
-</script>
-
-<!-- flash-player-tpl -->
-<script type="text/tpl" id="flash-player-template">
-  <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="100%" height="100%">
-    <param name="allowScriptAccess" value="always"/>
-    <param name="movie" value="flash/player.swf"/>
-    <param name="flashVars" value="source=../api{{file}}&skinMode=show"/>
-    <param name="quality" value="high"/>
-		<param name="wmode" value="opaque"/>
-    <embed name="player" src="flash/player.swf" flashVars="source=../api{{file}}&skinMode=show" quality="high" wmode="opaque" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="100%" height="100%" allowScriptAccess="always"></embed>
-  </object>
-</script>
-
-<!-- flash-uploder-tpl -->
-<script type="text/tpl" id="flash-uploader-template">
-  <object id="flash-uploader" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="443" height="330">
-    <param name="allowScriptAccess" value="always"/>
-    <param name="movie" value="flash/upload_photo.swf"/>
-    <param name="quality" value="high"/>
-    <param name="wmode" value="opaque"/>
-    <embed name="player" src="flash/upload_photo.swf" quality="high" wmode="opaque" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="443" height="330" allowScriptAccess="always"></embed>
-  </object>
-
-	<div class="pop-inner pop-success">
-		{{_e.YOU_PUBLISHED}} {{type}}.
-	</div>
 </script>
 
 <!-- blank-search-tpl -->

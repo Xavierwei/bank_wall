@@ -1109,7 +1109,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                     $inner.removeClass('disabled');
                     $dom.data('end' , true);
                     // TODO:: tip no more nodes
-                    alert('no more nodes');
+                    //alert('no more nodes');
                     _innerLock = false;
                 }
             });

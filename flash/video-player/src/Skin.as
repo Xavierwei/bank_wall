@@ -31,6 +31,7 @@ package{
 		private var volCtrl_x0:int;
 		private var btnFullScreen_x0:int;
 		
+		public var ty:Number;
 		public function Skin(){
 			
 			if(buffClip){

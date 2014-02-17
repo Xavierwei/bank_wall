@@ -30,9 +30,9 @@ body,input,textarea{font-family:'HelveticaNeueLTStd-MdCn', arial, sans-serif;tex
 .count {letter-spacing:1px;}
 .item-info {font-family: 'Myriad Pro', arial;font-size:10px;}
 .menu-item h6 {font-size:12px;}
-.count-userinfo {text-transform:capitalize;}
+.count-userinfo {text-transform:capitalize;font-size:25px;}
 .count-userinfo .name {font-family: 'HelveticaNeueLTPro-BdCn', arial;}
-.inner-infocom {font-family: 'Myriad Pro', arial;font-size:15px;}
+.inner-infocom {font-family: 'Myriad Pro', arial;font-size:26px;}
 .com-main,.com-main textarea {font-family: 'Myriad Pro', arial;text-transform: none;font-size:23px;}
 .com-info {font-family: 'Myriad Pro', arial;text-transform: capitalize;}
 .comlist-tit {font-size:17px;}
@@ -45,16 +45,18 @@ body,input,textarea{font-family:'HelveticaNeueLTStd-MdCn', arial, sans-serif;tex
 .blank-search {letter-spacing:1px;}
 .popular-hashtags {font-size:14px;}
 .popular-hashtags ul {font-size:18px;}
+.avatar-file {font-size:14px;}
 .editfi-tit {letter-spacing:1px;}
-.editfi-email,.edit-email {text-transform:none;}
-.edit-tips {text-transform:none;}
-.edit-fi {font-size:14px;}
-.editfi-condition {font-size:12px;text-transform: none;line-height:120%;}
-.editfi-information {font-size:12px;text-transform: none;line-height:120%;}
+.editfi-email,.edit-email {text-transform:none;font-size:18px;}
+.edit-tips {text-transform:none;font-size:18px;}
+.edit-fi {font-size:23px;}
+.editfi-condition {font-size:18px;text-transform: none;line-height:120%;}
+.editfi-information {font-size:18px;text-transform: none;line-height:120%;}
 .editfi-country-box {font-size:11px;}
-.editfi-com em {font-size:12px;text-transform:none;}
+.editfi-com em {font-size:18px;text-transform:none;}
 .editfi-country-option p {font-size:11px;}
 .editfi-country-option p:hover {border:1px solid #e6e6e6;}
-.edit-email-error,.editfi-condition-error {font-size:11px;text-transform:none;}
-.poploading,.pop-success {font-size:17px;}
-.poptxt-preview .error {font-size:11px;text-transform: none;}
+.edit-email-error,.editfi-condition-error {font-size:18px;text-transform:none;}
+.user-edit-save {font-family:'HelveticaNeueLTStd-Lt';font-size:24px;text-transform:none;}
+.poploading,.pop-success {font-size:22px;}
+.poptxt-preview .error {font-size:18px;text-transform: none;}
