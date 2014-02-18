@@ -679,7 +679,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
             // Resize Image
             var $newItem = $('.image-wrap-inner');
             var imgBoxWidth = $('.inner').width();
-            var imgBoxHeight =$(window).height() - 270;
+            var imgBoxHeight =$('.inner').height() - 154;
             var minSize = Math.min( imgBoxHeight , imgBoxWidth );
             var $img = $newItem.find('img').css('margin',0);
             $newItem.width(imgBoxWidth).height(minSize);
@@ -687,7 +687,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
             if( imgBoxHeight > imgBoxWidth ){
                 var marginLeft = (imgBoxHeight - imgBoxWidth) / 2;
                 $newItem.height(imgBoxHeight);
-                //$img.width('auto').height('100%').css('margin-left', -marginLeft);
+                $img.width('auto').height('100%').css('margin-left', -marginLeft);
             }
 
             // init vide node
@@ -974,7 +974,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 				.end();
 			// Resize Image
 			var imgBoxWidth = $('.inner').width();
-			var imgBoxHeight =$(window).height() - 270;
+            var imgBoxHeight =$('.inner').height() - 154;
 			var minSize = Math.min( imgBoxHeight , imgBoxWidth );
 			var $img = $newItem.find('img').css('margin',0);
 			$newItem.width(minSize).height(minSize);
@@ -982,7 +982,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 			if( imgBoxHeight > imgBoxWidth ){
 				var marginLeft = (imgBoxHeight - imgBoxWidth) / 2;
 				$newItem.height(imgBoxHeight);
-				//$img.width('auto').height('100%').css('margin-left', -marginLeft);
+				$img.width('auto').height('100%').css('margin-left', -marginLeft);
 			}
 
 			$imgWrap.children('.image-wrap-inner').css({
