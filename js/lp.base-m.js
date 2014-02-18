@@ -1509,7 +1509,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 												$('.pop-txt').delay(1200).fadeIn(400);
                                                 setTimeout(function(){
                                                     transformMgr.initialize( $('.poptxt-pic-inner') );
-                                                } , 1600 );
+                                                } , 1700 );
 											})
 											.attr('src', e.target.result/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
 										$('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
@@ -1523,7 +1523,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 											$('.pop-txt').delay(1200).fadeIn(400);
                                             setTimeout(function(){
                                                 transformMgr.initialize( $('.poptxt-pic-inner') );
-                                            } , 1600 );
+                                            } , 1700 );
 										})
 										.attr('src', API_FOLDER + rdata.file/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
 									$('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
@@ -2308,48 +2308,67 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
     // init drag event for image upload
     // after image upload, init it's size to fix the window
     // use raephael js to rotate, scale , and drag the image photo
-    var transformMgr = (function(){
-        var _totalScale = 1;
-        var _totalRotate = 0;
-        var _totalTx = 0; 
-        var _totalTy = 0; 
-        var _lastScale ;
-        var _lastRotate ;
-        var _lastTx = 0 ;
-        var _lastTy = 0 ;
-        var _isTransforming = false;
-        var _$img ;
+   var transformMgr = (function(){
+        var $img , _wrapWidth , _wrapHeight , 
+            _wrapOff ;
+        var _imgLeft , _imgTop , _imgWidth , _imgHeight , _totalScale;
 
-        function reset(){
-          _totalScale = 1;
-          _totalRotate = 0;
-          _totalTx = 0; 
-          _totalTy = 0; 
-          _lastScale ;
-          _lastRotate ;
-          _lastTx = 0 ;
-          _lastTy = 0 ;
-          _isTransforming = false;
+        var imgMgr = {
+            move: function( mvLeft , mvTop ){
+                if( _imgLeft + mvLeft < 0 && _imgLeft + mvLeft + _imgWidth > _wrapWidth ){
+                    _imgLeft += mvLeft;
+                    $img.css('left' , _imgLeft );
+                }
+                if( _imgTop + mvTop < 0 && _imgTop + mvTop + _imgHeight > _wrapHeight ){
+                    _imgTop += mvTop;
+                    $img.css('top' , _imgTop );
+                }
+            },
+            scale: function( scale , scX , scY ){
+                if( _imgWidth * scale < _wrapWidth
+                || _imgHeight * scale < _wrapHeight ) return;
+
+                
+                var txl = scX - _imgLeft;
+                _imgLeft = scX - txl * scale;
+                if( _imgLeft > 0 ){
+                    _imgLeft = 0;
+                }
+                if( scX - txl * scale + _imgWidth * scale < _wrapWidth ){
+                    _imgLeft =  _wrapWidth - _imgWidth * scale;
+                }
+
+                var tyt = scY - _imgTop;
+                _imgTop = scY - tyt * scale;
+                if( _imgTop > 0 ){
+                    _imgTop = 0;
+                }
+                if( scY - tyt * scale + _imgHeight * scale < _wrapHeight ){
+                    _imgTop = _wrapHeight - _imgHeight * scale;
+                }
+                _imgWidth *= scale;
+                _imgHeight *= scale;
+
+                $img.css( {
+                  'top' : _imgTop ,
+                  'left' : _imgLeft,
+                  'width' : _imgWidth,
+                  'height' : _imgHeight
+                });
+            }
         }
-        
+       
         function initialize( $dom ){
+            $img = $dom.find('img');
 
-            reset();
-
-            _$img = $dom.find('img');
-            var _imgWidth = _$img.width();
-            var _imgHeight = _$img.height();
-            var _wrapWidth = $dom.width();
-            var _wrapHeight = $dom.height();
-            var _wrapOff = $dom.offset();
-            var _imgOff = _$img.offset();
-            var _ox , _oy , _cx , _cy;
-            var index = 0;
+            _totalScale = 1;
+            _imgWidth = $img.width();
+            _imgHeight = $img.height();
+            _wrapWidth = $dom.width();
+            _wrapHeight = $dom.height();
+            _wrapOff = $dom.offset();
             var forExpr = 20;
-            
-            _totalTx = parseInt( _$img.css( 'margin-left' ) );
-            _totalTy = parseInt( _$img.css( 'margin-top' ) );
-
+            // render right width and height of image
             if( _imgWidth / _imgHeight > _wrapWidth / _wrapHeight ){
                 _imgWidth   = _imgWidth / _imgHeight * ( _wrapHeight + forExpr );
                 _imgHeight  = _wrapHeight + forExpr;
@@ -2357,182 +2376,169 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
                 _imgHeight  = _imgHeight / _imgWidth * ( _wrapWidth + forExpr );
                 _imgWidth   = _wrapWidth + forExpr;
             }
-            _$img.css({
+            $img.css({
                 width: _imgWidth,
                 height: _imgHeight
             });
-            _totalTx = ( _wrapWidth - _imgWidth ) / 2;
-            _totalTy = ( _wrapHeight - _imgHeight ) / 2;
-            _$img.css( {
-              marginLeft: _totalTx,
-              marginTop: _totalTy
+
+            _imgLeft = ( _wrapWidth - _imgWidth ) / 2;
+            _imgTop = ( _wrapHeight - _imgHeight ) / 2;
+            $img.css( {
+                position: 'absolute',
+                left: _imgLeft,
+                top: _imgTop
             } );
 
-            var transX = 0;
-            var transY = 0;
+            var lastScale = 1 , ctx , cty , lastTx , lastTy , _isTransforming;
             $dom.hammer({
                 transform_always_block: true,
                 drag_block_vertical: true,
                 drag_block_horizontal: true
             })
             .on("transformstart" , function( event ){
+                lastScale = 1;
+                ctx = event.gesture.center.pageX - _wrapOff.left;
+                cty = event.gesture.center.pageY - _wrapOff.top;
                 _isTransforming = true;
-                var gesture = event.gesture;
-                var center = gesture.center;
-                _imgOff = _$img.offset();
-                _cx = center.pageX;
-                _cy = center.pageY;
-                _ox = ( center.pageX - _imgOff.left ) / _totalScale;
-                _oy = ( center.pageY - _imgOff.top ) / _totalScale;
-                var dom = $dom.children().get(0);
-                dom.style.webkitTransformOrigin = _ox + 'px ' + _oy + 'px';
-                dom.style.transformOrigin = _ox + 'px ' + _oy + 'px';
-                _lastScale = 1;
-                $('<div></div>')
-                    .css({
-                      width: '100%',
-                      height: '100%',
-                      background: 'rgba(0,0,0,.4)'
-                    })
-                    .append( $dom.children() )
-                    .appendTo( $dom );
-                  transX = 0;
-                  transY = 0;
+        
             })
             .on("transform", function(event) {
                 var gesture = event.gesture;
-
+                imgMgr.scale( gesture.scale / lastScale , ctx , cty );
                 
-                if( _imgWidth * _totalScale * gesture.scale < _wrapWidth || 
-                _imgHeight * _totalScale * gesture.scale < _wrapHeight ) return;
-                _lastScale = gesture.scale;
-                //$('.poptit').html( 'scale(' + _totalScale * _lastScale + ')' );
-                var transform = 'scale(' + _lastScale + ')';
-                var dom = $dom.children().get(0);
-                dom.style.webkitTransform = transform;
-                dom.style.transform = transform;
-                // var off = _$img.offset();
-                // var tmp = $dom.children()[0];
-                // if( off.left > _wrapOff.left ){
-                //   transX = _wrapOff.left - off.left;
-                // }
-                // if( off.left + _imgWidth * _totalScale * _lastScale < _wrapOff.left + _wrapWidth ){
-                //   //_totalTx += _wrapOff.left + _wrapWidth - ( off.left + _imgWidth * _totalScale * _lastScale );
-                //   transX = _wrapOff.left + _wrapWidth - ( off.left + _imgWidth * _totalScale * _lastScale )
-                // }
-                // //$('.poptit').html( off.top + ' : ' + _wrapOff.top + ':' + ( ++index  ));
-                // if( off.top > _wrapOff.top ){
-                //   transY = _wrapOff.top - off.top;
-                //   //_totalTy += _wrapOff.top - off.top;
-                //   //_$img.css( 'marginTop' , _totalTy );
-                // }
-                // if( off.top + _imgHeight * _totalScale * _lastScale < _wrapOff.top + _wrapHeight ){
-                //   transY = _wrapOff.top + _wrapHeight - ( off.top + _imgHeight * _totalScale * _lastScale );
-                // }
-                // if( transX !=0 || transY != 0 ){
-                //   var trs = _$img[0].style.transform.replace(/\s/g , '');
-                //   var tmpMatch = trs.match(/translate\(-?(\d+)px,-?(\d+)/i);
-                //   _$img[0].style.webkitTransform = 'translate( ' + ( parseInt( tmpMatch[1] ) + transX ) + 'px , ' + ( parseInt( tmpMatch[2] ) + transY ) +  'px ) scale(' + _totalScale + ')';
-                // }
-
-                // $('.poptit').html( _cx + ' : ' + _cy + ' : ' + minScale.toFixed(2) + ' : ' + gesture.scale.toFixed(2) + ' : ' + _imgOff.left );
-                // $(document.body).append('<div>' + gesture.scale + ' : ' + minScale + '</div>');
-                // if( gesture.scale < minScale  ) return;
-                
-                // //if( _imgWidth * _totalScale * gesture.scale )
-                // _lastScale = gesture.scale;
-                // //_lastRotate = (gesture.rotation || 0);
-                // // change image transform
-                // // var transform = 'scale(' + _lastScale + ') rotate(' + _lastRotate + 'deg)';
-                //  $(document.body).append('<div>' + _cx + ' : ' + _cy + ' : ' + 'scale(' + _totalScale * _lastScale + ')' + '</div>');
-                // var transform = 'scale(' + _totalScale * _lastScale + ')';
-                // _$img[0].style.webkitTransform = transform;
-                // _$img[0].style.transform = transform;
+                lastScale = gesture.scale;
             })
             .on('transformend' , function( event ){
-                _totalScale *= _lastScale;
+                // _totalScale *= _lastScale;
                 setTimeout(function(){
                     _isTransforming = false;
                 } , 100);
-                // var off = _$img.offset();
-                // var transform = 'scale(' + _totalScale + ')';
-                // _$img[0].style.webkitTransform = transform;
-                // _$img[0].style.transform = transform;
-                // _$img.appendTo( $dom )
-                //   .prevAll()
-                //   .remove();
-                // if( off.left > _wrapOff.left ){
-                //   off.left = _wrapOff.left;
-                // }
-                // if( off.left + _imgWidth * _totalScale < _wrapOff.left + _wrapWidth ){
-                //   off.left = _wrapOff.left + _wrapWidth - _imgWidth * _totalScale;
-                // }
-                // if( off.top > _wrapOff.top ){
-                //   off.top = _wrapOff.top;
-                // }
-                // if( off.top + _imgHeight * _totalScale < _wrapOff.top + _wrapHeight ){
-                //   off.top = _wrapOff.top + _wrapHeight - _imgHeight * _totalScale;
-                // }
-                // var offt = _$img.offset();
-                // transform = 'translate( ' + ~~( off.left - offt.left) + 'px , ' + ~~( off.top - offt.top)  + 'px ) scale(' + _totalScale + ')';
-                // _$img[0].style.webkitTransform = transform;
-                // _$img[0].style.transform = transform;
-
                 
             })
             .on('dragstart' , function( event ){
-               _lastTx = 0;
-               _lastTy = 0;
-               _imgOff = _$img.offset();
+               lastTx = 0;
+               lastTy = 0;
             })
             .on('drag' , function( event ){
                 if( _isTransforming ) return;
-                //$('.poptit').html( _wrapOff.left + ' : ' + _imgOff.left + ' : ' + ( _imgOff.left + event.gesture.deltaX ).toFixed(2) + " : : "  + (_totalTx + event.gesture.deltaX).toFixed(2));
-                //if( _wrapOff.left > _imgOff.left + event.gesture.deltaX && _imgOff.left + _imgWidth * _totalScale + event.gesture.deltaX > _wrapOff.left + _wrapWidth ){
-                  //$('.poptit').html( _wrapOff.left + ' : ' + _imgOff.left + ' : ' + ( _imgOff.left + event.gesture.deltaX ).toFixed(2) + " : : "  + (_totalTx + event.gesture.deltaX).toFixed(2));
+                imgMgr.move( event.gesture.deltaX - lastTx , event.gesture.deltaY - lastTy );
+                lastTx = event.gesture.deltaX;
+                lastTy = event.gesture.deltaY;
 
-                  _lastTx = event.gesture.deltaX;
-                  _$img.css({
-                    marginLeft: _totalTx + event.gesture.deltaX
-                  });
-                //}
-                //if( _wrapOff.top > _imgOff.top + event.gesture.deltaY && _imgOff.top + _imgHeight * _totalScale + event.gesture.deltaY > _wrapOff.top + _wrapHeight ){
-                  _lastTy = event.gesture.deltaY;
-                  _$img.css({
-                    marginTop: _totalTy + event.gesture.deltaY
-                  });
-                //}
-            })
-            .on('dragend' , function( event ){
-                _totalTx += _lastTx;
-                _totalTy += _lastTy;
-                // $('<div></div>')
-                //     .css({
-                //       width: '100%',
-                //       height: '100%'
-                //     })
-                //     .append( $dom.children() )
-                //     .appendTo( $dom );
             });
+
+
+            // for long click
+            var animateTimeout = null;
+            var animateScale = 1.02;
+            var runZoomIn = function( scale ){
+                if( _totalScale * _imgWidth == _wrapWidth || _totalScale * _imgHeight == _wrapHeight ){
+                    return;
+                }
+                _totalScale /= scale;
+
+                transform( undefined , undefined , 1/scale , undefined , false);
+
+                if( _totalScale * _imgWidth < _wrapWidth || _totalScale * _imgHeight < _wrapHeight ){
+                    var lastScale = _totalScale;
+                    _totalScale = Math.max( _wrapWidth / _imgWidth , _wrapHeight / _imgHeight );
+                    transform( undefined , undefined , _totalScale/lastScale , undefined , false);
+                }
+                var off = imgRaphael.getBBox();
+                if( off.x > 0 ){
+                    transform( -off.x , 0 );
+                    off.x = 0;
+                }
+                if( off.x + off.width < _wrapWidth ){
+                    transform( _wrapWidth - ( off.x + off.width )  , 0 );
+                }
+                if( off.y > 0 ){
+                    transform( 0 , -off.y );
+                    off.y = 0;
+                }
+                if( off.y + off.height < _wrapHeight ){
+                    transform( 0 ,  _wrapHeight - ( off.y + off.height ) );
+                }
+            }
+            
+            var startAnimateScale = function( zoomout ){
+                var duration = 1000 / 60 ;
+                var aniFn = function(){
+                    if( zoomout ){
+                      imgMgr.scale( animateScale , _wrapWidth / 2 , _wrapHeight / 2 );
+                    } else {
+                      imgMgr.scale( 1/animateScale , _wrapWidth / 2 , _wrapHeight / 2 );
+                    }
+                    animateTimeout = setTimeout( aniFn , duration );
+                };
+                animateTimeout = setTimeout( aniFn , duration );
+            }
+            var stopAnimate = function(){
+                clearTimeout( animateTimeout );
+            }
+            
+            var longInterval = null;
+            var longTimeout = null;
+            var runAnimate = false;
+            var mousedown = false;
+            var perScale = 1.1;
+            $('.pop-zoomout-btn').bind('touchstart',function(){
+                mousedown = true;
+                longTimeout = setTimeout(function(){
+                    runAnimate = true;
+                    startAnimateScale( true );
+                } , 300);
+                return false;
+            })
+            .bind( "touchend" , function(){
+                if( !mousedown ) return;
+                mousedown = false;
+                clearTimeout( longTimeout );
+                if( runAnimate ){
+                    runAnimate = false;
+                    stopAnimate();
+                } else {
+                  imgMgr.scale( perScale , _wrapWidth / 2 , _wrapHeight / 2 );
+                }
+            } );
+
+            $('.pop-zoomin-btn').bind('touchstart' , function(){
+                mousedown = true;
+                longTimeout = setTimeout(function(){
+                    runAnimate = true;
+                    startAnimateScale( false );
+                } , 300);
+                return false;
+            })
+            .bind( "touchend" , function(){
+                if( !mousedown ) return;
+                mousedown = false;
+                clearTimeout( longTimeout );
+                if( runAnimate ){
+                    runAnimate = false;
+                    stopAnimate();
+                } else {
+                    imgMgr.scale( 1/perScale , _wrapWidth / 2 , _wrapHeight / 2 );
+                }
+            } );
         }
         
 
         return {
-            reset       : reset
-            , initialize: initialize
+            initialize: initialize
             , result    : function(){
-                var off  = imgRaphael.getBBox();
-                var width = parseInt($picInner.find('img').css('width'));
-                var height = parseInt($picInner.find('img').css('height'));
-                return {
-                    width       : width * totalScale,
-                    height      : height * totalScale,
-                    src         : $picInner.find('img').attr('src'),
-                    rotate      : totalRotate,
-                    x           : off.x,
-                    y           : off.y,
-                    cid         : 1
-                }
+                // var off  = imgRaphael.getBBox();
+                // var width = parseInt($picInner.find('img').css('width'));
+                // var height = parseInt($picInner.find('img').css('height'));
+                // return {
+                //     width       : width * totalScale,
+                //     height      : height * totalScale,
+                //     src         : $picInner.find('img').attr('src'),
+                //     rotate      : totalRotate,
+                //     x           : off.x,
+                //     y           : off.y,
+                //     cid         : 1
+                // }
             }
             //, transform  : transform
         }

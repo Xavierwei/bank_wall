@@ -1310,12 +1310,16 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             }
             if(data.type == 'node') {
 				// directly remove from ui whatever the backend deleted or not. TODO: add a deleting loading later
-				$('.main-item-' + data.nid).css({width:0, opacity:0});
-				var $node = $('.count-com .main-item-' + data.nid);
-				if( $node.prev().hasClass('time-item')
-					&& ( !$node.next().length || $node.next().hasClass('time-item') ) ){
-					$node.prev().remove();
-				}
+				var $nodes = $('.main-item-' + data.nid).css({width:0, opacity:0});
+                $nodes.each( function( i ){
+                    if( $(this).prev().hasClass('time-item')
+                        && ( !$(this).next().length || $(this).next().hasClass('time-item') ) ){
+                        $(this).prev().remove();
+                    }
+                    $(this).remove();
+                    // trigger istop event
+                    $(window).trigger('resize');
+                } );
 				(function(){
 					var nodes = $('.count-com').data('nodes');
                     if(nodes) {

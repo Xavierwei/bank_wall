@@ -55,6 +55,7 @@
     height: 175px;
     overflow: hidden;
     cursor: move;
+    position: relative;
 }
 
 .poptxt-pic .pop-zoomout-btn {background-position: -16px -14px;right: 25px;}
