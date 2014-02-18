@@ -2418,20 +2418,20 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
             .on('drag' , function( event ){
                 if( _isTransforming ) return;
                 //$('.poptit').html( _wrapOff.left + ' : ' + _imgOff.left + ' : ' + ( _imgOff.left + event.gesture.deltaX ).toFixed(2) + " : : "  + (_totalTx + event.gesture.deltaX).toFixed(2));
-                if( _wrapOff.left > _imgOff.left + event.gesture.deltaX && _imgOff.left + _imgWidth * _totalScale + event.gesture.deltaX > _wrapOff.left + _wrapWidth ){
+                //if( _wrapOff.left > _imgOff.left + event.gesture.deltaX && _imgOff.left + _imgWidth * _totalScale + event.gesture.deltaX > _wrapOff.left + _wrapWidth ){
                   //$('.poptit').html( _wrapOff.left + ' : ' + _imgOff.left + ' : ' + ( _imgOff.left + event.gesture.deltaX ).toFixed(2) + " : : "  + (_totalTx + event.gesture.deltaX).toFixed(2));
 
                   _lastTx = event.gesture.deltaX;
                   _$img.css({
                     marginLeft: _totalTx + event.gesture.deltaX
                   });
-                }
-                if( _wrapOff.top > _imgOff.top + event.gesture.deltaY && _imgOff.top + _imgHeight * _totalScale + event.gesture.deltaY > _wrapOff.top + _wrapHeight ){
+                //}
+                //if( _wrapOff.top > _imgOff.top + event.gesture.deltaY && _imgOff.top + _imgHeight * _totalScale + event.gesture.deltaY > _wrapOff.top + _wrapHeight ){
                   _lastTy = event.gesture.deltaY;
                   _$img.css({
                     marginTop: _totalTy + event.gesture.deltaY
                   });
-                }
+                //}
             })
             .on('dragend' , function( event ){
                 _totalTx += _lastTx;
