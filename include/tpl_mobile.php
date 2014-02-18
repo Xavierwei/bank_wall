@@ -6,7 +6,7 @@
 
 
 			<!--  -->
-			<div class="logo" data-a="back_home"></div>
+			<div class="logo btn" data-a="back_home"></div>
 			<!--  -->
 
 			<a href="../api/user/samllogin" class="login btn">
@@ -19,30 +19,15 @@
 				<div class="search-tip btn" data-a="search_tip"></div>
 			</div>
 
-			<div class="select clear" id="countrybox">
+			<div class="select filter-unlogged clear" data-a="filter">
 				<!--  -->
 				<div class="select-item">
-					<div class="select-box">choisir le PAYS</div>
+					<div class="select-box">filter</div>
 				</div>
-				<select id="country-select">
-					<option>
-						china
-					</option><option value="france">
-						france
-					</option><option>
-						china
-					</option><option>
-						china
-					</option><option>
-						china
-					</option><option>
-						china
-					</option>
-				</select>
 				<!--  -->
 			</div>
 
-
+			<div class="filter btn" data-a="filter">filter</div>
 
 			<!--  -->
 			<div class="language">
@@ -65,7 +50,7 @@
 	<!--  -->
 
 	<!-- modal -->
-	<div class="modal-overlay" data-a="cancel_modal"></div>
+	<div class="modal-overlay btn" data-a="cancel_modal"></div>
 	<div class="search-tip-modal pop-modal" >
 		<div class="tip-text">{{{_e.HASHTAG_TIP}}}</div>
 		<div class="example-text">{{_e.HASHTAG_EXAMPLES}}</div>
@@ -82,6 +67,43 @@
 		<div class="flag-confirm-text">{{_e.DELETE_THIS}} <span></span>?</div>
 		<button class="btn cancel" data-a="cancel_modal">{{_e.CANCEL}}</button>
 		<button class="btn ok" data-a="">{{_e.CONFIRM}}</button>
+	</div>
+
+
+	<div class="filter-modal pop-modal">
+		<div class="select-option" data-param="">
+			<span>Pays</span>
+			<select class="select-box select-country-option-list"></select>
+		</div>
+		<div class="select-option" data-param="orderby=datetime">
+			<span>{{_e.RECENT}}</span>
+			<select class="select-box">
+				<option value="orderby=datetime">
+					{{_e.RECENT}}
+				</option>
+				<option value="orderby=like">
+					{{_e.POPULAR}}
+				</option>
+				<option value="orderby=random">
+					{{_e.RANDOM}}
+				</option>
+			</select>
+		</div>
+		<div class="select-option" data-param="">
+			<span>{{_e.PHOTO}}/{{_e.VIDEO}}</span>
+			<select class="select-box">
+				<option value="">
+					{{_e.PHOTO}}/{{_e.VIDEO}}
+				</option>
+				<option value="type=photo">
+					{{_e.PHOTO}}
+				</option>
+				<option value="type=video">
+					{{_e.VIDEO}}
+				</option>
+			</select>
+		</div>
+		<div class="select-cancel btn" data-a="cancel_modal">Fermer</div>
 	</div>
 	<!-- modal -->
 </script>
@@ -296,8 +318,8 @@
 
 						</div>
 						<div class="com-btn">
-							<p data-a="prev" class="com-prev btn2"></p>
-							<p data-a="next" class="com-next btn2"></p>
+							<p data-a="prev" class="com-prev btn"></p>
+							<p data-a="next" class="com-next btn"></p>
 						</div>
 					</div>
 				</div>
@@ -307,6 +329,8 @@
 		<div class="image-wrap">
 			<div class="image-wrap-inner">
 				{{#ifvideo}}
+					<img class="video-poster btn" src="../api{{image}}" width="100%" />
+					<div class="video-play-btn video-poster btn"></div>
 					<video preload="none" width="100%" height="100%" poster="../api{{image}}">
 						<source src="../api{{file}}" type='video/mp4' />
 					</video>
@@ -342,6 +366,7 @@
 <script type="text/tpl" id="node-item-template">
 	<div data-d="nid={{nid}}" class="main-item pic-item main-item-{{nid}}">
 		<img src="../api{{image}}" width="640" />
+		<div class="item-icon item-icon-{{type}}"></div>
 	</div>
 </script>
 
@@ -428,10 +453,11 @@
 <!-- side-tpl -->
 <script type="text/tpl" id="side-template">
 	<div class="side">
-		<div class="side-fold" data-a="toggle_side_bar">
+		<div class="side-fold">
 			<!-- 侧边栏展开显示按钮，加上side-unfold-arrow 为向内箭头 -->
 			<div class="side-fold-arrow "></div>
 		</div>
+		<div class="side-fold-btn btn" data-a="toggle_side_bar"></div>
 		<div class="side-inner">
 			<!-- user -->
 			<div class="user btn" data-a="toggle_user_page">

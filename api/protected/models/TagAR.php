@@ -30,7 +30,7 @@ class TagAR extends CActiveRecord {
 	public function topThree() {
 		$query=new CDbCriteria;
 		$query->limit = 3;
-		$query->order = 'count';
+		$query->order = 'count DESC';
 		$tags = $this->findAll($query);
 		return $tags;
 	}
@@ -55,6 +55,18 @@ class TagAR extends CActiveRecord {
 		}
 
 		return $res;
+	}
+
+	public function minusTagCount($term) {
+		$query=new CDbCriteria;
+		$query->addCondition('tag=:tag');
+		$query->params[':tag']=$term;
+		$res=$this->find($query);
+		if($res) {
+			$res->count = $res->attributes['count'] - 1;
+			$res->date = time();
+			$res->updateByPk($res->tag_id, $res->attributes);
+		}
 	}
 }
 

@@ -24,8 +24,21 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 
 
 
-    $('body').on('change', "#country-select", function(){
-        //$('#countrybox').html($(this).val());
+    $('body').on('change', ".select-box", function(){
+        $(this).parent().data('param', $(this).val());
+        $(this).parent().find('span').html($(this).find('option:selected').text());
+        LP.triggerAction('cancel_modal');
+        LP.triggerAction('load_list');
+    });
+
+    $('body').on('click', '.video-poster', function() {
+        $(this).fadeOut().parent()
+            .find('video').show()
+            .end()
+            .find('.video-poster').fadeOut();
+        $(this).parent().find('video').trigger('play').bind('pause ended',function() {
+            $(this).hide().parent().find('.video-poster').fadeIn();
+        });
     });
 
     $(document).hammer({drag_block_horizontal: true,swipe_velocity:1})
@@ -47,9 +60,8 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
                     _innerDragging = true;
                     break;
                 case 'release':
-                    if(dragDirection && !$('.inner').is(':visible')) {
+                    if(dragDirection && !$('.inner').is(':visible') || dragDirection == 'right' && !$('.side').hasClass('closed')) {
                         LP.triggerAction('toggle_side_bar', dragDirection);
-                        dragDirection = '';
                     }
                     if(dragDirection && $('.inner').is(':visible')) {
                         releaseDragNode(dragDirection);
@@ -71,6 +83,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
             }, 400);
 		}
 	);
+
 
     // live for pic-item hover event
     $(document.body)
@@ -594,6 +607,9 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
         setTimeout(function(){
             _innerLock = false; // force unlock
         }, 400);
+
+        // close user side bar
+        LP.triggerAction('toggle_side_bar','right');
         _currentNodeIndex = $obj.prevAll(':not(.time-item)').length;
         if($('.user-page').is(':visible')) {
             var nodes = $('.count-com').data('nodes');
@@ -660,6 +676,20 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 //                );
 //            });
 
+            // Resize Image
+            var $newItem = $('.image-wrap-inner');
+            var imgBoxWidth = $('.inner').width();
+            var imgBoxHeight =$(window).height() - 270;
+            var minSize = Math.min( imgBoxHeight , imgBoxWidth );
+            var $img = $newItem.find('img').css('margin',0);
+            $newItem.width(imgBoxWidth).height(minSize);
+
+            if( imgBoxHeight > imgBoxWidth ){
+                var marginLeft = (imgBoxHeight - imgBoxWidth) / 2;
+                $newItem.height(imgBoxHeight);
+                //$img.width('auto').height('100%').css('margin-left', -marginLeft);
+            }
+
             // init vide node
             if( node.type == "video" ){
                 //renderVideo($('.image-wrap-inner'),node);
@@ -706,6 +736,14 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 
         return false;
     });
+
+
+    LP.action('filter', function(){
+
+        $('.modal-overlay').fadeIn(700);
+        $('.filter-modal').fadeIn(700).dequeue().animate({top:'50%'}, 700, 'easeOutQuart');
+    });
+
 
     // for back action
     LP.action('back' , function( data ){
@@ -805,7 +843,9 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 		LP.triggerAction('recent');
     });
 
+    var _draggingReleasing = false;
     function draggingNode(direction, deltaX) {
+        if(_draggingReleasing) return;
         var $imageWrapInner = $('.image-wrap-inner');
         if($imageWrapInner.length == 2) {
             var wrapWidth = $imageWrapInner.eq(0).width();
@@ -818,6 +858,11 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
     }
 
     function releaseDragNode(direction) {
+        setTimeout(function(){
+            _draggingReleasing = false; // force unlock, due to some time the transit call back will not fire.
+        },500);
+        if(_draggingReleasing) return;
+        _draggingReleasing = true;
         var $imageWrapInner = $('.image-wrap-inner');
         if($imageWrapInner.length == 2) {
             var wrapWidth = $imageWrapInner.eq(0).width();
@@ -928,9 +973,8 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 				.hide()
 				.end();
 			// Resize Image
-			var slideWidth = $('.side').width();
-			var imgBoxWidth = $(window).width() - 330 - slideWidth;
-			var imgBoxHeight =$(window).height() - $('.header').height();
+			var imgBoxWidth = $('.inner').width();
+			var imgBoxHeight =$(window).height() - 270;
 			var minSize = Math.min( imgBoxHeight , imgBoxWidth );
 			var $img = $newItem.find('img').css('margin',0);
 			$newItem.width(minSize).height(minSize);
@@ -954,12 +998,10 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 			if( node.type == "video" ){
 				$('.image-wrap-inner video').fadeIn();
 			}
-			// init photo node
-			if( node.type == "photo" ){
-				$newItem.find('img').ensureLoad(function(){
-					$(this).fadeIn();
-				});
-			}
+
+            $newItem.find('img').ensureLoad(function(){
+                $(this).fadeIn();
+            });
 
             if(drag != true) {
 				$imgWrap.children('.image-wrap-inner')
@@ -1124,7 +1166,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
             else {
                 api.ajax('tagTopThree', function(result){
                     var searchs = '';
-                    var $selectBox = $('.select-item .select-box').each(function(){
+                    var $selectBox = $('.filter-modal .select-option span').each(function(){
                         searchs += '[' + $(this).html() + '] ';
                     });
                     // if(pageParam.country_id) {
@@ -1354,6 +1396,9 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 
     //upload photo
     LP.action('pop_upload' , function( data ){
+        // close user side bar
+        LP.triggerAction('toggle_side_bar','right');
+
         var acceptFileTypes;
         var type = data.type;
         if(type == 'video') {
@@ -1721,7 +1766,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 		var $side = $('.side');
         if(typeof type == 'string') {
             if(type == 'left') {
-                $side.removeClass('closed').transit({x:0}, 300, 'easeOutQuart');
+                $side.removeClass('closed').transit({x:0}, 500, 'easeOutQuart');
             }
             else {
                 $side.addClass('closed').transit({x:-165}, 300, 'easeInQuart');
@@ -1729,7 +1774,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
         }
         else {
             if($side.hasClass('closed')) {
-                $side.removeClass('closed').transit({x:0}, 300, 'easeOutQuart');
+                $side.removeClass('closed').transit({x:0}, 500, 'easeOutQuart');
             }
             else {
                 $side.addClass('closed').transit({x:-165}, 300, 'easeInQuart');
@@ -1953,6 +1998,8 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
         if($main.hasClass('closed')) {
             LP.triggerAction('back');
         }
+        // close user side bar
+        LP.triggerAction('toggle_side_bar','right');
         $('.search-hd').fadeOut(400);
         $main.fadeOut(400,function(){
             LP.triggerAction('close_user_page');
@@ -1966,6 +2013,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
             $listLoading.fadeIn();
             //TODO save to dom cache date
             api.ajax('recent', param , function( result ){
+                $listLoading.fadeOut();
                 $('.search-ipt').val('').blur();
                 nodeActions.inserNode( $main.show() , result.data , param.orderby == 'datetime');
             });
@@ -1979,6 +2027,8 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
         if($main.hasClass('closed')) {
             LP.triggerAction('back');
         }
+        // close user side bar
+        LP.triggerAction('toggle_side_bar','right');
         $('.search-hd').fadeOut(400);
         $main.fadeOut(400,function(){
             LP.triggerAction('close_user_page');
@@ -1992,6 +2042,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
             $listLoading.fadeIn();
             //TODO save to dom cache date
             api.ajax('recent', param , function( result ){
+                $listLoading.fadeOut();
                 $('.search-ipt').val('').blur();
                 nodeActions.inserNode( $main.show() , result.data , param.orderby == 'datetime');
             });
@@ -2113,8 +2164,9 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
         param [ $searchInput.attr('name') ] = $.trim( $searchInput.val() ).replace( /^#+/ , '' );
 
         // get select options
-        $('.header .select').find('.select-option p.selected')
+        $('.filter-modal').find('.select-option')
             .each( function(){
+                console.log($(this).data('param'));
                 param = $.extend( param , LP.query2json( $(this).data('param') ) );
             } );
 
@@ -2139,10 +2191,11 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
         param.orderby = "datetime";
         delete param.country_id;
         $main.data('param',param);
-        $.each($('.select-item'), function(index, item){
-            $(item).find('.select-option p').removeClass('selected');
-            var defaultVal = $(item).find('.select-option p').eq(0).addClass('selected').html();
-            $(item).find('.select-box').html(defaultVal);
+        $.each($('.filter-modal .select-option'), function(index, item){
+            var defaultVal = $(item).find('option').eq(0).val();
+            var defaultLabel = $(item).find('option').eq(0).text();
+            $(item).data('param', defaultVal);
+            $(item).find('span').html(defaultLabel);
         })
     }
 
@@ -2549,7 +2602,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
                             $('.side').data('user',result.data);
                         });
                         $('.page').addClass('logged');
-                        $('.header .select').fadeIn();
+                        //$('.header .select').fadeIn();
                     }
                     else {
                         $('.header .login').fadeIn();
@@ -2561,15 +2614,15 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 
                 var $countryList = $('.select-country-option-list');
                 $countryList.empty();
-                $countryList.append('<p data-api="recent">All</p>');
+                $countryList.append('<option data-api="recent">All</option>');
                 api.ajax('countryList', function( result ){
                     $.each(result, function(index, item){
-                        var html = '<p data-param="country_id=' + item.country_id + '" data-api="recent">' + item.country_name + '</p>';
+                        var html = '<option value="country_id=' + item.country_id + '" data-api="recent">' + item.country_name + '</option>';
                         $countryList.append(html);
                     });
-                    LP.use(['jscrollpane' , 'mousewheel'] , function(){
-                        $countryList.jScrollPane({autoReinitialise:true});
-                    });
+//                    LP.use(['jscrollpane' , 'mousewheel'] , function(){
+//                        $countryList.jScrollPane({autoReinitialise:true});
+//                    });
                 });
 
                 LP.use('uicustom',function(){

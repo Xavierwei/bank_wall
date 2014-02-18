@@ -181,39 +181,45 @@ class NodeController extends Controller {
   }
   
   public function actionDelete() {
-      $request = Yii::app()->getRequest();
-      
-      if (!$request->isPostRequest) {
-          $this->responseError("http error");
-      }
-      
-      $nid = $request->getPost("nid");
+		$request = Yii::app()->getRequest();
 
-      if (!$nid) {
-          $this->responseError("invalid params");
-      }
-      
-      $nodeAr = NodeAR::model()->findByPk($nid);
-      if(!$nodeAr) {
-          $this->responseError("invalid params ( not found node)");
-      }
-      
-      // 权限检查
-      if(!Yii::app()->user->checkAccess("deleteOwnNode", array("uid" => $nodeAr->uid))) {
-        if(!Yii::app()->user->checkAccess("deleteAnyNode", array("country_id" => $nodeAr->country_id))) {
-          return $this->responseError("permission deny1");
-        }
-        else {
-          return $this->responseError("permission deny2");
-        }
-      }
-      
-      $nodeAr->deleteByPk($nodeAr->nid);
-			$nodeAr->deleteRelatedData($nodeAr->nid);
-			LikeAR::model()->saveTopOfDay($nodeAr);
-			LikeAR::model()->saveTopOfMonth($nodeAr);
-      
-      return $this->responseJSON($nodeAr->attributes, "success");
+		if (!$request->isPostRequest) {
+		  $this->responseError("http error");
+		}
+
+		$nid = $request->getPost("nid");
+
+		if (!$nid) {
+		  $this->responseError("invalid params");
+		}
+
+		$nodeAr = NodeAR::model()->findByPk($nid);
+		if(!$nodeAr) {
+		  $this->responseError("invalid params ( not found node)");
+		}
+
+		// 权限检查
+		if(!Yii::app()->user->checkAccess("deleteOwnNode", array("uid" => $nodeAr->uid))) {
+		if(!Yii::app()->user->checkAccess("deleteAnyNode", array("country_id" => $nodeAr->country_id))) {
+		  return $this->responseError("permission deny1");
+		}
+		else {
+		  return $this->responseError("permission deny2");
+		}
+		}
+
+		$nodeAr->deleteByPk($nodeAr->nid);
+		$nodeAr->deleteRelatedData($nodeAr->nid);
+	  	// update hashtag counts
+	  	$hashtags =$nodeAr->attributes['hashtag'];
+		foreach($hashtags as $tag) {
+		  TagAR::model()->minusTagCount($tag);
+		}
+	  	// update top contents
+		LikeAR::model()->saveTopOfDay($nodeAr);
+		LikeAR::model()->saveTopOfMonth($nodeAr);
+
+		return $this->responseJSON($nodeAr->attributes, "success");
   }
 
 	public function actionGetPageByNid(){

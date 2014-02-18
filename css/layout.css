@@ -71,8 +71,8 @@ a{text-decoration:none;color:#666}
 
 /* search Used
 ================================================================================================= */
-.search-hd {display:none;margin:18px 0 18px 10px;color:#757575;}
-.logged .search-hd {margin:18px 0 18px 90px;}
+.search-hd {display:none;margin:109px 0 -69px 10px;color:#757575;}
+.logged .search-hd {margin:109px 0 -69px 90px;}
 .no-results {color:#afafaf;text-align: center;font-size: 14px;background: url('../img/no-results.png') no-repeat center 60px;padding:200px 0 42px;}
 .no-results-line {width:75px;border-bottom:1px solid #777;margin:0 auto;}
 .popular-hashtags {text-align: center;color:#777;margin-top:40px;}
