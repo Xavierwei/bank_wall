@@ -9,11 +9,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
-"X-Generator: Poedit 1.6.3\n"
+"X-Generator: Poedit 1.6.4\n"
 "Language: en\n"
 
 msgid "CONNECT"
-msgstr "Connect"
+msgstr "Login"
 
 msgid "POST_A_PHOTO"
 msgstr "Post a photo"
@@ -22,7 +22,7 @@ msgid "POST_A_VIDEO"
 msgstr "Post a video"
 
 msgid "RECENT"
-msgstr "Recent"
+msgstr "LATEST"
 
 msgid "POPULAR"
 msgstr "Popular"
@@ -59,41 +59,43 @@ msgstr "Logout"
 
 msgid "HASHTAG_TIP"
 msgstr ""
-"<span> Hashtag </span>(sharp word) is a keyword preceded by the # sign which "
-"identifies content in its creation, or to search."
+"THE HASHTAG IS A KEY WORD PRECEDED BY THE CHARACTER # WHICH ALLOWS USERS TO "
+"IDENTIFY CONTENT CREATED OR TO SEARCH FOR CONTENT."
 
 msgid "HASHTAG_EXAMPLES"
-msgstr "Examples: #espritd’équipe #sociétégénérale #olympiades"
+msgstr "Examples: #teamspirit #sociétégénérale #olympiades"
 
 msgid "REPORT_THIS"
-msgstr "Are you sure you want to report this"
+msgstr "REPORT THIS CONTENT?"
 
 msgid "DELETE_THIS"
-msgstr "Are you sure you want to delete this content"
+msgstr "DELETE THIS CONTENT?"
 
 msgid "UPLOAD"
 msgstr "Upload"
 
 msgid "PHOTO_FORMATE"
-msgstr "Your photo must be in JPG, PNG or GIF format"
+msgstr "File type not allowed (please use .jpg .png or .gif format) "
 
 msgid "PHOTO_RESOLUTION"
-msgstr "For optimal resolution, thank you use a format of at least 450x450 px"
+msgstr ""
+"For an optimal display, the resolution of your picture must be at least "
+"450x450 px"
 
 msgid "PHOTO_SIZE"
-msgstr "The size of your image file should not exceed 5MB"
+msgstr "Exceeded maximum file size of 5 MB"
 
 msgid "VIDEO_FORMATE"
-msgstr "Your video must be to MOV, AVI, MPEG, MP4, WMV or 3GP"
+msgstr "File type not allowed (please use .mov .avi .mpeg or .mp4 format) "
 
 msgid "VIDEO_RESOLUTION"
-msgstr "For optimal resolution, thank you use a format at least 400x400 px"
+msgstr "The video resolution must be at least 183x183 px"
 
 msgid "VIDEO_SIZE"
-msgstr "The size of your image file should not exceed 7MB"
+msgstr "Exceeded maximum file size of 7 MB "
 
 msgid "SELECT"
-msgstr "Select"
+msgstr "CHOOSE A FILE"
 
 msgid "SELECT_AGAIN"
 msgstr "Select Again"
@@ -103,14 +105,13 @@ msgstr "Upload in progress"
 
 msgid "ENTER_DESCRIPTION"
 msgstr ""
-"Enter your description here with the corresponding hashtags # (Ex: Meeting # "
-"cematin very productive in # SG)"
+"Enter your description here with the corresponding #hashtags (Ex: It was a "
+"very productive #meting at #SG)"
 
 msgid "UPLOAD_TERM"
 msgstr ""
-"I represent that all rights to this image / video and obtaining permission "
-"people and officials goods contained therein. I accept the conditions of use "
-"of this site."
+"I hereby declare having the rights to this photo/video and having obtained "
+"permission from the persons or those responsible for the properties depicted."
 
 msgid "PUBLISH"
 msgstr "Publish"
@@ -149,7 +150,7 @@ msgid "SUBMIT"
 msgstr "Submit"
 
 msgid "WRITE_YOUR_COMMENT"
-msgstr "Write your comment ..."
+msgstr "Write your comment …"
 
 msgid "FIRST_COMMENT"
 msgstr "Be the first to comment this content"
@@ -179,21 +180,21 @@ msgid "CHOOSE_FILE"
 msgstr "Choose a file"
 
 msgid "EMAIL_PROFESSIONNEL"
-msgstr "E-MAIL professional"
+msgstr "CORPORATE EMAIL"
 
 msgid "EMAIL_PERSONNEL"
-msgstr "E-MAIL personnel"
+msgstr "PERSONAL EMAIL"
 
 msgid "COMPANY_EMAIL_TERM"
 msgstr ""
-"If you send souhaitz content on the Wall with an e-maill address diffent.Si "
-"souhaitz you send content to the Wall with an e-maill address diffent"
+"If you want to send contents to the Wall with an email address other than "
+"your corporate email"
 
 msgid "PERSONAL_EMAIL_TERM"
 msgstr ""
 "I represent that all rights to this image / video and have obtained "
 "permission from the people and officials of property therein. I accept the "
-"conditions of use of this site."
+"terms of service of this website."
 
 msgid "PERSONAL_EMAIL_INFO"
 msgstr ""
@@ -230,22 +231,22 @@ msgid "ERROR_CONDITION"
 msgstr "Please check the condition"
 
 msgid "ERROR_EMAIL"
-msgstr "Please enter correct email."
+msgstr "This email is not valid. "
 
 msgid "ERROR_EXIST_EMAIL"
-msgstr "Votre adresse e-mail déjà utilisée."
+msgstr "The email already exist."
+
+msgid "ERROR_COMMENT_LIMITED"
+msgstr "The comment is limited to 140 characters."
 
 msgid "ERROR_WRITE_DESCRIPTION"
 msgstr "Please write some description."
 
 msgid "ERROR_DESCRIPTION_LIMITED"
-msgstr "The description is limited to 140 characters."
-
-msgid "ERROR_COMMENT_LIMITED"
-msgstr "The comment is limited to 140 characters."
+msgstr "The description must not exceed 140 characters"
 
 msgid "ERROR_DESCRIPTION_ILLEGAL"
-msgstr "The hashtag can\'t include illegal characters"
+msgstr "The hashtag can't include illegal characters"
 
 msgid "ERROR_WRONG_USERNAME_PASSWORD"
 msgstr "Wrong login or password."
@@ -519,4 +520,3 @@ msgstr "USA"
 
 msgid "VIETNAM"
 msgstr "Vietnam"
-

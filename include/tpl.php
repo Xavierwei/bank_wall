@@ -65,7 +65,6 @@
 		<div class="example-text">{{_e.HASHTAG_EXAMPLES}}</div>
 		<button class="btn cancel" data-a="cancel_modal">{{_e.CANCEL}}</button>
 	</div>
-
 	<div class="flag-confirm-modal pop-modal">
 		<div class="flag-confirm-text">{{_e.REPORT_THIS}} <span></span>?</div>
 		<button class="btn cancel" data-a="cancel_modal">{{_e.CANCEL}}</button>
@@ -106,10 +105,10 @@
                   </ul>
                   <div class="error"></div>
                   <div class="step1-btns">
-										<div id="flash-select-btn" class="popfile-btn btn">
-											{{_e.SELECT}} {{type}}
-											<div id="flash-video-popfile-btn"></div>
-										</div>
+					<div id="flash-select-btn" class="popfile-btn btn">
+						{{_e.SELECT}} {{type}}
+						<div id="flash-video-popfile-btn"></div>
+					</div>
                     <div class="popfile-btn btn" id="select-btn">
                       {{_e.SELECT}} {{type}}
                       <input type="file" name="file" accept="{{accept}}" />
