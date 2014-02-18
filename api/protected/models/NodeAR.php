@@ -464,13 +464,14 @@ class NodeAR extends CActiveRecord{
 	}
 
 	public function cropPhoto($file, $x, $y, $width) {
-		list($srcWidth, $srcHeight) = getimagesize(ROOT.$file);
+		$thumb = new EasyImage(ROOT.$file);
+		$size = $thumb->resize(1000,1000,EasyImage::RESIZE_AUTO);
+		$srcWidth = $size->width;
 		$scale = $srcWidth / $width;
 		$toX = -($x * $scale);
 		$toY = -($y * $scale);
 		$toWidth = 175 * $scale;
-		$thumb = new EasyImage(ROOT.$file);
-		$thumb->crop($toWidth, $toWidth, $toX, $toY);
+		$thumb->crop($toWidth,$toWidth,$toX,$toY);
 		$thumb->save(ROOT.$file);
 		return $file;
 	}

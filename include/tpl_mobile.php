@@ -1,13 +1,13 @@
 <!-- all tpls start -->
 <script type="text/tpl" id="base-template">
 	<div class="page">
+		<!--  -->
+		<div class="logo btn" data-a="back_home"></div>
+		<!--  -->
 		<!-- header -->
 		<div class="header">
 
 
-			<!--  -->
-			<div class="logo btn" data-a="back_home"></div>
-			<!--  -->
 
 			<a href="../api/user/samllogin" class="login btn">
 				{{_e.CONNECT}}
@@ -54,6 +54,11 @@
 	<div class="search-tip-modal pop-modal" >
 		<div class="tip-text">{{{_e.HASHTAG_TIP}}}</div>
 		<div class="example-text">{{_e.HASHTAG_EXAMPLES}}</div>
+		<button class="btn cancel" data-a="cancel_modal">{{_e.CANCEL}}</button>
+	</div>
+
+	<div class="like-need-login-modal pop-modal" >
+		<div class="tip-text">{{{_e.LOGIN_BEFORE_LIKE}}}</div>
 		<button class="btn cancel" data-a="cancel_modal">{{_e.CANCEL}}</button>
 	</div>
 
@@ -116,7 +121,7 @@
 			<div class="poptit">{{_e.UPLOAD}} {{type}}</div>
 		</div>
 		<div class="popbd">
-            <form target="node_upload_iframe" id="node_post_form" name="node_post_form" action="./api/index.php/node/post" method="post" enctype="multipart/form-data" >
+            <form id="node_post_form" name="node_post_form" action="./api/index.php/node/post" method="post" enctype="multipart/form-data" >
               <!--  -->
               <div class="pop-inner pop-file">
                 <div id="fileupload">
@@ -205,7 +210,7 @@
 		<div class="popbd">
 			<!--  -->
 			<div class="pop-inner pop-file">
-				<form target="avatar_upload_iframe" id="avatar_post_form" name="avatar_post_form" action="./api/index.php/user/saveavatar" method="post" enctype="multipart/form-data" >
+				<form id="avatar_post_form" name="avatar_post_form" action="./api/index.php/user/saveavatar" method="post" enctype="multipart/form-data" >
 					<div class="popfile-drag-box" data-a="select_photo"></div>
 					<ul class="step1-tips">
 						<li>{{_e.PHOTO_FORMATE}}</li>
@@ -306,9 +311,17 @@
 								<span>{{likecount}}</span> {{#ifzero likecount}}{{_e.LIKE}}{{else}}{{_e.LIKES}}{{/ifzero}}
 							</div>
 							{{else}}
-							<div data-a="like" data-d="nid={{nid}}" class="com-like clickable">
-								<span>{{likecount}}</span> {{#ifzero likecount}}{{_e.LIKE}}{{else}}{{_e.LIKES}}{{/ifzero}}
-							</div>
+								{{#if currentUser}}
+									<div data-a="like" data-d="nid={{nid}}" class="com-like clickable">
+										<span>{{likecount}}</span> {{#ifzero likecount}}{{_e.LIKE}}{{else}}{{_e.LIKES}}{{/ifzero}}
+									</div>
+								{{else}}
+									<div data-a="like_login" class="com-like clickable">
+										<span>{{likecount}}</span> {{#ifzero likecount}}{{_e.LIKE}}{{else}}{{_e.LIKES}}{{/ifzero}}
+									</div>
+								{{/if}}
+
+
 							{{/ifliked}}
 							{{#if user_flagged}}
 							<div class="flag-node flagged">flag</div>
@@ -367,6 +380,15 @@
 	<div data-d="nid={{nid}}" class="main-item pic-item main-item-{{nid}}">
 		<img src="../api{{image}}" width="640" />
 		<div class="item-icon item-icon-{{type}}"></div>
+		{{#if topday}}
+		<div class="item-topday"></div>
+		{{/if}}
+		{{#if topmonth}}
+		<div class="item-topmonth"></div>
+		{{/if}}
+		{{#if mynode}}
+		<div class="item-delete btn" data-a="delete" data-d="nid={{nid}}&type=node"></div>
+		{{/if}}
 	</div>
 </script>
 
@@ -384,7 +406,8 @@
 			<div data-a="avatar_upload" class="avatar-file btn">{{_e.CHOOSE_FILE}}</div>
 		</div>
 		<!-- inner -->
-		<div class="count-inner">
+		<div class="count-inner-wrap">
+			<div class="count-inner">
 			<div class="count">
 				<div data-a="list_user_nodes" data-d="type=photo" class="count-item"><span>{{photos_count}}</span>{{#ifzero photos_count}}{{_e.PHOTO_POSTED}}{{else}}{{_e.PHOTOS_POSTED}}{{/ifzero}}</div>
 				<div data-a="list_user_nodes" data-d="type=video" class="count-item"><span>{{videos_count}}</span>{{#ifzero videos_count}}{{_e.VIDEO_POSTED}}{{else}}{{_e.VIDEOS_POSTED}}{{/ifzero}}</div>
@@ -397,6 +420,7 @@
 			<div class="count-com">
 				<!--TODO: node items -->
 			</div>
+		</div>
 		</div>
 		<div class="user-edit-page">
 			<form>
@@ -421,12 +445,10 @@
 					<div class="editfi-tit">{{_e.COUNTRY}}:</div>
 					<div class="editfi-com">
 						<div class="editfi-country">
-							<div class="editfi-country-box" data-id="{{country.country_id}}">{{_e.SELECT_YOUR_COUNTRY}}</div>
-							<div class="editfi-country-pop">
-								<div class="editfi-country-option-list">
-									<div class="editfi-country-option">
-									</div>
-								</div>
+							<div class="editfi-country-box" data-id="{{country.country_id}}">
+								{{_e.SELECT_YOUR_COUNTRY}}
+								<select class="editfi-country-option-list">
+								</select>
 							</div>
 						</div>
 					</div>

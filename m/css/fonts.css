@@ -48,11 +48,12 @@ body,input,textarea{font-family:'HelveticaNeueLTStd-MdCn', arial, sans-serif;tex
 .avatar-file {font-size:14px;}
 .editfi-tit {letter-spacing:1px;}
 .editfi-email,.edit-email {text-transform:none;font-size:18px;}
+.editfi-email {font-size:23px;}
 .edit-tips {text-transform:none;font-size:18px;}
 .edit-fi {font-size:23px;}
 .editfi-condition {font-size:18px;text-transform: none;line-height:120%;}
 .editfi-information {font-size:18px;text-transform: none;line-height:120%;}
-.editfi-country-box {font-size:11px;}
+.editfi-country-box {font-size:18px;}
 .editfi-com em {font-size:18px;text-transform:none;}
 .editfi-country-option p {font-size:11px;}
 .editfi-country-option p:hover {border:1px solid #e6e6e6;}

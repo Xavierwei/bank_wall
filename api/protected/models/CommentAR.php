@@ -40,23 +40,26 @@ class CommentAR extends CActiveRecord {
     }
     return TRUE;
   }
-  
-  public function totalCommentsByUser($uid) {
-		$query = 'select count(*) as count from (SELECT nid FROM `comment` where uid = '.$uid.' group by nid) `comment`';
-		$res = Yii::app()->db->createCommand($query)->queryRow();
-		return $res['count'];
-  }
-  
-  public function totalCommentsByNode($nid) {
-    $query = new CDbCriteria();
-    $query->select = "count(*) as commentcountinnode";
-    $query->addCondition("nid=:nid");
-    $query->params[":nid"] = $nid;
-    
-    $res = $this->find($query);
-    
-    return $res->commentcountinnode;
-  }
+
+	public function totalCommentsByUser($uid) {
+		$query = new CDbCriteria();
+		$query->select = array("count(*) AS commentscount");
+		$query->addCondition("uid=:uid");
+		$query->params[":uid"] = $uid;
+		$res = $this->find($query);
+		return $res->commentscount;
+	}
+
+	public function totalCommentsByNode($nid) {
+	$query = new CDbCriteria();
+	$query->select = "count(*) as commentcountinnode";
+	$query->addCondition("nid=:nid");
+	$query->params[":nid"] = $nid;
+
+	$res = $this->find($query);
+
+	return $res->commentcountinnode;
+	}
 
 	public function flaggedCommentsList($nid) {
 		if ($uid = Yii::app()->user->getId()) {

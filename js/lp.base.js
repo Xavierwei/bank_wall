@@ -677,6 +677,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 
     // for back action
     LP.action('back' , function( data ){
+		console.log(_innerLock);
         if( _innerLock ) return;
         var $inner = $('.inner');
         var infoTime = 300;
@@ -759,7 +760,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     LP.action('back_home', function(){
         nodeActions.stopItemReversal();
 		var delay = 400;
-		if($main.hasClass('close')) {
+		if($main.hasClass('closed')) {
 			LP.triggerAction('back');
 			delay = 0;
 		}

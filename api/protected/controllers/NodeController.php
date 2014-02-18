@@ -10,24 +10,24 @@ class NodeController extends Controller {
     $this->responseError("ERROR");
   }
   
-  public function actionPost() {
+	public function actionPost() {
 		$uid = Yii::app()->user->getId();
-    $user = UserAR::model()->findByPk($uid);
-    
-    if (!Yii::app()->user->checkAccess("addNode")) {
-      return $this->responseError("permission deny");
-    }
-    
-    if ($user) {
-      $country_id = $user->country_id;
+		$user = UserAR::model()->findByPk($uid);
 
-      $request = Yii::app()->getRequest();
-      if (!$request->isPostRequest) {
-        $this->responseError("http error");
-      }
+		if (!Yii::app()->user->checkAccess("addNode")) {
+			return $this->responseError("permission deny");
+		}
+
+		if ($user) {
+			$country_id = $user->country_id;
+
+			$request = Yii::app()->getRequest();
+			if (!$request->isPostRequest) {
+				$this->responseError("http error");
+			}
 			$type = htmlspecialchars($request->getPost("type"));
 			$isIframe = htmlspecialchars($request->getPost("iframe"));
-      $isFlash = htmlspecialchars($request->getPost("flash"));
+			$isFlash = htmlspecialchars($request->getPost("flash"));
 
 			$nodeAr = new NodeAR();
 			if($isIframe || $isFlash) {
@@ -44,8 +44,8 @@ class NodeController extends Controller {
 					}
 				}
 			}
-      $nodeAr->description = htmlspecialchars($request->getPost("description"));
-      $nodeAr->type = $type;
+			$nodeAr->description = htmlspecialchars($request->getPost("description"));
+			$nodeAr->type = $type;
 			if($isIframe || $isFlash) {
 				$nodeAr->file = $nodeAr->saveUploadedFile($fileUpload);
 			}
@@ -61,21 +61,21 @@ class NodeController extends Controller {
 					$_height = $request->getPost("height");
 					$nodeAr->file = $nodeAr->cropPhoto($file, $_x, $_y, $_width);
 				}
-        else {
-          $nodeAr->file = $file;
-        }
+		        else {
+		          $nodeAr->file = $file;
+		        }
 			}
 
-      $nodeAr->uid = $uid;
-      $nodeAr->country_id = $country_id;
-      if ($nodeAr->validate()) {
-        $success = $nodeAr->save();
-        if (!$success) {
-            $this->responseError("exception happended");
-        }
-        $retdata = $nodeAr->attributes;
-        $retdata['user'] = $nodeAr->user->attributes;
-        $retdata['country'] = $nodeAr->country->attributes;
+			$nodeAr->uid = $uid;
+			$nodeAr->country_id = $country_id;
+			if ($nodeAr->validate()) {
+				$success = $nodeAr->save();
+				if (!$success) {
+				    $this->responseError("exception happended");
+				}
+				$retdata = $nodeAr->attributes;
+				$retdata['user'] = $nodeAr->user->attributes;
+				$retdata['country'] = $nodeAr->country->attributes;
 
 				if($isIframe){
 					$this->render('post', array(
@@ -84,15 +84,15 @@ class NodeController extends Controller {
 				} else {
 					$this->responseJSON($retdata, "success");
 				}
-      }
-      else {
-        $this->responseError($nodeAr->getErrors());
-      }
-    }
-    else {
-      $this->responseError("unknown error");
-    }
-  }
+			}
+			else {
+				$this->responseError($nodeAr->getErrors());
+			}
+		}
+		else {
+			$this->responseError("unknown error");
+		}
+	}
   
   public function actionPut() {
       $request = Yii::app()->getRequest();
