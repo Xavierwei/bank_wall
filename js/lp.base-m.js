@@ -2384,29 +2384,29 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
                 setTimeout(function(){
                     _isTransforming = false;
                 } , 100);
-                var off = _$img.offset();
-                var transform = 'scale(' + _totalScale + ')';
-                _$img[0].style.webkitTransform = transform;
-                _$img[0].style.transform = transform;
-                _$img.appendTo( $dom )
-                  .prevAll()
-                  .remove();
-                if( off.left > _wrapOff.left ){
-                  off.left = _wrapOff.left;
-                }
-                if( off.left + _imgWidth * _totalScale < _wrapOff.left + _wrapWidth ){
-                  off.left = _wrapOff.left + _wrapWidth - _imgWidth * _totalScale;
-                }
-                if( off.top > _wrapOff.top ){
-                  off.top = _wrapOff.top;
-                }
-                if( off.top + _imgHeight * _totalScale < _wrapOff.top + _wrapHeight ){
-                  off.top = _wrapOff.top + _wrapHeight - _imgHeight * _totalScale;
-                }
-                var offt = _$img.offset();
-                transform = 'translate( ' + ~~( off.left - offt.left) + 'px , ' + ~~( off.top - offt.top)  + 'px ) scale(' + _totalScale + ')';
-                _$img[0].style.webkitTransform = transform;
-                _$img[0].style.transform = transform;
+                // var off = _$img.offset();
+                // var transform = 'scale(' + _totalScale + ')';
+                // _$img[0].style.webkitTransform = transform;
+                // _$img[0].style.transform = transform;
+                // _$img.appendTo( $dom )
+                //   .prevAll()
+                //   .remove();
+                // if( off.left > _wrapOff.left ){
+                //   off.left = _wrapOff.left;
+                // }
+                // if( off.left + _imgWidth * _totalScale < _wrapOff.left + _wrapWidth ){
+                //   off.left = _wrapOff.left + _wrapWidth - _imgWidth * _totalScale;
+                // }
+                // if( off.top > _wrapOff.top ){
+                //   off.top = _wrapOff.top;
+                // }
+                // if( off.top + _imgHeight * _totalScale < _wrapOff.top + _wrapHeight ){
+                //   off.top = _wrapOff.top + _wrapHeight - _imgHeight * _totalScale;
+                // }
+                // var offt = _$img.offset();
+                // transform = 'translate( ' + ~~( off.left - offt.left) + 'px , ' + ~~( off.top - offt.top)  + 'px ) scale(' + _totalScale + ')';
+                // _$img[0].style.webkitTransform = transform;
+                // _$img[0].style.transform = transform;
 
                 
             })
