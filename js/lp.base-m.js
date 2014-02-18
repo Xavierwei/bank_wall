@@ -1,7 +1,7 @@
 /*
  * page base action
  */
-LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , function( $ , api ){
+LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewheel'] , function( $ , api ){
     'use strict'
 
     var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > 0;
@@ -12,6 +12,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
     var _innerDragging = false;
     var _waitingCommentListAjax = false;
     var $main = $('.main');
+    var $mainWrap = $('.main-wrap');
     var minWidth = 640;
     var itemWidth = minWidth;
     var winWidth = $(window).width();
@@ -20,6 +21,13 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
     var _e;
 
     var dragDirection;
+
+
+
+    $('body').on('change', "#country-select", function(){
+        //$('#countrybox').html($(this).val());
+    });
+
     $(document).hammer({drag_block_horizontal: true,swipe_velocity:1})
         .on("release dragup dragdown dragleft dragright swipeleft swiperight", function(ev) {
             switch(ev.type) {
@@ -38,7 +46,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
                     //LP.triggerAction('next', true);
                     _innerDragging = true;
                     break;
-                case 'release':;
+                case 'release':
                     if(dragDirection && !$('.inner').is(':visible')) {
                         LP.triggerAction('toggle_side_bar', dragDirection);
                         dragDirection = '';
@@ -56,9 +64,11 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
     );
 
 	$('body').hammer()
-		.on("tap swipeleft swiperight", '.main-item', function(ev) {
-			console.log(ev.type);
-			$(this).click();
+		.on("tap", '.main-item', function() {
+			LP.triggerAction('node',$(this));
+            setTimeout(function(){
+                _innerLock = false; // force unlock
+            }, 400);
 		}
 	);
 
@@ -99,37 +109,37 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
 //                .delay(200).stop( true , true ).fadeIn( 500 );
 //        })
         // for select options
-        .delegate('.select-option p' , 'click' , function(){
-            $(this)
-                // add selected class
-                .addClass('selected')
-                // remove sibling class
-                .siblings()
-                .removeClass('selected')
-                .end()
-                .closest('.select-pop')
-                .prev()
-                .html( $(this).html() );
-
-            //TODO: loading animation
-
-            // reset status / back to homepage
-            if(!$main.is(':visible')){
-                LP.triggerAction('back');
-            }
-
-            $('.search-hd').fadeOut(100);
-
-
-            $main.fadeOut(100,function(){
-                LP.triggerAction('close_user_page');
-                LP.triggerAction('load_list');
-            });
-
-        })
-        .delegate('.editfi-country-option p' , 'click' , function(){
-            $('.editfi-country-box').html($(this).html()).data('id', $(this).data('id'));
-        })
+//        .delegate('.select-option p' , 'click' , function(){
+//            $(this)
+//                // add selected class
+//                .addClass('selected')
+//                // remove sibling class
+//                .siblings()
+//                .removeClass('selected')
+//                .end()
+//                .closest('.select-pop')
+//                .prev()
+//                .html( $(this).html() );
+//
+//            //TODO: loading animation
+//
+//            // reset status / back to homepage
+//            if(!$main.is(':visible')){
+//                LP.triggerAction('back');
+//            }
+//
+//            $('.search-hd').fadeOut(100);
+//
+//
+//            $main.fadeOut(100,function(){
+//                LP.triggerAction('close_user_page');
+//                LP.triggerAction('load_list');
+//            });
+//
+//        })
+//        .delegate('.editfi-country-option p' , 'click' , function(){
+//            $('.editfi-country-box').html($(this).html()).data('id', $(this).data('id'));
+//        })
         .delegate('.user-edit-page .edit-email' , 'blur' , function(){
             var $error = $('.user-edit-page .edit-email-error');
             var email = $(this).val();
@@ -392,8 +402,8 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
         // start pic reversal animation
         setItemReversal: function( $dom ){
             // fix all the items , set position: relative
-            $dom.children()
-                .css('position' , 'relative');
+//            $dom.children()
+//                .css('position' , 'relative');
 
             // get first time item , which is not opend
             // wait for it's items prepared ( load images )
@@ -402,39 +412,44 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
             // if has time items, it means it needs to reversal from last node-item element
             // which is not be resersaled
             var $nodes = $dom.find('.pic-item:not(.reversal)');
+            var $imgs = $nodes.find('img');
+            $imgs.hide().ensureLoad(function(){
+                $(this).fadeIn().parents('.pic-item').addClass('reversal');
+            });
 
-            var startAnimate = function( $node ){
-                if( $dom.is(':hidden') ) return;
 
-                $node.addClass('reversal')
-                    .width( itemWidth )
-                    .height( itemWidth );
-                var animationTimeout = 300;
-
-                // fix it's img width and height
-                $node.find('img')
-                    .width( itemWidth )
-                    .height( itemWidth );
-                nodeActions._reversalTimeout =  setTimeout(function(){
-                    nodeActions.setItemReversal( $dom );
-                } , animationTimeout);
-            }
-            // if esist node , which is not reversaled , do the animation
-            if( $nodes.length  ){
-                var $img = $nodes.eq(0)
-                    .find('img');
-                startAnimate( $nodes.eq(0) );
-                //TODO: commented the image loaded condition during testing
-//                if( $img[0].complete ){
-//                    startAnimate( $nodes.eq(0) );
-//                } else {
-//                    $img.load(function(){
-//                        startAnimate( $nodes.eq(0) );
-//                    });
-//                }
-            } else { // judge if need to load next page 
-                //$(window).trigger('scroll');
-            }
+//            var startAnimate = function( $node ){
+//                if( $dom.is(':hidden') ) return;
+//
+//                $node.addClass('reversal')
+//                    .width( itemWidth )
+//                    .height( itemWidth );
+//                var animationTimeout = 300;
+//
+//                // fix it's img width and height
+//                $node.find('img')
+//                    .width( itemWidth )
+//                    .height( itemWidth );
+//                nodeActions._reversalTimeout =  setTimeout(function(){
+//                    nodeActions.setItemReversal( $dom );
+//                } , animationTimeout);
+//            }
+//            // if esist node , which is not reversaled , do the animation
+//            if( $nodes.length  ){
+//                var $img = $nodes.eq(0)
+//                    .find('img');
+//                startAnimate( $nodes.eq(0) );
+//                //TODO: commented the image loaded condition during testing
+////                if( $img[0].complete ){
+////                    startAnimate( $nodes.eq(0) );
+////                } else {
+////                    $img.load(function(){
+////                        startAnimate( $nodes.eq(0) );
+////                    });
+////                }
+//            } else { // judge if need to load next page
+//                //$(window).trigger('scroll');
+//            }
         }
         // set items auto fix it's width
 //        setItemIsotope: function( $dom ){
@@ -467,7 +482,53 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
     // resize item width
     var _resizeTimer = null;
     var _scrollAjax = false;
-    $(window)
+    $(document).hammer().on('dragup dragdown relase', '.main',function(ev){
+
+        // if is ajaxing the scroll data
+        if( _scrollAjax ) return;
+        // if scroll to the botton of the window
+        // ajax the next datas
+        var st = $('.main-wrap').scrollTop();
+        var docHeight = $('.main').height();
+        //var winHeight = document.body.clientHeight;
+        console.log(docHeight - st);
+        if( docHeight - st < 2000 ){
+
+            // fix main element
+            // it must visible and in main element has unreversaled node
+            if( $main.is(':visible') ){
+                _scrollAjax = true;
+                var param = $main.data('param');
+                param.page++;
+                $main.data('param' , param);
+                $listLoading.fadeIn();
+                api.ajax('recent' , param , function( result ){
+                    nodeActions.inserNode( $main , result.data , param.orderby == 'datetime');
+                    _scrollAjax = false;
+                    $listLoading.fadeOut();
+                    // TODO:: no more data tip
+                });
+            }
+            // fix user page element
+            var $userCom = $('.user-page .count-com');
+            // it must visible and in main element has unreversaled node
+            if( $('.count-com').is(':visible') ){
+                _scrollAjax = true;
+                var userPageParam = $('.count-com').data('param');
+                userPageParam.page++;
+                $('.count-com').data('param',userPageParam);
+                api.ajax('recent' , userPageParam , function( result ){
+                    nodeActions.inserNode( $userCom , result.data , true );
+                    _scrollAjax = false;
+
+                    // TODO:: no more data tip
+                });
+            }
+            if( _scrollAjax ){
+                // TODO: loading animation
+            }
+        }
+    });
     // .resize(function(){
     //     clearTimeout( _resizeTimer );
 
@@ -498,51 +559,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
     //     // resize user box
     //     resizeUserBox();
     // })
-    .scroll(function(){
-        // if is ajaxing the scroll data
-        if( _scrollAjax ) return;
-        // if scroll to the botton of the window
-        // ajax the next datas
-        var st = $(window).scrollTop();
-        var docHeight = $(document).height();
-        var winHeight = document.body.clientHeight;
-        if( docHeight - winHeight - st < 100 ){
-            
-            // fix main element
-            // it must visible and in main element has unreversaled node
-            if( $main.is(':visible') && !$main.find('.main-item:not(.time-item,.reversal)').length ){
-                _scrollAjax = true;
-                var param = $main.data('param');
-                param.page++;
-                $main.data('param' , param);
-                $listLoading.fadeIn();
-                api.ajax('recent' , param , function( result ){
-                    nodeActions.inserNode( $main , result.data , param.orderby == 'datetime');
-                    _scrollAjax = false;
-                    $listLoading.fadeOut();
-                    // TODO:: no more data tip
-                });
-            }
-            // fix user page element
-            var $userCom = $('.user-page .count-com');
-            // it must visible and in main element has unreversaled node
-            if( $('.count-com').is(':visible') && !$userCom.find('.main-item:not(.time-item,.reversal)').length ){
-                _scrollAjax = true;
-                var userPageParam = $('.count-com').data('param');
-                userPageParam.page++;
-                $('.count-com').data('param',userPageParam);
-                api.ajax('recent' , userPageParam , function( result ){
-                    nodeActions.inserNode( $userCom , result.data , true );
-                    _scrollAjax = false;
 
-                    // TODO:: no more data tip
-                });
-            }
-            if( _scrollAjax ){
-                // TODO: loading animation
-            }
-        }
-    });
 
 
 
@@ -570,24 +587,22 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
     var _nodeCache = [];
     var _currentNodeIndex = 0;
     var _innerLock = false;
-    LP.action('node' , function( data ){
+    LP.action('node' , function( $obj ){
+        console.log('lock:'+_innerLock);
         if( _innerLock ) return;
         _innerLock = true;
-        var $dom = $( this );
-        if(data.type) {
-            var node = data; // 如果直接传入单个node，不再从列表中获取
+        setTimeout(function(){
+            _innerLock = false; // force unlock
+        }, 400);
+        _currentNodeIndex = $obj.prevAll(':not(.time-item)').length;
+        if($('.user-page').is(':visible')) {
+            var nodes = $('.count-com').data('nodes');
         }
-        else {
-            _currentNodeIndex = $(this).prevAll(':not(.time-item)').length;
-            if($('.user-page').is(':visible')) {
-                var nodes = $('.count-com').data('nodes');
-            }
-            else
-            {
-                var nodes = $main.data('nodes');
-            }
-            var node = nodes[ _currentNodeIndex ];
+        else
+        {
+            var nodes = $main.data('nodes');
         }
+        var node = nodes[ _currentNodeIndex ];
         if(!$('.side').is(':visible')) {
             _silderWidth = 0;
         }
@@ -614,7 +629,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
             $('.inner').eq(0).fadeOut(function(){
                 $(this).remove();
             });
-            var $inner = $(html).insertBefore( $main )
+            var $inner = $(html).insertBefore( $mainWrap )
                 .css({
                     x: - mainWidth
                     //position: 'relative'
@@ -622,13 +637,13 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
 				.transit({
 					x: 0
 				}, _animateTime , _animateEasing, function(){
-					_innerLock = false;
-				});
+                    _innerLock = false;
+                });
 
             // loading comments
-            bindCommentSubmisson();
-            _waitingCommentListAjax = false;
-            getCommentList(node.nid,1);
+//            bindCommentSubmisson();
+//            _waitingCommentListAjax = false;
+//            getCommentList(node.nid,1);
 
 //            LP.use(['jscrollpane' , 'mousewheel'] , function(){
 //                $('.com-list').jScrollPane({autoReinitialise:true}).bind(
@@ -686,7 +701,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
 //            },100);
 
             // save node from
-            $inner.data('from' , $dom.parent() );
+            //$inner.data('from' , $dom.parent() );
         } );
 
         return false;
@@ -776,12 +791,8 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
     });
 
     LP.action('back_home', function(){
-		nodeActions.stopItemReversal();
 		var delay = 400;
-		if($main.hasClass('closed')) {
-			LP.triggerAction('back');
-			delay = 0;
-		}
+        LP.triggerAction('back');
 		if($('.user-page').is(':visible')) {
 			LP.triggerAction('toggle_user_page');
 			delay = 0;
@@ -1035,6 +1046,8 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
 
     //for next action
     LP.action('next' , function( drag ){
+        console.log('_innerDragging:'+_innerDragging);
+        console.log('_innerLock:'+_innerLock);
         if(_innerDragging) return;
         if( _innerLock ) return;
         _innerLock = true;
@@ -1171,6 +1184,10 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
 			$comMain.show()
 				.css({y:1000, opacity:0})
 				.transit({y:0, opacity:1}, _animateTime, _animateEasing);
+
+            $comMain.find('.com-list-inner').height($comMain.height() - 180);
+            bindCommentSubmisson();
+            getCommentList(data.nid,1);
 		}
 		else {
 			$comMain.transit({y:1000, opacity:0}, _animateTime, _animateEasing, function(){
@@ -2501,6 +2518,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
             LP.compile( 'base-template' , {_e:_e} , function( html ){
                 $('body').prepend(html);
                 $main = $('.main');
+                $mainWrap = $('.main-wrap');
                 $listLoading = $('.loading-list');
 
                 $('.language-item').removeClass('language-item-on')
@@ -2531,9 +2549,6 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
                             $('.side').data('user',result.data);
                         });
                         $('.page').addClass('logged');
-                        setTimeout(function(){
-                            LP.triggerAction('toggle_side_bar','left');
-                        }, 2000);
                         $('.header .select').fadeIn();
                     }
                     else {
@@ -2632,6 +2647,10 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
     var bindCommentSubmisson = function() {
         LP.use('form' , function(){
             var $submitBtn = $('.comment-form .submit');
+            var $submitInput = $('.com-ipt');
+            $submitInput.on('change', function(){
+                $('.comment-form').submit();
+            });
             $('.comment-form').ajaxForm({
                 beforeSubmit:  function($form){
                     if($submitBtn.hasClass('disabled')) {
@@ -2678,11 +2697,14 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
                                     $('.com-list-inner').html('');
                                 }
                                 $('.com-list-inner').first().append(html);
-                                var $comCount = $('.com-com-count');
+                                var $comCount = $('.com-com-count span');
                                 var newComCount = parseInt($comCount.html())+1;
                                 $comCount.html(newComCount);
+                                if(newComCount == 2) {
+                                    $('.com-com-count').html($('.com-com-count').html() + 's');
+                                }
                                 var nid = $('.comment-wrap').data('param').nid;
-                                $('.main-item-' + nid).find('.item-comment').html(newComCount);
+                                //$('.main-item-' + nid).find('.item-comment').html(newComCount);
 
                                 (function(){
                                     var nodes = $('.main').data('nodes');
@@ -2905,7 +2927,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
                         nodeActions.inserNode( $main , result.data , pageParam.orderby == 'datetime' );
                         $listLoading.fadeOut();
                         setTimeout(function(){
-                            $('.main-item-'+nid).click();
+                            $('.main-item-'+nid).trigger('tap');
                         },100);
                     }
                 });
@@ -2927,6 +2949,9 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer'] , functio
      */
     var pageLoaded = function(delay){
         $('.page-loading').delay(delay).fadeOut(function(){
+            setTimeout(function(){
+                LP.triggerAction('toggle_side_bar','right');
+            }, 2000);
            $(this).remove();
         });
     }

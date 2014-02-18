@@ -4,6 +4,7 @@
 		<!-- header -->
 		<div class="header">
 
+
 			<!--  -->
 			<div class="logo" data-a="back_home"></div>
 			<!--  -->
@@ -18,6 +19,31 @@
 				<div class="search-tip btn" data-a="search_tip"></div>
 			</div>
 
+			<div class="select clear" id="countrybox">
+				<!--  -->
+				<div class="select-item">
+					<div class="select-box">choisir le PAYS</div>
+				</div>
+				<select id="country-select">
+					<option>
+						china
+					</option><option value="france">
+						france
+					</option><option>
+						china
+					</option><option>
+						china
+					</option><option>
+						china
+					</option><option>
+						china
+					</option>
+				</select>
+				<!--  -->
+			</div>
+
+
+
 			<!--  -->
 			<div class="language">
 				<div data-a="lang" data-d="lang=fr" class="btn language-item language-item-fr"><p class="fr"></p></div>
@@ -27,8 +53,12 @@
 		</div>
 		<!--  -->
 		<div class="content clear">
-			<div class="search-hd">{{_e.RESULTS}} #<span></span></div>
-			<div class="main" style="display:none;"></div>
+			<div class="search-hd" style="display:none;">{{_e.RESULTS}} #<span></span></div>
+			<div class="main-wrap">
+				<div class="main">
+
+				</div>
+			</div>
 			<div class="loading-list"></div>
 		</div>
 	</div>
@@ -248,17 +278,14 @@
 					<div class="com-info">
 						<div class="com-counts clear">
 							<p class="com-day">{{date}} {{month}}</p>
-							<div class="btn2 com-com-count" data-a="toggle_comment"><span>{{commentcount}}</span>  {{#ifzero commentcount}}{{_e.COMMENT}}{{else}}{{_e.COMMENTS}}{{/ifzero}}</div>
+							<div class="btn2 com-com-count" data-a="toggle_comment" data-d="nid={{nid}}"><span>{{commentcount}}</span>  {{#ifzero commentcount}}{{_e.COMMENT}}{{else}}{{_e.COMMENTS}}{{/ifzero}}</div>
 							{{#ifliked}}
 							<div data-a="unlike" data-d="nid={{nid}}" class="com-like com-unlike clickable">
 								<span>{{likecount}}</span> {{#ifzero likecount}}{{_e.LIKE}}{{else}}{{_e.LIKES}}{{/ifzero}}
 							</div>
 							{{else}}
 							<div data-a="like" data-d="nid={{nid}}" class="com-like clickable">
-								<span>{{likecount}}</span>
-								{{#if currentUser}}{{else}}
-								<div class="need-login">{{_e.LOGIN_BEFORE_LIKE}}</div>
-								{{/if}}
+								<span>{{likecount}}</span> {{#ifzero likecount}}{{_e.LIKE}}{{else}}{{_e.LIKES}}{{/ifzero}}
 							</div>
 							{{/ifliked}}
 							{{#if user_flagged}}
@@ -313,10 +340,8 @@
 
 <!-- node-item-tpl -->
 <script type="text/tpl" id="node-item-template">
-	<div data-a="node" data-d="nid={{nid}}" class="main-item pic-item main-item-{{nid}}">
-		<a>
-			<img src="../api{{image}}" width="640" />
-		</a>
+	<div data-d="nid={{nid}}" class="main-item pic-item main-item-{{nid}}">
+		<img src="../api{{image}}" width="640" />
 	</div>
 </script>
 
@@ -407,18 +432,20 @@
 			<!-- 侧边栏展开显示按钮，加上side-unfold-arrow 为向内箭头 -->
 			<div class="side-fold-arrow "></div>
 		</div>
-		<!-- user -->
-		<div class="user btn" data-a="toggle_user_page">
-			<div class="user-pho"><img src="../api{{avatar}}" width="34" height="34" /><div class="avatar-ie-round"></div></div>
-			<div class="user-name">{{firstname}}</div>
-		</div>
-		<!-- menu -->
-		<div class="menu">
-			<div class="menu-item photo" data-a="pop_upload" data-d="type=photo"><div class="menu-item-arrow"></div><p></p><h6>{{_e.POST_A_PHOTO}}</h6></div>
-			<div class="menu-item video" data-a="pop_upload" data-d="type=video"><div class="menu-item-arrow"></div><p></p><h6>{{_e.POST_A_VIDEO}}</h6></div>
-			<div class="menu-item {{_e.DAY}}" data-a="content_of_day"><div class="menu-item-arrow"></div><p></p><h6>{{_e.CONTENT_OF_THE_DAY}}</h6></div>
-			<div class="menu-item month" data-a="content_of_month"><div class="menu-item-arrow"></div><p></p><h6>{{_e.CONTENT_OF_THE_MONTH}}</h6></div>
-			<a class="menu-item logout" href="../api/user/samllogout"><div class="menu-item-arrow"></div><p></p><h6>{{_e.LOGOUT}}</h6></a>
+		<div class="side-inner">
+			<!-- user -->
+			<div class="user btn" data-a="toggle_user_page">
+				<div class="user-pho"><img src="../api{{avatar}}" width="34" height="34" /><div class="avatar-ie-round"></div></div>
+				<div class="user-name">{{firstname}}</div>
+			</div>
+			<!-- menu -->
+			<div class="menu">
+				<div class="menu-item photo" data-a="pop_upload" data-d="type=photo"><div class="menu-item-arrow"></div><p></p><h6>{{_e.POST_A_PHOTO}}</h6></div>
+				<div class="menu-item video" data-a="pop_upload" data-d="type=video"><div class="menu-item-arrow"></div><p></p><h6>{{_e.POST_A_VIDEO}}</h6></div>
+				<div class="menu-item {{_e.DAY}}" data-a="content_of_day"><div class="menu-item-arrow"></div><p></p><h6>{{_e.CONTENT_OF_THE_DAY}}</h6></div>
+				<div class="menu-item month" data-a="content_of_month"><div class="menu-item-arrow"></div><p></p><h6>{{_e.CONTENT_OF_THE_MONTH}}</h6></div>
+				<a class="menu-item logout" href="../api/user/samllogout"><div class="menu-item-arrow"></div><p></p><h6>{{_e.LOGOUT}}</h6></a>
+			</div>
 		</div>
 	</div>
 </script>

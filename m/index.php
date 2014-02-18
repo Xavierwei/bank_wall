@@ -22,9 +22,9 @@
     <div class="preload2">a</div>
     <div class="preload3">a</div>
 </div>
-<!--<div class="page-loading">-->
-<!--	<div class="page-loading-logo"><img src="img/logo.gif" /></div>-->
-<!--</div>-->
+<div class="page-loading">
+	<div class="page-loading-logo"><img src="./img/logo.png" /></div>
+</div>
 <img id="imgLoad" />
 <?php
 	include('../include/tpl_mobile.php');
