@@ -1596,7 +1596,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 
             var $fileupload = $('#avatar_post_form');
             acceptFileTypes = /(\.|\/)(gif|jpe?g|png)$/i;
-            //$('#select-btn').html(' SELECT PHOTO <input id="file-photo" type="file" name="photo" />');
             if(isIE8) {
                 $fileupload.append('<input type="hidden" name="iframe" value="true" />');
                 $fileupload.find('input').change(function(){
@@ -1759,16 +1758,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         $('.pop-uploadloading').show();
         api.ajax('saveNode' , $.extend( {file: data.file, type: data.type, description: description, size: 175} , trsdata ), function( result ){
             if(result.success) {
-
-//                //TODO: insert the content to photo wall instead of refresh
-//                $main.html('');
-//                $main.data('nodes' , []);
-//                var param = $main.data('param');
-//                param.page = 0;
-//                $main.data('param', param);
-//                api.ajax('recent', param, function( result ){
-//                    nodeActions.inserNode( $main , result.data , param.orderby == 'datetime' );
-//                });
 //
                 LP.triggerAction('get_fresh_nodes');
                 $('.pop-inner').fadeOut(400);
@@ -1808,7 +1797,10 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     });
 
     //toggle user page
+    var isToggleIng = false;
     LP.action('toggle_user_page' , function(){
+        if( isToggleIng ) return;
+        isToggleIng = true;
         if(!$('.user-page').is(':visible')) {
             var mainWidth = winWidth;
             var slidWidth = 80;
@@ -1837,6 +1829,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                     // reversal
                     nodeActions.setItemWidth( $countCom );
                     nodeActions.setItemReversal( $countCom );
+                    isToggleIng = false;
                 });
             $('.close-user-page').fadeIn();
             changeUrl('/user' , { event: 'user' });
@@ -1849,6 +1842,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             $main.show();
             nodeActions.setItemWidth( $main );
             nodeActions.setItemReversal( $main );
+            isToggleIng = false;
         }
     });
 
