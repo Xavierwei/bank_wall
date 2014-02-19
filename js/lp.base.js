@@ -837,6 +837,49 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                     "transform": rotate
                 });
 
+            // fix ie8 and ie9 not support animate feature
+            if( !$('html').hasClass('csstransforms3d') ){
+                var cubeWidth = $cube.width();
+                $cube.css({
+                    width: 2 * cubeWidth
+                })
+                .children().css({
+                    float: 'left',
+                    position: 'static',
+                    width : cubeWidth,
+                    height: '100%'
+                });
+                if( direction == 'left' ){
+                    $cube.css({
+                        left: -cubeWidth
+                    })
+                    .animate( {
+                        left: 0
+                    } , 1000 , '' , function(){
+                        $comment.remove();
+                        $cube.css('width' , '100%')
+                            .children()
+                            .css('width' , '100%');
+                    });
+                } else {
+                    $cube.children().eq(0)
+                        .appendTo( $cube );
+                    $cube.css({
+                        left: 0
+                    })
+                    .animate( {
+                        left: -cubeWidth
+                    } , 1000 , '' , function(){
+                        $comment.remove();
+                        $cube.css({
+                            width: '100%',
+                            left : 0
+                        })
+                        .children()
+                            .css('width' , '100%');
+                    });
+                }
+            }
 
 
             setTimeout(function(){
@@ -3111,6 +3154,9 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                         setTimeout(function(){
                             $('.main-item-'+nid).click();
                         },100);
+
+                        // fix bug , some times the height would be 0
+                        $main.height('auto');
                     }
                 });
             });
