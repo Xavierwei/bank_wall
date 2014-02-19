@@ -12,11 +12,15 @@ SGWallAdminController
 
 
 
-		$scope.$watch('filter.type + filter.country_id', function() {
+		$scope.$watch('filter.type + filter.country_id + filter.status', function() {
 			if($scope.filter.type != 'all') {
 				params.type = $scope.filter.type;
 			}
 			params.country_id = $scope.filter.country_id;
+			if($scope.filter.status != undefined) {
+				params.status = $scope.filter.status;
+				params.showall;
+			}
 			NodeService.list(params, function(data){
 				$scope.nodes = data;
 			});
