@@ -47,7 +47,7 @@ a{text-decoration:none;color:#666}
     .select-pop p:hover{background:#eee;}
     .search{background: #515151;height: 57px;width:100%;position: absolute;top:182px;width:100%;}
     .search-tip{width:48px;height: 57px;background: url('../img/icon_search_tip.gif') no-repeat center;float:right;}
-    .search-ipt{position: absolute;left:64px;right:48px;height: 57px;background:#515151;padding: 0 10px;font-size:22px;color:#9b9b9b;}
+    .search-ipt{position: absolute;left:64px;right:48px;height: 52px;background:#515151;padding:5px 10px 0 10px;font-size:22px;color:#9b9b9b;}
     .search-sub{text-indent:-999em;font-size:0;float:left;height: 57px;background: #515151 url('../img/icon_search.gif') no-repeat center;width:64px;line-height: 5000em;overflow: hidden;cursor: pointer;}
     .filter{display:none;position: absolute;font-size: 26px;color:#fff;background: #000 url('../img/side_filtrer.gif') no-repeat 30px center;width: 120px;height: 56px;padding-left:65px;top:128px;line-height: 57px}
 
@@ -123,8 +123,9 @@ a{text-decoration:none;color:#666}
 
     /**/
     .com-main{position: absolute;left:0;right:0;z-index:14;top:66px;bottom:88px;background:#404040;color:#e4e4e4;border-top: #4a4743 solid 1px;border-bottom: #010102 solid 1px;text-transform:none;}
-        .com-close{width:58px;height: 56px;background: #2c2c2c url('../img/img_com_close.gif') no-repeat center;position: absolute;top:0;right:0;cursor: pointer;}  
-        .com-list-inner{width:100%;margin-top:56px;height:300px;overflow: scroll;-webkit-overflow-scrolling: touch;}
+        .com-close{width:58px;height: 56px;background: #2c2c2c url('../img/img_com_close.gif') no-repeat center;position: absolute;top:0;right:0;cursor: pointer;}
+        .com-list {height:300px;overflow: scroll;-webkit-overflow-scrolling: touch;margin-top:56px;}
+        .com-list-inner{width:100%;}
             .com-list-loading {text-align: center;}
             .no-comment {text-align: center;}
             .comlist-item{background: #474747;padding:16px 18px 16px;margin: 0 auto 15px;position: relative;color:#e4e4e4;font-size: 22px;width:506px;}

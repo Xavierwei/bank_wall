@@ -177,12 +177,12 @@ class NodeAR extends CActiveRecord{
 
 			if($type == 'photo') {
 				$this->makeImageThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_250_250.jpg', $newpath), 250, 250, false);
-				$this->makeImageThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_650_650.jpg', $newpath), 650, 650, false);
+				$this->makeImageThumbnail(ROOT.$newpath, ROOT.str_replace('.jpg', '_640_640.jpg', $newpath), 650, 650, false);
 			}
 			else {
 				$newImgPath = str_replace('.mp4', '.jpg', $newpath);
 				$this->makeVideoThumbnail(ROOT.$newImgPath, ROOT.str_replace('.jpg', '_250_250.jpg', $newImgPath), 250, 250, false);
-				$this->makeVideoThumbnail(ROOT.$newImgPath, ROOT.str_replace('.jpg', '_650_650.jpg', $newImgPath), 650, 650, false);
+				$this->makeVideoThumbnail(ROOT.$newImgPath, ROOT.str_replace('.jpg', '_640_640.jpg', $newImgPath), 650, 650, false);
 			}
 		}
 
@@ -264,36 +264,32 @@ class NodeAR extends CActiveRecord{
    * 
    * @param CUploadedFile $upload
    */
-  public function saveUploadedFile($upload) {
-    $dir = ROOT."/uploads";
-    
-    if (!is_dir($dir)) {
-      mkdir($dir, 0777, TRUE);
-    }
-    
+	public function saveUploadedFile($upload) {
+		$dir = ROOT."/uploads";
+		if (!is_dir($dir)) {
+		  mkdir($dir, 0777, TRUE);
+		}
 
-    $dir .= '/'.date("Y/n/j");
-    if (!is_dir($dir)) {
-      mkdir($dir, 0777, TRUE);
-    }
+		$dir .= '/'.date("Y/n/j");
+		if (!is_dir($dir)) {
+		  mkdir($dir, 0777, TRUE);
+		}
 
-
-    $photoexts = explode(",", self::ALLOW_UPLOADED_PHOTO_TYPES);
-    $videoexts = explode(",", self::ALLOW_UPLOADED_VIDEO_TYPES);
-    $extname = strtolower(pathinfo($upload->getName(), PATHINFO_EXTENSION));
+		$photoexts = explode(",", self::ALLOW_UPLOADED_PHOTO_TYPES);
+		$videoexts = explode(",", self::ALLOW_UPLOADED_VIDEO_TYPES);
+		$extname = strtolower(pathinfo($upload->getName(), PATHINFO_EXTENSION));
 		$extnameArray = explode("?", $extname);
 		$extname = $extnameArray[0];
 		if(empty($extname)){
-      exec("/usr/bin/file -b --mime {$upload->tempName}", $output, $status);
-      $mime = explode(';',$output[0]);
+			exec("/usr/bin/file -b --mime {$upload->tempName}", $output, $status);
+			$mime = explode(';',$output[0]);
 			$mime = $mime[0];
-      $extname = explode('/',$mime);
+			$extname = explode('/',$mime);
 			$extname = $extname[1];
 		}
-
 		if (in_array($extname, $photoexts)) {
-      $filename = md5( uniqid() . '_' . $upload->getName() ) . '.jpg' ;
-      $to = $dir."/". $filename;
+			$filename = md5( uniqid() . '_' . $upload->getName() ) . '.jpg';
+			$to = $dir."/". $filename;
 			switch($extname) {
 				case 'gif':
 					$srcImg = imagecreatefromgif($upload->tempName);
@@ -304,70 +300,112 @@ class NodeAR extends CActiveRecord{
 				default:
 					$srcImg = imagecreatefromjpeg($upload->tempName);
 			}
+			$exif = exif_read_data($upload->tempName);
+			if (!empty($exif['Orientation'])) {
+				switch ($exif['Orientation']) {
+					case 3:
+						$srcImg = imagerotate($srcImg, 180, 0);
+						break;
+
+					case 6:
+						$srcImg = imagerotate($srcImg, -90, 0);
+						break;
+
+					case 8:
+						$srcImg = imagerotate($srcImg, 90, 0);
+						break;
+				}
+			}
 			imagejpeg($srcImg, $to, 90);
 		}
 
-    // 检查是不是视频， 如果是, 就就做视频转换工作
-    if (in_array($extname, $videoexts)) {
-      $filename = md5( uniqid() . '_' . $upload->getName() ) . '.' .$extname ;
-      $to = $dir."/". $filename;
-      $ret = $upload->saveAs($to);
-      // 在这里做视频转换功能
-      // 先检查 ffmpeg 是否已经安装
-      exec("which ffmpeg", $output);
-      if (!empty($output)) {
-        $ffmpeg = array_shift($output);
-        if ($ffmpeg) {
-          $newpath = pathinfo($to, PATHINFO_FILENAME)."_new.". self::ALLOW_STORE_VIDE_TYPE;
-          $dir = pathinfo($to, PATHINFO_DIRNAME);
-          $newpath = $dir.'/'. $newpath;
-          if ($newpath != $to) {
-					//if (1) {
-            $status;
-            $output;
-            // 视频转换
-            switch($extname) {
-				case 'mp4':
-					//copy($to, $newpath);
-					//exec("ffmpeg -i {$to} {$newpath}", $output, $status);
-					exec("ffmpeg -i {$to} -vcodec libx264 -acodec aac -strict experimental -ac 2 {$newpath}", $output, $status);
-					break;
-				case 'mpg':
-					exec("ffmpeg -i {$to} -c:v libx264 -c:a libfaac -r 30 {$newpath}", $output, $status);
-					break;
-				case 'mpeg':
-					exec("ffmpeg -i {$to} -c:v libx264 -c:a libfaac -r 30 {$newpath}", $output, $status);
-					break;
-				case 'mov':
-					exec("ffmpeg -i {$to} -vcodec copy -acodec copy {$newpath}", $output, $status);
-					break;
-				case 'wmv':
-					exec("ffmpeg -i {$to} -strict -2 {$newpath}", $output, $status);
-					break;
-				case '3gp':
-					exec("ffmpeg -i {$to} -strict -2 -ab 64k -ar 44100 {$newpath}", $output, $status);
-					break;
-				case 'avi':
-					exec("ffmpeg -i {$to} -acodec libfaac -b:a 128k -vcodec mpeg4 -b:v 1200k -flags +aic+mv4 {$newpath}", $output, $status);
-					break;
-				default:
-					exec("ffmpeg -i {$to}  -vcodec mpeg4 -b:v 1200k -flags +aic+mv4 {$newpath}", $output, $status);
-            }
+		// 检查是不是视频， 如果是, 就就做视频转换工作
+		if (in_array($extname, $videoexts)) {
+			$filename = md5( uniqid() . '_' . $upload->getName() ) . '.' .$extname ;
+			$to = $dir."/". $filename;
+			$ret = $upload->saveAs($to);
+			// 在这里做视频转换功能
+			// 先检查 ffmpeg 是否已经安装
+			exec("which ffmpeg", $output);
+			if (!empty($output)) {
+				$ffmpeg = array_shift($output);
+				if ($ffmpeg) {
+					$newpath = pathinfo($to, PATHINFO_FILENAME)."_new.". self::ALLOW_STORE_VIDE_TYPE;
+					$dir = pathinfo($to, PATHINFO_DIRNAME);
+					$newpath = $dir.'/'. $newpath;
+					if ($newpath != $to) {
+							//if (1) {
+						$status;
+						$output;
+						$rotate = '';
+						$orientation = $this->get_video_orientation($to);
+						switch ($orientation) {
+								case 90:
+									$rotate = '-vf "transpose=1"';
+									break;
+								case 180:
+									$rotate = '-vf "transpose=4"';
+									break;
+							}
 
-            
-            // 视频转换完后 要删掉之前的视频文件
-            unlink($to);
-            // 删除后， 再返回新的文件地址
-            $to = $newpath;
-          }
+						// 视频转换
+						switch($extname) {
+							case 'mp4':
+								exec("ffmpeg -i {$to} -vcodec libx264 -acodec aac -strict experimental -ac 2 {$rotate} {$newpath}", $output, $status);
+								break;
+							case 'mpg':
+								exec("ffmpeg -i {$to} -c:v libx264 -c:a libfaac -r 30 {$newpath}", $output, $status);
+								break;
+							case 'mpeg':
+								exec("ffmpeg -i {$to} -c:v libx264 -c:a libfaac -r 30 {$newpath}", $output, $status);
+								break;
+							case 'mov':
+								exec("ffmpeg -i {$to} -vcodec libx264 -acodec aac -strict experimental -ac 2 {$rotate} {$newpath}", $output, $status);
+								break;
+							case 'wmv':
+								exec("ffmpeg -i {$to} -strict -2 {$newpath}", $output, $status);
+								break;
+							case '3gp':
+								exec("ffmpeg -i {$to} -strict -2 -ab 64k -ar 44100 {$newpath}", $output, $status);
+								break;
+							case 'avi':
+								exec("ffmpeg -i {$to} -acodec libfaac -b:a 128k -vcodec mpeg4 -b:v 1200k -flags +aic+mv4 {$newpath}", $output, $status);
+								break;
+							default:
+								exec("ffmpeg -i {$to}  -vcodec mpeg4 -b:v 1200k -flags +aic+mv4 {$newpath}", $output, $status);
+						}
 
-        }
-      }
-    }
+						// 视频转换完后 要删掉之前的视频文件
+						unlink($to);
+						// 删除后， 再返回新的文件地址
+						$to = $newpath;
+					}
+
+				}
+			}
+		}
 
 		$to = str_replace(ROOT, "", $to);
-    return $to;
-  }
+
+    	return $to;
+  	}
+
+	function get_video_orientation($video_path) {
+		$cmd = "/usr/local/bin/ffprobe " . $video_path . " -show_streams 2>/dev/null 2>&1";
+		$result = shell_exec($cmd);
+		$orientation = 0;
+		if(strpos($result, 'TAG:rotate') !== FALSE) {
+			$result = explode("\n", $result);
+			foreach($result as $line) {
+				if(strpos($line, 'TAG:rotate') !== FALSE) {
+					$stream_info = explode("=", $line);
+					$orientation = $stream_info[1];
+				}
+			}
+		}
+
+		return $orientation;
+	}
 
 
 
@@ -463,14 +501,14 @@ class NodeAR extends CActiveRecord{
 
 	}
 
-	public function cropPhoto($file, $x, $y, $width) {
+	public function cropPhoto($file, $x, $y, $width, $scale_size) {
 		$thumb = new EasyImage(ROOT.$file);
 		$size = $thumb->resize(1000,1000,EasyImage::RESIZE_AUTO);
 		$srcWidth = $size->width;
 		$scale = $srcWidth / $width;
 		$toX = -($x * $scale);
 		$toY = -($y * $scale);
-		$toWidth = 175 * $scale;
+		$toWidth = $scale_size * $scale;
 		$thumb->crop($toWidth,$toWidth,$toX,$toY);
 		$thumb->save(ROOT.$file);
 		return $file;

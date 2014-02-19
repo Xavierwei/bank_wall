@@ -287,7 +287,7 @@ a{text-decoration:none;color:#666}
     .search-tip-modal .example-text {margin:20px 0 0 62px;text-transform:none;font-style:italic;}
     .search-tip-modal .cancel {background:#90918e;font-size:15px;color:#fff;width:120px;height:40px;line-height:40px;border:none;margin:25px auto 0 auto;display:block;}
     .pop-avatar .poptxt-pic-inner {width:220px;height:220px;}
-    .pop-avatar .poptxt-pic {float:none;margin:0 auto;width:222px;}
+    .pop-avatar .poptxt-pic {float:none;margin:0 auto;width:220px;height:220px;}
     #node_post_flash {text-align: center;}
     .pop-video .pop-zoomout-btn, .pop-video .pop-zoomin-btn {display:none;}
 

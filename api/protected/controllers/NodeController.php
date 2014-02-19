@@ -58,8 +58,8 @@ class NodeController extends Controller {
 				if($_x && $type == 'photo') {
 					$_y = $request->getPost("y");
 					$_width = $request->getPost("width");
-					$_height = $request->getPost("height");
-					$nodeAr->file = $nodeAr->cropPhoto($file, $_x, $_y, $_width);
+					$_scale_size = $request->getPost("size");
+					$nodeAr->file = $nodeAr->cropPhoto($file, $_x, $_y, $_width, $_scale_size);
 				}
 		        else {
 		          $nodeAr->file = $file;
@@ -429,7 +429,7 @@ class NodeController extends Controller {
       $commentAr = new CommentAR();
       foreach ($res as $node) {
           $data = $node->attributes;
-          $data["description"] = htmlentities($node->description);
+          $data["description"] = $node->description;
           $data["likecount"] = $node->likecount;
           $data["commentcount"] = $commentAr->totalCommentsByNode($node->nid);
           $data["user"] = $node->user ? $node->user->attributes : array();

@@ -5,7 +5,7 @@
     <meta name="keywords" content="" />
     <meta name="description" content="" />
 	<meta name="viewport" content="minimal-ui, width=640, minimum-scale=0.5, maximum-scale=0.5, target-densityDpi=290,user-scalable=no" />
-    <title>SG WALL</title>
+    <title>L'ESPRIT D'EQUIPE SOCIETE GENERALE</title>
     <link href="../css/jsPane.css" rel="stylesheet" type="text/css" />
     <link href="css/layout.css" rel="stylesheet" type="text/css" />
 	<link href="css/needtocombine.css" rel="stylesheet" type="text/css" />

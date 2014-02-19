@@ -75,8 +75,6 @@ class UploadsController extends Controller {
 
 		$request = Yii::app()->getRequest();
 		$type = $request->getPost("type");
-//		$mime = $fileUpload->getType();
-//		echo $mime;
 		if(!isset($type)) {
 			$mime = $fileUpload->getType();
 			if( in_array($mime, $this->_photo_mime ) ){
@@ -96,17 +94,18 @@ class UploadsController extends Controller {
 
 		// save file to dir
 		$file = $nodeAr->saveUploadedFile($fileUpload);
+		if($file) {
+			// make preview thumbnail
+			if($type == 'video') {
+				$paths = explode(".",$file);
+				$basename = array_shift($paths);
+				$nodeAr->makeVideoThumbnail(ROOT.$basename.'.jpg', ROOT.$basename.'.jpg', 175, 175, false);
+			}
 
-    // make preview thumbnail
-    if($type == 'video') {
-      $paths = explode(".",$file);
-      $basename = array_shift($paths);
-			$nodeAr->makeVideoThumbnail(ROOT.$basename.'.jpg', ROOT.$basename.'.jpg', 175, 175, false);
-    }
-
-		// return result
-		$retdata = array( "type"=> $type , "file" => $file );
-		$this->responseJSON($retdata, "success");
+			// return result
+			$retdata = array( "type"=> $type , "file" => $file );
+			$this->responseJSON($retdata, "success");
+		}
 	}
 
   

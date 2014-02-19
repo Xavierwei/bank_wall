@@ -8,7 +8,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     var isIE8 = $('html').hasClass('ie8');
     var API_FOLDER = "./api";
     var THUMBNAIL_IMG_SIZE = "_250_250";
-    var BIG_IMG_SIZE = "_650_650";
+    var BIG_IMG_SIZE = "_640_640";
     var _waitingLikeAjax = false;
     var _waitingCommentListAjax = false;
     var $main = $('.main');
@@ -1003,7 +1003,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
      */
     function preLoadSiblings(){
         var nodes = $main.data('nodes');
-        var aftfix = '_650_650.jpg';
+        var aftfix = '_640_640.jpg';
         // preload before and after images
         for( var i = 0 ; i < 5 ; i++ ){
             if( nodes[ _currentNodeIndex - i ] ){
@@ -1714,7 +1714,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         $dom.addClass('disabled');
         // add loading tag
         $('.pop-uploadloading').show();
-        api.ajax('saveNode' , $.extend( {file: data.file, type: data.type, description: description} , trsdata ), function( result ){
+        api.ajax('saveNode' , $.extend( {file: data.file, type: data.type, description: description, size: 175} , trsdata ), function( result ){
             if(result.success) {
 
 //                //TODO: insert the content to photo wall instead of refresh

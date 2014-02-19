@@ -191,9 +191,7 @@
               <div class="pop-inner pop-success">
                 {{_e.YOU_PUBLISHED}} {{type}}.
               </div>
-              <iframe id='node_upload_iframe' name='node_upload_iframe' src=""></iframe>
             </form>
-            <div id="node_post_flash"></div>
 		</div>
         <div class="pop-uploadloading"></div>
 	</div>
@@ -226,7 +224,6 @@
 					</div>
 					<div class="step2-btns"><div class="popfile-btn btn" data-a="upload_photo">{{_e.UPLOAD}}</div><div class="popfile-btn btn">{{_e.SELECT_AGAIN}}</div></div>
 				</form>
-        <iframe id='avatar_upload_iframe' name='avatar_upload_iframe' src=""></iframe>
 			</div>
 			<!--  -->
 			<div class="pop-inner pop-load" style="display:none">

@@ -561,6 +561,17 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
             }
         }
     });
+
+    $(document).hammer().on('dragup dragdown relase', '.com-list-inner',function(ev){
+
+        var $dom = $(this);
+        var st = $dom.parent().scrollTop();
+        var docHeight = $dom.height();
+        if(docHeight - st - $dom.parent().height() < 100) {
+            var commentParam = $('.comment-wrap').data('param');
+            getCommentList(commentParam.nid,commentParam.page + 1);
+        }
+    });
     // .resize(function(){
     //     clearTimeout( _resizeTimer );
 
@@ -846,10 +857,16 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 
             $('.image-wrap-inner')
                 .eq(0)
-                .transit({x: direction == 'right' ? - wrapWidth : 0})
+                .transit({x: direction == 'right' ? - wrapWidth : 0}, function(){
+                    if(direction == 'left') {
+                        updateInnerNode(node, direction);
+                    }
+                })
                 .next()
                 .transit({x: direction == 'right' ? 0 : wrapWidth}, function(){
-                    updateInnerNode(node, direction);
+                    if(direction == 'right') {
+                        updateInnerNode(node, direction);
+                    }
                 });
         }
     }
@@ -973,11 +990,11 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 
 			// init video
 			if( node.type == "video" ){
-				$('.image-wrap-inner video').fadeIn();
+				$('.image-wrap-inner video').fadeIn(200);
 			}
 
             $newItem.find('img').ensureLoad(function(){
-                $(this).fadeIn();
+                $(this).fadeIn(200);
             });
 
             if(drag != true) {
@@ -1008,7 +1025,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
      */
     function preLoadSiblings(){
         var nodes = $main.data('nodes');
-        var aftfix = '_650_650.jpg';
+        var aftfix = '_640_640.jpg';
         // preload before and after images
         for( var i = 0 ; i < 2 ; i++ ){
             if( nodes[ _currentNodeIndex - i ] ){
@@ -1045,7 +1062,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 					$('.inner-loading').fadeOut();
                     _currentNodeIndex = param.pagenum - 1;
                     nodeActions.prependNode( $dom , result.data , param.orderby == 'datetime' );
-                    cubeInnerNode( $dom.data('nodes')[ _currentNodeIndex ] , 'left' , drag);
+                    cubeInnerNode( $dom.data('nodes')[ _currentNodeIndex ] , 'left');
                     preLoadSiblings();
                 });
             }
@@ -1063,8 +1080,6 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 
     //for next action
     LP.action('next' , function( drag ){
-        console.log('_innerDragging:'+_innerDragging);
-        console.log('_innerLock:'+_innerLock);
         if(_innerDragging) return;
         if( _innerLock ) return;
         _innerLock = true;
@@ -1098,7 +1113,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
                 $('.inner-loading').fadeOut();
                 if( result.data.length ){
                     nodeActions.inserNode( $dom , result.data , param.orderby == 'datetime' );
-                    cubeInnerNode( $dom.data('nodes')[ _currentNodeIndex ] , 'right', drag );
+                    cubeInnerNode( $dom.data('nodes')[ _currentNodeIndex ] , 'right' );
                     preLoadSiblings();
                 } else {
                     $inner.removeClass('disabled');
@@ -1202,7 +1217,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 				.css({y:1000, opacity:0})
 				.transit({y:0, opacity:1}, _animateTime, _animateEasing);
 
-            $comMain.find('.com-list-inner').height($comMain.height() - 180);
+            $comMain.find('.com-list').height($comMain.height() - 180);
 
             if($comMain.find('.comlist-item').length == 0) {
                 bindCommentSubmisson();
@@ -1680,8 +1695,6 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
         // get image scale , rotate , zoom arguments
         if(data.type == 'photo') {
             var trsdata = transformMgr.result();
-            console.log(trsdata);
-            //delete trsdata.src;
         }
 
         var $dom = $(this);
@@ -1689,7 +1702,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
         $dom.addClass('disabled');
         // add loading tag
         $('.pop-uploadloading').show();
-        api.ajax('saveNode' , $.extend( {file: data.file, type: data.type, description: description} , trsdata ), function( result ){
+        api.ajax('saveNode' , $.extend( {file: data.file, type: data.type, description: description, size: 320} , trsdata ), function( result ){
             if(result.success) {
 
 //                //TODO: insert the content to photo wall instead of refresh
@@ -1966,7 +1979,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 
     // get last day nodes
     LP.action('content_of_day' , function(){
-        if($main.hasClass('closed')) {
+        if($('.inner').is(':visible')) {
             LP.triggerAction('back');
         }
         // close user side bar
@@ -1995,7 +2008,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 
     // get last day nodes
     LP.action('content_of_month' , function(){
-        if($main.hasClass('closed')) {
+        if($('.inner').is(':visible')) {
             LP.triggerAction('back');
         }
         // close user side bar

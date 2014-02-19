@@ -18,7 +18,7 @@ if (preg_match('/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|phone|andro
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <meta name="keywords" content="" />
     <meta name="description" content="" />
-    <title>SG WALL</title>
+    <title>L'ESPRIT D'EQUIPE SOCIETE GENERALE</title>
     <link href="css/jsPane.css" rel="stylesheet" type="text/css" />
     <link href="css/layout.css" rel="stylesheet" type="text/css" />
     <link href="css/fonts.css" rel="stylesheet" type="text/css" />
