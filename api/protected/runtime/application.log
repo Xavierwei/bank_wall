@@ -97,6 +97,7 @@ in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
 in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (197)
 in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (72)
 in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+<<<<<<< HEAD
 2014/02/19 13:22:08 [error] [php] session_regenerate_id(): Session object destruction failed (E:\freework\bank_wall\yii\framework\web\CHttpSession.php:181)
 Stack trace:
 #0 E:\freework\bank_wall\yii\framework\web\auth\CWebUser.php(233): CWebUser->changeIdentity()
@@ -481,3 +482,17 @@ Stack trace:
 REQUEST_URI=/bank_wall/api/uploads/p239_650_650.jpg
 in E:\freework\bank_wall\api\protected\components\Controller.php (80)
 in E:\freework\bank_wall\api\index.php (17)
+=======
+2014/02/19 10:59:07 [warning] [application] Failed to set unsafe attribute "uid" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (197)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (72)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/19 10:59:07 [warning] [application] Failed to set unsafe attribute "country" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (197)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (72)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/19 10:59:07 [warning] [application] Failed to set unsafe attribute "status" of "UserAR".
+in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (197)
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (72)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+>>>>>>> bdd3cd9c99b1262a962cce927d69744c09f9f66a
