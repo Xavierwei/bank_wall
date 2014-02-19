@@ -380,6 +380,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 $node.find('img')
                     .width( itemWidth )
                     .height( itemWidth );
+                clearTimeout( nodeActions._reversalTimeout );
                 nodeActions._reversalTimeout =  setTimeout(function(){
                     nodeActions.setItemReversal( $dom );
                 } , animationTimeout);
@@ -425,6 +426,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     // resize item width
     var _resizeTimer = null;
     var _scrollAjax = false;
+    var _scrollTimeout = null;
     $(window).resize(function(){
         clearTimeout( _resizeTimer );
 
@@ -464,20 +466,20 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         var docHeight = $(document).height();
         var winHeight = document.body.clientHeight;
         if( docHeight - winHeight - st < 100 ){
-            
             // fix main element
             // it must visible and in main element has unreversaled node
             if( $main.is(':visible') && !$main.find('.main-item:not(.time-item,.reversal)').length ){
                 _scrollAjax = true;
-                var param = $main.data('param');
-                param.page++;
-                $main.data('param' , param);
+                var mainParam = $main.data('param');
+                mainParam.page++;
+                var param = $.extend({} , mainParam);
                 $listLoading.fadeIn();
                 api.ajax('recent' , param , function( result ){
-                    // if loading page is not the param info, return
-                    if( param.page != $main.data('param').page ) return;
-                    nodeActions.inserNode( $main , result.data , param.orderby == 'datetime');
                     _scrollAjax = false;
+                    // if loading page is not the param info, return
+                    if( param.page != mainParam.page ) return;
+                    nodeActions.inserNode( $main , result.data , param.orderby == 'datetime');
+                    
                     $listLoading.fadeOut();
                     // TODO:: no more data tip
                 });
@@ -492,10 +494,9 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 userPageParam.page++;
                 $com.data('param',userPageParam);
                 api.ajax('recent' , userPageParam , function( result ){
+                    _scrollAjax = false;
                     if( userPageParam.page != $com.data('param').page ) return;
                     nodeActions.inserNode( $userCom , result.data , true );
-                    _scrollAjax = false;
-
                     // TODO:: no more data tip
                 });
             }
@@ -755,6 +756,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     
     LP.action('back_home', function(){
         nodeActions.stopItemReversal();
+        clearTimeout( _scrollTimeout);
 		if($main.hasClass('closed')) {
 			LP.triggerAction('back');
 		}
@@ -1160,10 +1162,12 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     LP.action('recent', function(){
         var pageParam = refreshQuery();
         $listLoading.fadeIn();
+        _scrollAjax = true;
         api.ajax('recent', pageParam, function( result ){
+            _scrollAjax = false;
+            $main.show();
             // make sure it's first page
             if( $main.children().length ) return;
-            $main.show();
             $listLoading.fadeOut();
             nodeActions.inserNode( $main , result.data , pageParam.orderby == 'datetime' );
         });
@@ -1844,6 +1848,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     // List user nodes
     LP.action('list_user_nodes', function(data){
 		nodeActions.stopItemReversal();
+        clearTimeout( _scrollTimeout);
         if($('.user-edit-page').is(':visible')) {
             $('.user-edit-page').fadeOut(400);
             $('.avatar-file').fadeOut();
@@ -1880,11 +1885,12 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 param.mylike = true;
                 break;
         }
-
+        _scrollAjax = true;
         var $countCom = $('.count-com').removeData('nodes').fadeOut(function(){
             $(this).html('').show();
             $('.loading-list').fadeIn();
             api.ajax('recent' , param , function( result ){
+                _scrollAjax = false;
                 if( $countCom.children().length ) return;
                 $('.loading-list').fadeOut();
                 nodeActions.inserNode( $countCom , result.data , true );
@@ -2215,6 +2221,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         param.page = 1;
         delete param.country_id;
         $main.data('param',param);
+        console.log(param);
         $.each($('.select-item'), function(index, item){
             $(item).find('.select-option p').removeClass('selected');
             var defaultVal = $(item).find('.select-option p').eq(0).addClass('selected').html();
