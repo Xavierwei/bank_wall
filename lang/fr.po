@@ -159,7 +159,7 @@ msgid "FIRST_COMMENT"
 msgstr "Soyez le premier à commenter ce contenu"
 
 msgid "PHOTOS_POSTED"
-msgstr "Photos postée"
+msgstr "Photos postées"
 
 msgid "PHOTO_POSTED"
 msgstr "Photo postée"
@@ -168,7 +168,7 @@ msgid "VIDEOS_POSTED"
 msgstr "Vidéos postées"
 
 msgid "VIDEO_POSTED"
-msgstr "Vidéo postées"
+msgstr "Vidéo postée"
 
 msgid "CONTENTS_OF_DAY"
 msgstr "Contenus du jour"
