@@ -2234,11 +2234,10 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 
     var currentHash = location.hash;
     var changeUrl = function( str , data ){
-		if(history.pushState && str == '') {
-			history.replaceState("", document.title, window.location.pathname
-				+ window.location.search);
-			return;
-		}
+		// if(history.pushState) {
+		// 	history.replaceState("", document.title, window.location.pathname
+		// 		+ window.location.search);
+		// }
         location.hash = '#' + str; // removed the !, don't need search by google
         if( history.pushState ){
             history.replaceState( data , '' , location.href ) ;
@@ -2248,7 +2247,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         currentHash = location.hash;
     };
 
-    changeUrl( location.hash.replace('#' , '') , {event:'load'} );
 
     // bind history change
     (function(){
@@ -3137,6 +3135,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
      * Open the content via url hash id
      */
     var openByHash = function(){
+        changeUrl( location.hash.replace('#' , '') , {event:'load'} );
         //获取nid所在的页码，然后加载该list
         var hash = location.hash;
         var match;
