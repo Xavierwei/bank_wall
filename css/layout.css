@@ -167,11 +167,11 @@ a{text-decoration:none;color:#666}
 /* comment Used
 ================================================================================================= */
 .comment{color: #FFF;position: absolute;width: 100%;height: 100%;background: #404040;top: 0;left: -500px;}
-.com-user{height: 175px;width: 220px;border-bottom:#5f5f5f dotted 1px;margin:0 auto;padding-top:1px;text-align: center;font-size: 12px;line-height: 2em}
+.com-user{height: 140px;width: 220px;border-bottom:#5f5f5f dotted 1px;margin:0 auto;padding-top:1px;text-align: center;font-size: 12px;line-height: 2em}
     .com-user p {display:inline-block;}
 	.comuser-name p {background: url('../img/icon_inner_user.gif') no-repeat 0 5px;padding-left:20px;}
     .comuser-location p {background: url('../img/icon_inner_location.gif') no-repeat 0 3px;;padding-left:15px;}
-    .comuser-pho{margin:35px auto 10px;width:32px;height:32px}
+    .comuser-pho{margin:30px auto 10px;width:32px;height:32px}
 	.comuser-pho img{margin:0 auto;display: block;border-radius: 33px;
 			border-radius: 33px;-webkit-border-radius: 33px;-moz-border-radius: 33px;-o-border-radius: 33px;-ms-border-radius: 33px;}
 .com-info{width: 270px;border-top: #5f5f5f dotted 1px;margin: 0 auto;text-align: center;font-size: 11px;padding: 20px 0 0;}
@@ -183,14 +183,14 @@ a{text-decoration:none;color:#666}
         .com-like .need-login {display: none;position: absolute;background:#333;font-size:0.9em;width:140px;margin-left:-70px;}
         .com-com-count{display: inline-block;background: url('../img/icon_inner_comment.gif') no-repeat 0 3px;padding:0 0 0 23px;}
     .comment-form {position: relative;}
-	.com-btn{height: 44px;width:125px;margin:30px auto;background: url('../img/icon_inner_line.gif') no-repeat center;}
+	.com-btn{height: 44px;width:125px;margin:15px auto;background: url('../img/icon_inner_line.gif') no-repeat center;}
 		.com-loading {display:none;background:url('../img/loading_comment.gif') no-repeat;width:15px;height:15px;bottom:3px;right:-12px;position:absolute;}
         .com-btn p{float:left;cursor: pointer;}
 		.com-back{background:url('../img/icon_inner_back.gif') no-repeat center;width:44px;height: 44px;}
 		.com-prev{background:url('../img/icon_inner_left.gif') no-repeat center;width:25px;height: 44px;margin-left:30px;}
 		.com-next{background:url('../img/icon_inner_right.gif') no-repeat center;width:25px;height: 44px}
 	/**/
-	.com-main{padding:30px;width: 270px;margin: 0 auto;}
+	.com-main{padding:30px 30px 15px 30px;width: 270px;margin: 0 auto;}
         .count-com {margin-right:-5px;}
 		.com-list{height: 200px;overflow: hidden;}
             .com-list-inner {width:263px;min-height: 100px;}

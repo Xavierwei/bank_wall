@@ -340,9 +340,6 @@ class UserController extends Controller {
         $this->responseError("invalid params");
       }
 
-			echo Yii::app()->user->checkAccess("updateOwnNode", array("uid" => $user->uid ));
-			exit();
-
       if (!Yii::app()->user->checkAccess("updateOwnAccount", array("uid" => $user->uid ))) {
         if (!Yii::app()->user->checkAccess("updateAnyAccount", array("country_id" => $user->country_id))) {
           return $this->responseError("permission deny2");

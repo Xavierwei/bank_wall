@@ -441,291 +441,1105 @@ REQUEST_URI=/bank_wall/api/index.php/uploads/upload
 in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (387)
 in /Applications/MAMP/htdocs/bank_wall/api/protected/models/NodeAR.php (340)
 in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/UploadsController.php (96)
-2014/02/19 22:23:51 [error] [php] session_regenerate_id(): Session object destruction failed (E:\freework\bank_wall\yii\framework\web\CHttpSession.php:181)
+2014/02/19 14:40:02 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
 Stack trace:
-#0 E:\freework\bank_wall\yii\framework\web\auth\CWebUser.php(233): CWebUser->changeIdentity()
-#1 E:\freework\bank_wall\api\protected\components\Controller.php(80): CWebUser->login()
-#2 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(359): UploadsController->__construct()
-#3 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(276): CWebApplication->createController()
-#4 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
-#5 E:\freework\bank_wall\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
-#6 E:\freework\bank_wall\api\index.php(17): CWebApplication->run()
-REQUEST_URI=/bank_wall/api/uploads/p242_250_250.jpg
-in E:\freework\bank_wall\api\protected\components\Controller.php (80)
-in E:\freework\bank_wall\api\index.php (17)
-2014/02/19 22:23:51 [error] [php] session_regenerate_id(): Session object destruction failed (E:\freework\bank_wall\yii\framework\web\CHttpSession.php:181)
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin
+---
+2014/02/19 14:40:14 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin/index".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
 Stack trace:
-#0 E:\freework\bank_wall\yii\framework\web\auth\CWebUser.php(233): CWebUser->changeIdentity()
-#1 E:\freework\bank_wall\api\protected\components\Controller.php(80): CWebUser->login()
-#2 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(359): UploadsController->__construct()
-#3 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(276): CWebApplication->createController()
-#4 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
-#5 E:\freework\bank_wall\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
-#6 E:\freework\bank_wall\api\index.php(17): CWebApplication->run()
-REQUEST_URI=/bank_wall/api/uploads/p238_250_250.jpg
-in E:\freework\bank_wall\api\protected\components\Controller.php (80)
-in E:\freework\bank_wall\api\index.php (17)
-2014/02/19 22:23:51 [error] [php] session_regenerate_id(): Session object destruction failed (E:\freework\bank_wall\yii\framework\web\CHttpSession.php:181)
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin/index')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin/index
+---
+2014/02/19 14:40:16 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin/index".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
 Stack trace:
-#0 E:\freework\bank_wall\yii\framework\web\auth\CWebUser.php(233): CWebUser->changeIdentity()
-#1 E:\freework\bank_wall\api\protected\components\Controller.php(80): CWebUser->login()
-#2 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(359): UploadsController->__construct()
-#3 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(276): CWebApplication->createController()
-#4 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
-#5 E:\freework\bank_wall\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
-#6 E:\freework\bank_wall\api\index.php(17): CWebApplication->run()
-REQUEST_URI=/bank_wall/api/uploads/v240_250_250.jpg
-in E:\freework\bank_wall\api\protected\components\Controller.php (80)
-in E:\freework\bank_wall\api\index.php (17)
-2014/02/19 22:23:58 [error] [php] session_regenerate_id(): Session object destruction failed (E:\freework\bank_wall\yii\framework\web\CHttpSession.php:181)
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin/index')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin/index
+---
+2014/02/19 14:40:23 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin/index".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
 Stack trace:
-#0 E:\freework\bank_wall\yii\framework\web\auth\CWebUser.php(233): CWebUser->changeIdentity()
-#1 E:\freework\bank_wall\api\protected\components\Controller.php(80): CWebUser->login()
-#2 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(359): UploadsController->__construct()
-#3 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(276): CWebApplication->createController()
-#4 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
-#5 E:\freework\bank_wall\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
-#6 E:\freework\bank_wall\api\index.php(17): CWebApplication->run()
-REQUEST_URI=/bank_wall/api/uploads/p221_250_250.jpg
-in E:\freework\bank_wall\api\protected\components\Controller.php (80)
-in E:\freework\bank_wall\api\index.php (17)
-2014/02/19 22:25:16 [error] [php] session_regenerate_id(): Session object destruction failed (E:\freework\bank_wall\yii\framework\web\CHttpSession.php:181)
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin/index')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/index.php/admin/index
+---
+2014/02/19 14:40:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "photo/list".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
 Stack trace:
-#0 E:\freework\bank_wall\yii\framework\web\auth\CWebUser.php(233): CWebUser->changeIdentity()
-#1 E:\freework\bank_wall\api\protected\components\Controller.php(80): CWebUser->login()
-#2 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(359): UploadsController->__construct()
-#3 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(276): CWebApplication->createController()
-#4 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
-#5 E:\freework\bank_wall\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
-#6 E:\freework\bank_wall\api\index.php(17): CWebApplication->run()
-REQUEST_URI=/bank_wall/api/uploads/p238_250_250.jpg
-in E:\freework\bank_wall\api\protected\components\Controller.php (80)
-in E:\freework\bank_wall\api\index.php (17)
-2014/02/19 22:25:16 [error] [php] session_regenerate_id(): Session object destruction failed (E:\freework\bank_wall\yii\framework\web\CHttpSession.php:181)
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('photo/list')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/photo/list
+---
+2014/02/19 14:40:51 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
 Stack trace:
-#0 E:\freework\bank_wall\yii\framework\web\auth\CWebUser.php(233): CWebUser->changeIdentity()
-#1 E:\freework\bank_wall\api\protected\components\Controller.php(80): CWebUser->login()
-#2 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(359): UploadsController->__construct()
-#3 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(276): CWebApplication->createController()
-#4 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
-#5 E:\freework\bank_wall\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
-#6 E:\freework\bank_wall\api\index.php(17): CWebApplication->run()
-REQUEST_URI=/bank_wall/api/uploads/p234_250_250.jpg
-in E:\freework\bank_wall\api\protected\components\Controller.php (80)
-in E:\freework\bank_wall\api\index.php (17)
-2014/02/19 22:25:16 [error] [php] session_regenerate_id(): Session object destruction failed (E:\freework\bank_wall\yii\framework\web\CHttpSession.php:181)
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin/
+---
+2014/02/19 14:41:08 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/css/bootstrap.min.css".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
 Stack trace:
-#0 E:\freework\bank_wall\yii\framework\web\auth\CWebUser.php(233): CWebUser->changeIdentity()
-#1 E:\freework\bank_wall\api\protected\components\Controller.php(80): CWebUser->login()
-#2 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(359): UploadsController->__construct()
-#3 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(276): CWebApplication->createController()
-#4 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
-#5 E:\freework\bank_wall\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
-#6 E:\freework\bank_wall\api\index.php(17): CWebApplication->run()
-REQUEST_URI=/bank_wall/api/uploads/p237_250_250.jpg
-in E:\freework\bank_wall\api\protected\components\Controller.php (80)
-in E:\freework\bank_wall\api\index.php (17)
-2014/02/19 22:25:16 [error] [php] session_regenerate_id(): Session object destruction failed (E:\freework\bank_wall\yii\framework\web\CHttpSession.php:181)
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/css...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/css/bootstrap.min.css
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:41:08 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/css/admin.css".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
 Stack trace:
-#0 E:\freework\bank_wall\yii\framework\web\auth\CWebUser.php(233): CWebUser->changeIdentity()
-#1 E:\freework\bank_wall\api\protected\components\Controller.php(80): CWebUser->login()
-#2 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(359): UploadsController->__construct()
-#3 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(276): CWebApplication->createController()
-#4 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
-#5 E:\freework\bank_wall\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
-#6 E:\freework\bank_wall\api\index.php(17): CWebApplication->run()
-REQUEST_URI=/bank_wall/api/uploads/p239_250_250.jpg
-in E:\freework\bank_wall\api\protected\components\Controller.php (80)
-in E:\freework\bank_wall\api\index.php (17)
-2014/02/19 22:25:26 [error] [php] session_regenerate_id(): Session object destruction failed (E:\freework\bank_wall\yii\framework\web\CHttpSession.php:181)
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/css...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/css/admin.css?1392817268
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:41:28 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/css/bootstrap.min.css".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
 Stack trace:
-#0 E:\freework\bank_wall\yii\framework\web\auth\CWebUser.php(233): CWebUser->changeIdentity()
-#1 E:\freework\bank_wall\api\protected\components\Controller.php(80): CWebUser->login()
-#2 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(359): UploadsController->__construct()
-#3 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(276): CWebApplication->createController()
-#4 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
-#5 E:\freework\bank_wall\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
-#6 E:\freework\bank_wall\api\index.php(17): CWebApplication->run()
-REQUEST_URI=/bank_wall/api/uploads/p242_640_640.jpg
-in E:\freework\bank_wall\api\protected\components\Controller.php (80)
-in E:\freework\bank_wall\api\index.php (17)
-2014/02/19 22:25:30 [error] [php] session_regenerate_id(): Session object destruction failed (E:\freework\bank_wall\yii\framework\web\CHttpSession.php:181)
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/css...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/css/bootstrap.min.css
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:41:28 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/css/admin.css".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
 Stack trace:
-#0 E:\freework\bank_wall\yii\framework\web\auth\CWebUser.php(233): CWebUser->changeIdentity()
-#1 E:\freework\bank_wall\api\protected\components\Controller.php(80): CWebUser->login()
-#2 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(359): UploadsController->__construct()
-#3 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(276): CWebApplication->createController()
-#4 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
-#5 E:\freework\bank_wall\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
-#6 E:\freework\bank_wall\api\index.php(17): CWebApplication->run()
-REQUEST_URI=/bank_wall/api/uploads/p243_640_640.jpg
-in E:\freework\bank_wall\api\protected\components\Controller.php (80)
-in E:\freework\bank_wall\api\index.php (17)
-2014/02/19 22:25:30 [error] [php] session_regenerate_id(): Session object destruction failed (E:\freework\bank_wall\yii\framework\web\CHttpSession.php:181)
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/css...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/css/admin.css?1392817288
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:41:57 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/css/admin.css".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
 Stack trace:
-#0 E:\freework\bank_wall\yii\framework\web\auth\CWebUser.php(233): CWebUser->changeIdentity()
-#1 E:\freework\bank_wall\api\protected\components\Controller.php(80): CWebUser->login()
-#2 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(359): UploadsController->__construct()
-#3 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(276): CWebApplication->createController()
-#4 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
-#5 E:\freework\bank_wall\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
-#6 E:\freework\bank_wall\api\index.php(17): CWebApplication->run()
-REQUEST_URI=/bank_wall/api/uploads/p242_640_640.jpg
-in E:\freework\bank_wall\api\protected\components\Controller.php (80)
-in E:\freework\bank_wall\api\index.php (17)
-2014/02/19 22:25:30 [error] [php] session_regenerate_id(): Session object destruction failed (E:\freework\bank_wall\yii\framework\web\CHttpSession.php:181)
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/css...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/css/admin.css?1392817317
+HTTP_REFERER=http://localhost/bank_wall/api/admin
+---
+2014/02/19 14:41:57 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/css/bootstrap.min.css".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
 Stack trace:
-#0 E:\freework\bank_wall\yii\framework\web\auth\CWebUser.php(233): CWebUser->changeIdentity()
-#1 E:\freework\bank_wall\api\protected\components\Controller.php(80): CWebUser->login()
-#2 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(359): UploadsController->__construct()
-#3 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(276): CWebApplication->createController()
-#4 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
-#5 E:\freework\bank_wall\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
-#6 E:\freework\bank_wall\api\index.php(17): CWebApplication->run()
-REQUEST_URI=/bank_wall/api/uploads/p244_640_640.jpg
-in E:\freework\bank_wall\api\protected\components\Controller.php (80)
-in E:\freework\bank_wall\api\index.php (17)
-2014/02/19 22:30:21 [error] [php] session_regenerate_id(): Session object destruction failed (E:\freework\bank_wall\yii\framework\web\CHttpSession.php:181)
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/css...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/css/bootstrap.min.css
+HTTP_REFERER=http://localhost/bank_wall/api/admin
+---
+2014/02/19 14:42:38 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/css/admin.css".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
 Stack trace:
-#0 E:\freework\bank_wall\yii\framework\web\auth\CWebUser.php(233): CWebUser->changeIdentity()
-#1 E:\freework\bank_wall\api\protected\components\Controller.php(80): CWebUser->login()
-#2 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(359): UploadsController->__construct()
-#3 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(276): CWebApplication->createController()
-#4 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
-#5 E:\freework\bank_wall\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
-#6 E:\freework\bank_wall\api\index.php(17): CWebApplication->run()
-REQUEST_URI=/bank_wall/api/uploads/p243_250_250.jpg
-in E:\freework\bank_wall\api\protected\components\Controller.php (80)
-in E:\freework\bank_wall\api\index.php (17)
-2014/02/19 22:30:21 [error] [php] session_regenerate_id(): Session object destruction failed (E:\freework\bank_wall\yii\framework\web\CHttpSession.php:181)
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/css...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/css/admin.css?1392817357
+HTTP_REFERER=http://localhost/bank_wall/api/admin
+---
+2014/02/19 14:42:38 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/css/bootstrap.min.css".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
 Stack trace:
-#0 E:\freework\bank_wall\yii\framework\web\auth\CWebUser.php(233): CWebUser->changeIdentity()
-#1 E:\freework\bank_wall\api\protected\components\Controller.php(80): CWebUser->login()
-#2 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(359): UploadsController->__construct()
-#3 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(276): CWebApplication->createController()
-#4 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
-#5 E:\freework\bank_wall\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
-#6 E:\freework\bank_wall\api\index.php(17): CWebApplication->run()
-REQUEST_URI=/bank_wall/api/uploads/p241_250_250.jpg
-in E:\freework\bank_wall\api\protected\components\Controller.php (80)
-in E:\freework\bank_wall\api\index.php (17)
-2014/02/19 22:30:21 [error] [php] session_regenerate_id(): Session object destruction failed (E:\freework\bank_wall\yii\framework\web\CHttpSession.php:181)
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/css...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/css/bootstrap.min.css
+HTTP_REFERER=http://localhost/bank_wall/api/admin
+---
+2014/02/19 14:42:53 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/css/admin.css".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
 Stack trace:
-#0 E:\freework\bank_wall\yii\framework\web\auth\CWebUser.php(233): CWebUser->changeIdentity()
-#1 E:\freework\bank_wall\api\protected\components\Controller.php(80): CWebUser->login()
-#2 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(359): UploadsController->__construct()
-#3 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(276): CWebApplication->createController()
-#4 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
-#5 E:\freework\bank_wall\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
-#6 E:\freework\bank_wall\api\index.php(17): CWebApplication->run()
-REQUEST_URI=/bank_wall/api/uploads/p239_250_250.jpg
-in E:\freework\bank_wall\api\protected\components\Controller.php (80)
-in E:\freework\bank_wall\api\index.php (17)
-2014/02/19 22:30:21 [error] [php] session_regenerate_id(): Session object destruction failed (E:\freework\bank_wall\yii\framework\web\CHttpSession.php:181)
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/css...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/css/admin.css?1392817373
+HTTP_REFERER=http://localhost/bank_wall/api/admin
+---
+2014/02/19 14:42:53 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/css/bootstrap.min.css".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
 Stack trace:
-#0 E:\freework\bank_wall\yii\framework\web\auth\CWebUser.php(233): CWebUser->changeIdentity()
-#1 E:\freework\bank_wall\api\protected\components\Controller.php(80): CWebUser->login()
-#2 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(359): UploadsController->__construct()
-#3 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(276): CWebApplication->createController()
-#4 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
-#5 E:\freework\bank_wall\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
-#6 E:\freework\bank_wall\api\index.php(17): CWebApplication->run()
-REQUEST_URI=/bank_wall/api/uploads/v240_250_250.jpg
-in E:\freework\bank_wall\api\protected\components\Controller.php (80)
-in E:\freework\bank_wall\api\index.php (17)
-2014/02/19 22:30:21 [error] [php] session_regenerate_id(): Session object destruction failed (E:\freework\bank_wall\yii\framework\web\CHttpSession.php:181)
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/css...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/css/bootstrap.min.css
+HTTP_REFERER=http://localhost/bank_wall/api/admin
+---
+2014/02/19 14:43:00 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/css/bootstrap.min.css".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
 Stack trace:
-#0 E:\freework\bank_wall\yii\framework\web\auth\CWebUser.php(233): CWebUser->changeIdentity()
-#1 E:\freework\bank_wall\api\protected\components\Controller.php(80): CWebUser->login()
-#2 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(359): UploadsController->__construct()
-#3 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(276): CWebApplication->createController()
-#4 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
-#5 E:\freework\bank_wall\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
-#6 E:\freework\bank_wall\api\index.php(17): CWebApplication->run()
-REQUEST_URI=/bank_wall/api/uploads/p235_250_250.jpg
-in E:\freework\bank_wall\api\protected\components\Controller.php (80)
-in E:\freework\bank_wall\api\index.php (17)
-2014/02/19 22:31:21 [error] [php] session_regenerate_id(): Session object destruction failed (E:\freework\bank_wall\yii\framework\web\CHttpSession.php:181)
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/css...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/css/bootstrap.min.css
+HTTP_REFERER=http://localhost/bank_wall/api/admin
+---
+2014/02/19 14:43:00 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/css/admin.css".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
 Stack trace:
-#0 E:\freework\bank_wall\yii\framework\web\auth\CWebUser.php(233): CWebUser->changeIdentity()
-#1 E:\freework\bank_wall\api\protected\components\Controller.php(80): CWebUser->login()
-#2 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(359): CommentController->__construct()
-#3 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(276): CWebApplication->createController()
-#4 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
-#5 E:\freework\bank_wall\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
-#6 E:\freework\bank_wall\api\index.php(17): CWebApplication->run()
-REQUEST_URI=/bank_wall/api/index.php/comment/list?nid=244&pagenum=10&page=1&_=1392820219859
-in E:\freework\bank_wall\api\protected\components\Controller.php (80)
-in E:\freework\bank_wall\api\index.php (17)
-2014/02/19 22:33:44 [error] [php] session_regenerate_id(): Session object destruction failed (E:\freework\bank_wall\yii\framework\web\CHttpSession.php:181)
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/css...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/css/admin.css?1392817380
+HTTP_REFERER=http://localhost/bank_wall/api/admin
+---
+2014/02/19 14:43:02 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/css/bootstrap.min.css".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
 Stack trace:
-#0 E:\freework\bank_wall\yii\framework\web\auth\CWebUser.php(233): CWebUser->changeIdentity()
-#1 E:\freework\bank_wall\api\protected\components\Controller.php(80): CWebUser->login()
-#2 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(359): UploadsController->__construct()
-#3 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(276): CWebApplication->createController()
-#4 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
-#5 E:\freework\bank_wall\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
-#6 E:\freework\bank_wall\api\index.php(17): CWebApplication->run()
-REQUEST_URI=/bank_wall/api/uploads/default_avatar.gif
-in E:\freework\bank_wall\api\protected\components\Controller.php (80)
-in E:\freework\bank_wall\api\index.php (17)
-2014/02/19 22:34:00 [error] [php] session_regenerate_id(): Session object destruction failed (E:\freework\bank_wall\yii\framework\web\CHttpSession.php:181)
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/css...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/css/bootstrap.min.css
+HTTP_REFERER=http://localhost/bank_wall/api/admin
+---
+2014/02/19 14:43:02 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/css/admin.css".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
 Stack trace:
-#0 E:\freework\bank_wall\yii\framework\web\auth\CWebUser.php(233): CWebUser->changeIdentity()
-#1 E:\freework\bank_wall\api\protected\components\Controller.php(80): CWebUser->login()
-#2 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(359): UploadsController->__construct()
-#3 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(276): CWebApplication->createController()
-#4 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
-#5 E:\freework\bank_wall\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
-#6 E:\freework\bank_wall\api\index.php(17): CWebApplication->run()
-REQUEST_URI=/bank_wall/api/uploads/p239_250_250.jpg
-in E:\freework\bank_wall\api\protected\components\Controller.php (80)
-in E:\freework\bank_wall\api\index.php (17)
-2014/02/19 22:34:01 [error] [php] session_regenerate_id(): Session object destruction failed (E:\freework\bank_wall\yii\framework\web\CHttpSession.php:181)
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/css...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/css/admin.css?1392817382
+HTTP_REFERER=http://localhost/bank_wall/api/admin
+---
+2014/02/19 14:43:18 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/css/admin.css".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
 Stack trace:
-#0 E:\freework\bank_wall\yii\framework\web\auth\CWebUser.php(233): CWebUser->changeIdentity()
-#1 E:\freework\bank_wall\api\protected\components\Controller.php(80): CWebUser->login()
-#2 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(359): UploadsController->__construct()
-#3 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(276): CWebApplication->createController()
-#4 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
-#5 E:\freework\bank_wall\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
-#6 E:\freework\bank_wall\api\index.php(17): CWebApplication->run()
-REQUEST_URI=/bank_wall/api/uploads/p236_250_250.jpg
-in E:\freework\bank_wall\api\protected\components\Controller.php (80)
-in E:\freework\bank_wall\api\index.php (17)
-2014/02/19 22:34:01 [error] [php] session_regenerate_id(): Session object destruction failed (E:\freework\bank_wall\yii\framework\web\CHttpSession.php:181)
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/css...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/css/admin.css?1392817398
+HTTP_REFERER=http://localhost/bank_wall/api/admin
+---
+2014/02/19 14:43:18 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/css/bootstrap.min.css".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
 Stack trace:
-#0 E:\freework\bank_wall\yii\framework\web\auth\CWebUser.php(233): CWebUser->changeIdentity()
-#1 E:\freework\bank_wall\api\protected\components\Controller.php(80): CWebUser->login()
-#2 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(359): UploadsController->__construct()
-#3 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(276): CWebApplication->createController()
-#4 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
-#5 E:\freework\bank_wall\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
-#6 E:\freework\bank_wall\api\index.php(17): CWebApplication->run()
-REQUEST_URI=/bank_wall/api/uploads/p237_250_250.jpg
-in E:\freework\bank_wall\api\protected\components\Controller.php (80)
-in E:\freework\bank_wall\api\index.php (17)
-2014/02/19 22:34:12 [error] [php] session_regenerate_id(): Session object destruction failed (E:\freework\bank_wall\yii\framework\web\CHttpSession.php:181)
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/css...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/css/bootstrap.min.css
+HTTP_REFERER=http://localhost/bank_wall/api/admin
+---
+2014/02/19 14:43:30 [error] [exception.CException] exception 'CException' with message 'Property "CWebUser.getAttributes" is not defined.' in /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CComponent.php:130
 Stack trace:
-#0 E:\freework\bank_wall\yii\framework\web\auth\CWebUser.php(233): CWebUser->changeIdentity()
-#1 E:\freework\bank_wall\api\protected\components\Controller.php(80): CWebUser->login()
-#2 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(359): UploadsController->__construct()
-#3 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(276): CWebApplication->createController()
-#4 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
-#5 E:\freework\bank_wall\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
-#6 E:\freework\bank_wall\api\index.php(17): CWebApplication->run()
-REQUEST_URI=/bank_wall/api/uploads/default_avatar.gif
-in E:\freework\bank_wall\api\protected\components\Controller.php (80)
-in E:\freework\bank_wall\api\index.php (17)
-2014/02/19 22:34:18 [error] [php] session_regenerate_id(): Session object destruction failed (E:\freework\bank_wall\yii\framework\web\CHttpSession.php:181)
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/auth/CWebUser.php(146): CComponent->__get('getAttributes')
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/AdminController.php(8): CWebUser->__get('getAttributes')
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): AdminController->actionIndex()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('')
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin')
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#10 {main}
+REQUEST_URI=/bank_wall/api/admin
+---
+2014/02/19 14:43:33 [error] [exception.CException] exception 'CException' with message 'Property "CWebUser.Attributes" is not defined.' in /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CComponent.php:130
 Stack trace:
-#0 E:\freework\bank_wall\yii\framework\web\auth\CWebUser.php(233): CWebUser->changeIdentity()
-#1 E:\freework\bank_wall\api\protected\components\Controller.php(80): CWebUser->login()
-#2 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(359): UploadsController->__construct()
-#3 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(276): CWebApplication->createController()
-#4 E:\freework\bank_wall\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
-#5 E:\freework\bank_wall\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
-#6 E:\freework\bank_wall\api\index.php(17): CWebApplication->run()
-REQUEST_URI=/bank_wall/api/uploads/p244_640_640.jpg
-in E:\freework\bank_wall\api\protected\components\Controller.php (80)
-in E:\freework\bank_wall\api\index.php (17)
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/auth/CWebUser.php(146): CComponent->__get('Attributes')
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/AdminController.php(8): CWebUser->__get('Attributes')
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): AdminController->actionIndex()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('')
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin')
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#10 {main}
+REQUEST_URI=/bank_wall/api/admin
+---
+2014/02/19 14:43:49 [error] [exception.CException] exception 'CException' with message 'Property "CWebUser.attributes" is not defined.' in /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CComponent.php:130
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/auth/CWebUser.php(146): CComponent->__get('attributes')
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/AdminController.php(8): CWebUser->__get('attributes')
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): AdminController->actionIndex()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('')
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin')
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#10 {main}
+REQUEST_URI=/bank_wall/api/admin
+---
+2014/02/19 14:44:11 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/css/admin.css".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/css...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/css/admin.css?1392817451
+HTTP_REFERER=http://localhost/bank_wall/api/admin
+---
+2014/02/19 14:44:11 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/css/bootstrap.min.css".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/css...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/css/bootstrap.min.css
+HTTP_REFERER=http://localhost/bank_wall/api/admin
+---
+2014/02/19 14:44:32 [error] [exception.CException] exception 'CException' with message 'Property "CWebUser.sso_id" is not defined.' in /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CComponent.php:130
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/auth/CWebUser.php(146): CComponent->__get('sso_id')
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/AdminController.php(8): CWebUser->__get('sso_id')
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): AdminController->actionIndex()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('')
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin')
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#10 {main}
+REQUEST_URI=/bank_wall/api/admin
+---
+2014/02/19 14:44:58 [error] [exception.CException] exception 'CException' with message 'Property "CWebUser.company_email" is not defined.' in /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CComponent.php:130
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/auth/CWebUser.php(146): CComponent->__get('company_email')
+#1 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/AdminController.php(8): CWebUser->__get('company_email')
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): AdminController->actionIndex()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('')
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin')
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#10 {main}
+REQUEST_URI=/bank_wall/api/admin
+---
+2014/02/19 14:45:09 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/css/bootstrap.min.css".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/css...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/css/bootstrap.min.css
+HTTP_REFERER=http://localhost/bank_wall/api/admin
+---
+2014/02/19 14:45:09 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/css/admin.css".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/css...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/css/admin.css?1392817508
+HTTP_REFERER=http://localhost/bank_wall/api/admin
+---
+2014/02/19 14:46:12 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/css/admin.css".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/css...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/css/admin.css?1392817572
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:46:12 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/css/bootstrap.min.css".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/css...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/css/bootstrap.min.css
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:46:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/css/bootstrap.min.css".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/css...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/css/bootstrap.min.css
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:46:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/css/admin.css".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/css...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/css/admin.css?1392817601
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/css/bootstrap.min.css".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/css...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/css/bootstrap.min.css
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/css/admin.css".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/css...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/css/admin.css?1392817683
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/lib/angular/ui-bootstrap-tpls-0.9.0.min.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/lib...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/lib/angular/ui-bootstrap-tpls-0.9.0.min.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/lib/angular/angular.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/lib...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/lib/angular/angular.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/app.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/app.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/services/node.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/services/node.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/lib/angular/ui-bootstrap-0.9.0.min.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/lib...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/lib/angular/ui-bootstrap-0.9.0.min.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/services.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/services.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/lib/angular/angular-route.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/lib...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/lib/angular/angular-route.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/services/user.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/services/user.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/services/flag.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/services/flag.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/lib.controllers.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/lib.controllers.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/controllers.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/controllers.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/controllers/node.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/controllers/node.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/services/like.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/services/like.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/controllers/user.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/controllers/user.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/services/comment.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/services/comment.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/controllers/comment.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/controllers/comment.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/filters.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/filters.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/directives.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/directives.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/lib/angular/ui-bootstrap-0.9.0.min.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/lib...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/lib/angular/ui-bootstrap-0.9.0.min.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/lib/angular/ui-bootstrap-tpls-0.9.0.min.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/lib...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/lib/angular/ui-bootstrap-tpls-0.9.0.min.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/app.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/app.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/services.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/services.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/services/node.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/services/node.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/services/user.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/services/user.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/services/like.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/services/like.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/services/comment.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/services/comment.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/services/flag.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/services/flag.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/lib.controllers.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/lib.controllers.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/controllers.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/controllers.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/controllers/node.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/controllers/node.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/controllers/user.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/controllers/user.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/controllers/comment.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/controllers/comment.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/filters.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/filters.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:04 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/directives.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/directives.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/css/admin.css".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/css...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/css/admin.css?1392817705
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/css/bootstrap.min.css".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/css...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/css/bootstrap.min.css
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/lib/angular/angular.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/lib...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/lib/angular/angular.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/lib/angular/ui-bootstrap-0.9.0.min.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/lib...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/lib/angular/ui-bootstrap-0.9.0.min.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/app.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/app.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/services.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/services.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/lib/angular/angular-route.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/lib...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/lib/angular/angular-route.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/lib/angular/ui-bootstrap-tpls-0.9.0.min.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/lib...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/lib/angular/ui-bootstrap-tpls-0.9.0.min.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/services/node.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/services/node.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/services/user.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/services/user.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/controllers.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/controllers.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/services/comment.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/services/comment.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/services/flag.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/services/flag.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/services/like.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/services/like.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/controllers/node.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/controllers/node.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/lib.controllers.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/lib.controllers.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/controllers/user.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/controllers/user.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/controllers/comment.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/controllers/comment.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/filters.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/filters.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/directives.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/directives.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/lib/angular/ui-bootstrap-0.9.0.min.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/lib...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/lib/angular/ui-bootstrap-0.9.0.min.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/lib/angular/ui-bootstrap-tpls-0.9.0.min.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/lib...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/lib/angular/ui-bootstrap-tpls-0.9.0.min.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/app.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/app.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/services.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/services.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/services/node.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/services/node.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/services/user.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/services/user.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/services/like.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/services/like.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/services/comment.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/services/comment.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/services/flag.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/services/flag.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/lib.controllers.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/lib.controllers.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/controllers.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/controllers.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/controllers/node.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/controllers/node.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/controllers/user.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/controllers/user.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/controllers/comment.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/controllers/comment.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/filters.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/filters.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:48:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset/js/directives.js".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset/js/...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset/js/directives.js
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:49:36 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "tmp".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php:483
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): CController->missingAction('tmp')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('tmp')
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin/tmp/node/...')
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#5 {main}
+REQUEST_URI=/bank_wall/api/admin/tmp/node/list.html
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:50:22 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "tmp".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php:483
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): CController->missingAction('tmp')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('tmp')
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin/tmp/node/...')
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#5 {main}
+REQUEST_URI=/bank_wall/api/admin/tmp/node/list.html
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:51:12 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "tmp".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php:483
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): CController->missingAction('tmp')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('tmp')
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin/tmp/node/...')
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#5 {main}
+REQUEST_URI=/bank_wall/api/admin/tmp/node/list.html
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:51:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "tmp".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php:483
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): CController->missingAction('tmp')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('tmp')
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin/tmp/node/...')
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#5 {main}
+REQUEST_URI=/bank_wall/api/admin/tmp/node/list.html
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:51:35 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "tmp".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php:483
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): CController->missingAction('tmp')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('tmp')
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin/tmp/node/...')
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#5 {main}
+REQUEST_URI=/bank_wall/api/admin/tmp/node/list.html
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:51:59 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "tmp/node/list.html".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('tmp/node/list.h...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/tmp/node/list.html
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:58:20 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "..undefined".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('..undefined')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/..undefined
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 14:58:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "..undefined".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php:483
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): CController->missingAction('..undefined')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('..undefined')
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin/..undefin...')
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#5 {main}
+REQUEST_URI=/bank_wall/api/admin/..undefined
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 15:00:59 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "..admin_asset".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php:483
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): CController->missingAction('..admin_asset')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('..admin_asset')
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin/..admin_a...')
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#5 {main}
+REQUEST_URI=/bank_wall/api/admin/..admin_asset/img/login_avatar.gif
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 15:01:36 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "tmp".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php:483
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): CController->missingAction('tmp')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('tmp')
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin/tmp/dialo...')
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#5 {main}
+REQUEST_URI=/bank_wall/api/admin/tmp/dialog/delete.html
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---
+2014/02/19 15:02:54 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_asset//node/list".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin_asset//no...')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/bank_wall/api/admin_asset//node/list?orderby=datetime&pagenum=100&showall=true
+HTTP_REFERER=http://localhost/bank_wall/api/admin/
+---

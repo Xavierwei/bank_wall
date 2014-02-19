@@ -104,46 +104,50 @@ class NodeController extends Controller {
       if (!$nid) {
         $this->responseError("invalid params");
       }
+
+	  if (!Yii::app()->user->checkAccess("updateNode")) {
+		  return $this->responseError("permission deny1");
+	  }
       
       $node = NodeAR::model()->findByPk($nid);
       
       if ($node) {
-        $photoUpload = CUploadedFile::getInstanceByName("photo");
-        $videoUpload = CUploadedFile::getInstanceByName("video");
-        if ($photoUpload) {
-          $type = "photo";
-        }
-        else if ($videoUpload){
-          $type = "video";
-        }
-        // 在这里和添加有点区别，我们不强制用户传 Media 过来
-        else {
-          $type = FALSE;
-        }
-        
-        // 在这里做权限检查
-        // 如果用户在更改 media, 就要检查更改 media 的权限
-        if ($type && !Yii::app()->user->checkAccess("updateNodeMedia", array("country_id" => $node->country_id))) {
-          return $this->responseError("permission deny");
-        }
-        // 如果做内容修改， 用户就应该有修改自己内容的权限
-        else if (!Yii::app()->user->checkAccess("updateOwnNode", array("uid" => $node->uid))) {
-          return $this->responseError("permission deny");
-        }
-
-        if ($photoUpload) {
-          $mime = $photoUpload->getType();
-          $allowMime = array(
-              "image/gif", "image/png", "image/jpeg", "image/jpg"
-          );
-          if (!in_array($mime, $allowMime)) {
-            $this->responseError("photo's media type is not allowed");
-          }
-        }
-
-        if ($videoUpload) {
-          // TODO:: 暂时判断不出视频类型，需要更多测试实例
-        }
+//        $photoUpload = CUploadedFile::getInstanceByName("photo");
+//        $videoUpload = CUploadedFile::getInstanceByName("video");
+//        if ($photoUpload) {
+//          $type = "photo";
+//        }
+//        else if ($videoUpload){
+//          $type = "video";
+//        }
+//        // 在这里和添加有点区别，我们不强制用户传 Media 过来
+//        else {
+//          $type = FALSE;
+//        }
+//
+//        // 在这里做权限检查
+//        // 如果用户在更改 media, 就要检查更改 media 的权限
+//        if ($type && !Yii::app()->user->checkAccess("updateNodeMedia", array("country_id" => $node->country_id))) {
+//          return $this->responseError("permission deny");
+//        }
+//        // 如果做内容修改， 用户就应该有修改自己内容的权限
+//        else if (!Yii::app()->user->checkAccess("updateOwnNode", array("uid" => $node->uid))) {
+//          return $this->responseError("permission deny");
+//        }
+//
+//        if ($photoUpload) {
+//          $mime = $photoUpload->getType();
+//          $allowMime = array(
+//              "image/gif", "image/png", "image/jpeg", "image/jpg"
+//          );
+//          if (!in_array($mime, $allowMime)) {
+//            $this->responseError("photo's media type is not allowed");
+//          }
+//        }
+//
+//        if ($videoUpload) {
+//          // TODO:: 暂时判断不出视频类型，需要更多测试实例
+//        }
         
         // 修改 description
         $description = $request->getPost("description");
@@ -152,20 +156,23 @@ class NodeController extends Controller {
         }
         
         $status = $request->getPost("status");
+
+	    echo $status;
+
         if ($status) {
           // TODO:: 这里修改node 状态需要权限检查， 暂时没有实现权限检查
           $node->status = $status;
         }
         
-        // 修改media
-        if ($type == "photo") {
-          $node->file = $node->saveUploadedFile($photoUpload);
-          $node->type = $type;
-        }
-        elseif($type == "video") {
-          $node->file = $node->saveUploadedFile($videoUpload);
-          $node->type = $type;
-        }
+//        // 修改media
+//        if ($type == "photo") {
+//          $node->file = $node->saveUploadedFile($photoUpload);
+//          $node->type = $type;
+//        }
+//        elseif($type == "video") {
+//          $node->file = $node->saveUploadedFile($videoUpload);
+//          $node->type = $type;
+//        }
         if ($node->validate()) {
           $node->beforeSave();
           $ret = $node->updateByPk($node->nid, $node->attributes);

@@ -3025,7 +3025,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 
         // Resize Comment Box
         var $comList = $('.com-list');
-        var comListHeight = $(window).height() - 390 - $('.com-user').height();
+        var comListHeight = $(window).height() - 350 - $('.com-user').height();
         $comList.height(comListHeight);
 
         // Resize Image

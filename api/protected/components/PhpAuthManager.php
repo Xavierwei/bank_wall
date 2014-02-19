@@ -1,16 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of PhpAuthManager
- *
- * @author jackey
- */
 class PhpAuthManager extends CPhpAuthManager{
   
   public $role = 0;
@@ -35,6 +24,9 @@ class PhpAuthManager extends CPhpAuthManager{
     
     // 
     $this->createOperation("publichsNode", "publish one node");
+
+	//
+	$this->createOperation("updateNode", "update one node");
     
     //修改自己的node
     $bizrule = 'return Yii::app()->user->getId() == $params["uid"];';
@@ -49,6 +41,9 @@ class PhpAuthManager extends CPhpAuthManager{
     
     // 首先检查用户角色，用户如果是country 管理员，只能修改自己国家的media; 如果是admin 就没有权限
     // 直接返回 TRUE
+	$bizrule = 'return Yii::app()->user->role == UserAR::ROLE_ADMIN;';
+	$this->createOperation("isAdmin", "check is admin", $bizrule);
+
     $bizrule = 'return Yii::app()->user->role == UserAR::ROLE_ADMIN ? TRUE : Yii::app()->user->role == UserAR::ROLE_COUNTRY_MANAGER && Yii::app()->user->country_id == $params["country_id"] ? TRUE : FALSE;';
     $this->createOperation("updateNodeMedia", "update node media", $bizrule);
     
@@ -104,6 +99,7 @@ class PhpAuthManager extends CPhpAuthManager{
     
     // admin role
     $admin = $this->createRole("admin");
+	$admin->addChild("isAdmin");
     $admin->addChild("deleteAnyNode");
     $admin->addChild("blockNode");
     $admin->addChild("unpublishNode");
