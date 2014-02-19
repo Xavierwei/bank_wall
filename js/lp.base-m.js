@@ -2397,36 +2397,6 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
             // for long click
             var animateTimeout = null;
             var animateScale = 1.02;
-            var runZoomIn = function( scale ){
-                if( _totalScale * _imgWidth == _wrapWidth || _totalScale * _imgHeight == _wrapHeight ){
-                    return;
-                }
-                _totalScale /= scale;
-
-                transform( undefined , undefined , 1/scale , undefined , false);
-
-                if( _totalScale * _imgWidth < _wrapWidth || _totalScale * _imgHeight < _wrapHeight ){
-                    var lastScale = _totalScale;
-                    _totalScale = Math.max( _wrapWidth / _imgWidth , _wrapHeight / _imgHeight );
-                    transform( undefined , undefined , _totalScale/lastScale , undefined , false);
-                }
-                var off = imgRaphael.getBBox();
-                if( off.x > 0 ){
-                    transform( -off.x , 0 );
-                    off.x = 0;
-                }
-                if( off.x + off.width < _wrapWidth ){
-                    transform( _wrapWidth - ( off.x + off.width )  , 0 );
-                }
-                if( off.y > 0 ){
-                    transform( 0 , -off.y );
-                    off.y = 0;
-                }
-                if( off.y + off.height < _wrapHeight ){
-                    transform( 0 ,  _wrapHeight - ( off.y + off.height ) );
-                }
-            }
-            
             var startAnimateScale = function( zoomout ){
                 var duration = 1000 / 60 ;
                 var aniFn = function(){
@@ -2493,18 +2463,16 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
         return {
             initialize: initialize
             , result    : function(){
-                // var off  = imgRaphael.getBBox();
-                // var width = parseInt($picInner.find('img').css('width'));
-                // var height = parseInt($picInner.find('img').css('height'));
-                // return {
-                //     width       : width * totalScale,
-                //     height      : height * totalScale,
-                //     src         : $picInner.find('img').attr('src'),
-                //     rotate      : totalRotate,
-                //     x           : off.x,
-                //     y           : off.y,
-                //     cid         : 1
-                // }
+                _totalScale
+                return {
+                    width       : $img.width(),
+                    height      : $img.height(),
+                    //src         : $picInner.find('img').attr('src'),
+                    //rotate      : totalRotate,
+                    x           : _imgLeft,
+                    y           : _imgTop,
+                    cid         : 1
+                }
             }
             //, transform  : transform
         }
