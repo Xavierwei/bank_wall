@@ -104,7 +104,7 @@ a{text-decoration:none;color:#666}
         .comuser-location{line-height: 23px;top:22px;position: absolute;left:260px;}
         .comuser-location p {background: url('../img/icon_inner_location.png') no-repeat 0 0px;;padding-left:25px;}
         .com-back{background:url('../img/icon_inner_back.gif') no-repeat center;width:68px;height: 66px;position: absolute;top:0;left:0;z-index:5;border-right:1px #fff solid ;}
-        .com-info{height: 88px;position: absolute;bottom: 0;left:0;right: 0;background: #404040;z-index: 12;font-size: 20px;color:#e4e4e4;text-transform:none;}
+        .com-info{height: 88px;position: absolute;bottom: 0;left:0;right: 0;background: #404040;z-index: 12;font-size: 18px;color:#e4e4e4;text-transform:none;}
         .com-day{width:90px;overflow:hidden;font-size: 18px;background: url('../img/icon_inner_time.gif') no-repeat left center;padding:0 0 0 32px;margin:0 0 0 8px;border-right: 1px #fff solid;float:left;height: 88px;line-height: 88px}
         .com-like{text-align:center;background: url('../img/icon_inner_like.gif') no-repeat center 18px;float:left;height: 34px;padding: 54px 0 0;width:146px;}
         .com-unlike {background-position:center -71px;}
@@ -279,7 +279,7 @@ a{text-decoration:none;color:#666}
     /**/
 .poptxt-preview{margin:24px 5px 0 10px;position:relative;}
     .poptxt-pic{float:left;}
-    .poptxt-textarea{float: right;border:#f4f4f4 solid 1px;width:300px;height:300px;display: block;color:#666;resize:none;padding:10px;font-size:20px;}
+    .poptxt-textarea{float: right;border:#f4f4f4 solid 1px;width:250px;height:300px;display: block;color:#666;resize:none;padding:10px;margin-right:10px;font-size:20px;}
     .poptxt-preview .error {background:#fff;padding:0 5px;color:#c0152d;position: absolute;width:190px;bottom:0;right:20px;}
     .poptxt-check {padding:0 0 0 30px;margin:30px 33px 0 33px;font-size:16px;text-transform: none;color:#767676;line-height:120%;background: url('../img/icon_checkbox.gif') no-repeat;}
     .poptxt-check.checked {background-position: 0 -110px;}

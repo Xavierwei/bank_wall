@@ -1203,8 +1203,11 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 				.transit({y:0, opacity:1}, _animateTime, _animateEasing);
 
             $comMain.find('.com-list-inner').height($comMain.height() - 180);
-            bindCommentSubmisson();
-            getCommentList(data.nid,1);
+
+            if($comMain.find('.comlist-item').length == 0) {
+                bindCommentSubmisson();
+                getCommentList(data.nid,1);
+            }
 		}
 		else {
 			$comMain.transit({y:1000, opacity:0}, _animateTime, _animateEasing, function(){
@@ -1677,7 +1680,8 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
         // get image scale , rotate , zoom arguments
         if(data.type == 'photo') {
             var trsdata = transformMgr.result();
-            delete trsdata.src;
+            console.log(trsdata);
+            //delete trsdata.src;
         }
 
         var $dom = $(this);
