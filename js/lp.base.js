@@ -390,14 +390,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                     .find('img');
                 startAnimate( $nodes.eq(0) );
                 //TODO: commented the image loaded condition during testing
-//                if( $img[0].complete ){
-//                    startAnimate( $nodes.eq(0) );
-//                } else {
-//                    $img.load(function(){
-//                        startAnimate( $nodes.eq(0) );
-//                    });
-//                }
-            } else { // judge if need to load next page 
+            } else { // judge if need to load next page
                 $(window).trigger('scroll');
             }
         },
@@ -481,6 +474,8 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 $main.data('param' , param);
                 $listLoading.fadeIn();
                 api.ajax('recent' , param , function( result ){
+                    // if loading page is not the param info, return
+                    if( param.page != $main.data('param').page ) return;
                     nodeActions.inserNode( $main , result.data , param.orderby == 'datetime');
                     _scrollAjax = false;
                     $listLoading.fadeOut();
@@ -492,10 +487,12 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             // it must visible and in main element has unreversaled node
             if( $('.count-com').is(':visible') && !$userCom.find('.main-item:not(.time-item,.reversal)').length ){
                 _scrollAjax = true;
-                var userPageParam = $('.count-com').data('param');
+                var $com = $('.count-com');
+                var userPageParam = $com.data('param');
                 userPageParam.page++;
-                $('.count-com').data('param',userPageParam);
+                $com.data('param',userPageParam);
                 api.ajax('recent' , userPageParam , function( result ){
+                    if( userPageParam.page != $com.data('param').page ) return;
                     nodeActions.inserNode( $userCom , result.data , true );
                     _scrollAjax = false;
 
@@ -677,7 +674,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 
     // for back action
     LP.action('back' , function( data ){
-		console.log(_innerLock);
         if( _innerLock ) return;
         var $inner = $('.inner');
         var infoTime = 300;
@@ -756,17 +752,14 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         changeUrl('' , {event:'back'});
 
     });
-
+    
     LP.action('back_home', function(){
         nodeActions.stopItemReversal();
-		var delay = 400;
 		if($main.hasClass('closed')) {
 			LP.triggerAction('back');
-			delay = 0;
 		}
 		if($('.user-page').is(':visible')) {
 			LP.triggerAction('toggle_user_page');
-			delay = 0;
 		}
 		resetQuery();
 		$('.search-hd').hide();
@@ -1168,6 +1161,8 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         var pageParam = refreshQuery();
         $listLoading.fadeIn();
         api.ajax('recent', pageParam, function( result ){
+            // make sure it's first page
+            if( $main.children().length ) return;
             $main.show();
             $listLoading.fadeOut();
             nodeActions.inserNode( $main , result.data , pageParam.orderby == 'datetime' );
@@ -1885,11 +1880,12 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 param.mylike = true;
                 break;
         }
+
         var $countCom = $('.count-com').removeData('nodes').fadeOut(function(){
-            param.page = 1;
             $(this).html('').show();
             $('.loading-list').fadeIn();
             api.ajax('recent' , param , function( result ){
+                if( $countCom.children().length ) return;
                 $('.loading-list').fadeOut();
                 nodeActions.inserNode( $countCom , result.data , true );
             });
@@ -2215,7 +2211,8 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 
     var resetQuery = function() {
         var param = $main.data('param') || {};
-        param.orderby = "datatime";
+        param.orderby = "datetime";
+        param.page = 1;
         delete param.country_id;
         $main.data('param',param);
         $.each($('.select-item'), function(index, item){
