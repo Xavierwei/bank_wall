@@ -1,7 +1,10 @@
 SGWallAdminServices.factory( 'NodeService', function($http, ROOT) {
     return {
-        list: function(success) {
-            $http.get(ROOT+'/node/list?orderby=datetime&pagenum=100&showall=true')
+        list: function(param, success) {
+            $http.get(ROOT+'/node/list',{
+				params: param,
+				cache: false
+			})
             .success(function(data) {
                 success(data.data);
             })

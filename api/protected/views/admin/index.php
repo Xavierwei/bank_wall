@@ -31,7 +31,7 @@
 	</ul>
 </div>
 
-<div class="page-right">
+<div class="page-right" ng-controller="CtrGlobal">
 	<div ng-view></div>
 </div>
 

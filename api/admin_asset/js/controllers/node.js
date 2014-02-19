@@ -2,14 +2,25 @@ SGWallAdminController
     .controller('NodeCtrList', function($scope, $http, $modal, $log, $routeParams, NodeService, LikeService, FlagService, ASSET_FOLDER) {
         // Get node list by recent
         params = {};
-        if($routeParams.type != 'all') {
-            params.type = $routeParams.type;
-            params.country = $routeParams.type;
-        }
 
-        NodeService.list(function(data){
-            $scope.nodes = data;
-        });
+		if($scope.filter.type != 'all') {
+            params.type = $scope.filter.type;
+        }
+		params.showall = true;
+		params.orderby = "datetime";
+		params.pagenum = 100;
+
+
+
+		$scope.$watch('filter.type + filter.country_id', function() {
+			if($scope.filter.type != 'all') {
+				params.type = $scope.filter.type;
+			}
+			params.country_id = $scope.filter.country_id;
+			NodeService.list(params, function(data){
+				$scope.nodes = data;
+			});
+		});
 
         // Switch node status
         $scope.updateStatus = function(node, status) {

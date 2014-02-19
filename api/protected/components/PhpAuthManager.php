@@ -26,7 +26,8 @@ class PhpAuthManager extends CPhpAuthManager{
     $this->createOperation("publichsNode", "publish one node");
 
 	//
-	$this->createOperation("updateNode", "update one node");
+	$bizrule = 'return Yii::app()->user->role == UserAR::ROLE_ADMIN ? TRUE : Yii::app()->user->role == UserAR::ROLE_COUNTRY_MANAGER && Yii::app()->user->country_id == $params["country_id"] ? TRUE : FALSE;';
+	$this->createOperation("updateNode", "update one node", $bizrule);
     
     //修改自己的node
     $bizrule = 'return Yii::app()->user->getId() == $params["uid"];';
@@ -124,6 +125,7 @@ class PhpAuthManager extends CPhpAuthManager{
     $admin->addChild("deleteOwnComment");
     $admin->addChild("removeFlag");
     $admin->addChild("deleteOwnNode");
+	$admin->addChild("updateNode");
     
     // country manager
     $countryManager = $this->createRole("countryManager");

@@ -151,15 +151,14 @@ class NodeController extends Controller {
         
         // 修改 description
         $description = $request->getPost("description");
-        if ($description) {
+        if (isset($status)) {
           $node->description =  $description;
         }
         
         $status = $request->getPost("status");
 
-	    echo $status;
 
-        if ($status) {
+        if (isset($status)) {
           // TODO:: 这里修改node 状态需要权限检查， 暂时没有实现权限检查
           $node->status = $status;
         }
@@ -245,10 +244,10 @@ class NodeController extends Controller {
       $country_id = $request->getParam("country_id");
       $uid = $request->getParam("uid");
       $showall = $request->getParam("showall");
-			$mycomment = $request->getParam("mycomment");
-			$mylike = $request->getParam("mylike");
-			$topday = $request->getParam("topday");
-			$topmonth = $request->getParam("topmonth");
+		$mycomment = $request->getParam("mycomment");
+		$mylike = $request->getParam("mylike");
+		$topday = $request->getParam("topday");
+		$topmonth = $request->getParam("topmonth");
       
       // 3个参数必须填一个
 //      if (!$type && !$country_id && !$uid) {
@@ -314,8 +313,8 @@ class NodeController extends Controller {
       }
       
       // 需要验证用户权限
-      $user = UserAR::model()->findByPk(Yii::app()->getId());
-      if ($user && ($user->role == UserAR::ROLE_ADMIN || $user->role == UserAR::ROLE_COUNTRY_MANAGER) && $showall) {
+      $user = UserAR::model()->findByPk(Yii::app()->user->getId());
+      if (Yii::app()->user->checkAccess("isAdmin") && $showall) {
           // 如果是管理员，我们就忽略掉status 参数，这样子他们就可以看到所有的node
         if ($user->role == UserAR::ROLE_ADMIN) {
           // admin 就不必要 增加status 参数了
@@ -341,28 +340,28 @@ class NodeController extends Controller {
       $query->group = $nodeAr->getTableAlias().".nid";
 
       // 本日最佳
-			if($topday) {
-				$query->select = "*". ",topday_id AS topday";
-				$query->join = 'right join `topday` '.' on '. '`topday`' .".nid = ". $nodeAr->getTableAlias().".nid";
-			}
+		if($topday) {
+			$query->select = "*". ",topday_id AS topday";
+			$query->join = 'right join `topday` '.' on '. '`topday`' .".nid = ". $nodeAr->getTableAlias().".nid";
+		}
 
-			// 本月最佳
-			if($topmonth) {
-				$query->select = "*". ",topmonth_id AS topmonth";
-				$query->join = 'right join `topmonth` '.' on '. '`topmonth`' .".nid = ". $nodeAr->getTableAlias().".nid";
-			}
+		// 本月最佳
+		if($topmonth) {
+			$query->select = "*". ",topmonth_id AS topmonth";
+			$query->join = 'right join `topmonth` '.' on '. '`topmonth`' .".nid = ". $nodeAr->getTableAlias().".nid";
+		}
 
       // 我评论过的的内容
-			if($mycomment) {
-				$query->select = "*";
-				$query->join = 'right join `comment` on `comment`.nid = '.$nodeAr->getTableAlias().'.nid';
-			}
+		if($mycomment) {
+			$query->select = "*";
+			$query->join = 'right join `comment` on `comment`.nid = '.$nodeAr->getTableAlias().'.nid';
+		}
 
       // 我喜欢过的内容
-			if($mylike) {
-				$query->select = "*";
-				$query->join = 'right join `like` on `like`.nid = '.$nodeAr->getTableAlias().'.nid';
-			}
+		if($mylike) {
+			$query->select = "*";
+			$query->join = 'right join `like` on `like`.nid = '.$nodeAr->getTableAlias().'.nid';
+		}
 
       $order = "";
       if ($orderby == "datetime") {
