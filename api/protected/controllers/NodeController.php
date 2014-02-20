@@ -1,15 +1,6 @@
 <?php
 
 class NodeController extends Controller {
-  public function actionTest() {
-    $nodeAr = new NodeAR();
-    $nodeAr->description = "hi, #hashtag and #China in #shanghai";
-    
-    $hashtags = $nodeAr->getHashTagFromText();
-    print_r($hashtags);
-    $this->responseError("ERROR");
-  }
-  
 	public function actionPost() {
 		$uid = Yii::app()->user->getId();
 		$user = UserAR::model()->findByPk($uid);
@@ -94,99 +85,99 @@ class NodeController extends Controller {
 		}
 	}
   
-  public function actionPut() {
-      $request = Yii::app()->getRequest();
-      if (!$request->isPostRequest) {
-        $this->responseError("http error");
-      }
-      
-      $nid = $request->getPost("nid");
-      if (!$nid) {
-        $this->responseError("invalid params");
-      }
+	public function actionPut() {
+		$request = Yii::app()->getRequest();
+		if (!$request->isPostRequest) {
+			$this->responseError("http error");
+		}
 
-	  if (!Yii::app()->user->checkAccess("updateNode")) {
-		  return $this->responseError("permission deny1");
-	  }
+		$nid = $request->getPost("nid");
+		if (!$nid) {
+			$this->responseError("invalid params");
+		}
+
+		if (!Yii::app()->user->checkAccess("updateNode")) {
+			return $this->responseError("permission deny1");
+		}
+
+		$node = NodeAR::model()->findByPk($nid);
       
-      $node = NodeAR::model()->findByPk($nid);
-      
-      if ($node) {
-//        $photoUpload = CUploadedFile::getInstanceByName("photo");
-//        $videoUpload = CUploadedFile::getInstanceByName("video");
-//        if ($photoUpload) {
-//          $type = "photo";
-//        }
-//        else if ($videoUpload){
-//          $type = "video";
-//        }
-//        // 在这里和添加有点区别，我们不强制用户传 Media 过来
-//        else {
-//          $type = FALSE;
-//        }
-//
-//        // 在这里做权限检查
-//        // 如果用户在更改 media, 就要检查更改 media 的权限
-//        if ($type && !Yii::app()->user->checkAccess("updateNodeMedia", array("country_id" => $node->country_id))) {
-//          return $this->responseError("permission deny");
-//        }
-//        // 如果做内容修改， 用户就应该有修改自己内容的权限
-//        else if (!Yii::app()->user->checkAccess("updateOwnNode", array("uid" => $node->uid))) {
-//          return $this->responseError("permission deny");
-//        }
-//
-//        if ($photoUpload) {
-//          $mime = $photoUpload->getType();
-//          $allowMime = array(
-//              "image/gif", "image/png", "image/jpeg", "image/jpg"
-//          );
-//          if (!in_array($mime, $allowMime)) {
-//            $this->responseError("photo's media type is not allowed");
-//          }
-//        }
-//
-//        if ($videoUpload) {
-//          // TODO:: 暂时判断不出视频类型，需要更多测试实例
-//        }
-        
-        // 修改 description
-        $description = $request->getPost("description");
-        if (isset($status)) {
-          $node->description =  $description;
-        }
-        
-        $status = $request->getPost("status");
+		if ($node) {
+	//        $photoUpload = CUploadedFile::getInstanceByName("photo");
+	//        $videoUpload = CUploadedFile::getInstanceByName("video");
+	//        if ($photoUpload) {
+	//          $type = "photo";
+	//        }
+	//        else if ($videoUpload){
+	//          $type = "video";
+	//        }
+	//        // 在这里和添加有点区别，我们不强制用户传 Media 过来
+	//        else {
+	//          $type = FALSE;
+	//        }
+	//
+	//        // 在这里做权限检查
+	//        // 如果用户在更改 media, 就要检查更改 media 的权限
+	//        if ($type && !Yii::app()->user->checkAccess("updateNodeMedia", array("country_id" => $node->country_id))) {
+	//          return $this->responseError("permission deny");
+	//        }
+	//        // 如果做内容修改， 用户就应该有修改自己内容的权限
+	//        else if (!Yii::app()->user->checkAccess("updateOwnNode", array("uid" => $node->uid))) {
+	//          return $this->responseError("permission deny");
+	//        }
+	//
+	//        if ($photoUpload) {
+	//          $mime = $photoUpload->getType();
+	//          $allowMime = array(
+	//              "image/gif", "image/png", "image/jpeg", "image/jpg"
+	//          );
+	//          if (!in_array($mime, $allowMime)) {
+	//            $this->responseError("photo's media type is not allowed");
+	//          }
+	//        }
+	//
+	//        if ($videoUpload) {
+	//          // TODO:: 暂时判断不出视频类型，需要更多测试实例
+	//        }
+
+			// 修改 description
+			$description = $request->getPost("description");
+			if (isset($status)) {
+				$node->description =  $description;
+			}
+
+			$status = $request->getPost("status");
 
 
-        if (isset($status)) {
-          // TODO:: 这里修改node 状态需要权限检查， 暂时没有实现权限检查
-          $node->status = $status;
-        }
-        
-//        // 修改media
-//        if ($type == "photo") {
-//          $node->file = $node->saveUploadedFile($photoUpload);
-//          $node->type = $type;
-//        }
-//        elseif($type == "video") {
-//          $node->file = $node->saveUploadedFile($videoUpload);
-//          $node->type = $type;
-//        }
-        if ($node->validate()) {
-          $node->beforeSave();
-          $ret = $node->updateByPk($node->nid, $node->attributes);
-          $this->responseJSON($node->attributes, "success");
-        }
-        else {
-          $this->responseError(current(array_shift($node->getErrors())));
-        }
-      }
-      else {
-        $this->responseError("node not found");
-      }
-  }
+			if (isset($status)) {
+				// TODO:: 这里修改node 状态需要权限检查， 暂时没有实现权限检查
+				$node->status = $status;
+			}
+
+			//        // 修改media
+			//        if ($type == "photo") {
+			//          $node->file = $node->saveUploadedFile($photoUpload);
+			//          $node->type = $type;
+			//        }
+			//        elseif($type == "video") {
+			//          $node->file = $node->saveUploadedFile($videoUpload);
+			//          $node->type = $type;
+			//        }
+			if ($node->validate()) {
+				$node->beforeSave();
+				$ret = $node->updateByPk($node->nid, array("status" => $node->status));
+				$this->responseJSON($node->attributes, "success");
+			}
+			else {
+				$this->responseError(current(array_shift($node->getErrors())));
+			}
+		}
+		else {
+			$this->responseError("node not found");
+		}
+	}
   
-  public function actionDelete() {
+	public function actionDelete() {
 		$request = Yii::app()->getRequest();
 
 		if (!$request->isPostRequest) {
@@ -216,17 +207,17 @@ class NodeController extends Controller {
 
 		$nodeAr->deleteByPk($nodeAr->nid);
 		$nodeAr->deleteRelatedData($nodeAr->nid);
-	  	// update hashtag counts
-	  	$hashtags =$nodeAr->attributes['hashtag'];
+		// update hashtag counts
+		$hashtags =$nodeAr->attributes['hashtag'];
 		foreach($hashtags as $tag) {
 		  TagAR::model()->minusTagCount($tag);
 		}
-	  	// update top contents
+		// update top contents
 		LikeAR::model()->saveTopOfDay($nodeAr);
 		LikeAR::model()->saveTopOfMonth($nodeAr);
 
 		return $this->responseJSON($nodeAr->attributes, "success");
-  }
+	}
 
 	public function actionGetPageByNid(){
 		$request = Yii::app()->getRequest();
@@ -236,110 +227,111 @@ class NodeController extends Controller {
 		$this->responseJSON($page, "success");
 	}
 
-  public function actionList() {
-      // TODO:: Order by like / Search by hashtag / Search by keyword
-      $request = Yii::app()->getRequest();
-      
-      $type = $request->getParam("type");
-      $country_id = $request->getParam("country_id");
-      $uid = $request->getParam("uid");
-      $showall = $request->getParam("showall");
-		$mycomment = $request->getParam("mycomment");
-		$mylike = $request->getParam("mylike");
-		$topday = $request->getParam("topday");
-		$topmonth = $request->getParam("topmonth");
-      
-      // 3个参数必须填一个
-//      if (!$type && !$country_id && !$uid) {
-//          return $this->responseError("http error");
-//      }
-      
-      $page = $request->getParam("page");
-      if (!$page) {
-          $page = 1;
-      }
-      $pagenum = $request->getParam("pagenum");
-      if (!$pagenum) {
-          $pagenum = 10;
-      }
-      
-      // 开始时间和结束时间
-      $start = $request->getParam("start");
-      $end = $request->getParam("end");
-      
-      // orderby 可选参数:
-      // [datetime, like]
-      $orderby = $request->getParam("orderby");
-      
-      // 需要验证是否是管理员
-      $status = $request->getParam("status");
-      
-      // 配置查询条件
-      $query = new CDbCriteria();
-      $nodeAr = new NodeAR();
-      $params = &$query->params;
-      if ($type) {
-          $query->addCondition("type=:type", "AND");
-          $params[":type"] = $type;
-      }
-      if ($country_id) {
-          $query->addCondition("country.country_id = :country_id", "AND");
-          $params[":country_id"] = $country_id;
-      }
-      if ($uid) {
-					if($mycomment) { // filter my commented contents
-						$query->addCondition("comment.uid=:uid", "AND");
-						$params[":uid"] = $uid;
-					}
-					else if($mylike) { // filter my liked contents
-						$query->addCondition("like.uid=:uid", "AND");
-						$params[":uid"] = $uid;
-					}
-					else {  // filter my posted contents
-						$query->addCondition($nodeAr->getTableAlias().".uid=:uid", "AND");
-						$params[":uid"] = $uid;
-					}
-      }
-      
-      if ($start) {
-          $start = strtotime($start);
-          $params[":start"] = $start;
-          $query->addCondition($nodeAr->getTableAlias().".datetime >= :start", "AND");
-      }
-      if ($end) {
-          $end = strtotime($end);
-          $params[":end"] = $end;
-          $query->addCondition($nodeAr->getTableAlias().".datetime<= :end", "AND");
-      }
-      
-      // 需要验证用户权限
-      $user = UserAR::model()->findByPk(Yii::app()->user->getId());
-      if (Yii::app()->user->checkAccess("isAdmin") && $showall) {
-          // 如果是管理员，我们就忽略掉status 参数，这样子他们就可以看到所有的node
-        if ($user->role == UserAR::ROLE_ADMIN) {
-          // admin 就不必要 增加status 参数了
-        }
-        else if ($user->role == UserAR::ROLE_COUNTRY_MANAGER) {
-          // 这里要增加个条件
-          // country manager 只允许看到自己国家的block掉的 node
-          $query->addCondition("country_id = :country_id");
-          $query->params[':country_id'] = $user->country_id;
-        }
-      }
-      // 否则 status 只能是 published 状态
-      else {
-          $status = NodeAR::PUBLICHSED;
-          $query->addCondition($nodeAr->getTableAlias().".status = :status", "AND");
-          $params[":status"] = $status;
-      }
-      // like count
-      $query->select = "*". ", count(like_id) AS likecount". ",topday_id AS topday" . ",topmonth_id AS topmonth";
-      $query->join = 'left join `like` '.' on '. '`like`' .".nid = ". $nodeAr->getTableAlias().".nid";
-			$query->join .= ' left join `topday` '.' on '. '`topday`' .".nid = ". $nodeAr->getTableAlias().".nid";
-			$query->join .= ' left join `topmonth` '.' on '. '`topmonth`' .".nid = ". $nodeAr->getTableAlias().".nid";
-      $query->group = $nodeAr->getTableAlias().".nid";
+	public function actionList() {
+		$request= Yii::app()->getRequest();
 
-      // 本日最佳
+		$type		= $request->getParam("type");
+		$country_id	= $request->getParam("country_id");
+		$uid		= $request->getParam("uid");
+		$mycomment	= $request->getParam("mycomment");
+		$mylike		= $request->getParam("mylike");
+		$topday		= $request->getParam("topday");
+		$topmonth	= $request->getParam("topmonth");
+		$page		= $request->getParam("page");
+		$pagenum	= $request->getParam("pagenum");
+		$start		= $request->getParam("start");
+		$end		= $request->getParam("end");
+		$orderby 	= $request->getParam("orderby");
+		$status 	= $request->getParam("status");
+		$keyword 	= $request->getParam("keyword");
+		$email 		= $request->getParam("email");
+
+		if (!$page) {
+			$page = 1;
+		}
+
+		if (!$pagenum) {
+			$pagenum = 10;
+		}
+
+		// Build Query
+		$query = new CDbCriteria();
+		$nodeAr = new NodeAR();
+		$params = &$query->params;
+
+		if ($type) {
+			$query->addCondition("type=:type", "AND");
+			$params[":type"] = $type;
+		}
+
+		if ($country_id) {
+			$query->addCondition("country.country_id = :country_id", "AND");
+			$params[":country_id"] = $country_id;
+		}
+
+		if ($uid) {
+			if($mycomment) { // filter my commented contents
+				$query->addCondition("comment.uid=:uid", "AND");
+				$params[":uid"] = $uid;
+			}
+			else if($mylike) { // filter my liked contents
+				$query->addCondition("like.uid=:uid", "AND");
+				$params[":uid"] = $uid;
+			}
+			else {  // filter my posted contents
+				$query->addCondition($nodeAr->getTableAlias().".uid=:uid", "AND");
+				$params[":uid"] = $uid;
+			}
+		}
+
+		if ($start) {
+			$start = strtotime($start);
+			$params[":start"] = $start;
+			$query->addCondition($nodeAr->getTableAlias().".datetime >= :start", "AND");
+		}
+		if ($end) {
+			$end = strtotime($end);
+			$params[":end"] = $end;
+			$query->addCondition($nodeAr->getTableAlias().".datetime<= :end", "AND");
+		}
+
+		// search by email
+		if ($email) {
+
+		}
+
+		// 需要验证用户权限
+		$user = UserAR::model()->findByPk(Yii::app()->user->getId());
+		if (Yii::app()->user->checkAccess("isAdmin") && $status == 'all') {
+		  // 如果是管理员，我们就忽略掉status 参数，这样子他们就可以看到所有的node
+			if ($user->role == UserAR::ROLE_ADMIN) {
+			  // admin 就不必要 增加status 参数了
+			}
+			else if ($user->role == UserAR::ROLE_COUNTRY_MANAGER) {
+				// 这里要增加个条件
+				// country manager 只允许看到自己国家的block掉的 node
+				$query->addCondition("country_id = :country_id");
+				$query->params[':country_id'] = $user->country_id;
+			}
+		}
+		elseif (Yii::app()->user->checkAccess("isAdmin")) {
+			$query->addCondition($nodeAr->getTableAlias().".status = :status", "AND");
+			$params[":status"] = $status;
+		}
+		// 否则 status 只能是 published 状态
+		else {
+			$status = NodeAR::PUBLICHSED;
+			$query->addCondition($nodeAr->getTableAlias().".status = :status", "AND");
+			$params[":status"] = $status;
+		}
+		// like count
+		$query->select = "*". ", count(like_id) AS likecount". ",topday_id AS topday" . ",topmonth_id AS topmonth";
+		$query->join = 'left join `like` '.' on '. '`like`' .".nid = ". $nodeAr->getTableAlias().".nid";
+		$query->join .= ' left join `topday` '.' on '. '`topday`' .".nid = ". $nodeAr->getTableAlias().".nid";
+		$query->join .= ' left join `topmonth` '.' on '. '`topmonth`' .".nid = ". $nodeAr->getTableAlias().".nid";
+		$query->group = $nodeAr->getTableAlias().".nid";
+
+		// 本日最佳
 		if($topday) {
 			$query->select = "*". ",topday_id AS topday";
 			$query->join = 'right join `topday` '.' on '. '`topday`' .".nid = ". $nodeAr->getTableAlias().".nid";
@@ -351,112 +343,111 @@ class NodeController extends Controller {
 			$query->join = 'right join `topmonth` '.' on '. '`topmonth`' .".nid = ". $nodeAr->getTableAlias().".nid";
 		}
 
-      // 我评论过的的内容
+		// 我评论过的的内容
 		if($mycomment) {
 			$query->select = "*";
 			$query->join = 'right join `comment` on `comment`.nid = '.$nodeAr->getTableAlias().'.nid';
 		}
 
-      // 我喜欢过的内容
+		// 我喜欢过的内容
 		if($mylike) {
 			$query->select = "*";
 			$query->join = 'right join `like` on `like`.nid = '.$nodeAr->getTableAlias().'.nid';
 		}
 
-      $order = "";
-      if ($orderby == "datetime") {
-          $order .= " ".$nodeAr->getTableAlias().".datetime DESC";
-          $query->order = $order;
-      }
-      else if ($orderby == "like") {
-        // orderby like 比较复杂， 需要用到join 和 group
-        // 还需要增加一个额外的 SELECT 
-        $order .= "`likecount` DESC";
-        $query->order = $order;
-      }
-      else if ($orderby == "random") {
-          // 随机查询需要特别处理
-          // 如下， 首先随机出 $pagenum 个数的随机数，大小范围在 max(nid), min(nid) 之间
-          // 再用 nid in (随机数) 去查询
+		$order = "";
+		if ($orderby == "datetime") {
+		  $order .= " ".$nodeAr->getTableAlias().".datetime DESC";
+		  $query->order = $order;
+		}
+		else if ($orderby == "like") {
+		// orderby like 比较复杂， 需要用到join 和 group
+		// 还需要增加一个额外的 SELECT
+		$order .= "`likecount` DESC";
+		$query->order = $order;
+		}
+		else if ($orderby == "random") {
+		  // 随机查询需要特别处理
+		  // 如下， 首先随机出 $pagenum 个数的随机数，大小范围在 max(nid), min(nid) 之间
+		  // 再用 nid in (随机数) 去查询
 					$page = 1;
-          $sql = "SELECT max(nid) as max, min(nid) as min FROM node";
-          $ret = Yii::app()->db->createCommand($sql);
-          $row = $ret->queryRow();
-          $nids = array();
-          $max_run = 0;
-          while (count($nids) < $pagenum && $max_run < $pagenum * 10) {
-              $max_run ++;
-              $nid = mt_rand($row["min"], $row["max"]);
-              if (!isset($nids[$nid])) {
-                  $cond = array();
-                  foreach ($params as $k => $v) {
-                      $cond[str_replace(":", "", $k)] = $v;
-                  }
-                  $node = NodeAR::model()->findByPk($nid);
-                  if (!$node) {
-                    continue;
-                  }
-                  $isNotWeWant = FALSE;
-                  foreach ($cond as $k => $v) {
-                      if($node->{$k} != $v) {
-                          $isNotWeWant = TRUE;
-                          break;
-                      }
-                  }
-                  if ($isNotWeWant) {
-                          continue;
-                  }
-                  $nids[$nid] = $nid;
-              }
-          }
-          $query->addInCondition($nodeAr->getTableAlias().".nid", $nids, "AND");
-      }
-      
-      $query->limit = $pagenum;
-      $query->offset = ($page - 1 ) * $pagenum;
-      $query->with = array("user", "country");
-      
-      //TODO:: 搜索功能 现在是全文搜索，如果效果不好 可能改为分词搜索 (需要更多查询表)
-      // 集成 keyword 查询, 查询 description 中的关键字
-      $keyword = $request->getParam("keyword");
-      if ($keyword) {
-        $query->addSearchCondition("description", $keyword);
-      }
-      
-      // 集成 hashtag 搜索, 查询 hashtag 中的关键字
-      $hashtag = $request->getParam("hashtag");
-      if ($hashtag) {
-        $query->addSearchCondition("hashtag", $hashtag);
-      }
-      
-      $res = NodeAR::model()->with("user", "country")->findAll($query);
+		  $sql = "SELECT max(nid) as max, min(nid) as min FROM node";
+		  $ret = Yii::app()->db->createCommand($sql);
+		  $row = $ret->queryRow();
+		  $nids = array();
+		  $max_run = 0;
+		  while (count($nids) < $pagenum && $max_run < $pagenum * 10) {
+			  $max_run ++;
+			  $nid = mt_rand($row["min"], $row["max"]);
+			  if (!isset($nids[$nid])) {
+				  $cond = array();
+				  foreach ($params as $k => $v) {
+					  $cond[str_replace(":", "", $k)] = $v;
+				  }
+				  $node = NodeAR::model()->findByPk($nid);
+				  if (!$node) {
+					continue;
+				  }
+				  $isNotWeWant = FALSE;
+				  foreach ($cond as $k => $v) {
+					  if($node->{$k} != $v) {
+						  $isNotWeWant = TRUE;
+						  break;
+					  }
+				  }
+				  if ($isNotWeWant) {
+						  continue;
+				  }
+				  $nids[$nid] = $nid;
+			  }
+		  }
+		  $query->addInCondition($nodeAr->getTableAlias().".nid", $nids, "AND");
+		}
 
-      $retdata = array();
-      $commentAr = new CommentAR();
-      foreach ($res as $node) {
-          $data = $node->attributes;
-          $data["description"] = $node->description;
-          $data["likecount"] = $node->likecount;
-          $data["commentcount"] = $commentAr->totalCommentsByNode($node->nid);
-          $data["user"] = $node->user ? $node->user->attributes : array();
-          $data["country"] = $node->country ? $node->country->attributes: array();
-          $data["user_liked"] = $node->user_liked;
-          $data["user_flagged"] = $node->user_flagged;
-          if($uid && isset($node->user['uid']) && Yii::app()->user->getId() == $node->user['uid']) {
-            $data["mynode"] = TRUE;
-          }
-          //$data["like"] = $node->like;
-          if($node->topday) {
-            $data["topday"] = TRUE;
-          }
-          if($node->topmonth) {
-            $data["topmonth"] = TRUE;
-          }
-          $retdata[] = $data;
-      }
-      
-      $this->responseJSON($retdata, "success");
-  }
+		$query->limit = $pagenum;
+		$query->offset = ($page - 1 ) * $pagenum;
+		$query->with = array("user", "country");
+
+		//TODO:: 搜索功能 现在是全文搜索，如果效果不好 可能改为分词搜索 (需要更多查询表)
+		// 集成 keyword 查询, 查询 description 中的关键字
+		if ($keyword) {
+			$query->addSearchCondition("description", $keyword);
+		}
+
+		// 集成 hashtag 搜索, 查询 hashtag 中的关键字
+		$hashtag = $request->getParam("hashtag");
+		if ($hashtag) {
+			$query->addSearchCondition("hashtag", $hashtag);
+		}
+
+		$res = NodeAR::model()->with("user", "country")->findAll($query);
+
+		$retdata = array();
+		$commentAr = new CommentAR();
+		foreach ($res as $node) {
+			$data = $node->attributes;
+			$data["description"] = $node->description;
+			$data["likecount"] = $node->likecount;
+			$data["commentcount"] = $commentAr->totalCommentsByNode($node->nid);
+			$data["user"] = $node->user ? $node->user->attributes : array();
+			$data["country"] = $node->country ? $node->country->attributes: array();
+			$data["user_liked"] = $node->user_liked;
+			$data["user_flagged"] = $node->user_flagged;
+			if($uid && isset($node->user['uid']) && Yii::app()->user->getId() == $node->user['uid']) {
+				$data["mynode"] = TRUE;
+			}
+			//$data["like"] = $node->like;
+			if($node->topday) {
+				$data["topday"] = TRUE;
+			}
+			if($node->topmonth) {
+				$data["topmonth"] = TRUE;
+			}
+			$retdata[] = $data;
+		}
+
+		$this->responseJSON($retdata, "success");
+	}
   
   // 返回某个  nid 的 前10条和后10条
   // 这个里支持的参数是

@@ -1,39 +1,27 @@
 
 <body>
 
+	<div class="header">
+		<div class="logo"><img src="<?php echo Yii::app()->request->baseUrl; ?>/admin_asset/img/logo.gif" /></div>
+	</div>
 
-<div class="page-left">
-	<ul class="menu">
-		<li><a href="#/node">Contents</a>
-			<!--<ul>-->
-			<!--<li><a href="#/node">Photos</a></li>-->
-			<!--<li><a href="#/node">Videos</a></li>-->
-			<!--</ul>-->
-		</li>
-		<li><a href="#/node/post">Post node</a></li>
-		<li><a href="#/comment">Comments</a></li>
-		<!--<li><a href="#/like">Likes</a></li>-->
-		<li><a href="#/user">Users</a>
-			<ul>
-				<li><a href="#/user/login">Login</a></li>
-				<li><a href="#/user/current">Get Current User</a></li>
-				<li><a href="#/user/create">Create User</a></li>
-				<li><a href="#/user/logout">Logout</a></li>
-			</ul>
-		</li>
+	<div class="page-left">
+		<ul class="menu">
+			<li><a href="#/node">Contents</a></li>
+			<li><a href="#/comment">Comments</a></li>
 
-		<li>Non-appropriate
-			<ul>
-				<li><a href="#/node/flagged">Contents</a></li>
-				<li><a href="#/comment/flagged">Comments</a></li>
-			</ul>
-		</li>
-	</ul>
-</div>
+			<li><span>Reported</span>
+				<ul>
+					<li><a href="#/node/flagged">Contents</a></li>
+					<li><a href="#/comment/flagged">Comments</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
 
-<div class="page-right" ng-controller="CtrGlobal">
-	<div ng-view></div>
-</div>
+	<div class="page-right" ng-controller="CtrGlobal">
+		<div ng-view></div>
+	</div>
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/admin_asset/lib/angular/angular.js"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/admin_asset/lib/angular/angular-route.js"></script>

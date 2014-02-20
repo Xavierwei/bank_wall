@@ -1,8 +1,42 @@
 SGWallAdminController
     .controller('CommentCtrList', function($scope, CommentService, $modal, $log, FlagService) {
-        CommentService.list(function(data) {
-            $scope.comments = data;
+        var params = {};
+        $scope.filter.status = 'all';
+        params.shownode = true;
+        params.showall = true;
+        params.order = 'DESC';
+//        CommentService.list(params, function(data) {
+//            $scope.comments = data;
+//        });
+
+        $scope.$watch('filter.status', function() {
+            if($scope.filter.status != 'all') {
+                params.status = $scope.filter.status;
+                delete params.showall;
+            }
+            else {
+                params.showall = true;
+                delete params.status;
+            }
+            CommentService.list(params, function(data){
+                $scope.comments = data;
+            });
         });
+
+        // Switch node status
+        $scope.updateStatus = function(comment) {
+            var newComment = angular.copy(comment);
+            if(comment.status == 0) {
+                newComment.status = 1;
+            }
+            else {
+                newComment.status = 0;
+            }
+            CommentService.update(comment,function(data){
+                comment.status = newComment.status;
+            });
+        }
+
 
         // Update node
         $scope.update = function(comment) {

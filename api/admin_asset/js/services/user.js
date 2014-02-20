@@ -76,6 +76,16 @@ SGWallAdminServices.factory( 'UserService', function($http, ROOT) {
             .error(function() {
 
             });
+        },
+
+        countryList: function(success){
+            $http.get(ROOT+'/../json/country.json')
+            .success(function(data) {
+                success(data);
+            })
+            .error(function() {
+
+            });
         }
     };
 });

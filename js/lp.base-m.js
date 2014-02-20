@@ -631,7 +631,6 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
     var _currentNodeIndex = 0;
     var _innerLock = false;
     LP.action('node' , function( $obj ){
-        console.log('lock:'+_innerLock);
         if( _innerLock ) return;
         _innerLock = true;
         setTimeout(function(){
@@ -723,10 +722,10 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
                 //renderVideo($('.image-wrap-inner'),node);
                 $('#imgLoad').attr('src', './api' + node.image);
                 $('#imgLoad').ensureLoad(function(){
-                    setTimeout(function(){
-                        $('.image-wrap-inner video').fadeIn();
-                        //$('.image-wrap-inner .video-js').fadeIn();
-                    },400);
+//                    setTimeout(function(){
+//                        $('.image-wrap-inner video').fadeIn();
+//                        //$('.image-wrap-inner .video-js').fadeIn();
+//                    },400);
 
                     // preload before and after images
                     preLoadSiblings();
@@ -990,7 +989,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 
 			// init video
 			if( node.type == "video" ){
-				$('.image-wrap-inner video').fadeIn(200);
+				//$('.image-wrap-inner video').fadeIn(200);
 			}
 
             $newItem.find('img').ensureLoad(function(){
@@ -1186,7 +1185,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
                         return node;
                     }
                 });
-                if(node) {
+                if(node.length > 0) {
                     node[0].likecount = count;
                     node[0].user_liked = !node[0].user_liked;
                 }
@@ -1201,7 +1200,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
                         return node;
                     }
                 });
-                if(node) {
+                if(node.length > 0) {
                     node[0].likecount = count;
                     node[0].user_liked = !node[0].user_liked;
                 }
@@ -1721,6 +1720,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 //                });
 //
                 LP.triggerAction('get_fresh_nodes');
+                LP.triggerAction('update_user_status');
                 $('.pop-inner').fadeOut(400);
                 $('.pop-success').delay(400).fadeIn(400);
                 setTimeout(function() {
@@ -2531,7 +2531,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
                                                 return node;
                                             }
                                         });
-                                        if(node) {
+                                        if(node.length > 0) {
                                             node[0].commentcount = newComCount;
                                         }
                                     }
@@ -2545,7 +2545,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
                                                 return node;
                                             }
                                         });
-                                        if(node) {
+                                        if(node.length > 0) {
                                             node[0].commentcount = newComCount;
                                         }
                                     }

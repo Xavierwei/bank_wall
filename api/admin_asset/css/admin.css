@@ -1,6 +1,6 @@
 /* Reset
 ================================================================================================= */
-body{color:#000;font-size:12px;line-height:1.8em;background: #fff}
+body{color:#000;font-size:12px;line-height:1.8em;background: #444;}
 body,input,textarea{font-family:"Microsoft YaHei",arial,sans-serif;}
 h1,h2,h3{font-size:100%;font-weight:600}
 body,h1,h2,h3,h4,ul,li,p,img,input,textarea{margin:0;padding:0;border:0;}
@@ -17,16 +17,33 @@ a{text-decoration:none;color:#666}
 .clear:after{clear:both;content:".";font-size:0;display:block;height:0;overflow:hidden;visibility:hidden;}
 
 
-.page-left {float:left;width:200px;}
-    .page-left .menu {margin:15px 0 0 15px;}
-    .page-left .menu ul {margin-left:15px;}
+.header {background:#fff;text-align: center;padding:15px 0;position: fixed;top:0;left:0;width:100%;z-index: 10;}
+
+.page-left {position:fixed;top:89px;bottom:0;background:#303030;border-right:1px solid #4F4F4F;}
+    .page-left .menu {margin:0;}
+    .page-left .menu ul {margin:0;}
+    .page-left .menu li {background:#303030;border-left:2px solid #94938F;border-bottom:1px solid #4F4F4F;}
+    .page-left .menu li:hover {background:#222;}
+    .page-left .menu li:hover a {color:#fff;}
+    .page-left .menu li ul {background:#272727;}
+    .page-left .menu li ul li {border:none;border-bottom:1px solid #333;}
+    .page-left .menu li a {color:#ccc;display:block;padding:10px 15px;text-decoration:none;}
+    .page-left .menu li ul li a {padding:5px 15px 5px 25px;color:#888;}
+    .page-left .menu li span {color:#ccc;display:block;padding:10px 15px;}
 
 
-.page-right {margin-left:200px;}
+.page-right {margin-left:200px;margin-top:110px;}
 
 
 
-.nodes-list li {background:#eee;float: left;margin:10px;position: relative;font-size:0.9em;}
+.nodes-list li {background:#eee;float: left;margin:10px;position: relative;font-size:0.9em;height:255px;-webkit-box-shadow: 0 0 15px 0 #000000;box-shadow: 0 0 15px 0 #000000;}
+    .nodes-filter select {width:200px;padding:10px 0;font-size:18px;}
+    .nodes-filter .dropdown-menu {height:200px;overflow: scroll;}
+    .nodes-filter {margin:30px 10px 20px 10px;}
+    .nodes-filter .btn-group {margin-right:15px;}
+    .nodes-filter .btn-group-search {margin:0;}
+    .nodes-filter .advance-row button {margin-top:20px;}
+    .nodes-filter label {color:#ccc;font-weight: normal;margin:0;}
     .nodes-list .type {position: absolute;right:10px;top:170px;background: url(../img/icons-white.png) no-repeat;text-indent: -999em;}
     .nodes-list .type.icon-photo {width:21px;height:15px;margin-top:5px;}
     .nodes-list .type.icon-video {width:21px;height:18px;background-position: 0 -42px;}
@@ -46,14 +63,20 @@ a{text-decoration:none;color:#666}
     .nodes-list li .switch-1 {background-position:left 0;}
 
 
-.comments-list li {background:#eee;float: left;margin:10px;position: relative;font-size:0.9em;width:45%;padding:10px;}
+.comments-list li {background:#eee;float: left;margin:10px;position: relative;font-size:0.9em;width:45%;padding:10px;-webkit-box-shadow: 0 0 15px 0 #000000;box-shadow: 0 0 15px 0 #000000;}
+    .comments-filter {margin:30px 10px 20px 10px;}
+    .comments-list .image {float:left;}
+    .comments-list .content {margin-left:120px;}
     .comments-list .date {color:#999;}
-    .comments-list .user {margin:6px 0 6px 0;}
-    .comments-list .avatar {float: left;margin:0 10px 0 6px;}
+    .comments-list .user {margin:6px 0 6px 0;line-height: 160%;height:37px;}
+    .comments-list .avatar {float: left;margin:0;}
     .comments-list .avatar img {border-radius: 33px;-webkit-border-radius: 33px;-moz-border-radius: 33px;-o-border-radius: 33px;-ms-border-radius: 33px;}
-    .comments-list .content {height:110px;overflow: hidden;}
     .comments-list .content img {float: left;margin-right:15px;padding:5px;border:1px solid #ccc;background: #fff;}
     .comments-list .btns {text-align:right;}
+    .comments-list li .black-overlay {display:block;opacity:1;position: absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);}
+    .comments-list li.status-1 .black-overlay {opacity:0;}
+    .comments-list li .switch {background: url(../img/switch.gif) no-repeat right 0;width:57px;height:22px;display:block;position: absolute;top:0;right:0;}
+    .comments-list li .switch-1 {background-position:left 0;}
 
 
 
@@ -66,5 +89,11 @@ a{text-decoration:none;color:#666}
 
 
 .modal {top:30%;}
-.modal-header {border: none;}
-.modal h3 {font-size:20px;text-align: center;padding-top:20px;color:#666;}
+    .modal-header {border: none;}
+    .modal h3 {font-size:20px;text-align: center;padding-top:20px;color:#666;}
+
+    .btn-group .btn {font-size:12px;}
+
+
+a,.menu li,table td,.refresh, .btn,.list li .black-overlay
+{-webkit-transition:   all 0.3s ease;-moz-transition:  all 0.3s ease;-o-transition:  all 0.3s ease;-ms-transition:  all 0.3s ease;transition:  all 0.3s ease;}

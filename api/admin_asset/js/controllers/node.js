@@ -1,25 +1,31 @@
 SGWallAdminController
     .controller('NodeCtrList', function($scope, $http, $modal, $log, $routeParams, NodeService, LikeService, FlagService, ASSET_FOLDER) {
         // Get node list by recent
-        params = {};
-
-		if($scope.filter.type != 'all') {
-            params.type = $scope.filter.type;
-        }
-		params.showall = true;
+        var params = {};
+        $scope.filter.status = 'all';
+        $scope.filter.country = {};
+        $scope.filter.country.country_name = 'All Country';
 		params.orderby = "datetime";
-		params.pagenum = 100;
+		params.pagenum = 50;
 
 
-
-		$scope.$watch('filter.type + filter.country_id + filter.status', function() {
-			if($scope.filter.type != 'all') {
-				params.type = $scope.filter.type;
+		$scope.$watch('filter.type + filter.country_id + filter.status + filter.country.country_id', function() {
+            params.type = $scope.filter.type;
+			if($scope.filter.type == 'all') {
+				delete params.type;
 			}
-			params.country_id = $scope.filter.country_id;
+
+            if($scope.filter.status != 'all') {
+                params.status = $scope.filter.status;
+            }
+            else {
+                delete params.status;
+            }
+
+            params.country_id = $scope.filter.country.country_id;
+
 			if($scope.filter.status != undefined) {
 				params.status = $scope.filter.status;
-				params.showall;
 			}
 			NodeService.list(params, function(data){
 				$scope.nodes = data;
@@ -39,6 +45,29 @@ SGWallAdminController
 				node.status = status;
 			});
         }
+
+
+        $scope.search = function() {
+            if($scope.filter.status != 'all') {
+                params.status = $scope.filter.status;
+            }
+            else {
+                delete params.status;
+            }
+            params.hashtag = $scope.filter.hashtag;
+            NodeService.list(params, function(data){
+                $scope.nodes = data;
+            });
+        }
+
+
+        $scope.filterCountry = function(country) {
+            $scope.filter.country = country;
+        }
+
+
+
+
 
         // Delete node
         $scope.delete = function(node) {
