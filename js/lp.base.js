@@ -1424,8 +1424,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             } else {
                 acceptFileTypes = /(\.|\/)(gif|jpe?g|png)$/i;
                 var maxFileSize = 5 * 1024000;
-                // init event
-                transformMgr.initialize();
             }
             if(isIE8) {
                 LP.use('flash-detect', function(){
@@ -1552,6 +1550,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 									if (data.files && data.files[0] && window.FileReader ) {
 										//..create loading
 										var reader = new FileReader();
+
 										reader.onload = function (e) {
 											// change checkpage img
 											$('.poptxt-pic img')
@@ -1559,6 +1558,9 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 												.bind('load.forinnershow' , function(){
 													$('.pop-inner').delay(400).fadeOut(400);
 													$('.pop-txt').delay(1200).fadeIn(400);
+                                                    setTimeout(function(){
+                                                        transformMgr.initialize( $('.poptxt-pic-inner') );
+                                                    } , 1700 );
 												})
 												.attr('src', e.target.result/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
 											$('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
@@ -1570,6 +1572,9 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 											.bind('load.forinnershow' , function(){
 												$('.pop-inner').delay(400).fadeOut(400);
 												$('.pop-txt').delay(1200).fadeIn(400);
+                                                setTimeout(function(){
+                                                    transformMgr.initialize( $('.poptxt-pic-inner') );
+                                                } , 1700 );
 											})
 											.attr('src', API_FOLDER + rdata.file/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
 										$('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
@@ -1605,7 +1610,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             else {
                 var maxFileSize = 5 * 1024000;
                 // init event
-                transformMgr.initialize();
                 LP.use('fileupload' , function(){
                     // Initialize the jQuery File Upload widget:
                     $fileupload.fileupload({
@@ -1661,11 +1665,17 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                                 $('.step1-tips li').eq(errorIndex).addClass('error');
                             } else{
                                 var rdata = data.result.data;
-
-                                $('.poptxt-pic img').attr('src', API_FOLDER + rdata.file/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
+                                $('.poptxt-pic img')
+                                    .unbind('load.forinnershow')
+                                    .bind('load.forinnershow' , function(){
+                                        $('.pop-inner').delay(400).fadeOut(400);
+                                        $('.pop-txt').delay(1200).fadeIn(400);
+                                        setTimeout(function(){
+                                            transformMgr.initialize( $('.poptxt-pic-inner') );
+                                        } , 1700 );
+                                    })
+                                    .attr('src', API_FOLDER + rdata.file/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
                                 $('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
-                                $('.pop-inner').delay(400).fadeOut(400);
-                                $('.pop-txt').delay(1200).fadeIn(400);
                             }
                         });
                 });
@@ -2336,388 +2346,10 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     // init drag event for image upload
     // after image upload, init it's size to fix the window
     // use raephael js to rotate, scale , and drag the image photo
-    var transformMgr = (function(){
-        var isDragging      = false;
-        var isMousedown     = false;
-        var startPos        = null;
-        var totalMoveX      = 0;
-        var totalMoveY      = 0;
-        var lastMoveX       = 0;
-        var lastMoveY       = 0;
-
-        var maxDistance = 200;
-
-        $(document).mouseup(function(){
-            // reset states
-            if( !isMousedown ) return;
-            isDragging      = false;
-            isMousedown     = false;
-            startPos        = null;
-            totalMoveX += lastMoveX;
-            totalMoveY += lastMoveY;
-
-            lastMoveX = 0;
-            lastMoveY = 0;
-
-
-            // // reset center button
-            // $centerBtn.animate({
-            //     marginLeft  : oMleft,
-            //     marginTop   : oMtop,
-            //     opacity     : 1
-            // } , 300 );
-        });
-
-        // init ps_btn_up
-        var perRotate   = 10;
-        var perScale    = 1.1;
-
-        var totalScale  = 1;
-        var totalRotate = 0;
-        var transforms = [];
-
-        var trsReg = /T(-?[0-9.]+),(-?[0-9.]+)/;
-        var scaReg = /S(-?[0-9.]+),(-?[0-9.]+),(-?[0-9.]+),(-?[0-9.]+)/;
-        var rotReg = /R(-?[0-9.]+),(-?[0-9.]+),(-?[0-9.]+)/;
-
-        var transform = function( x , y , s , r , animate ){
-            animate = animate === undefined ? true : animate;
-            var left = x === undefined ? totalMoveX : x;
-            var top = y === undefined ? totalMoveY : y;
-            var scale = s === undefined ? totalScale : s;
-            var rotate = r === undefined ? totalRotate : r;
-            var transformValue = imgRaphael.transform();
-
-            var match = null;
-            // move 
-            if( x !== undefined ){
-                if( transforms.length && ( match = transforms[transforms.length-1].match( trsReg ) ) ){
-                    transforms[transforms.length-1] = "T" + ( x + parseFloat( match[1] ) ) + ',' + ( y + parseFloat( match[2] ) );
-                } else {
-                    transforms.push( "T" + x + ',' + y );
-                }
-
-                 imgRaphael.transform( transforms.join('') );
-            }
-            if( s !== undefined ){
-                if( transforms.length && ( match = transforms[transforms.length-1].match( scaReg ) ) ){
-                    transforms[transforms.length-1] = "S" + ( s * parseFloat( match[1] ) ) + ','
-                         + ( s * parseFloat( match[2] ) )
-                         + "," + match[3]
-                         + "," + match[4];
-                } else {
-                    transforms.push( "S" + s + ',' + s + ',' + (tarWidth/2) + "," + (tarHeight/2) );
-                }
-
-                if( animate ){
-                    imgRaphael.animate({
-                        transform: transforms.join('')
-                    } , 200);
-                } else {
-                    imgRaphael.transform( transforms.join('') );
-                }
-            }
-            if( r !== undefined ) {
-                if( transforms.length && ( match = transforms[transforms.length-1].match( rotReg ) ) ){
-                    transforms[transforms.length-1] = "R" + ( r + parseFloat( match[1] ) ) 
-                        + "," + match[2]
-                        + "," + match[3];
-                } else {
-                    transforms.push( "R" + r + ',' + (tarWidth/2) + "," + (tarHeight/2) );
-                }
-
-                imgRaphael.animate({
-                    transform: transforms.join('')
-                } , 200);
-            }
-        }
-
-        var $poptxtpic = null;
-        var $picInner = null;
-        var tarHeight   = null;
-        var tarWidth    = null;
-
-        var imgRaphael = null;
-        var raphael = null;
-        var forExpr = 20;
-
-        function reset(){
-            isDragging      = false;
-            isMousedown     = false;
-            startPos        = null;
-            totalMoveX      = 0;
-            totalMoveY      = 0;
-            lastMoveX       = 0;
-            lastMoveY       = 0;
-
-            totalScale  = 1;
-            totalRotate = 0;
-            transforms  = [];
-        }
-
-        var initialize = function(){
-            reset();
-            perRotate   = 10;
-            perScale    = 1.1;
-
-            totalScale  = 1;
-            totalRotate = 0;
-            transforms = [];
-
-            $poptxtpic = $('.poptxt-pic');
-            $picInner = $('.poptxt-pic-inner');
-            tarHeight   = $picInner.height();
-            tarWidth    = $picInner.width();
-
-            imgRaphael = null;
-            raphael = null;
-
-            $picInner.find('img').load(function(){
-                $(this).css({
-                    width: 'auto',
-                    height: 'auto'
-                })
-                .show();
-                $picInner.delay(2000).fadeIn();
-                // remove last sav
-                var img = this;
-                
-                LP.use('raphael' , function(){
-                    var width   = img.width;
-                    var height  = img.height;
-                    if( width / height > tarWidth / tarHeight ){
-                        width   = width / height * ( tarHeight + forExpr );
-                        height  = tarHeight + forExpr;
-                    } else {
-                        height  = height / width * ( tarWidth + forExpr );
-                        width   = tarWidth + forExpr;
-                    }
-                    if( !raphael ){
-                        raphael = Raphael( img.parentNode , tarWidth, tarHeight);
-                        imgRaphael = raphael.image( img.src , 0 , 0 , width, height);
-                    }
-                    raphael.setSize( tarWidth , tarHeight );
-
-                    // reset transform
-                    imgRaphael.attr({
-                        src     : img.src,
-                        width   : width,
-                        height  : height
-                    })
-                    .transform('');
-                    transformMgr.reset();
-                    transformMgr.transform('T' + parseInt( (tarWidth - width ) / 2) + ',' + parseInt( ( tarHeight - height ) / 2 ) );
-                    $(img).css({
-                        width: width,
-                        height : height
-                    })
-                    .hide();
-                });
-            });
-    
-            var minWidth = $('.poptxt-pic-inner').width();
-            var minHeight = $('.poptxt-pic-inner').height();
-
-            $poptxtpic.mousedown( function( ev ){
-                isMousedown = true;
-                startPos = {
-                    pageX     : ev.pageX
-                    , pageY   : ev.pageY
-                }
-                return false;
-            })
-            .mousemove( function( ev ){
-                if( !isMousedown ) return;
-                if( !isDragging ){
-                    if( Math.abs( ev.pageX - startPos.pageX ) + Math.abs( ev.pageY - startPos.pageY ) >= 10 ){
-                        isDragging = true;
-                    } else {
-                        return false;
-                    }
-                }
-                // move images
-                if( !imgRaphael ) return;
-
-                var mx = ev.pageX - startPos.pageX - lastMoveX;
-                var my = ev.pageY - startPos.pageY - lastMoveY;
-                var off = imgRaphael.getBBox();
-                if( off.x + mx >= 0 || off.width + off.x + mx <= minWidth ){
-                    mx = 0;
-                }
-                if( off.y + my >= 0 || off.height + off.y + my <= minHeight ){
-                    my = 0;
-                }
-
-                transform( mx , my );
-                lastMoveX = ev.pageX - startPos.pageX;
-                lastMoveY = ev.pageY - startPos.pageY;
-
-                // move center icon
-                // $centerBtn.css({
-                //     marginLeft  : oMleft + lastMoveX / 2
-                //     , marginTop : oMtop + lastMoveY / 2
-                //     , opacity: 1 - Math.min( 0.5 , ( Math.abs( lastMoveX ) + Math.abs( lastMoveY ) ) / maxDistance )
-                // });
-            })
-            .bind('mousewheel' , function( ev ){
-                var deltay = ev.originalEvent.wheelDeltaY || ev.originalEvent.deltaY;
-                if( deltay < 0 ){
-                    totalScale /= perScale;
-                    transform( undefined , undefined , 1/perScale );
-                } else {
-                    totalScale *= perScale;
-                    transform( undefined , undefined , perScale );
-                }
-            });
-
-
-            // TODO.. for long click
-            var animateTimeout = null;
-            var animateScale = 1.02;
-            
-            var runZoomIn = function( scale ){
-                imgWidth = parseInt($picInner.find('img').css('width'));
-                imgHeight = parseInt($picInner.find('img').css('height'));
-                if( totalScale * imgWidth == minWidth || totalScale * imgHeight == minHeight ){
-                    return;
-                }
-                totalScale /= scale;
-                transform( undefined , undefined , 1/scale , undefined , false);
-
-                if( totalScale * imgWidth < minWidth || totalScale * imgHeight < minHeight ){
-                    var lastScale = totalScale;
-                    totalScale = Math.max( minWidth / imgWidth , minHeight / imgHeight );
-                    transform( undefined , undefined , totalScale/lastScale , undefined , false);
-                }
-                var off = imgRaphael.getBBox();
-                if( off.x > 0 ){
-                    transform( -off.x , 0 );
-                    off.x = 0;
-                }
-                if( off.x + off.width < minWidth ){
-                    transform( minWidth - ( off.x + off.width )  , 0 );
-                }
-                if( off.y > 0 ){
-                    transform( 0 , -off.y );
-                    off.y = 0;
-                }
-                if( off.y + off.height < minHeight ){
-                    transform( 0 ,  minHeight - ( off.y + off.height ) );
-                }
-            }
-            var imgWidth , imgHeight;
-            var startAnimateScale = function( zoomout ){
-                imgWidth = parseInt($picInner.find('img').css('width'));
-                imgHeight = parseInt($picInner.find('img').css('height'));
-
-                var duration = 1000 / 60 ;
-                var aniFn = function(){
-                    if( zoomout ){
-                        totalScale *= animateScale;
-                        transform( undefined , undefined , animateScale , undefined , false );
-                    } else {
-                        runZoomIn( animateScale );
-                    }
-                    animateTimeout = setTimeout( aniFn , duration );
-                };
-                animateTimeout = setTimeout( aniFn , duration );
-            }
-            var stopAnimate = function(){
-                clearTimeout( animateTimeout );
-            }
-            
-            var longInterval = null;
-            var longTimeout = null;
-            var runAnimate = false;
-            var mousedown = false;
-            $('.pop-zoomout-btn').mousedown(function(){
-                mousedown = true;
-                longTimeout = setTimeout(function(){
-                    runAnimate = true;
-                    startAnimateScale( true );
-                } , 300);
-            })
-            .bind( "mouseup mouseout" , function(){
-                if( !mousedown ) return;
-                mousedown = false;
-                clearTimeout( longTimeout );
-                if( runAnimate ){
-                    runAnimate = false;
-                    stopAnimate();
-                } else {
-                    totalScale *= perScale;
-                    transform( undefined , undefined , perScale );
-                }
-            } );
-
-            $('.pop-zoomin-btn').mousedown(function(){
-                mousedown = true;
-                longTimeout = setTimeout(function(){
-                    runAnimate = true;
-                    startAnimateScale( false );
-                } , 300);
-            })
-            .bind( "mouseup mouseout" , function(){
-                if( !mousedown ) return;
-                mousedown = false;
-                clearTimeout( longTimeout );
-                if( runAnimate ){
-                    runAnimate = false;
-                    stopAnimate();
-                } else {
-                    runZoomIn( perScale );
-                }
-            } );
-            
-            $('.pop-rright-btn').mousedown(function(){
-                totalRotate += perRotate
-                transform( undefined , undefined , undefined , perRotate);
-                // longTimeout = setTimeout(function(){
-                //     longInterval = setInterval(function(){
-                //         transform( undefined , undefined , undefined , perRotate);
-                //     } , 500 );
-                // } , 500);
-            });
-
-            $('.pop-rleft-btn').mousedown(function(){
-                totalRotate -= perRotate;
-                transform( undefined , undefined , undefined , -perRotate );
-                // longTimeout = setTimeout(function(){
-                //     longInterval = setInterval(function(){
-                //         transform( undefined , undefined , undefined , -perRotate);
-                //     } , 500 );
-                // } , 500);
-            });
-
-            // $(document)
-            //     .mouseup(function(){
-            //         clearTimeout( longTimeout );
-            //         clearInterval( longInterval );
-            //     });
-        }
-
-
-        return {
-            reset       : reset
-            , initialize: initialize
-            , result    : function(){
-                var off  = imgRaphael.getBBox();
-                var width = parseInt($picInner.find('img').css('width'));
-                var height = parseInt($picInner.find('img').css('height'));
-                return {
-                    width       : width * totalScale,
-                    height      : height * totalScale,
-                    src         : $picInner.find('img').attr('src'),
-                    rotate      : totalRotate,
-                    x           : off.x,
-                    y           : off.y,
-                    cid         : 1
-                }
-            }
-            , transform  : transform
-        }
-    })();
-
+    var transformMgr;
+    LP.use('imgUtil' , function( imgUtil ){
+        transformMgr = imgUtil;
+    });
 
 
     var init = function() {

@@ -55,6 +55,7 @@ define(function( require , exports , model ){
     // 内部API
     var _unloginErrorNum = -2000;
     var _needRefresh     = {};
+    var _retry = {user:1};
 
     function _isFormatUrl ( url ){
         return !!/#\[.*\]/.test( url );
@@ -85,7 +86,11 @@ define(function( require , exports , model ){
             async = true;
         }
 
-        error = error || ajaxConfig.error;
+        error = error || function(){
+            if( _retry[ api ] ){
+                doAjax();
+            }
+        };
 
         data = LP.mix( ajaxConfig.data || {} , data );
         var doAjax = function () {

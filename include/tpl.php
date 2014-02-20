@@ -138,7 +138,7 @@
                     <a class="pop-rright-btn" data-a="pop-rright-btn" href="#">Turn Right</a>
                     <a class="pop-rleft-btn" data-a="pop-rleft-btn" href="#">Turn Left</a>
                     <div class="poptxt-pic-inner">
-                      <img src="about:blank" />
+                      <img style="pointer-events:none" />
                     </div>
                   </div>
                   {{else}}
@@ -217,7 +217,7 @@
 						<a class="pop-rright-btn" data-a="pop-rright-btn" href="#">Turn Right</a>
 						<a class="pop-rleft-btn" data-a="pop-rleft-btn" href="#">Turn Left</a>
 						<div class="poptxt-pic-inner">
-							<img src="about:blank" />
+							<img style="pointer-events:none" />
 						</div>
 					</div>
 					<div class="error"></div>

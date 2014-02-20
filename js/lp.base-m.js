@@ -1554,7 +1554,6 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
             //$('#select-btn').html(' SELECT PHOTO <input id="file-photo" type="file" name="photo" />');
 			var maxFileSize = 5 * 1024000;
 			// init event
-			transformMgr.initialize( $('.poptxt-pic-inner') );
 			LP.use('fileupload' , function(){
 				// Initialize the jQuery File Upload widget:
 				$fileupload.fileupload({
@@ -1610,11 +1609,17 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 							$('.step1-tips li').eq(errorIndex).addClass('error');
 						} else{
 							var rdata = data.result.data;
-
-							$('.poptxt-pic img').attr('src', API_FOLDER + rdata.file/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
-							$('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
-							$('.pop-inner').delay(400).fadeOut(400);
-							$('.pop-txt').delay(1200).fadeIn(400);
+                            $('.poptxt-pic img')
+                                .unbind('load.forinnershow')
+                                .bind('load.forinnershow' , function(){
+                                    $('.pop-inner').delay(400).fadeOut(400);
+                                    $('.pop-txt').delay(1200).fadeIn(400);
+                                    setTimeout(function(){
+                                        transformMgr.initialize( $('.poptxt-pic-inner') );
+                                    } , 1700 );
+                                })
+                                .attr('src', API_FOLDER + rdata.file/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
+                            $('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
 						}
 					});
 			});
@@ -2292,208 +2297,10 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
     // init drag event for image upload
     // after image upload, init it's size to fix the window
     // use raephael js to rotate, scale , and drag the image photo
-   var transformMgr = (function(){
-        var $img , _wrapWidth , _wrapHeight , 
-            _wrapOff ;
-        var _imgLeft , _imgTop , _imgWidth , _imgHeight , _totalScale;
-
-        var imgMgr = {
-            move: function( mvLeft , mvTop ){
-                if( _imgLeft + mvLeft < 0 && _imgLeft + mvLeft + _imgWidth > _wrapWidth ){
-                    _imgLeft += mvLeft;
-                    $img.css('left' , _imgLeft );
-                }
-                if( _imgTop + mvTop < 0 && _imgTop + mvTop + _imgHeight > _wrapHeight ){
-                    _imgTop += mvTop;
-                    $img.css('top' , _imgTop );
-                }
-            },
-            scale: function( scale , scX , scY ){
-                if( _imgWidth * scale < _wrapWidth
-                || _imgHeight * scale < _wrapHeight ) return;
-
-                
-                var txl = scX - _imgLeft;
-                _imgLeft = scX - txl * scale;
-                if( _imgLeft > 0 ){
-                    _imgLeft = 0;
-                }
-                if( scX - txl * scale + _imgWidth * scale < _wrapWidth ){
-                    _imgLeft =  _wrapWidth - _imgWidth * scale;
-                }
-
-                var tyt = scY - _imgTop;
-                _imgTop = scY - tyt * scale;
-                if( _imgTop > 0 ){
-                    _imgTop = 0;
-                }
-                if( scY - tyt * scale + _imgHeight * scale < _wrapHeight ){
-                    _imgTop = _wrapHeight - _imgHeight * scale;
-                }
-                _imgWidth *= scale;
-                _imgHeight *= scale;
-
-                $img.css( {
-                  'top' : _imgTop ,
-                  'left' : _imgLeft,
-                  'width' : _imgWidth,
-                  'height' : _imgHeight
-                });
-            }
-        }
-       
-        function initialize( $dom ){
-            $img = $dom.find('img');
-
-            _totalScale = 1;
-            _imgWidth = $img.width();
-            _imgHeight = $img.height();
-            _wrapWidth = $dom.width();
-            _wrapHeight = $dom.height();
-            _wrapOff = $dom.offset();
-            var forExpr = 20;
-            // render right width and height of image
-            if( _imgWidth / _imgHeight > _wrapWidth / _wrapHeight ){
-                _imgWidth   = _imgWidth / _imgHeight * ( _wrapHeight + forExpr );
-                _imgHeight  = _wrapHeight + forExpr;
-            } else {
-                _imgHeight  = _imgHeight / _imgWidth * ( _wrapWidth + forExpr );
-                _imgWidth   = _wrapWidth + forExpr;
-            }
-            $img.css({
-                width: _imgWidth,
-                height: _imgHeight
-            });
-
-            _imgLeft = ( _wrapWidth - _imgWidth ) / 2;
-            _imgTop = ( _wrapHeight - _imgHeight ) / 2;
-            $img.css( {
-                position: 'absolute',
-                left: _imgLeft,
-                top: _imgTop
-            } );
-
-            var lastScale = 1 , ctx , cty , lastTx , lastTy , _isTransforming;
-            $dom.hammer({
-                transform_always_block: true,
-                drag_block_vertical: true,
-                drag_block_horizontal: true
-            })
-            .on("transformstart" , function( event ){
-                lastScale = 1;
-                ctx = event.gesture.center.pageX - _wrapOff.left;
-                cty = event.gesture.center.pageY - _wrapOff.top;
-                _isTransforming = true;
-        
-            })
-            .on("transform", function(event) {
-                var gesture = event.gesture;
-                imgMgr.scale( gesture.scale / lastScale , ctx , cty );
-                
-                lastScale = gesture.scale;
-            })
-            .on('transformend' , function( event ){
-                // _totalScale *= _lastScale;
-                setTimeout(function(){
-                    _isTransforming = false;
-                } , 100);
-                
-            })
-            .on('dragstart' , function( event ){
-               lastTx = 0;
-               lastTy = 0;
-            })
-            .on('drag' , function( event ){
-                if( _isTransforming ) return;
-                imgMgr.move( event.gesture.deltaX - lastTx , event.gesture.deltaY - lastTy );
-                lastTx = event.gesture.deltaX;
-                lastTy = event.gesture.deltaY;
-
-            });
-
-            // for long click
-            var animateTimeout = null;
-            var animateScale = 1.02;
-            var startAnimateScale = function( zoomout ){
-                var duration = 1000 / 60 ;
-                var aniFn = function(){
-                    if( zoomout ){
-                      imgMgr.scale( animateScale , _wrapWidth / 2 , _wrapHeight / 2 );
-                    } else {
-                      imgMgr.scale( 1/animateScale , _wrapWidth / 2 , _wrapHeight / 2 );
-                    }
-                    animateTimeout = setTimeout( aniFn , duration );
-                };
-                animateTimeout = setTimeout( aniFn , duration );
-            }
-            var stopAnimate = function(){
-                clearTimeout( animateTimeout );
-            }
-            
-            var longInterval = null;
-            var longTimeout = null;
-            var runAnimate = false;
-            var mousedown = false;
-            var perScale = 1.1;
-            $('.pop-zoomout-btn').bind('touchstart',function(){
-                mousedown = true;
-                longTimeout = setTimeout(function(){
-                    runAnimate = true;
-                    startAnimateScale( true );
-                } , 300);
-                return false;
-            })
-            .bind( "touchend" , function(){
-                if( !mousedown ) return;
-                mousedown = false;
-                clearTimeout( longTimeout );
-                if( runAnimate ){
-                    runAnimate = false;
-                    stopAnimate();
-                } else {
-                  imgMgr.scale( perScale , _wrapWidth / 2 , _wrapHeight / 2 );
-                }
-            } );
-
-            $('.pop-zoomin-btn').bind('touchstart' , function(){
-                mousedown = true;
-                longTimeout = setTimeout(function(){
-                    runAnimate = true;
-                    startAnimateScale( false );
-                } , 300);
-                return false;
-            })
-            .bind( "touchend" , function(){
-                if( !mousedown ) return;
-                mousedown = false;
-                clearTimeout( longTimeout );
-                if( runAnimate ){
-                    runAnimate = false;
-                    stopAnimate();
-                } else {
-                    imgMgr.scale( 1/perScale , _wrapWidth / 2 , _wrapHeight / 2 );
-                }
-            } );
-        }
-        
-
-        return {
-            initialize: initialize
-            , result    : function(){
-                _totalScale
-                return {
-                    width       : $img.width(),
-                    height      : $img.height(),
-                    //src         : $picInner.find('img').attr('src'),
-                    //rotate      : totalRotate,
-                    x           : _imgLeft,
-                    y           : _imgTop,
-                    cid         : 1
-                }
-            }
-            //, transform  : transform
-        }
-    })();
+    var transformMgr;
+    LP.use('imgUtil' , function( imgUtil ){
+        transformMgr = imgUtil;
+    });
 
 
 
