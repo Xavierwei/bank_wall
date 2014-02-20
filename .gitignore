@@ -1,3 +1,5 @@
 /api/nbproject/private/
 .idea*
 api/protected/config/main.php
+/nbproject/private/
+/nbproject
