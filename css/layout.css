@@ -238,7 +238,7 @@ a{text-decoration:none;color:#666}
 	.pophd{height:40px;background: #d3273f url('../img/pop_hd_bg.gif') no-repeat;font-size:15px;color:#fff;line-height:45px;padding:0 18px;}
     .poptit {text-transform: uppercase;}
     .pop iframe {display: none;}
-    .pop-uploadloading {right: 10px;position: absolute;width: 15px;height: 15px;bottom: 10px;display:none;background: #444 url('../img/loading_white_s.gif') no-repeat;}
+    .pop-uploadloading {right: 10px;position: absolute;width: 15px;height: 15px;bottom: 45px;display:none;background: #444 url('../img/loading_white_s.gif') no-repeat;}
 /**/
 .popfile-drag-box{width: 327px;height: 167px;background: #f9f9f9 url(../img/icon_pop_upload.gif) no-repeat center;margin:18px auto 13px auto;}
 	.popfile-btn{text-transform: uppercase;position: relative;overflow: hidden; color:#fff;background: #db2842;border: #c0152d 3px solid;width: 326px;height: 40px;line-height: 44px;text-align: center;margin: 0 auto;font-size:16px;}

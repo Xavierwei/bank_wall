@@ -1217,7 +1217,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                         return node;
                     }
                 });
-                if(node) {
+                if(node.length > 0) {
                     node[0].likecount = count;
                     node[0].user_liked = !node[0].user_liked;
                 }
@@ -1232,7 +1232,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                         return node;
                     }
                 });
-                if(node) {
+                if(node.length > 0) {
                     node[0].likecount = count;
                     node[0].user_liked = !node[0].user_liked;
                 }
@@ -1757,8 +1757,8 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         $('.pop-uploadloading').show();
         api.ajax('saveNode' , $.extend( {file: data.file, type: data.type, description: description, size: 175} , trsdata ), function( result ){
             if(result.success) {
-//
                 LP.triggerAction('get_fresh_nodes');
+                LP.triggerAction('update_user_status');
                 $('.pop-inner').fadeOut(400);
                 $('.pop-success').delay(400).fadeIn(400);
                 setTimeout(function() {
@@ -2939,7 +2939,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                                                 return node;
                                             }
                                         });
-                                        if(node) {
+                                        if(node.length > 0) {
                                             node[0].commentcount = newComCount;
                                         }
                                     }
@@ -2953,7 +2953,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                                                 return node;
                                             }
                                         });
-                                        if(node) {
+                                        if(node.length > 0) {
                                             node[0].commentcount = newComCount;
                                         }
                                     }

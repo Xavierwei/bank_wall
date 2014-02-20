@@ -20,15 +20,15 @@ angular.module('myApp.directives', []).
         };
     })
     .directive('checkUser',  function ($rootScope, $location, UserService) {
-    return {
-        link: function (scope, elem, attrs, ctrl) {
-            $rootScope.$on('$routeChangeStart', function (event,url) {
-                UserService.getCurrentUser(function(data){
-                    if(!data && url.originalPath != '/user/create' && url.originalPath != '/user/login'){
-                        $location.path('/user/login');
-                    }
+        return {
+            link: function (scope, elem, attrs, ctrl) {
+                $rootScope.$on('$routeChangeStart', function (event,url) {
+                    UserService.getCurrentUser(function(data){
+                        if(!data && url.originalPath != '/user/create' && url.originalPath != '/user/login'){
+                            $location.path('/user/login');
+                        }
+                    });
                 });
-            });
+            }
         }
-    }
-});
+    });

@@ -1,30 +1,51 @@
 <div class="nodes-list-wrap">
 	<div class="nodes-filter">
-		{{filter.country_id}}
-		<div class="btn-group">
-			<button type="button" class="btn btn-primary" ng-model="filter.type" btn-radio="'all'">All</button>
-			<button type="button" class="btn btn-primary" ng-model="filter.type" btn-radio="'photo'">Photo</button>
-			<button type="button" class="btn btn-primary" ng-model="filter.type" btn-radio="'video'">Video</button>
-		</div>
+        <div class="new-row">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default" ng-model="filter.type" btn-radio="'all'">All</button>
+                <button type="button" class="btn btn-default" ng-model="filter.type" btn-radio="'photo'">Photo</button>
+                <button type="button" class="btn btn-default" ng-model="filter.type" btn-radio="'video'">Video</button>
+            </div>
 
-		<div class="btn-group">
-			<button type="button" class="btn btn-primary ng-pristine ng-valid active" ng-model="filter.status" btn-radio="'all'">All</button>
-			<button type="button" class="btn btn-primary" ng-model="filter.status" btn-radio="1">Published</button>
-			<button type="button" class="btn btn-primary" ng-model="filter.status" btn-radio="0">Unpublished</button>
-		</div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-default ng-pristine ng-valid active" ng-model="filter.status" btn-radio="'all'">All</button>
+                <button type="button" class="btn btn-default" ng-model="filter.status" btn-radio="1">Published</button>
+                <button type="button" class="btn btn-default" ng-model="filter.status" btn-radio="0">Unpublished</button>
+            </div>
 
-		<div class="btn-group">
-			<select ng-model="filter.country_id" class="">
-				<option value="">all</option>
-				<option value="1">China</option>
-				<option value="2">France</option>
-			</select>
-		</div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle dropdown-country" data-toggle="dropdown">
+                    {{filter.country.country_name}} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li ng-click="filterCountry({country_name:'All Country', country_id:''})"><a>All country</a></li>
+                    <li ng-repeat="country in countries" ng-click="filterCountry(country)"><a>{{country.country_name}}</a></li>
+                </ul>
+
+            </div>
+        </div>
+        <div class="new-row advance-row">
+            <div class="btn-group">
+                <label>Hashtag</label>
+                <input type="text" class="form-control" ng-model="filter.hashtag" />
+            </div>
+
+            <div class="btn-group">
+                <label>Email address</label>
+                <input type="text" class="form-control" ng-model="filter.email" />
+            </div>
+            <div class="btn-group btn-group-search">
+                <button class="btn btn-danger" ng-click="search()"><span class="glyphicon glyphicon-search"></span></button>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-default" ng-click="reset()"><span class="glyphicon glyphicon-repeat"></span></button>
+            </div>
+        </div>
 	</div>
 	<ul node class="nodes-list">
-	    <li ng-repeat="node in nodes" class="status-{{node.status}}">
+	    <li nodeli ng-repeat="node in nodes" title="{{node.description}}" class="status-{{node.status}}">
 	        <div class="image">
-		        <img ng-click="open(node)" ng-src="{{node.file | thumbnail}}" width="200" height="200" />
+		        <img ng-src="{{node.file | thumbnail}}" width="200" height="200" />
 		        <div class="black-overlay"></div>
 		        <a href="javascript:void(0)" class="switch switch-{{node.status}}" ng-click="updateStatus(node)"></a>
 	        </div>

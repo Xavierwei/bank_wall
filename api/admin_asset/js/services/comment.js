@@ -1,7 +1,10 @@
 SGWallAdminServices.factory( 'CommentService', function($http, ROOT) {
     return {
-        list: function(success) {
-            $http.get(ROOT+'/comment/list?shownode=true')
+        list: function(param, success) {
+            $http.get(ROOT+'/comment/list', {
+                params: param,
+                cache: false
+            })
             .success(function(data) {
                 success(data.data);
             })
@@ -41,7 +44,7 @@ SGWallAdminServices.factory( 'CommentService', function($http, ROOT) {
             $http.post(ROOT+'/comment/put',comment)
             .success(function(data) {
                 if(data.success == true) {
-                    success(res);
+                    success(data);
                 }
             })
             .error(function() {

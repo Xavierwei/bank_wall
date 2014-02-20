@@ -1776,3 +1776,342 @@ REQUEST_URI=/bank_wall/api/node/list?orderby=datetime&pagenum=100&showall=true
 in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (59)
 in /Applications/MAMP/htdocs/bank_wall/api/protected/components/Controller.php (41)
 in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (459)
+2014/02/20 12:17:50 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY093]: Invalid parameter number: no parameters were bound. The SQL statement executed was: SELECT `t`.`cid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`content` AS `t0_c2`, `t`.`datetime` AS `t0_c3`, `t`.`nid` AS `t0_c4`, `t`.`status` AS `t0_c5`, `user`.`uid` AS `t1_c0`, `user`.`sso_id` AS `t1_c1`, `user`.`name` AS `t1_c2`, `user`.`personal_email` AS `t1_c3`, `user`.`company_email` AS `t1_c4`, `user`.`country_id` AS `t1_c5`, `user`.`avatar` AS `t1_c6`, `user`.`role` AS `t1_c7`, `user`.`datetime` AS `t1_c8`, `user`.`firstname` AS `t1_c9`, `user`.`lastname` AS `t1_c10`, `user`.`password` AS `t1_c11`, `user`.`status` AS `t1_c12` FROM `comment` `t`  LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  WHERE (t.status = :status) ORDER BY t.datetime DESC LIMIT 10.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/CommentController.php (184)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/20 12:17:50 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[HY093]: Invalid parameter number: no parameters were bound. The SQL statement executed was: SELECT `t`.`cid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`content` AS `t0_c2`, `t`.`datetime` AS `t0_c3`, `t`.`nid` AS `t0_c4`, `t`.`status` AS `t0_c5`, `user`.`uid` AS `t1_c0`, `user`.`sso_id` AS `t1_c1`, `user`.`name` AS `t1_c2`, `user`.`personal_email` AS `t1_c3`, `user`.`company_email` AS `t1_c4`, `user`.`country_id` AS `t1_c5`, `user`.`avatar` AS `t1_c6`, `user`.`role` AS `t1_c7`, `user`.`datetime` AS `t1_c8`, `user`.`firstname` AS `t1_c9`, `user`.`lastname` AS `t1_c10`, `user`.`password` AS `t1_c11`, `user`.`status` AS `t1_c12` FROM `comment` `t`  LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  WHERE (t.status = :status) ORDER BY t.datetime DESC LIMIT 10' in /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/CommentController.php(184): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): CommentController->actionList()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('comment/list')
+#13 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/comment/list?order=DESC&shownode=true
+HTTP_REFERER=http://localhost:8888/bank_wall/api/admin/index
+---
+2014/02/20 12:18:27 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY093]: Invalid parameter number: no parameters were bound. The SQL statement executed was: SELECT `t`.`cid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`content` AS `t0_c2`, `t`.`datetime` AS `t0_c3`, `t`.`nid` AS `t0_c4`, `t`.`status` AS `t0_c5`, `user`.`uid` AS `t1_c0`, `user`.`sso_id` AS `t1_c1`, `user`.`name` AS `t1_c2`, `user`.`personal_email` AS `t1_c3`, `user`.`company_email` AS `t1_c4`, `user`.`country_id` AS `t1_c5`, `user`.`avatar` AS `t1_c6`, `user`.`role` AS `t1_c7`, `user`.`datetime` AS `t1_c8`, `user`.`firstname` AS `t1_c9`, `user`.`lastname` AS `t1_c10`, `user`.`password` AS `t1_c11`, `user`.`status` AS `t1_c12` FROM `comment` `t`  LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  WHERE (t.status = :status) ORDER BY t.datetime DESC LIMIT 10.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/CommentController.php (184)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/20 12:18:27 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[HY093]: Invalid parameter number: no parameters were bound. The SQL statement executed was: SELECT `t`.`cid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`content` AS `t0_c2`, `t`.`datetime` AS `t0_c3`, `t`.`nid` AS `t0_c4`, `t`.`status` AS `t0_c5`, `user`.`uid` AS `t1_c0`, `user`.`sso_id` AS `t1_c1`, `user`.`name` AS `t1_c2`, `user`.`personal_email` AS `t1_c3`, `user`.`company_email` AS `t1_c4`, `user`.`country_id` AS `t1_c5`, `user`.`avatar` AS `t1_c6`, `user`.`role` AS `t1_c7`, `user`.`datetime` AS `t1_c8`, `user`.`firstname` AS `t1_c9`, `user`.`lastname` AS `t1_c10`, `user`.`password` AS `t1_c11`, `user`.`status` AS `t1_c12` FROM `comment` `t`  LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  WHERE (t.status = :status) ORDER BY t.datetime DESC LIMIT 10' in /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/CommentController.php(184): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): CommentController->actionList()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('comment/list')
+#13 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/comment/list?order=DESC&shownode=true
+HTTP_REFERER=http://localhost:8888/bank_wall/api/admin/index
+---
+2014/02/20 12:19:04 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY093]: Invalid parameter number: no parameters were bound. The SQL statement executed was: SELECT `t`.`cid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`content` AS `t0_c2`, `t`.`datetime` AS `t0_c3`, `t`.`nid` AS `t0_c4`, `t`.`status` AS `t0_c5`, `user`.`uid` AS `t1_c0`, `user`.`sso_id` AS `t1_c1`, `user`.`name` AS `t1_c2`, `user`.`personal_email` AS `t1_c3`, `user`.`company_email` AS `t1_c4`, `user`.`country_id` AS `t1_c5`, `user`.`avatar` AS `t1_c6`, `user`.`role` AS `t1_c7`, `user`.`datetime` AS `t1_c8`, `user`.`firstname` AS `t1_c9`, `user`.`lastname` AS `t1_c10`, `user`.`password` AS `t1_c11`, `user`.`status` AS `t1_c12` FROM `comment` `t`  LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  WHERE (t.status = :status) ORDER BY t.datetime DESC LIMIT 10.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/CommentController.php (184)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/20 12:19:04 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[HY093]: Invalid parameter number: no parameters were bound. The SQL statement executed was: SELECT `t`.`cid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`content` AS `t0_c2`, `t`.`datetime` AS `t0_c3`, `t`.`nid` AS `t0_c4`, `t`.`status` AS `t0_c5`, `user`.`uid` AS `t1_c0`, `user`.`sso_id` AS `t1_c1`, `user`.`name` AS `t1_c2`, `user`.`personal_email` AS `t1_c3`, `user`.`company_email` AS `t1_c4`, `user`.`country_id` AS `t1_c5`, `user`.`avatar` AS `t1_c6`, `user`.`role` AS `t1_c7`, `user`.`datetime` AS `t1_c8`, `user`.`firstname` AS `t1_c9`, `user`.`lastname` AS `t1_c10`, `user`.`password` AS `t1_c11`, `user`.`status` AS `t1_c12` FROM `comment` `t`  LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  WHERE (t.status = :status) ORDER BY t.datetime DESC LIMIT 10' in /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/CommentController.php(184): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): CommentController->actionList()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('comment/list')
+#13 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/comment/list?order=DESC&shownode=true
+HTTP_REFERER=http://localhost:8888/bank_wall/api/admin/index
+---
+2014/02/20 12:20:40 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY093]: Invalid parameter number: no parameters were bound. The SQL statement executed was: SELECT `t`.`cid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`content` AS `t0_c2`, `t`.`datetime` AS `t0_c3`, `t`.`nid` AS `t0_c4`, `t`.`status` AS `t0_c5`, `user`.`uid` AS `t1_c0`, `user`.`sso_id` AS `t1_c1`, `user`.`name` AS `t1_c2`, `user`.`personal_email` AS `t1_c3`, `user`.`company_email` AS `t1_c4`, `user`.`country_id` AS `t1_c5`, `user`.`avatar` AS `t1_c6`, `user`.`role` AS `t1_c7`, `user`.`datetime` AS `t1_c8`, `user`.`firstname` AS `t1_c9`, `user`.`lastname` AS `t1_c10`, `user`.`password` AS `t1_c11`, `user`.`status` AS `t1_c12` FROM `comment` `t`  LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  WHERE (t.nid = :nid) ORDER BY t.datetime DESC LIMIT 10.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/CommentController.php (184)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/20 12:20:40 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[HY093]: Invalid parameter number: no parameters were bound. The SQL statement executed was: SELECT `t`.`cid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`content` AS `t0_c2`, `t`.`datetime` AS `t0_c3`, `t`.`nid` AS `t0_c4`, `t`.`status` AS `t0_c5`, `user`.`uid` AS `t1_c0`, `user`.`sso_id` AS `t1_c1`, `user`.`name` AS `t1_c2`, `user`.`personal_email` AS `t1_c3`, `user`.`company_email` AS `t1_c4`, `user`.`country_id` AS `t1_c5`, `user`.`avatar` AS `t1_c6`, `user`.`role` AS `t1_c7`, `user`.`datetime` AS `t1_c8`, `user`.`firstname` AS `t1_c9`, `user`.`lastname` AS `t1_c10`, `user`.`password` AS `t1_c11`, `user`.`status` AS `t1_c12` FROM `comment` `t`  LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  WHERE (t.nid = :nid) ORDER BY t.datetime DESC LIMIT 10' in /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/CommentController.php(184): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): CommentController->actionList()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('comment/list')
+#13 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/comment/list?order=DESC&shownode=true
+HTTP_REFERER=http://localhost:8888/bank_wall/api/admin/index
+---
+2014/02/20 12:21:08 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY093]: Invalid parameter number: no parameters were bound. The SQL statement executed was: SELECT `t`.`cid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`content` AS `t0_c2`, `t`.`datetime` AS `t0_c3`, `t`.`nid` AS `t0_c4`, `t`.`status` AS `t0_c5`, `user`.`uid` AS `t1_c0`, `user`.`sso_id` AS `t1_c1`, `user`.`name` AS `t1_c2`, `user`.`personal_email` AS `t1_c3`, `user`.`company_email` AS `t1_c4`, `user`.`country_id` AS `t1_c5`, `user`.`avatar` AS `t1_c6`, `user`.`role` AS `t1_c7`, `user`.`datetime` AS `t1_c8`, `user`.`firstname` AS `t1_c9`, `user`.`lastname` AS `t1_c10`, `user`.`password` AS `t1_c11`, `user`.`status` AS `t1_c12` FROM `comment` `t`  LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  WHERE (t.nid = :nid) ORDER BY t.datetime DESC LIMIT 10.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/CommentController.php (184)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/20 12:21:08 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[HY093]: Invalid parameter number: no parameters were bound. The SQL statement executed was: SELECT `t`.`cid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`content` AS `t0_c2`, `t`.`datetime` AS `t0_c3`, `t`.`nid` AS `t0_c4`, `t`.`status` AS `t0_c5`, `user`.`uid` AS `t1_c0`, `user`.`sso_id` AS `t1_c1`, `user`.`name` AS `t1_c2`, `user`.`personal_email` AS `t1_c3`, `user`.`company_email` AS `t1_c4`, `user`.`country_id` AS `t1_c5`, `user`.`avatar` AS `t1_c6`, `user`.`role` AS `t1_c7`, `user`.`datetime` AS `t1_c8`, `user`.`firstname` AS `t1_c9`, `user`.`lastname` AS `t1_c10`, `user`.`password` AS `t1_c11`, `user`.`status` AS `t1_c12` FROM `comment` `t`  LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  WHERE (t.nid = :nid) ORDER BY t.datetime DESC LIMIT 10' in /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/CommentController.php(184): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): CommentController->actionList()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('comment/list')
+#13 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/comment/list?order=DESC&shownode=true
+HTTP_REFERER=http://localhost:8888/bank_wall/api/admin/index
+---
+2014/02/20 12:21:58 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY093]: Invalid parameter number: no parameters were bound. The SQL statement executed was: SELECT `t`.`cid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`content` AS `t0_c2`, `t`.`datetime` AS `t0_c3`, `t`.`nid` AS `t0_c4`, `t`.`status` AS `t0_c5`, `user`.`uid` AS `t1_c0`, `user`.`sso_id` AS `t1_c1`, `user`.`name` AS `t1_c2`, `user`.`personal_email` AS `t1_c3`, `user`.`company_email` AS `t1_c4`, `user`.`country_id` AS `t1_c5`, `user`.`avatar` AS `t1_c6`, `user`.`role` AS `t1_c7`, `user`.`datetime` AS `t1_c8`, `user`.`firstname` AS `t1_c9`, `user`.`lastname` AS `t1_c10`, `user`.`password` AS `t1_c11`, `user`.`status` AS `t1_c12` FROM `comment` `t`  LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  WHERE (t.status = :status) ORDER BY t.datetime DESC LIMIT 10.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/CommentController.php (186)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/20 12:21:58 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[HY093]: Invalid parameter number: no parameters were bound. The SQL statement executed was: SELECT `t`.`cid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`content` AS `t0_c2`, `t`.`datetime` AS `t0_c3`, `t`.`nid` AS `t0_c4`, `t`.`status` AS `t0_c5`, `user`.`uid` AS `t1_c0`, `user`.`sso_id` AS `t1_c1`, `user`.`name` AS `t1_c2`, `user`.`personal_email` AS `t1_c3`, `user`.`company_email` AS `t1_c4`, `user`.`country_id` AS `t1_c5`, `user`.`avatar` AS `t1_c6`, `user`.`role` AS `t1_c7`, `user`.`datetime` AS `t1_c8`, `user`.`firstname` AS `t1_c9`, `user`.`lastname` AS `t1_c10`, `user`.`password` AS `t1_c11`, `user`.`status` AS `t1_c12` FROM `comment` `t`  LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  WHERE (t.status = :status) ORDER BY t.datetime DESC LIMIT 10' in /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/CommentController.php(186): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): CommentController->actionList()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('comment/list')
+#13 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/comment/list?order=DESC&shownode=true
+HTTP_REFERER=http://localhost:8888/bank_wall/api/admin/index
+---
+2014/02/20 12:22:27 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'status' in where clause is ambiguous. The SQL statement executed was: SELECT `t`.`cid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`content` AS `t0_c2`, `t`.`datetime` AS `t0_c3`, `t`.`nid` AS `t0_c4`, `t`.`status` AS `t0_c5`, `user`.`uid` AS `t1_c0`, `user`.`sso_id` AS `t1_c1`, `user`.`name` AS `t1_c2`, `user`.`personal_email` AS `t1_c3`, `user`.`company_email` AS `t1_c4`, `user`.`country_id` AS `t1_c5`, `user`.`avatar` AS `t1_c6`, `user`.`role` AS `t1_c7`, `user`.`datetime` AS `t1_c8`, `user`.`firstname` AS `t1_c9`, `user`.`lastname` AS `t1_c10`, `user`.`password` AS `t1_c11`, `user`.`status` AS `t1_c12` FROM `comment` `t`  LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  WHERE (status=:status) ORDER BY t.datetime DESC LIMIT 10.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/CommentController.php (189)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/20 12:22:27 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'status' in where clause is ambiguous. The SQL statement executed was: SELECT `t`.`cid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`content` AS `t0_c2`, `t`.`datetime` AS `t0_c3`, `t`.`nid` AS `t0_c4`, `t`.`status` AS `t0_c5`, `user`.`uid` AS `t1_c0`, `user`.`sso_id` AS `t1_c1`, `user`.`name` AS `t1_c2`, `user`.`personal_email` AS `t1_c3`, `user`.`company_email` AS `t1_c4`, `user`.`country_id` AS `t1_c5`, `user`.`avatar` AS `t1_c6`, `user`.`role` AS `t1_c7`, `user`.`datetime` AS `t1_c8`, `user`.`firstname` AS `t1_c9`, `user`.`lastname` AS `t1_c10`, `user`.`password` AS `t1_c11`, `user`.`status` AS `t1_c12` FROM `comment` `t`  LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  WHERE (status=:status) ORDER BY t.datetime DESC LIMIT 10' in /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/CommentController.php(189): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): CommentController->actionList()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('comment/list')
+#13 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/comment/list?order=DESC&shownode=true
+HTTP_REFERER=http://localhost:8888/bank_wall/api/admin/index
+---
+2014/02/20 12:22:47 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tstatus' in 'where clause'. The SQL statement executed was: SELECT `t`.`cid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`content` AS `t0_c2`, `t`.`datetime` AS `t0_c3`, `t`.`nid` AS `t0_c4`, `t`.`status` AS `t0_c5`, `user`.`uid` AS `t1_c0`, `user`.`sso_id` AS `t1_c1`, `user`.`name` AS `t1_c2`, `user`.`personal_email` AS `t1_c3`, `user`.`company_email` AS `t1_c4`, `user`.`country_id` AS `t1_c5`, `user`.`avatar` AS `t1_c6`, `user`.`role` AS `t1_c7`, `user`.`datetime` AS `t1_c8`, `user`.`firstname` AS `t1_c9`, `user`.`lastname` AS `t1_c10`, `user`.`password` AS `t1_c11`, `user`.`status` AS `t1_c12` FROM `comment` `t`  LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  WHERE (tstatus=:status) ORDER BY t.datetime DESC LIMIT 10.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/CommentController.php (189)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/20 12:22:47 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tstatus' in 'where clause'. The SQL statement executed was: SELECT `t`.`cid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`content` AS `t0_c2`, `t`.`datetime` AS `t0_c3`, `t`.`nid` AS `t0_c4`, `t`.`status` AS `t0_c5`, `user`.`uid` AS `t1_c0`, `user`.`sso_id` AS `t1_c1`, `user`.`name` AS `t1_c2`, `user`.`personal_email` AS `t1_c3`, `user`.`company_email` AS `t1_c4`, `user`.`country_id` AS `t1_c5`, `user`.`avatar` AS `t1_c6`, `user`.`role` AS `t1_c7`, `user`.`datetime` AS `t1_c8`, `user`.`firstname` AS `t1_c9`, `user`.`lastname` AS `t1_c10`, `user`.`password` AS `t1_c11`, `user`.`status` AS `t1_c12` FROM `comment` `t`  LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  WHERE (tstatus=:status) ORDER BY t.datetime DESC LIMIT 10' in /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/CommentController.php(189): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): CommentController->actionList()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('comment/list')
+#13 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/comment/list?order=DESC&shownode=true
+HTTP_REFERER=http://localhost:8888/bank_wall/api/admin/index
+---
+2014/02/20 12:23:20 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY093]: Invalid parameter number: no parameters were bound. The SQL statement executed was: SELECT `t`.`cid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`content` AS `t0_c2`, `t`.`datetime` AS `t0_c3`, `t`.`nid` AS `t0_c4`, `t`.`status` AS `t0_c5`, `user`.`uid` AS `t1_c0`, `user`.`sso_id` AS `t1_c1`, `user`.`name` AS `t1_c2`, `user`.`personal_email` AS `t1_c3`, `user`.`company_email` AS `t1_c4`, `user`.`country_id` AS `t1_c5`, `user`.`avatar` AS `t1_c6`, `user`.`role` AS `t1_c7`, `user`.`datetime` AS `t1_c8`, `user`.`firstname` AS `t1_c9`, `user`.`lastname` AS `t1_c10`, `user`.`password` AS `t1_c11`, `user`.`status` AS `t1_c12` FROM `comment` `t`  LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  WHERE (t.status = :status) ORDER BY t.datetime DESC LIMIT 10.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/CommentController.php (189)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/20 12:23:20 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[HY093]: Invalid parameter number: no parameters were bound. The SQL statement executed was: SELECT `t`.`cid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`content` AS `t0_c2`, `t`.`datetime` AS `t0_c3`, `t`.`nid` AS `t0_c4`, `t`.`status` AS `t0_c5`, `user`.`uid` AS `t1_c0`, `user`.`sso_id` AS `t1_c1`, `user`.`name` AS `t1_c2`, `user`.`personal_email` AS `t1_c3`, `user`.`company_email` AS `t1_c4`, `user`.`country_id` AS `t1_c5`, `user`.`avatar` AS `t1_c6`, `user`.`role` AS `t1_c7`, `user`.`datetime` AS `t1_c8`, `user`.`firstname` AS `t1_c9`, `user`.`lastname` AS `t1_c10`, `user`.`password` AS `t1_c11`, `user`.`status` AS `t1_c12` FROM `comment` `t`  LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  WHERE (t.status = :status) ORDER BY t.datetime DESC LIMIT 10' in /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/CommentController.php(189): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): CommentController->actionList()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('comment/list')
+#13 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/comment/list?order=DESC&shownode=true
+HTTP_REFERER=http://localhost:8888/bank_wall/api/admin/index
+---
+2014/02/20 12:23:33 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY093]: Invalid parameter number: no parameters were bound. The SQL statement executed was: SELECT `t`.`cid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`content` AS `t0_c2`, `t`.`datetime` AS `t0_c3`, `t`.`nid` AS `t0_c4`, `t`.`status` AS `t0_c5`, `user`.`uid` AS `t1_c0`, `user`.`sso_id` AS `t1_c1`, `user`.`name` AS `t1_c2`, `user`.`personal_email` AS `t1_c3`, `user`.`company_email` AS `t1_c4`, `user`.`country_id` AS `t1_c5`, `user`.`avatar` AS `t1_c6`, `user`.`role` AS `t1_c7`, `user`.`datetime` AS `t1_c8`, `user`.`firstname` AS `t1_c9`, `user`.`lastname` AS `t1_c10`, `user`.`password` AS `t1_c11`, `user`.`status` AS `t1_c12` FROM `comment` `t`  LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  WHERE (t.status = :status) ORDER BY t.datetime DESC LIMIT 10.
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/CommentController.php (189)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/20 12:23:33 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[HY093]: Invalid parameter number: no parameters were bound. The SQL statement executed was: SELECT `t`.`cid` AS `t0_c0`, `t`.`uid` AS `t0_c1`, `t`.`content` AS `t0_c2`, `t`.`datetime` AS `t0_c3`, `t`.`nid` AS `t0_c4`, `t`.`status` AS `t0_c5`, `user`.`uid` AS `t1_c0`, `user`.`sso_id` AS `t1_c1`, `user`.`name` AS `t1_c2`, `user`.`personal_email` AS `t1_c3`, `user`.`company_email` AS `t1_c4`, `user`.`country_id` AS `t1_c5`, `user`.`avatar` AS `t1_c6`, `user`.`role` AS `t1_c7`, `user`.`datetime` AS `t1_c8`, `user`.`firstname` AS `t1_c9`, `user`.`lastname` AS `t1_c10`, `user`.`password` AS `t1_c11`, `user`.`status` AS `t1_c12` FROM `comment` `t`  LEFT OUTER JOIN `user` `user` ON (`t`.`uid`=`user`.`uid`)  WHERE (t.status = :status) ORDER BY t.datetime DESC LIMIT 10' in /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(803): CDbCommand->queryAll()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(437): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveFinder.php(68): CJoinElement->find(Object(CDbCriteria))
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1356): CActiveFinder->query(Object(CDbCriteria), true)
+#5 /Applications/MAMP/htdocs/bank_wall/yii/framework/db/ar/CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#6 /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/CommentController.php(189): CActiveRecord->findAll(Object(CDbCriteria))
+#7 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/actions/CInlineAction.php(49): CommentController->actionList()
+#8 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#9 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#10 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('list')
+#12 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('comment/list')
+#13 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#15 {main}
+REQUEST_URI=/bank_wall/api/comment/list?order=DESC&shownode=true
+HTTP_REFERER=http://localhost:8888/bank_wall/api/admin/index
+---
+2014/02/20 16:11:37 [error] [php] Only variables should be passed by reference (/Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php:181)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): NodeController->runAction()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): NodeController->runActionWithFilters()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): NodeController->run()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/node/put
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (181)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/20 16:11:37 [error] [php] Only variables should be passed by reference (/Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php:181)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): NodeController->runAction()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): NodeController->runActionWithFilters()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): NodeController->run()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/node/put
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (181)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/20 16:11:43 [error] [php] Only variables should be passed by reference (/Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php:181)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): NodeController->runAction()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): NodeController->runActionWithFilters()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): NodeController->run()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/node/put
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (181)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/20 16:11:45 [error] [php] Only variables should be passed by reference (/Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php:181)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): NodeController->runAction()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): NodeController->runActionWithFilters()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): NodeController->run()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/node/put
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (181)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/20 16:11:57 [error] [php] Only variables should be passed by reference (/Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php:181)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): NodeController->runAction()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): NodeController->runActionWithFilters()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): NodeController->run()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/node/put
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (181)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/20 16:13:35 [error] [php] Only variables should be passed by reference (/Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php:181)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): NodeController->runAction()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): NodeController->runActionWithFilters()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): NodeController->run()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/node/put
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (181)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/20 16:14:00 [error] [php] Array to string conversion (/Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php:181)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): NodeController->runAction()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): NodeController->runActionWithFilters()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): NodeController->run()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/node/put
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (181)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/20 16:14:13 [error] [php] Only variables should be passed by reference (/Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php:182)
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(286): NodeController->runAction()
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(265): NodeController->runActionWithFilters()
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): NodeController->run()
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CWebApplication->run()
+REQUEST_URI=/bank_wall/api/node/put
+in /Applications/MAMP/htdocs/bank_wall/api/protected/controllers/NodeController.php (182)
+in /Applications/MAMP/htdocs/bank_wall/api/index.php (17)
+2014/02/20 16:40:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "....".' in /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php:483
+Stack trace:
+#0 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CController.php(270): CController->missingAction('....')
+#1 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(282): CController->run('....')
+#2 /Applications/MAMP/htdocs/bank_wall/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin/..../json...')
+#3 /Applications/MAMP/htdocs/bank_wall/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/MAMP/htdocs/bank_wall/api/index.php(17): CApplication->run()
+#5 {main}
+REQUEST_URI=/bank_wall/api/admin/..../json/country.json
+HTTP_REFERER=http://localhost:8888/bank_wall/api/admin/index
+---

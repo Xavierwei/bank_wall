@@ -22,7 +22,7 @@ class CommentAR extends CActiveRecord {
     return array(
         array("uid", "UidExist"),
         array("nid", "NidExist"),
-        array("content, datetime, cid", "safe"),
+        array("content, datetime, cid, status", "safe"),
     );
   }
   
