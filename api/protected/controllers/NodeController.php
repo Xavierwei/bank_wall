@@ -297,7 +297,7 @@ class NodeController extends Controller {
 
 		// search by email
 		if ($email) {
-			
+
 		}
 
 		// 需要验证用户权限
