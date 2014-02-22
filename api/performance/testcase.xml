@@ -1,0 +1,26 @@
+
+<testcases>
+    <!-- SAMPLE TEST CASE -->
+    <param name="server" value="http://64.207.184.106/sgwall/api" />
+    <case>
+        <url>${server}/node/list</url>
+    </case>
+    
+    <case>
+        <url>${server}/node/list?page=5</url>
+    </case>
+    
+    <case>
+        <url>${server}/node/list?type=video</url>
+    </case>
+    
+    <!-- SAMPLE TEST CASE -->
+    <!--
+    <case>
+        <url>http://search.yahooapis.com/WebSearchService/V1/webSearch</url>
+        <method>POST</method>
+        <body><![CDATA[appid=YahooDemo&query=pylot]]></body>
+        <add_header>Content-type: application/x-www-form-urlencoded</add_header>
+    </case>
+    -->
+</testcases>
