@@ -1825,7 +1825,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                     $(this).css('width' , 'auto');
                     // if first loaded , load user's nodes from server
                     var user = $('.side').data('user');
-                    var param = {page:1,pagenum:20, uid:user.uid, orderby:'datetime'};
+                    var param = {page:1,pagenum:20, uid:user.uid, orderby:'datetime', token: apiToken};
                     var $countCom = $(this).find('.count-com');
                     $countCom.data('param', param);
                     if( !$countCom.children().length ){
