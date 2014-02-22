@@ -467,41 +467,43 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         var docHeight = $(document).height();
         var winHeight = document.body.clientHeight;
         if( docHeight - winHeight - st < 100 ){
-            // fix main element
-            // it must visible and in main element has unreversaled node
-            if( $main.is(':visible') && !$main.find('.main-item:not(.time-item,.reversal)').length ){
-                _scrollAjax = true;
-                var mainParam = $main.data('param');
-                mainParam.page++;
-                var param = $.extend({} , mainParam);
-                $listLoading.fadeIn();
-                api.ajax('recent' , param , function( result ){
-                    _scrollAjax = false;
-                    // if loading page is not the param info, return
-                    if( param.page != mainParam.page ) return;
-                    nodeActions.inserNode( $main , result.data , param.orderby == 'datetime');
-                    
-                    $listLoading.fadeOut();
-                    // TODO:: no more data tip
-                });
-            }
-            // fix user page element
-            var $userCom = $('.user-page .count-com');
-            // it must visible and in main element has unreversaled node
-            if( $('.count-com').is(':visible') && !$userCom.find('.main-item:not(.time-item,.reversal)').length ){
-                _scrollAjax = true;
-                var $com = $('.count-com');
-                var userPageParam = $com.data('param');
-                userPageParam.page++;
-                var param = $.extend({} , userPageParam );
-                $listLoading.fadeIn();
-                api.ajax('recent' , param , function( result ){
-                    _scrollAjax = false;
-                    if( param.page != $com.data('param').page ) return;
-                    nodeActions.inserNode( $userCom , result.data , true );
-                    // TODO:: no more data tip
-                });
-            }
+            _scrollTimeout = setTimeout(function(){
+                // fix main element
+                // it must visible and in main element has unreversaled node
+                if( $main.is(':visible') && !$main.find('.main-item:not(.time-item,.reversal)').length ){
+                    _scrollAjax = true;
+                    var mainParam = $main.data('param');
+                    mainParam.page++;
+                    var param = $.extend({} , mainParam);
+                    $listLoading.fadeIn();
+                    api.ajax('recent' , param , function( result ){
+                        _scrollAjax = false;
+                        // if loading page is not the param info, return
+                        if( param.page != mainParam.page ) return;
+                        nodeActions.inserNode( $main , result.data , param.orderby == 'datetime');
+                        
+                        $listLoading.fadeOut();
+                        // TODO:: no more data tip
+                    });
+                }
+                // fix user page element
+                var $userCom = $('.user-page .count-com');
+                // it must visible and in main element has unreversaled node
+                if( $('.count-com').is(':visible') && !$userCom.find('.main-item:not(.time-item,.reversal)').length ){
+                    _scrollAjax = true;
+                    var $com = $('.count-com');
+                    var userPageParam = $com.data('param');
+                    userPageParam.page++;
+                    var param = $.extend({} , userPageParam );
+                    $listLoading.fadeIn();
+                    api.ajax('recent' , param , function( result ){
+                        _scrollAjax = false;
+                        if( param.page != $com.data('param').page ) return;
+                        nodeActions.inserNode( $userCom , result.data , true );
+                        // TODO:: no more data tip
+                    });
+                }
+            } , 200);
             if( _scrollAjax ){
                 // TODO: loading animation
             }
@@ -1812,6 +1814,10 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     LP.action('toggle_user_page' , function(){
         if( isToggleIng ) return;
         isToggleIng = true;
+
+        nodeActions.stopItemReversal();
+        clearTimeout( _scrollTimeout);
+        
         if(!$('.user-page').is(':visible')) {
             var mainWidth = winWidth;
             var slidWidth = 80;
