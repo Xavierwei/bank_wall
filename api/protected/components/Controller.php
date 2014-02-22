@@ -74,6 +74,20 @@ class Controller extends CController
       
       return $prefix.$key;
     }
+    
+    // 清理缓存
+    // key 可以是前缀
+    public function cleanCache($prefix = "node") {
+      $keys = Yii::app()->cache->get("keys");
+      foreach ($keys as $key) {
+        // 因为是搜索前缀，所以只需要判断是不是第一个位置就OK
+        if (strpos($key, $prefix) == 0) {
+          Yii::app()->cache->delete($key);
+        }
+      }
+      
+      return $this;
+    }
 
     // 在这里加缓存功能
     public function responseJSON($data, $message, $ext = array()) {
@@ -81,12 +95,22 @@ class Controller extends CController
       $controllerName = Yii::app()->controller->id;
       $actioName = Yii::app()->controller->action->id;
       if (!$request->isPostRequest) {
+        
         //判断是否需要cache
+        
+        // api: node/list
         if ($controllerName == "node" && $actioName == "list") {
           $key = $this->cacheKey();
           // 3分钟失效
           Yii::app()->cache->set($key, $data, 60 * 3);
         }
+        // api: comment/list
+        if ($controllerName == "comment" && $actioName == "list") {
+          $key = $this->cacheKey();
+          Yii::app()->cache->set($key, $data, 60 * 3);
+        }
+        
+        // 其他需要缓存的情况可以写在后面
       }
       $this->_renderjson($this->wrapperDataInRest($data, $message, FALSE, $ext));
     }
