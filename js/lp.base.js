@@ -72,20 +72,18 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 .prev()
                 .html( $(this).html() );
 
-            //TODO: loading animation
-
             // reset status / back to homepage
             if(!$main.is(':visible')){
                 LP.triggerAction('back');
             }
-
             $('.search-hd').fadeOut(100);
-
-
             $main.fadeOut(100,function(){
                 LP.triggerAction('close_user_page');
                 LP.triggerAction('load_list');
             });
+//			//highlight the button
+//			var index = $.inArray(this, $(this).parent('.select-item').find('p'));
+//			console.log(index);
 
         })
         .delegate('.editfi-country-option p' , 'click' , function(){
@@ -2210,6 +2208,10 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     var refreshQuery = function( query ){
         // get search value
         var $searchInput = $('.search-ipt');
+		// reset the filter when search
+		if($searchInput.val() != '') {
+			resetQuery();
+		}
         var param = { page: 1 , pagenum: 20, token: apiToken };
         param [ $searchInput.attr('name') ] = $.trim( $searchInput.val() ).replace( /^#+/ , '' );
 
