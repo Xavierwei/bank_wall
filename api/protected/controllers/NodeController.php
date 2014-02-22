@@ -315,7 +315,7 @@ class NodeController extends Controller {
 				$query->params[':country_id'] = $user->country_id;
 			}
 		}
-		elseif (Yii::app()->user->checkAccess("isAdmin")) {
+		elseif (Yii::app()->user->checkAccess("isAdmin") && isset($status)) {
 			$query->addCondition($nodeAr->getTableAlias().".status = :status", "AND");
 			$params[":status"] = $status;
 		}
@@ -325,6 +325,7 @@ class NodeController extends Controller {
 			$query->addCondition($nodeAr->getTableAlias().".status = :status", "AND");
 			$params[":status"] = $status;
 		}
+
 		// like count
 		$query->select = "*". ", count(like_id) AS likecount". ",topday_id AS topday" . ",topmonth_id AS topmonth";
 		$query->join = 'left join `like` '.' on '. '`like`' .".nid = ". $nodeAr->getTableAlias().".nid";

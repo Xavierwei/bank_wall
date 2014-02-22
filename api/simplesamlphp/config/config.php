@@ -22,7 +22,7 @@ $config = array (
 	 * external url, no matter where you come from (direct access or via the
 	 * reverse proxy).
 	 */
-	'baseurlpath'           => 'simplesamlphp/www/',
+	'baseurlpath'           => 'bank_wall/api/simplesamlphp/www/',
 	'certdir'               => 'cert/',
 	'loggingdir'            => 'log/',
 	'datadir'               => 'data/',
@@ -238,7 +238,7 @@ $config = array (
 	 * Example:
 	 *  'session.cookie.path' => '/simplesaml/',
 	 */
-	'session.cookie.path' => '/',
+	//'session.cookie.path' => '/',
 
 	/*
 	 * Cookie domain.
@@ -248,7 +248,7 @@ $config = array (
 	 * Example:
 	 *  'session.cookie.domain' => '.example.org',
 	 */
-	'session.cookie.domain' => '.local',
+	//'session.cookie.domain' => '.local',
 
 	/*
 	 * Set the secure flag in the cookie.
@@ -553,7 +553,7 @@ $config = array (
 	 * The username and password to use when connecting to the database.
 	 */
 	'store.sql.username' => 'root',
-	'store.sql.password' => 'admin',
+	'store.sql.password' => 'root',
 
 	/*
 	 * The prefix we should use on our tables.

@@ -4,3 +4,5 @@
 api/protected/config/main.php
 /nbproject/private/
 /nbproject
+
+*.log
