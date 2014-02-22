@@ -30,14 +30,64 @@ class Controller extends CController
         Yii::app()->user->setState("country_id", 0);
       }
       
+      $cache_key = $this->cacheKey();
+      $data = Yii::app()->cache->get($cache_key);
+      if ($data) {
+        $this->responseJSON($data, "success");
+      }
+      
       return parent::beforeAction($action);
     }
     
     public function responseError($message) {
          $this->_renderjson($this->wrapperDataInRest(NULL, $message, TRUE));
     }
+    
 
+  
+    public function randomString($length = 10) {
+      $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      $randomString = '';
+      for ($i = 0; $i < $length; $i++) {
+          $randomString .= $characters[rand(0, strlen($characters) - 1)];
+      }
+      return $randomString;
+    }
+    
+    public function cacheKey() {
+      $prefix = Yii::app()->controller->id.'_';
+      $key = '';
+      foreach ($_GET as $name => $value) {
+        $key .= "key_{$name}_value_{$value}";
+      }
+      if ($key == "") {
+        $key = Yii::app()->controller->id."_". Yii::app()->controller->action->id;
+      }
+
+      $keys = Yii::app()->cache->get("keys");
+      if ($keys == "") {
+        $keys = array();
+      }
+
+      $keys[$key] = $key;
+      Yii::app()->cache->set("keys" ,($keys));
+      
+      return $prefix.$key;
+    }
+
+    // 在这里加缓存功能
     public function responseJSON($data, $message, $ext = array()) {
+      $request = Yii::app()->getRequest();
+      $controllerName = Yii::app()->controller->id;
+      $actioName = Yii::app()->controller->action->id;
+      if (!$request->isPostRequest) {
+        //判断是否需要cache
+        if ($controllerName == "node" && $actioName == "list") {
+          $key = $this->cacheKey();
+          // 3分钟失效
+          Yii::app()->cache->set($key, $data, 60 * 3);
+        }
+      }
       $this->_renderjson($this->wrapperDataInRest($data, $message, FALSE, $ext));
     }
 
