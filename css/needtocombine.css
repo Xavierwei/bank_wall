@@ -161,7 +161,7 @@ body{
     font-size:0;
 }
 .poptxt-pic-inner{
-    display: none;
+    position: relative;
     width: 175px;
     height: 175px;
     overflow: hidden;
