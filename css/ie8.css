@@ -23,3 +23,7 @@
 .user-pho {position: relative;}
 .user-pho img {border:none;}
 .user-pho .avatar-ie-round {background:url('../img/ie8_avatar_round_34.png') no-repeat;width:39px;height:39px;position: absolute;top:0;left:0;z-index: 2;}
+
+.sm-width .logo {margin:5px auto 0 auto;width:158px;height:48px;background:url('../img/logo_s.gif') no-repeat;}
+.sm-width .search {top:60px;}
+.sm-width .select {top:58px;}

@@ -3,7 +3,7 @@
 class NodeAR extends CActiveRecord{
     
 	const PUBLICHSED = 1;
-	const UNPUBLISHED = 2;
+	const UNPUBLISHED = 0;
 	const BLOCKED = 3;
 
 	const PHOTO = 'photo';
@@ -516,7 +516,7 @@ class NodeAR extends CActiveRecord{
   
   public function blockIt() {
     if ($this->nid) {
-      $this->updateByPk($this->nid, array("status" => self::BLOCKED));
+      $this->updateByPk($this->nid, array("status" => self::UNPUBLISHED));
     }
   }
 

@@ -1,8 +1,4 @@
 @charset "utf-8";
-/*
- * bank wall
- * 2013-11-27
- */
 
 /* Reset
 ================================================================================================= */
@@ -49,7 +45,8 @@ a{text-decoration:none;color:#666}
     .select{position: absolute;right:20px;top:50px}
 		.select-item{position: relative;float:left;width:93px;height:18px;margin:0 0 0 20px;}
 			.select-box{width:93px;height:18px;line-height:21px;border:1px #2c2c2c solid;padding:0 3px;cursor: pointer;background:url('../img/selectbox_arrow.gif') no-repeat right center;}
-			.select-pop{display:none;border:#fff solid 1px;position: absolute;width:93px;top:19px;padding:0 3px;background: #666;opacity: 0.8;filter:alpha(opacity=80);}
+			    .select-box.active {color:#df2847;}
+                .select-pop{display:none;border:#fff solid 1px;position: absolute;width:93px;top:19px;padding:0 3px;background: #666;opacity: 0.8;filter:alpha(opacity=80);}
 				.select-option p{padding:1px 3px 0 3px;color:#fff;border-bottom:#999 solid 1px;cursor: pointer;}
                 .select-option p:hover {background:#444;}
                 .select-country-option-list {height:200px;}
@@ -204,9 +201,9 @@ a{text-decoration:none;color:#666}
                 .logged .comlist-flag {display:block;}
 		.com-ipt{background:#4b4b4b;color:#ccc;margin:10px 0 0;padding:7px 10px;font-size:12px;resize:none;width:242px;}
         .com-ipt:focus {background:#4f4f4f;}
-        .com-make .submit {background:#333;color:#ccc;border: none;padding:5px 5px 2px 5px;margin-top:5px;margin-right:10px;float:right;}
+        .com-make .submit {background:#333;color:#ccc;border: none;padding:5px 5px 2px 5px;margin-top:2px;margin-right:10px;float:right;}
         .comment-msg-success {display: none;padding:20px 0 0;}
-        .com-make {height: 85px;}
+        .com-make {height: 90px;}
         .com-main .need-login {text-align: center;margin-top:10px;}
         .comlist-con {color:#ccc;word-break: break-all;word-wrap: break-word;}
     .loading-list {z-index:100;display:none;background: url('../img/loading_list.gif') no-repeat;width:20px;height:20px;position:fixed;bottom:10px;right:10px;}

@@ -1,5 +1,7 @@
 SGWallAdminController
     .controller('NodeCtrList', function($scope, $http, $modal, $log, $routeParams, NodeService, LikeService, FlagService, ASSET_FOLDER) {
+
+		$scope.hideList = '';
         // Get node list by recent
         var params = {};
         $scope.filter.status = 'all';
@@ -7,6 +9,7 @@ SGWallAdminController
         $scope.filter.country.country_name = 'All Country';
 		params.orderby = "datetime";
 		params.pagenum = 50;
+		params.token = apiToken;
 
 
 		$scope.$watch('filter.type + filter.country_id + filter.status + filter.country.country_id', function() {
@@ -27,13 +30,16 @@ SGWallAdminController
 			if($scope.filter.status != undefined) {
 				params.status = $scope.filter.status;
 			}
+			$scope.hideList = 'hide-list';
 			NodeService.list(params, function(data){
+				$scope.hideList = '';
 				$scope.nodes = data;
 			});
 		});
 
         // Switch node status
         $scope.updateStatus = function(node, status) {
+
             var newNode = angular.copy(node);
 			if(node.status == 0) {
 				newNode.status = 1;
@@ -42,7 +48,7 @@ SGWallAdminController
 				newNode.status = 0;
 			}
 			NodeService.update(newNode,function(data){
-				node.status = status;
+				node.status = newNode.status;
 			});
         }
 
@@ -55,6 +61,7 @@ SGWallAdminController
                 delete params.status;
             }
             params.hashtag = $scope.filter.hashtag;
+			params.email = $scope.filter.email;
             NodeService.list(params, function(data){
                 $scope.nodes = data;
             });
@@ -64,6 +71,14 @@ SGWallAdminController
         $scope.filterCountry = function(country) {
             $scope.filter.country = country;
         }
+
+		$scope.reset = function() {
+			$scope.filter.type = 'all';
+			$scope.filter.status = 'all';
+			$scope.filter.hashtag = '';
+			$scope.filter.hashtag = '';
+			$scope.filter.country = {country_name:'All Country', country_id:''};
+		}
 
 
 
@@ -127,7 +142,7 @@ SGWallAdminController
     })
 
 
-    .controller('NodeCtrFlagged', function($scope, $http, $modal, $log, NodeService, LikeService, FlagService) {
+    .controller('NodeCtrFlagged', function($scope, $http, $modal, $log, NodeService, ASSET_FOLDER, LikeService, FlagService) {
         // Get node list by flagged
         NodeService.getFlaggedNodes(function(data){
             $scope.nodes = data;
@@ -135,11 +150,39 @@ SGWallAdminController
 
         // Switch node status
         $scope.updateStatus = function(node, status) {
-            var newNode = angular.copy(node);
-            newNode.status = status;
-            NodeService.update(newNode,function(){
-                node.status = status;
-            });
+			console.log(node.status);
+			if(node.status == 0) {
+				var modalInstance = $modal.open({
+					templateUrl: ASSET_FOLDER + 'tmp/dialog/unflag.html',
+					controller: ConfirmModalCtrl
+				});
+				modalInstance.result.then(function () {
+					var newNode = angular.copy(node);
+					if(node.status == 0) {
+						newNode.status = 1;
+					}
+					else {
+						newNode.status = 0;
+					}
+					NodeService.update(newNode,function(){
+						node.status = newNode.status;
+						node.flagcount = 0;
+					});
+				}, function () {
+				});
+			}
+			else {
+				var newNode = angular.copy(node);
+				if(node.status == 0) {
+					newNode.status = 1;
+				}
+				else {
+					newNode.status = 0;
+				}
+				NodeService.update(newNode,function(){
+					node.status = newNode.status;
+				});
+			}
         }
 
         // Delete node

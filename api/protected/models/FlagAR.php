@@ -35,19 +35,30 @@ class FlagAR extends CActiveRecord {
     return TRUE;
   }
   
-  public function afterSave() {
-    $nid = $this->nid;
-    
-    if ($nid) {
-      // 保存后， 查询这个nid 有 COUNT_THAT_BLOckED 个 flag.
-      $command = Yii::app()->db->createCommand("SELECT count(*) as count FROM flag where nid = :nid");
-      $res = $command->query(array(":nid" => $nid))->read();
-      if ($res["count"] >= self::COUNT_THAT_BLOckED) {
-        $node = NodeAR::model()->findByPk($nid);
-        $node->blockIt();
-      }
-    }
-  }
+	public function afterSave() {
+		$nid = $this->nid;
+		$cid = $this->cid;
+
+		if ($nid) {
+			// 保存后， 查询这个nid 有 COUNT_THAT_BLOckED 个 flag.
+			$command = Yii::app()->db->createCommand("SELECT count(*) as count FROM flag where nid = :nid");
+			$res = $command->query(array(":nid" => $nid))->read();
+			if ($res["count"] >= self::COUNT_THAT_BLOckED) {
+				$node = NodeAR::model()->findByPk($nid);
+				$node->blockIt();
+			}
+		}
+
+		if ($cid) {
+			// 保存后， 查询这个nid 有 COUNT_THAT_BLOckED 个 flag.
+			$command = Yii::app()->db->createCommand("SELECT count(*) as count FROM flag where cid = :cid");
+			$res = $command->query(array(":cid" => $cid))->read();
+			if ($res["count"] >= self::COUNT_THAT_BLOckED) {
+				$comment = CommentAR::model()->findByPk($cid);
+				$comment->blockIt();
+			}
+		}
+	}
   
   // 删除Node Like
   public function deleteNodeFlag($nid) {

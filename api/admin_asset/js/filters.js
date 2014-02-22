@@ -38,7 +38,7 @@ angular.module('SGWallAdmin.filters', [])
         }
     })
 
-	.filter('image', function(ROOT_FOLDER) {
+	.filter('avatar', function(ROOT_FOLDER) {
 		return function(input) {
 			if(input) {
 				return ROOT_FOLDER + input;

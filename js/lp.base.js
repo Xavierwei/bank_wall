@@ -322,7 +322,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 // fix video type
                 node.image = node.file.replace( node.type == 'video' ? '.mp4' : '.jpg' , THUMBNAIL_IMG_SIZE + '.jpg');
                 node.formatDate = date;
-
+				node.country.country_name = _e[node.country.i18n];
                 node.str_like = node.likecount > 1 ? 'Likes' : 'Like';
                 LP.compile( 'node-item-template' ,
                     node ,
@@ -459,6 +459,12 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                     nodeActions.setItemIsotope( $userCom );
                 } , 500);
             }
+			if($(window).width() < 800) {
+				$('body').addClass('sm-width');
+			}
+			else {
+				$('body').removeClass('sm-width');
+			}
         } , 200);
 
         // immediate resize
@@ -1320,7 +1326,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         if(!$('.flag-confirm-modal').is(':visible')) {
             $('.modal-overlay').fadeIn(700);
             $('.flag-confirm-modal').fadeIn(700).dequeue().animate({top:'50%'}, 700, 'easeOutQuart');
-            $('.flag-confirm-modal .flag-confirm-text span').html(data.type);
+            $('.flag-confirm-modal .flag-confirm-text span').html(_e[data.type.toUpperCase()]);
             $('.flag-confirm-modal .ok').attr('data-a','flag');
             if(data.type == 'node') {
                 $('.flag-confirm-modal .ok').attr('data-d','nid=' + data.nid + '&type=node');
@@ -1332,7 +1338,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         else {
             if(data.type == 'node') {
                 api.ajax('flag', {nid:data.nid});
-                $('.inner-icons .flag-node').addClass('flagged').removeClass('btn2').removeAttr('data-a');
+                $('.inner .flag-node').addClass('flagged').removeClass('btn2').removeAttr('data-a');
             }
             if(data.type == 'comment') {
                 api.ajax('flag', {cid:data.cid, comment_nid:data.nid});
@@ -1543,10 +1549,10 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 								$('.step1-tips li').removeClass('error');
 								$('.step1-tips li').eq(errorIndex).addClass('error');
 							} else {
+								$('.poptxt-pic-inner').css({opacity:0});
 								var rdata = data.result.data;
-
 								if(rdata.type == 'video') {
-									$('.poptxt-pic-inner').show();
+									$('.poptxt-pic-inner').animate({opacity:1});
 									$('.poptxt-pic img')
                                         .unbind('load.forinnershow')
                                         .bind('load.forinnershow' , function(){
@@ -1580,6 +1586,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 											$('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
 										};
 										reader.readAsDataURL(data.files[0]);
+										$('.poptxt-pic-inner').delay(3000).animate({opacity:1});
 									} else {
 										$('.poptxt-pic img')
 											.unbind('load.forinnershow')
@@ -1991,6 +1998,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 $('.count-com').delay(400).fadeIn(400);
                 $('.count-edit').fadeIn();
                 $('.count-userinfo').removeClass('count-userinfo-edit');
+				$('.count-userinfo .location').html($('.user-edit-page .editfi-country-box').html());
             }
             else if(result.message === 603) {
                 $('.edit-email-error').html(_e.ERROR_EXIST_EMAIL).fadeIn();
@@ -2426,6 +2434,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                         if(!result.data.avatar) {
                             result.data.avatar = "/uploads/default_avatar.gif";
                         }
+						result.data.country.country_name = _e[result.data.country.i18n];
                         result.data._e = _e;
                         LP.compile( 'user-page-template' , result.data , function( html ){
                             $('.content').append(html);

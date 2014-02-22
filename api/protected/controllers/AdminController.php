@@ -9,7 +9,8 @@ class AdminController extends Controller {
 			$this->render('login');
 		}
 		else {
-			$this->render('index');
+			$token = UserAR::model()->getToken();
+			$this->render('index', array('token'=>$token));
 		}
 	}
 }

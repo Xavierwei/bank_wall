@@ -18,6 +18,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
     var winWidth = $(window).width();
     var $listLoading = $('.loading-list');
     var aMonth;
+	var apiToken;
     var _e;
 
 
@@ -323,7 +324,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
                 // fix video type
                 node.image = node.file.replace( node.type == 'video' ? '.mp4' : '.jpg' , THUMBNAIL_IMG_SIZE + '.jpg');
                 node.formatDate = date;
-
+				node.country.country_name = _e[node.country.i18n];
                 node.str_like = node.likecount > 1 ? 'Likes' : 'Like';
                 LP.compile( 'node-item-template' ,
                     node ,
@@ -396,7 +397,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
                 // fix video type
                 node.image = node.file.replace( node.type == 'video' ? '.mp4' : '.jpg' , THUMBNAIL_IMG_SIZE + '.jpg');
                 node.formatDate = date;
-
+				node.country.country_name = _e[node.country.i18n];
                 node.str_like = node.likecount > 1 ? 'Likes' : 'Like';
                 LP.compile( 'node-item-template' ,
                     node ,
@@ -1794,7 +1795,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
                 .animate({x:0}, 600, 'easeOutQuart' , function(){
                     // if first loaded , load user's nodes from server
                     var user = $('.side').data('user');
-                    var param = {page:1,pagenum:8, uid:user.uid, orderby:'datetime'};
+                    var param = {page:1,pagenum:8, uid:user.uid, orderby:'datetime', token: apiToken};
                     var $countCom = $(this).find('.count-com');
                     $countCom.data('param', param);
                     if( !$countCom.children().length ){
@@ -1900,7 +1901,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
         api.ajax('countryList', function( result ){
             var htmls = [];
             $.each(result, function(index, item){
-                htmls.push( '<option value="' + item.country_id + '" data-api="recent">' + item.country_name + '</option>' );
+                htmls.push( '<option value="' + item.country_id + '" data-api="recent">' + _e[item.i18n] + '</option>' );
             });
             $countryList.append(htmls.join(''));
         });
@@ -1923,6 +1924,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
                 $('.count-com').delay(400).fadeIn(400);
                 $('.count-edit').fadeIn();
                 $('.count-userinfo').removeClass('count-userinfo-edit');
+				$('.count-userinfo .location').html($('.user-edit-page .editfi-country-box').html());
             }
             else if(result.message === 603) {
                 $('.edit-email-error').html(_e.ERROR_EXIST_EMAIL).fadeIn();
@@ -2149,7 +2151,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
     var refreshQuery = function( query ){
         // get search value
         var $searchInput = $('.search-ipt');
-        var param = { page: 1 , pagenum: 8 };
+        var param = { page: 1 , pagenum: 8, token: apiToken };
         param [ $searchInput.attr('name') ] = $.trim( $searchInput.val() ).replace( /^#+/ , '' );
 
         // get select options
@@ -2355,6 +2357,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
                         if(!result.data.avatar) {
                             result.data.avatar = "/uploads/default_avatar.gif";
                         }
+						result.data.country.country_name = _e[result.data.country.i18n];
                         result.data._e = _e;
                         LP.compile( 'user-page-template' , result.data , function( html ){
                             $('.content').append(html);
@@ -2375,13 +2378,16 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
                     openByHash();
                 });
 
+				api.ajax('token' , function( result ){
+					apiToken = result.data;
+				});
 
-                var $countryList = $('.select-country-option-list');
+				var $countryList = $('.select-country-option-list');
                 $countryList.empty();
                 $countryList.append('<option data-api="recent">All</option>');
                 api.ajax('countryList', function( result ){
                     $.each(result, function(index, item){
-                        var html = '<option value="country_id=' + item.country_id + '" data-api="recent">' + item.country_name + '</option>';
+                        var html = '<option value="country_id=' + item.country_id + '" data-api="recent">' + _e[item.i18n] + '</option>';
                         $countryList.append(html);
                     });
 //                    LP.use(['jscrollpane' , 'mousewheel'] , function(){

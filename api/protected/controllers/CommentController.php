@@ -40,7 +40,8 @@ class CommentController extends Controller {
 		$commentAr->attributes = array(
 		    "uid" => $uid,
 		    "nid" => $nid,
-		    "content" => $content
+		    "content" => $content,
+		    "status" => 1
 		);
 
 		if ($commentAr->validate()) {
@@ -161,7 +162,7 @@ class CommentController extends Controller {
 		}
 
 
-		if(Yii::app()->user->checkAccess("isAdmin")) {
+		if(Yii::app()->user->checkAccess("isAdmin") && isset($status)) {
 			$query->addCondition(CommentAR::model()->getTableAlias().".status=:status");
 			$query->params[":status"] = $status;
 		}

@@ -21,6 +21,7 @@ class CountryAR extends CActiveRecord{
         array("code", "required"),
         array("flag_icon", "required"),
         array("description", "safe"),
+	    array("i18n", "safe"),
     );
   }
   

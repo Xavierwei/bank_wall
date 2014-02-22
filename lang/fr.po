@@ -66,10 +66,10 @@ msgid "HASHTAG_EXAMPLES"
 msgstr "Exemples : #espritd’équipe #sociétégénérale #olympiades"
 
 msgid "REPORT_THIS"
-msgstr "ÊTES-VOUS SÛR DE VOULOIR SIGNALER CE CONTENU ?"
+msgstr "ÊTES-VOUS SÛR DE VOULOIR SIGNALER CE "
 
 msgid "DELETE_THIS"
-msgstr "ÊTES-VOUS SÛR DE VOULOIR SUPPRIMER CE CONTENU ?"
+msgstr "ÊTES-VOUS SÛR DE VOULOIR SUPPRIMER CE "
 
 msgid "UPLOAD"
 msgstr "Télécharger"

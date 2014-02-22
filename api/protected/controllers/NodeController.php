@@ -152,6 +152,9 @@ class NodeController extends Controller {
 			if (isset($status)) {
 				// TODO:: 这里修改node 状态需要权限检查， 暂时没有实现权限检查
 				$node->status = $status;
+				if($status == 1) {
+					FlagAR::model()->deleteNodeFlag($node->nid);
+				}
 			}
 
 			//        // 修改media
@@ -296,9 +299,23 @@ class NodeController extends Controller {
 			$query->addCondition($nodeAr->getTableAlias().".datetime<= :end", "AND");
 		}
 
-		// search by email
-		if ($email) {
-
+		// search by user email
+		if (Yii::app()->user->checkAccess("isAdmin") && $email) {
+			$queryUser = new CDbCriteria();
+			$queryUser->addSearchCondition("company_email", $email, true);
+			$queryUser->addSearchCondition("personal_email", $email, true, 'OR');
+			$users = UserAR::model()->findAll($queryUser);
+			if(count($users)> 0) {
+				foreach($users as $user) {
+					$usersList[] = $user->uid;
+				}
+				$strUsersList = implode(',', $usersList);
+				$query->addCondition($nodeAr->getTableAlias().".uid in (:uid)", "AND");
+				$params[":uid"] = $strUsersList;
+			}
+			else {
+				$this->responseJSON(null, "success");
+			}
 		}
 
 		// 需要验证用户权限

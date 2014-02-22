@@ -66,10 +66,10 @@ msgid "HASHTAG_EXAMPLES"
 msgstr "Examples: #teamspirit #sociétégénérale #olympiades"
 
 msgid "REPORT_THIS"
-msgstr "REPORT THIS CONTENT?"
+msgstr "REPORT THIS "
 
 msgid "DELETE_THIS"
-msgstr "DELETE THIS CONTENT?"
+msgstr "DELETE THIS "
 
 msgid "UPLOAD"
 msgstr "Upload"

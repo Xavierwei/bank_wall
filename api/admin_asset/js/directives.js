@@ -31,4 +31,19 @@ angular.module('myApp.directives', []).
                 });
             }
         }
-    });
+    })
+
+	.directive('nav',  function ($rootScope) {
+		return {
+			link: function (scope, elem) {
+				$rootScope.$on('$routeChangeStart', function (event,url) {
+					elem.find('li').removeClass('active');
+					var path = '#'+url.originalPath;
+					$('li a[href="'+path+'"]').parent().addClass('active');
+				});
+
+			}
+		}
+
+	})
+

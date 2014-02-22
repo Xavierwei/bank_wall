@@ -16,7 +16,7 @@ class UserAR extends CActiveRecord{
   }
   
   public static function getAllowOutputFields() {
-    return array("uid", "firstname", "lastname", "avatar", "country" => array("country_id", "country_name", "flag_icon"),
+    return array("uid", "firstname", "lastname", "avatar", "country" => array("country_id", "country_name", "flag_icon", "i18n"),
         "company_email", "personal_email", "role", "status");
   }
   
@@ -137,6 +137,14 @@ class UserAR extends CActiveRecord{
       return FALSE;
     }
   }
+
+	public function getToken(){
+		if(!isset(Yii::app()->session['token'])) {
+			$token = md5(time().rand(0, 9999));
+			Yii::app()->session['token'] = $token;
+		}
+		return Yii::app()->session['token'];
+	}
   
   public function errorsString() {
     $errors = $this->getErrors();

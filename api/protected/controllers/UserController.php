@@ -128,6 +128,7 @@ class UserController extends Controller {
 			$update_uid = $data['uid'];
 			unset($data['uid']);
 			UserAR::model()->updateByPk($update_uid, $data);
+
 			$this->responseJSON($user, "success");
 		}
 		else {
@@ -356,11 +357,8 @@ class UserController extends Controller {
 	 * Generate API token, when call the GET api, server side need validate the token from client side
 	 */
 	public function actionGetToken() {
-		if(!isset(Yii::app()->session['token'])) {
-			$token = md5(time().rand(0, 9999));
-			Yii::app()->session['token'] = $token;
-		}
-		$this->responseJSON(Yii::app()->session['token'], "success");
+		$token = UserAR::model()->getToken();
+		$this->responseJSON($token, "success");
 	}
 
 

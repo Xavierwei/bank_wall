@@ -15,7 +15,7 @@
             </div>
             <div class="content">
                 <div class="user">
-                    <div class="avatar"><img ng-src="{{comment.user.avatar}}" width="40" height="40" /></div>
+                    <div class="avatar"><img ng-src="{{comment.user.avatar | avatar}}" width="40" height="40" /></div>
                     <div class="date">{{comment.datetime*1000 | date:'MMM d, y HH:mm a'}}</div>
                     <div class="name"><strong>{{comment.user.firstname}} {{comment.user.lastname}}</strong></div>
                 </div>
@@ -25,8 +25,9 @@
             <div class="black-overlay"></div>
             <a href="javascript:void(0)" class="switch switch-{{comment.status}}" ng-click="updateStatus(comment)"></a>
 
+	        <div ng-show="comment.flagcount" class="flag flag{{comment.flagcount}}">Flagged: {{comment.flagcount}}</div>
+	        <a href="../../#/nid/{{comment.nid}}" class="open" target="_blank">Open</a>
         </li>
-
     </ul>
     <div ng-show="error">{{error}}</div>
 </div>
