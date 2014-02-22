@@ -493,10 +493,11 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 var $com = $('.count-com');
                 var userPageParam = $com.data('param');
                 userPageParam.page++;
-                $com.data('param',userPageParam);
-                api.ajax('recent' , userPageParam , function( result ){
+                var param = $.extend({} , userPageParam );
+                $listLoading.fadeIn();
+                api.ajax('recent' , param , function( result ){
                     _scrollAjax = false;
-                    if( userPageParam.page != $com.data('param').page ) return;
+                    if( param.page != $com.data('param').page ) return;
                     nodeActions.inserNode( $userCom , result.data , true );
                     // TODO:: no more data tip
                 });
