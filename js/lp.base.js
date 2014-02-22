@@ -432,6 +432,11 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     var _resizeTimer = null;
     var _scrollAjax = false;
     var _scrollTimeout = null;
+    var _stopScrollEvent = function(){
+        setTimeout( function(){
+            clearTimeout( _scrollTimeout );
+        } , 100 );
+    }
     $(window).resize(function(){
         clearTimeout( _resizeTimer );
 
@@ -765,7 +770,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     
     LP.action('back_home', function(){
         nodeActions.stopItemReversal();
-        clearTimeout( _scrollTimeout);
+        _stopScrollEvent();
 		if($main.hasClass('closed')) {
 			LP.triggerAction('back');
 		}
@@ -1821,7 +1826,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         isToggleIng = true;
 
         nodeActions.stopItemReversal();
-        clearTimeout( _scrollTimeout);
+        _stopScrollEvent();
         
         if(!$('.user-page').is(':visible')) {
             var mainWidth = winWidth;
@@ -1830,7 +1835,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             $('.inner').fadeOut(400);
             $('.main').fadeOut(400);
             $('.count').css({left:-240}).delay(400).animate({left:80});
-			$('.user-page').find('.count-com').html('');
+			$('.user-page').find('.count-com').html('').data('nodes' , []);
             $('.user-page').css({left:- mainWidth , width: mainWidth - slidWidth })
                 .delay(100)
                 .show()
@@ -1878,7 +1883,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     // List user nodes
     LP.action('list_user_nodes', function(data){
 		nodeActions.stopItemReversal();
-        clearTimeout( _scrollTimeout);
+        _stopScrollEvent();
         if($('.user-edit-page').is(':visible')) {
             $('.user-edit-page').fadeOut(400);
             $('.avatar-file').fadeOut();
