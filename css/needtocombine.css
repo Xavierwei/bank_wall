@@ -1,5 +1,6 @@
 body{
     overflow-y: scroll;
+    height: 100%;
 }
 
 .pic-item .item-info{

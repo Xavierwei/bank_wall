@@ -295,7 +295,7 @@ a{text-decoration:none;color:#666}
 ================================================================================================= */
 .count{color:#fff;width:240px;height: 100%;background: #e6e6e6;position: fixed;}
 	.count-item{cursor:pointer;background: #f4f4f4;height:68px;border-bottom:#eaeaea solid 1px;border-right:#eaeaea solid 1px;text-align: center;font-size:12px;color:#2c2c2c;padding:10px 0 0;}
-    .count-item:hover {background: #fff;}
+    .count-item:hover,.count-item.active {background: #fff;}
 		.count-item span{display: block;color:#de2643;font-size:30px;line-height:40px;}
 
 /* count-inner Used

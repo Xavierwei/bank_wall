@@ -714,7 +714,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         }
         $aniDom
             .stop()
-            .show()
+            //.show()
             //.css('position' , 'fixed')
             .delay(infoTime)
             .animate({
@@ -738,8 +738,8 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 //$(window).scrollTop( lastScrollTop );
                 // restart reverse
 
-				$('body').css({overflowY:'visible'});
-                nodeActions.setItemReversal( $dom );
+				$('body').css({overflowY:'scroll'});
+                //nodeActions.setItemReversal( $dom );
             });
 
         var pageParam = $dom.data('param');
@@ -1814,31 +1814,38 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         if(!$('.user-page').is(':visible')) {
             var mainWidth = winWidth;
             var slidWidth = 80;
-			$('body').css({overflowY:'visible'});
+			$('body').css({overflowY:'scroll'});
             $('.inner').fadeOut(400);
             $('.main').fadeOut(400);
             $('.count').css({left:-240}).delay(400).animate({left:80});
+			$('.user-page').find('.count-com').html('');
             $('.user-page').css({left:- mainWidth , width: mainWidth - slidWidth })
                 .delay(100)
                 .show()
                 .animate({left:slidWidth}, 600, 'easeOutQuart' , function(){
                     $(this).css('width' , 'auto');
                     // if first loaded , load user's nodes from server
-                    var user = $('.side').data('user');
-                    var param = {page:1,pagenum:20, uid:user.uid, orderby:'datetime', token: apiToken};
-                    var $countCom = $(this).find('.count-com');
-                    $countCom.data('param', param);
-                    if( !$countCom.children().length ){
-                        api.ajax('recent' , param , function( result ){
-                            nodeActions.inserNode( $countCom , result.data , true );
-                        });
-                    }
+					if($('.count-item.active').length > 0) {
+						$('.count-item.active').trigger('click');
+					}
+					else {
+						var user = $('.side').data('user');
+						var param = {page:1,pagenum:20, uid:user.uid, orderby:'datetime', token: apiToken};
+						var $countCom = $(this).find('.count-com');
+						$countCom.data('param', param);
+						//if( !$countCom.children().length ){
+						// fire every time
+						api.ajax('recent' , param , function( result ){
+							nodeActions.inserNode( $countCom , result.data , true );
+							// reversal
+							nodeActions.setItemWidth( $countCom );
+							nodeActions.setItemReversal( $countCom );
+						});
+					}
+                    //}
                     // remove inner section
                     $('.inner').remove();
 
-                    // reversal
-                    nodeActions.setItemWidth( $countCom );
-                    nodeActions.setItemReversal( $countCom );
                     isToggleIng = false;
                 });
             $('.close-user-page').fadeIn();
@@ -1867,7 +1874,8 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             $('.count-edit').fadeIn();
             $('.count-userinfo').removeClass('count-userinfo-edit');
         }
-        var type = data.type;
+		$('.count-item').removeClass('active');
+		$(this).addClass('active');
         var param = $('.count-com').data('param');
         param.page = 1;
         delete param.type;
@@ -2340,7 +2348,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     //-----------------------------------------------------------------------
     // init drag event for image upload
     // after image upload, init it's size to fix the window
-    // use raphael js to rotate, scale , and drag the image photo
+    // use raephael js to rotate, scale , and drag the image photo
     var transformMgr;
     LP.use('imgUtil' , function( imgUtil ){
         transformMgr = imgUtil;

@@ -50,7 +50,7 @@
 			</div>
 		</div>
 		<!--  -->
-		<div class="content clear">
+		<div class="content">
 			<div class="search-hd">{{_e.RESULTS}} #<span></span></div>
 			<div class="main"></div>
 			<div class="loading-list"></div>
