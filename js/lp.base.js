@@ -82,8 +82,14 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 LP.triggerAction('load_list');
             });
 //			//highlight the button
-//			var index = $.inArray(this, $(this).parent('.select-item').find('p'));
-//			console.log(index);
+			var index = $.inArray(this, $(this).parents('.select-item').find('p'));
+			var $selectBox = $(this).parents('.select-item').find('.select-box');
+			if(index != 0) {
+				$selectBox.addClass('active');
+			}
+			else {
+				$selectBox.removeClass('active');
+			}
 
         })
         .delegate('.editfi-country-option p' , 'click' , function(){
