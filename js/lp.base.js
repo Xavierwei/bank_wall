@@ -751,7 +751,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             LP.triggerAction('recent' , pageParam);
         }
 
-        changeUrl('' , {event:'back'});
+        changeUrl('/main' , {event:'back'});
 
     });
     
@@ -1845,7 +1845,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             changeUrl('/user' , { event: 'user' });
             resizeUserBox();
         } else {
-            changeUrl('' , { event: 'user' });
+            changeUrl('/main' , { event: 'user' });
             LP.triggerAction('close_user_page');
             // LP.triggerAction('load_list');
             // continue to res
@@ -2242,10 +2242,11 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 
     var currentHash = location.hash;
     var changeUrl = function( str , data ){
-		// if(history.pushState) {
-		// 	history.replaceState("", document.title, window.location.pathname
-		// 		+ window.location.search);
-		// }
+        // if( history.pushState ) {
+        //     history.replaceState( "", document.title, window.location.pathname
+        //         + window.location.search );
+        // }
+
         location.hash = '#' + str; // removed the !, don't need search by google
         if( history.pushState ){
             history.replaceState( data , '' , location.href ) ;
@@ -2289,12 +2290,12 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             LP.triggerAction( lnid > nid ? 'next' : 'prev' );
         } );
         //  ==> /nid/xx
-        addTransition( /^#?$/ , /^\/nid\/\d+/ , function( lastUrl , currUrl ){
+        addTransition( /^\/main$/ , /^\/nid\/\d+/ , function( lastUrl , currUrl ){
             var nid = currUrl.match(/\d+/)[0];
             $main.children('[data-d="nid=' + nid + '"]').trigger('click');
         } );
         //  /nid/xx ==> 
-        addTransition( /^\/nid\/\d+/ , /^#?$/ , function( lastUrl , currUrl ){
+        addTransition( /^\/nid\/\d+/ , /^\/main$/ , function( lastUrl , currUrl ){
             LP.triggerAction('back');
         } );
 
@@ -2762,7 +2763,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
      * Open the content via url hash id
      */
     var openByHash = function(){
-        changeUrl( location.hash.replace('#' , '') , {event:'load'} );
+        changeUrl( location.hash.replace('#' , '') || '/main' , {event:'load'} );
         //获取nid所在的页码，然后加载该list
         var hash = location.hash;
         var match;
