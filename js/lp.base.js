@@ -17,6 +17,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     var winWidth = $(window).width();
     var $listLoading = $('.loading-list');
     var aMonth;
+	var apiToken;
     var _e;
 
     // live for pic-item hover event
@@ -1942,7 +1943,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         api.ajax('countryList', function( result ){
             var htmls = [];
             $.each(result, function(index, item){
-                htmls.push( '<p data-id="' + item.country_id + '">' + item.country_name + '</p>' );
+                htmls.push( '<p data-id="' + item.country_id + '">' + _e[item.i18n] + '</p>' );
             });
             $countryList.append(htmls.join(''));
         });
@@ -2200,7 +2201,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     var refreshQuery = function( query ){
         // get search value
         var $searchInput = $('.search-ipt');
-        var param = { page: 1 , pagenum: 20 };
+        var param = { page: 1 , pagenum: 20, token: apiToken };
         param [ $searchInput.attr('name') ] = $.trim( $searchInput.val() ).replace( /^#+/ , '' );
 
         // get select options
@@ -2231,7 +2232,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         param.page = 1;
         delete param.country_id;
         $main.data('param',param);
-        console.log(param);
         $.each($('.select-item'), function(index, item){
             $(item).find('.select-option p').removeClass('selected');
             var defaultVal = $(item).find('.select-option p').eq(0).addClass('selected').html();
@@ -2335,12 +2335,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 
 
 
-    var getUrlHash = function() {
-        var hash = location.hash;
-        var path = hash.split('/');
-        path = path.splice(1,path.length-1);
-        return path;
-    }
 
     //-----------------------------------------------------------------------
     // init drag event for image upload
@@ -2418,9 +2412,11 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                     else {
                         $('.header .login').fadeIn();
                     }
-
-                    openByHash();
                 });
+
+				api.ajax('token' , function( result ){
+					apiToken = result.data;
+				});
 
 
                 var $countryList = $('.select-country-option-list');
@@ -2428,7 +2424,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 $countryList.append('<p data-api="recent">All</p>');
                 api.ajax('countryList', function( result ){
                     $.each(result, function(index, item){
-                        var html = '<p data-param="country_id=' + item.country_id + '" data-api="recent">' + item.country_name + '</p>';
+                        var html = '<p data-param="country_id=' + item.country_id + '" data-api="recent">' + _e[item.i18n] + '</p>';
                         $countryList.append(html);
                     });
                     LP.use(['jscrollpane' , 'mousewheel'] , function(){
@@ -2501,6 +2497,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         // When the init AJAX all finished, fadeOut the loading layout
         $(document).ajaxStop(function () {
             pageLoaded(1000);
+			openByHash();
             $(this).unbind('ajaxStop');
         });
 

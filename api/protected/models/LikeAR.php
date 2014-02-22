@@ -2,36 +2,36 @@
 
 class LikeAR extends CActiveRecord {
   
-  public $likecount = 0;
-  
-  
-  public function tableName() {
-    return "like";
-  }
-  
-  public function primaryKey() {
-    return "like_id";
-  }
-  
-  public static function model($class = __CLASS__) {
-    return parent::model($class);
-  }
-  
-  public function rules() {
-    return array(
-        array("nid", "NidExist"),
-        array("uid", "UidExist"),
-        array("datetime, like_id", "safe"),
-    );
-  }
-  
-  public function beforeSave() {
-    // 设置默认时间
-    if (!$this->getAttribute("datetime")) {
-      $this->setAttribute("datetime", time());
-    }
-    return TRUE;
-  }
+	public $likecount = 0;
+
+
+	public function tableName() {
+		return "like";
+	}
+
+	public function primaryKey() {
+		return "like_id";
+	}
+
+	public static function model($class = __CLASS__) {
+		return parent::model($class);
+	}
+
+	public function rules() {
+		return array(
+		    array("nid", "NidExist"),
+		    array("uid", "UidExist"),
+		    array("datetime, like_id", "safe"),
+		);
+	}
+
+	public function beforeSave() {
+		if (!$this->getAttribute("datetime")) {
+		  $this->setAttribute("datetime", time());
+		}
+
+		return true;
+	}
 
 	public function afterSave() {
 		$nid = $this->getAttribute("nid");
@@ -41,6 +41,9 @@ class LikeAR extends CActiveRecord {
 	}
 
 
+	/**
+	 * Set content of day
+	 */
 	public function saveTopOfDay($node) {
 		$str_datetime = $node->datetime;
 		$datetime = date('Y-m-d',$str_datetime);
@@ -81,6 +84,10 @@ class LikeAR extends CActiveRecord {
 		}
 	}
 
+
+	/**
+	 * Set content of month
+	 */
 	public function saveTopOfMonth($node) {
 		$str_datetime = $node->datetime;
 		$datetime = date('Y-m-1',$str_datetime);
@@ -120,53 +127,60 @@ class LikeAR extends CActiveRecord {
 	}
 
 
+	/**
+	 * Get node like status
+	 */
+	public function getNodeCount($nid) {
+		$query=new CDbCriteria;
+		$query->condition='nid=:nid';
+		$query->params=array(':nid'=>$nid);
+		$res=$this->count($query);
 
-	// Get node like count
-  public function getNodeCount($nid) {
-    $query=new CDbCriteria;
-    $query->condition='nid=:nid';
-    $query->params=array(':nid'=>$nid);
-    $res=$this->count($query);
+		return $res;
+	}
 
-    return $res;
-  }
+	/**
+	 * Get like counts
+	 */
+	public function getUserNodeCount($nid,$uid) {
+		$query=new CDbCriteria;
+		$query->addCondition('nid=:nid');
+		$query->params[':nid']=$nid;
+		$query->addCondition('uid=:uid');
+		$query->params[':uid']=$uid;
+		$res=$this->count($query);
 
-  // Get like count
-  public function getUserNodeCount($nid,$uid) {
-    $query=new CDbCriteria;
-    $query->addCondition('nid=:nid');
-    $query->params[':nid']=$nid;
-    $query->addCondition('uid=:uid');
-    $query->params[':uid']=$uid;
-    $res=$this->count($query);
+		return $res;
+	}
 
-    return $res;
-  }
-  
-  // 删除Like
-  public function deleteLike($uid, $nid) {
-    $query = new CDbCriteria();
-    $query->addCondition("nid = :nid");
-    $query->addCondition("uid = :uid");
-    $query->params[":uid"] = $uid;
-    $query->params[":nid"] = $nid;
-    $this->deleteAll($query);
+	/**
+	 * Delete like
+	 */
+	public function deleteLike($uid, $nid) {
+		$query = new CDbCriteria();
+		$query->addCondition("nid = :nid");
+		$query->addCondition("uid = :uid");
+		$query->params[":uid"] = $uid;
+		$query->params[":nid"] = $nid;
+		$this->deleteAll($query);
 		$node = NodeAR::model()->findByPk($nid);
 		$this->saveTopOfDay($node);
 		$this->saveTopOfMonth($node);
 		return;
-  }
-  
-  // get total like count 
-  public function totalLikeByUser($uid) {
-    $query = new CDbCriteria();
-    $query->select = array("count(*) AS likecount");
-    $query->addCondition("uid = :uid");
-    $query->params[":uid"] = $uid;
-    
-    $res = $this->find($query);
-    
-    return $res["likecount"];
-  }
+	}
+
+	/**
+	 * Get total like count
+	*/
+	public function totalLikeByUser($uid) {
+		$query = new CDbCriteria();
+		$query->select = array("count(*) AS likecount");
+		$query->addCondition("uid = :uid");
+		$query->params[":uid"] = $uid;
+
+		$res = $this->find($query);
+
+		return $res["likecount"];
+	}
 }
 

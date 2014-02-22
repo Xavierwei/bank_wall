@@ -1,76 +1,71 @@
 <?php
-
-
 class LikeController extends Controller {
-  
-  public function actionPost() {
-    $request = Yii::app()->getRequest();
-    
-    if (!$request->isPostRequest) {
-      $this->responseError("http error");
-    }
 
-    if(Yii::app()->user->isGuest) {
-      return $this->responseError(601);
-    }
-    
-    if (!Yii::app()->user->checkAccess("flagNode")) {
-      return $this->responseError("permission deny");
-    }
-    
-    $uid = Yii::app()->user->getId();
-    //$uid = UserAR::model()->find()->uid;
-    $nid = $request->getPost("nid");
-    
-    $likeAr = new LikeAR();
-    $likeAr->attributes = array(
-        "uid" => $uid,
-        "nid" => $nid
-    );
+	/**
+	 * Like
+	 */
+	public function actionPost() {
+		$request = Yii::app()->getRequest();
 
-    $currentUserLikeCount = $likeAr->getUserNodeCount($nid,$uid);
-    
-    // 验证/ 然后 保存
-    if ($likeAr->validate()) {
-      // 验证是否已投过
-      if($currentUserLikeCount == 0) {
-        $likeAr->save();
-        $this->responseJSON($likeAr->getNodeCount($nid), "success");
-      }
-      else
-      {
-        $this->responseError('Already Liked');
-      }
-    }
-    else {
-      $this->responseError(current(array_shift($likeAr->getErrors())));
-    }
-  }
-  
-  public function actionDelete() {
-    $request = Yii::app()->getRequest();
-    
-    if (!$request->isPostRequest) {
-      $this->responseError("http error");
-    }
+		if (!$request->isPostRequest) {
+			$this->responseError(101);
+		}
 
-    if(Yii::app()->user->isGuest) {
-      return $this->responseError(601);
-    }
-    
-    // 这里不需要检查权限，因为用户如果like了 就取消掉； 如果没有like过 就什么也不做
-//    if (!Yii::app()->user->checkAccess("cancelOwnLike", array("uid" => $uid))) {
-//      return $this->responseError("permission deny");
-//    }
-    
-    $uid = Yii::app()->user->getId();
-    //$uid = UserAR::model()->find()->uid;
-    $nid = $request->getPost("nid");
-    
-    $likeAr = new LikeAR();
-    $likeAr->deleteLike($uid, $nid);
+		if(Yii::app()->user->isGuest) {
+			return $this->responseError(601);
+		}
 
-    $this->responseJSON($likeAr->getNodeCount($nid), "success");
-  }
+		if (!Yii::app()->user->checkAccess("flagNode")) {
+			return $this->responseError(601);
+		}
+
+		$uid = Yii::app()->user->getId();
+		$nid = $request->getPost("nid");
+
+		$likeAr = new LikeAR();
+		$likeAr->attributes = array(
+		    "uid" => $uid,
+		    "nid" => $nid
+		);
+
+		$currentUserLikeCount = $likeAr->getUserNodeCount($nid,$uid);
+
+		if ($likeAr->validate()) {
+			// Check if already liked
+			if($currentUserLikeCount == 0) {
+				$likeAr->save();
+				$this->responseJSON($likeAr->getNodeCount($nid), "success");
+			}
+			else
+			{
+				$this->responseError('Already Liked');
+			}
+		}
+		else {
+			$this->responseError(current(array_shift($likeAr->getErrors())));
+		}
+	}
+
+	/**
+	 * Unlike
+	 */
+	public function actionDelete() {
+		$request = Yii::app()->getRequest();
+
+		if (!$request->isPostRequest) {
+		  $this->responseError("http error");
+		}
+
+		if(Yii::app()->user->isGuest) {
+		  return $this->responseError(601);
+		}
+		$uid = Yii::app()->user->getId();
+		$nid = $request->getPost("nid");
+
+		$likeAr = new LikeAR();
+		$likeAr->deleteLike($uid, $nid);
+
+		$this->responseJSON($likeAr->getNodeCount($nid), "success");
+	}
 }
 

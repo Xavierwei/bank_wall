@@ -6,7 +6,7 @@ class NodeController extends Controller {
 		$user = UserAR::model()->findByPk($uid);
 
 		if (!Yii::app()->user->checkAccess("addNode")) {
-			return $this->responseError("permission deny");
+			return $this->responseError(602);
 		}
 
 		if ($user) {
@@ -88,16 +88,16 @@ class NodeController extends Controller {
 	public function actionPut() {
 		$request = Yii::app()->getRequest();
 		if (!$request->isPostRequest) {
-			$this->responseError("http error");
+			$this->responseError(101);
 		}
 
 		$nid = $request->getPost("nid");
 		if (!$nid) {
-			$this->responseError("invalid params");
+			$this->responseError(101);
 		}
 
 		if (!Yii::app()->user->checkAccess("updateNode")) {
-			return $this->responseError("permission deny1");
+			return $this->responseError(602);
 		}
 
 		$node = NodeAR::model()->findByPk($nid);
@@ -173,7 +173,7 @@ class NodeController extends Controller {
 			}
 		}
 		else {
-			$this->responseError("node not found");
+			$this->responseError(101);
 		}
 	}
   
@@ -181,28 +181,23 @@ class NodeController extends Controller {
 		$request = Yii::app()->getRequest();
 
 		if (!$request->isPostRequest) {
-		  $this->responseError("http error");
+		  $this->responseError(101);
 		}
 
 		$nid = $request->getPost("nid");
 
 		if (!$nid) {
-		  $this->responseError("invalid params");
+		  $this->responseError(101);
 		}
 
 		$nodeAr = NodeAR::model()->findByPk($nid);
 		if(!$nodeAr) {
-		  $this->responseError("invalid params ( not found node)");
+		  $this->responseError(101);
 		}
 
 		// 权限检查
 		if(!Yii::app()->user->checkAccess("deleteOwnNode", array("uid" => $nodeAr->uid))) {
-		if(!Yii::app()->user->checkAccess("deleteAnyNode", array("country_id" => $nodeAr->country_id))) {
-		  return $this->responseError("permission deny1");
-		}
-		else {
-		  return $this->responseError("permission deny2");
-		}
+			return $this->responseError(602);
 		}
 
 		$nodeAr->deleteByPk($nodeAr->nid);
@@ -230,6 +225,7 @@ class NodeController extends Controller {
 	public function actionList() {
 		$request= Yii::app()->getRequest();
 
+		$token      = $request->getParam("token");
 		$type		= $request->getParam("type");
 		$country_id	= $request->getParam("country_id");
 		$uid		= $request->getParam("uid");
@@ -252,6 +248,11 @@ class NodeController extends Controller {
 
 		if (!$pagenum) {
 			$pagenum = 10;
+		}
+
+		$session_token =  Yii::app()->session['token'];
+		if($token != $session_token) {
+			$this->responseError(102);
 		}
 
 		// Build Query
@@ -408,7 +409,6 @@ class NodeController extends Controller {
 		$query->offset = ($page - 1 ) * $pagenum;
 		$query->with = array("user", "country");
 
-		//TODO:: 搜索功能 现在是全文搜索，如果效果不好 可能改为分词搜索 (需要更多查询表)
 		// 集成 keyword 查询, 查询 description 中的关键字
 		if ($keyword) {
 			$query->addSearchCondition("description", $keyword);
@@ -426,13 +426,13 @@ class NodeController extends Controller {
 		$commentAr = new CommentAR();
 		foreach ($res as $node) {
 			$data = $node->attributes;
-			$data["description"] = $node->description;
-			$data["likecount"] = $node->likecount;
-			$data["commentcount"] = $commentAr->totalCommentsByNode($node->nid);
-			$data["user"] = $node->user ? $node->user->attributes : array();
-			$data["country"] = $node->country ? $node->country->attributes: array();
-			$data["user_liked"] = $node->user_liked;
-			$data["user_flagged"] = $node->user_flagged;
+			$data["description"]    = $node->description;
+			$data["likecount"]      = $node->likecount;
+			$data["commentcount"]   = $commentAr->totalCommentsByNode($node->nid);
+			$data["user"]           = $node->user ? $node->user->attributes : array();
+			$data["country"]        = $node->country ? $node->country->attributes: array();
+			$data["user_liked"]     = $node->user_liked;
+			$data["user_flagged"]   = $node->user_flagged;
 			if($uid && isset($node->user['uid']) && Yii::app()->user->getId() == $node->user['uid']) {
 				$data["mynode"] = TRUE;
 			}
@@ -449,190 +449,11 @@ class NodeController extends Controller {
 		$this->responseJSON($retdata, "success");
 	}
   
-  // 返回某个  nid 的 前10条和后10条
-  // 这个里支持的参数是
-  // @param type
-  // @param country_id
-  // @param uid 
-  // @param orderby  
-  // @param nid
-  public function actionGetNeighbor() {
-    $request = Yii::app()->getRequest();
-    
-    $type = $request->getParam("type");
-    $country_id = $request->getParam("country_id");
-    $uid = $request->getParam("uid");
-    $nid = $request->getParam("nid");
-    $orderby = $request->getParam("orderby");
-    
-    $nodeAr = new NodeAR();
-    
-    if (!$nid) {
-      return $this->responseError("invalid params");
-    }
-    
-    // 构造查询条件
-    $query = new CDbCriteria();
-    if ($type) {
-      $query->addCondition("type = :type");
-      $query->params[":type"] = $type;
-    }
-    
-    if ($country_id) {
-      $query->addCondition("country_id = :country_id");
-      $query->params[":country_id"] = $country_id;
-    }
-    
-    if ($uid) {
-      $query->addCondition("uid = :uid");
-      $query->params[":uid"] = $uid;
-    }
-    
-    if ($orderby) {
-      $order = " ";
-      if ($orderby == "datetime") {
-          $order .= " ".$nodeAr->getTableAlias().".datetime DESC";
-          $query->order = $order;
-      }
-      else if ($orderby == "like") {
-        // orderby like 比较复杂， 需要用到join 和 group
-        // 还需要增加一个额外的 SELECT 
-        $likeAr = new LikeAR();
-        $query->select = "*". ", count(like.nid) AS likecount";
-        $query->join = 'left join `like` '.' on '.$likeAr->getTableAlias() .".nid = ". $nodeAr->getTableAlias().".nid";
-        $query->group ="`like`.nid";
-        $order .= "`likecount` DESC";
-        
-        $query->order = $order;
-      }
-      else if ($orderby == "random") {
-          // 随机查询需要特别处理
-          // 如下， 首先随机出 $pagenum 个数的随机数，大小范围在 max(nid), min(nid) 之间
-          // 再用 nid in (随机数) 去查询
-          $sql = "SELECT max(nid) as max, min(nid) as min FROM node";
-          $ret = Yii::app()->db->createCommand($sql);
-          $row = $ret->queryRow();
-          $nids = array();
-          $max_run = 0;
-          while (count($nids) < $pagenum && $max_run < $pagenum * 10) {
-              $max_run ++;
-              $nid = mt_rand($row["min"], $row["max"]);
-              if (!isset($nids[$nid])) {
-                  $cond = array();
-                  foreach ($params as $k => $v) {
-                      $cond[str_replace(":", "", $k)] = $v;
-                  }
-                  $node = NodeAR::model()->findByPk($nid);
-                  if (!$node) {
-                    continue;
-                  }
-                  $isNotWeWant = FALSE;
-                  foreach ($cond as $k => $v) {
-                      if($node->{$k} != $v) {
-                          $isNotWeWant = TRUE;
-                          break;
-                      }
-                  }
-                  if ($isNotWeWant) {
-                          continue;
-                  }
-                  $nids[$nid] = $nid;
-              }
-          }
-          $query->addInCondition("nid", $nids, "AND");
-      }
-    }
-    
-    $query->addCondition($nodeAr->getTableAlias().".status = :status", "AND");
-    $query->params[":status"] =  NodeAR::PUBLICHSED;
-    
-    $query->limit = 10;
 
-    $query->with = array("user", "country");
-    
-    // 在这里 要查询后当前 nid 的前10条和后10条, 要查询2次
-    // 前10条
-    $query1 = clone $query;
-    $query1->addCondition($nodeAr->getTableAlias(). '.nid < :nid');
-    $query1->params[":nid"] = $nid;
-    
-    
-    // 后10条
-    $query2 = clone $query;
-    $query2->addCondition($nodeAr->getTableAlias().'.nid > :nid');
-    $query2->params[":nid"] = $nid;
-    
-    
-    // 构造完后 查询结果
-    $leftRet = array();
-    $res = NodeAR::model()->findAll($query1);
-    foreach ($res as $node) {
-        $data = $node->attributes;
-        $data["likecount"] = $node->likecount;
-        $data["user"] = $node->user ? $node->user->attributes : array();
-        $data["country"] = $node->country ? $node->country->attributes: array();
-        $data["user_liked"] = $node->user_liked;
-        $data["like"] = $node->like;
-        $leftRet[] = $data;
-    }
-    
-    $rightRet = array();
-    $res = NodeAR::model()->findAll($query2);
-    foreach ($res as $node) {
-        $data = $node->attributes;
-        $data["likecount"] = $node->likecount;
-        $data["user"] = $node->user ? $node->user->attributes : array();
-        $data["country"] = $node->country ? $node->country->attributes: array();
-        $data["user_liked"] = $node->user_liked;
-        $data["like"] = $node->like;
-        $rightRet[] = $data;
-    }
-    
-    // current nid
-    $node = NodeAR::model()->with(array("user", "country"))->findByPk($nid);
-    $nodedata = $node->attributes;
-    $nodedata["country"] = $node->country? $node->country->attributes : array();
-    $nodedata["user"] = $node->user? $node->user->attributes : array();
-    
-    $this->responseJSON(array( "left" => $rightRet,"right" => $leftRet, "node" => $nodedata), "success");
-  }
-  
-  public function actionGetbyid() {
-    $request = Yii::app()->getRequest();
-    $nid = $request->getParam("nid");
-    
-    if (!$nid) {
-      return $this->responseError("invalid params");
-    }
-    
-    $node = NodeAR::model()->with(array("user", "country"))->findByPk($nid);
-    
-    $user = UserAR::model()->findByPk(Yii::app()->user->getId());
-    // 要察看unpublish 和 blocked 的node 需要权限
-    if ($node->status == NodeAR::UNPUBLISHED || $node->status == NodeAR::BLOCKED) {
-      if (!$user) {
-        return $this->responseError("permission deny");
-      }
-      if (($user->role == UserAR::ROLE_COUNTRY_MANAGER && $user->country_id == $node->country_id) || $user->role == UserAR::ROLE_ADMIN) {
-        //nothing todo
-      }
-      else {
-        return $this->responseError("permission deny");
-      }
-    }
-    
-    $retdata = $node->attributes;
-    $retdata["country"] = $node->country ? $node->country->attributes : array();
-    $user = $node->user->attributes;
-    $retdata["user"] = $node->user ? $node->user->getOutputRecordInArray($user): array();
-
-
-    $this->responseJSON($retdata, "success");
-  }
 
 
   
-  public function actionPostByMail() {
+	public function actionPostByMail() {
 		try {
 			$request = Yii::app()->getRequest();
 			if (!$request->isPostRequest) {
@@ -644,10 +465,10 @@ class NodeController extends Controller {
 			if (!$user) {
 				$user = UserAR::model()->findByAttributes(array("personal_email" => $userEmail));
 			}
-      if (!$desc) {
-        $ret = 'Please write the subject use for description';
-        return $this->responseJSON(null, $ret, false);
-      }
+			if (!$desc) {
+				$ret = 'Please write the subject use for description';
+				return $this->responseJSON(null, $ret, false);
+			}
 			if (!$user) {
 				$ret = 'Debug Message (To be delete when live): your account not in our database'; //TODO: delete when live
 				return $this->responseJSON(null, $ret, false); //if the user not in our database then return nothing
@@ -664,8 +485,6 @@ class NodeController extends Controller {
 				return $this->responseJSON(null, $ret, false);
 			}
 			else {
-			}
-			if ($uploadFile) {
 				//$mime = $uploadFile->getType();
 				exec("/usr/bin/file -b --mime {$uploadFile->tempName}", $output, $status);
 				$mimeArray = explode(';',$output[0]);
@@ -701,13 +520,14 @@ class NodeController extends Controller {
 					return $this->responseJSON(false, $ret, false);
 				}
 			}
+
 			$node = new NodeAR();
-			$node->uid = $user->uid;
-			$node->country_id = $user->country_id;
-			$node->type = $type;
-			$node->status = 1; // The default status is blocked when the content from email
-			$node->file = $node->saveUploadedFile($uploadFile);
-			$node->description = htmlspecialchars($desc);
+			$node->uid          = $user->uid;
+			$node->country_id   = $user->country_id;
+			$node->type         = $type;
+			$node->status       = 1; // The default status is blocked when the content from email
+			$node->file         = $node->saveUploadedFile($uploadFile);
+			$node->description  = htmlspecialchars($desc);
 
 			if ($node->validate()) {
 				$success = $node->save();
@@ -718,7 +538,6 @@ class NodeController extends Controller {
 			else {
 				return $this->responseJSON(false, null, false);
 			}
-
 			//success
 			$ret = $begin.'Your '.$type.' is success submit, after approved, you can visit the '.$type.' via this url:\nhttp://64.207.184.106/sgwall/#/nid/'.$node->nid.$end;
 			return $this->responseJSON(true, $ret, false);
@@ -726,6 +545,6 @@ class NodeController extends Controller {
 		catch (Exception $e) {
 			return $this->responseJSON(false, $e->getMessage(), false);
 		}
-  }
+	}
 }
 
