@@ -1,5 +1,12 @@
 # ERROR CODE
 
+## Global
+#### 101
+invalid params
+
+#### 102
+invalid token
+
 ## USER
 
 #### 601

@@ -15,12 +15,12 @@ class CountryController extends Controller {
       $retdata[] = $country->attributes;
     }
 
-		foreach($retdata as $country) {
-			echo 'msgid "'.str_replace(' ','_',strtoupper($country['country_name'])).'"<br/>';
-			echo 'msgstr "'.$country['country_name'].'"<br/><br/>';
-		}
+//		foreach($retdata as $country) {
+//			echo 'msgid "'.str_replace(' ','_',strtoupper($country['country_name'])).'"<br/>';
+//			echo 'msgstr "'.$country['country_name'].'"<br/><br/>';
+//		}
 
-    //$this->responseJSON($retdata, "success");
+    $this->responseJSON($retdata, "success");
   }
   
   public function actionPost() {
