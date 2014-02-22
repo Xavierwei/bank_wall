@@ -465,6 +465,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         var docHeight = $(document).height();
         var winHeight = document.body.clientHeight;
         if( docHeight - winHeight - st < 100 ){
+            clearTimeout(_scrollTimeout);
             _scrollTimeout = setTimeout(function(){
                 // fix main element
                 // it must visible and in main element has unreversaled node
