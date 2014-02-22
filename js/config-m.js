@@ -70,6 +70,7 @@ seajs.config({
     , eve : '../raphael/eve.js'
     , api4sjht: '../api4sjht'
     , util: '../util/util'
+    , imgUtil: '../util/imgHelper'
     , panel: "../panel/panel"
     , autoComplete: '../autocomplete/autoComplete'
     , validator: '../validator/validator'

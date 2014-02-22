@@ -2345,7 +2345,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     //-----------------------------------------------------------------------
     // init drag event for image upload
     // after image upload, init it's size to fix the window
-    // use raephael js to rotate, scale , and drag the image photo
+    // use raphael js to rotate, scale , and drag the image photo
     var transformMgr;
     LP.use('imgUtil' , function( imgUtil ){
         transformMgr = imgUtil;
