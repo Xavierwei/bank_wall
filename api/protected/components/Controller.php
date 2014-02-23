@@ -42,8 +42,6 @@ class Controller extends CController
     public function responseError($message) {
          $this->_renderjson($this->wrapperDataInRest(NULL, $message, TRUE));
     }
-    
-
   
     public function randomString($length = 10) {
       $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -66,17 +64,22 @@ class Controller extends CController
       
       // 每个用户一个Cache
       // 匿名用户的 id 是一样的，所以共享同一个缓存
-      $key .= "_ui_". Yii::app()->user->getId();
+      $uid = Yii::app()->user->getId();
+      if ($uid) {
+        $key .= "_uid_". Yii::app()->user->getId();
+      }
 
       $keys = Yii::app()->cache->get("keys");
       if ($keys == "") {
         $keys = array();
       }
 
+      $key = $prefix. $key;
+
       $keys[$key] = $key;
       Yii::app()->cache->set("keys" ,($keys));
       
-      return $prefix.$key;
+      return $key;
     }
     
     // 清理缓存
@@ -86,7 +89,19 @@ class Controller extends CController
       foreach ($keys as $key) {
         // 因为是搜索前缀，所以只需要判断是不是第一个位置就OK
         if (strpos($key, $prefix) == 0) {
-          Yii::app()->cache->delete($key);
+          $uid = Yii::app()->user->getId();
+          if ($uid ) {
+            // 如果用户登录了， 还需要判断缓存是否当前用户
+            if (strrpos($key, "uid_". $uid) !== FALSE) {
+              Yii::app()->cache->delete($key);
+            }
+          }
+          // 如果清除缓存时候 用户没有登录，就直接清除
+          else {
+            if (strrpos($key, "_uid_") === FALSE) {
+              Yii::app()->cache->delete($key);
+            }
+          }
         }
       }
       
