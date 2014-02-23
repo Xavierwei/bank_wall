@@ -63,6 +63,10 @@ class Controller extends CController
       if ($key == "") {
         $key = Yii::app()->controller->id."_". Yii::app()->controller->action->id;
       }
+      
+      // 每个用户一个Cache
+      // 匿名用户的 id 是一样的，所以共享同一个缓存
+      $key .= "_ui_". Yii::app()->user->getId();
 
       $keys = Yii::app()->cache->get("keys");
       if ($keys == "") {
