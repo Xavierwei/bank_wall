@@ -22,3 +22,16 @@ $metadata['https://openidp.feide.no'] = array(
 	'certFingerprint'      => 'c9ed4dfb07caf13fc21e0fec1572047eb8a7a4cb'
 );
 
+
+/*
+ * Live site IdP
+ */
+$metadata['https://dafelx01.dns21.socgen:1443/sgwall/'] = array(
+	'name' => array(
+		'en' => 'SGIdP',
+		'fr' => 'SGIdP',
+	),
+	'description'          => 'SGIdP',
+	'SingleSignOnService'  => 'https://dafelx01.dns21.socgen:1443/sgwall/AccueilAuth/IdPAccess',
+	'certificate'      => 'server.crt'
+);

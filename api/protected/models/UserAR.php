@@ -94,7 +94,7 @@ class UserAR extends CActiveRecord{
     return  TRUE;
   }
 
-	public function createSAMLRegister($attributes) {
+	public function createSAMLRegisterTest($attributes) {
 		$newUser = new UserAR();
 		$newUser->datetime = time();
 		$newUser->name = $attributes['uid'][0];
@@ -113,6 +113,27 @@ class UserAR extends CActiveRecord{
 			return FALSE;
 		}
 	}
+
+	public function createSAMLRegister($attributes) {
+		$newUser = new UserAR();
+		$newUser->datetime = time();
+		$newUser->name = $attributes['uid'][0];
+		$newUser->company_email = $attributes['sggroupid'][0];
+		$newUser->sso_id = md5($attributes['uid'][0]);
+		$newUser->firstname = $attributes['givenName'][0];
+		$newUser->lastname = $attributes['sn'][0];
+		$newUser->role = self::ROLE_AUTHEN;
+		$newUser->country_id = 30;
+
+		if ($newUser->validate()) {
+			$newUser->save();
+			return $newUser;
+		}
+		else {
+			return FALSE;
+		}
+	}
+
   
   public function postNewUser() {
     $this->attributes = $_POST;

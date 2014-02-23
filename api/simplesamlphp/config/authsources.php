@@ -29,6 +29,20 @@ $config = array(
 		'discoURL' => NULL,
 	),
 
+	'live-sp' => array(
+		'saml:SP',
+
+		// The entity ID of this SP.
+		// Can be NULL/unset, in which case an entity ID is generated based on the metadata URL.
+		'entityID' => 'https://dafelx01.dns21.socgen:1443/sgwall/',
+
+		// The entity ID of the IdP this should SP should contact.
+		// Can be NULL/unset, in which case the user will be shown a list of available IdPs.
+		'idp' => 'https://dafelx01.dns21.socgen:1443/sgwall/',
+		'privatekey' => 'saml.pem',
+		'certificate' => 'saml.crt',
+	),
+
 
 	/*
 	'example-sql' => array(

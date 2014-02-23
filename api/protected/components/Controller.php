@@ -114,9 +114,9 @@ class Controller extends CController
       $controllerName = Yii::app()->controller->id;
       $actioName = Yii::app()->controller->action->id;
       if (!$request->isPostRequest) {
-        
+
         //判断是否需要cache
-        
+
         // api: node/list
         if ($controllerName == "node" && $actioName == "list") {
           $key = $this->cacheKey();
@@ -128,7 +128,7 @@ class Controller extends CController
           $key = $this->cacheKey();
           Yii::app()->cache->set($key, $data, 60 * 3);
         }
-        
+
         // 其他需要缓存的情况可以写在后面
       }
       $this->_renderjson($this->wrapperDataInRest($data, $message, FALSE, $ext));
