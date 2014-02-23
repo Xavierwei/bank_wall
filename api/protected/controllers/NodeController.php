@@ -68,6 +68,10 @@ class NodeController extends Controller {
 				$retdata['user'] = $nodeAr->user->attributes;
 				$retdata['country'] = $nodeAr->country->attributes;
 
+
+				$this->cleanCache("node_")
+					->cleanCache("comment_");
+				
 				if($isIframe){
 					$this->render('post', array(
 						'code'=>1
@@ -75,6 +79,7 @@ class NodeController extends Controller {
 				} else {
 					$this->responseJSON($retdata, "success");
 				}
+
 			}
 			else {
 				$this->responseError($nodeAr->getErrors());
