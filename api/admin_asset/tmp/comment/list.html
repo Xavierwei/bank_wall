@@ -8,7 +8,7 @@
         </div>
 
     </div>
-    <ul class="comments-list">
+    <ul class="comments-list {{hideList}}">
         <li ng-repeat="comment in comments" class="status-{{comment.status}}">
             <div class="image">
                 <img ng-click="open(comment.node)" ng-src="{{comment.node.file | thumbnail}}" width="100" height="100" />
@@ -24,10 +24,15 @@
 
             <div class="black-overlay"></div>
             <a href="javascript:void(0)" class="switch switch-{{comment.status}}" ng-click="updateStatus(comment)"></a>
-
 	        <div ng-show="comment.flagcount" class="flag flag{{comment.flagcount}}">Flagged: {{comment.flagcount}}</div>
 	        <a href="../../#/nid/{{comment.nid}}" class="open" target="_blank">Open</a>
         </li>
     </ul>
-    <div ng-show="error">{{error}}</div>
+	<div class="clear"></div>
+	<div class="list-no-result" ng-show="noResult">No results under this filter.</div>
+	<div class="list-loading" ng-show="hideList"></div>
+	<div class="pager">
+		<div class="page-prev btn-lg btn-default" ng-click="prevPage()" ng-hide="first">Prev</div>
+		<div class="page-next btn-lg btn-default" ng-click="nextPage()" ng-hide="end">Next</div>
+	</div>
 </div>

@@ -1,13 +1,16 @@
 SGWallAdminController
     .controller('CommentCtrList', function($scope, CommentService, $modal, $log, FlagService) {
+
+		$scope.hideList = '';
+		$scope.noResult = false;
         var params = {};
         $scope.filter.status = 'all';
+		$scope.page = 1;
         params.shownode = true;
         params.showall = true;
         params.order = 'DESC';
-//        CommentService.list(params, function(data) {
-//            $scope.comments = data;
-//        });
+		params.pagenum = 16;
+
 
         $scope.$watch('filter.status', function() {
             if($scope.filter.status != 'all') {
@@ -18,10 +21,19 @@ SGWallAdminController
                 params.showall = true;
                 delete params.status;
             }
-            CommentService.list(params, function(data){
-                $scope.comments = data;
-            });
+
+			$scope.page = 1;
+			params.page = $scope.page;
+			loadComment(params);
         });
+
+		$scope.$watch('page', function() {
+			params.page = $scope.page;
+			if($scope.page == 1) {
+				$scope.first = true;
+			}
+			loadComment(params);
+		});
 
         // Switch node status
         $scope.updateStatus = function(comment) {
@@ -43,35 +55,36 @@ SGWallAdminController
             alert(comment.cid);
         }
 
+		$scope.nextPage = function() {
+			$scope.page ++;
+			$scope.first = false;
+		}
 
-        // Delete comment
-        $scope.delete = function(comment) {
-            var modalInstance = $modal.open({
-                templateUrl: 'tmp/dialog/delete.html',
-                controller: ConfirmModalCtrl
-            });
+		$scope.prevPage = function() {
+			$scope.page --;
+			$scope.end = false;
+		}
 
-            modalInstance.result.then(function () {
-                $scope.comments.splice($scope.comments.indexOf(comment), 1);
-                CommentService.delete(comment);
-                $log.info('Modal confirmed at: ' + new Date());
-            }, function () {
-                $log.info('Modal dismissed at: ' + new Date());
-            });
 
-        }
-
-        // Flag node - TODO: this is for testing
-        $scope.flag = function(comment) {
-            FlagService.post('comment', comment.cid, function(data){
-            });
-        }
-
-        // Clean Flag node - TODO: this is for testing
-        $scope.cleanFlag = function(comment) {
-            FlagService.delete('comment', comment.cid, function(data){
-            });
-        }
+		function loadComment(params) {
+			$scope.hideList = 'hide-list';
+			CommentService.list(params, function(data){
+				$scope.hideList = '';
+				if(data.length == 0) {
+					$scope.noResult = true;
+				}
+				else {
+					$scope.noResult = false;
+				}
+				if(data.length < params.pagenum) {
+					$scope.end = true;
+				}
+				else {
+					$scope.end = false;
+				}
+				$scope.comments = data;
+			});
+		}
     })
 
     .controller('CommentCtrFlagged', function($scope, CommentService, $modal, $log, FlagService) {
@@ -83,46 +96,6 @@ SGWallAdminController
         $scope.update = function(comment) {
             alert(comment.cid);
         }
-
-
-        // Delete comment
-        $scope.delete = function(comment) {
-            var modalInstance = $modal.open({
-                templateUrl: 'tmp/dialog/delete.html',
-                controller: ConfirmModalCtrl
-            });
-
-            modalInstance.result.then(function () {
-                $scope.comments.splice($scope.comments.indexOf(comment), 1);
-                CommentService.delete(comment);
-                $log.info('Modal confirmed at: ' + new Date());
-            }, function () {
-                $log.info('Modal dismissed at: ' + new Date());
-            });
-
-        }
     })
 
-    .controller('CommentCtrPost', function($scope, $routeParams, CommentService) {
-        $scope.save = function(comment) {
-            comment.nid = $routeParams.nid;
-            CommentService.post(comment, function(){
-
-            });
-        }
-    })
-
-    .controller('CommentCtrEdit', function($scope, $routeParams, CommentService) {
-        CommentService.getById($routeParams.cid, function(data) {
-            $scope.comment = data;
-        });
-
-
-        $scope.update = function(comment) {
-            comment.cid = $routeParams.cid;
-            CommentService.update(comment, function(){
-
-            });
-        }
-    });
 
