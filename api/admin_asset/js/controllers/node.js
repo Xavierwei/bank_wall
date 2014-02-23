@@ -2,15 +2,16 @@ SGWallAdminController
     .controller('NodeCtrList', function($scope, $http, $modal, $log, $routeParams, NodeService, LikeService, FlagService, ASSET_FOLDER) {
 
 		$scope.hideList = '';
+		$scope.noResult = false;
         // Get node list by recent
         var params = {};
         $scope.filter.status = 'all';
         $scope.filter.country = {};
         $scope.filter.country.country_name = 'All Country';
+		$scope.page = 1;
 		params.orderby = "datetime";
-		params.pagenum = 50;
+		params.pagenum = 20;
 		params.token = apiToken;
-
 
 		$scope.$watch('filter.type + filter.country_id + filter.status + filter.country.country_id', function() {
             params.type = $scope.filter.type;
@@ -30,16 +31,24 @@ SGWallAdminController
 			if($scope.filter.status != undefined) {
 				params.status = $scope.filter.status;
 			}
-			$scope.hideList = 'hide-list';
-			NodeService.list(params, function(data){
-				$scope.hideList = '';
-				$scope.nodes = data;
-			});
+
+			$scope.page = 1;
+			params.page = $scope.page;
+			loadNodes(params);
 		});
+
+
+		$scope.$watch('page', function() {
+			params.page = $scope.page;
+			if($scope.page == 1) {
+				$scope.first = true;
+			}
+			loadNodes(params);
+		});
+
 
         // Switch node status
         $scope.updateStatus = function(node, status) {
-
             var newNode = angular.copy(node);
 			if(node.status == 0) {
 				newNode.status = 1;
@@ -62,9 +71,9 @@ SGWallAdminController
             }
             params.hashtag = $scope.filter.hashtag;
 			params.email = $scope.filter.email;
-            NodeService.list(params, function(data){
-                $scope.nodes = data;
-            });
+			$scope.page = 1;
+			params.page = $scope.page;
+			loadNodes(params);
         }
 
 
@@ -81,64 +90,38 @@ SGWallAdminController
 		}
 
 
+		$scope.nextPage = function() {
+			$scope.page ++;
+			$scope.first = false;
+		}
+
+		$scope.prevPage = function() {
+			$scope.page --;
+			$scope.end = false;
+		}
 
 
 
-        // Delete node
-        $scope.delete = function(node) {
-            var modalInstance = $modal.open({
-                templateUrl: ASSET_FOLDER + 'tmp/dialog/delete.html',
-                controller: ConfirmModalCtrl
-            });
-            modalInstance.result.then(function () {
-                $scope.nodes.splice($scope.nodes.indexOf(node), 1);
-                NodeService.delete(node);
-                $log.info('Node deleted at: ' + new Date());
-            }, function () {
-                $log.info('Modal dismissed at: ' + new Date());
-            });
-        }
+		function loadNodes(params) {
+			$scope.hideList = 'hide-list';
+			NodeService.list(params, function(data){
+				$scope.hideList = '';
+				if (data.length == 0 && $scope.page == 1) {
+					$scope.noResult = true;
+				}
+				else {
+					$scope.noResult = false;
+				}
+				if(data.length < params.pagenum) {
+					$scope.end = true;
+				}
+				else {
+					$scope.end = false;
+				}
+				$scope.nodes = data;
+			});
+		}
 
-        // Like node - TODO: this is for testing
-        $scope.like = function(node) {
-            //if(!node.user_liked) {
-                LikeService.post(node.nid, function(data){
-                    node.user_liked = !node.user_liked;
-                });
-            //}
-        }
-
-        // Unlike node - TODO: this is for testing
-        $scope.unlike = function(node) {
-            if(node.user_liked) {
-                LikeService.delete(node.nid, function(data){
-                    node.user_liked = !node.user_liked;
-                });
-            }
-        }
-
-        // Flag node - TODO: this is for testing
-        $scope.flag = function(node) {
-            FlagService.post('node', node.nid, function(data){
-            });
-        }
-
-        // Clean Flag node - TODO: this is for testing
-        $scope.cleanFlag = function(node) {
-            FlagService.delete('node', node.nid, function(data){
-            });
-        }
-
-        // Next
-        $scope.next = function() {
-            $http.get('json/node/recent2.json')
-                .success(function(data) {
-                    $scope.nodes = data.data;
-                })
-                .error(function() {
-                    $scope.error = "加载失败";
-                });
-        }
     })
 
 
@@ -185,62 +168,6 @@ SGWallAdminController
 			}
         }
 
-        // Delete node
-        $scope.delete = function(node) {
-            var modalInstance = $modal.open({
-                templateUrl: 'tmp/dialog/delete.html',
-                controller: ConfirmModalCtrl
-            });
-            modalInstance.result.then(function () {
-                $scope.nodes.splice($scope.nodes.indexOf(node), 1);
-                NodeService.delete(node);
-                $log.info('Node deleted at: ' + new Date());
-            }, function () {
-                $log.info('Modal dismissed at: ' + new Date());
-            });
-        }
 
     })
 
-    .controller('NodeCtrPost',
-    function($scope, $http) {
-
-        // Update node
-        $scope.post = function(node) {
-            $http.post('http://localhost:8888/bank_wall/api/index.php?r=user/login',{company_email:user.company_email, password:user.password},{headers:'object'})
-                .success(function(data) {
-                })
-                .error(function() {
-                });
-        }
-    })
-
-    .controller('NodeCtrEdit',
-    function($scope, $http, NodeService, $routeParams) {
-
-        NodeService.getById($routeParams.nid, function(data){
-            $scope.node = data;
-        });
-
-        // Update node
-        $scope.update = function(node) {
-            NodeService.update(node);
-        }
-
-        // Delete node
-        $scope.delete = function(node) {
-            alert(node.nid);
-        }
-
-    })
-
-    .controller('NodeCtrNeighbor',
-    function($scope, $http, NodeService, $routeParams) {
-
-        NodeService.getNeighbor($routeParams.nid, function(data){
-            $scope.node = data;
-        });
-
-
-
-    })

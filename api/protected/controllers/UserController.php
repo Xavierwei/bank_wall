@@ -371,7 +371,7 @@ class UserController extends Controller {
 		$as->requireAuth();
 		$attributes = $as->getAttributes();
 		if(!$attributes) {
-			return $this->responseError("login failed");
+			return $this->responseError("login saml failed");
 		}
 
 		// Create the new user if user doesn't exist in database
@@ -384,7 +384,8 @@ class UserController extends Controller {
 
 		// Save user status in session
 		if (!$userIdentify->authenticate()) {
-			$this->responseError("login failed");
+			echo md5($attributes['eduPersonTargetedID'][0]);
+			$this->responseError("login failed.");
 		}
 		else {
 			Yii::app()->user->login($userIdentify);

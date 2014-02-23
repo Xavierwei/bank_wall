@@ -70,4 +70,11 @@
 	        <div class="clear"></div>
 	    </li>
 	</ul>
+	<div class="clear"></div>
+	<div class="list-no-result" ng-show="noResult">No results under this filter.</div>
+	<div class="list-loading" ng-show="hideList"></div>
+	<div class="pager">
+		<div class="page-prev btn-lg btn-default" ng-click="prevPage()" ng-hide="first">Prev</div>
+		<div class="page-next btn-lg btn-default" ng-click="nextPage()" ng-hide="end">Next</div>
+	</div>
 </div>
