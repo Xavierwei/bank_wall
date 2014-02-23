@@ -5,7 +5,88 @@ class UserController extends Controller {
 	public function actionIndex() {
 		return $this->responseError(101);
 	}
-  
+
+	/**
+	 * SAML SSO Login
+	 * TODO: Need change to live SAML IdP
+	 */
+	public function actionSAMLLogin() {
+		// TODO: TESTING
+		$as = new SimpleSAML_Auth_Simple('default-sp');
+		// TODO: LIVE
+		//$as = new SimpleSAML_Auth_Simple('live-sp');
+
+		$as->requireAuth();
+		$attributes = $as->getAttributes();
+		if(!$attributes) {
+			return $this->responseError("login saml failed");
+		}
+
+
+		// TODO: TESTING
+		// Create the new user if user doesn't exist in database
+		if( !$user = UserAR::model()->findByAttributes(array('company_email'=>$attributes['eduPersonPrincipalName'][0])) ) {
+			$user = UserAR::model()->createSAMLRegisterTest($attributes);
+		}
+
+		// Identity local site user data
+		$userIdentify = new UserIdentity($user->company_email, $attributes['eduPersonTargetedID'][0]);
+
+		// Save user status in session
+		if (!$userIdentify->authenticate()) {
+			echo md5($attributes['eduPersonTargetedID'][0]);
+			$this->responseError("login failed.");
+		}
+		else {
+			Yii::app()->user->login($userIdentify);
+			$this->redirect('../../index');
+		}
+
+
+
+		// TODO: LIVE
+		// Create the new user if user doesn't exist in database
+//		if( !$user = UserAR::model()->findByAttributes(array('company_email'=>$attributes['uid'][0])) ) {
+//			$user = UserAR::model()->createSAMLRegister($attributes);
+//		}
+//
+//		// Identity local site user data
+//		$userIdentify = new UserIdentity($user->company_email, $attributes['uid'][0]);
+//
+//		// Save user status in session
+//		if (!$userIdentify->authenticate()) {
+//			$this->responseError("login failed.");
+//		}
+//		else {
+//			Yii::app()->user->login($userIdentify);
+//			$this->redirect('../../index');
+//		}
+	}
+
+	/**
+	 * SAML Logout
+	 */
+	public function actionSAMLLogout() {
+		$uid = Yii::app()->user->getId();
+		$user = UserAR::model()->findByPk($uid);
+		if ($user) {
+			// Clean session
+			Yii::app()->user->logout();
+			// Logout from SSO
+			$as = new SimpleSAML_Auth_Simple('default-sp');
+			$status = $as->isAuthenticated();
+			if($status){
+				$as->logout();
+			}
+			else {
+				$this->redirect('../../index');
+			}
+		}
+		else {
+			$this->redirect('../../index');
+		}
+	}
+
 	/* Get User List (Disabled)
 	public function actionList() {
 		$request = Yii::app()->getRequest();
@@ -362,58 +443,5 @@ class UserController extends Controller {
 	}
 
 
-	/**
-	 * SAML SSO Login
-	 * TODO: Need change to live SAML IdP
-	 */
-	public function actionSAMLLogin() {
-		$as = new SimpleSAML_Auth_Simple('default-sp');
-		$as->requireAuth();
-		$attributes = $as->getAttributes();
-		if(!$attributes) {
-			return $this->responseError("login saml failed");
-		}
 
-		// Create the new user if user doesn't exist in database
-		if( !$user = UserAR::model()->findByAttributes(array('company_email'=>$attributes['eduPersonPrincipalName'][0])) ) {
-			$user = UserAR::model()->createSAMLRegister($attributes);
-		}
-
-		// Identity local site user data
-		$userIdentify = new UserIdentity($user->company_email, $attributes['eduPersonTargetedID'][0]);
-
-		// Save user status in session
-		if (!$userIdentify->authenticate()) {
-			echo md5($attributes['eduPersonTargetedID'][0]);
-			$this->responseError("login failed.");
-		}
-		else {
-			Yii::app()->user->login($userIdentify);
-			$this->redirect('../../index');
-		}
-	}
-
-	/**
-	 * SAML Logout
-	 */
-	public function actionSAMLLogout() {
-		$uid = Yii::app()->user->getId();
-		$user = UserAR::model()->findByPk($uid);
-		if ($user) {
-			// Clean session
-			Yii::app()->user->logout();
-			// Logout from SSO
-			$as = new SimpleSAML_Auth_Simple('default-sp');
-			$status = $as->isAuthenticated();
-			if($status){
-				$as->logout();
-			}
-			else {
-				$this->redirect('../../index');
-			}
-		}
-		else {
-			$this->redirect('../../index');
-		}
-	}
 }

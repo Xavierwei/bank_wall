@@ -35,11 +35,11 @@ class LikeController extends Controller {
 			if($currentUserLikeCount == 0) {
 				$likeAr->save();
     
-        // Like 成功后，需要清除缓存
-        $this->cleanCache("node_")
-                ->cleanCache("comment_");
+			// Like 成功后，需要清除缓存
+			$this->cleanCache("node_")
+					->cleanCache("comment_");
         
-				//s$this->responseJSON($likeAr->getNodeCount($nid), "success");
+				$this->responseJSON($likeAr->getNodeCount($nid), "success");
 			}
 			else
 			{
