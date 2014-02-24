@@ -174,8 +174,8 @@ class Controller extends CController
       }
     }
     
-  public function inti() {
-    parent:;init();
+  public function init() {
+    parent::init();
     
     Yii::app()->attachEventHandler("onError", array($this, "actionError"));
     Yii::app()->attachEventHandler("onException", array($this, "actionError"));
@@ -186,7 +186,7 @@ class Controller extends CController
     if (!$error) {
       $event = func_get_arg(0);
       if ($event instanceof CExceptionEvent) {
-        return $this->responseError("PHP Exception");
+        return $this->responseError("Exception");
       }
     }
     $this->responseError(print_r($error, TRUE));
