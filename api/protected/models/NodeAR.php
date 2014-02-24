@@ -250,7 +250,7 @@ class NodeAR extends CActiveRecord{
 			}
 			$mime = $fileUpload->getType();
 			$allowMime = array(
-				"video/mov", "video/quicktime", "video/x-msvideo", "video/x-ms-wmv", "video/wmv", "video/mp4", "video/mpeg", "video/avi", "video/3gp", "application/octet-stream"
+				"video/mov", "video/quicktime", "video/x-msvideo", "video/x-ms-wmv", "video/wmv", "video/mp4", "video/mpeg", "video/avi", "video/3gp","video/3gpp", "application/octet-stream"
 			);
 			if (!in_array($mime, $allowMime)) {
 				return 502; //video media type is not allowed
@@ -340,13 +340,13 @@ class NodeAR extends CActiveRecord{
 						$rotate = '';
 						$orientation = $this->get_video_orientation($to);
 						switch ($orientation) {
-								case 90:
-									$rotate = '-vf "transpose=1"';
-									break;
-								case 180:
-									$rotate = '-vf "transpose=4"';
-									break;
-							}
+							case 90:
+								$rotate = '-vf "transpose=1"';
+								break;
+							case 180:
+								$rotate = '-vf "transpose=4"';
+								break;
+						}
 
 						// 视频转换
 						switch($extname) {
@@ -354,25 +354,25 @@ class NodeAR extends CActiveRecord{
 								exec("ffmpeg -i {$to} -vcodec libx264 -acodec aac -strict experimental -ac 2 {$rotate} {$newpath}", $output, $status);
 								break;
 							case 'mpg':
-								exec("ffmpeg -i {$to} -c:v libx264 -c:a libfaac -r 30 {$newpath}", $output, $status);
+								exec("ffmpeg -i {$to} -vcodec libx264 -acodec aac -strict experimental -ac 2 {$newpath}", $output, $status);
 								break;
 							case 'mpeg':
-								exec("ffmpeg -i {$to} -c:v libx264 -c:a libfaac -r 30 {$newpath}", $output, $status);
+								exec("ffmpeg -i {$to} -vcodec libx264 -acodec aac -strict experimental -ac 2 {$newpath}", $output, $status);
 								break;
 							case 'mov':
 								exec("ffmpeg -i {$to} -vcodec libx264 -acodec aac -strict experimental -ac 2 {$rotate} {$newpath}", $output, $status);
 								break;
 							case 'wmv':
-								exec("ffmpeg -i {$to} -strict -2 {$newpath}", $output, $status);
+								exec("ffmpeg -i {$to} -strict -2 -ab 64k -ar 44100 {$newpath}", $output, $status);
 								break;
 							case '3gp':
 								exec("ffmpeg -i {$to} -strict -2 -ab 64k -ar 44100 {$newpath}", $output, $status);
 								break;
 							case 'avi':
-								exec("ffmpeg -i {$to} -acodec libfaac -b:a 128k -vcodec mpeg4 -b:v 1200k -flags +aic+mv4 {$newpath}", $output, $status);
+								exec("ffmpeg -i {$to} -vcodec mpeg4 -acodec aac -strict experimental -ab 64k -ar 44100 {$newpath}", $output, $status);
 								break;
 							default:
-								exec("ffmpeg -i {$to}  -vcodec mpeg4 -b:v 1200k -flags +aic+mv4 {$newpath}", $output, $status);
+								exec("ffmpeg -i {$to} -vcodec libx264 -acodec aac -strict experimental -ac 2 {$newpath}", $output, $status);
 						}
 
 						// 视频转换完后 要删掉之前的视频文件

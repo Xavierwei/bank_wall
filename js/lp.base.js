@@ -1461,7 +1461,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                                 var settings = {
                                     flash_url : "./flash/swfupload.swf",
                                     upload_url: "./api/index.php/uploads/upload",
-									debug: true,
+									debug: false,
                                     file_post_name: "file",
                                     post_params : {type:'video'},
                                     file_size_limit : "7 MB",
@@ -1838,10 +1838,14 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         if(!$('.user-page').is(':visible')) {
             var mainWidth = winWidth;
             var slidWidth = 80;
+            var delayOpen = 400;
+            if(isIE8) {
+                delayOpen = 1400;
+            }
 			$('body').css({overflowY:'scroll'});
             $('.inner').fadeOut(400);
             $('.main').fadeOut(400);
-            $('.count').css({left:-240}).delay(400).animate({left:80});
+            $('.count').css({left:-240}).delay(delayOpen).animate({left:80});
 			$('.user-page').find('.count-com').html('').data('nodes' , []);
             $('.user-page').css({left:- mainWidth , width: mainWidth - slidWidth })
                 .delay(100)

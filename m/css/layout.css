@@ -329,7 +329,20 @@ a{text-decoration:none;color:#666}
 .logged .com-like {border-right:1px solid #fff;width:90px;}
 .logged .com-com-count {width:156px;}
 
+
+.turn_device {display: none;position: fixed;width:100%;height:100%;top:0;bottom:0;background:#fff url('../img/device_turn.gif') no-repeat center;z-index:99999;}
+
+
 @media only screen and (max-height: 745px) {
     .menu-item {height: 87px;}
     .menu-item p {top:18px;}
+}
+
+
+@media screen and (orientation:landscape) {
+    .turn_device {display:block;}
+}
+
+@media screen and (orientation:portrait) {
+    .turn_device {display:none;}
 }

@@ -16,6 +16,7 @@
 	</style>
 </head>
 <body>
+<div class="turn_device"></div>
 <div class="iphone_fixed"></div>
 <div class="preload">
     <div class="preload1">a</div>

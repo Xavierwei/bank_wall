@@ -128,5 +128,34 @@ class FlagController extends Controller {
 
 		return $this->responseJSON($retcomments, "success");
 	}
+
+
+	public function actionGetSetting() {
+		$setting = FlagAR::model()->getSetting();
+		echo $setting;
+	}
+
+	public function actionSetSetting() {
+		$request = Yii::app()->getRequest();
+
+		if (!$request->isPostRequest) {
+			$this->responseError(101);
+		}
+
+		$value = $request->getPost("value");
+		if (!$value || !is_numeric($value)) {
+			$this->responseError(101);
+		}
+
+
+		if (!Yii::app()->user->checkAccess("isAdmin")) {
+			return $this->responseError(601);
+		}
+
+		$ret = FlagAR::model()->setSetting($value);
+
+		return $this->responseJSON($ret, "success");
+
+	}
 }
 

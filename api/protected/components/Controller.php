@@ -78,7 +78,6 @@ class Controller extends CController
 
       $keys[$key] = $key;
       Yii::app()->cache->set("keys" ,($keys));
-      
       return $key;
     }
     

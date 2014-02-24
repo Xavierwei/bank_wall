@@ -55,6 +55,7 @@ class CommentAR extends CActiveRecord {
 		$query->select = array("count(*) AS commentscount");
 		$query->addCondition("uid=:uid");
 		$query->params[":uid"] = $uid;
+		//TODO: status
 		$res = $this->find($query);
 		return $res->commentscount;
 	}
@@ -64,6 +65,7 @@ class CommentAR extends CActiveRecord {
 		$query->select = "count(*) as commentcountinnode";
 		$query->addCondition("nid=:nid");
 		$query->params[":nid"] = $nid;
+		//TODO: status
 		$res = $this->find($query);
 
 		return $res->commentcountinnode;

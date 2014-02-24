@@ -39,11 +39,25 @@ angular.module('myApp.directives', []).
 				$rootScope.$on('$routeChangeStart', function (event,url) {
 					elem.find('li').removeClass('active');
 					var path = '#'+url.originalPath;
-					$('li a[href="'+path+'"]').parent().addClass('active');
+					$('li a[rel="'+path+'"]').parent().addClass('active');
 				});
 
 			}
 		}
 
 	})
+
+    .directive('searchInput',  function ($rootScope) {
+        return {
+            link: function (scope, elem) {
+                elem.bind('keyup',function(e){
+                    if(e.which == 13) {
+                        scope.$apply(scope.search);
+                    }
+                });
+
+            }
+        }
+
+    })
 

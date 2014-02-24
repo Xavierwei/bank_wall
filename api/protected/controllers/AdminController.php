@@ -2,15 +2,21 @@
 
 class AdminController extends Controller {
 
-
 	public function actionIndex(){
 		$this->layout = 'admin';
-		if (!Yii::app()->user->checkAccess("isAdmin")) {
-			$this->render('login');
+		$uid = Yii::app()->user->getId();
+
+		if($uid) {
+			if (!Yii::app()->user->checkAccess("isAdmin")) {
+				$this->render('login');
+			}
+			else {
+				$token = UserAR::model()->getToken();
+				$this->render('index', array('token'=>$token));
+			}
 		}
 		else {
-			$token = UserAR::model()->getToken();
-			$this->render('index', array('token'=>$token));
+			$this->render('login');
 		}
 	}
 }

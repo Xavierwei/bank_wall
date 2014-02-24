@@ -68,6 +68,10 @@ class NodeController extends Controller {
 				$retdata['user'] = $nodeAr->user->attributes;
 				$retdata['country'] = $nodeAr->country->attributes;
 
+
+				$this->cleanCache("node_")
+					->cleanCache("comment_");
+				
 				if($isIframe){
 					$this->render('post', array(
 						'code'=>1
@@ -75,6 +79,7 @@ class NodeController extends Controller {
 				} else {
 					$this->responseJSON($retdata, "success");
 				}
+
 			}
 			else {
 				$this->responseError($nodeAr->getErrors());
@@ -137,7 +142,6 @@ class NodeController extends Controller {
 	//        }
 	//
 	//        if ($videoUpload) {
-	//          // TODO:: 暂时判断不出视频类型，需要更多测试实例
 	//        }
 
 			// 修改 description
@@ -150,7 +154,6 @@ class NodeController extends Controller {
 
 
 			if (isset($status)) {
-				// TODO:: 这里修改node 状态需要权限检查， 暂时没有实现权限检查
 				$node->status = $status;
 				if($status == 1) {
 					FlagAR::model()->deleteNodeFlag($node->nid);
@@ -168,6 +171,9 @@ class NodeController extends Controller {
 			//        }
 			if ($node->validate()) {
 				$node->beforeSave();
+
+				$this->cleanCache("node_")
+					->cleanCache("comment_");
 				$ret = $node->updateByPk($node->nid, array("status" => $node->status));
 				$this->responseJSON($node->attributes, "success");
 			}
@@ -244,6 +250,7 @@ class NodeController extends Controller {
 		$status 	= $request->getParam("status");
 		$keyword 	= $request->getParam("keyword");
 		$email 		= $request->getParam("email");
+		$flagged	= $request->getParam("flagged");
 
 		if (!$page) {
 			$page = 1;
@@ -253,10 +260,10 @@ class NodeController extends Controller {
 			$pagenum = 10;
 		}
 
-		$session_token =  Yii::app()->session['token'];
-		if($token != $session_token) {
-			$this->responseError(102);
-		}
+//		$session_token =  Yii::app()->session['token'];
+//		if($token != $session_token) {
+//			$this->responseError(102);
+//		}
 
 		// Build Query
 		$query = new CDbCriteria();
@@ -299,27 +306,28 @@ class NodeController extends Controller {
 			$query->addCondition($nodeAr->getTableAlias().".datetime<= :end", "AND");
 		}
 
+
+		// 需要验证用户权限
+		$user = UserAR::model()->findByPk(Yii::app()->user->getId());
+
 		// search by user email
 		if (Yii::app()->user->checkAccess("isAdmin") && $email) {
 			$queryUser = new CDbCriteria();
 			$queryUser->addSearchCondition("company_email", $email, true);
 			$queryUser->addSearchCondition("personal_email", $email, true, 'OR');
 			$users = UserAR::model()->findAll($queryUser);
-			if(count($users)> 0) {
+			if(count($users) > 0) {
 				foreach($users as $user) {
 					$usersList[] = $user->uid;
 				}
 				$strUsersList = implode(',', $usersList);
-				$query->addCondition($nodeAr->getTableAlias().".uid in (:uid)", "AND");
-				$params[":uid"] = $strUsersList;
+				$query->addCondition($nodeAr->getTableAlias().".uid in (".$strUsersList.")", "AND");
 			}
 			else {
-				$this->responseJSON(null, "success");
+				$this->responseJSON(array(), "success");
 			}
 		}
 
-		// 需要验证用户权限
-		$user = UserAR::model()->findByPk(Yii::app()->user->getId());
 		if (Yii::app()->user->checkAccess("isAdmin") && $status == 'all') {
 		  // 如果是管理员，我们就忽略掉status 参数，这样子他们就可以看到所有的node
 			if ($user->role == UserAR::ROLE_ADMIN) {
@@ -374,16 +382,21 @@ class NodeController extends Controller {
 			$query->join = 'right join `like` on `like`.nid = '.$nodeAr->getTableAlias().'.nid';
 		}
 
+		if($flagged) {
+			$query->select = "*";
+			$query->join = 'right join `flag` on `flag`.nid = '.$nodeAr->getTableAlias().'.nid';
+		}
+
 		$order = "";
 		if ($orderby == "datetime") {
-		  $order .= " ".$nodeAr->getTableAlias().".datetime DESC";
-		  $query->order = $order;
+			$order .= " ".$nodeAr->getTableAlias().".datetime DESC";
+			$query->order = $order;
 		}
 		else if ($orderby == "like") {
-		// orderby like 比较复杂， 需要用到join 和 group
-		// 还需要增加一个额外的 SELECT
-		$order .= "`likecount` DESC";
-		$query->order = $order;
+			// orderby like 比较复杂， 需要用到join 和 group
+			// 还需要增加一个额外的 SELECT
+			$order .= "`likecount` DESC";
+			$query->order = $order;
 		}
 		else if ($orderby == "random") {
 		  // 随机查询需要特别处理
@@ -423,9 +436,6 @@ class NodeController extends Controller {
 		  $query->addInCondition($nodeAr->getTableAlias().".nid", $nids, "AND");
 		}
 
-		$query->limit = $pagenum;
-		$query->offset = ($page - 1 ) * $pagenum;
-		$query->with = array("user", "country");
 
 		// 集成 keyword 查询, 查询 description 中的关键字
 		if ($keyword) {
@@ -437,6 +447,12 @@ class NodeController extends Controller {
 		if ($hashtag) {
 			$query->addSearchCondition("hashtag", $hashtag);
 		}
+
+		$count = NodeAR::model()->with("user", "country")->count($query);
+
+		$query->limit = $pagenum;
+		$query->offset = ($page - 1 ) * $pagenum;
+		$query->with = array("user", "country");
 
 		$res = NodeAR::model()->with("user", "country")->findAll($query);
 
@@ -464,7 +480,13 @@ class NodeController extends Controller {
 			$retdata[] = $data;
 		}
 
-		$this->responseJSON($retdata, "success");
+		if(Yii::app()->user->checkAccess("isAdmin")) {
+			$this->responseJSON($retdata, array('total'=>$count));
+		}
+		else {
+			$this->responseJSON($retdata, "success");
+		}
+
 	}
   
 

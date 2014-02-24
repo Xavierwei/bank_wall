@@ -46,6 +46,8 @@ class CommentController extends Controller {
 
 		if ($commentAr->validate()) {
 			$commentAr->save();
+			$this->cleanCache("node_")
+				->cleanCache("comment_");
 			$this->responseJSON($commentAr->attributes, "success");
 		}
 		else {
@@ -76,15 +78,25 @@ class CommentController extends Controller {
 
 		$node = $comment->node;
 		if (!Yii::app()->user->checkAccess("updateAnyComment", array("country_id" => $node->country_id))) {
-			return $this->responseError("permission deny");
+			return $this->responseError(601);
 		}
 
 		$status = $request->getPost("status");
 		if (!isset($status)) {
-			$this->responseError("invalid params");
+			$this->responseError(101);
 		}
+
+		if (isset($status)) {
+			if($status == 1) {
+				FlagAR::model()->deleteCommentFlag($comment->cid);
+			}
+		}
+
 		$comment->status = $status;
+
 		if ($comment->validate()) {
+			$this->cleanCache("node_")
+				->cleanCache("comment_");
 			$comment->updateByPk($comment->cid, array("status" => $comment->status));
 			$this->responseJSON($comment->attributes, "success");
 		}
@@ -135,6 +147,9 @@ class CommentController extends Controller {
 		$nid        = $request->getParam("nid");
 		$shownode   = $request->getParam("shownode");
 		$status     = $request->getParam("status");
+		$keyword    = $request->getParam("keyword");
+		$email   	= $request->getParam("email");
+		$flagged   	= $request->getParam("flagged");
 
 		$page = $request->getParam("page");
 		if (!$page) {
@@ -166,15 +181,48 @@ class CommentController extends Controller {
 			$query->addCondition(CommentAR::model()->getTableAlias().".status=:status");
 			$query->params[":status"] = $status;
 		}
+		elseif(Yii::app()->user->checkAccess("isAdmin")) {
+			//show all
+		}
 		else {
 			$query->addCondition(CommentAR::model()->getTableAlias().".status=:status");
 			$query->params[":status"] = 1;
 		}
 
-		$query->limit = $pagenum;
-		$query->offset = ($page - 1 ) * $pagenum;
+		// search by keyword
+		if (Yii::app()->user->checkAccess("isAdmin") && isset($keyword)) {
+			$query->addSearchCondition("content", $keyword);
+		}
+
+		// search by user email
+		if (Yii::app()->user->checkAccess("isAdmin") && $email) {
+			$queryUser = new CDbCriteria();
+			$queryUser->addSearchCondition("company_email", $email, true);
+			$queryUser->addSearchCondition("personal_email", $email, true, 'OR');
+			$users = UserAR::model()->findAll($queryUser);
+			if(count($users) > 0) {
+				foreach($users as $user) {
+					$usersList[] = $user->uid;
+				}
+				$strUsersList = implode(',', $usersList);
+				$query->addCondition(CommentAR::model()->getTableAlias().".uid in (".$strUsersList.")", "AND");
+			}
+			else {
+				$this->responseJSON(array(), "success");
+			}
+		}
+
+		if($flagged) {
+			$query->select = "*";
+			$query->join = 'right join `flag` on `flag`.cid = '.CommentAR::model()->getTableAlias().'.cid';
+		}
+
 		$query->order = CommentAR::model()->getTableAlias().".$orderby $order";
 		$query->with = array("user");
+
+		$count = CommentAR::model()->count($query);
+		$query->limit = $pagenum;
+		$query->offset = ($page - 1 ) * $pagenum;
 		$comments = CommentAR::model()->findAll($query);
 
 		$retdata = array();
@@ -191,10 +239,16 @@ class CommentController extends Controller {
 			if(isset($user['uid']) && Yii::app()->user->getId() == $user['uid']) {
 				$commentdata["mycomment"] = TRUE;
 			}
+			$commentdata['flagcount'] = FlagAR::model()->flagCountInComment($comment->cid);
 			$retdata[] = $commentdata;
 		}
 
-		return $this->responseJSON($retdata, "success");
+		if(Yii::app()->user->checkAccess("isAdmin")) {
+			$this->responseJSON($retdata, array('total'=>$count));
+		}
+		else {
+			$this->responseJSON($retdata, "success");
+		}
 	}
 
 

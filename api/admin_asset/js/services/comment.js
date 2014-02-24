@@ -6,14 +6,17 @@ SGWallAdminServices.factory( 'CommentService', function($http, ROOT) {
                 cache: false
             })
             .success(function(data) {
-                success(data.data);
+                success(data);
             })
             .error(function() {
             });
         },
 
-        getFlaggedComments: function(success) {
-            $http.get(ROOT+'/flag/getFlaggedComments')
+        getFlaggedComments: function(param, success) {
+            $http.get(ROOT+'/flag/getFlaggedComments',{
+                params: param,
+                cache: false
+            })
             .success(function(data) {
                 success(data.data);
             })
@@ -46,16 +49,6 @@ SGWallAdminServices.factory( 'CommentService', function($http, ROOT) {
                 if(data.success == true) {
                     success(data);
                 }
-            })
-            .error(function() {
-
-            });
-        },
-
-        delete: function(comment) {
-            $http.post(ROOT+'/comment/delete',{cid:comment.cid})
-            .success(function(data) {
-                console.log(data);
             })
             .error(function() {
 

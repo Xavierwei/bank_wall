@@ -11,6 +11,14 @@ class UserController extends Controller {
 	 * TODO: Need change to live SAML IdP
 	 */
 	public function actionSAMLLogin() {
+		if(isset($_SERVER['HTTP_REFERER'])) {
+			$referer = $_SERVER['HTTP_REFERER'];
+			if(strpos($referer, 'admin') > 0)
+			{
+				Yii::app()->session['loginfrom'] = 'admin';
+			}
+		}
+
 		// TODO: TESTING
 		$as = new SimpleSAML_Auth_Simple('default-sp');
 		// TODO: LIVE
@@ -21,7 +29,6 @@ class UserController extends Controller {
 		if(!$attributes) {
 			return $this->responseError("login saml failed");
 		}
-
 
 		// TODO: TESTING
 		// Create the new user if user doesn't exist in database
@@ -39,9 +46,13 @@ class UserController extends Controller {
 		}
 		else {
 			Yii::app()->user->login($userIdentify);
-			$this->redirect('../../index');
+			if(Yii::app()->session['loginfrom'] == 'admin') {
+				$this->redirect('../admin/index');
+			}
+			else {
+				$this->redirect('../../index');
+			}
 		}
-
 
 
 		// TODO: LIVE
@@ -59,7 +70,12 @@ class UserController extends Controller {
 //		}
 //		else {
 //			Yii::app()->user->login($userIdentify);
-//			$this->redirect('../../index');
+//			if(Yii::app()->session['loginfrom'] == 'admin') {
+//				$this->redirect('../admin/index');
+//			}
+//			else {
+//				$this->redirect('../../index');
+//			}
 //		}
 	}
 

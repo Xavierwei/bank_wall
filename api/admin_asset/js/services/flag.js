@@ -22,7 +22,7 @@ SGWallAdminServices.factory( 'FlagService', function($http, ROOT) {
 
         },
 
-        delete: function(type, id, success) {
+        'delete': function(type, id, success) {
             if(type == 'node') {
                 $http.post(ROOT+'/flag/deleteAll',{nid:id})
                 .success(function(data) {

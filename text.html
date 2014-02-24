@@ -29,9 +29,15 @@ ffmpeg -i v240.mp4 -y v240.wmv
 
 ./configure ./configure --enable-static --disable-opencl
 
-ffmpeg -i sample.avi -pix_fmt yuv420p -ac 2 -strict 2.mp4
+ffmpeg -i test.mov -vcodec libx264 -acodec aac -strict experimental -ac 2 demo_mov.mp4
 
-ffmpeg -i sample.avi -acodec libfaac -b:a 128k -vcodec mpeg4 -b:v 1200k -flags +aic+mv4 output.mp4
+
+ffmpeg -i test.wmv -strict -2 demo_wmv.mp4
+
+
+ffmpeg -i test.wmv -strict -2 -ab 64k -ar 44100 demo_wmv.mp4
+
+ffmpeg -i test.avi -vcodec mpeg4 -acodec aac -strict experimental -ab 64k -ar 44100 demo_avi.mp4
 
 ffmpeg -i test.mpg -c:v libx264 -c:a libfaac -r 30 test1.mp4
 
