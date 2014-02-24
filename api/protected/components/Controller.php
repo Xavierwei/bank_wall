@@ -185,9 +185,9 @@ class Controller extends CController
     if (!$error) {
       $event = func_get_arg(0);
       if ($event instanceof CExceptionEvent) {
-        return $this->responseError("Exception");
+        //return $this->responseError("Exception");
       }
     }
-    $this->responseError("Exception");
+    //$this->responseError("Exception");
   }
 }

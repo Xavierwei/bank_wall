@@ -183,10 +183,10 @@ define(function( require , exports , model ){
     $(document).ajaxError(function(evt, xhr, ajaxOptions, thrownError) {
         try{
             if ( xhr.status == 200 || thrownError.match(/^Invalid JSON/)) {
-                LP.alert( _e(' (*´Д｀*) 系统出错了。请反馈给我们。'), 3000 );
+                //LP.alert( _e(' (*´Д｀*) 系统出错了。请反馈给我们。'), 3000 );
             } else if ( thrownError !== "" ) {
                 // 请求被Canceled的时候，thrownError为空【未验证】。这时候直接忽略。
-                LP.alert( _e('发生了未知的网络错误，请稍后重试。') , 3000);
+                //LP.alert( _e('发生了未知的网络错误，请稍后重试。') , 3000);
             }
         } catch(e) {};
     });

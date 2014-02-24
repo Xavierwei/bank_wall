@@ -24,9 +24,9 @@ class CommentController extends Controller {
 		}
 
 		$uid = Yii::app()->user->getId();
-		if (Yii::app()->user->checkAccess("postComment")) {
-			return $this->responseError(602);
-		}
+//		if (Yii::app()->user->checkAccess("postComment")) {
+//			return $this->responseError(602);
+//		}
 
 		if(empty($content)) {
 			return $this->responseError(701);
@@ -35,6 +35,7 @@ class CommentController extends Controller {
 		if(strlen($content) > 140) {
 			return $this->responseError(702);
 		}
+
 
 		$commentAr = new CommentAR();
 		$commentAr->attributes = array(
@@ -48,7 +49,7 @@ class CommentController extends Controller {
 			$commentAr->save();
 			$this->cleanCache("node_")
 				->cleanCache("comment_");
-			$this->responseJSON($commentAr->attributes, "success");
+			return $this->responseJSON($commentAr->attributes, "success");
 		}
 		else {
 			$this->responseError(current(array_shift($commentAr->getErrors())));

@@ -6,3 +6,5 @@ api/protected/config/main.php
 /nbproject
 
 *.log
+
+api/protected/runtime/application.log
