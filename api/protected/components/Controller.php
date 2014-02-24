@@ -188,6 +188,6 @@ class Controller extends CController
         return $this->responseError("Exception");
       }
     }
-    $this->responseError(print_r($error, TRUE));
+    $this->responseError("Exception");
   }
 }
