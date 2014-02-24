@@ -3,7 +3,7 @@
 class UserController extends Controller {
 
 	public function actionIndex() {
-		return $this->responseError(101);
+		//return $this->responseError(101);
 	}
 
 	/**
