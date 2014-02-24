@@ -1,19 +1,40 @@
 SGWallAdminController
     .controller('NodeCtrList', function($scope, $http, $modal, $log, $routeParams, NodeService, LikeService, FlagService, ASSET_FOLDER) {
-
+        var params = {};
+        var flagged = $routeParams.flagged;
+        var prevbigTotalItems = 0;
+        if(flagged) {
+            params.flagged = true;
+        }
+        else {
+            delete params.flagged;
+        }
 		$scope.hideList = '';
 		$scope.noResult = false;
+        $scope.end = true;
         // Get node list by recent
-        var params = {};
         $scope.filter.status = 'all';
         $scope.filter.country = {};
         $scope.filter.country.country_name = 'All Country';
 		$scope.page = 1;
 		params.orderby = "datetime";
 		params.pagenum = 20;
-		params.token = apiToken;
+        params.cache = new Date().getTime();
 
-		$scope.$watch('filter.type + filter.country_id + filter.status + filter.country.country_id', function() {
+        // paging
+        $scope.noOfPages = 0;
+        $scope.currentPage = 1;
+        $scope.itemsPerPage = 20;
+        $scope.maxSize = 5;
+        $scope.numPages = 20;
+
+        $scope.$watch('filter.type + filter.country_id + filter.status + filter.country.country_id', function() {
+            $scope.currentPage = 1;
+            $('.pagination li').removeClass('active');
+            $('.pagination li').eq(2).addClass('active');
+        });
+
+		$scope.$watch('filter.type + filter.country_id + filter.status + filter.country.country_id + currentPage', function() {
             params.type = $scope.filter.type;
 			if($scope.filter.type == 'all') {
 				delete params.type;
@@ -32,33 +53,77 @@ SGWallAdminController
 				params.status = $scope.filter.status;
 			}
 
-			$scope.page = 1;
-			params.page = $scope.page;
+			params.page = $scope.currentPage;
+            params.cache = new Date().getTime();
 			loadNodes(params);
 		});
 
 
-		$scope.$watch('page', function() {
-			params.page = $scope.page;
-			if($scope.page == 1) {
-				$scope.first = true;
-			}
-			loadNodes(params);
-		});
+        $scope.pageChanged = function(page){
+            $scope.currentPage = page;
+        }
+//		$scope.$watch('currentPage', function() {
+//			params.page = $scope.page;
+//			if($scope.page == 1) {
+//				$scope.first = true;
+//			}
+//            params.cache = new Date().getTime();
+//			loadNodes(params);
+//		});
 
 
         // Switch node status
         $scope.updateStatus = function(node, status) {
-            var newNode = angular.copy(node);
-			if(node.status == 0) {
-				newNode.status = 1;
-			}
-			else {
-				newNode.status = 0;
-			}
-			NodeService.update(newNode,function(data){
-				node.status = newNode.status;
-			});
+            if($routeParams.flagged) {
+                if(node.status == 0) {
+                    var modalInstance = $modal.open({
+                        templateUrl: ASSET_FOLDER + 'tmp/dialog/unflag.html',
+                        controller: ConfirmModalCtrl
+                    });
+                    modalInstance.result.then(function () {
+                        var newNode = angular.copy(node);
+                        if(node.status == 0) {
+                            newNode.status = 1;
+                        }
+                        else {
+                            newNode.status = 0;
+                        }
+                        NodeService.update(newNode,function(){
+                            node.status = newNode.status;
+                            node.flagcount = 0;
+                        });
+                    }, function () {
+                    });
+                }
+                else {
+                    var newNode = angular.copy(node);
+                    if(node.status == 0) {
+                        newNode.status = 1;
+                    }
+                    else {
+                        newNode.status = 0;
+                    }
+                    node.itemLoading = true;
+                    NodeService.update(newNode,function(){
+                        node.itemLoading = false;
+                        node.status = newNode.status;
+                    });
+                }
+            }
+            else {
+                var newNode = angular.copy(node);
+                if(node.status == 0) {
+                    newNode.status = 1;
+                }
+                else {
+                    newNode.status = 0;
+                }
+                node.itemLoading = true;
+                NodeService.update(newNode,function(data){
+                    node.itemLoading = false;
+                    node.status = newNode.status;
+                });
+            }
         }
 
 
@@ -69,7 +134,7 @@ SGWallAdminController
             else {
                 delete params.status;
             }
-            params.hashtag = $scope.filter.hashtag;
+            params.hashtag = $scope.filter.hashtag.replace('#','');
 			params.email = $scope.filter.email;
 			$scope.page = 1;
 			params.page = $scope.page;
@@ -85,19 +150,8 @@ SGWallAdminController
 			$scope.filter.type = 'all';
 			$scope.filter.status = 'all';
 			$scope.filter.hashtag = '';
-			$scope.filter.hashtag = '';
+			$scope.filter.email = '';
 			$scope.filter.country = {country_name:'All Country', country_id:''};
-		}
-
-
-		$scope.nextPage = function() {
-			$scope.page ++;
-			$scope.first = false;
-		}
-
-		$scope.prevPage = function() {
-			$scope.page --;
-			$scope.end = false;
 		}
 
 
@@ -105,69 +159,25 @@ SGWallAdminController
 		function loadNodes(params) {
 			$scope.hideList = 'hide-list';
 			NodeService.list(params, function(data){
+                $scope.bigTotalItems = parseInt(data.message.total);
+                if($scope.currentPage == 1) {
+                    setTimeout(function(){
+                        $('.pagination li').removeClass('active');
+                        $('.pagination li').eq(2).addClass('active');
+                    }, 1000);
+                }
 				$scope.hideList = '';
-				if (data.length == 0 && $scope.page == 1) {
+				if (data.data.length == 0 && $scope.currentPage == 1) {
 					$scope.noResult = true;
 				}
 				else {
 					$scope.noResult = false;
 				}
-				if(data.length < params.pagenum) {
-					$scope.end = true;
-				}
-				else {
-					$scope.end = false;
-				}
-				$scope.nodes = data;
+				$scope.nodes = data.data;
 			});
 		}
 
     })
 
 
-    .controller('NodeCtrFlagged', function($scope, $http, $modal, $log, NodeService, ASSET_FOLDER, LikeService, FlagService) {
-        // Get node list by flagged
-        NodeService.getFlaggedNodes(function(data){
-            $scope.nodes = data;
-        });
-
-        // Switch node status
-        $scope.updateStatus = function(node, status) {
-			console.log(node.status);
-			if(node.status == 0) {
-				var modalInstance = $modal.open({
-					templateUrl: ASSET_FOLDER + 'tmp/dialog/unflag.html',
-					controller: ConfirmModalCtrl
-				});
-				modalInstance.result.then(function () {
-					var newNode = angular.copy(node);
-					if(node.status == 0) {
-						newNode.status = 1;
-					}
-					else {
-						newNode.status = 0;
-					}
-					NodeService.update(newNode,function(){
-						node.status = newNode.status;
-						node.flagcount = 0;
-					});
-				}, function () {
-				});
-			}
-			else {
-				var newNode = angular.copy(node);
-				if(node.status == 0) {
-					newNode.status = 1;
-				}
-				else {
-					newNode.status = 0;
-				}
-				NodeService.update(newNode,function(){
-					node.status = newNode.status;
-				});
-			}
-        }
-
-
-    })
 

@@ -37,7 +37,7 @@ class LikeController extends Controller {
     
 			// Like 成功后，需要清除缓存
 			$this->cleanCache("node_")
-					->cleanCache("comment_");
+				->cleanCache("comment_");
         
 				$this->responseJSON($likeAr->getNodeCount($nid), "success");
 			}
@@ -70,6 +70,8 @@ class LikeController extends Controller {
 		$likeAr = new LikeAR();
 		$likeAr->deleteLike($uid, $nid);
 
+		$this->cleanCache("node_")
+			->cleanCache("comment_");
 		$this->responseJSON($likeAr->getNodeCount($nid), "success");
 	}
 }

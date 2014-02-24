@@ -1,5 +1,5 @@
 <div class="nodes-list-wrap">
-	<div class="nodes-filter">
+	<div class="nodes-filter filter">
         <div class="new-row">
             <div class="btn-group">
 	            <label>Type</label>
@@ -35,12 +35,12 @@
         <div class="new-row advance-row">
             <div class="btn-group">
                 <label>Hashtag</label>
-                <input type="text" class="form-control" ng-model="filter.hashtag" />
+                <input search-input type="text" class="form-control" ng-model="filter.hashtag" />
             </div>
 
             <div class="btn-group">
                 <label>Email address</label>
-                <input type="text" class="form-control" ng-model="filter.email" />
+                <input search-input type="text" class="form-control" ng-model="filter.email" />
             </div>
             <div class="btn-group btn-group-search">
                 <button class="btn btn-danger" ng-click="search()"><span class="glyphicon glyphicon-search"></span></button>
@@ -56,6 +56,7 @@
 	        <div class="image">
 		        <img ng-src="{{node.file | thumbnail}}" width="200" height="200" />
 		        <div class="black-overlay"></div>
+                <div class="item-loading" ng-show="node.itemLoading"></div>
 		        <a href="javascript:void(0)" class="switch switch-{{node.status}}" ng-click="updateStatus(node)"></a>
 		        <div ng-show="node.flagcount" class="flag flag{{node.flagcount}}">Flagged: {{node.flagcount}}</div>
 	        </div>
@@ -73,8 +74,9 @@
 	<div class="clear"></div>
 	<div class="list-no-result" ng-show="noResult">No results under this filter.</div>
 	<div class="list-loading" ng-show="hideList"></div>
-	<div class="pager">
-		<div class="page-prev btn-lg btn-default" ng-click="prevPage()" ng-hide="first">Prev</div>
-		<div class="page-next btn-lg btn-default" ng-click="nextPage()" ng-hide="end">Next</div>
-	</div>
+
+    <div class="pager-wrap" ng-show="bigTotalItems">
+        <pagination on-select-page="pageChanged(page)" total-items="bigTotalItems" items-per-page="itemsPerPage" page="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages"></pagination>
+    </div>
+
 </div>

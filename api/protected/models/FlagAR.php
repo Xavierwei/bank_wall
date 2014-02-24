@@ -95,5 +95,32 @@ class FlagAR extends CActiveRecord {
     
     return $res->flagcount;
   }
+
+	public function flagCountInComment($cid) {
+		$query = new CDbCriteria();
+		$query->select = "count(*) as flagcount";
+		$query->addCondition("cid=:cid");
+		$query->params[":cid"] = $cid;
+		$res = $this->find($query);
+
+		return $res->flagcount;
+	}
+
+
+	public function getSetting() {
+		$setting = Yii::app()->db->createCommand()
+			->select('value')
+			->from('settings')
+			->where('`key`="flag"')
+			->queryRow();
+		return $setting['value'];
+	}
+
+	public function setSetting($value) {
+		$ret = Yii::app()->db->createCommand()
+			->update('settings', array('value'=>$value));
+
+		return $ret;
+	}
 }
 

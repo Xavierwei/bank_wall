@@ -6,29 +6,24 @@ SGWallAdminServices.factory( 'NodeService', function($http, ROOT) {
 				cache: false
 			})
             .success(function(data) {
+                success(data);
+            })
+            .error(function() {
+            });
+        },
+
+        getFlaggedNodes: function(param, success) {
+            $http.get(ROOT+'/flag/getFlaggedNodes',{
+                params: param,
+                cache: false
+            })
+            .success(function(data) {
                 success(data.data);
             })
             .error(function() {
             });
         },
 
-        getFlaggedNodes: function(success) {
-            $http.get(ROOT+'/flag/getFlaggedNodes')
-                .success(function(data) {
-                    success(data.data);
-                })
-                .error(function() {
-                });
-        },
-
-        getNeighbor: function(nid, success) {
-            $http.get(ROOT+'/node/getNeighbor?nid='+nid)
-                .success(function(data) {
-                    success(data.data);
-                })
-                .error(function() {
-                });
-        },
 
         getById: function(nid, success) {
             $http.get(ROOT+'/node/getById?nid='+nid)
@@ -39,32 +34,12 @@ SGWallAdminServices.factory( 'NodeService', function($http, ROOT) {
                 });
         },
 
-        post: function(user) {
-            $http.post(ROOT+'/user/post',user)
-            .success(function(data) {
-                console.log(data);
-            })
-            .error(function() {
-
-            });
-        },
-
         update: function(node, success) {
             $http.post(ROOT+'/node/put',node)
             .success(function(data) {
                 if(data.success == true) {
                     success();
                 }
-            })
-            .error(function() {
-
-            });
-        },
-
-        delete: function(node) {
-            $http.post(ROOT+'/node/delete',{nid:node.nid})
-            .success(function(data) {
-                console.log(data);
             })
             .error(function() {
 
