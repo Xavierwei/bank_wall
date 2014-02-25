@@ -19,6 +19,7 @@ if (preg_match('/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|phone|andro
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <title>L'ESPRIT D'EQUIPE SOCIETE GENERALE</title>
+	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1, user-scalable=no" />
     <link href="css/jsPane.css?<?php echo time();?>" rel="stylesheet" type="text/css" />
     <link href="css/layout.css?<?php echo time();?>" rel="stylesheet" type="text/css" />
     <link href="css/fonts.css?<?php echo time();?>" rel="stylesheet" type="text/css" />

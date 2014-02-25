@@ -10,7 +10,7 @@ a
 
 
 
-.popload-icon {
+.popload-icon,.loading-list {
     -moz-animation: rotate 5s linear infinite;
     -webkit-animation: rotate 5s linear infinite;
     animation: rotate 5s linear infinite;

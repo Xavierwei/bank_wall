@@ -4,7 +4,9 @@
 LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 'swfupload-speed', 'swfupload-queue'] , function( $ , api ){
     'use strict'
 
+
     var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > 0;
+    var isPad =navigator.userAgent.toLowerCase().indexOf('pad') > 0;
     var isIE8 = $('html').hasClass('ie8');
     var API_FOLDER = "./api";
     var THUMBNAIL_IMG_SIZE = "_250_250";
@@ -20,6 +22,38 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 	var apiToken;
     var _e;
     var lang;
+
+    if(isPad) {
+        LP.use(['hammer'] , function(){
+            $('body').hammer()
+                .on("tap", '.main-item', function(ev) {
+                    if($(ev.target).hasClass('item-delete')) return;
+                    $(this).click();
+                }
+            );
+
+            var dragDirection;
+            $('body').hammer()
+                .on("release dragleft dragright swipeleft swiperight", '.inner', function(ev) {
+                    switch(ev.type) {
+                        case 'swipeleft':
+                        case 'dragleft':
+                            LP.triggerAction('next');
+                            break;
+                        case 'swiperight':
+                        case 'dragright':
+                            LP.triggerAction('prev');
+                            break;
+                        case 'release':
+                            break;
+                        default:
+                            dragDirection = '';
+                    }
+                }
+            );
+        });
+    }
+
 
     // live for pic-item hover event
     $(document.body)
@@ -1772,9 +1806,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             LP.use('flash-detect', function(){
                 if(!FlashDetect.installed) {
                     $('#node_post_form').submit();
-                    $('.pop-txt').fadeOut();
-                    $('.pop-load').fadeIn();
-                    $('.popload-percent').hide();
                     return;
                 }
             });
@@ -2851,7 +2882,8 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
      */
     var pageLoaded = function(delay){
         $('.page-loading').delay(delay).fadeOut(function(){
-           $(this).remove();
+            $(this).remove();
+            $('.touch .content').width($(window).width());
         });
     }
 

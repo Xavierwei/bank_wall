@@ -72,6 +72,10 @@ seajs.config({
     ,"swfupload-queue":{
       src: "../plugin/swfupload.queue.js"
     }
+    ,hammer:{
+      src: "../plugin/jquery.hammer.js"
+      ,deps: ['jquery']
+    }
   }
   , alias: {
     api: '../api.js?_201402#'

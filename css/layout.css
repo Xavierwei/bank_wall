@@ -206,7 +206,7 @@ a{text-decoration:none;color:#666}
         .com-make {height: 90px;}
         .com-main .need-login {text-align: center;margin-top:10px;}
         .comlist-con {color:#ccc;word-break: break-all;word-wrap: break-word;}
-    .loading-list {z-index:100;display:none;background: url('../img/loading_list.gif') no-repeat;width:20px;height:20px;position:fixed;bottom:10px;right:10px;}
+    .loading-list {z-index:100;display:none;background: url('../img/loading_trans_white.png') no-repeat;width:20px;height:20px;position:fixed;bottom:10px;right:10px;}
 
 /* loginpage Used
 ================================================================================================= */
@@ -336,10 +336,14 @@ a{text-decoration:none;color:#666}
         .user-edit-save {position: absolute;right: 10px;top:10px;height:22px;line-height:25px;background: #eb1f40 url('../img/icon_user_save.gif') no-repeat 6px 4px;color:#fff;padding:0 10px 0 40px;}
 
 .error-404-wrap {background:#f9f9f9;}
-.error-404-wrap .logo {display: block;}
-.error-404 {position: absolute;text-align: center;width:100%;height:100px;top:50%;margin-top:-50px;}
-.error-404 h3 {text-indent: -999em;background: url('../img/error_404.gif') no-repeat center;width:92px;height:64px;margin:0 auto;}
-.error-404 h5 {font-size:14px;color:#afafaf;font-family:'HelveticaNeueLTStd-Lt';}
+    .error-404-wrap .logo {display: block;}
+    .error-404 {position: absolute;text-align: center;width:100%;height:100px;top:50%;margin-top:-50px;}
+    .error-404 h3 {text-indent: -999em;background: url('../img/error_404.gif') no-repeat center;width:92px;height:64px;margin:0 auto;}
+    .error-404 h5 {font-size:14px;color:#afafaf;font-family:'HelveticaNeueLTStd-Lt';}
+
+.touch body {overflow-x:hidden;}
+.touch .main {margin-right:-5px;}
+.touch .content {width:100%;overflow-x:hidden;}
 
 @media only screen and (max-width: 800px) {
     .logo {margin:5px auto 0 auto;background-size:auto 46px;width:158px;height:48px;}

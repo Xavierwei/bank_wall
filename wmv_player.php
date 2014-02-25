@@ -25,8 +25,10 @@
     <param name="animationatstart" value="false">
     <param name="transparentatstart" value="false">
     <param name="autostart" value="true">
-    <param name="showcontrols" value="true">
-    <param name="ShowStatusBar" value="false">
+    <param name="showcontrols" value="false">
+	<param name="BufferingTime" value="5">
+	<param name="fullScreen" value="true">
+	<param name="ShowStatusBar" value="false">
     <param name="windowlessvideo" value="true">
     <param name="AllowChangeDisplaySize" value="true">
     <param name="StretchToFit" value="false">
@@ -35,6 +37,7 @@
     <param name="Rate" value="1.0">
 </object>
 
+<div class="click">click</div>
 <script src="js/jquery/jquery-1.102.js"></script>
 <script>
   var _resizeTimer = null;
@@ -56,6 +59,14 @@
       $('#player').width(width).height(height).css({'margin-top':marginTop});
     }, 500);
   }).trigger('resize');
+
+  $('.click').click(function(){
+	  var Wmp = document.getElementById("player");
+	  if (Wmp.controls.isAvailable('Stop'))
+		  Wmp.controls.stop();
+  });
+
+
 </script>
 </body>
 </html>
