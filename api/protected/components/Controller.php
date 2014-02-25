@@ -88,6 +88,11 @@ class Controller extends CController
       foreach ($keys as $key) {
         // 因为是搜索前缀，所以只需要判断是不是第一个位置就OK
         if (strpos($key, $prefix) == 0) {
+			// if admin role, delete the cache directly
+			if(Yii::app()->user->checkAccess("isAdmin")) {
+				Yii::app()->cache->delete($key);
+			}
+
           $uid = Yii::app()->user->getId();
           if ($uid ) {
             // 如果用户登录了， 还需要判断缓存是否当前用户

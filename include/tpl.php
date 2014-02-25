@@ -491,10 +491,10 @@
 <script type="text/tpl" id="flash-uploader-template">
   <object id="flash-uploader" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="443" height="330">
     <param name="allowScriptAccess" value="always"/>
-    <param name="movie" value="flash/upload_photo.swf"/>
+    <param name="movie" value="flash/upload_photo_{{lang}}.swf"/>
     <param name="quality" value="high"/>
     <param name="wmode" value="opaque"/>
-    <embed name="player" src="flash/upload_photo.swf" quality="high" wmode="opaque" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="443" height="330" allowScriptAccess="always"></embed>
+    <embed name="player" src="flash/upload_photo_{{lang}}.swf" quality="high" wmode="opaque" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="443" height="330" allowScriptAccess="always"></embed>
   </object>
 
 	<div class="pop-inner pop-success">

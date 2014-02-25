@@ -19,6 +19,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     var aMonth;
 	var apiToken;
     var _e;
+    var lang;
 
     // live for pic-item hover event
     $(document.body)
@@ -481,7 +482,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         var st = $(window).scrollTop();
         var docHeight = $(document).height();
         var winHeight = document.body.clientHeight;
-        if( docHeight - winHeight - st < 100 ){
+        if( docHeight - winHeight - st < 180 ){
             clearTimeout(_scrollTimeout);
             _scrollTimeout = setTimeout(function(){
                 // fix main element
@@ -1450,6 +1451,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                     if(FlashDetect.installed) {
                         if(type == 'photo') {
                             $('#node_post_form').hide();
+                            data.lang = lang;
                             LP.compile( "flash-uploader-template" , data,  function( html ){
                                 $('#node_post_flash').show().append(html);
                             });
@@ -2409,7 +2411,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 //		});
 
         // Get language
-        var lang = LP.getCookie('lang') || 'fr';
+        lang = LP.getCookie('lang') || 'fr';
 
         api.ajax('i18n_' + lang , function( result ){
             _e = result;

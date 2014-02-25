@@ -41,7 +41,6 @@ class UserController extends Controller {
 
 		// Save user status in session
 		if (!$userIdentify->authenticate()) {
-			echo md5($attributes['eduPersonTargetedID'][0]);
 			$this->responseError("login failed.");
 		}
 		else {
@@ -57,7 +56,7 @@ class UserController extends Controller {
 
 		// TODO: LIVE
 		// Create the new user if user doesn't exist in database
-//		if( !$user = UserAR::model()->findByAttributes(array('company_email'=>$attributes['uid'][0])) ) {
+//		if( !$user = UserAR::model()->findByAttributes(array('company_email'=>$attributes['sggroupid'][0])) ) {
 //			$user = UserAR::model()->createSAMLRegister($attributes);
 //		}
 //

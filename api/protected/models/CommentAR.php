@@ -50,27 +50,42 @@ class CommentAR extends CActiveRecord {
 		}
 	}
 
+	/**
+	 * Get the comments count by uid
+	 * @param $uid
+	 */
 	public function totalCommentsByUser($uid) {
 		$query = new CDbCriteria();
 		$query->select = array("count(*) AS commentscount");
 		$query->addCondition("uid=:uid");
 		$query->params[":uid"] = $uid;
-		//TODO: status
+		$query->addCondition("status=:status");
+		$query->params[":status"] = 1;
 		$res = $this->find($query);
+
 		return $res->commentscount;
 	}
 
+	/**
+	 * Get the comments count by nid
+	 * @param $nid
+	 */
 	public function totalCommentsByNode($nid) {
 		$query = new CDbCriteria();
 		$query->select = "count(*) as commentcountinnode";
 		$query->addCondition("nid=:nid");
 		$query->params[":nid"] = $nid;
-		//TODO: status
+		$query->addCondition("status=:status");
+		$query->params[":status"] = 1;
 		$res = $this->find($query);
 
 		return $res->commentcountinnode;
 	}
 
+	/**
+	 * Get the flagged count by comment id
+	 * @param $cid
+	 */
 	public function flagCountInComment($cid) {
 		$query = new CDbCriteria();
 		$query->select = "count(*) as flagcount";
@@ -81,6 +96,10 @@ class CommentAR extends CActiveRecord {
 		return $res->flagcount;
 	}
 
+	/**
+	 * Get the flagged comment list
+	 * @param $nid
+	 */
 	public function flaggedCommentsList($nid) {
 		if ($uid = Yii::app()->user->getId()) {
 			$flags = FlagAR::model()->findAllByAttributes(array("comment_nid" => $nid, "uid" => $uid));
