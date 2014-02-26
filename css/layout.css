@@ -265,8 +265,8 @@ a{text-decoration:none;color:#666}
     .pop-success {line-height: 300px;text-align: center;display: none;}
     .poptxt-btn {margin:20px 33px 0; text-align: center;}
     .poptxt-btn p {display:inline-block;}
-	.poptxt-cancel{float:left;width: 190px;height: 40px;background: #db2842;border: #c0152d 2px solid;color:#fff;line-height: 45px;text-align: center;font-size:14px;text-transform: uppercase;}
-	.poptxt-submit{float:right;width: 190px;height: 40px;background: #3f3e3d;border: #5d5d5d 2px solid;color:#fff;line-height: 45px;text-align: center;font-size:14px;text-transform: uppercase;}
+	.poptxt-cancel{float:left;width: 190px;height: 40px;background: #3f3e3d;border: #5d5d5d 2px solid;color:#fff;line-height: 45px;text-align: center;font-size:14px;text-transform: uppercase;}
+	.poptxt-submit{float:right;width: 190px;height: 40px;background: #db2842;border: #c0152d 2px solid;color:#fff;line-height: 45px;text-align: center;font-size:14px;text-transform: uppercase;}
     .pop-modal {display:none;z-index:12;background:#fff;position:fixed;left:50%;top:-30%;color:#434343;-webkit-box-shadow: 3px 3px 10px 0 #C2C2C2;box-shadow: 3px 3px 10px 0 #C2C2C2;}
     .flag-confirm-modal {width: 400px;height:140px;margin: -70px 0 0 -200px;text-align: center;}
     .flag-confirm-text {font-size:15px;margin:25px 0 0;}

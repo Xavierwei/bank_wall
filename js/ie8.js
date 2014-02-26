@@ -73,7 +73,9 @@ var uploadSuccess = function(file, serverData) {
                 var errorIndex = 1;
                 break;
         }
-        $('.pop-file').fadeOut(400);
+        $('.pop-load').fadeOut(400);
+        $('.pop-txt').fadeOut(400);
+        $('.pop-file').fadeIn(400);
         $('.step1-tips li').removeClass('error');
         $('.step1-tips li').eq(errorIndex).addClass('error');
     }

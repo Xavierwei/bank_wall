@@ -58,7 +58,7 @@
     position: relative;
 }
 
-.pop-avatar .poptxt-pic {float: none;margin:0 auto;}
+.pop-avatar .poptxt-pic {float: none;margin:0 auto;width:322px;}
 .pop-avatar .poptxt-pic-inner {margin:0 auto;}
 
 .poptxt-pic .pop-zoomout-btn {background-position: -17px -18px;right: 75px;}

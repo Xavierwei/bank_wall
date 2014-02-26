@@ -1418,7 +1418,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 });
             }
             LP.triggerAction('cancel_modal');
-            LP.triggerAction('update_user_status');
         }
     });
 
@@ -1627,7 +1626,9 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 $fileupload.append('<input type="hidden" name="iframe" value="true" />');
                 $fileupload.find('input').change(function(){
                     $fileupload.submit();
-                    $('.step1-btns').fadeOut();
+					$('.popload-percent').hide();
+					$('.pop-file').fadeOut(400);
+					$('.pop-load').fadeIn(400);
                 });
             }
             else {
@@ -1773,7 +1774,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 if(!FlashDetect.installed) {
                     $('#node_post_form').submit();
                     $('.pop-txt').fadeOut();
-                    $('.pop-load').fadeIn();
                     $('.popload-percent').hide();
                     return;
                 }
@@ -1815,7 +1815,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         $dom.addClass('disabled');
         // add loading tag
         $('.pop-uploadloading').show();
-        api.ajax('saveAvatar' , $.extend( trsdata , data ) , function( result ){
+        api.ajax('saveAvatar' , $.extend( trsdata , data, {size: 220} ) , function( result ){
             if( result.success ){
                 // hide the panel
                 $('.popclose').trigger('click');
@@ -2442,6 +2442,9 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                         }
                         if(!result.data.avatar) {
                             result.data.avatar = "/uploads/default_avatar.gif";
+                        }
+                        else {
+                            result.data.avatar = result.data.avatar + '?' + new Date().getTime();
                         }
 						result.data.country.country_name = _e[result.data.country.i18n];
                         result.data._e = _e;

@@ -28,7 +28,7 @@ class LikeController extends Controller {
 		    "nid" => $nid
 		);
 
-		$currentUserLikeCount = $likeAr->getUserNodeCount($nid,$uid);
+		$currentUserLikeCount = $likeAr->getUserNodeCount((int)$nid,$uid);
 
 		if ($likeAr->validate()) {
 			// Check if already liked
@@ -39,7 +39,7 @@ class LikeController extends Controller {
 			$this->cleanCache("node_")
 				->cleanCache("comment_");
         
-				$this->responseJSON($likeAr->getNodeCount($nid), "success");
+				$this->responseJSON($likeAr->getNodeCount((int)$nid), "success");
 			}
 			else
 			{
@@ -65,14 +65,14 @@ class LikeController extends Controller {
 		  return $this->responseError(601);
 		}
 		$uid = Yii::app()->user->getId();
-		$nid = $request->getPost("nid");
+		$nid = (int)$request->getPost("nid");
 
 		$likeAr = new LikeAR();
-		$likeAr->deleteLike($uid, $nid);
+		$likeAr->deleteLike($uid, (int)$nid);
 
 		$this->cleanCache("node_")
 			->cleanCache("comment_");
-		$this->responseJSON($likeAr->getNodeCount($nid), "success");
+		$this->responseJSON($likeAr->getNodeCount((int)$nid), "success");
 	}
 }
 

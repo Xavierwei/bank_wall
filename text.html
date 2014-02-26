@@ -23,6 +23,17 @@ ffmpeg -i v240.mp4 -y v240.wmv
 --enable-nonfree
 
 
+ffmpeg -loop 1 -i photo.jpg -r 5 -i png_%d.png -filter_complex 'overlay=x=100:y=100' -shortest -t 10 out.mp4
+
+ffmpeg -loop 1 -r 5/1 -i png_%d.png -t 10 -i photo.jpg -filter_complex 'overlay=x=100:y=100' out.mp4
+
+ffmpeg -loop 1 photo.jpg -t 10 out.mp4
+
+
+
+Works!
+ffmpeg -i audio.wav -acodec aac -loop 1 -f image2 -i photo.jpg -loop 1 -r 5/1 -i png_%d.png -filter_complex 'overlay=x=100:y=100' -shortest -t 6 out.mp4
+
 
 /var/www/vhosts/polyardshanghai.com/httpdocs/sgwall/api/uploads/2014/2/11
 

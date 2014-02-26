@@ -58,6 +58,6 @@ body,input,textarea{font-family:'HelveticaNeueLTStd-MdCn', arial, sans-serif;tex
 .editfi-country-option p {font-size:11px;}
 .editfi-country-option p:hover {border:1px solid #e6e6e6;}
 .edit-email-error,.editfi-condition-error {font-size:18px;text-transform:none;}
-.user-edit-save {font-family:'HelveticaNeueLTStd-Lt';font-size:24px;text-transform:none;}
+.user-edit-save,.user-edit-cancel {font-family:'HelveticaNeueLTStd-Lt';font-size:24px;text-transform:none;text-transform: capitalize}
 .poploading,.pop-success {font-size:22px;}
 .poptxt-preview .error {font-size:18px;text-transform: none;}

@@ -6,19 +6,12 @@
 		<!--  -->
 		<!-- header -->
 		<div class="header">
-
-
-
-			<a href="../api/user/samllogin" class="login btn">
-				{{_e.CONNECT}}
-			</a>
-
+			<a href="../api/user/samllogin" class="login btn">{{_e.CONNECT}}</a>
 			<div class="search clear">
 				<input class="search-ipt" name="hashtag" type="text" placeholder="#HASHTAG" />
 				<input data-a="search" class="search-sub" type="submit" value="search" />
 				<div class="search-tip btn" data-a="search_tip"></div>
 			</div>
-
 			<div class="select filter-unlogged clear" data-a="filter">
 				<!--  -->
 				<div class="select-item">
@@ -26,19 +19,15 @@
 				</div>
 				<!--  -->
 			</div>
-
 			<div class="filter btn" data-a="filter">filter</div>
-
 			<!--  -->
 			<div class="language">
 				<div data-a="lang" data-d="lang=fr" class="btn language-item language-item-fr"><p class="fr"></p></div>
 				<div data-a="lang" data-d="lang=en" class="btn language-item language-item-en"><p class="en"></p></div>
 			</div>
-
 		</div>
 		<!--  -->
 		<div class="content clear">
-			<div class="search-hd" style="display:none;">{{_e.RESULTS}} #<span></span></div>
 			<div class="main-wrap">
 				<div class="main">
 
@@ -285,7 +274,7 @@
 						{{#if currentUser}}
 						<div class="com-make">
 							<form class="comment-form" action="../api/index.php/comment/post" method="post">
-								<textarea name="content" class="com-ipt" placeholder="{{_e.WRITE_YOUR_COMMENT}}"></textarea>
+								<input name="content" class="com-ipt" placeholder="{{_e.WRITE_YOUR_COMMENT}}" />
 								<input type="hidden" name="nid" value="{{nid}}" />
 								<div class="com-loading"></div>
 								<input class="submit btn2" type="submit" value="{{_e.SUBMIT}}" />
@@ -317,8 +306,6 @@
 										<span>{{likecount}}</span> {{#ifzero likecount}}{{_e.LIKE}}{{else}}{{_e.LIKES}}{{/ifzero}}
 									</div>
 								{{/if}}
-
-
 							{{/ifliked}}
 							{{#if user_flagged}}
 							<div class="flag-node flagged">flag</div>
@@ -394,7 +381,7 @@
 <script type="text/tpl" id="user-page-template">
 	<div class="user-page clear" style="display:none;">
 		<div class="count-user">
-			<div class="count-userpho"><img src="../api{{avatar}}" width="100" height="100" /><div class="avatar-ie-round"></div></div>
+			<div class="count-userpho btn"><img src="../api{{avatar}}" width="100" height="100" /><div class="avatar-ie-round"></div></div>
 			<div class="count-userinfo">
 				<p class="name">{{firstname}} {{lastname}}</p>
 				<p class="location">{{country.country_name}}</p>
@@ -450,7 +437,10 @@
 						</div>
 					</div>
 				</div>
-				<a class="user-edit-save btn" data-a="save_user">{{_e.SAVE}}</a>
+				<div class="user-edit-btns">
+					<a class="user-edit-save btn" data-a="save_user">{{_e.SAVE}}</a>
+					<a class="user-edit-cancel btn" data-a="cancel_user_edit">{{_e.CANCEL}}</a>
+				</div>
 			</form>
 			<div class="user-edit-loading"></div>
 		</div>

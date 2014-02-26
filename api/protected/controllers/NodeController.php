@@ -33,9 +33,10 @@ class NodeController extends Controller {
 						$this->render('post', array(
 							'code'=>$validateUpload
 						));
+						return;
 					}
 					else {
-						$this->responseError($validateUpload);
+						return $this->responseError($validateUpload);
 					}
 				}
 			}
@@ -80,6 +81,7 @@ class NodeController extends Controller {
 					$this->render('post', array(
 						'code'=>1
 					));
+					return;
 				} else {
 					$this->responseJSON($retdata, "success");
 				}
@@ -149,6 +151,8 @@ class NodeController extends Controller {
 	}
 
 	/*
+	 * Delete content
+	*/
 	public function actionDelete() {
 		$request = Yii::app()->getRequest();
 
@@ -164,7 +168,7 @@ class NodeController extends Controller {
 
 		$nodeAr = NodeAR::model()->findByPk($nid);
 		if(!$nodeAr) {
-		  $this->responseError(101);
+		  return $this->responseError(102);
 		}
 
 		if(!Yii::app()->user->checkAccess("deleteOwnNode", array("uid" => $nodeAr->uid))) {
@@ -182,9 +186,10 @@ class NodeController extends Controller {
 		LikeAR::model()->saveTopOfDay($nodeAr);
 		LikeAR::model()->saveTopOfMonth($nodeAr);
 
+		$this->cleanCache("node_")
+			->cleanCache("comment_");
 		return $this->responseJSON($nodeAr->attributes, "success");
 	}
-	*/
 
 	/**
 	 * Get the page num by nid

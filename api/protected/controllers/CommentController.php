@@ -67,7 +67,7 @@ class CommentController extends Controller {
 			$this->responseError(101);
 		}
 
-		$cid = $request->getPost("cid");
+		$cid = (int)$request->getPost("cid");
 		if (!$cid || !is_numeric($cid)) {
 			$this->responseError(101);
 		}
@@ -82,8 +82,8 @@ class CommentController extends Controller {
 			return $this->responseError(601);
 		}
 
-		$status = $request->getPost("status");
-		if (!isset($status)) {
+		$status = (int)$request->getPost("status");
+		if (!isset($status) || !is_numeric($status)) {
 			$this->responseError(101);
 		}
 
@@ -98,7 +98,7 @@ class CommentController extends Controller {
 		if ($comment->validate()) {
 			$this->cleanCache("node_")
 				->cleanCache("comment_");
-			$comment->updateByPk($comment->cid, array("status" => $comment->status));
+			$comment->updateByPk((int)$comment->cid, array("status" => (int)$comment->status));
 			$this->responseJSON($comment->attributes, "success");
 		}
 		else {
@@ -123,7 +123,7 @@ class CommentController extends Controller {
 
 		$comment = CommentAR::model()->with("node")->findByPk($cid);
 		if (!$comment) {
-			$this->responseJSON(array(), "success");
+			$this->responseError(101);
 		}
 		$node = $comment->node;
 		if (!Yii::app()->user->checkAccess("deleteAnyComment", array("country_id" => $node->country_id))
@@ -131,21 +131,23 @@ class CommentController extends Controller {
 			return $this->responseError(601);
 		}
 
-		$cid = $request->getPost("cid");
+		$cid = (int)$request->getPost("cid");
 		if ($cid) {
 			$commentAr = new CommentAR();
-			$commentAr->deleteByPk($cid);
-			$this->responseJSON(array(), "success");
+			$commentAr->deleteByPk((int)$cid);
+			$this->cleanCache("node_")
+				->cleanCache("comment_");
+			return $this->responseJSON(array(), "success");
 		}
 		else {
-			$this->responseError(601);
+			return $this->responseError(601);
 		}
 	}
 
 	public function actionList() {
 		$request = Yii::app()->getRequest();
 
-		$nid        = $request->getParam("nid");
+		$nid        = (int)$request->getParam("nid");
 		$shownode   = $request->getParam("shownode");
 		$status     = $request->getParam("status");
 		$keyword    = $request->getParam("keyword");
@@ -253,58 +255,7 @@ class CommentController extends Controller {
 	}
 
 
-	/**
-	 * Search by keyword
-	 */
-	public function actionSearchByKeyword() {
-		$request = Yii::app()->getRequest();
 
-		$keyword = $request->getParam("keyword");
-		$page = $request->getParam("page");
-		$pagenum = $request->getParam("pagenum");
-		$orderby = $request->getParam("orderby");
-
-		// 所有的参数都是必须的
-		if (!$keyword && !$page && !$pagenum && !$orderby) {
-		  $this->responseError("invalid params");
-		}
-
-		// orderby 允许 [datetime | nid ]
-		if (!in_array($orderby, array("datetime", "nid"))) {
-		  $this->responseError("invalid params");
-		}
-
-		// pagenum / page 是数字
-		if (!is_numeric($pagenum) && !is_numeric($page)) {
-		  $this->responseError("invalid params");
-		}
-
-		$query = new CDbCriteria();
-		$query->limit = $pagenum;
-		// 从第一也计算起
-		$query->offset = ( $page - 1 ) * $pagenum;
-		$query->order = "{$orderby} DESC";
-
-		// 关键字搜索
-		$query->addSearchCondition("content", $keyword);
-
-		$comments = CommentAR::model()->findAll($query);
-
-		$retdata = array();
-		foreach ($comments as $comment) {
-		  $commentdata = $comment->attributes;
-
-		  // 加载 评论相关的用户资料
-		  $country = $comment->user->country;
-		  $user = $comment->user->attributes;
-		  $user["country"] = $country->attributes;
-		  $commentdata["user"] = $comment->user->getOutputRecordInArray($user);
-
-		  $retdata[] = $commentdata;
-		}
-
-		$this->responseJSON($retdata, "success");
-	}
 
 	/**
 	 * Get comment by cid (disabled)
