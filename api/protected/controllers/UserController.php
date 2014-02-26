@@ -368,7 +368,7 @@ class UserController extends Controller {
 			// cut the file
 			$thumb = new EasyImage( ROOT . '/' . $fileUpload );
 			$thumb->resize( $request->getPost("width") , $request->getPost("height") );
-			$thumb->crop( 220 , 220 , -$request->getPost("x") , -$request->getPost("y") );
+			$thumb->crop( $request->getPost("size") , $request->getPost("size") , -$request->getPost("x") , -$request->getPost("y") );
 			$thumb->resize(80, 80);
 			$fileto = ROOT . '/uploads/avatar/' . $uid .'.'. pathinfo($fileUpload, PATHINFO_EXTENSION);
 			$dir = dirname( $fileto );

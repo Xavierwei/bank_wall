@@ -33,9 +33,10 @@ class NodeController extends Controller {
 						$this->render('post', array(
 							'code'=>$validateUpload
 						));
+						return;
 					}
 					else {
-						$this->responseError($validateUpload);
+						return $this->responseError($validateUpload);
 					}
 				}
 			}
@@ -80,6 +81,7 @@ class NodeController extends Controller {
 					$this->render('post', array(
 						'code'=>1
 					));
+					return;
 				} else {
 					$this->responseJSON($retdata, "success");
 				}

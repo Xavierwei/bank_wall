@@ -101,12 +101,14 @@
 		var a = arguments;
 		if(a[1] == 3) {
 			if(!playInterval) {
-				$('.bar-wrap').fadeIn();
-				$('.loading').hide();
 				var duration = player.currentMedia.duration;
 				playInterval = setInterval(function(){
 					var currentPos = player.controls.currentPosition;
 					var percent = currentPos / duration;
+					if(percent > 0) {
+						$('.bar-wrap').fadeIn();
+						$('.loading').hide();
+					}
 					$('.bar-percent').css({width: percent*100 + '%'});
 				}, 300);
 			}
