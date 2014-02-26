@@ -15,7 +15,6 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
     var $mainWrap = $('.main-wrap');
     var minWidth = 640;
     var itemWidth = minWidth;
-    var scrollTimeout;
     var winWidth = $(window).width();
     var $listLoading = $('.loading-list');
     var aMonth;
@@ -45,21 +44,15 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 		.on("release dragleft dragright swipeleft swiperight", function(ev) {
 			switch(ev.type) {
 				case 'swipeleft':
-                    break;
 				case 'dragleft':
 					sideDirection = 'right';
 					break;
 				case 'swiperight':
-                    break;
 				case 'dragright':
 					sideDirection = 'left';
 					break;
 				case 'release':
-
 					if(sideDirection && !$('.inner').is(':visible') || sideDirection == 'right' && !$('.side').hasClass('closed')) {
-                        if(Math.abs(ev.gesture.deltaX) < 160 && sideDirection == 'left') {
-                            return;
-                        }
 						LP.triggerAction('toggle_side_bar', sideDirection);
 					}
 					break;
@@ -102,14 +95,10 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 	$('body').hammer()
 		.on("tap", '.main-item', function(ev) {
 			if($(ev.target).hasClass('item-delete')) return;
-            var _this = $(this);
+			LP.triggerAction('node',$(this));
             setTimeout(function(){
-                if($('.main-wrap').hasClass('scrolling')) return;
-                LP.triggerAction('node', _this);
-                setTimeout(function(){
-                    _innerLock = false; // force unlock
-                }, 500);
-            }, 100);
+                _innerLock = false; // force unlock
+            }, 400);
 		}
 	);
 
@@ -534,6 +523,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
         var st = $dom.parent().scrollTop();
         var docHeight = $dom.height();
         //var winHeight = document.body.clientHeight;
+        console.log(docHeight - st);
         if( docHeight - st < 2000 ){
 
             // fix main element
@@ -636,7 +626,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 
     // view node action
     var _silderWidth = 80;
-    var _animateTime = 700;
+    var _animateTime = 400;
     var _animateEasing = 'easeInOutQuart';
     var _nodeCache = [];
     var _currentNodeIndex = 0;
@@ -690,8 +680,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 					x: 0
 				}, _animateTime , _animateEasing, function(){
                     _innerLock = false;
-                    var scrollTop = $main.parent().scrollTop();
-					$main.data('scrollTop', scrollTop).hide();
+					$main.hide();
 					$('.user-page').hide();
 				});
 
@@ -732,7 +721,6 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
             // init vide node
             if( node.type == "video" ){
                 //renderVideo($('.image-wrap-inner'),node);
-                $('.video-poster').delay(200).fadeIn();
                 $('#imgLoad').attr('src', './api' + node.image);
                 $('#imgLoad').ensureLoad(function(){
 //                    setTimeout(function(){
@@ -786,6 +774,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 
     // for back action
     LP.action('back' , function( data ){
+		console.log('back');
 		_innerLock = false;
         //if( _innerLock ) return;
         var $inner = $('.inner');
@@ -808,8 +797,8 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 				$inner.remove();
 			});
 
-        var scrollTop = $aniDom.data('scrollTop');
-		$aniDom.show().parent().animate({scrollTop:scrollTop},0);
+		$aniDom.show();
+
 
         var pageParam = $dom.data('param');
         if(pageParam.previouspage != null) {
@@ -853,12 +842,13 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
         }
     }
 
+    var releaseTimeout = null;
     function releaseDragNode(direction) {
-        setTimeout(function(){
-            _draggingReleasing = false; // force unlock, due to some time the transit call back will not fire.
-        },500);
         if(_draggingReleasing) return;
         _draggingReleasing = true;
+        setTimeout(function(){
+            _draggingReleasing = false; // force unlock, due to some time the transit call back will not fire.
+        },600);
         var $imageWrapInner = $('.image-wrap-inner');
         if($imageWrapInner.length == 2) {
             var wrapWidth = $imageWrapInner.eq(0).width();
@@ -883,11 +873,8 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
     }
 
     function updateInnerNode(node, direction) {
+        if( $('.image-wrap-inner').length == 1 ) return;
         $('.image-wrap-inner').eq(direction == 'right' ? 0 : 1).remove();
-        var datetime = new Date((parseInt(node.datetime)+1*3600)*1000);
-        node.date = datetime.getUTCDate();
-        node.month = getMonth((parseInt(datetime.getUTCMonth()) + 1));
-        node._e = _e;
         LP.compile( 'inner-template' , node , function( html ){
 			var $inner = $('.inner');
             var $newInner = $(html);
@@ -901,7 +888,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 			var $info = $inner.find('.inner-info');
 			$info.transit({
 				y: $info.height()
-			} , 400, function(){
+			} , 500, function(){
 				$info.remove();
 			})
 			var $newInfo = $newInner.find('.inner-info')
@@ -911,17 +898,13 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 				y: $info.height(),
 				width: $info.width(),
 				left: $info.css('left')
-			}).delay(400).transit({y:0}, 600);
+			}).transit({y:0});
 
 			// update top icon
-            var $top = $inner.find('.inner-top');
-			var $nextTop = $newInner.find('.inner-top').insertAfter('.inner-info').css({opacity:0});
-            $top.transit({
-                opacity: 0
-            }, 400, function(){
-                $(this).remove();
-            });
-            $nextTop.delay(400).transit({opacity:1});
+			var $nextTop = $newInner.find('.inner-top');
+
+
+
 			_innerLock = false;
 
         });
@@ -1010,8 +993,6 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 			// init video
 			if( node.type == "video" ){
 				//$('.image-wrap-inner video').fadeIn(200);
-
-                $('.video-poster').delay(200).fadeIn();
 			}
 
             $newItem.find('img').ensureLoad(function(){
@@ -1140,7 +1121,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
                     $inner.removeClass('disabled');
                     $dom.data('end' , true);
                     // TODO:: tip no more nodes
-                    //alert('no more nodes');
+                    alert('no more nodes');
                     _innerLock = false;
                 }
             });
@@ -1763,13 +1744,13 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
         $dom.addClass('disabled');
         // add loading tag
         $('.pop-uploadloading').show();
-        api.ajax('saveAvatar' , $.extend( trsdata , data, {size: 320} ) , function( result ){
+        api.ajax('saveAvatar' , $.extend( trsdata , data ) , function( result ){
             if( result.success ){
                 // hide the panel
                 $('.popclose').trigger('click');
                 // change all avatar image
                 $('.user-pho , .count-userpho').find('img')
-                    .attr('src' , '../api' + result.data.file+'?'+ new Date().getTime() );
+                    .attr('src' , './api' + result.data.file+'?'+ new Date().getTime() );
             } else {
                 // TODO:: show error
             }
@@ -1782,25 +1763,20 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 	//toggle side bar
 	LP.action('toggle_side_bar', function(type){
 		var $side = $('.side');
-        if($side.hasClass('moving')) return;
-        $side.addClass('moving');
-        setTimeout(function(){
-            $side.removeClass('moving');
-        }, 800);
         if(typeof type == 'string') {
             if(type == 'left') {
-                $side.removeClass('closed').transit({x:0}, 800, 'easeOutQuart');
+                $side.removeClass('closed').transit({x:0}, 500, 'easeOutQuart');
             }
             else {
-                $side.addClass('closed').transit({x:-165}, 500, 'easeInQuart');
+                $side.addClass('closed').transit({x:-165}, 300, 'easeInQuart');
             }
         }
         else {
             if($side.hasClass('closed')) {
-                $side.removeClass('closed').transit({x:0}, 800, 'easeOutQuart');
+                $side.removeClass('closed').transit({x:0}, 500, 'easeOutQuart');
             }
             else {
-                $side.addClass('closed').transit({x:-165}, 500, 'easeInQuart');
+                $side.addClass('closed').transit({x:-165}, 300, 'easeInQuart');
             }
         }
 
@@ -1815,7 +1791,6 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
             $('.inner').fadeOut(400);
             $('.main').fadeOut(400);
             $('.count').css({left:-240}).delay(400).animate({left:80});
-            $('.count-inner-wrap').animate({scrollTop:0},10);
             $('.user-page').css({x: -mainWidth })
 				.show()
                 .delay(100)
@@ -1919,7 +1894,6 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
             resizeUserBox();
         });
         $('.avatar-file').fadeIn();
-        $('.count-userpho').attr('data-a', 'avatar_upload');
         $('.count-userinfo').addClass('count-userinfo-edit');
         var $countryList = $('.editfi-country-option-list');
 //        LP.use(['jscrollpane' , 'mousewheel'] , function(){
@@ -1951,7 +1925,6 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
                 $('.avatar-file').fadeOut();
                 $('.count-com').delay(400).fadeIn(400);
                 $('.count-edit').fadeIn();
-                $('.count-userpho').removeAttr('data-a', 'avatar_upload');
                 $('.count-userinfo').removeClass('count-userinfo-edit');
 				$('.count-userinfo .location').html($('.user-edit-page .editfi-country-box').html());
             }
@@ -1962,18 +1935,6 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
             $('.user-edit-loading').fadeOut();
         });
     });
-
-
-    //cancel user edit
-    LP.action('cancel_user_edit' , function(){
-        $('.user-edit-page').fadeOut(400);
-        $('.avatar-file').fadeOut();
-        $('.count-com').delay(400).fadeIn(400);
-        $('.count-edit').fadeIn();
-        $('.count-userpho').removeAttr('data-a', 'avatar_upload');
-        $('.count-userinfo').removeClass('count-userinfo-edit');
-    });
-
 
     //close user page
     LP.action('logout' , function(){
@@ -2198,6 +2159,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
         // get select options
         $('.filter-modal').find('.select-option')
             .each( function(){
+                console.log($(this).data('param'));
                 param = $.extend( param , LP.query2json( $(this).data('param') ) );
             } );
 
@@ -2397,9 +2359,6 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
                         if(!result.data.avatar) {
                             result.data.avatar = "/uploads/default_avatar.gif";
                         }
-                        else {
-                            result.data.avatar = result.data.avatar + '?' + new Date().getTime();
-                        }
 						result.data.country.country_name = _e[result.data.country.i18n];
                         result.data._e = _e;
                         LP.compile( 'user-page-template' , result.data , function( html ){
@@ -2438,32 +2397,32 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 //                    });
                 });
 
-//                LP.use('uicustom',function(){
-//                    var placeHolder = $( ".search-ipt").attr('placeholder'); // TODO: use background instead
-//                    $( ".search-ipt").val('').autocomplete({
-//                        source: function( request, response ) {
-//                            $.ajax({
-//                                url: "./api/tag/list",
-//                                dataType: "json",
-//                                data: {
-//                                    term: request.term
-//                                },
-//                                success: function( data ) {
-//                                    response( $.map( data.data, function( item ) {
-//                                        return {
-//                                            label: item.tag,
-//                                            value: item.tag
-//                                        }
-//                                    }));
-//                                }
-//                            });
-//                        },
-//                        minLength: 1,
-//                        select: function( event, ui ) {
-//                            //console.log(ui);
-//                        }
-//                    });
-//                });
+                LP.use('uicustom',function(){
+                    var placeHolder = $( ".search-ipt").attr('placeholder'); // TODO: use background instead
+                    $( ".search-ipt").val('').autocomplete({
+                        source: function( request, response ) {
+                            $.ajax({
+                                url: "./api/tag/list",
+                                dataType: "json",
+                                data: {
+                                    term: request.term
+                                },
+                                success: function( data ) {
+                                    response( $.map( data.data, function( item ) {
+                                        return {
+                                            label: item.tag,
+                                            value: item.tag
+                                        }
+                                    }));
+                                }
+                            });
+                        },
+                        minLength: 1,
+                        select: function( event, ui ) {
+                            //console.log(ui);
+                        }
+                    });
+                });
 
 
                 LP.use('handlebars' , function(){
@@ -2820,14 +2779,6 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
             }, 2000);
            $(this).remove();
         });
-
-        $('.main-wrap').on('scroll', (function(){
-            $('.main-wrap').addClass('scrolling');
-            clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(function(){
-                $('.main-wrap').removeClass('scrolling');
-            }, 500);
-        }));
     }
 
     var renderVideo = function($newItem,node){
