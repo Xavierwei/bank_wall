@@ -1,8 +1,9 @@
 
 <testcases>
-    <!-- SAMPLE TEST CASE -->
     <param name="server" value="http://64.207.184.106/sgwall/api" />
-    <case>
+    <param name="server_dev" value="http://bankwall.local/" />
+
+<!--     <case>
         <url>${server}/node/list</url>
     </case>
     
@@ -12,15 +13,13 @@
     
     <case>
         <url>${server}/node/list?type=video</url>
-    </case>
-    
-    <!-- SAMPLE TEST CASE -->
-    <!--
+    </case> -->
+
     <case>
-        <url>http://search.yahooapis.com/WebSearchService/V1/webSearch</url>
+        <url>${server}/node/PostByMail</url>
         <method>POST</method>
-        <body><![CDATA[appid=YahooDemo&query=pylot]]></body>
-        <add_header>Content-type: application/x-www-form-urlencoded</add_header>
+        <add_header>Content-Type: multipart/form-data</add_header>
+        <body file="./newvideobody.dat" ></body>
     </case>
-    -->
+
 </testcases>
