@@ -41,6 +41,7 @@ class UserController extends Controller {
 
 		// Save user status in session
 		if (!$userIdentify->authenticate()) {
+			echo md5($attributes['eduPersonTargetedID'][0]);
 			$this->responseError("login failed.");
 		}
 		else {

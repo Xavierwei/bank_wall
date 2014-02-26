@@ -35,7 +35,7 @@ class LikeAR extends CActiveRecord {
 
 	public function afterSave() {
 		$nid = $this->getAttribute("nid");
-		$node = NodeAR::model()->findByPk($nid);
+		$node = NodeAR::model()->findByPk((int)$nid);
 		$this->saveTopOfDay($node);
 		$this->saveTopOfMonth($node);
 	}

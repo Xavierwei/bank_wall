@@ -63,6 +63,7 @@ def load_xml_cases_dom(dom):
                     file_payload = element.attrib.get('file')
                     if file_payload:
                         req.body = open(file_payload, 'rb').read()
+                        
                     else:
                         req.body = element.text
                 if element.tag.lower() == 'verify': 

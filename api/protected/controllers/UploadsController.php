@@ -1,14 +1,7 @@
 <?php
 
-/**
- * 这个 Controller 是为了缩略图准备
- * 比如 用户访问缩略图 /uploads/p20_400_400.png ， 
- * 在缩略图没有生成之前会把请求给 UploadsController 来生成缩略图
- */
 class UploadsController extends Controller {
-  
-  private $_max_photo_size = 5120000;
-  private $_max_video_size = 7168000;
+
   private $_photo_mime = array(
 		"image/gif", "image/png", "image/jpeg", "image/jpg", "image/pjpeg", "image/x-png"
 	);
@@ -22,7 +15,6 @@ class UploadsController extends Controller {
   
   // 生成
   public function missingAction($actionID) {
-    $thumbnail_path = $actionID;
     
     $files = explode("/", substr($_SERVER["REQUEST_URI"], 1));
     $filename = $files[count($files) - 1];

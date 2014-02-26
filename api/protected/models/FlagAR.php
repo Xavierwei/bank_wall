@@ -55,9 +55,9 @@ class FlagAR extends CActiveRecord {
 		// Block the node if over the counts of the flag settings
 		if ($nid) {
 			$command = Yii::app()->db->createCommand("SELECT count(*) as count FROM flag where nid = :nid");
-			$res = $command->query(array(":nid" => $nid))->read();
+			$res = $command->query(array(":nid" => (int)$nid))->read();
 			if ($res["count"] >= self::COUNT_THAT_BLOckED) {
-				$node = NodeAR::model()->findByPk($nid);
+				$node = NodeAR::model()->findByPk((int)$nid);
 				$node->blockIt();
 			}
 		}
@@ -65,9 +65,9 @@ class FlagAR extends CActiveRecord {
 		// Block the comment if over the counts of the flag settings
 		if ($cid) {
 			$command = Yii::app()->db->createCommand("SELECT count(*) as count FROM flag where cid = :cid");
-			$res = $command->query(array(":cid" => $cid))->read();
+			$res = $command->query(array(":cid" => (int)$cid))->read();
 			if ($res["count"] >= self::COUNT_THAT_BLOckED) {
-				$comment = CommentAR::model()->findByPk($cid);
+				$comment = CommentAR::model()->findByPk((int)$cid);
 				$comment->blockIt();
 			}
 		}
@@ -80,7 +80,7 @@ class FlagAR extends CActiveRecord {
 	public function deleteNodeFlag($nid) {
 		$query = new CDbCriteria();
 		$query->addCondition("nid = :nid");
-		$query->params[":nid"] = $nid;
+		$query->params[":nid"] = (int)$nid;
 
 		return $this->deleteAll($query);
 	}
@@ -92,7 +92,7 @@ class FlagAR extends CActiveRecord {
 	public function deleteCommentFlag($cid) {
 		$query = new CDbCriteria();
 		$query->addCondition("cid = :cid");
-		$query->params[":cid"] = $cid;
+		$query->params[":cid"] = (int)$cid;
 
 		return $this->deleteAll($query);
 	}
@@ -105,7 +105,7 @@ class FlagAR extends CActiveRecord {
 		$query = new CDbCriteria();
 		$query->select = "count(*) as flagcount";
 		$query->addCondition("nid=:nid");
-		$query->params[":nid"] = $nid;
+		$query->params[":nid"] = (int)$nid;
 		$res = $this->find($query);
 
 		return $res->flagcount;
@@ -119,7 +119,7 @@ class FlagAR extends CActiveRecord {
 		$query = new CDbCriteria();
 		$query->select = "count(*) as flagcount";
 		$query->addCondition("cid=:cid");
-		$query->params[":cid"] = $cid;
+		$query->params[":cid"] = (int)$cid;
 		$res = $this->find($query);
 
 		return $res->flagcount;

@@ -31,8 +31,12 @@
 
 
 import sys
+import os
 import core.config as config
 import core.optionparse as optionparse
+
+basepath = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
+sys.path.append(os.path.join(basepath, "poster"))
 
 
 VERSION = '1.26'
@@ -129,7 +133,7 @@ else:  # console/shell mode
     if output_dir:
         print '  output directory:           %s' % output_dir
     print '\n'
-    try:    
+    try:
         pylot_console.main(agents, rampup, interval, duration, tc_xml_filename, log_msgs, output_dir, test_name)
     except KeyboardInterrupt:
         print '\nInterrupt'

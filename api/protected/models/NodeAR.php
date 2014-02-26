@@ -33,7 +33,6 @@ class NodeAR extends CActiveRecord{
 
 	const ALLOW_UPLOADED_VIDEO_TYPES = "mp4,avi,mov,mpg,mpeg,3pg,wmv";
 
-	// 其他格式的视频需要转换到这个指定的格式
 	const ALLOW_STORE_VIDE_TYPE = "mp4";
 
 	public $nodecounts;
@@ -81,79 +80,79 @@ class NodeAR extends CActiveRecord{
 		}
 	}
   
-  public function relations() {
-    return array(
-        "country" => array(self::BELONGS_TO, "CountryAR", "country_id"),
-        "user" => array(self::BELONGS_TO, "UserAR", "uid"),
-    );
-  }
-  
-  public function getHashTag() {
-    $description = $this->description;
-    $matches = array();
-    preg_match_all("/#([\\w']+)/", $description, $matches);
-    $hashtags = end($matches);
-    return $hashtags;
-  }
-  
-  public function beforeSave() {
-    parent::beforeSave();
-    
-    $hashtags = $this->getHashTag();
-    // 在添加时 需要制定一个默认的 status = publichsed
-    if (!$this->{$this->getPrimaryKey()}) {
-        $this->setAttribute("status", self::PUBLICHSED);
-        $this->setAttribute("datetime", time());
-        $this->setAttribute("created", time());
-    }
-    $this->setAttribute("hashtag", serialize($hashtags));
-	foreach($hashtags as $tag) {
-		TagAR::model()->saveTag($tag);
+	public function relations() {
+		return array(
+		    "country" => array(self::BELONGS_TO, "CountryAR", "country_id"),
+		    "user" => array(self::BELONGS_TO, "UserAR", "uid"),
+		);
 	}
-
-    return TRUE;
-  }
   
-  public function afterFind() {
-    parent::afterFind();
-    $this->hashtag = unserialize($this->hashtag);
-    
-    // 加载当前用户的flag/like状态
-    if ($uid = Yii::app()->user->getId() ) {
-      $user = UserAR::model()->findByPk($uid); // 此处是否有必要？多一次查询了
-      if ($user) {
-        $like = LikeAR::model()->findByAttributes(array("nid" => $this->nid, "uid" => $user->uid));
-        if (($like)) {
-          $this->user_liked = TRUE;
-        }
-        else {
-          $this->user_liked = FALSE;
-        }
+	public function getHashTag() {
+		$description = $this->description;
+		$matches = array();
+		preg_match_all("/#([\\w']+)/", $description, $matches);
+		$hashtags = end($matches);
 
-		$flag = FlagAR::model()->findByAttributes(array("nid" => $this->nid, "uid" => $user->uid));
-		if (($flag)) {
-			$this->user_flagged = TRUE;
-		}
-		else {
-			$this->user_flagged = FALSE;
-		}
-      }
-    }
-    
-    // 加载 flagcount/ commentflag / likecount
-    $nid = $this->nid;
-    $commentAr = new CommentAR();
-    $this->commentcount = $commentAr->totalCommentsByNode($this->nid);
-    $likeAr = new LikeAR();
-    $this->likecount = $likeAr->getNodeCount($this->nid);
-    $flagAr = new FlagAR();
-    $this->flagcount = $flagAr->flagCountInNode($this->nid);
-
-    
-    return TRUE;
-  }
+		return $hashtags;
+	}
   
-  public function afterSave() {
+	public function beforeSave() {
+		parent::beforeSave();
+
+		$hashtags = $this->getHashTag();
+		// 在添加时 需要制定一个默认的 status = publichsed
+		if (!$this->{$this->getPrimaryKey()}) {
+		    $this->setAttribute("status", self::PUBLICHSED);
+		    $this->setAttribute("datetime", time());
+		    $this->setAttribute("created", time());
+		}
+		$this->setAttribute("hashtag", serialize($hashtags));
+		foreach($hashtags as $tag) {
+			TagAR::model()->saveTag($tag);
+		}
+
+		return TRUE;
+	}
+  
+	public function afterFind() {
+		parent::afterFind();
+		$this->hashtag = unserialize($this->hashtag);
+
+		// 加载当前用户的flag/like状态
+		if ($uid = Yii::app()->user->getId() ) {
+		  $user = UserAR::model()->findByPk($uid); // 此处是否有必要？多一次查询了
+		  if ($user) {
+		    $like = LikeAR::model()->findByAttributes(array("nid" => $this->nid, "uid" => $user->uid));
+		    if (($like)) {
+		      $this->user_liked = TRUE;
+		    }
+		    else {
+		      $this->user_liked = FALSE;
+		    }
+
+			$flag = FlagAR::model()->findByAttributes(array("nid" => $this->nid, "uid" => $user->uid));
+			if (($flag)) {
+				$this->user_flagged = TRUE;
+			}
+			else {
+				$this->user_flagged = FALSE;
+			}
+		  }
+		}
+
+		// 加载 flagcount/ commentflag / likecount
+		$nid = $this->nid;
+		$commentAr = new CommentAR();
+		$this->commentcount = $commentAr->totalCommentsByNode($this->nid);
+		$likeAr = new LikeAR();
+		$this->likecount = $likeAr->getNodeCount($this->nid);
+		$flagAr = new FlagAR();
+		$this->flagcount = $flagAr->flagCountInNode($this->nid);
+
+		return TRUE;
+	}
+  
+    public function afterSave() {
 		$type = $this->type;
 		if ($type == "photo") {
 				$name = "p". $this->nid;
@@ -200,24 +199,24 @@ class NodeAR extends CActiveRecord{
 		$this->country = CountryAR::model()->findByPk($this->country_id);
 
 		return TRUE;
-  }
+    }
 
 	public function deleteRelatedData($nid) {
 		// Delete related comments
 		Yii::app()->db->createCommand()
-			->delete('comment', 'nid=:nid', array(':nid'=>$nid));
+			->delete('comment', 'nid=:nid', array(':nid'=>(int)$nid));
 		// Delete related likes
 		Yii::app()->db->createCommand()
-			->delete('like', 'nid=:nid', array(':nid'=>$nid));
+			->delete('like', 'nid=:nid', array(':nid'=>(int)$nid));
 		// Delete related flags
 		Yii::app()->db->createCommand()
-			->delete('flag', 'nid=:nid', array(':nid'=>$nid));
+			->delete('flag', 'nid=:nid', array(':nid'=>(int)$nid));
 		// Delete related topday
 		Yii::app()->db->createCommand()
-			->delete('topday', 'nid=:nid', array(':nid'=>$nid));
+			->delete('topday', 'nid=:nid', array(':nid'=>(int)$nid));
 		// Delete related topmonth
 		Yii::app()->db->createCommand()
-			->delete('topmonth', 'nid=:nid', array(':nid'=>$nid));
+			->delete('topmonth', 'nid=:nid', array(':nid'=>(int)$nid));
 	}
 
 
@@ -375,9 +374,7 @@ class NodeAR extends CActiveRecord{
 								exec("ffmpeg -i {$to} -vcodec libx264 -acodec aac -strict experimental -ac 2 {$newpath}", $output, $status);
 						}
 
-						// 视频转换完后 要删掉之前的视频文件
 						unlink($to);
-						// 删除后， 再返回新的文件地址
 						$to = $newpath;
 					}
 
@@ -414,7 +411,6 @@ class NodeAR extends CActiveRecord{
 		$abssaveto = $save_to;
 		$thumb = new EasyImage($abspath);
 
-		// 这里需要做下调整
 
 		$size = getimagesize($abspath);
 		$s_w = $size[0];
@@ -433,16 +429,12 @@ class NodeAR extends CActiveRecord{
 		$t_w = $r * $s_w;
 		$t_h = $r * $s_h;
 
-		// 先等比例 resize
 		$thumb->resize($t_w, $t_h);
-		// 再裁剪
-		// 裁剪 多余的宽
 		if (!$widthSamller) {
 			$start_x = ($t_w - $w)/2;
 			$start_y = 0;
 			$thumb->crop($w, $h, $start_x, $start_y);
 		}
-		// 裁剪多余的 高
 		else {
 			$start_x = 0;
 			$start_y = ($t_h - $h);
@@ -451,7 +443,6 @@ class NodeAR extends CActiveRecord{
 
 		$thumb->save($abssaveto);
 
-		// 输出
 		if($isOutput) {
 			$fp = fopen($abssaveto, "rb");
 			if ($size && $fp) {
@@ -483,8 +474,7 @@ class NodeAR extends CActiveRecord{
 		$absscreenImagePath = $screenImagePath;
 		$abssaveTo = $saveTo;
 		$absvideoPath = str_replace('.jpg','.mp4',$screenImagePath);
-//    echo $absscreenImagePath. '----'. $absvideoPath;
-//    exit();
+
 		// 视频截图不能截2次
 		// 做个检查
 		if (!file_exists($absscreenImagePath)) {
@@ -514,61 +504,61 @@ class NodeAR extends CActiveRecord{
 		return $file;
 	}
   
-  public function blockIt() {
-    if ($this->nid) {
-      $this->updateByPk($this->nid, array("status" => self::UNPUBLISHED));
-    }
-  }
+	public function blockIt() {
+		if ($this->nid) {
+		  $this->updateByPk($this->nid, array("status" => self::UNPUBLISHED));
+		}
+	}
 
-  public function countByType($uid, $type) {
-    $query = new CDbCriteria();
-    $query->select = array("count(*) AS nodecounts");
-    $query->addCondition("uid=:uid");
-    $query->addCondition("type=:type");
+	public function countByType($uid, $type) {
+		$query = new CDbCriteria();
+		$query->select = array("count(*) AS nodecounts");
+		$query->addCondition("uid=:uid");
+		$query->addCondition("type=:type");
+		$query->params = array(
+		  ":uid" => $uid,
+		  ":type" => $type
+		);
+		$res = $this->find($query);
 
-    $query->params = array(
-      ":uid" => $uid,
-      ":type" => $type
-    );
+		return $res->nodecounts;
+	}
 
-    $res = $this->find($query);
+	public function countByDay($uid) {
+		$query = new CDbCriteria();
+		$query->select = "*". ",topday_id AS topday";
+		$query->join = 'right join `topday` '.' on '. '`topday`' .".nid = ". $this->getTableAlias().".nid";
+		$query->addCondition("uid=:uid");
+		$query->params = array(
+		  ":uid" => $uid
+		);
+		$res = $this->count($query);
 
-    return $res->nodecounts;
-  }
+		return $res;
+	}
 
-  public function countByDay($uid) {
-    $query = new CDbCriteria();
-    $query->select = "*". ",topday_id AS topday";
-    $query->join = 'right join `topday` '.' on '. '`topday`' .".nid = ". $this->getTableAlias().".nid";
-    $query->addCondition("uid=:uid");
-    $query->params = array(
-      ":uid" => $uid
-    );
-    $res = $this->count($query);
-    return $res;
-  }
+	public function countByMonth($uid) {
+		$query = new CDbCriteria();
+		$query->select = "*". ",topmonth_id AS topmonth";
+		$query->join = 'right join `topmonth` '.' on '. '`topmonth`' .".nid = ". $this->getTableAlias().".nid";
+		$query->addCondition("uid=:uid");
+		$query->params = array(
+		  ":uid" => $uid
+		);
+		$res = $this->count($query);
 
-  public function countByMonth($uid) {
-    $query = new CDbCriteria();
-    $query->select = "*". ",topmonth_id AS topmonth";
-    $query->join = 'right join `topmonth` '.' on '. '`topmonth`' .".nid = ". $this->getTableAlias().".nid";
-    $query->addCondition("uid=:uid");
-    $query->params = array(
-      ":uid" => $uid
-    );
-    $res = $this->count($query);
-    return $res;
-  }
+		return $res;
+	}
 
 
   
-  public function getAttributes($name=NULL) {
-    $attrs = parent::getAttributes($name);
-    $attrs["commentcount"] = $this->commentcount;
-    $attrs["likecount"] = $this->likecount;
-    $attrs["flagcount"] = $this->flagcount;
-    return $attrs;
-  }
+	public function getAttributes($name=NULL) {
+		$attrs = parent::getAttributes($name);
+		$attrs["commentcount"] = $this->commentcount;
+		$attrs["likecount"] = $this->likecount;
+		$attrs["flagcount"] = $this->flagcount;
+		return $attrs;
+	}
 
 	public function getPageByNid($nid) {
 		$query = new CDbCriteria();
@@ -581,6 +571,7 @@ class NodeAR extends CActiveRecord{
 		);
 		$res = $this->find($query);
 		$page = ceil($res->nodecounts/20);
+
 		return $page;
 	}
 

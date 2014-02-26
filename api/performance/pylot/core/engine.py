@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #
 #    Copyright (c) 2007-2009 Corey Goldberg (corey@goldb.org)
 #    License: GNU GPLv3
@@ -281,14 +282,30 @@ class LoadAgent(Thread):  # each Agent/VU runs in its own thread
         else:
             opener = urllib2.build_opener()
         if req.method.upper() == 'POST':
-            request = urllib2.Request(req.url, req.body, req.headers)
-        else:  
+            body = req.body.replace("<![CDATA[", "").replace("]]>", "").split("&")
+            json_body = {}
+            has_file = False
+            for pair in body:
+                name, value = pair.split("=")
+                # 这里有一个文件需要上传
+                if "@file" in value:
+                    has_file = True
+                    json_body[name] = open(value.replace("@file", ""), "rb")
+                else:
+                    json_body[name] = value
+
+            from poster.encode import multipart_encode
+            datagen, headers = multipart_encode(json_body)
+            request = urllib2.Request(req.url, datagen, headers)
+        else:
             request = urllib2.Request(req.url, None, req.headers)  # urllib2 assumes a GET if no data is supplied.  PUT and DELETE are not supported
         
         # timed message send+receive (TTLB)
         req_start_time = self.default_timer()
         try:
-            resp = opener.open(request)  # this sends the HTTP request and returns as soon as it is done connecting and sending
+            from poster.streaminghttp import register_openers
+            register_openers()
+            resp = urllib2.urlopen(request)  # this sends the HTTP request and returns as soon as it is done connecting and sending
             connect_end_time = self.default_timer()
             content = resp.read()
             req_end_time = self.default_timer()
