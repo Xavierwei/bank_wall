@@ -472,7 +472,7 @@
 
 <!-- wmv-player-tpl -->
 <script type="text/tpl" id="wmv-player-template">
-  <iframe src="wmv_player.php?file={{file}}" scrolling="no" frameborder="0"></iframe>
+  <iframe style="display:none" onload="this.style.display='block';" src="wmv_player.php?file={{file}}" scrolling="no" frameborder="0"></iframe>
 </script>
 
 <!-- flash-player-tpl -->
