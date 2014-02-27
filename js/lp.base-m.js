@@ -1964,6 +1964,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
             } , 400,'easeInQuart', function(){
 				$(this).hide();
 			});
+		$main.css({x:0});
     });
 
     //open user edit page
