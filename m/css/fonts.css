@@ -41,7 +41,7 @@ body,input,textarea{font-family:'HelveticaNeueLTStd-MdCn', arial, sans-serif;tex
 .poptxt-textarea:focus {font-style: normal;}
 .logfi input {font-size:15px;}
 .logbtn div {font-size:14px;}
-.search-hd {font-size:25px;font-family:'HelveticaNeueLTStd-Lt', arial;}
+.search-hd {font-size:32px;font-family:'HelveticaNeueLTStd-Lt', arial;}
 .blank-search {letter-spacing:1px;}
 .popular-hashtags {font-size:14px;}
 .popular-hashtags ul {font-size:18px;}

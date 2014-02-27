@@ -725,6 +725,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         var lastScrollTop = 86 - parseInt( $aniDom.css('top') );
         var _left = 0;
         if($aniDom.hasClass('user-page')) {
+            $aniDom.show();
             $('.count').delay(_animateTime).animate({left:80});
             _left = 80;
             $main.css({
@@ -1061,7 +1062,8 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
      * @date:
      */
     function preLoadSiblings(){
-        var nodes = $main.data('nodes');
+        var $dom = $('.inner').data('from') || $main;
+        var nodes = $dom.data('nodes');
         var aftfix = '_640_640.jpg';
         // preload before and after images
         for( var i = 0 ; i < 5 ; i++ ){

@@ -7,20 +7,23 @@
 		<!-- header -->
 		<div class="header">
 			<a href="../api/user/samllogin" class="login btn">{{_e.CONNECT}}</a>
-			<div class="search clear">
-				<input class="search-ipt" name="hashtag" type="text" placeholder="#HASHTAG" />
-				<input data-a="search" class="search-sub" type="submit" value="search" />
-				<div class="search-tip btn" data-a="search_tip"></div>
-			</div>
-			<div class="select filter-unlogged clear" data-a="filter">
-				<!--  -->
-				<div class="select-item">
-					<div class="select-box">filter</div>
+
+			<div class="toolbar">
+				<div class="search clear">
+					<input class="search-ipt" name="hashtag" type="text" placeholder="#HASHTAG" />
+					<input data-a="search" class="search-sub" type="submit" value="search" />
+					<div class="search-tip btn" data-a="search_tip"></div>
 				</div>
+				<div class="select filter-unlogged clear" data-a="filter">
+					<!--  -->
+					<div class="select-item">
+						<div class="select-box">filter</div>
+					</div>
+					<!--  -->
+				</div>
+				<div class="filter btn" data-a="filter">filter</div>
 				<!--  -->
 			</div>
-			<div class="filter btn" data-a="filter">filter</div>
-			<!--  -->
 			<div class="language">
 				<div data-a="lang" data-d="lang=fr" class="btn language-item language-item-fr"><p class="fr"></p></div>
 				<div data-a="lang" data-d="lang=en" class="btn language-item language-item-en"><p class="en"></p></div>
@@ -29,6 +32,7 @@
 		<!--  -->
 		<div class="content clear">
 			<div class="main-wrap">
+				<div class="search-hd">{{_e.RESULTS}} #<span></span></div>
 				<div class="main">
 
 				</div>
@@ -342,11 +346,11 @@
 				<div class="inner-infoicon"><div class="{{type}}"></div></div>
 			</div>
 
-			{{#if topday}}
-				<div class="inner-top inner-topday"></div>
+			{{#if topmonth}}
+				<div class="inner-top inner-topmonth"></div>
 			{{else}}
-				{{#if topmonth}}
-					<div class="inner-top inner-topmonth"></div>
+				{{#if topday}}
+					<div class="inner-top inner-topday"></div>
 				{{/if}}
 			{{/if}}
 		</div>

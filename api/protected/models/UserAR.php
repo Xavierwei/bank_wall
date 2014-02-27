@@ -96,7 +96,7 @@ class UserAR extends CActiveRecord{
 		$newUser->datetime = time();
 		$newUser->name = $attributes['uid'][0];
 		$newUser->company_email = $attributes['eduPersonPrincipalName'][0];
-		$newUser->sso_id = md5($attributes['eduPersonTargetedID'][0]);
+		$newUser->sso_id = md5($attributes['uid'][0]);
 		$newUser->firstname = $attributes['givenName'][0];
 		$newUser->lastname = $attributes['sn'][0];
 		$newUser->role = self::ROLE_AUTHEN;

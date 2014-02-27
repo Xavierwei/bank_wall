@@ -37,11 +37,11 @@ class UserController extends Controller {
 		}
 
 		// Identity local site user data
-		$userIdentify = new UserIdentity($user->company_email, $attributes['eduPersonTargetedID'][0]);
+		$userIdentify = new UserIdentity($user->company_email, $attributes['uid'][0]);
 
 		// Save user status in session
 		if (!$userIdentify->authenticate()) {
-			echo md5($attributes['eduPersonTargetedID'][0]);
+			echo md5($attributes['uid'][0]);
 			$this->responseError("login failed.");
 		}
 		else {

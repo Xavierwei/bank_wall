@@ -3,6 +3,7 @@
 /*.btn:hover*/
 /*{opacity:0.8;filter:alpha(opacity=80);}*/
 
+.pic-item,
 .count-userinfo,.com-ipt,.select-option p,.editfi-country-option p,
 .btn,.btn2,.search-sub,.search-ipt,.menu-item-arrow,.menu-item,.com-counts .clickable,.count-item,.user,
 a
@@ -15,6 +16,7 @@ a
     -moz-animation: rotate 5s linear infinite;
     -webkit-animation: rotate 5s linear infinite;
     animation: rotate 5s linear infinite;
+    -webkit-backface-visiblility:hidden;
 }
 
 .page-loading-logo {
