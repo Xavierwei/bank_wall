@@ -64,6 +64,9 @@ seajs.config({
     ,"video-js":{
       src: "../video-js/video.js"
     }
+    ,scrollfix:{
+      src: "../plugin/scrollfix.js"
+    }
   }
   , alias: {
     api: '../api-m'

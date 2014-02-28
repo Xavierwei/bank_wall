@@ -2822,7 +2822,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         if( ( match = hash.match( /#\/nid\/(\d+)/ ) ) ){
             var nid = match[1];
             var pageParam = refreshQuery();
-            api.ajax('getPageByNid', {nid:nid}, function(result){
+            api.ajax('getPageByNid', {nid:nid, pagenum:20}, function(result){
                 pageParam.page = result.data;
                 pageParam.previouspage = result.data;
                 $main.data('param' , pageParam);

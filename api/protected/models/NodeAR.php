@@ -560,19 +560,27 @@ class NodeAR extends CActiveRecord{
 		return $attrs;
 	}
 
-	public function getPageByNid($nid) {
-		$query = new CDbCriteria();
-		$query->select = array("count(*) as nodecounts");
-		$query->addCondition("nid>:nid");
-		$query->addCondition("status=1");
-		$query->order = "nid desc";
-		$query->params = array(
+	public function getPageByNid($nid, $pagenum) {
+		$queryDate = new CDbCriteria();
+		$queryDate->select = array("datetime");
+		$queryDate->addCondition("nid=:nid");
+		$queryDate->addCondition("status=1");
+		$queryDate->params = array(
 			":nid" => $nid
 		);
+		$datetime = $this->find($queryDate);
+
+		$query = new CDbCriteria();
+		$query->select = array("count(*) as nodecounts");
+		$query->addCondition("datetime>:datetime");
+		$query->addCondition("status=1");
+		$query->order = "datetime desc";
+		$query->params = array(
+			":datetime" => $datetime->datetime
+		);
 		$res = $this->find($query);
-		$page = ceil($res->nodecounts/20);
+		$page = ceil($res->nodecounts/$pagenum);
 
 		return $page;
 	}
-
 }

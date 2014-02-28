@@ -366,7 +366,7 @@
 <!-- node-item-tpl -->
 <script type="text/tpl" id="node-item-template">
 	<div data-d="nid={{nid}}" class="main-item pic-item main-item-{{nid}}">
-		<img src="../api{{image}}" width="640" />
+		<img src="../api{{image}}" width="640" height="640" />
 		<div class="item-icon item-icon-{{type}}"></div>
 		{{#if topday}}
 		<div class="item-topday"></div>

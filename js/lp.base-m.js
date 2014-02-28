@@ -1,10 +1,10 @@
 /*
  * page base action
  */
-LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewheel'] , function( $ , api ){
+LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewheel', 'scrollfix'] , function( $ , api ){
     'use strict'
 
-    var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > 0;
+    var pagenum = 8;
     var isIE8 = $('html').hasClass('ie8');
     var API_FOLDER = "../api";
     var THUMBNAIL_IMG_SIZE = "_640_640";
@@ -111,7 +111,9 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 			if($(ev.target).hasClass('item-delete')) return;
             var _this = $(this);
             setTimeout(function(){
-                if($('.main-wrap').hasClass('scrolling') || $('.count-inner-wrap').hasClass('scrolling')) return;
+                if(navigator.userAgent.toLowerCase().indexOf('iphone') > 0) {
+                    if($('.main-wrap').hasClass('scrolling') || $('.count-inner-wrap').hasClass('scrolling')) return;
+                }
                 LP.triggerAction('node', _this);
                 _this.addClass('focus');
                 setTimeout(function(){
@@ -124,11 +126,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 
 
     var _resizeTimer = null;
-    var _scrollAjax = false;
     $(document).hammer().on('dragup dragdown relase', '.main, .count-inner',function(ev){
-
-        // if is ajaxing the scroll data
-        if( _scrollAjax ) return;
         // if scroll to the botton of the window
         // ajax the next datas
         var $dom = $(this);
@@ -140,37 +138,52 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
             // fix main element
             // it must visible and in main element has unreversaled node
             if( $main.is(':visible') ){
-                _scrollAjax = true;
+                if($main.hasClass('loading')) return;
+                if($main.hasClass('end')) return;
+                $main.addClass('loading');
                 var param = $main.data('param');
                 param.page++;
                 $main.data('param' , param);
-                $listLoading.fadeIn();
+                $listLoading.css({opacity:1});
                 api.ajax('recent' , param , function( result ){
-                    nodeActions.inserNode( $main , result.data , param.orderby == 'datetime');
-                    _scrollAjax = false;
-                    $listLoading.fadeOut();
-                    // TODO:: no more data tip
+                    $listLoading.css({opacity:0});
+                    $main.removeClass('loading');
+                    if(result.data.length > 0)
+                    {
+                        nodeActions.inserNode( $main , result.data , param.orderby == 'datetime');
+                    }
+
+                    if(result.data.length < pagenum) {
+                        $main.addClass('end');
+                    }
                 });
             }
-            // fix user page element
-            var $userCom = $('.user-page .count-com');
-            // it must visible and in main element has unreversaled node
-            if( $('.count-com').is(':visible') ){
-                _scrollAjax = true;
-                var userPageParam = $('.count-com').data('param');
-                userPageParam.page++;
-                $('.count-com').data('param',userPageParam);
-                $listLoading.fadeIn();
-                api.ajax('recent' , userPageParam , function( result ){
-                    nodeActions.inserNode( $userCom , result.data , true );
-                    _scrollAjax = false;
-                    $listLoading.fadeOut();
-                    // TODO:: no more data tip
-                });
+            else {
+                // fix user page element
+                var $userCom = $('.user-page .count-com');;
+                // it must visible and in main element has unreversaled node
+                if( $('.count-com').is(':visible') ){
+                    if($userCom.hasClass('end')) return;
+                    if($userCom.hasClass('loading')) return
+                    $userCom.addClass('loading');
+                    var userPageParam = $('.count-com').data('param');
+                    userPageParam.page++;
+                    $('.count-com').data('param',userPageParam);
+                    $listLoading.css({opacity:1});
+                    api.ajax('recent' , userPageParam , function( result ){
+                        $listLoading.css({opacity:0});
+                        $userCom.removeClass('loading');
+                        if(result.data.length > 0)
+                        {
+                            nodeActions.inserNode( $userCom , result.data , true );
+                        }
+                        else {
+                            $userCom.addClass('end');
+                        }
+                    });
+                }
             }
-            if( _scrollAjax ){
-                // TODO: loading animation
-            }
+
         }
     });
 
@@ -492,8 +505,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
                             //nodeActions.setItemWidth( $dom );
                             nodeActions.setItemReversal( $dom );
                         }
-                    } );
-
+                    });
             } );
         },
         setItemWidth: function( $dom ){
@@ -854,7 +866,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
         if(pageParam.previouspage != null) {
             $dom.html('');
             $dom.data( 'nodes', [] );
-            $listLoading.fadeIn();
+            $listLoading.css({opacity:1});
 
             LP.triggerAction('recent' , pageParam);
         }
@@ -874,7 +886,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 		$('.search-hd').hide();
 		$main.html('');
 		$main.data( 'nodes', [] );
-		$listLoading.fadeIn();
+		$listLoading.css({opacity:1});
 		LP.triggerAction('recent');
     });
 
@@ -913,8 +925,11 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
                 .next()
                 .transit({x: direction == 'right' ? 0 : wrapWidth}, 500);
 
+
+            updateInnerNode(node, direction);
+
             setTimeout(function(){
-                updateInnerNode(node, direction);
+                $('.image-wrap-inner').eq(direction == 'right' ? 0 : 1).remove();
                 _draggingReleasing = false;
             }, 500);
         }
@@ -925,7 +940,6 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 
     function updateInnerNode(node, direction) {
         if( $('.image-wrap-inner').length == 1 ) return;
-        $('.image-wrap-inner').eq(direction == 'right' ? 0 : 1).remove();
         var datetime = new Date((parseInt(node.datetime)+1*3600)*1000);
         node.date = datetime.getUTCDate();
         node.month = getMonth((parseInt(datetime.getUTCMonth()) + 1));
@@ -957,13 +971,13 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 
 			// update top icon
             var $top = $inner.find('.inner-top');
-			var $nextTop = $newInner.find('.inner-top').insertAfter('.inner-info').css({opacity:0});
+			var $nextTop = $newInner.find('.inner-top').insertAfter('.inner-info').css({y:-58});
             $top.transit({
-                opacity: 0
-            }, 400, function(){
+                y: -58
+            }, 300, function(){
                 $(this).remove();
             });
-            $nextTop.delay(400).transit({opacity:1});
+            $nextTop.delay(300).transit({y:0}, 300);
 
 			_innerLock = false;
             _draggingReleasing = false;
@@ -1052,14 +1066,14 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 
 
 			// init video
-			if( node.type == "video" ){
-				//$('.image-wrap-inner video').fadeIn(200);
-
-                $('.video-poster').delay(200).fadeIn();
-			}
+//			if( node.type == "video" ){
+//				//$('.image-wrap-inner video').fadeIn(200);
+//
+//			}
 
             $newItem.find('img').ensureLoad(function(){
                 $(this).fadeIn(200);
+                $newItem.find('.video-poster').delay(200).fadeIn(200);
             });
 
             if(drag != true) {
@@ -1210,10 +1224,10 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
         var pageParam = refreshQuery();
         //TODO remove
         pageParam.orderby = 'datetime';
-        $listLoading.fadeIn();
+        $listLoading.css({opacity:1});
         api.ajax('recent', pageParam, function( result ){
             $main.show();
-            $listLoading.fadeOut();
+            $listLoading.css({opacity:0});
             nodeActions.inserNode( $main , result.data , pageParam.orderby == 'datetime' );
         });
     });
@@ -1223,11 +1237,12 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
         var pageParam = refreshQuery();
         $main.html('');
         $main.data('nodes', []);
-        $listLoading.fadeIn();
+        $main.removeClass('end');
+        $listLoading.css({opacity:1});
         api.ajax('recent', pageParam, function (result) {
             if (result.data.length > 0) {
                 nodeActions.inserNode($main.show(), result.data, pageParam.orderby == 'datetime');
-                $listLoading.fadeOut();
+                $listLoading.css({opacity:0});
             }
             else {
                 api.ajax('tagTopThree', function(result){
@@ -1947,9 +1962,10 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
         var $countCom = $('.count-com').removeData('nodes').fadeOut(function(){
             param.page = 1;
             $(this).html('').show();
-            $('.loading-list').fadeIn();
+            $listLoading.css({opacity:1});
+            $('.count-com').removeClass('end');
             api.ajax('recent' , param , function( result ){
-                $('.loading-list').fadeOut();
+                $listLoading.css({opacity:0});
                 nodeActions.inserNode( $countCom , result.data , true );
             });
         });
@@ -2057,9 +2073,9 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
             $main.html('').fadeIn();
             $main.data('nodes','');
             var param = refreshQuery();
-            $listLoading.fadeIn();
+            $listLoading.css({opacity:1});
             api.ajax('recent', param , function( result ){
-                $listLoading.fadeOut();
+                $listLoading.css({opacity:0});
                 $('.search-ipt').val('').blur();
                 if(result.data.length > 0) {
                     $('.search-hd').fadeIn().find('span').html(param.hashtag);
@@ -2098,10 +2114,10 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
             var param = refreshQuery();
             param = $.extend(param, {'topday': 1});
             $('.side .menu-item.day, .side .menu-item.jour').addClass('active');
-            $listLoading.fadeIn();
+            $listLoading.css({opacity:1});
             //TODO save to dom cache date
             api.ajax('recent', param , function( result ){
-                $listLoading.fadeOut();
+                $listLoading.css({opacity:0});
                 $('.search-ipt').val('').blur();
                 nodeActions.inserNode( $main.show() , result.data , param.orderby == 'datetime');
             });
@@ -2127,10 +2143,10 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
             var param = refreshQuery();
             param = $.extend(param, {'topmonth': 1});
             $('.side .menu-item.month').addClass('active');
-            $listLoading.fadeIn();
+            $listLoading.css({opacity:1});
             //TODO save to dom cache date
             api.ajax('recent', param , function( result ){
-                $listLoading.fadeOut();
+                $listLoading.css({opacity:0});
                 $('.search-ipt').val('').blur();
                 nodeActions.inserNode( $main.show() , result.data , param.orderby == 'datetime');
             });
@@ -2836,7 +2852,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
         if( ( match = hash.match( /#\/nid\/(\d+)/ ) ) ){
             var nid = match[1];
             var pageParam = refreshQuery();
-            api.ajax('getPageByNid', {nid:nid}, function(result){
+            api.ajax('getPageByNid', {nid:nid, pagenum:8}, function(result){
                 pageParam.page = result.data;
                 pageParam.previouspage = result.data;
 
@@ -2847,7 +2863,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
                 api.ajax('recent', pageParam , function( result ){
                     if(result.data.length > 0) {
                         nodeActions.inserNode( $main , result.data , pageParam.orderby == 'datetime' );
-                        $listLoading.fadeOut();
+                        $listLoading.css({opacity:0});
                         setTimeout(function(){
                             $('.main-item-'+nid).trigger('tap');
                         },100);
@@ -2870,6 +2886,11 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
      * Hide page loading
      */
     var pageLoaded = function(delay){
+        var scrollable = $(".main-wrap");
+        new ScrollFix(scrollable[0]);
+        var scrollableCount = $(".count-inner-wrap");
+        new ScrollFix(scrollableCount[0]);
+
         $('.page-loading').delay(delay).fadeOut(function(){
             setTimeout(function(){
                 LP.triggerAction('toggle_side_bar','right');
