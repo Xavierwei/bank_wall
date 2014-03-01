@@ -6,9 +6,9 @@
 		<!--  -->
 		<!-- header -->
 		<div class="header">
-			<a href="../api/user/samllogin" class="login btn">{{_e.CONNECT}}</a>
 
 			<div class="toolbar">
+				<a href="../api/user/samllogin" class="login btn">{{_e.CONNECT}}</a>
 				<div class="search clear">
 					<input class="search-ipt" name="hashtag" type="text" placeholder="#HASHTAG" />
 					<input data-a="search" class="search-sub" type="submit" value="search" />

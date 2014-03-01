@@ -114,13 +114,20 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
                 if(navigator.userAgent.toLowerCase().indexOf('iphone') > 0) {
                     if($('.main-wrap').hasClass('scrolling') || $('.count-inner-wrap').hasClass('scrolling')) return;
                 }
-                LP.triggerAction('node', _this);
-                _this.addClass('focus');
+				if(_this.hasClass('opening')) return;
+				_this.addClass('opening');
                 setTimeout(function(){
-                    _this.removeClass('focus');
                     _innerLock = false; // force unlock
-                }, 500);
-            }, 100);
+					_this.removeClass('opening');
+                }, 1000);
+				_this.addClass('active');
+				setTimeout(function(){
+					_this.removeClass('active');
+				},200);
+				setTimeout(function(){
+					LP.triggerAction('node', _this);
+				},400);
+            }, 200);
 		}
 	);
 

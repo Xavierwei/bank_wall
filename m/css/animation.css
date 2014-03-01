@@ -3,13 +3,21 @@
 /*.btn:hover*/
 /*{opacity:0.8;filter:alpha(opacity=80);}*/
 
-.pic-item,
 .loading-list,
 .count-userinfo,.com-ipt,.select-option p,.editfi-country-option p,
 .btn,.btn2,.search-sub,.search-ipt,.menu-item-arrow,.menu-item,.com-counts .clickable,.user,
 a
-{-webkit-transition:   all 0.3s ease;-moz-transition:  all 0.3s ease;-o-transition:  all 0.3s ease;-ms-transition:  all 0.3s ease;transition:  all 0.3s ease;}
+{
+    -webkit-transition:   all 0.3s ease;-moz-transition:  all 0.3s ease;-o-transition:  all 0.3s ease;-ms-transition:  all 0.3s ease;transition:  all 0.3s ease;
+    -webkit-backface-visiblility:hidden;
+    -webkit-transform: translateZ(0);
+}
 
+.pic-item {
+    -webkit-transition:   all 0.2s ease;-moz-transition:  all 0.2s ease;-o-transition:  all 0.2s ease;-ms-transition:  all 0.2s ease;transition:  all 0.2s ease;
+    -webkit-backface-visiblility:hidden;
+    -webkit-transform: translateZ(0);
+}
 
 
 .popload-icon, .inner-loading, .loading-list
