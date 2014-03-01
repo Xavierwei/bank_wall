@@ -23,6 +23,16 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
     var _e;
 
 
+    $(window).bind('orientationchange', function() {
+        var o = window.orientation;
+
+        if (o != 90 && o != -90) {
+            $('.turn_device').hide();
+        } else {
+            $('.turn_device').show();
+        }
+    });
+
     $('body').on('change', ".select-box", function(){
         $(this).parent().data('param', $(this).val());
         $(this).parent().find('span').html($(this).find('option:selected').text());
@@ -2081,6 +2091,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
             $main.data('nodes','');
             var param = refreshQuery();
             $listLoading.css({opacity:1});
+            $('.blank-search').remove();
             api.ajax('recent', param , function( result ){
                 $listLoading.css({opacity:0});
                 $('.search-ipt').val('').blur();
@@ -2094,7 +2105,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
                         LP.compile( 'blank-search-template' ,
                             result,
                             function( html ){
-                                $('.main').append(html);
+                                $('.main-wrap').append(html);
                             } );
                     });
 
@@ -2270,6 +2281,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
     // get all query parameter
     var refreshQuery = function( query ){
         // get search value
+
         var $searchInput = $('.search-ipt');
         var param = { page: 1 , pagenum: 8, token: apiToken };
         param [ $searchInput.attr('name') ] = $.trim( $searchInput.val() ).replace( /^#+/ , '' );
@@ -2293,6 +2305,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 
         $('.side .menu-item').removeClass('active');
 
+        $('.blank-search').remove();
         return $main.data('param');
     }
 
@@ -2444,6 +2457,12 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 //		$('.page-loading-logo img').ensureLoad(function(){
 //			$('.page-loading-logo').fadeIn().dequeue().animate({top:'50%'}, 1000, 'easeInOutQuart');
 //		});
+
+        // Fix andriod resolution
+
+        if(navigator.userAgent.toLowerCase().indexOf('android') > 0) {
+            $('meta[name="viewport"]').attr('content', 'minimal-ui, width=640, minimum-scale=0.56, maximum-scale=0.56, target-densityDpi=290,user-scalable=no" ');
+        }
 
         // Get language
         var lang = LP.getCookie('lang') || 'fr';
@@ -2615,6 +2634,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
                         return false;
                     }
 					$('.com-loading').fadeIn();
+                    alert('submit');
                 },
                 complete: function(xhr) {
 					$('.com-loading').fadeOut();

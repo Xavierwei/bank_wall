@@ -349,10 +349,10 @@ a{text-decoration:none;color:#666}
 }
 
 
-@media screen and (orientation:landscape) {
-    .turn_device {display:block;}
-}
+/*@media screen and (orientation:landscape) {*/
+    /*.turn_device {display:block;}*/
+/*}*/
 
-@media screen and (orientation:portrait) {
-    .turn_device {display:none;}
-}
+/*@media screen and (orientation:portrait) {*/
+    /*.turn_device {display:none;}*/
+/*}*/
