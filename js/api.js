@@ -94,8 +94,9 @@ define(function( require , exports , model ){
         };
 
         data = LP.mix( ajaxConfig.data || {} , data );
+
         var doAjax = function () {
-            $.ajax({
+			var req = $.ajax({
                   url      : _isFormatUrl( ajaxConfig.path ) ? LP.format( ajaxConfig.path , data ) : ajaxConfig.path
                 , data     : data
                 , type     : method
@@ -114,13 +115,14 @@ define(function( require , exports , model ){
                     }
                 }
             });
+			return req;
         }
 
         if ( ajaxConfig.needLogin === true || (ajaxConfig.needLogin !== false && method !== "GET") ) {
             // 如果不为GET的话，则默认是要登录的
             _execAfterLogin( doAjax , api );
         } else {
-            doAjax();
+            return doAjax();
         }
     }
 

@@ -2459,10 +2459,13 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 //		});
 
         // Fix andriod resolution
-
         if(navigator.userAgent.toLowerCase().indexOf('android') > 0) {
             $('meta[name="viewport"]').attr('content', 'minimal-ui, width=640, minimum-scale=0.56, maximum-scale=0.56, target-densityDpi=290,user-scalable=no" ');
         }
+
+		if(navigator.userAgent.toLowerCase().indexOf('bb') > 0) {
+			$('meta[name="viewport"]').attr('content', 'minimal-ui, width=640, minimum-scale=0.6, maximum-scale=0.6, target-densityDpi=290,user-scalable=no" ');
+		}
 
         // Get language
         var lang = LP.getCookie('lang') || 'fr';

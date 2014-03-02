@@ -67,6 +67,7 @@ class UploadsController extends Controller {
 
 		$request = Yii::app()->getRequest();
 		$type = $request->getPost("type");
+		$device = $request->getPost("device");
 		if(!isset($type)) {
 			$mime = $fileUpload->getType();
 			if( in_array($mime, $this->_photo_mime ) ){
@@ -81,11 +82,13 @@ class UploadsController extends Controller {
 		$nodeAr = new NodeAR();
 		$validateUpload = $nodeAr->validateUpload($fileUpload, $type);
 		if($validateUpload !== true) {
-			return $this->responseError($validateUpload);
+			if(!($validateUpload == 501 && $device == 'android')) {
+				return $this->responseError($validateUpload);
+			}
 		}
 
 		// save file to dir
-		$file = $nodeAr->saveUploadedFile($fileUpload);
+		$file = $nodeAr->saveUploadedFile($fileUpload, $device);
 		if($file) {
 			// make preview thumbnail
 			if($type == 'video') {

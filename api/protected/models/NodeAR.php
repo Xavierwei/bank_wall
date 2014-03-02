@@ -263,7 +263,7 @@ class NodeAR extends CActiveRecord{
    * 
    * @param CUploadedFile $upload
    */
-	public function saveUploadedFile($upload) {
+	public function saveUploadedFile($upload, $device = null) {
 		$dir = ROOT."/uploads";
 		if (!is_dir($dir)) {
 		  mkdir($dir, 0777, TRUE);
@@ -347,10 +347,15 @@ class NodeAR extends CActiveRecord{
 								break;
 						}
 
+						$size = '';
+						if($device == 'android') {
+							$size = '-filter:v scale=720:-1';
+						}
+
 						// 视频转换
 						switch($extname) {
 							case 'mp4':
-								exec("ffmpeg -i {$to} -vcodec libx264 -acodec aac -strict experimental -ac 2 {$rotate} {$newpath}", $output, $status);
+								exec("ffmpeg -i {$to} -vcodec libx264 {$size} -acodec aac -strict experimental -ac 2 {$rotate} {$newpath}", $output, $status);
 								break;
 							case 'mpg':
 								exec("ffmpeg -i {$to} -vcodec libx264 -acodec aac -strict experimental -ac 2 {$newpath}", $output, $status);

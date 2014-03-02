@@ -20,6 +20,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 	var apiToken;
     var _e;
     var lang;
+	var req;
 
     // live for pic-item hover event
     $(document.body)
@@ -782,6 +783,9 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 		if($main.hasClass('closed')) {
 			LP.triggerAction('back');
 		}
+		else {
+			changeUrl('/main' , {event:'back'});
+		}
 		if($('.user-page').is(':visible')) {
 			LP.triggerAction('toggle_user_page');
 		}
@@ -791,6 +795,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 		$main.data( 'nodes', [] );
 		$listLoading.fadeIn();
 		LP.triggerAction('recent');
+
     });
 
     /**
@@ -1186,7 +1191,10 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         var pageParam = refreshQuery();
         $listLoading.fadeIn();
         _scrollAjax = true;
-        api.ajax('recent', pageParam, function( result ){
+		if(req) {
+			req.abort();
+		}
+		req = api.ajax('recent', pageParam, function( result ){
             _scrollAjax = false;
             $main.show();
             // make sure it's first page
@@ -1202,7 +1210,10 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         $main.html('');
         $main.data('nodes', []);
         $listLoading.fadeIn();
-        api.ajax('recent', pageParam, function (result) {
+		if(req) {
+			req.abort();
+		}
+        req = api.ajax('recent', pageParam, function (result) {
             if (result.data.length > 0) {
                 nodeActions.inserNode($main.show(), result.data, pageParam.orderby == 'datetime');
                 $listLoading.fadeOut();
@@ -2086,7 +2097,12 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             $('.side .menu-item.day, .side .menu-item.jour').addClass('active');
             $listLoading.fadeIn();
             //TODO save to dom cache date
-            api.ajax('recent', param , function( result ){
+			if(req) {
+				req.abort();
+			}
+			$listLoading.fadeIn();
+			req = api.ajax('recent', param , function( result ){
+				$listLoading.fadeOut();
                 $('.search-ipt').val('').blur();
                 nodeActions.inserNode( $main.show() , result.data , param.orderby == 'datetime');
             });
@@ -2112,7 +2128,12 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             $('.side .menu-item.month').addClass('active');
             $listLoading.fadeIn();
             //TODO save to dom cache date
-            api.ajax('recent', param , function( result ){
+			if(req) {
+				req.abort();
+			}
+			$listLoading.fadeIn();
+			req = api.ajax('recent', param , function( result ){
+				$listLoading.fadeOut();
                 $('.search-ipt').val('').blur();
                 nodeActions.inserNode( $main.show() , result.data , param.orderby == 'datetime');
             });
