@@ -5,7 +5,9 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     'use strict'
 
     var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > 0;
-    var isIE8 = $('html').hasClass('ie8');
+	var isIE8 = $('html').hasClass('ie8');
+	var isIE10 = navigator.userAgent.toLowerCase().indexOf('msie 10') > 0;
+	var isOldIE = $('html').hasClass('ie6') || $('html').hasClass('ie7');
     var API_FOLDER = "./api";
     var THUMBNAIL_IMG_SIZE = "_250_250";
     var BIG_IMG_SIZE = "_640_640";
@@ -26,21 +28,28 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     $(document.body)
         .delegate('.pic-item' , 'mouseenter' , function(){
             if(isIE8) {
-                $(this).find('.item-info-wrap').fadeIn(100);
+                $(this).find('.item-info-wrap').show();
+				$(this).find('.item-info').show();
             }
-            $(this).find('.item-info')
-                //.stop( true , false )
-                .fadeIn( 500 );
+			else {
+				$(this).find('.item-info')
+					.fadeIn( 500 );
+			}
+
         })
         .delegate('.pic-item' , 'mouseleave' , function(){
             if(isIE8) {
-                $(this).find('.item-info-wrap').fadeOut(100);
+                $(this).find('.item-info-wrap').hide();
+				$(this).find('.item-info').hide();
             }
-            $(this).find('.item-info')
-                //.stop( true , false )
-                .fadeOut( 500 );
+			else {
+				$(this).find('.item-info')
+					//.stop( true , false )
+					.fadeOut( 500 );
+			}
+
         })
-        .delegate('.search-ipt' , 'keypress' , function(ev){
+        .delegate('.search-ipt' , 'keyup' , function(ev){
             switch( ev.which ){
                 case 13: // enter
                     LP.triggerAction('search');
@@ -575,7 +584,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         if(!$('.side').is(':visible')) {
             _silderWidth = 0;
         }
-        $('.search-hd').hide();
+        //$('.search-hd').hide();
         var datetime = new Date((parseInt(node.datetime)+1*3600)*1000);
         node.date = datetime.getUTCDate();
         node.month = getMonth((parseInt(datetime.getUTCMonth()) + 1));
@@ -841,6 +850,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 .css({
                     "-webkit-transform": transform,
                     "-moz-transform": transform,
+					"-ms-transform": transform,
                     "transform": transform
                 })
                 .insertBefore( $comment )
@@ -848,19 +858,23 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 .css('height' , $comment.find('.com-list').height())
                 .end();
 
-            var $cube = $comment.parent();
-            var rotate = "translate3d(" + ( - dirData.dist ) + "px,0," + (-dist) + "px) rotateY(" + ( -dirData.rotate ) + "deg)";
-            $cube.addClass(rotateDir)
-                .css({
-                    "-webkit-transform": rotate,
-                    "-moz-transform": rotate,
-                    "-ms-transform": rotate,
-                    "-o-transform": rotate,
-                    "transform": rotate
-                });
+
+			var $cube = $comment.parent();
+			var rotate = "translate3d(" + ( - dirData.dist ) + "px,0," + (-dist) + "px) rotateY(" + ( -dirData.rotate ) + "deg)";
+			if(!isIE10) {
+				$cube.addClass(rotateDir)
+					.css({
+						"-webkit-transform": rotate,
+						"-moz-transform": rotate,
+						"-ms-transform": rotate,
+						"-o-transform": rotate,
+						"transform": rotate
+					});
+			}
+
 
             // fix ie8 and ie9 not support animate feature
-            if( !$('html').hasClass('csstransforms3d') ){
+            if( !$('html').hasClass('csstransforms3d') || isIE10 ){
                 var cubeWidth = $cube.width();
                 $cube.css({
                     width: 2 * cubeWidth
@@ -921,6 +935,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                     .css({
                         "-webkit-transform": "",
                         "-moz-transform": "",
+						"-ms-transform": "",
                         "transform": ""
                     });
                 setTimeout(function(){
@@ -2030,6 +2045,15 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         });
     });
 
+	//cancel user edit
+	LP.action('cancel_user_edit' , function(){
+		$('.user-edit-page').fadeOut(400);
+		$('.avatar-file').fadeOut();
+		$('.count-com').delay(400).fadeIn(400);
+		$('.count-edit').fadeIn();
+		$('.count-userinfo').removeClass('count-userinfo-edit');
+	});
+
     //close user page
     LP.action('logout' , function(){
         api.ajax('logout', function( result ){
@@ -2056,6 +2080,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             $main.html('').fadeIn();
             $main.data('nodes','');
             var param = refreshQuery();
+			changeUrl( '/search/' + param.hashtag , {event:'com'} );
             $listLoading.fadeIn();
             api.ajax('recent', param , function( result ){
                 $listLoading.fadeOut();
@@ -2368,6 +2393,11 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             LP.triggerAction('back');
         } );
 
+		//  /nid/xx ==>
+		addTransition( /^\/nid\/\d+/ , /^\/search/ , function( lastUrl , currUrl ){
+			LP.triggerAction('back');
+		} );
+
         // * ==> /user 
         addTransition( /.*/ , /^\/user/ , function( lastUrl , currUrl ){
             LP.triggerAction('toggle_user_page');
@@ -2377,7 +2407,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         addTransition( /^\/user/ , /.*/ , function( lastUrl , currUrl ){
             LP.triggerAction('toggle_user_page');
         } );
-
 
         // * ==> /com
         addTransition( /.*/ , /^\/com/ , function( lastUrl , currUrl ){
@@ -2435,6 +2464,8 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 //		$('.page-loading-logo img').ensureLoad(function(){
 //			$('.page-loading-logo').fadeIn().dequeue().animate({top:'50%'}, 1000, 'easeInOutQuart');
 //		});
+
+		if(isOldIE) return;
 
         // Get language
         lang = LP.getCookie('lang') || 'fr';
@@ -2867,7 +2898,11 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             LP.triggerAction('content_of_month');
         } else if( ( match = hash.match( /#\/cod/ ) ) ){
             LP.triggerAction('content_of_day');
-        } else {
+		} else if( ( match = hash.match( /#\/search\/(\w+)/ ) ) ){
+			var hashtag = match[1];
+			$('.search-ipt').val(hashtag);
+			LP.triggerAction('search');
+		} else {
             LP.triggerAction('recent');
         }
     }

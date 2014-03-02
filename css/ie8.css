@@ -33,3 +33,6 @@
 .sm-width .logo {margin:5px auto 0 auto;width:158px;height:48px;background:url('../img/logo_s.gif') no-repeat;}
 .sm-width .search {top:60px;}
 .sm-width .select {top:58px;}
+
+.count-item {font-weight: bold;}
+.count-item span {font-weight: normal;}

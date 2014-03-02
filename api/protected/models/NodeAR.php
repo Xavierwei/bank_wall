@@ -520,9 +520,11 @@ class NodeAR extends CActiveRecord{
 		$query->select = array("count(*) AS nodecounts");
 		$query->addCondition("uid=:uid");
 		$query->addCondition("type=:type");
+		$query->addCondition("status=:status");
 		$query->params = array(
-		  ":uid" => $uid,
-		  ":type" => $type
+			":uid" => $uid,
+			":type" => $type,
+			":status" => 1
 		);
 		$res = $this->find($query);
 
@@ -534,8 +536,10 @@ class NodeAR extends CActiveRecord{
 		$query->select = "*". ",topday_id AS topday";
 		$query->join = 'right join `topday` '.' on '. '`topday`' .".nid = ". $this->getTableAlias().".nid";
 		$query->addCondition("uid=:uid");
+		$query->addCondition("status=:status");
 		$query->params = array(
-		  ":uid" => $uid
+			":uid" => $uid,
+			":status" => 1
 		);
 		$res = $this->count($query);
 
@@ -547,8 +551,10 @@ class NodeAR extends CActiveRecord{
 		$query->select = "*". ",topmonth_id AS topmonth";
 		$query->join = 'right join `topmonth` '.' on '. '`topmonth`' .".nid = ". $this->getTableAlias().".nid";
 		$query->addCondition("uid=:uid");
+		$query->addCondition("status=:status");
 		$query->params = array(
-		  ":uid" => $uid
+			":uid" => $uid,
+			":status" => 1
 		);
 		$res = $this->count($query);
 
