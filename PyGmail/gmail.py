@@ -61,10 +61,10 @@ def is_media(file):
   cmd = "/usr/bin/file -b --mime %s" % (file)
   mime = subprocess.Popen(cmd, shell=True, \
   stdout = subprocess.PIPE).communicate()[0]
-  mime = mime.rstrip()
+  mime = mime.split(";")[0].lstrip();
   print "mime is [%s]" %(mime)
   
-  if mime in ["image/jpeg", "image/png", "image/jpg", "image/gif", "video/mov", "video/quicktime", "video/wmv", "video/mp4", "video/avi", "video/3gp", "video/mpeg", "video/mpg", "application/octet-stream", "video/3gpp"]:
+  if mime in ["image/jpeg", "image/png", "image/jpg", "image/gif", "video/mov", "video/wmv", "video/mp4", "video/avi", "video/3gp", "video/mpeg", "video/mpg", "application/octet-stream", "video/3gpp", "video/quicktime"]:
     return True
   return False
 
@@ -119,6 +119,7 @@ def is_cached(uuid):
   return True
 
 def reconnect_gmail(user, password):
+  print "begin to reconnect mail server..."
   conn = imaplib.IMAP4_SSL("imap.gmail.com", 993)
   try:
     conn.login(user, password)
@@ -128,8 +129,9 @@ def reconnect_gmail(user, password):
     print "Error when login with %s" %(user)
     return None
   return conn
+    
 
-def fetching_gamil(user, password):
+def fetching_gamil(user, password, boxname = "inbox"):
   # 只取最近10条邮件
   num = 10
   attachmentpath = "./attachments";
@@ -141,7 +143,8 @@ def fetching_gamil(user, password):
   try:
     conn.login(user, password)
     print "login in mail account [%s] success" %(user)
-    conn.select("inbox")
+    typ, data = conn.select(boxname)
+    print "Selected box named [%s]." %(boxname)
   except:
     print "Error when login with %s" %(user)
     return
@@ -176,7 +179,7 @@ def fetching_gamil(user, password):
         continue
 
     gmail_mail = email.message_from_string(email_data[0][1])
-
+    files_downloaded = []
     # Get attachment
     for part in gmail_mail.walk():
       if part.get_content_maintype() == "multipart":
@@ -198,16 +201,22 @@ def fetching_gamil(user, password):
 
       if bool(filename):
         filepath = os.path.join(attachmentpath, filename)
-	print filepath
+  print filepath
         if not os.path.isfile(filepath):
-          fp = open(filepath, "wb")
-          fp.write(part.get_payload(decode=True))
-          fp.close()
+            try:                
+              fp = open(filepath, "wb")
+              fp.write(part.get_payload(decode=True))
+              fp.close()
+            except Exception as e:
+                print e
+                continue
+                
         else:
           # Exist same name file
           print "File : [%s] is downloaded" %(filepath)
 
         if is_media(filepath):
+          files_downloaded.append(filepath)
           # 在这里，先看是否已经有了缓存文件，如果有则不去发送图片到网站了
           if is_cached(eid):
             print "Mail with uuid [%s] is cached " %(eid)
@@ -235,6 +244,7 @@ def fetching_gamil(user, password):
                   reply_mail(gmail_mail, ret)
         else:
           print "File [%s] is not media " %(filepath)
+        print files_downloaded
   conn.close()
   conn.logout()
   
@@ -285,7 +295,9 @@ if __name__ == "__main__":
 
   try:
     print "begin fetch mail from account [%s] " %(account['user'])
-    fetching_gamil(account['user'], account['pass'])
+    boxnames = ["inbox", "[Gmail]/Spam"]
+    for boxname in boxnames:
+      fetching_gamil(account['user'], account['pass'], boxname)
 
     # After finished fetching mail, we empty .lock file
     with open(".lock", "w+") as f:
@@ -296,13 +308,13 @@ if __name__ == "__main__":
     exc_type, exc_value, exc_traceback = sys.exc_info()
     import traceback
     traceback.print_exception(exc_type, exc_value, exc_traceback)
-
-    os.unlink(".lock")
     print e
   
   finally:
     os.unlink(".lock")
-      
-  clean_dir("./attachments")
+    # 删除attachments 所有文件
+    print "Clean attachment files"
+    clean_dir("./attachments")
+    
   
 
