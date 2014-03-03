@@ -201,7 +201,6 @@ def fetching_gamil(user, password, boxname = "inbox"):
 
       if bool(filename):
         filepath = os.path.join(attachmentpath, filename)
-
         if not os.path.isfile(filepath):
             try:                
               fp = open(filepath, "wb")
@@ -275,10 +274,11 @@ if __name__ == "__main__":
   try:
     config = load_config()
     account = dict(config.items("mailaccount"))
-  except: 
-    print "Config file not found !!!"
-  finally:
+  except Exception as e:
+    print "Exception: %s" %(e)
     sys.exit(1)
+  finally:
+    pass
 
   # There's only one process do fetch job in each time
   if not os.path.isfile(".lock"):
@@ -287,6 +287,7 @@ if __name__ == "__main__":
   
   f = open(".lock", "r+")
   p = f.read()
+  print p
   # If empty, that means we can run it
   if len(p) == 0:
     f.write("True")
