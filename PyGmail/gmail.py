@@ -68,7 +68,7 @@ def is_media(file):
     return True
   return False
 
-def cache_mail(uuid, gmail_mail, filepath):
+def cache_mail(uuid, gmail_mail, filepath, inbox="inbox"):
   """缓存邮件内容"""
   print "mail id [%s] is being to cached " %(uuid)
   # From
@@ -80,9 +80,9 @@ def cache_mail(uuid, gmail_mail, filepath):
   # 打印提示
   print "Cached %s Email with %s subject !" %(mfrom, subject)
   
-  cache_dir = os.path.join(basepath, "caches")
+  cache_dir = os.path.join(basepath, "caches", inbox)
   if not os.path.isdir(cache_dir):
-    os.mkdir(cache_dir)
+    os.makedirs(cache_dir)
   
   cache_file = os.path.join(cache_dir, uuid);
   if os.path.isfile(cache_file):
@@ -95,10 +95,10 @@ def cache_mail(uuid, gmail_mail, filepath):
   
   return cache_data
 
-def rm_cache_mail(uuid):
-  cache_dir = os.path.join(basepath, "caches")
+def rm_cache_mail(uuid, inbox):
+  cache_dir = os.path.join(basepath, "caches", inbox)
   if not os.path.isdir(cache_dir):
-    os.mkdir(cache_dir)
+    os.makedirs(cache_dir)
   
   cache_file = os.path.join(cache_dir, uuid);
   if os.path.isfile(cache_file) is False:
@@ -107,11 +107,11 @@ def rm_cache_mail(uuid):
   os.unlink(cache_file)
   return True
 
-def is_cached(uuid):
-  cache_dir = os.path.join(basepath, "caches")
+def is_cached(uuid, inbox="inbox"):
+  cache_dir = os.path.join(basepath, "caches", inbox)
   
   if not os.path.isdir(cache_dir):
-    os.mkdir(cache_dir)
+    os.makedirs(cache_dir)
   
   cache_file = os.path.join(cache_dir, uuid)
   if not os.path.isfile(cache_file):
@@ -217,12 +217,12 @@ def fetching_gamil(user, password, boxname = "inbox"):
         if is_media(filepath):
           files_downloaded.append(filepath)
           # 在这里，先看是否已经有了缓存文件，如果有则不去发送图片到网站了
-          if is_cached(eid):
+          if is_cached(eid, inbox):
             print "Mail with uuid [%s] is cached " %(eid)
             continue
           else:
             # 如果没有则先缓存图片再发送图片到网站
-            data = cache_mail(eid, gmail_mail, filepath)
+            data = cache_mail(eid, gmail_mail, filepath, inbox)
 
             if data is not None:
               print "begin to post data to bank wall"
@@ -235,7 +235,7 @@ def fetching_gamil(user, password, boxname = "inbox"):
               try:
                 ret = post_media_to_bankwall(desc=subject, user=mfrom, media=filepath)
               except Exception as e:
-                rm_cache_mail(eid)
+                rm_cache_mail(eid, inbox)
                 ret = None
                 print e
               finally:
