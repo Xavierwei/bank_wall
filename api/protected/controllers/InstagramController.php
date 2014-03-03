@@ -1,5 +1,7 @@
 <?php
-class OauthController extends Controller {
+class InstagramController extends Controller {
+
+	const MEDIA = 'instagram';
 
 	private $instagram;
 
@@ -12,25 +14,52 @@ class OauthController extends Controller {
 		));
 	}
 
-	public function actionLoginInstagram() {
+	/**
+	 * Get Instagram login URL
+	 */
+	public function actionLogin() {
 		echo "<a href='{$this->instagram->getLoginUrl()}'>Login with Instagram</a>";
 	}
 
-	public function actionInstagramCallback() {
-//		$code = $_GET['code'];
-//		$data = $this->instagram->getOAuthToken($code);
-//		print_r($data);
-		$data = new stdClass();
-		$data->access_token = "1133838733.28fb0c1.18d82e8ec3454d49988ab2ee083be6fa";
-		$this->instagram->setAccessToken($data);
 
-		//echo 'Your username is: ' . $data->user->username;
+	/**
+	 * Store the account OAuthToken
+	 */
+	public function actionCallback() {
+		$code = $_GET['code'];
+		$data = $this->instagram->getOAuthToken($code);
+		if(!isset($data->user)) {
+			return;
+		}
 
-		$media = $this->instagram->getTagMedia('9263');
-		print_r($media);
+		$oauth = OauthAR::model()->findByAttributes(array('media'=>$this::MEDIA));
+		if(!$oauth) {
+			$oauth = new OauthAR();
+		}
+		$oauth->media = $this::MEDIA;
+		$oauth->username = $data->user->username;
+		$oauth->token = $data->access_token;
+		if($oauth->save()) {
+			echo 'success';
+		}
+	}
 
+
+	/**
+	 * Fetch the media
+	 */
+	public function actionFetch(){
+		$oauth = OauthAR::model()->findByAttributes(array('media'=>$this::MEDIA));
+		$oauthData = new stdClass();
+		$oauthData->access_token = $oauth->token;
+		$this->instagram->setAccessToken($oauthData);
+
+		$tag = Yii::app()->params['tag'];
+		$media = $this->instagram->getTagMedia($tag);
 		foreach ($media->data as $entry) {
 			echo "<img src=\"{$entry->images->thumbnail->url}\">";
 		}
 	}
+
+
 }
