@@ -189,7 +189,7 @@ class NodeAR extends CActiveRecord{
 		if ($type == "video") {
 			$topath = ROOT.$newpath;
 			$wmvpath = str_replace('.mp4','.wmv',$topath);
-			exec("ffmpeg -i {$topath} -y -vf scale=-1:640 {$wmvpath}", $output, $status);
+			exec("ffmpeg -i {$topath} -y {$wmvpath}", $output, $status);
 		}
 		// Load user/country
 		$userAr = new UserAR();

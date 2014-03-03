@@ -36,6 +36,8 @@ Works!
 ffmpeg -i audio.wav -acodec aac -loop 1 -f image2 -i photo.jpg -loop 1 -r 5/1 -i png_%d.png -filter_complex 'overlay=x=100:y=100' -shortest -t 6 out.mp4
 
 
+ffmpeg -i v592.mp4 -y v592.wmv
+
 
 ffmpeg -i video1.mp4 -vcodec libx264 -movflags +faststart -acodec aac -strict experimental -ac 2 video2.mp4
 
