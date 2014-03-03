@@ -18,7 +18,9 @@
     <style>
         html,body {height:100%;width:100%;text-align: center;}
 	    #wmp {z-index:1;position: relative;}
-		.wmp .poster {position:absolute;width:100%;height:100%;}
+		.wmp .poster {position:absolute;width:100%;height:100%;z-index:2;display:none;}
+		.loading {display:none;}
+		.playbtn {cursor: pointer;}
     </style>
 
 </head>
@@ -26,7 +28,7 @@
 <div class="poster"><img width="100%" src="./api/<?php echo $cover;?>" /></div>
 <object id="wmp" classid="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6" standby="Loading Microsoft® Windows® Media Player components..." width="100%" height="100%" type="application/x-oleobject" codebase="http://activex.microsoft.com/activex/controls/mplayer/en/nsm p2inf.cab#Version=6,4,7,1112">
     <param name="URL" value="./api<?php echo $video;?>">
-    <param name="AutoStart" value="true">
+    <param name="AutoStart" value="false">
     <param name="showcontrols" value="false">
 	<param name="controls" value="false">
 	<param name="windowlessVideo" value="true">
@@ -39,12 +41,12 @@
     <param name="enablecontextmenu" value="true">
 	<param name="uiMode" value="none">
 </object>
-<div class="loading"></div>
+<div class="loading">Loading</div>
 <div class="bar-wrap">
 	<div class="bar-percent"></div>
 </div>
 
-<div class="playbtn">
+<div class="playbtn paused">
 	<div class="icon"></div>
 </div>
 
@@ -77,7 +79,6 @@
 
 
 <script>
-
 	var playInterval;
 	var player = document.getElementById("wmp");
 	$('.playbtn').click(function(){
@@ -101,6 +102,9 @@
 	function handler(type) {
 		// http://msdn.microsoft.com/en-us/library/bb249361(VS.85).aspx
 		var a = arguments;
+		if(a[1] == 9) {
+			$('.loading').show();
+		}
 		if(a[1] == 3) {
 			if(!playInterval) {
 				var duration = player.currentMedia.duration;
@@ -109,15 +113,15 @@
 					var percent = currentPos / duration;
 					if(percent > 0) {
 						$('.bar-wrap').fadeIn();
-						$('.loading').hide();
+						$('.loading').remove();
+						$('.poster').hide();
 					}
 					$('.bar-percent').css({width: percent*100 + '%'});
 				}, 300);
 			}
 		}
-
 		if(a[1] == 1) {
-			$('.bar-percent').css({width: 0});
+			$('.bar-percent').css({width:0});
 			$('.bar-wrap').fadeOut();
 			$('.playbtn').addClass('paused');
 			clearInterval(playInterval);
@@ -125,7 +129,14 @@
 		}
 	};
 
-
+	$(window).resize(function(){
+		var marginTop = ($(window).height() - ($(window).width() / <?php echo $ratio;?>)) / 2;
+		$('.poster img').css({marginTop: marginTop});
+	});
+	setTimeout(function(){
+		$(window).trigger('resize');
+		$('.wmp .poster').fadeIn();
+	},800);
 
 </script>
 <script for="wmp" event="playstatechange(newState)">
