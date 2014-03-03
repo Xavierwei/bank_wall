@@ -26,7 +26,7 @@ $metadata['https://openidp.feide.no'] = array(
 /*
  * Live site IdP
  */
-$metadata['https://dafelx01.dns21.socgen:1443/sgwall/'] = array(
+$metadata['http://www.wall150ans.com'] = array(
 	'name' => array(
 		'en' => 'SGIdP',
 		'fr' => 'SGIdP',

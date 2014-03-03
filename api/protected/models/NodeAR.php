@@ -189,7 +189,7 @@ class NodeAR extends CActiveRecord{
 		if ($type == "video") {
 			$topath = ROOT.$newpath;
 			$wmvpath = str_replace('.mp4','.wmv',$topath);
-			exec("ffmpeg -i {$topath} -y -vf {$wmvpath}", $output, $status);
+			exec("ffmpeg -i {$topath} -y -vf scale=-1:640 {$wmvpath}", $output, $status);
 		}
 		// Load user/country
 		$userAr = new UserAR();
@@ -355,28 +355,28 @@ class NodeAR extends CActiveRecord{
 						// 视频转换
 						switch($extname) {
 							case 'mp4':
-								exec("ffmpeg -i {$to} -vcodec libx264 {$size} -acodec aac -strict experimental -ac 2 {$rotate} {$newpath}", $output, $status);
+								exec("ffmpeg -i {$to} -vcodec libx264 {$size} -movflags +faststart -acodec aac -strict experimental -ac 2 {$rotate} {$newpath}", $output, $status);
 								break;
 							case 'mpg':
-								exec("ffmpeg -i {$to} -vcodec libx264 -acodec aac -strict experimental -ac 2 {$newpath}", $output, $status);
+								exec("ffmpeg -i {$to} -vcodec libx264 -movflags +faststart -acodec aac -strict experimental -ac 2 {$newpath}", $output, $status);
 								break;
 							case 'mpeg':
-								exec("ffmpeg -i {$to} -vcodec libx264 -acodec aac -strict experimental -ac 2 {$newpath}", $output, $status);
+								exec("ffmpeg -i {$to} -vcodec libx264 -movflags +faststart -acodec aac -strict experimental -ac 2 {$newpath}", $output, $status);
 								break;
 							case 'mov':
-								exec("ffmpeg -i {$to} -vcodec libx264 -acodec aac -strict experimental -ac 2 {$rotate} {$newpath}", $output, $status);
+								exec("ffmpeg -i {$to} -vcodec libx264 -movflags +faststart -acodec aac -strict experimental -ac 2 {$rotate} {$newpath}", $output, $status);
 								break;
 							case 'wmv':
-								exec("ffmpeg -i {$to} -strict -2 -ab 64k -ar 44100 {$newpath}", $output, $status);
+								exec("ffmpeg -i {$to} -movflags +faststart -strict -2 -ab 64k -ar 44100 {$newpath}", $output, $status);
 								break;
 							case '3gp':
-								exec("ffmpeg -i {$to} -strict -2 -ab 64k -ar 44100 {$newpath}", $output, $status);
+								exec("ffmpeg -i {$to} -movflags +faststart -strict -2 -ab 64k -ar 44100 {$newpath}", $output, $status);
 								break;
 							case 'avi':
-								exec("ffmpeg -i {$to} -vcodec mpeg4 -acodec aac -strict experimental -ab 64k -ar 44100 {$newpath}", $output, $status);
+								exec("ffmpeg -i {$to} -vcodec mpeg4 -movflags +faststart -acodec aac -strict experimental -ab 64k -ar 44100 {$newpath}", $output, $status);
 								break;
 							default:
-								exec("ffmpeg -i {$to} -vcodec libx264 -acodec aac -strict experimental -ac 2 {$newpath}", $output, $status);
+								exec("ffmpeg -i {$to} -vcodec libx264 -movflags +faststart -acodec aac -strict experimental -ac 2 {$newpath}", $output, $status);
 						}
 
 						unlink($to);

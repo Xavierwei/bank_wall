@@ -482,12 +482,13 @@
 <!-- flash-player-tpl -->
 <script type="text/tpl" id="flash-player-template">
   <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="100%" height="100%">
-    <param name="allowScriptAccess" value="always"/>
-    <param name="movie" value="flash/player.swf"/>
-    <param name="flashVars" value="source=../api{{file}}&skinMode=show&fengmian=../api{{image}}"/>
-    <param name="quality" value="high"/>
+	<param name="allowScriptAccess" value="always"/>
+	<param name="movie" value="flash/player.swf"/>
+	<param name="flashVars" value="source=../api{{file}}&skinMode=show&fengmian=./api{{image}}"/>
+	<param name="quality" value="high"/>
 	<param name="wmode" value="opaque"/>
-    <embed name="player" src="flash/player.swf" flashVars="source=../api{{file}}&skinMode=show&fengmian=/sgwall/api{{image}}" quality="high" wmode="opaque" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="100%" height="100%" allowScriptAccess="always"></embed>
+	<param name="allowFullScreen" value="true"/>
+    <embed name="player" src="flash/player.swf" flashVars="source=../api{{file}}&skinMode=show&fengmian=./api{{image}}" allowFullScreen="true" quality="high" wmode="opaque" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="100%" height="100%" allowScriptAccess="always"></embed>
   </object>
 </script>
 

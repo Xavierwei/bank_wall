@@ -970,7 +970,9 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             $newItem.append($nextFlag);
 
             var $nextTop = $newInner.find('.inner-top');
-            $inner.find('.inner-top').animate({top:-33});
+            $inner.find('.inner-top').animate({top:-33}, function(){
+                $(this).remove();
+            });
             $newItem.append($nextTop);
 
             // Resize Image
@@ -1802,6 +1804,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 if(!FlashDetect.installed) {
                     $('#node_post_form').submit();
                     $('.pop-txt').fadeOut();
+                    $('.pop-load').fadeIn();
                     $('.popload-percent').hide();
                     return;
                 }
