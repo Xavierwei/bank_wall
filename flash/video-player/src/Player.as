@@ -56,9 +56,11 @@ package{
 			mediaPlayer.addEventListener("stopped",_stop);
 			mediaPlayer.addEventListener("playComplete",_playComplete);
 			
+			//mediaPlayer.startImage="http://zero.flashwing.net/image/zero.gif";
+			
 			mediaPlayer.init(LayoutMode.STAND_ALONE,null);
 			
-			//mediaPlayer.source="01.flv";
+			//mediaPlayer.source="http://zero.flashwing.net/my/18.mp4";
 			
 			this.visible=true;
 			

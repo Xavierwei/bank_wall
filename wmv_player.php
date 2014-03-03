@@ -18,10 +18,12 @@
     <style>
         html,body {height:100%;width:100%;text-align: center;}
 	    #wmp {z-index:1;position: relative;}
+		.wmp .poster {position:absolute;width:100%;height:100%;}
     </style>
 
 </head>
 <body class="wmp">
+<div class="poster"><img width="100%" src="./api/<?php echo $cover;?>" /></div>
 <object id="wmp" classid="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6" standby="Loading Microsoft® Windows® Media Player components..." width="100%" height="100%" type="application/x-oleobject" codebase="http://activex.microsoft.com/activex/controls/mplayer/en/nsm p2inf.cab#Version=6,4,7,1112">
     <param name="URL" value="./api<?php echo $video;?>">
     <param name="AutoStart" value="true">

@@ -25,10 +25,12 @@ package{
 		public var slider:Slider;
 		public var timeTxt:Sprite;
 		public var volCtrl:VolCtrl;
+		public var btnScale:Btn;
 		public var btnFullScreen:Btn;
 		
 		private var timeTxt_x0:int;
 		private var volCtrl_x0:int;
+		private var btnScale_x0:int;
 		private var btnFullScreen_x0:int;
 		
 		public var ty:Number;
@@ -42,6 +44,10 @@ package{
 				timeTxt["txt"].autoSize=TextFieldAutoSize.RIGHT;
 			}
 			
+			if(btnScale){
+				btnScale["gra"].gotoAndStop(1);
+			}
+			
 			if(btnFullScreen){
 				btnFullScreen["gra"].gotoAndStop(1);
 			}
@@ -51,6 +57,9 @@ package{
 			}
 			if(volCtrl){
 				volCtrl_x0=volCtrl.x;
+			}
+			if(btnScale){
+				btnScale_x0=btnScale.x;
 			}
 			if(btnFullScreen){
 				btnFullScreen_x0=btnFullScreen.x;
@@ -100,9 +109,11 @@ package{
 						timeTxt.visible=true;
 					}
 				}
-				
 				if(btnFullScreen){
 					btnFullScreen.x=wid-(wid0-btnFullScreen_x0);
+				}
+				if(btnScale){
+					btnScale.x=wid-(wid0-btnScale_x0);
 				}
 				if(volCtrl){
 					if(volCtrl.volBtn){
