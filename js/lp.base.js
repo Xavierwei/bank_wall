@@ -1059,7 +1059,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 
             // load comment
             bindCommentSubmisson();
-            _waitingCommentListAjax = false;
+            $('.comment-wrap').removeClass('loading');
             getCommentList(node.nid,1);
             LP.use(['jscrollpane' , 'mousewheel'] , function(){
                 $('.com-list').jScrollPane({autoReinitialise:true}).bind(
@@ -1353,7 +1353,13 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         if(!$('.flag-confirm-modal').is(':visible')) {
             $('.modal-overlay').fadeIn(700);
             $('.flag-confirm-modal').fadeIn(700).dequeue().animate({top:'50%'}, 700, 'easeOutQuart');
-            $('.flag-confirm-modal .flag-confirm-text span').html(_e[data.type.toUpperCase()]);
+            if(data.type == 'node') {
+                var type = _e['CONTENT'];
+            }
+            else {
+                var type = _e['COMMENT'];
+            }
+            $('.flag-confirm-modal .flag-confirm-text span').html(type);
             $('.flag-confirm-modal .ok').attr('data-a','flag');
             if(data.type == 'node') {
                 $('.flag-confirm-modal .ok').attr('data-d','nid=' + data.nid + '&type=node');

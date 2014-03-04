@@ -64,10 +64,33 @@ def is_media(file):
   cmd = "/usr/bin/file -b --mime %s" % (file)
   mime = subprocess.Popen(cmd, shell=True, \
   stdout = subprocess.PIPE).communicate()[0]
-  mime = mime.split(";")[0].strip();
+  mime = mime.split(";")[0].strip()
   print "mime is [%s]" %(mime)
-  
-  if mime in ["image/jpeg", "image/png", "image/jpg", "image/gif", "video/mov", "video/wmv", "video/x-ms-wmv", "video/mp4", "video/avi", "video/x-ms-asf", "video/x-msvideo", "video/3gp", "video/mpeg", "video/mpg", "application/octet-stream", "video/3gpp", "video/quicktime"]:
+  mimes_allowed = [
+    "application/x-empty" , \
+    "video/mp2p" , \
+    "video/mov", \
+    "video/quicktime", \
+    "video/x-msvideo", \
+    "video/x-ms-wmv", \
+    "video/wmv", \
+    "video/mp4", \
+    "video/avi", \
+    "video/3gp", \
+    "video/3gpp", \
+    "video/mpeg", \
+    "video/mpg", \
+    "application/octet-stream",\
+    "video/x-ms-asf", \
+    "video/x-ms-dvr", \
+    "video/x-ms-wm",\
+    'video/x-ms-wmv', \
+    'video/x-msvideo', \
+    'video/x-ms-asx', \
+    'video/x-ms-wvx',\
+    'application/x-troff-msvideo', \
+    'video/x-ms-wmx']
+  if mime in mimes_allowed:
     return True
   return False
 
@@ -135,6 +158,7 @@ def reconnect_gmail(user, password):
     
 
 def fetching_gamil(user, password, boxname = "inbox"):
+  inbox = boxname
   # 只取最近10条邮件
   num = 10
   attachmentpath = "./attachments";
@@ -166,7 +190,13 @@ def fetching_gamil(user, password, boxname = "inbox"):
 
   print "ids [%s] of mail that be fetched " %(id_list)
 
+  id_list.sort(reverse=True)
+
   for eid in id_list:
+
+    if is_cached(eid, inbox):
+      print "Email with uuid: [%s] is cached." %(eid)
+      continue
       
     # 对取每个邮件进行异常处理
     try:
@@ -193,6 +223,7 @@ def fetching_gamil(user, password, boxname = "inbox"):
       if part.get_filename() is None:
         continue
       filename = "".join(part.get_filename().split())
+      print filename
       import time,hashlib
       #nowtimestamp = unicode(int(time.time())).encode("utf-8")
       #filename = unicode(filename).encode("utf-8")
@@ -204,6 +235,7 @@ def fetching_gamil(user, password, boxname = "inbox"):
 
       if bool(filename):
         filepath = os.path.join(attachmentpath, filename)
+        print "File: [%s] will be post." %(filepath)
         if not os.path.isfile(filepath):
             try:                
               fp = open(filepath, "wb")
@@ -212,7 +244,6 @@ def fetching_gamil(user, password, boxname = "inbox"):
             except Exception as e:
                 print e
                 continue
-                
         else:
           # Exist same name file
           print "File : [%s] is downloaded" %(filepath)
@@ -246,13 +277,12 @@ def fetching_gamil(user, password, boxname = "inbox"):
                   reply_mail(gmail_mail, ret)
         else:
           if is_cached(eid):
-			print "Mail with uuid [%s] is cached " %(eid)
-			continue
+			      print "Mail with uuid [%s] is cached " %(eid)
+			      continue
           else:
             data = cache_mail(eid, gmail_mail, filepath)
             reply_mail(gmail_mail, True, "Dear,\n\nThe file you upload is not support.\n\nSG WALL Team")
             print "File [%s] is not media " %(filepath)
-        print files_downloaded
   conn.close()
   conn.logout()
   

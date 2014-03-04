@@ -54,6 +54,9 @@ msgstr "Content of the day"
 msgid "CONTENT_OF_THE_MONTH"
 msgstr "Content of the month"
 
+msgid "CONTENT"
+msgstr "Content"
+
 msgid "LOGOUT"
 msgstr "Logout"
 

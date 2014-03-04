@@ -149,8 +149,10 @@
 
 
 	$('.poster img').ensureLoad(function(){
-		$(window).trigger('resize');
-		$('.wmp .poster').fadeIn();
+		setTimeout(function(){
+			$(window).trigger('resize');
+			$('.wmp .poster').fadeIn();
+		}, 3000);
 	});
 
 </script>

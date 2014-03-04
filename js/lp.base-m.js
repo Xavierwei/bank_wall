@@ -1412,7 +1412,15 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
         if(!$('.flag-confirm-modal').is(':visible')) {
             $('.modal-overlay').fadeIn(700);
             $('.flag-confirm-modal').fadeIn(700).dequeue().animate({top:'50%'}, 700, 'easeOutQuart');
-            $('.flag-confirm-modal .flag-confirm-text span').html(data.type);
+
+            if(data.type == 'node') {
+                var type = _e['CONTENT'];
+            }
+            else {
+                var type = _e['COMMENT'];
+            }
+            $('.flag-confirm-modal .flag-confirm-text span').html(type);
+
             $('.flag-confirm-modal .ok').attr('data-a','flag');
             if(data.type == 'node') {
                 $('.flag-confirm-modal .ok').attr('data-d','nid=' + data.nid + '&type=node');

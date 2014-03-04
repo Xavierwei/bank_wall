@@ -31,7 +31,7 @@ class NodeAR extends CActiveRecord{
 
 	const ALLOW_UPLOADED_PHOTO_TYPES = "jpg,png,gif";
 
-	const ALLOW_UPLOADED_VIDEO_TYPES = "mp4,avi,mov,mpg,mpeg,3pg,wmv";
+	const ALLOW_UPLOADED_VIDEO_TYPES = "mp4,avi,mov,mpg,mpeg,3gp,wmv";
 
 	const ALLOW_STORE_VIDE_TYPE = "mp4";
 
@@ -322,6 +322,8 @@ class NodeAR extends CActiveRecord{
 			}
 		}
 
+
+
 		// 检查是不是视频， 如果是, 就就做视频转换工作
 		if (in_array($extname, $videoexts)) {
 			$filename = md5( uniqid() . '_' . $upload->getName() ) . '.' .$extname ;
@@ -329,6 +331,7 @@ class NodeAR extends CActiveRecord{
 			$ret = $upload->saveAs($to);
 			// 在这里做视频转换功能
 			// 先检查 ffmpeg 是否已经安装
+
 			exec("which ffmpeg", $output);
 			if (!empty($output)) {
 				$ffmpeg = array_shift($output);
@@ -356,7 +359,8 @@ class NodeAR extends CActiveRecord{
 							$size = '-filter:v scale=720:-1';
 						}
 
-						// 视频转换
+
+                        // 视频转换
 						switch($extname) {
 							case 'mp4':
 								exec("ffmpeg -i {$to} -vcodec libx264 {$size} -movflags +faststart -acodec aac -strict experimental -ac 2 {$rotate} {$newpath}", $output, $status);
@@ -369,22 +373,28 @@ class NodeAR extends CActiveRecord{
 								break;
 							case 'mov':
 								exec("ffmpeg -i {$to} -vcodec libx264 -movflags +faststart -acodec aac -strict experimental -ac 2 {$rotate} {$newpath}", $output, $status);
-								if(!is_file($newpath)) {
+								if(!is_file($newpath) || !$this->is_valid_video($newpath)) {
 									exec("ffmpeg -i {$to} -acodec copy -vcodec copy {$rotate} {$newpath}", $output, $status);
 								}
 								break;
 							case 'wmv':
-								exec("ffmpeg -i {$to} -movflags +faststart -strict -2 -ab 64k -ar 44100 {$newpath}", $output, $status);
+								exec("ffmpeg -i {$to} -movflags +faststart -strict -2 -ar 44100 {$newpath}", $output, $status);
 								break;
 							case '3gp':
-								exec("ffmpeg -i {$to} -movflags +faststart -strict -2 -ab 64k -ar 44100 {$newpath}", $output, $status);
+								exec("ffmpeg -i {$to} -movflags +faststart -strict -2 -ar 44100 {$newpath}", $output, $status);
+
 								break;
 							case 'avi':
-								exec("ffmpeg -i {$to} -vcodec mpeg4 -movflags +faststart -acodec aac -strict experimental -ab 64k -ar 44100 {$newpath}", $output, $status);
+                               // print "ffmpeg -i {$to} -vcodec mpeg4 -movflags +faststart -acodec aac -strict experimental -ar 44100 {$newpath}";
+								exec("ffmpeg -i {$to} -vcodec libx264 -movflags +faststart -acodec aac -strict experimental -ac 2 {$newpath}", $output, $status);
 								break;
 							default:
 								exec("ffmpeg -i {$to} -vcodec libx264 -movflags +faststart -acodec aac -strict experimental -ac 2 {$newpath}", $output, $status);
 						}
+
+                        if (!$this->is_valid_video($newpath)) {
+                            return FALSE;
+                        }
 
 						if(is_file($to)) {
 							unlink($to);
@@ -397,7 +407,7 @@ class NodeAR extends CActiveRecord{
 		}
 
 
-		if(is_file($to)) {
+		if(isset($to) && is_file($to)) {
 			$to = str_replace(ROOT, "", $to);
 			return $to;
 		}
@@ -422,6 +432,15 @@ class NodeAR extends CActiveRecord{
 
 		return $orientation;
 	}
+
+    function is_valid_video($path) {
+        $cmd = "/usr/local/bin/ffprobe " . $path . "  2>/dev/null 2>&1";
+        $result = shell_exec($cmd);
+        if (strpos($result, "Invalid") !== FALSE) {
+            return FALSE;
+        }
+        return TRUE;
+    }
 
 
 
@@ -501,7 +520,7 @@ class NodeAR extends CActiveRecord{
 			exec("ffmpeg -ss 00:00:03 -i $absvideoPath -vframes 1 -an -f image2 ".$absscreenImagePath, $output, $status);
 
 			if (!file_exists($absscreenImagePath)) {
-        exec("ffmpeg -i $absvideoPath -vframes 1 -an -f image2 ".$absscreenImagePath, $output, $status);
+                exec("ffmpeg -i $absvideoPath -vframes 1 -an -f image2 ".$absscreenImagePath, $output, $status);
 			}
 		};
 		if($w && $h) {

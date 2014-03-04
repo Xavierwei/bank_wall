@@ -176,6 +176,9 @@ msgstr "Contenus du jour"
 msgid "CONTENTS_OF_MONTH"
 msgstr "Contenus du mois"
 
+msgid "CONTENT"
+msgstr "Contenu"
+
 msgid "EDIT_PROFILE"
 msgstr "éditer le profil"
 

@@ -75,15 +75,13 @@ class NodeController extends Controller {
 			$nodeAr->country_id = $country_id;
 			if ($nodeAr->validate()) {
 				$success = $nodeAr->save();
+                $this->cleanAllCache();
 				if (!$success) {
 				    $this->responseError("exception happended");
 				}
 				$retdata = $nodeAr->attributes;
 				$retdata['user'] = $nodeAr->user->attributes;
 				$retdata['country'] = $nodeAr->country->attributes;
-
-
-				$this->cleanAllCache();
 				
 				if($isIframe){
 					$this->render('post', array(
@@ -144,8 +142,7 @@ class NodeController extends Controller {
 			if ($node->validate()) {
 				$node->beforeSave();
 
-				$this->cleanCache("node_")
-					->cleanCache("comment_");
+                $this->cleanAllCache();
 				$ret = $node->updateByPk($node->nid, array("status" => $node->status));
 				$this->responseJSON($node->attributes, "success");
 			}
@@ -194,7 +191,8 @@ class NodeController extends Controller {
 		LikeAR::model()->saveTopOfDay($nodeAr);
 		LikeAR::model()->saveTopOfMonth($nodeAr);
 
-		$this->cleanAllCache();
+		$this->cleanCache("node_")
+			->cleanCache("comment_");
 		return $this->responseJSON($nodeAr->attributes, "success");
 	}
 
@@ -509,8 +507,31 @@ class NodeController extends Controller {
 					"image/gif", "image/png", "image/jpeg", "image/jpg"
 				);
 				$allowVideoMime = array(
-					"video/mov","video/quicktime", "video/x-msvideo", "video/x-ms-wmv", "video/wmv", "video/mp4", "video/avi", "video/3gp", "video/3gpp", "video/mpeg", "video/mpg", "application/octet-stream", "video/x-ms-asf"
-				);
+					"application/x-empty" ,
+                    "video/mp2p" ,
+                    "video/mov",
+                    "video/quicktime",
+                    "video/x-msvideo",
+                    "video/x-ms-wmv",
+                    "video/wmv",
+                    "video/mp4",
+                    "video/avi",
+                    "video/3gp",
+                    "video/3gpp",
+                    "video/mpeg",
+                    "video/mpg",
+                    "application/octet-stream",
+                    "video/x-ms-asf",
+                    "video/x-ms-dvr",
+                    "video/x-ms-wm",
+                    'video/x-ms-wmv',
+                    'video/x-msvideo',
+                    'video/x-ms-asx',
+                    'video/x-ms-wvx',
+                    'video/x-ms-wmx',
+                    'application/x-troff-msvideo',
+                );
+
 				if (in_array($mime, $allowPhotoMime)) {
 					$type = 'photo';
 					if($size > 5 * 1024000) {
@@ -560,8 +581,9 @@ class NodeController extends Controller {
 			else {
 				return $this->responseJSON(false, null, false);
 			}
-			//success
-			$this->cleanAllCache();
+
+            $this->cleanAllCache();
+
 			$ret = $begin.'Your '.$type.' is success submit, after approved, you can visit the '.$type.' via this url:\nhttp://64.207.184.106/sgwall/#/nid/'.$node->nid.$end;
 			return $this->responseJSON(true, $ret, false);
 		}
