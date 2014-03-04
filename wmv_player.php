@@ -2,8 +2,8 @@
 	$video = $_GET['file'];
   // Get video thumbnail ratio, use to resize the wmv video
 	$cover = str_replace('wmv','jpg',$video);
-  $size = getimagesize("./api/".$cover);
-  $ratio = $size[0] / $size[1];
+	$size = getimagesize("./api/".$cover);
+	$ratio = $size[0] / $size[1];
 ?>
 <!DOCTYPE>
 <html>
@@ -53,6 +53,18 @@
 <div class="fullscreen"></div>
 <script src="js/jquery/jquery-1.102.js"></script>
 <script>
+	jQuery.fn.extend({
+		ensureLoad: function(handler) {
+			return this.each(function() {
+				if(this.complete) {
+					handler.call(this);
+				} else {
+					$(this).load(handler);
+				}
+			});
+		}
+	});
+
 <!--  var _resizeTimer = null;-->
 <!--  $(window).resize(function(){-->
 <!--    clearTimeout( _resizeTimer );-->
@@ -133,10 +145,13 @@
 		var marginTop = ($(window).height() - ($(window).width() / <?php echo $ratio;?>)) / 2;
 		$('.poster img').css({marginTop: marginTop});
 	});
-	setTimeout(function(){
+
+
+
+	$('.poster img').ensureLoad(function(){
 		$(window).trigger('resize');
 		$('.wmp .poster').fadeIn();
-	},800);
+	});
 
 </script>
 <script for="wmp" event="playstatechange(newState)">

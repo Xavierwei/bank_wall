@@ -97,10 +97,12 @@
                     <li>{{_e.VIDEO_FORMATE}}</li>
                     <li>{{_e.VIDEO_RESOLUTION}}</li>
                     <li>{{_e.VIDEO_SIZE}}</li>
+					<li class="damaged">The video you uploaded is corrupted</li>
                     {{else}}
                     <li>{{_e.PHOTO_FORMATE}}</li>
                     <li>{{_e.PHOTO_RESOLUTION}}</li>
                     <li>{{_e.PHOTO_SIZE}}</li>
+					<li class="damaged">The photo you uploaded is corrupted</li>
                     {{/ifvideo}}
                   </ul>
                   <div class="error"></div>

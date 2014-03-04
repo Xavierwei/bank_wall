@@ -43,7 +43,16 @@ class NodeController extends Controller {
 			$nodeAr->description = htmlspecialchars($request->getPost("description"));
 			$nodeAr->type = $type;
 			if($isIframe || $isFlash) {
-				$nodeAr->file = $nodeAr->saveUploadedFile($fileUpload);
+				$file = $nodeAr->saveUploadedFile($fileUpload);
+				if($file) {
+					$nodeAr->file = $file;
+				}
+				else {
+					$this->render('post', array(
+						'code'=>509
+					));
+					return;
+				}
 			}
 			else {
 				$file = $request->getPost("file");
@@ -530,11 +539,18 @@ class NodeController extends Controller {
 			}
 
 			$node = new NodeAR();
+
+			$file = $node->saveUploadedFile($uploadFile);
+
+			if(!$file) {
+				$ret = $begin.'The file you upload is corrupted or not support.'.$end;
+				return $this->responseJSON(false, $ret, false);
+			}
 			$node->uid          = $user->uid;
 			$node->country_id   = $user->country_id;
 			$node->type         = $type;
 			$node->status       = 1; // TODO: The default status is blocked when the content from email
-			$node->file         = $node->saveUploadedFile($uploadFile);
+			$node->file         = $file;
 			$node->description  = htmlspecialchars($desc);
 
 			if ($node->validate()) {
@@ -547,6 +563,8 @@ class NodeController extends Controller {
 				return $this->responseJSON(false, null, false);
 			}
 			//success
+			$this->cleanCache("node_")
+				->cleanCache("comment_");
 			$ret = $begin.'Your '.$type.' is success submit, after approved, you can visit the '.$type.' via this url:\nhttp://64.207.184.106/sgwall/#/nid/'.$node->nid.$end;
 			return $this->responseJSON(true, $ret, false);
 		}

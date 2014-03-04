@@ -36,23 +36,26 @@ def post_media_to_bankwall(desc="description", user="xx@xx.com", media="/path/to
   print res["message"]
   return res["message"]
 
-def reply_mail(mail_obj, is_success=True):
-  print "begin to reply email to [%s] "  %(mail_obj["From"] or mail_obj["Reply-To"])
-  original = mail_obj
-  config = dict(load_config().items("smtp"))
-  smtp = SMTP()
-  smtp.connect('smtp.gmail.com', 587)
-  smtp.starttls()
-  smtp.login(config["user"], config["pass"])
-  from_addr = "testdev@fuel-it-up.com"
-  to_addr = original["Reply-To"] or original["From"]
-  subj = "Re: "+original["Subject"]
-  date = datetime.datetime.now().strftime( "%d/%m/%Y %H:%M" )
-  message_text = "Hello\nThis is a mail from your server\n\nBye\n"
-  msg = "From: %s\nTo: %s\nSubject: %s\nDate: %s\n\n%s" % ( from_addr, to_addr, subj, date, is_success.replace('\\n','\n') )
-  smtp.sendmail(from_addr, to_addr, msg)
-  smtp.quit()
-  print "replied email to [%s] "  %(mail_obj["From"] or mail_obj["Reply-To"])
+def reply_mail(mail_obj, is_success=True, body=None):
+    print "begin to reply email to [%s] "  %(mail_obj["From"] or mail_obj["Reply-To"])
+    original = mail_obj
+    config = dict(load_config().items("smtp"))
+    smtp = SMTP()
+    smtp.connect('smtp.gmail.com', 587)
+    smtp.starttls()
+    smtp.login(config["user"], config["pass"])
+    from_addr = "testdev@fuel-it-up.com"
+    to_addr = original["Reply-To"] or original["From"]
+    subj = "Re: "+original["Subject"]
+    date = datetime.datetime.now().strftime( "%d/%m/%Y %H:%M" )
+    message_text = "Hello\nThis is a mail from your server\n\nBye\n"
+    if body is not None:
+        msg = "From: %s\nTo: %s\nSubject: %s\nDate: %s\n\n%s" % ( from_addr, to_addr, subj, date, body.replace('\\n','\n') )
+    else:
+        msg = "From: %s\nTo: %s\nSubject: %s\nDate: %s\n\n%s" % ( from_addr, to_addr, subj, date, is_success.replace('\\n','\n') )
+    smtp.sendmail(from_addr, to_addr, msg)
+    smtp.quit()
+    print "replied email to [%s] "  %(mail_obj["From"] or mail_obj["Reply-To"])
   
 
 def is_media(file):
@@ -64,7 +67,7 @@ def is_media(file):
   mime = mime.split(";")[0].strip();
   print "mime is [%s]" %(mime)
   
-  if mime in ["image/jpeg", "image/png", "image/jpg", "image/gif", "video/mov", "video/wmv", "video/mp4", "video/avi", "video/3gp", "video/mpeg", "video/mpg", "application/octet-stream", "video/3gpp", "video/quicktime"]:
+  if mime in ["image/jpeg", "image/png", "image/jpg", "image/gif", "video/mov", "video/wmv", "video/x-ms-wmv", "video/mp4", "video/avi", "video/x-ms-asf", "video/x-msvideo", "video/3gp", "video/mpeg", "video/mpg", "application/octet-stream", "video/3gpp", "video/quicktime"]:
     return True
   return False
 
@@ -242,7 +245,13 @@ def fetching_gamil(user, password, boxname = "inbox"):
                 if ret is not None:
                   reply_mail(gmail_mail, ret)
         else:
-          print "File [%s] is not media " %(filepath)
+          if is_cached(eid):
+			print "Mail with uuid [%s] is cached " %(eid)
+			continue
+          else:
+            data = cache_mail(eid, gmail_mail, filepath)
+            reply_mail(gmail_mail, True, "Dear,\n\nThe file you upload is not support.\n\nSG WALL Team")
+            print "File [%s] is not media " %(filepath)
         print files_downloaded
   conn.close()
   conn.logout()

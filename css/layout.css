@@ -244,6 +244,8 @@ a{text-decoration:none;color:#666}
     .step1-tips {width:340px;text-transform:none;color:#474747;line-height: 120%;margin:0 0 12px 75px;}
     .step1-tips li {background: url('../img/icon_list_li.gif') no-repeat 0 2px;padding:0 0 0 10px;}
     .step1-tips li.error {color:#db2842;}
+    .step1-tips li.damaged {display:none;position: absolute;top:138px;left:78px;width:307px;text-align: center;background: none;}
+    .step1-tips li.damaged.error {display: block;}
     .step2-btns {text-align: center;display:none;}
     .step2-btns .popfile-btn {width:220px;display: inline-block;margin:0 10px;}
     #flash-select-btn {display:none;position: relative;}

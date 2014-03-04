@@ -273,7 +273,6 @@ class NodeAR extends CActiveRecord{
 		if (!is_dir($dir)) {
 		  mkdir($dir, 0777, TRUE);
 		}
-
 		$photoexts = explode(",", self::ALLOW_UPLOADED_PHOTO_TYPES);
 		$videoexts = explode(",", self::ALLOW_UPLOADED_VIDEO_TYPES);
 		$extname = strtolower(pathinfo($upload->getName(), PATHINFO_EXTENSION));
@@ -291,15 +290,15 @@ class NodeAR extends CActiveRecord{
 			$to = $dir."/". $filename;
 			switch($extname) {
 				case 'gif':
-					$srcImg = imagecreatefromgif($upload->tempName);
+					$srcImg = @imagecreatefromgif($upload->tempName);
 					break;
 				case 'png':
-					$srcImg = imagecreatefrompng($upload->tempName);
+					$srcImg = @imagecreatefrompng($upload->tempName);
 					break;
 				default:
-					$srcImg = imagecreatefromjpeg($upload->tempName);
+					$srcImg = @imagecreatefromjpeg($upload->tempName);
 			}
-			$exif = exif_read_data($upload->tempName);
+			$exif = @exif_read_data($upload->tempName);
 			if (!empty($exif['Orientation'])) {
 				switch ($exif['Orientation']) {
 					case 3:
@@ -315,7 +314,12 @@ class NodeAR extends CActiveRecord{
 						break;
 				}
 			}
-			imagejpeg($srcImg, $to, 90);
+			if($srcImg) {
+				imagejpeg($srcImg, $to, 90);
+			}
+			else {
+				return false;
+			}
 		}
 
 		// 检查是不是视频， 如果是, 就就做视频转换工作
@@ -365,6 +369,9 @@ class NodeAR extends CActiveRecord{
 								break;
 							case 'mov':
 								exec("ffmpeg -i {$to} -vcodec libx264 -movflags +faststart -acodec aac -strict experimental -ac 2 {$rotate} {$newpath}", $output, $status);
+								if(!is_file($newpath)) {
+									exec("ffmpeg -i {$to} -acodec copy -vcodec copy {$rotate} {$newpath}", $output, $status);
+								}
 								break;
 							case 'wmv':
 								exec("ffmpeg -i {$to} -movflags +faststart -strict -2 -ab 64k -ar 44100 {$newpath}", $output, $status);
@@ -379,7 +386,9 @@ class NodeAR extends CActiveRecord{
 								exec("ffmpeg -i {$to} -vcodec libx264 -movflags +faststart -acodec aac -strict experimental -ac 2 {$newpath}", $output, $status);
 						}
 
-						unlink($to);
+						if(is_file($to)) {
+							unlink($to);
+						}
 						$to = $newpath;
 					}
 
@@ -387,9 +396,14 @@ class NodeAR extends CActiveRecord{
 			}
 		}
 
-		$to = str_replace(ROOT, "", $to);
 
-    	return $to;
+		if(is_file($to)) {
+			$to = str_replace(ROOT, "", $to);
+			return $to;
+		}
+		else {
+			return false;
+		}
   	}
 
 	function get_video_orientation($video_path) {

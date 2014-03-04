@@ -20,6 +20,9 @@ var uploadPopError = function(code) {
         case 503:
             var errorIndex = 1;
             break;
+        case 509:
+            var errorIndex = 3;
+            break;
     }
     $('.pop-inner').fadeOut(400);
     $('.pop-file').delay(800).fadeIn(400);
@@ -71,6 +74,9 @@ var uploadSuccess = function(file, serverData) {
                 break;
             case 503:
                 var errorIndex = 1;
+                break;
+            case 509:
+                var errorIndex = 3;
                 break;
         }
         $('.pop-load').fadeOut(400);

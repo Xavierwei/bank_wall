@@ -22,6 +22,8 @@ ffmpeg -i v240.mp4 -y v240.wmv
 --enable-libx264 --enable-libxvid --enable-gpl --enable-postproc \
 --enable-nonfree
 
+/var/www/vhosts/polyardshanghai.com/httpdocs/sgwall/api/uploads/52bcf9da5d203_user_register.png
+
 sftp://64.207.184.106//var/www/vhosts/polyardshanghai.com/httpdocs/sgwall/flash/video1.mp4
 
 ffmpeg -loop 1 -i photo.jpg -r 5 -i png_%d.png -filter_complex 'overlay=x=100:y=100' -shortest -t 10 out.mp4
@@ -30,6 +32,8 @@ ffmpeg -loop 1 -r 5/1 -i png_%d.png -t 10 -i photo.jpg -filter_complex 'overlay=
 
 ffmpeg -loop 1 photo.jpg -t 10 out.mp4
 
+
+ffmpeg -i movie.mov -acodec copy -vcodec copy movie2.mp4
 
 
 Works!

@@ -101,9 +101,9 @@ class UploadsController extends Controller {
 			$retdata = array( "type"=> $type , "file" => $file );
 			$this->responseJSON($retdata, "success");
 		}
+		else {
+			return $this->responseError(509); //photo media type is not allowed
+		}
 	}
-
-  
-
 }
 

@@ -1574,6 +1574,9 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 									case 503:
 										var errorIndex = 1;
 										break;
+                                    case 509:
+                                        var errorIndex = 3;
+                                        break;
 								}
 								$('.pop-inner').fadeOut(400);
 								$('.pop-file').delay(800).fadeIn(400);

@@ -17,6 +17,7 @@
 .pop-inner {position: absolute;background: #fff;width:100%;height:330px;}
 .pop-success {width:100%;}
 .popload-icon {background: url('../img/icon_upload_loading.gif') no-repeat;}
+.step1-tips li.damaged {top:88px;}
 
 .count-userpho img {border:none;}
 .count-userpho .avatar-ie-round {background:url('../img/ie8_avatar_round_62.png') no-repeat;width:62px;height: 62px;position: absolute;top:0;left:0;z-index: 2;}
