@@ -2,7 +2,7 @@
 <script type="text/tpl" id="base-template">
 	<div class="page">
 		<!--  -->
-		<div class="logo btn" data-a="back_home"></div>
+		<div class="logo logo-{{lang}} btn" data-a="back_home"></div>
 		<!--  -->
 		<!-- header -->
 		<div class="header">

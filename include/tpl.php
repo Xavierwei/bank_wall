@@ -7,7 +7,7 @@
 				{{_e.CONNECT}}
 			</a>
 			<!--  -->
-			<div class="logo" data-a="back_home"></div>
+			<div class="logo logo-{{lang}}" data-a="back_home"></div>
 			<!--  -->
 
 			<div class="search clear">

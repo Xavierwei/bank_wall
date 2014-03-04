@@ -33,6 +33,7 @@ a{text-decoration:none;color:#666}
 ================================================================================================= */
 .header{position: absolute;z-index:10;width:100%;background:#fff;}
 .logo{width:308px;height:93px;background: url('../img/logo.png') no-repeat;display: block;top:14px;left:50%;margin-left:-154px;position: absolute;z-index:13;}
+.logo-en {background: url('../img/logo_en.png') no-repeat;}
 .language{position: absolute;right: 0;top: 0;border-left:#000 solid 1px;}
     .language-item{padding:15px 4px 10px 6px;}
     .language-item-fr{border-bottom:#000 solid 1px;}

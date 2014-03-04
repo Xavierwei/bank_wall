@@ -32,7 +32,8 @@ a{text-decoration:none;color:#666}
 /* Header Used
 ================================================================================================= */				
 .header{height:86px;position: fixed;width: 100%;top:0;z-index:12;left:0;right: 0;background: #fff;font-size:10px;}
-	.logo{cursor:pointer;width:196px;height: 58px;background: url('../img/logo.gif') no-repeat;margin:11px auto 0;}
+	.logo {cursor:pointer;width:196px;height: 58px;background: url('../img/logo.gif') no-repeat;margin:11px auto 0;}
+    .logo-en {background:url('../img/logo_en.gif') no-repeat;width:212px;height:58px;}
 	.search{position: absolute;left:10px;top:52px;}
         .ui-autocomplete {position: fixed;z-index:999;border:1px solid #555;background: #fff;}
         .ui-autocomplete li {border-bottom:1px solid #ccc;}

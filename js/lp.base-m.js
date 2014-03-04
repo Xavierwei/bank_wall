@@ -2475,7 +2475,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 
             aMonth = [_e.JANUARY,_e.FEBRUARY,_e.MARCH,_e.APRIL,_e.MAY,_e.JUNE,_e.JULY,_e.AUGUST,_e.SEPTEMBER,_e.OCTOBER,_e.NOVEMBER,_e.DECEMBER];
 
-            LP.compile( 'base-template' , {_e:_e} , function( html ){
+            LP.compile( 'base-template' , {_e:_e, lang:lang} , function( html ){
                 $('body').prepend(html);
                 $main = $('.main');
                 $mainWrap = $('.main-wrap');

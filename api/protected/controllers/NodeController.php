@@ -83,8 +83,7 @@ class NodeController extends Controller {
 				$retdata['country'] = $nodeAr->country->attributes;
 
 
-				$this->cleanCache("node_")
-					->cleanCache("comment_");
+				$this->cleanAllCache();
 				
 				if($isIframe){
 					$this->render('post', array(
@@ -195,8 +194,7 @@ class NodeController extends Controller {
 		LikeAR::model()->saveTopOfDay($nodeAr);
 		LikeAR::model()->saveTopOfMonth($nodeAr);
 
-		$this->cleanCache("node_")
-			->cleanCache("comment_");
+		$this->cleanAllCache();
 		return $this->responseJSON($nodeAr->attributes, "success");
 	}
 
@@ -563,8 +561,7 @@ class NodeController extends Controller {
 				return $this->responseJSON(false, null, false);
 			}
 			//success
-			$this->cleanCache("node_")
-				->cleanCache("comment_");
+			$this->cleanAllCache();
 			$ret = $begin.'Your '.$type.' is success submit, after approved, you can visit the '.$type.' via this url:\nhttp://64.207.184.106/sgwall/#/nid/'.$node->nid.$end;
 			return $this->responseJSON(true, $ret, false);
 		}
