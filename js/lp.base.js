@@ -1117,11 +1117,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     LP.action('prev' , function( data ){
         if( _innerLock ) return;
         _innerLock = true;
-        if($('.user-page').is(':visible')) {
-            var $dom = $('.count-dom');
-        } else {
-            var $dom = $main;
-        }
+        var $dom = $('.inner').data('from') || $main;
 
         // when reach the first, if the content opened via url id, need to check if has previous page
         if( _currentNodeIndex == 0 ){
