@@ -97,12 +97,12 @@
                     <li>{{_e.VIDEO_FORMATE}}</li>
                     <li>{{_e.VIDEO_RESOLUTION}}</li>
                     <li>{{_e.VIDEO_SIZE}}</li>
-					<li class="damaged">The video you uploaded is corrupted</li>
+					<li class="damaged">{{_e.ERROR_VIDEO_CORRUPTED}}</li>
                     {{else}}
                     <li>{{_e.PHOTO_FORMATE}}</li>
                     <li>{{_e.PHOTO_RESOLUTION}}</li>
                     <li>{{_e.PHOTO_SIZE}}</li>
-					<li class="damaged">The photo you uploaded is corrupted</li>
+					<li class="damaged">{{_e.ERROR_PHOTO_CORRUPTED}}</li>
                     {{/ifvideo}}
                   </ul>
                   <div class="error"></div>
@@ -127,7 +127,7 @@
                 </div>
                 <div class="poploading">
                   <div class="popload-percent"><p></p></div>
-                  <p>{{_e.UPLOAD_IN_PROGRESS}} ...</p>
+                  <p>{{_e.UPLOAD_IN_PROGRESS}}</p>
                 </div>
               </div>
               <!--  -->
@@ -188,12 +188,13 @@
 						<li>{{_e.PHOTO_FORMATE}}</li>
 						<li>{{_e.PHOTO_RESOLUTION}}</li>
 						<li>{{_e.PHOTO_SIZE}}</li>
+						<li class="damaged">{{_e.ERROR_PHOTO_CORRUPTED}}</li>
 					</ul>
 					<div class="error"></div>
 					<div class="step1-btns">
 						<div class="popfile-btn btn" id="select-btn">
 							{{_e.SELECT}}
-							<input type="file" name="file" />
+							<input type="file" name="file" accept="{{accept}}" />
 						</div>
 					</div>
 					<div class="step2-btns"><div class="popfile-btn btn" data-a="upload_photo">{{_e.UPLOAD}}</div><div class="popfile-btn btn">{{_e.SELECT_AGAIN}}</div></div>
@@ -441,7 +442,7 @@
 <script type="text/tpl" id="comment-item-template">
 	<div class="comlist-item comlist-item-{{cid}}">
 		<div class="comlist-tit"><span>{{user.firstname}} {{user.lastname}} </span> - {{date}} {{month}}</div>
-		<div class="comlist-con">{{content}}</div>
+		<div class="comlist-con">{{{content}}}</div>
 		{{#if mycomment}}
 		<div class="comlist-delete btn2" data-a="delete" data-d="cid={{cid}}&type=comment"></div>
 		{{/if}}

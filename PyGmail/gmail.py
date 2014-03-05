@@ -67,6 +67,12 @@ def is_media(file):
   mime = mime.split(";")[0].strip()
   print "mime is [%s]" %(mime)
   mimes_allowed = [
+    "image/gif", \
+    "image/png", \
+    "image/jpeg", \
+    "image/jpg",  \
+    "image/pjpeg", \
+    "image/x-png", \
     "application/x-empty" , \
     "video/mp2p" , \
     "video/mov", \

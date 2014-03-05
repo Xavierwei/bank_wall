@@ -86,12 +86,12 @@ var uploadSuccess = function(file, serverData) {
         $('.step1-tips li').eq(errorIndex).addClass('error');
     }
     else {
+        $('.pop-txt').fadeIn(400);
 		$('.poptxt-pic-inner').fadeIn();
         $('.poptxt-pic img').attr('src', API_FOLDER + data.data.file.replace('.mp4', '.jpg'));
         $('.poptxt-submit').attr('data-d','file='+ data.data.file +'&type=' + data.data.type);
     }
     //$('.pop-load').fadeOut(400);
-    $('.pop-txt').fadeIn(400);
 }
 
 var uploadError = function(object, error, message){

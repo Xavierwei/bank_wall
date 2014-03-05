@@ -525,6 +525,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                     $listLoading.fadeIn();
                     api.ajax('recent' , param , function( result ){
                         _scrollAjax = false;
+                        $listLoading.fadeOut();
                         if( param.page != $com.data('param').page ) return;
                         nodeActions.inserNode( $userCom , result.data , true );
                         // TODO:: no more data tip
@@ -634,6 +635,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 } , _animateTime , _animateEasing , function(){
                     //$main.hide();
 					$('body').css({overflow:'hidden'});
+                    $('.content').css({overflow:'hidden'});
 					$main.addClass('closed');
                     _innerLock = false;
                 });
@@ -770,6 +772,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 // restart reverse
 
 				$('body').css({overflowY:'scroll'});
+                $('.content').css({overflow:'auto'});
                 //nodeActions.setItemReversal( $dom );
             });
 
@@ -1387,7 +1390,13 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         if(!$('.delete-confirm-modal').is(':visible')) {
             $('.modal-overlay').fadeIn(700);
             $('.delete-confirm-modal').fadeIn(700).dequeue().animate({top:'50%'}, 700, 'easeOutQuart');
-            $('.delete-confirm-modal .flag-confirm-text span').html(data.type);
+            if(data.type == 'node') {
+                var type = _e['CONTENT'];
+            }
+            else {
+                var type = _e['COMMENT'];
+            }
+            $('.delete-confirm-modal .flag-confirm-text span').html(type);
             $('.delete-confirm-modal .ok').attr('data-a','delete');
             if(data.type == 'node') {
                 $('.delete-confirm-modal .ok').attr('data-d','nid=' + data.nid + '&type=node');
@@ -1650,6 +1659,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     LP.action('avatar_upload' , function( data ){
         var acceptFileTypes;
         data._e = _e;
+        data.accept = 'image/*';
         LP.compile( "pop-avatar-template" , data,  function( html ){
             $(document.body).append( html );
             $('.overlay').fadeIn();
@@ -1717,6 +1727,9 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                                         break;
                                     case 503:
                                         var errorIndex = 1;
+                                        break;
+                                    case 509:
+                                        var errorIndex = 3;
                                         break;
                                 }
                                 $('.pop-inner').fadeOut(400);
@@ -1884,6 +1897,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 delayOpen = 1400;
             }
 			$('body').css({overflowY:'scroll'});
+            $('.content').css({overflow:'auto'});
             $('.inner').fadeOut(400);
             $('.main').fadeOut(400);
             $('.count').css({left:-240}).delay(delayOpen).animate({left:80});
@@ -2534,7 +2548,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 
                 var $countryList = $('.select-country-option-list');
                 $countryList.empty();
-                $countryList.append('<p data-api="recent">All</p>');
+                $countryList.append('<p data-api="recent">'+_e.ALL+'</p>');
                 api.ajax('countryList', function( result ){
                     $.each(result, function(index, item){
                         var html = '<p data-param="country_id=' + item.country_id + '" data-api="recent">' + _e[item.i18n] + '</p>';
@@ -2630,13 +2644,13 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                     $('.comment-msg-error').hide();
                     $('.com-ipt').val().length;
                     if($('.com-ipt').val().length == 0) {
-                        $('.comment-msg-error').fadeIn().html('You should write something.');
+                        $('.comment-msg-error').fadeIn().html(_e.WRTIE_COMMENT);
                         $submitBtn.removeClass('disabled');
                         return false;
                     }
                     if($('.com-ipt').val().length > 140) {
                         $submitBtn.removeClass('disabled');
-                        $('.comment-msg-error').fadeIn().html('The description is limited to 140 characters.');
+                        $('.comment-msg-error').fadeIn().html(_e.ERROR_COMMENT_LIMITED);
                         return false;
                     }
 					$('.com-loading').fadeIn();

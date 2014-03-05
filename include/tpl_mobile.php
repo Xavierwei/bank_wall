@@ -70,7 +70,7 @@
 
 	<div class="filter-modal pop-modal">
 		<div class="select-option" data-param="">
-			<span>Pays</span>
+			<span>{{_e.COUNTRY}}</span>
 			<select class="select-box select-country-option-list"></select>
 		</div>
 		<div class="select-option" data-param="orderby=datetime">
@@ -101,7 +101,7 @@
 				</option>
 			</select>
 		</div>
-		<div class="select-cancel btn" data-a="cancel_modal">Fermer</div>
+		<div class="select-cancel btn" data-a="cancel_modal">{{_e.CANCEL}}</div>
 	</div>
 	<!-- modal -->
 </script>
@@ -124,10 +124,12 @@
                     <li>{{_e.VIDEO_FORMATE}}</li>
                     <li>{{_e.VIDEO_RESOLUTION}}</li>
                     <li>{{_e.VIDEO_SIZE}}</li>
+					  <li class="damaged">{{_e.ERROR_VIDEO_CORRUPTED}}</li>
                     {{else}}
                     <li>{{_e.PHOTO_FORMATE}}</li>
                     <li>{{_e.PHOTO_RESOLUTION}}</li>
                     <li>{{_e.PHOTO_SIZE}}</li>
+					  <li class="damaged">{{_e.ERROR_PHOTO_CORRUPTED}}</li>
                     {{/ifvideo}}
                   </ul>
                   <div class="error"></div>
@@ -148,7 +150,7 @@
                 </div>
                 <div class="poploading">
                   <div class="popload-percent"><p></p></div>
-                  <p>{{_e.UPLOAD_IN_PROGRESS}} ...</p>
+                  <p>{{_e.UPLOAD_IN_PROGRESS}}</p>
                 </div>
               </div>
               <!--  -->
@@ -207,12 +209,13 @@
 						<li>{{_e.PHOTO_FORMATE}}</li>
 						<li>{{_e.PHOTO_RESOLUTION}}</li>
 						<li>{{_e.PHOTO_SIZE}}</li>
+						<li class="damaged">{{_e.ERROR_PHOTO_CORRUPTED}}</li>
 					</ul>
 					<div class="error"></div>
 					<div class="step1-btns">
 						<div class="popfile-btn btn" id="select-btn">
 							{{_e.SELECT}}
-							<input type="file" name="file" />
+							<input type="file" name="file" accept="{{accept}}" />
 						</div>
 					</div>
 					<div class="step2-btns"><div class="popfile-btn btn" data-a="upload_photo">{{_e.UPLOAD}}</div><div class="popfile-btn btn">{{_e.SELECT_AGAIN}}</div></div>

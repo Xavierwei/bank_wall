@@ -279,6 +279,8 @@ a{text-decoration:none;color:#666}
     .step1-tips {text-transform:none;color:#474747;line-height: 120%;margin:0 30px 30px;line-height: 30px}
     .step1-tips li {background: url('../img/icon_list_li.gif') no-repeat left 9px;padding:0 0 0 16px;font-size:22px;color:#474747;}
     .step1-tips li.error {color:#db2842;}
+    .step1-tips li.damaged {display:none;position: absolute;top:236px;left:0px;width:100%;padding:0;text-align: center;background: none;}
+    .step1-tips li.damaged.error {display: block;}
     .step2-btns {text-align: center;display:none;}
     .step2-btns .popfile-btn {width:220px;display: inline-block;margin:0 10px;}
     #avatar_post_form input[type="file"],#node_post_form input[type="file"] {position: absolute;top: 0;right: 0;margin: 0;opacity: 0;-ms-filter: 'alpha(opacity=0)';font-size: 200px;direction: ltr;cursor: pointer;}
@@ -302,6 +304,8 @@ a{text-decoration:none;color:#666}
     .poptxt-cancel{float:left;width: 290px;height: 65px;background: #db2842;border: #c0152d 2px 2px solid;color:#fff;line-height: 65px;text-align: center;font-size:24px;text-transform: uppercase;}
     .poptxt-submit{float:right;width: 290px;height: 65px;background: #3f3e3d;border: #5d5d5d solid;color:#fff;line-height: 65px;text-align: center;font-size:24px;text-transform: uppercase;}
     .pop-modal {display:none;z-index:112;background-color:#fff;position:fixed;left:50%;top:-30%;color:#434343;-webkit-box-shadow: 3px 3px 10px 0 #C2C2C2;box-shadow: 3px 3px 10px 0 #C2C2C2;}
+    .pop-video .pop-zoomout-btn, .pop-video .pop-zoomin-btn {display: none;}
+    .pop-video .poptxt-pic-inner img {width:320px;height:320px;}
 
     .delete-confirm-modal {width: 500px;height:225px;margin: -100px 0 0 -250px;text-align: center;}
     .delete-confirm-text {font-size:15px;margin:25px 0 0;}

@@ -36,8 +36,8 @@ msgstr "Photo"
 msgid "VIDEO"
 msgstr "Vidéo"
 
-msgid "All"
-msgstr "Tout"
+msgid "ALL"
+msgstr "Tous"
 
 msgid "RESULTS"
 msgstr "Résultats"
@@ -140,6 +140,9 @@ msgstr "Chargement des commentaires"
 msgid "COMMENT"
 msgstr "commentaire"
 
+msgid "WRTIE_COMMENT"
+msgstr "Vous devez écrire quelque chose."
+
 msgid "LIKE"
 msgstr "like"
 
@@ -235,7 +238,7 @@ msgid "POPULAR_HASHTAGS"
 msgstr "Les #hashtags les plus populaires"
 
 msgid "ERROR_CONDITION"
-msgstr "S'il vous plaît vérifier l'état"
+msgstr "Merci de bien vouloir cocher cette case pour continuer"
 
 msgid "ERROR_EMAIL"
 msgstr "S'il vous plaît entrer e-mail correcte."
@@ -250,13 +253,19 @@ msgid "ERROR_DESCRIPTION_LIMITED"
 msgstr "La description est limitée à 140 caractères."
 
 msgid "ERROR_COMMENT_LIMITED"
-msgstr "The comment is limited to 140 characters."
+msgstr "La commentaire est limitée à 140 caractères."
 
 msgid "ERROR_DESCRIPTION_ILLEGAL"
 msgstr "Le hashtag peut ne peut avoir des caractères illégaux."
 
 msgid "ERROR_WRONG_USERNAME_PASSWORD"
 msgstr "Identifiants incorrects."
+
+msgid "ERROR_VIDEO_CORRUPTED"
+msgstr "La vidéo que vous avez téléchargé est corrompu"
+
+msgid "ERROR_PHOTO_CORRUPTED"
+msgstr "La photo que vous avez téléchargé est corrompu"
 
 msgid "DAY"
 msgstr "jour"

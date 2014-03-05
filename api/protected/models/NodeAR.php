@@ -249,7 +249,29 @@ class NodeAR extends CActiveRecord{
 			}
 			$mime = $fileUpload->getType();
 			$allowMime = array(
-				"video/mov", "video/quicktime", "video/x-msvideo", "video/x-ms-wmv", "video/wmv", "video/mp4", "video/mpeg", "video/avi", "video/3gp","video/3gpp", "application/octet-stream"
+				"application/x-empty" ,
+				"video/mp2p" ,
+				"video/mov",
+				"video/quicktime",
+				"video/x-msvideo",
+				"video/x-ms-wmv",
+				"video/wmv",
+				"video/mp4",
+				"video/avi",
+				"video/3gp",
+				"video/3gpp",
+				"video/mpeg",
+				"video/mpg",
+				"application/octet-stream",
+				"video/x-ms-asf",
+				"video/x-ms-dvr",
+				"video/x-ms-wm",
+				'video/x-ms-wmv',
+				'video/x-msvideo',
+				'video/x-ms-asx',
+				'video/x-ms-wvx',
+				'video/x-ms-wmx',
+				'application/x-troff-msvideo',
 			);
 			if (!in_array($mime, $allowMime)) {
 				return 502; //video media type is not allowed

@@ -504,7 +504,7 @@ class NodeController extends Controller {
 				$mime = $mimeArray[0];
 				$size = $uploadFile->getSize();
 				$allowPhotoMime = array(
-					"image/gif", "image/png", "image/jpeg", "image/jpg"
+					"image/gif", "image/png", "image/jpeg", "image/jpg", "image/pjpeg", "image/x-png"
 				);
 				$allowVideoMime = array(
 					"application/x-empty" ,
