@@ -26,6 +26,15 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 	var req;
 
     if(isPad) {
+		$(window).bind('orientationchange', function() {
+			var o = window.orientation;
+			if (o != 90 && o != -90) {
+				$('.turn_device').show();
+			} else {
+				$('.turn_device').hide();
+			}
+		});
+
         LP.use(['hammer'] , function(){
             $('body').hammer()
                 .on("tap", '.main-item', function(ev) {
@@ -804,7 +813,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 // restart reverse
 
 				$('body').css({overflowY:'scroll'});
-                $('.content').css({overflow:'auto'});
+                $('.content').css({overflow:'visible'});
                 //nodeActions.setItemReversal( $dom );
             });
 
@@ -1562,6 +1571,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                             $('.pop-txt').delay(400).fadeIn(400);
                         });
                         $('#node_post_form').append('<input name="iframe" value="true" type="hidden" />');
+						$('.pop-video').addClass('pop-video-noflash');
                         $('#node-description').val($('#node-description').attr('placeholder'));
                     }
                     return;
@@ -1929,7 +1939,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 delayOpen = 1400;
             }
 			$('body').css({overflowY:'scroll'});
-            $('.content').css({overflow:'auto'});
+            $('.content').css({overflow:'visible'});
             $('.inner').fadeOut(400);
             $('.main').fadeOut(400);
             $('.count').css({left:-240}).delay(delayOpen).animate({left:80});
@@ -2975,14 +2985,17 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             if($('html').hasClass('video') && !isFirefox) { // need to validate html5 video as well
                 LP.compile( 'html5-player-template' , node , function( html ){
                     $newItem.html(html);
-//                    LP.use('video-js' , function(){
-//                        videojs( "inner-video-" + node.timestamp , {}, function(){
-//                            $('.video-js').append('<div class="video-btn-zoom btn2" data-a="video_zoom"></div>');
-//                            $('.vjs-big-play-button').click(function(){
-//                                $('video').attr('poster', '');
-//                            });
-//                        });
-//                    });
+                    LP.use('video-js' , function(){
+                        videojs( "inner-video-" + node.timestamp , {}, function(){
+                            $('.video-js').append('<div class="video-btn-zoom btn2" data-a="video_zoom"></div>');
+                            $('.vjs-big-play-button').click(function(){
+                                $('video').attr('poster', '');
+                            });
+							if(isPad) {
+								$(video).attr('control', 'control');
+							}
+                        });
+                    });
                 });
             }
             else if(FlashDetect.installed)

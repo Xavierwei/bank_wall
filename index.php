@@ -40,6 +40,7 @@ if (preg_match('/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|phone|andro
 </head>
 <body>
 
+<div class="turn_device"></div>
 <div class="preload">
     <div class="preload1">.</div>
     <div class="preload2">.</div>

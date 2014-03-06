@@ -42,15 +42,20 @@
 	<param name="uiMode" value="none">
 </object>
 <div class="loading">Loading</div>
-<div class="bar-wrap">
-	<div class="bar-percent"></div>
-</div>
+
 
 <div class="playbtn paused">
 	<div class="icon"></div>
 </div>
 
-<div class="fullscreen"></div>
+<div class="control">
+	<div class="bar-wrap">
+		<div class="bar-percent"></div>
+	</div>
+
+	<div class="fullscreen"></div>
+</div>
+
 <script src="js/jquery/jquery-1.102.js"></script>
 <script>
 	jQuery.fn.extend({
@@ -64,29 +69,6 @@
 			});
 		}
 	});
-
-<!--  var _resizeTimer = null;-->
-<!--  $(window).resize(function(){-->
-<!--    clearTimeout( _resizeTimer );-->
-<!--    _resizeTimer = setTimeout(function(){-->
-<!--      var ratio = --><?php //echo $ratio;?><!--;-->
-<!--			var windowRatio = $(window).width()/$(window).height();-->
-<!--			if(ratio > windowRatio) {-->
-<!--				var width = $(window).width();-->
-<!--				var height = parseInt(width / ratio);-->
-<!--				var marginTop = ($(window).height() - height)/2;-->
-<!--			}-->
-<!--			else {-->
-<!--				var height = $(window).height();-->
-<!--				var width = parseInt(height * ratio);-->
-<!--				var marginTop = 0;-->
-<!--			}-->
-<!--      $('#player').width(width).height(height).css({'margin-top':marginTop});-->
-<!--    }, 500);-->
-<!--  }).trigger('resize');-->
-
-
-
 </script>
 
 
@@ -97,12 +79,12 @@
 		if($(this).hasClass('paused')){
 			$(this).removeClass('paused');
 			player.controls.play();
-			$('.bar-wrap').fadeIn();
+			$('.control').fadeIn();
 		}
 		else {
 			$(this).addClass('paused');
 			player.controls.pause();
-			$('.bar-wrap').fadeOut();
+			$('.control').fadeOut();
 		}
 	});
 
@@ -110,9 +92,16 @@
 		player.fullScreen=true;
 	});
 
+	$('.playbtn').mouseenter(function(){
+		$('.control').fadeIn(1000);
+	});
+
+	$('.playbtn').mouseleave(function(){
+		$('.control').fadeOut(1000);
+	});
+
 
 	function handler(type) {
-		// http://msdn.microsoft.com/en-us/library/bb249361(VS.85).aspx
 		var a = arguments;
 		if(a[1] == 9) {
 			$('.loading').show();
@@ -124,7 +113,7 @@
 					var currentPos = player.controls.currentPosition;
 					var percent = currentPos / duration;
 					if(percent > 0) {
-						$('.bar-wrap').fadeIn();
+						//$('.control').fadeIn();
 						$('.loading').remove();
 						$('.poster').hide();
 					}
@@ -134,7 +123,7 @@
 		}
 		if(a[1] == 1) {
 			$('.bar-percent').css({width:0});
-			$('.bar-wrap').fadeOut();
+			//$('.control').fadeOut();
 			$('.playbtn').addClass('paused');
 			clearInterval(playInterval);
 			playInterval = null;
