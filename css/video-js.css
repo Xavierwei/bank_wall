@@ -309,10 +309,10 @@ The default control bar that is a container for most of the controls.
 .vjs-default-skin .vjs-fullscreen-control {
     cursor: pointer;
     display: block;
-    background: url('../img/icon_video_full.gif') no-repeat;
+    background: url('../img/icon_video_full.png') no-repeat;
     width:16px;height:15px;
     position: absolute;
-    right:15px;bottom:27px;
+    right:15px;bottom:26px;
 }
 
 /* Big Play Button (play button at start)
@@ -668,5 +668,5 @@ body.vjs-full-window {
 }
 
 
-.video-btn-zoom {background:url('../img/icon_video_zoom.gif') no-repeat 0px 0px;width:16px;height:15px;position: absolute;right:45px;bottom:50px;}
+.video-btn-zoom {background:url('../img/icon_video_zoom.png') no-repeat 0px 0px;width:17px;height:17px;position: absolute;right:45px;bottom:47px;}
 .video-btn-zoom.active {background-position:-33px 0px;}

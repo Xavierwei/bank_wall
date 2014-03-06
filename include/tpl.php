@@ -312,7 +312,7 @@
 			<div class="inner-loading"></div>
 			<div class="inner-info">
 				<div class="inner-shade"></div>
-				{{#if description}}<div class="inner-infocom">{{description}}</div>{{/if}}
+				{{#if description}}<div class="inner-infocom">{{{description}}}</div>{{/if}}
 				<div class="inner-infoicon"><div class="{{type}}"></div></div>
 			</div>
 			{{#if user_flagged}}
@@ -472,7 +472,7 @@
 
 <!-- html5-player-tpl -->
 <script type="text/tpl" id="html5-player-template">
-  <video id="inner-video-{{timestamp}}" class="video-js vjs-big-play-centered vjs-default-skin" preload="none" width="100%" height="100%" poster="./api{{image}}" data-setup="{}">
+  <video id="inner-video-{{timestamp}}" class="video-js vjs-big-play-centered vjs-default-skin" controls="controls" preload="none" width="100%" height="100%" poster="./api{{image}}" data-setup="{}">
     <source src="./api{{file}}" type='video/mp4' />
   </video>
 </script>

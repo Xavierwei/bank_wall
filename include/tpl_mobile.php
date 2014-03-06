@@ -345,7 +345,7 @@
 			<div class="inner-loading"></div>
 			<div class="inner-info">
 				<div class="inner-shade"></div>
-				{{#if description}}<div class="inner-infocom">{{description}}</div>{{/if}}
+				{{#if description}}<div class="inner-infocom">{{{description}}}</div>{{/if}}
 				<div class="inner-infoicon"><div class="{{type}}"></div></div>
 			</div>
 
@@ -458,7 +458,7 @@
 <script type="text/tpl" id="comment-item-template">
 	<div class="comlist-item comlist-item-{{cid}}">
 		<div class="comlist-tit"><span>{{user.firstname}} {{user.lastname}} </span> - {{date}} {{month}}</div>
-		<div class="comlist-con">{{content}}</div>
+		<div class="comlist-con">{{{content}}}</div>
 		{{#if mycomment}}
 		<div class="comlist-delete btn2" data-a="delete" data-d="cid={{cid}}&type=comment"></div>
 		{{/if}}

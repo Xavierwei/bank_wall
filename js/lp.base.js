@@ -5,6 +5,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     'use strict'
 
     var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > 0;
+    var isPad =navigator.userAgent.toLowerCase().indexOf('pad') > 0;
 	var isIE8 = $('html').hasClass('ie8');
 	var isIE10 = navigator.userAgent.toLowerCase().indexOf('msie 10') > 0;
 	var isOldIE = $('html').hasClass('ie6') || $('html').hasClass('ie7');
@@ -23,6 +24,37 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     var _e;
     var lang;
 	var req;
+
+    if(isPad) {
+        LP.use(['hammer'] , function(){
+            $('body').hammer()
+                .on("tap", '.main-item', function(ev) {
+                    if($(ev.target).hasClass('item-delete')) return;
+                    $(this).click();
+                }
+            );
+
+            var dragDirection;
+            $('body').hammer()
+                .on("release dragleft dragright swipeleft swiperight", '.inner', function(ev) {
+                    switch(ev.type) {
+                        case 'swipeleft':
+                        case 'dragleft':
+                            LP.triggerAction('next');
+                            break;
+                        case 'swiperight':
+                        case 'dragright':
+                            LP.triggerAction('prev');
+                            break;
+                        case 'release':
+                            break;
+                        default:
+                            dragDirection = '';
+                    }
+                }
+            );
+        });
+    }
 
     // live for pic-item hover event
     $(document.body)
@@ -2943,11 +2975,14 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             if($('html').hasClass('video') && !isFirefox) { // need to validate html5 video as well
                 LP.compile( 'html5-player-template' , node , function( html ){
                     $newItem.html(html);
-                    LP.use('video-js' , function(){
-                        videojs( "inner-video-" + node.timestamp , {}, function(){
-                            $('.video-js').append('<div class="video-btn-zoom btn2" data-a="video_zoom"></div>');
-                        });
-                    });
+//                    LP.use('video-js' , function(){
+//                        videojs( "inner-video-" + node.timestamp , {}, function(){
+//                            $('.video-js').append('<div class="video-btn-zoom btn2" data-a="video_zoom"></div>');
+//                            $('.vjs-big-play-button').click(function(){
+//                                $('video').attr('poster', '');
+//                            });
+//                        });
+//                    });
                 });
             }
             else if(FlashDetect.installed)
