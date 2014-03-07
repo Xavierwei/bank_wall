@@ -488,7 +488,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             _scrollTimeout = setTimeout(function(){
                 // fix main element
                 // it must visible and in main element has unreversaled node
-                if( $main.is(':visible') && !$main.find('.main-item:not(.time-item,.reversal)').length ){
+                if( !$main.hasClass('closed') && $main.is(':visible') && !$main.find('.main-item:not(.time-item,.reversal)').length ){
                     _scrollAjax = true;
                     var mainParam = $main.data('param');
                     mainParam.page++;
