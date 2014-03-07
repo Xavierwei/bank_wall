@@ -186,7 +186,7 @@
 					<div class="popfile-drag-box" data-a="select_photo"></div>
 					<ul class="step1-tips">
 						<li>{{_e.PHOTO_FORMATE}}</li>
-						<li>{{_e.PHOTO_RESOLUTION}}</li>
+						<li>{{_e.AVATAR_RESOLUTION}}</li>
 						<li>{{_e.PHOTO_SIZE}}</li>
 						<li class="damaged">{{_e.ERROR_PHOTO_CORRUPTED}}</li>
 					</ul>
@@ -407,7 +407,7 @@
 						<div class="editfi-com">
 							<input class="edit-email" type="text" value="{{personal_email}}" /> <em>({{_e.OPTIONAL}})</em>
 							<div class="edit-email-error">{{_e.ERROR_EMAIL}}</div>
-							<div class="editfi-condition btn">{{_e.PERSONAL_EMAIL_TERM}}</div>
+							<div class="editfi-condition">{{_e.PERSONAL_EMAIL_TERM}}</div>
 							<div class="editfi-condition-error">{{_e.ERROR_CONDITION}}</div>
 							<div class="editfi-information">{{_e.PERSONAL_EMAIL_INFO}} <a href="#">{{_e.CLICK_HERE}}</a></div>
 						</div>
@@ -430,7 +430,6 @@
 						<a class="user-edit-save btn" data-a="save_user">{{_e.SAVE}}</a>
 						<a class="user-edit-cancel btn" data-a="cancel_user_edit">{{_e.CANCEL}}</a>
 					</div>
-					<a class="user-edit-save btn" data-a="save_user">{{_e.SAVE}}</a>
 				</form>
 				<div class="user-edit-loading"></div>
 			</div>

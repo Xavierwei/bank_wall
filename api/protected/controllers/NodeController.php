@@ -8,20 +8,15 @@ class NodeController extends Controller {
 	public function actionPost() {
 		$uid = Yii::app()->user->getId();
 		$user = UserAR::model()->findByPk($uid);
-
-		if (!Yii::app()->user->checkAccess("addNode")) {
-			return $this->responseError(602);
-		}
-
+		$request = Yii::app()->getRequest();
+		$isIframe = htmlspecialchars($request->getPost("iframe"));
 		if ($user) {
 			$country_id = $user->country_id;
 
-			$request = Yii::app()->getRequest();
 			if (!$request->isPostRequest) {
 				$this->responseError("http error");
 			}
 			$type = htmlspecialchars($request->getPost("type"));
-			$isIframe = htmlspecialchars($request->getPost("iframe"));
 			$isFlash = htmlspecialchars($request->getPost("flash"));
 
 			$nodeAr = new NodeAR();
@@ -98,7 +93,14 @@ class NodeController extends Controller {
 			}
 		}
 		else {
-			$this->responseError("unknown error");
+			if($isIframe){
+				$this->render('post', array(
+					'code'=>602
+				));
+				return;
+			} else {
+				return $this->responseError(602);
+			}
 		}
 	}
 

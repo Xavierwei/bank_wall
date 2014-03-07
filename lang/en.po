@@ -85,6 +85,11 @@ msgstr ""
 "For an optimal display, the resolution of your picture must be at least "
 "450x450 px"
 
+msgid "AVATAR_RESOLUTION"
+msgstr ""
+"For an optimal display, the resolution of your picture must be at least "
+"100x100 px"
+
 msgid "PHOTO_SIZE"
 msgstr "Exceeded maximum file size of 5 MB"
 

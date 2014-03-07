@@ -48,7 +48,11 @@ if (preg_match('/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|phone|andro
 </div>
 <div class="page-loading">
 	<div class="page-loading-logo">
-		<img src="img/logo_b.gif" />
+		<?php if(isset($_COOKIE['lang']) && $_COOKIE['lang'] == 'en'):?>
+			<img src="img/logo_b_en.gif" />
+		<?else:?>
+			<img src="img/logo_b.gif" />
+		<?endif;?>
 		<div class="old-ie" style="display: none;">You are using an outdated browser. Please upgrade your browser to improve your experience.</div>
 	</div>
 </div>

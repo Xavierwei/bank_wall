@@ -298,68 +298,86 @@ class UserController extends Controller {
 	*/
 	public function actionSaveAvatar(){
 		$uid = Yii::app()->user->getId();
+		$request = Yii::app()->getRequest();
+		$iframe = $request->getPost("iframe");
 		if( empty( $uid ) ){
-			$this->responseError( "not login" );
+			if($iframe) {
+				$this->render('post', array(
+					'code'=>601
+				));
+				return;
+			}
+			else {
+				return $this->responseError(601);
+			}
 		}
-
 		$user = UserAR::model()->findByPk($uid);
 		if (!Yii::app()->user->checkAccess("updateOwnAccount", array("uid" => $user->uid ))) {
 			return $this->responseError("permission deny");
 		}
-		$request = Yii::app()->getRequest();
-		$iframe = $request->getPost("iframe");
 		if($iframe) {
 			$fileUpload = CUploadedFile::getInstanceByName("file");
-			$validateUpload = NodeAR::model()->validateUpload($fileUpload, 'photo');
+			$validateUpload = NodeAR::model()->validateUpload($fileUpload, 'avatar');
 			if($validateUpload !== true) {
-				return $this->responseError($validateUpload);
+				$this->render('post', array(
+					'code'=>$validateUpload
+				));
+				return;
 			}
 
 			// save file to dir
 			$fileUpload = NodeAR::model()->saveUploadedFile($fileUpload);
+			if($fileUpload) {
+				$size = getimagesize(ROOT . '/' . $fileUpload);
+				$s_w = $size[0];
+				$s_h = $size[1];
+				$w = $h = 80;
 
-			$size = getimagesize(ROOT . '/' . $fileUpload);
-			$s_w = $size[0];
-			$s_h = $size[1];
-			$w = $h = 80;
+				$r1 = $w / $s_w;
+				$r2 = $h / $s_h;
+				$widthSamller = TRUE;
+				if ($r1 > $r2) {
+					$r = $r1;
+				}
+				else {
+					$widthSamller = FALSE;
+					$r = $r2;
+				}
+				$t_w = $r * $s_w;
+				$t_h = $r * $s_h;
 
-			$r1 = $w / $s_w;
-			$r2 = $h / $s_h;
-			$widthSamller = TRUE;
-			if ($r1 > $r2) {
-				$r = $r1;
+				// 先等比例 resize
+				$thumb = new EasyImage(ROOT . '/' . $fileUpload);
+				$thumb->resize($t_w, $t_h);
+				// 再裁剪
+				// 裁剪 多余的宽
+				if (!$widthSamller) {
+					$start_x = ($t_w - $w)/2;
+					$start_y = 0;
+					$thumb->crop($w, $h, $start_x, $start_y);
+				}
+				// 裁剪多余的 高
+				else {
+					$start_x = 0;
+					$start_y = ($t_h - $h);
+					$thumb->crop($w, $h, $start_x, $start_y);
+				}
+
+				unlink(ROOT . '/' . $fileUpload);
+				$fileto = ROOT . '/uploads/avatar/' . $uid .'.'. pathinfo($fileUpload, PATHINFO_EXTENSION);
+				$thumb->save($fileto);
+				$fileto = str_replace( ROOT, '', $fileto );
+				$this->render('post', array(
+					'url'=>$fileto
+				));
 			}
 			else {
-				$widthSamller = FALSE;
-				$r = $r2;
-			}
-			$t_w = $r * $s_w;
-			$t_h = $r * $s_h;
-
-			// 先等比例 resize
-			$thumb = new EasyImage(ROOT . '/' . $fileUpload);
-			$thumb->resize($t_w, $t_h);
-			// 再裁剪
-			// 裁剪 多余的宽
-			if (!$widthSamller) {
-				$start_x = ($t_w - $w)/2;
-				$start_y = 0;
-				$thumb->crop($w, $h, $start_x, $start_y);
-			}
-			// 裁剪多余的 高
-			else {
-				$start_x = 0;
-				$start_y = ($t_h - $h);
-				$thumb->crop($w, $h, $start_x, $start_y);
+				$this->render('post', array(
+					'code'=>'509'
+				));
 			}
 
-			unlink(ROOT . '/' . $fileUpload);
-			$fileto = ROOT . '/uploads/avatar/' . $uid .'.'. pathinfo($fileUpload, PATHINFO_EXTENSION);
-			$thumb->save($fileto);
-			$fileto = str_replace( ROOT, '', $fileto );
-			$this->render('post', array(
-			'url'=>$fileto
-			));
+
 		}
 		else {
 			$fileUpload = $request->getPost("file");

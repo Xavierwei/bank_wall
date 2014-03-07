@@ -242,6 +242,24 @@ class NodeAR extends CActiveRecord{
 			}
 		}
 
+		if ($type == 'avatar') {
+			$size = $fileUpload->getSize(); //in bytes
+			if($size > 5 * 1024000) {
+				return 501; //photo size out of limition
+			}
+			$mime = $fileUpload->getType();
+			$allowMime = array(
+				"image/gif", "image/png", "image/jpeg", "image/jpg", "image/pjpeg", "image/x-png"
+			);
+			if (!in_array($mime, $allowMime)) {
+				return 502; //photo media type is not allowed
+			}
+			list($w, $h) = getimagesize($fileUpload->tempName);
+			if($w < 100 || $h < 100) {
+				return 503; //photo resolution is too small
+			}
+		}
+
 		if ($type == 'video') {
 			$size = $fileUpload->getSize(); //in bytes
 			if($size > 7 * 1024000) {
@@ -369,10 +387,13 @@ class NodeAR extends CActiveRecord{
 						$orientation = $this->get_video_orientation($to);
 						switch ($orientation) {
 							case 90:
-								$rotate = '-vf "transpose=1"';
+								$rotate = '-vf "transpose=1" -metadata:s:v:0 rotate=0';
+								break;
+							case 270:
+								$rotate = '-vf "transpose=2" -metadata:s:v:0 rotate=0';
 								break;
 							case 180:
-								$rotate = '-vf "transpose=4"';
+								$rotate = '-vf "transpose=1,transpose=1" -metadata:s:v:0 rotate=0';
 								break;
 						}
 

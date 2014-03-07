@@ -4,6 +4,7 @@
 LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 'swfupload-speed', 'swfupload-queue'] , function( $ , api ){
     'use strict'
 
+    var pageTitle = "WALL - SOCIÉTÉ GÉNÉRALE";
     var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > 0;
     var isPad =navigator.userAgent.toLowerCase().indexOf('pad') > 0;
 	var isIE8 = $('html').hasClass('ie8');
@@ -125,15 +126,16 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 .html( $(this).html() );
 
             // reset status / back to homepage
-            if(!$main.is(':visible')){
+            if($main.hasClass('closed')){
                 LP.triggerAction('back');
             }
+
             $('.search-hd').fadeOut(100);
             $main.fadeOut(100,function(){
                 LP.triggerAction('close_user_page');
                 LP.triggerAction('load_list');
             });
-//			//highlight the button
+			//highlight the button
 			var index = $.inArray(this, $(this).parents('.select-item').find('p'));
 			var $selectBox = $(this).parents('.select-item').find('.select-box');
 			if(index != 0) {
@@ -287,7 +289,11 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 // get date
                 if( bShowDate ){
                     var datetime = new Date((parseInt(node.datetime)+1*3600)*1000);
-                    var date = datetime.getUTCFullYear() + "/" + (parseInt(datetime.getUTCMonth()) + 1) + "/" + datetime.getUTCDate();
+                    var month = (parseInt(datetime.getUTCMonth()) + 1) + '';
+                    month = month.length == 1 ? '0' + month : month;
+                    var day = datetime.getUTCDate() + '';
+                    day = day.length == 1 ? '0' + day : day;
+                    var date =  day + "/" + month + "/" + datetime.getUTCFullYear();
                     if( lastDate != date){
                         LP.compile( 'time-item-template' ,
                             {date: date , day: parseInt(datetime.getUTCDate()) , month: getMonth(parseInt(datetime.getUTCMonth()) + 1)} ,
@@ -361,7 +367,11 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 // get date
                 if( bShowDate ){
                     var datetime = new Date((parseInt(node.datetime)+1*3600)*1000);
-                    var date = datetime.getUTCFullYear() + "/" + (parseInt(datetime.getUTCMonth()) + 1) + "/" + datetime.getUTCDate();
+                    var month = (parseInt(datetime.getUTCMonth()) + 1) + '';
+                    month = month.length == 1 ? '0' + month : month;
+                    var day = datetime.getUTCDate() + '';
+                    day = day.length == 1 ? '0' + day : day;
+                    var date =  day + "/" + month + "/" + datetime.getUTCFullYear();
                     if( lastDate != date){
                         LP.compile( 'time-item-template' ,
                             {date: date , day: parseInt(datetime.getUTCDate()) , month: getMonth(parseInt(datetime.getUTCMonth()) + 1)} ,
@@ -1528,6 +1538,9 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 var maxFileSize = 5 * 1024000;
             }
             if(isIE8) {
+                setTimeout(function(){
+                    window.document.title = pageTitle;
+                }, 1000);
                 LP.use('flash-detect', function(){
                     if(FlashDetect.installed) {
                         if(type == 'photo') {
@@ -2412,6 +2425,9 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             location.hash = '#' + str;
         }
         currentHash = location.hash;
+        setTimeout(function(){
+            window.document.title = pageTitle;
+        }, 1000);
     };
 
 
@@ -2991,11 +3007,12 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                             $('.vjs-big-play-button').click(function(){
                                 $('video').attr('poster', '');
                             });
-							if(isPad) {
-								$(video).attr('control', 'control');
-							}
                         });
                     });
+
+                    if(isPad) {
+                        $('video').attr('controls', 'controls');
+                    }
                 });
             }
             else if(FlashDetect.installed)

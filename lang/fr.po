@@ -82,6 +82,11 @@ msgstr ""
 "Pour une résolution optimale, merci d’utiliser un format d’au moins 450x450 "
 "px"
 
+msgid "AVATAR_RESOLUTION"
+msgstr ""
+"Pour une résolution optimale, merci d’utiliser un format d’au moins 100x100 "
+"px"
+
 msgid "PHOTO_SIZE"
 msgstr "La taille de votre fichier ne doit pas dépasser 5MB"
 

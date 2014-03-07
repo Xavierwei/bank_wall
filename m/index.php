@@ -24,7 +24,13 @@
     <div class="preload3">a</div>
 </div>
 <div class="page-loading">
-	<div class="page-loading-logo"><img src="./img/home_logo.gif" /></div>
+	<div class="page-loading-logo">
+		<?php if(isset($_COOKIE['lang']) && $_COOKIE['lang'] == 'en'):?>
+			<img src="./img/home_logo_en.gif" />
+		<?else:?>
+			<img src="./img/home_logo.gif" />
+		<?endif;?>
+	</div>
 </div>
 <img id="imgLoad" />
 <?php

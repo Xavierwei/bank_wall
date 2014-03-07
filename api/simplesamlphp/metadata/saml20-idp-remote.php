@@ -26,7 +26,7 @@ $metadata['https://openidp.feide.no'] = array(
 /*
  * Live site IdP
  */
-$metadata['http://www.wall150ans.com'] = array(
+$metadata['https://www.wall150ans.com'] = array(
 	'name' => array(
 		'en' => 'SGIdP',
 		'fr' => 'SGIdP',

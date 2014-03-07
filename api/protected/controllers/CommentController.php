@@ -49,7 +49,6 @@ class CommentController extends Controller {
 			$commentAr->save();
 			$this->cleanCache("node_")
 				->cleanCache("comment_");
-			$commentAr->content = $content;
 			return $this->responseJSON($commentAr->attributes, "success");
 		}
 		else {

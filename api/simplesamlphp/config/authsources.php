@@ -34,10 +34,10 @@ $config = array(
 
 		// The entity ID of this SP.
 		// Can be NULL/unset, in which case an entity ID is generated based on the metadata URL.
-		'entityID' => 'http://www.wall150ans.com',
+		'entityID' => 'https://www.wall150ans.com',
 
 		// Can be NULL/unset, in which case the user will be shown a list of available IdPs.
-		'idp' => 'http://www.wall150ans.com',
+		'idp' => 'https://www.wall150ans.com',
 		'privatekey' => 'saml.pem',
 		'certificate' => 'saml.crt',
 	),

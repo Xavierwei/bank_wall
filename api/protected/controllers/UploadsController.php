@@ -63,8 +63,12 @@ class UploadsController extends Controller {
 
 
 	public function actionUpload() {
+		$uid = Yii::app()->user->getId();
+		$user = UserAR::model()->findByPk($uid);
+		if(!$user) {
+			return $this->responseError(602);
+		}
 		$fileUpload = CUploadedFile::getInstanceByName("file");
-
 		$request = Yii::app()->getRequest();
 		$type = $request->getPost("type");
 		$device = $request->getPost("device");
