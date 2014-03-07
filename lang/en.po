@@ -36,7 +36,7 @@ msgstr "Photo"
 msgid "VIDEO"
 msgstr "Video"
 
-msgid "All"
+msgid "ALL"
 msgstr "All"
 
 msgid "RESULTS"
@@ -53,6 +53,9 @@ msgstr "Content of the day"
 
 msgid "CONTENT_OF_THE_MONTH"
 msgstr "Content of the month"
+
+msgid "CONTENT"
+msgstr "Content"
 
 msgid "LOGOUT"
 msgstr "Logout"
@@ -133,6 +136,9 @@ msgstr "comments"
 
 msgid "LOADING_COMMENTS"
 msgstr "Loading comments"
+
+msgid "WRTIE_COMMENT"
+msgstr "You should write something."
 
 msgid "COMMENT"
 msgstr "Comment"
@@ -250,6 +256,12 @@ msgstr "The hashtag can't include illegal characters"
 
 msgid "ERROR_WRONG_USERNAME_PASSWORD"
 msgstr "Wrong login or password."
+
+msgid "ERROR_VIDEO_CORRUPTED"
+msgstr "The video you uploaded is corrupted"
+
+msgid "ERROR_PHOTO_CORRUPTED"
+msgstr "The photo you uploaded is corrupted"
 
 msgid "DAY"
 msgstr "day"

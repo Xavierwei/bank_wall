@@ -11,14 +11,19 @@ if (preg_match('/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|phone|andro
 <html class="ie7"><![endif]-->
 <!--[if IE 8]>
 <html class="ie8"><![endif]-->
-<!--[if (gte IE 9)|(gt IEMobile 7)]><!-->
+<!--[if IE 9]>
+<html class="ie9"><![endif]-->
+<!--[if IE 10]>
+<html class="ie10"><![endif]-->
+<!--[if (gte IE 11)|(gt IEMobile 7)]><!-->
 <html>
 <!--<![endif]-->
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <meta name="keywords" content="" />
     <meta name="description" content="" />
-    <title>L'ESPRIT D'EQUIPE SOCIETE GENERALE</title>
+    <title>WALL - SOCIÉTÉ GÉNÉRALE</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=11; IE=10; IE=9; IE=8" />
 	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1, user-scalable=no" />
     <link href="css/jsPane.css?<?php echo time();?>" rel="stylesheet" type="text/css" />
     <link href="css/layout.css?<?php echo time();?>" rel="stylesheet" type="text/css" />
@@ -29,16 +34,23 @@ if (preg_match('/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|phone|andro
 	<!--[if IE 8]>
 	<link href="css/ie8.css" rel="stylesheet" type="text/css" />
 	<!--<![endif]-->
+	<!--[if lt IE 8]>
+	<link href="css/oldie.css" rel="stylesheet" type="text/css" />
+	<!--<![endif]-->
 </head>
 <body>
 
+<div class="turn_device"></div>
 <div class="preload">
     <div class="preload1">.</div>
     <div class="preload2">.</div>
     <div class="preload3">.</div>
 </div>
 <div class="page-loading">
-	<div class="page-loading-logo"><img src="img/logo.gif" /></div>
+	<div class="page-loading-logo">
+		<img src="img/logo_b.gif" />
+		<div class="old-ie" style="display: none;">You are using an outdated browser. Please upgrade your browser to improve your experience.</div>
+	</div>
 </div>
 <img id="imgLoad" />
 <?php

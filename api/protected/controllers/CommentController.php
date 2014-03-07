@@ -17,7 +17,7 @@ class CommentController extends Controller {
 		}
 
 		$nid        = $request->getPost("nid");
-		$content    = htmlspecialchars($request->getPost("content"));
+		$content    = $request->getPost("content");
 
 		if(Yii::app()->user->isGuest) {
 			return $this->responseError(601);
@@ -41,7 +41,7 @@ class CommentController extends Controller {
 		$commentAr->attributes = array(
 		    "uid" => $uid,
 		    "nid" => $nid,
-		    "content" => $content,
+		    "content" => htmlentities($content),
 		    "status" => 1
 		);
 
@@ -49,6 +49,7 @@ class CommentController extends Controller {
 			$commentAr->save();
 			$this->cleanCache("node_")
 				->cleanCache("comment_");
+			$commentAr->content = $content;
 			return $this->responseJSON($commentAr->attributes, "success");
 		}
 		else {
@@ -231,7 +232,7 @@ class CommentController extends Controller {
 		$retdata = array();
 		foreach ($comments as $comment) {
 			$commentdata            = $comment->attributes;
-			$commentdata['content'] = htmlentities($commentdata['content']);
+			$commentdata['content'] = $commentdata['content'];
 			$country                = $comment->user? $comment->user->country: NULL;
 			$user                   = $comment->user? $comment->user->attributes: NULL;
 			$user["country"]        = $country ? $country->attributes: NULL;

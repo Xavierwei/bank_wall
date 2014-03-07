@@ -31,7 +31,7 @@ class NodeAR extends CActiveRecord{
 
 	const ALLOW_UPLOADED_PHOTO_TYPES = "jpg,png,gif";
 
-	const ALLOW_UPLOADED_VIDEO_TYPES = "mp4,avi,mov,mpg,mpeg,3pg,wmv";
+	const ALLOW_UPLOADED_VIDEO_TYPES = "mp4,avi,mov,mpg,mpeg,3gp,wmv";
 
 	const ALLOW_STORE_VIDE_TYPE = "mp4";
 
@@ -189,7 +189,7 @@ class NodeAR extends CActiveRecord{
 		if ($type == "video") {
 			$topath = ROOT.$newpath;
 			$wmvpath = str_replace('.mp4','.wmv',$topath);
-			exec("ffmpeg -i {$topath} -y -vf {$wmvpath}", $output, $status);
+			exec("ffmpeg -i {$topath} -y {$wmvpath}", $output, $status);
 		}
 		// Load user/country
 		$userAr = new UserAR();
@@ -249,7 +249,29 @@ class NodeAR extends CActiveRecord{
 			}
 			$mime = $fileUpload->getType();
 			$allowMime = array(
-				"video/mov", "video/quicktime", "video/x-msvideo", "video/x-ms-wmv", "video/wmv", "video/mp4", "video/mpeg", "video/avi", "video/3gp","video/3gpp", "application/octet-stream"
+				"application/x-empty" ,
+				"video/mp2p" ,
+				"video/mov",
+				"video/quicktime",
+				"video/x-msvideo",
+				"video/x-ms-wmv",
+				"video/wmv",
+				"video/mp4",
+				"video/avi",
+				"video/3gp",
+				"video/3gpp",
+				"video/mpeg",
+				"video/mpg",
+				"application/octet-stream",
+				"video/x-ms-asf",
+				"video/x-ms-dvr",
+				"video/x-ms-wm",
+				'video/x-ms-wmv',
+				'video/x-msvideo',
+				'video/x-ms-asx',
+				'video/x-ms-wvx',
+				'video/x-ms-wmx',
+				'application/x-troff-msvideo',
 			);
 			if (!in_array($mime, $allowMime)) {
 				return 502; //video media type is not allowed
@@ -273,7 +295,6 @@ class NodeAR extends CActiveRecord{
 		if (!is_dir($dir)) {
 		  mkdir($dir, 0777, TRUE);
 		}
-
 		$photoexts = explode(",", self::ALLOW_UPLOADED_PHOTO_TYPES);
 		$videoexts = explode(",", self::ALLOW_UPLOADED_VIDEO_TYPES);
 		$extname = strtolower(pathinfo($upload->getName(), PATHINFO_EXTENSION));
@@ -291,15 +312,15 @@ class NodeAR extends CActiveRecord{
 			$to = $dir."/". $filename;
 			switch($extname) {
 				case 'gif':
-					$srcImg = imagecreatefromgif($upload->tempName);
+					$srcImg = @imagecreatefromgif($upload->tempName);
 					break;
 				case 'png':
-					$srcImg = imagecreatefrompng($upload->tempName);
+					$srcImg = @imagecreatefrompng($upload->tempName);
 					break;
 				default:
-					$srcImg = imagecreatefromjpeg($upload->tempName);
+					$srcImg = @imagecreatefromjpeg($upload->tempName);
 			}
-			$exif = exif_read_data($upload->tempName);
+			$exif = @exif_read_data($upload->tempName);
 			if (!empty($exif['Orientation'])) {
 				switch ($exif['Orientation']) {
 					case 3:
@@ -315,8 +336,15 @@ class NodeAR extends CActiveRecord{
 						break;
 				}
 			}
-			imagejpeg($srcImg, $to, 90);
+			if($srcImg) {
+				imagejpeg($srcImg, $to, 90);
+			}
+			else {
+				return false;
+			}
 		}
+
+
 
 		// 检查是不是视频， 如果是, 就就做视频转换工作
 		if (in_array($extname, $videoexts)) {
@@ -325,6 +353,7 @@ class NodeAR extends CActiveRecord{
 			$ret = $upload->saveAs($to);
 			// 在这里做视频转换功能
 			// 先检查 ffmpeg 是否已经安装
+
 			exec("which ffmpeg", $output);
 			if (!empty($output)) {
 				$ffmpeg = array_shift($output);
@@ -352,34 +381,46 @@ class NodeAR extends CActiveRecord{
 							$size = '-filter:v scale=720:-1';
 						}
 
-						// 视频转换
+
+                        // 视频转换
 						switch($extname) {
 							case 'mp4':
-								exec("ffmpeg -i {$to} -vcodec libx264 {$size} -acodec aac -strict experimental -ac 2 {$rotate} {$newpath}", $output, $status);
+								exec("ffmpeg -i {$to} -vcodec libx264 {$size} -movflags +faststart -acodec aac -strict experimental -ac 2 {$rotate} {$newpath}", $output, $status);
 								break;
 							case 'mpg':
-								exec("ffmpeg -i {$to} -vcodec libx264 -acodec aac -strict experimental -ac 2 {$newpath}", $output, $status);
+								exec("ffmpeg -i {$to} -vcodec libx264 -movflags +faststart -acodec aac -strict experimental -ac 2 {$newpath}", $output, $status);
 								break;
 							case 'mpeg':
-								exec("ffmpeg -i {$to} -vcodec libx264 -acodec aac -strict experimental -ac 2 {$newpath}", $output, $status);
+								exec("ffmpeg -i {$to} -vcodec libx264 -movflags +faststart -acodec aac -strict experimental -ac 2 {$newpath}", $output, $status);
 								break;
 							case 'mov':
-								exec("ffmpeg -i {$to} -vcodec libx264 -acodec aac -strict experimental -ac 2 {$rotate} {$newpath}", $output, $status);
+								exec("ffmpeg -i {$to} -vcodec libx264 -movflags +faststart -acodec aac -strict experimental -ac 2 {$rotate} {$newpath}", $output, $status);
+								if(!is_file($newpath) || !$this->is_valid_video($newpath)) {
+									exec("ffmpeg -i {$to} -acodec copy -vcodec copy {$rotate} {$newpath}", $output, $status);
+								}
 								break;
 							case 'wmv':
-								exec("ffmpeg -i {$to} -strict -2 -ab 64k -ar 44100 {$newpath}", $output, $status);
+								exec("ffmpeg -i {$to} -movflags +faststart -strict -2 -ar 44100 {$newpath}", $output, $status);
 								break;
 							case '3gp':
-								exec("ffmpeg -i {$to} -strict -2 -ab 64k -ar 44100 {$newpath}", $output, $status);
+								exec("ffmpeg -i {$to} -movflags +faststart -strict -2 -ar 44100 {$newpath}", $output, $status);
+
 								break;
 							case 'avi':
-								exec("ffmpeg -i {$to} -vcodec mpeg4 -acodec aac -strict experimental -ab 64k -ar 44100 {$newpath}", $output, $status);
+                               // print "ffmpeg -i {$to} -vcodec mpeg4 -movflags +faststart -acodec aac -strict experimental -ar 44100 {$newpath}";
+								exec("ffmpeg -i {$to} -vcodec libx264 -movflags +faststart -acodec aac -strict experimental -ac 2 {$newpath}", $output, $status);
 								break;
 							default:
-								exec("ffmpeg -i {$to} -vcodec libx264 -acodec aac -strict experimental -ac 2 {$newpath}", $output, $status);
+								exec("ffmpeg -i {$to} -vcodec libx264 -movflags +faststart -acodec aac -strict experimental -ac 2 {$newpath}", $output, $status);
 						}
 
-						unlink($to);
+                        if (!$this->is_valid_video($newpath)) {
+                            return FALSE;
+                        }
+
+						if(is_file($to)) {
+							unlink($to);
+						}
 						$to = $newpath;
 					}
 
@@ -387,9 +428,14 @@ class NodeAR extends CActiveRecord{
 			}
 		}
 
-		$to = str_replace(ROOT, "", $to);
 
-    	return $to;
+		if(isset($to) && is_file($to)) {
+			$to = str_replace(ROOT, "", $to);
+			return $to;
+		}
+		else {
+			return false;
+		}
   	}
 
 	function get_video_orientation($video_path) {
@@ -408,6 +454,15 @@ class NodeAR extends CActiveRecord{
 
 		return $orientation;
 	}
+
+    function is_valid_video($path) {
+        $cmd = "/usr/local/bin/ffprobe " . $path . "  2>/dev/null 2>&1";
+        $result = shell_exec($cmd);
+        if (strpos($result, "Invalid") !== FALSE) {
+            return FALSE;
+        }
+        return TRUE;
+    }
 
 
 
@@ -487,7 +542,7 @@ class NodeAR extends CActiveRecord{
 			exec("ffmpeg -ss 00:00:03 -i $absvideoPath -vframes 1 -an -f image2 ".$absscreenImagePath, $output, $status);
 
 			if (!file_exists($absscreenImagePath)) {
-        exec("ffmpeg -i $absvideoPath -vframes 1 -an -f image2 ".$absscreenImagePath, $output, $status);
+                exec("ffmpeg -i $absvideoPath -vframes 1 -an -f image2 ".$absscreenImagePath, $output, $status);
 			}
 		};
 		if($w && $h) {
@@ -520,9 +575,11 @@ class NodeAR extends CActiveRecord{
 		$query->select = array("count(*) AS nodecounts");
 		$query->addCondition("uid=:uid");
 		$query->addCondition("type=:type");
+		$query->addCondition("status=:status");
 		$query->params = array(
-		  ":uid" => $uid,
-		  ":type" => $type
+			":uid" => $uid,
+			":type" => $type,
+			":status" => 1
 		);
 		$res = $this->find($query);
 
@@ -534,8 +591,10 @@ class NodeAR extends CActiveRecord{
 		$query->select = "*". ",topday_id AS topday";
 		$query->join = 'right join `topday` '.' on '. '`topday`' .".nid = ". $this->getTableAlias().".nid";
 		$query->addCondition("uid=:uid");
+		$query->addCondition("status=:status");
 		$query->params = array(
-		  ":uid" => $uid
+			":uid" => $uid,
+			":status" => 1
 		);
 		$res = $this->count($query);
 
@@ -547,8 +606,10 @@ class NodeAR extends CActiveRecord{
 		$query->select = "*". ",topmonth_id AS topmonth";
 		$query->join = 'right join `topmonth` '.' on '. '`topmonth`' .".nid = ". $this->getTableAlias().".nid";
 		$query->addCondition("uid=:uid");
+		$query->addCondition("status=:status");
 		$query->params = array(
-		  ":uid" => $uid
+			":uid" => $uid,
+			":status" => 1
 		);
 		$res = $this->count($query);
 

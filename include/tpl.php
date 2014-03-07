@@ -7,7 +7,7 @@
 				{{_e.CONNECT}}
 			</a>
 			<!--  -->
-			<div class="logo" data-a="back_home"></div>
+			<div class="logo logo-{{lang}}" data-a="back_home"></div>
 			<!--  -->
 
 			<div class="search clear">
@@ -97,10 +97,12 @@
                     <li>{{_e.VIDEO_FORMATE}}</li>
                     <li>{{_e.VIDEO_RESOLUTION}}</li>
                     <li>{{_e.VIDEO_SIZE}}</li>
+					<li class="damaged">{{_e.ERROR_VIDEO_CORRUPTED}}</li>
                     {{else}}
                     <li>{{_e.PHOTO_FORMATE}}</li>
                     <li>{{_e.PHOTO_RESOLUTION}}</li>
                     <li>{{_e.PHOTO_SIZE}}</li>
+					<li class="damaged">{{_e.ERROR_PHOTO_CORRUPTED}}</li>
                     {{/ifvideo}}
                   </ul>
                   <div class="error"></div>
@@ -125,7 +127,7 @@
                 </div>
                 <div class="poploading">
                   <div class="popload-percent"><p></p></div>
-                  <p>{{_e.UPLOAD_IN_PROGRESS}} ...</p>
+                  <p>{{_e.UPLOAD_IN_PROGRESS}}</p>
                 </div>
               </div>
               <!--  -->
@@ -186,12 +188,13 @@
 						<li>{{_e.PHOTO_FORMATE}}</li>
 						<li>{{_e.PHOTO_RESOLUTION}}</li>
 						<li>{{_e.PHOTO_SIZE}}</li>
+						<li class="damaged">{{_e.ERROR_PHOTO_CORRUPTED}}</li>
 					</ul>
 					<div class="error"></div>
 					<div class="step1-btns">
 						<div class="popfile-btn btn" id="select-btn">
 							{{_e.SELECT}}
-							<input type="file" name="file" />
+							<input type="file" name="file" accept="{{accept}}" />
 						</div>
 					</div>
 					<div class="step2-btns"><div class="popfile-btn btn" data-a="upload_photo">{{_e.UPLOAD}}</div><div class="popfile-btn btn">{{_e.SELECT_AGAIN}}</div></div>
@@ -309,7 +312,7 @@
 			<div class="inner-loading"></div>
 			<div class="inner-info">
 				<div class="inner-shade"></div>
-				{{#if description}}<div class="inner-infocom">{{description}}</div>{{/if}}
+				{{#if description}}<div class="inner-infocom">{{{description}}}</div>{{/if}}
 				<div class="inner-infoicon"><div class="{{type}}"></div></div>
 			</div>
 			{{#if user_flagged}}
@@ -318,11 +321,11 @@
 			<div class="flag-node btn2" data-d="nid={{nid}}&type=node" data-a="flag">flag</div>
 			{{/if}}
 
-			{{#if topday}}
-				<div class="inner-top inner-topday"></div>
+			{{#if topmonth}}
+				<div class="inner-top inner-topmonth"></div>
 			{{else}}
-				{{#if topmonth}}
-					<div class="inner-top inner-topmonth"></div>
+				{{#if topday}}
+					<div class="inner-top inner-topday"></div>
 				{{/if}}
 			{{/if}}
 		</div>
@@ -423,6 +426,10 @@
 							</div>
 						</div>
 					</div>
+					<div class="user-edit-btns">
+						<a class="user-edit-save btn" data-a="save_user">{{_e.SAVE}}</a>
+						<a class="user-edit-cancel btn" data-a="cancel_user_edit">{{_e.CANCEL}}</a>
+					</div>
 					<a class="user-edit-save btn" data-a="save_user">{{_e.SAVE}}</a>
 				</form>
 				<div class="user-edit-loading"></div>
@@ -435,7 +442,7 @@
 <script type="text/tpl" id="comment-item-template">
 	<div class="comlist-item comlist-item-{{cid}}">
 		<div class="comlist-tit"><span>{{user.firstname}} {{user.lastname}} </span> - {{date}} {{month}}</div>
-		<div class="comlist-con">{{content}}</div>
+		<div class="comlist-con">{{{content}}}</div>
 		{{#if mycomment}}
 		<div class="comlist-delete btn2" data-a="delete" data-d="cid={{cid}}&type=comment"></div>
 		{{/if}}
@@ -478,12 +485,13 @@
 <!-- flash-player-tpl -->
 <script type="text/tpl" id="flash-player-template">
   <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="100%" height="100%">
-    <param name="allowScriptAccess" value="always"/>
-    <param name="movie" value="flash/player.swf"/>
-    <param name="flashVars" value="source=../api{{file}}&skinMode=show"/>
-    <param name="quality" value="high"/>
-		<param name="wmode" value="opaque"/>
-    <embed name="player" src="flash/player.swf" flashVars="source=../api{{file}}&skinMode=show" quality="high" wmode="opaque" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="100%" height="100%" allowScriptAccess="always"></embed>
+	<param name="allowScriptAccess" value="always"/>
+	<param name="movie" value="flash/player.swf"/>
+	<param name="flashVars" value="source=../api{{file}}&skinMode=show&fengmian=./api{{image}}"/>
+	<param name="quality" value="high"/>
+	<param name="wmode" value="opaque"/>
+	<param name="allowFullScreen" value="true"/>
+    <embed name="player" src="flash/player.swf" flashVars="source=../api{{file}}&skinMode=show&fengmian=./api{{image}}" allowFullScreen="true" quality="high" wmode="opaque" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="100%" height="100%" allowScriptAccess="always"></embed>
   </object>
 </script>
 

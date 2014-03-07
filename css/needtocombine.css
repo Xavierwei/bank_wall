@@ -17,11 +17,14 @@ body{
     width: 180px;
     opacity: 1;
     perspective: 500;
+    -ms-perspective: 500;
     -webkit-perspective: 500; /* Safari 和 Chrome */
     transition: transform 1s, opacity 1s , width 0.01s ease 0.2s;
+    -ms-transition: transform 1s, opacity 1s , width 0.01s ease 0.2s;
     -webkit-transition: -webkit-transform 1s , opacity 1s, width 0.01s ease 0.2s; /* Safari */
     transform:rotateY(0deg);
     -webkit-transform:rotateY(0deg);
+    -ms-transform:rotateY(0deg);
 }
 .pic-item{
     width: 0px;
@@ -68,16 +71,19 @@ body{
     -webkit-backface-visibility: hidden;*/
     -webkit-backface-visibility: hidden;
     -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
     backface-visibility: hidden;
 }
 .comment.cube-right{
     -webkit-transform: translatex(165px) translatez(-165px) rotateY(90deg);
     -moz-transform: translatex(165px) translatez(-165px) rotateY(90deg);
+    -ms-transform: translatex(165px) translatez(-165px) rotateY(90deg);
     transform: translatex(165px) translatez(-165px) rotateY(90deg);
 }
 .comment.cube-left{
     -webkit-transform: translatex(-165px) translatez(-165px) rotateY(-90deg);
     -moz-transform: translatex(-165px) translatez(-165px) rotateY(-90deg);
+    -ms-transform: translatex(-165px) translatez(-165px) rotateY(-90deg);
     transform: translatex(-165px) translatez(-165px) rotateY(-90deg);
 }
 
@@ -87,6 +93,7 @@ body{
     position: absolute;
     -webkit-perspective: 1000px;
     -moz-perspective: 1000px;
+    -ms-perspective: 1000px;
     perspective: 1000px;
     left: -330px;
     overflow: hidden;
@@ -99,6 +106,7 @@ body{
     height: 100%;
     -webkit-transition: -webkit-transform, .7s;
     -moz-transition: -moz-transform, .7s;
+    -ms-transition: -moz-transform, .7s;
     -o-transition: -o-transform, .7s;
     transition: transform, .7s;
     -webkit-transform-style: preserve-3d;
@@ -129,6 +137,7 @@ body{
 .no-animate{
     -webkit-transition: 0s;
     -moz-transition: 0s;
+    -ms-transition: 0s;
     -o-transition: 0s;
     transition: 0s;
 }

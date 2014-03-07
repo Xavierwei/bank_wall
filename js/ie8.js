@@ -20,6 +20,9 @@ var uploadPopError = function(code) {
         case 503:
             var errorIndex = 1;
             break;
+        case 509:
+            var errorIndex = 3;
+            break;
     }
     $('.pop-inner').fadeOut(400);
     $('.pop-file').delay(800).fadeIn(400);
@@ -72,6 +75,9 @@ var uploadSuccess = function(file, serverData) {
             case 503:
                 var errorIndex = 1;
                 break;
+            case 509:
+                var errorIndex = 3;
+                break;
         }
         $('.pop-load').fadeOut(400);
         $('.pop-txt').fadeOut(400);
@@ -80,12 +86,12 @@ var uploadSuccess = function(file, serverData) {
         $('.step1-tips li').eq(errorIndex).addClass('error');
     }
     else {
+        $('.pop-txt').fadeIn(400);
 		$('.poptxt-pic-inner').fadeIn();
         $('.poptxt-pic img').attr('src', API_FOLDER + data.data.file.replace('.mp4', '.jpg'));
         $('.poptxt-submit').attr('data-d','file='+ data.data.file +'&type=' + data.data.type);
     }
     //$('.pop-load').fadeOut(400);
-    $('.pop-txt').fadeIn(400);
 }
 
 var uploadError = function(object, error, message){

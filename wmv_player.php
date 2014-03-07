@@ -2,8 +2,8 @@
 	$video = $_GET['file'];
   // Get video thumbnail ratio, use to resize the wmv video
 	$cover = str_replace('wmv','jpg',$video);
-  $size = getimagesize("./api/".$cover);
-  $ratio = $size[0] / $size[1];
+	$size = getimagesize("./api/".$cover);
+	$ratio = $size[0] / $size[1];
 ?>
 <!DOCTYPE>
 <html>
@@ -18,13 +18,17 @@
     <style>
         html,body {height:100%;width:100%;text-align: center;}
 	    #wmp {z-index:1;position: relative;}
+		.wmp .poster {position:absolute;width:100%;height:100%;z-index:2;display:none;}
+		.loading {display:none;}
+		.playbtn {cursor: pointer;}
     </style>
 
 </head>
 <body class="wmp">
+<div class="poster"><img width="100%" src="./api/<?php echo $cover;?>" /></div>
 <object id="wmp" classid="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6" standby="Loading Microsoft® Windows® Media Player components..." width="100%" height="100%" type="application/x-oleobject" codebase="http://activex.microsoft.com/activex/controls/mplayer/en/nsm p2inf.cab#Version=6,4,7,1112">
     <param name="URL" value="./api<?php echo $video;?>">
-    <param name="AutoStart" value="true">
+    <param name="AutoStart" value="false">
     <param name="showcontrols" value="false">
 	<param name="controls" value="false">
 	<param name="windowlessVideo" value="true">
@@ -37,57 +41,50 @@
     <param name="enablecontextmenu" value="true">
 	<param name="uiMode" value="none">
 </object>
-<div class="loading"></div>
-<div class="bar-wrap">
-	<div class="bar-percent"></div>
-</div>
+<div class="loading">Loading</div>
 
-<div class="playbtn">
+
+<div class="playbtn paused">
 	<div class="icon"></div>
 </div>
 
-<div class="fullscreen"></div>
+<div class="control">
+	<div class="bar-wrap">
+		<div class="bar-percent"></div>
+	</div>
+
+	<div class="fullscreen"></div>
+</div>
+
 <script src="js/jquery/jquery-1.102.js"></script>
 <script>
-<!--  var _resizeTimer = null;-->
-<!--  $(window).resize(function(){-->
-<!--    clearTimeout( _resizeTimer );-->
-<!--    _resizeTimer = setTimeout(function(){-->
-<!--      var ratio = --><?php //echo $ratio;?><!--;-->
-<!--			var windowRatio = $(window).width()/$(window).height();-->
-<!--			if(ratio > windowRatio) {-->
-<!--				var width = $(window).width();-->
-<!--				var height = parseInt(width / ratio);-->
-<!--				var marginTop = ($(window).height() - height)/2;-->
-<!--			}-->
-<!--			else {-->
-<!--				var height = $(window).height();-->
-<!--				var width = parseInt(height * ratio);-->
-<!--				var marginTop = 0;-->
-<!--			}-->
-<!--      $('#player').width(width).height(height).css({'margin-top':marginTop});-->
-<!--    }, 500);-->
-<!--  }).trigger('resize');-->
-
-
-
+	jQuery.fn.extend({
+		ensureLoad: function(handler) {
+			return this.each(function() {
+				if(this.complete) {
+					handler.call(this);
+				} else {
+					$(this).load(handler);
+				}
+			});
+		}
+	});
 </script>
 
 
 <script>
-
 	var playInterval;
 	var player = document.getElementById("wmp");
 	$('.playbtn').click(function(){
 		if($(this).hasClass('paused')){
 			$(this).removeClass('paused');
 			player.controls.play();
-			$('.bar-wrap').fadeIn();
+			$('.control').fadeIn();
 		}
 		else {
 			$(this).addClass('paused');
 			player.controls.pause();
-			$('.bar-wrap').fadeOut();
+			$('.control').fadeOut();
 		}
 	});
 
@@ -95,10 +92,20 @@
 		player.fullScreen=true;
 	});
 
+	$('.playbtn').mouseenter(function(){
+		$('.control').fadeIn(1000);
+	});
+
+	$('.playbtn').mouseleave(function(){
+		$('.control').fadeOut(1000);
+	});
+
 
 	function handler(type) {
-		// http://msdn.microsoft.com/en-us/library/bb249361(VS.85).aspx
 		var a = arguments;
+		if(a[1] == 9) {
+			$('.loading').show();
+		}
 		if(a[1] == 3) {
 			if(!playInterval) {
 				var duration = player.currentMedia.duration;
@@ -106,24 +113,36 @@
 					var currentPos = player.controls.currentPosition;
 					var percent = currentPos / duration;
 					if(percent > 0) {
-						$('.bar-wrap').fadeIn();
-						$('.loading').hide();
+						//$('.control').fadeIn();
+						$('.loading').remove();
+						$('.poster').hide();
 					}
 					$('.bar-percent').css({width: percent*100 + '%'});
 				}, 300);
 			}
 		}
-
 		if(a[1] == 1) {
-			$('.bar-percent').css({width: 0});
-			$('.bar-wrap').fadeOut();
+			$('.bar-percent').css({width:0});
+			//$('.control').fadeOut();
 			$('.playbtn').addClass('paused');
 			clearInterval(playInterval);
 			playInterval = null;
 		}
 	};
 
+	$(window).resize(function(){
+		var marginTop = ($(window).height() - ($(window).width() / <?php echo $ratio;?>)) / 2;
+		$('.poster img').css({marginTop: marginTop});
+	});
 
+
+
+	$('.poster img').ensureLoad(function(){
+		setTimeout(function(){
+			$(window).trigger('resize');
+			$('.wmp .poster').fadeIn();
+		}, 3000);
+	});
 
 </script>
 <script for="wmp" event="playstatechange(newState)">

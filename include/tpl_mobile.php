@@ -2,7 +2,7 @@
 <script type="text/tpl" id="base-template">
 	<div class="page">
 		<!--  -->
-		<div class="logo btn" data-a="back_home"></div>
+		<div class="logo logo-{{lang}} btn" data-a="back_home"></div>
 		<!--  -->
 		<!-- header -->
 		<div class="header">
@@ -70,7 +70,7 @@
 
 	<div class="filter-modal pop-modal">
 		<div class="select-option" data-param="">
-			<span>Pays</span>
+			<span>{{_e.COUNTRY}}</span>
 			<select class="select-box select-country-option-list"></select>
 		</div>
 		<div class="select-option" data-param="orderby=datetime">
@@ -101,7 +101,7 @@
 				</option>
 			</select>
 		</div>
-		<div class="select-cancel btn" data-a="cancel_modal">Fermer</div>
+		<div class="select-cancel btn" data-a="cancel_modal">{{_e.CANCEL}}</div>
 	</div>
 	<!-- modal -->
 </script>
@@ -124,10 +124,12 @@
                     <li>{{_e.VIDEO_FORMATE}}</li>
                     <li>{{_e.VIDEO_RESOLUTION}}</li>
                     <li>{{_e.VIDEO_SIZE}}</li>
+					  <li class="damaged">{{_e.ERROR_VIDEO_CORRUPTED}}</li>
                     {{else}}
                     <li>{{_e.PHOTO_FORMATE}}</li>
                     <li>{{_e.PHOTO_RESOLUTION}}</li>
                     <li>{{_e.PHOTO_SIZE}}</li>
+					  <li class="damaged">{{_e.ERROR_PHOTO_CORRUPTED}}</li>
                     {{/ifvideo}}
                   </ul>
                   <div class="error"></div>
@@ -148,7 +150,7 @@
                 </div>
                 <div class="poploading">
                   <div class="popload-percent"><p></p></div>
-                  <p>{{_e.UPLOAD_IN_PROGRESS}} ...</p>
+                  <p>{{_e.UPLOAD_IN_PROGRESS}}</p>
                 </div>
               </div>
               <!--  -->
@@ -207,12 +209,13 @@
 						<li>{{_e.PHOTO_FORMATE}}</li>
 						<li>{{_e.PHOTO_RESOLUTION}}</li>
 						<li>{{_e.PHOTO_SIZE}}</li>
+						<li class="damaged">{{_e.ERROR_PHOTO_CORRUPTED}}</li>
 					</ul>
 					<div class="error"></div>
 					<div class="step1-btns">
 						<div class="popfile-btn btn" id="select-btn">
 							{{_e.SELECT}}
-							<input type="file" name="file" />
+							<input type="file" name="file" accept="{{accept}}" />
 						</div>
 					</div>
 					<div class="step2-btns"><div class="popfile-btn btn" data-a="upload_photo">{{_e.UPLOAD}}</div><div class="popfile-btn btn">{{_e.SELECT_AGAIN}}</div></div>
@@ -342,7 +345,7 @@
 			<div class="inner-loading"></div>
 			<div class="inner-info">
 				<div class="inner-shade"></div>
-				{{#if description}}<div class="inner-infocom">{{description}}</div>{{/if}}
+				{{#if description}}<div class="inner-infocom">{{{description}}}</div>{{/if}}
 				<div class="inner-infoicon"><div class="{{type}}"></div></div>
 			</div>
 
@@ -455,7 +458,7 @@
 <script type="text/tpl" id="comment-item-template">
 	<div class="comlist-item comlist-item-{{cid}}">
 		<div class="comlist-tit"><span>{{user.firstname}} {{user.lastname}} </span> - {{date}} {{month}}</div>
-		<div class="comlist-con">{{content}}</div>
+		<div class="comlist-con">{{{content}}}</div>
 		{{#if mycomment}}
 		<div class="comlist-delete btn2" data-a="delete" data-d="cid={{cid}}&type=comment"></div>
 		{{/if}}

@@ -36,23 +36,26 @@ def post_media_to_bankwall(desc="description", user="xx@xx.com", media="/path/to
   print res["message"]
   return res["message"]
 
-def reply_mail(mail_obj, is_success=True):
-  print "begin to reply email to [%s] "  %(mail_obj["From"] or mail_obj["Reply-To"])
-  original = mail_obj
-  config = dict(load_config().items("smtp"))
-  smtp = SMTP()
-  smtp.connect('smtp.gmail.com', 587)
-  smtp.starttls()
-  smtp.login(config["user"], config["pass"])
-  from_addr = "testdev@fuel-it-up.com"
-  to_addr = original["Reply-To"] or original["From"]
-  subj = "Re: "+original["Subject"]
-  date = datetime.datetime.now().strftime( "%d/%m/%Y %H:%M" )
-  message_text = "Hello\nThis is a mail from your server\n\nBye\n"
-  msg = "From: %s\nTo: %s\nSubject: %s\nDate: %s\n\n%s" % ( from_addr, to_addr, subj, date, is_success.replace('\\n','\n') )
-  smtp.sendmail(from_addr, to_addr, msg)
-  smtp.quit()
-  print "replied email to [%s] "  %(mail_obj["From"] or mail_obj["Reply-To"])
+def reply_mail(mail_obj, is_success=True, body=None):
+    print "begin to reply email to [%s] "  %(mail_obj["From"] or mail_obj["Reply-To"])
+    original = mail_obj
+    config = dict(load_config().items("smtp"))
+    smtp = SMTP()
+    smtp.connect('smtp.gmail.com', 587)
+    smtp.starttls()
+    smtp.login(config["user"], config["pass"])
+    from_addr = "testdev@fuel-it-up.com"
+    to_addr = original["Reply-To"] or original["From"]
+    subj = "Re: "+original["Subject"]
+    date = datetime.datetime.now().strftime( "%d/%m/%Y %H:%M" )
+    message_text = "Hello\nThis is a mail from your server\n\nBye\n"
+    if body is not None:
+        msg = "From: %s\nTo: %s\nSubject: %s\nDate: %s\n\n%s" % ( from_addr, to_addr, subj, date, body.replace('\\n','\n') )
+    else:
+        msg = "From: %s\nTo: %s\nSubject: %s\nDate: %s\n\n%s" % ( from_addr, to_addr, subj, date, is_success.replace('\\n','\n') )
+    smtp.sendmail(from_addr, to_addr, msg)
+    smtp.quit()
+    print "replied email to [%s] "  %(mail_obj["From"] or mail_obj["Reply-To"])
   
 
 def is_media(file):
@@ -61,14 +64,43 @@ def is_media(file):
   cmd = "/usr/bin/file -b --mime %s" % (file)
   mime = subprocess.Popen(cmd, shell=True, \
   stdout = subprocess.PIPE).communicate()[0]
-  mime = mime.rstrip()
+  mime = mime.split(";")[0].strip()
   print "mime is [%s]" %(mime)
-  
-  if mime in ["image/jpeg", "image/png", "image/jpg", "image/gif", "video/mov", "video/quicktime", "video/wmv", "video/mp4", "video/avi", "video/3gp", "video/mpeg", "video/mpg", "application/octet-stream", "video/3gpp"]:
+  mimes_allowed = [
+    "image/gif", \
+    "image/png", \
+    "image/jpeg", \
+    "image/jpg",  \
+    "image/pjpeg", \
+    "image/x-png", \
+    "application/x-empty" , \
+    "video/mp2p" , \
+    "video/mov", \
+    "video/quicktime", \
+    "video/x-msvideo", \
+    "video/x-ms-wmv", \
+    "video/wmv", \
+    "video/mp4", \
+    "video/avi", \
+    "video/3gp", \
+    "video/3gpp", \
+    "video/mpeg", \
+    "video/mpg", \
+    "application/octet-stream",\
+    "video/x-ms-asf", \
+    "video/x-ms-dvr", \
+    "video/x-ms-wm",\
+    'video/x-ms-wmv', \
+    'video/x-msvideo', \
+    'video/x-ms-asx', \
+    'video/x-ms-wvx',\
+    'application/x-troff-msvideo', \
+    'video/x-ms-wmx']
+  if mime in mimes_allowed:
     return True
   return False
 
-def cache_mail(uuid, gmail_mail, filepath):
+def cache_mail(uuid, gmail_mail, filepath, inbox="inbox"):
   """缓存邮件内容"""
   print "mail id [%s] is being to cached " %(uuid)
   # From
@@ -80,9 +112,9 @@ def cache_mail(uuid, gmail_mail, filepath):
   # 打印提示
   print "Cached %s Email with %s subject !" %(mfrom, subject)
   
-  cache_dir = os.path.join(basepath, "caches")
+  cache_dir = os.path.join(basepath, "caches", inbox)
   if not os.path.isdir(cache_dir):
-    os.mkdir(cache_dir)
+    os.makedirs(cache_dir)
   
   cache_file = os.path.join(cache_dir, uuid);
   if os.path.isfile(cache_file):
@@ -95,10 +127,10 @@ def cache_mail(uuid, gmail_mail, filepath):
   
   return cache_data
 
-def rm_cache_mail(uuid):
-  cache_dir = os.path.join(basepath, "caches")
+def rm_cache_mail(uuid, inbox):
+  cache_dir = os.path.join(basepath, "caches", inbox)
   if not os.path.isdir(cache_dir):
-    os.mkdir(cache_dir)
+    os.makedirs(cache_dir)
   
   cache_file = os.path.join(cache_dir, uuid);
   if os.path.isfile(cache_file) is False:
@@ -107,11 +139,11 @@ def rm_cache_mail(uuid):
   os.unlink(cache_file)
   return True
 
-def is_cached(uuid):
-  cache_dir = os.path.join(basepath, "caches")
+def is_cached(uuid, inbox="inbox"):
+  cache_dir = os.path.join(basepath, "caches", inbox)
   
   if not os.path.isdir(cache_dir):
-    os.mkdir(cache_dir)
+    os.makedirs(cache_dir)
   
   cache_file = os.path.join(cache_dir, uuid)
   if not os.path.isfile(cache_file):
@@ -119,6 +151,7 @@ def is_cached(uuid):
   return True
 
 def reconnect_gmail(user, password):
+  print "begin to reconnect mail server..."
   conn = imaplib.IMAP4_SSL("imap.gmail.com", 993)
   try:
     conn.login(user, password)
@@ -128,8 +161,10 @@ def reconnect_gmail(user, password):
     print "Error when login with %s" %(user)
     return None
   return conn
+    
 
-def fetching_gamil(user, password):
+def fetching_gamil(user, password, boxname = "inbox"):
+  inbox = boxname
   # 只取最近10条邮件
   num = 10
   attachmentpath = "./attachments";
@@ -141,7 +176,8 @@ def fetching_gamil(user, password):
   try:
     conn.login(user, password)
     print "login in mail account [%s] success" %(user)
-    conn.select("inbox")
+    typ, data = conn.select(boxname)
+    print "Selected box named [%s]." %(boxname)
   except:
     print "Error when login with %s" %(user)
     return
@@ -160,7 +196,13 @@ def fetching_gamil(user, password):
 
   print "ids [%s] of mail that be fetched " %(id_list)
 
+  id_list.sort(reverse=True)
+
   for eid in id_list:
+
+    if is_cached(eid, inbox):
+      print "Email with uuid: [%s] is cached." %(eid)
+      continue
       
     # 对取每个邮件进行异常处理
     try:
@@ -176,7 +218,7 @@ def fetching_gamil(user, password):
         continue
 
     gmail_mail = email.message_from_string(email_data[0][1])
-
+    files_downloaded = []
     # Get attachment
     for part in gmail_mail.walk():
       if part.get_content_maintype() == "multipart":
@@ -187,6 +229,7 @@ def fetching_gamil(user, password):
       if part.get_filename() is None:
         continue
       filename = "".join(part.get_filename().split())
+      print filename
       import time,hashlib
       #nowtimestamp = unicode(int(time.time())).encode("utf-8")
       #filename = unicode(filename).encode("utf-8")
@@ -198,23 +241,28 @@ def fetching_gamil(user, password):
 
       if bool(filename):
         filepath = os.path.join(attachmentpath, filename)
-	print filepath
+        print "File: [%s] will be post." %(filepath)
         if not os.path.isfile(filepath):
-          fp = open(filepath, "wb")
-          fp.write(part.get_payload(decode=True))
-          fp.close()
+            try:                
+              fp = open(filepath, "wb")
+              fp.write(part.get_payload(decode=True))
+              fp.close()
+            except Exception as e:
+                print e
+                continue
         else:
           # Exist same name file
           print "File : [%s] is downloaded" %(filepath)
 
         if is_media(filepath):
+          files_downloaded.append(filepath)
           # 在这里，先看是否已经有了缓存文件，如果有则不去发送图片到网站了
-          if is_cached(eid):
+          if is_cached(eid, inbox):
             print "Mail with uuid [%s] is cached " %(eid)
             continue
           else:
             # 如果没有则先缓存图片再发送图片到网站
-            data = cache_mail(eid, gmail_mail, filepath)
+            data = cache_mail(eid, gmail_mail, filepath, inbox)
 
             if data is not None:
               print "begin to post data to bank wall"
@@ -227,14 +275,20 @@ def fetching_gamil(user, password):
               try:
                 ret = post_media_to_bankwall(desc=subject, user=mfrom, media=filepath)
               except Exception as e:
-                rm_cache_mail(eid)
+                rm_cache_mail(eid, inbox)
                 ret = None
                 print e
               finally:
                 if ret is not None:
                   reply_mail(gmail_mail, ret)
         else:
-          print "File [%s] is not media " %(filepath)
+          if is_cached(eid):
+			      print "Mail with uuid [%s] is cached " %(eid)
+			      continue
+          else:
+            data = cache_mail(eid, gmail_mail, filepath)
+            reply_mail(gmail_mail, True, "Dear,\n\nThe file you upload is not support.\n\nSG WALL Team")
+            print "File [%s] is not media " %(filepath)
   conn.close()
   conn.logout()
   
@@ -261,9 +315,23 @@ def load_config():
     print "setting.ini is not exists!"
     sys.exit(1)
 
+def exit_handler():
+  lock_file = os.path.join(basepath, ".lock")
+  if os.path.isfile(lock_file):
+    os.remove(lock_file)
+  print "Cleaned something!"
+
 if __name__ == "__main__":
-  config = load_config()
-  account = dict(config.items("mailaccount"))
+  import atexit
+  atexit.register(exit_handler)
+  try:
+    config = load_config()
+    account = dict(config.items("mailaccount"))
+  except Exception as e:
+    print "Exception: %s" %(e)
+    sys.exit(1)
+  finally:
+    pass
 
   # There's only one process do fetch job in each time
   if not os.path.isfile(".lock"):
@@ -285,7 +353,9 @@ if __name__ == "__main__":
 
   try:
     print "begin fetch mail from account [%s] " %(account['user'])
-    fetching_gamil(account['user'], account['pass'])
+    boxnames = ["inbox", "[Gmail]/Spam"]
+    for boxname in boxnames:
+      fetching_gamil(account['user'], account['pass'], boxname)
 
     # After finished fetching mail, we empty .lock file
     with open(".lock", "w+") as f:
@@ -296,13 +366,13 @@ if __name__ == "__main__":
     exc_type, exc_value, exc_traceback = sys.exc_info()
     import traceback
     traceback.print_exception(exc_type, exc_value, exc_traceback)
-
-    os.unlink(".lock")
     print e
   
   finally:
     os.unlink(".lock")
-      
-  clean_dir("./attachments")
+    # 删除attachments 所有文件
+    print "Clean attachment files"
+    clean_dir("./attachments")
+    
   
 

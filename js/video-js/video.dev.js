@@ -3153,6 +3153,7 @@ vjs.Player.prototype.onProgress = function(){
   // Add custom event for when source is finished downloading.
   if (this.bufferedPercent() == 1) {
     this.trigger('loadedalldata');
+    vjs.addClass(this.el_, 'vjs-progress');
   }
 };
 

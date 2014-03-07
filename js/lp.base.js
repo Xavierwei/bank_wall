@@ -5,7 +5,10 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     'use strict'
 
     var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > 0;
-    var isIE8 = $('html').hasClass('ie8');
+    var isPad =navigator.userAgent.toLowerCase().indexOf('pad') > 0;
+	var isIE8 = $('html').hasClass('ie8');
+	var isIE10 = navigator.userAgent.toLowerCase().indexOf('msie 10') > 0;
+	var isOldIE = $('html').hasClass('ie6') || $('html').hasClass('ie7');
     var API_FOLDER = "./api";
     var THUMBNAIL_IMG_SIZE = "_250_250";
     var BIG_IMG_SIZE = "_640_640";
@@ -22,25 +25,72 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     var lang;
 	var req;
 
+    if(isPad) {
+		$(window).bind('orientationchange', function() {
+			var o = window.orientation;
+			if (o != 90 && o != -90) {
+				$('.turn_device').show();
+			} else {
+				$('.turn_device').hide();
+			}
+		});
+
+        LP.use(['hammer'] , function(){
+            $('body').hammer()
+                .on("tap", '.main-item', function(ev) {
+                    if($(ev.target).hasClass('item-delete')) return;
+                    $(this).click();
+                }
+            );
+
+            var dragDirection;
+            $('body').hammer()
+                .on("release dragleft dragright swipeleft swiperight", '.inner', function(ev) {
+                    switch(ev.type) {
+                        case 'swipeleft':
+                        case 'dragleft':
+                            LP.triggerAction('next');
+                            break;
+                        case 'swiperight':
+                        case 'dragright':
+                            LP.triggerAction('prev');
+                            break;
+                        case 'release':
+                            break;
+                        default:
+                            dragDirection = '';
+                    }
+                }
+            );
+        });
+    }
+
     // live for pic-item hover event
     $(document.body)
         .delegate('.pic-item' , 'mouseenter' , function(){
             if(isIE8) {
-                $(this).find('.item-info-wrap').fadeIn(100);
+                $(this).find('.item-info-wrap').show();
+				$(this).find('.item-info').show();
             }
-            $(this).find('.item-info')
-                //.stop( true , false )
-                .fadeIn( 500 );
+			else {
+				$(this).find('.item-info')
+					.fadeIn( 500 );
+			}
+
         })
         .delegate('.pic-item' , 'mouseleave' , function(){
             if(isIE8) {
-                $(this).find('.item-info-wrap').fadeOut(100);
+                $(this).find('.item-info-wrap').hide();
+				$(this).find('.item-info').hide();
             }
-            $(this).find('.item-info')
-                //.stop( true , false )
-                .fadeOut( 500 );
+			else {
+				$(this).find('.item-info')
+					//.stop( true , false )
+					.fadeOut( 500 );
+			}
+
         })
-        .delegate('.search-ipt' , 'keypress' , function(ev){
+        .delegate('.search-ipt' , 'keyup' , function(ev){
             switch( ev.which ){
                 case 13: // enter
                     LP.triggerAction('search');
@@ -516,6 +566,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                     $listLoading.fadeIn();
                     api.ajax('recent' , param , function( result ){
                         _scrollAjax = false;
+                        $listLoading.fadeOut();
                         if( param.page != $com.data('param').page ) return;
                         nodeActions.inserNode( $userCom , result.data , true );
                         // TODO:: no more data tip
@@ -575,7 +626,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         if(!$('.side').is(':visible')) {
             _silderWidth = 0;
         }
-        $('.search-hd').hide();
+        //$('.search-hd').hide();
         var datetime = new Date((parseInt(node.datetime)+1*3600)*1000);
         node.date = datetime.getUTCDate();
         node.month = getMonth((parseInt(datetime.getUTCMonth()) + 1));
@@ -625,6 +676,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 } , _animateTime , _animateEasing , function(){
                     //$main.hide();
 					$('body').css({overflow:'hidden'});
+                    $('.content').css({overflow:'hidden'});
 					$main.addClass('closed');
                     _innerLock = false;
                 });
@@ -761,6 +813,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 // restart reverse
 
 				$('body').css({overflowY:'scroll'});
+                $('.content').css({overflow:'visible'});
                 //nodeActions.setItemReversal( $dom );
             });
 
@@ -841,6 +894,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 .css({
                     "-webkit-transform": transform,
                     "-moz-transform": transform,
+					"-ms-transform": transform,
                     "transform": transform
                 })
                 .insertBefore( $comment )
@@ -848,19 +902,23 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 .css('height' , $comment.find('.com-list').height())
                 .end();
 
-            var $cube = $comment.parent();
-            var rotate = "translate3d(" + ( - dirData.dist ) + "px,0," + (-dist) + "px) rotateY(" + ( -dirData.rotate ) + "deg)";
-            $cube.addClass(rotateDir)
-                .css({
-                    "-webkit-transform": rotate,
-                    "-moz-transform": rotate,
-                    "-ms-transform": rotate,
-                    "-o-transform": rotate,
-                    "transform": rotate
-                });
+
+			var $cube = $comment.parent();
+			var rotate = "translate3d(" + ( - dirData.dist ) + "px,0," + (-dist) + "px) rotateY(" + ( -dirData.rotate ) + "deg)";
+			if(!isIE10) {
+				$cube.addClass(rotateDir)
+					.css({
+						"-webkit-transform": rotate,
+						"-moz-transform": rotate,
+						"-ms-transform": rotate,
+						"-o-transform": rotate,
+						"transform": rotate
+					});
+			}
+
 
             // fix ie8 and ie9 not support animate feature
-            if( !$('html').hasClass('csstransforms3d') ){
+            if( !$('html').hasClass('csstransforms3d') || isIE10 ){
                 var cubeWidth = $cube.width();
                 $cube.css({
                     width: 2 * cubeWidth
@@ -921,6 +979,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                     .css({
                         "-webkit-transform": "",
                         "-moz-transform": "",
+						"-ms-transform": "",
                         "transform": ""
                     });
                 setTimeout(function(){
@@ -955,7 +1014,9 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             $newItem.append($nextFlag);
 
             var $nextTop = $newInner.find('.inner-top');
-            $inner.find('.inner-top').animate({top:-33});
+            $inner.find('.inner-top').animate({top:-33}, function(){
+                $(this).remove();
+            });
             $newItem.append($nextTop);
 
             // Resize Image
@@ -1042,7 +1103,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 
             // load comment
             bindCommentSubmisson();
-            _waitingCommentListAjax = false;
+            $('.comment-wrap').removeClass('loading');
             getCommentList(node.nid,1);
             LP.use(['jscrollpane' , 'mousewheel'] , function(){
                 $('.com-list').jScrollPane({autoReinitialise:true}).bind(
@@ -1100,11 +1161,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     LP.action('prev' , function( data ){
         if( _innerLock ) return;
         _innerLock = true;
-        if($('.user-page').is(':visible')) {
-            var $dom = $('.count-dom');
-        } else {
-            var $dom = $main;
-        }
+        var $dom = $('.inner').data('from') || $main;
 
         // when reach the first, if the content opened via url id, need to check if has previous page
         if( _currentNodeIndex == 0 ){
@@ -1340,7 +1397,13 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         if(!$('.flag-confirm-modal').is(':visible')) {
             $('.modal-overlay').fadeIn(700);
             $('.flag-confirm-modal').fadeIn(700).dequeue().animate({top:'50%'}, 700, 'easeOutQuart');
-            $('.flag-confirm-modal .flag-confirm-text span').html(_e[data.type.toUpperCase()]);
+            if(data.type == 'node') {
+                var type = _e['CONTENT'];
+            }
+            else {
+                var type = _e['COMMENT'];
+            }
+            $('.flag-confirm-modal .flag-confirm-text span').html(type);
             $('.flag-confirm-modal .ok').attr('data-a','flag');
             if(data.type == 'node') {
                 $('.flag-confirm-modal .ok').attr('data-d','nid=' + data.nid + '&type=node');
@@ -1368,7 +1431,13 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         if(!$('.delete-confirm-modal').is(':visible')) {
             $('.modal-overlay').fadeIn(700);
             $('.delete-confirm-modal').fadeIn(700).dequeue().animate({top:'50%'}, 700, 'easeOutQuart');
-            $('.delete-confirm-modal .flag-confirm-text span').html(data.type);
+            if(data.type == 'node') {
+                var type = _e['CONTENT'];
+            }
+            else {
+                var type = _e['COMMENT'];
+            }
+            $('.delete-confirm-modal .flag-confirm-text span').html(type);
             $('.delete-confirm-modal .ok').attr('data-a','delete');
             if(data.type == 'node') {
                 $('.delete-confirm-modal .ok').attr('data-d','nid=' + data.nid + '&type=node');
@@ -1502,6 +1571,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                             $('.pop-txt').delay(400).fadeIn(400);
                         });
                         $('#node_post_form').append('<input name="iframe" value="true" type="hidden" />');
+						$('.pop-video').addClass('pop-video-noflash');
                         $('#node-description').val($('#node-description').attr('placeholder'));
                     }
                     return;
@@ -1557,6 +1627,9 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 									case 503:
 										var errorIndex = 1;
 										break;
+                                    case 509:
+                                        var errorIndex = 3;
+                                        break;
 								}
 								$('.pop-inner').fadeOut(400);
 								$('.pop-file').delay(800).fadeIn(400);
@@ -1628,6 +1701,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     LP.action('avatar_upload' , function( data ){
         var acceptFileTypes;
         data._e = _e;
+        data.accept = 'image/*';
         LP.compile( "pop-avatar-template" , data,  function( html ){
             $(document.body).append( html );
             $('.overlay').fadeIn();
@@ -1695,6 +1769,9 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                                         break;
                                     case 503:
                                         var errorIndex = 1;
+                                        break;
+                                    case 509:
+                                        var errorIndex = 3;
                                         break;
                                 }
                                 $('.pop-inner').fadeOut(400);
@@ -1787,6 +1864,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 if(!FlashDetect.installed) {
                     $('#node_post_form').submit();
                     $('.pop-txt').fadeOut();
+                    $('.pop-load').fadeIn();
                     $('.popload-percent').hide();
                     return;
                 }
@@ -1861,6 +1939,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 delayOpen = 1400;
             }
 			$('body').css({overflowY:'scroll'});
+            $('.content').css({overflow:'visible'});
             $('.inner').fadeOut(400);
             $('.main').fadeOut(400);
             $('.count').css({left:-240}).delay(delayOpen).animate({left:80});
@@ -2030,6 +2109,15 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         });
     });
 
+	//cancel user edit
+	LP.action('cancel_user_edit' , function(){
+		$('.user-edit-page').fadeOut(400);
+		$('.avatar-file').fadeOut();
+		$('.count-com').delay(400).fadeIn(400);
+		$('.count-edit').fadeIn();
+		$('.count-userinfo').removeClass('count-userinfo-edit');
+	});
+
     //close user page
     LP.action('logout' , function(){
         api.ajax('logout', function( result ){
@@ -2056,6 +2144,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             $main.html('').fadeIn();
             $main.data('nodes','');
             var param = refreshQuery();
+			changeUrl( '/search/' + param.hashtag , {event:'com'} );
             $listLoading.fadeIn();
             api.ajax('recent', param , function( result ){
                 $listLoading.fadeOut();
@@ -2368,6 +2457,11 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             LP.triggerAction('back');
         } );
 
+		//  /nid/xx ==>
+		addTransition( /^\/nid\/\d+/ , /^\/search/ , function( lastUrl , currUrl ){
+			LP.triggerAction('back');
+		} );
+
         // * ==> /user 
         addTransition( /.*/ , /^\/user/ , function( lastUrl , currUrl ){
             LP.triggerAction('toggle_user_page');
@@ -2377,7 +2471,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         addTransition( /^\/user/ , /.*/ , function( lastUrl , currUrl ){
             LP.triggerAction('toggle_user_page');
         } );
-
 
         // * ==> /com
         addTransition( /.*/ , /^\/com/ , function( lastUrl , currUrl ){
@@ -2436,6 +2529,8 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 //			$('.page-loading-logo').fadeIn().dequeue().animate({top:'50%'}, 1000, 'easeInOutQuart');
 //		});
 
+		if(isOldIE) return;
+
         // Get language
         lang = LP.getCookie('lang') || 'fr';
 
@@ -2444,7 +2539,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 
             aMonth = [_e.JANUARY,_e.FEBRUARY,_e.MARCH,_e.APRIL,_e.MAY,_e.JUNE,_e.JULY,_e.AUGUST,_e.SEPTEMBER,_e.OCTOBER,_e.NOVEMBER,_e.DECEMBER];
 
-            LP.compile( 'base-template' , {_e:_e} , function( html ){
+            LP.compile( 'base-template' , {_e:_e, lang:lang} , function( html ){
                 $('body').prepend(html);
                 $main = $('.main');
                 $listLoading = $('.loading-list');
@@ -2495,7 +2590,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 
                 var $countryList = $('.select-country-option-list');
                 $countryList.empty();
-                $countryList.append('<p data-api="recent">All</p>');
+                $countryList.append('<p data-api="recent">'+_e.ALL+'</p>');
                 api.ajax('countryList', function( result ){
                     $.each(result, function(index, item){
                         var html = '<p data-param="country_id=' + item.country_id + '" data-api="recent">' + _e[item.i18n] + '</p>';
@@ -2591,13 +2686,13 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                     $('.comment-msg-error').hide();
                     $('.com-ipt').val().length;
                     if($('.com-ipt').val().length == 0) {
-                        $('.comment-msg-error').fadeIn().html('You should write something.');
+                        $('.comment-msg-error').fadeIn().html(_e.WRTIE_COMMENT);
                         $submitBtn.removeClass('disabled');
                         return false;
                     }
                     if($('.com-ipt').val().length > 140) {
                         $submitBtn.removeClass('disabled');
-                        $('.comment-msg-error').fadeIn().html('The description is limited to 140 characters.');
+                        $('.comment-msg-error').fadeIn().html(_e.ERROR_COMMENT_LIMITED);
                         return false;
                     }
 					$('.com-loading').fadeIn();
@@ -2867,7 +2962,11 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             LP.triggerAction('content_of_month');
         } else if( ( match = hash.match( /#\/cod/ ) ) ){
             LP.triggerAction('content_of_day');
-        } else {
+		} else if( ( match = hash.match( /#\/search\/(\w+)/ ) ) ){
+			var hashtag = match[1];
+			$('.search-ipt').val(hashtag);
+			LP.triggerAction('search');
+		} else {
             LP.triggerAction('recent');
         }
     }
@@ -2889,6 +2988,12 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                     LP.use('video-js' , function(){
                         videojs( "inner-video-" + node.timestamp , {}, function(){
                             $('.video-js').append('<div class="video-btn-zoom btn2" data-a="video_zoom"></div>');
+                            $('.vjs-big-play-button').click(function(){
+                                $('video').attr('poster', '');
+                            });
+							if(isPad) {
+								$(video).attr('control', 'control');
+							}
                         });
                     });
                 });

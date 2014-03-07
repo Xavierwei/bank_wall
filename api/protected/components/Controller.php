@@ -80,6 +80,15 @@ class Controller extends CController
       Yii::app()->cache->set("keys" ,($keys));
       return $key;
     }
+
+    public function cleanAllCache() {
+        $keys = Yii::app()->cache->get("keys");
+        foreach ($keys as $key) {
+            Yii::app()->cache->delete($key);
+        }
+
+        return $keys;
+    }
     
     // 清理缓存
     // key 可以是前缀
