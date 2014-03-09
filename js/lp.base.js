@@ -1426,6 +1426,33 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             if(data.type == 'node') {
                 api.ajax('flag', {nid:data.nid});
                 $('.inner .flag-node').addClass('flagged').removeClass('btn2').removeAttr('data-a');
+                (function(){
+                    var nodes = $('.main').data('nodes');
+                    if(nodes) {
+                        var node = jQuery.grep(nodes, function (node) {
+                            if(node.nid == data.nid) {
+                                return node;
+                            }
+                        });
+                        if(node.length > 0) {
+                            node[0].user_flagged = true;
+                        }
+                    }
+                })();
+
+                (function(){
+                    var nodes = $('.count-com').data('nodes');
+                    if(nodes) {
+                        var node = jQuery.grep(nodes, function (node) {
+                            if(node.nid == data.nid) {
+                                return node;
+                            }
+                        });
+                        if(node.length > 0) {
+                            node[0].user_flagged = true;
+                        }
+                    }
+                })();
             }
             if(data.type == 'comment') {
                 api.ajax('flag', {cid:data.cid, comment_nid:data.nid});
