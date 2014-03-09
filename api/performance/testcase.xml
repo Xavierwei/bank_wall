@@ -4,23 +4,54 @@
     <param name="server_dev" value="http://bankwall.local/" />
     <param name="server_tonydev" value="http://localhost:8888/bank_wall/api" />
 
-    <!--  <case>
-       <url>${server_tonydev}/node/list</url>
+   <case>
+       <url>${server}/node/PostByMail</url>
+       <method>POST</method>
+       <add_header>Content-Type: multipart/form-data</add_header>
+       <body><![CDATA[desc=testafile&user=397420507@qq.com&photo=@file/Users/jackeychen/Downloads/sgtestmaterial/01_04_allprojects.mov]]></body>
    </case>
-
-  <case>
-        <url>${server}/node/list?page=5</url>
-    </case>
-
-    <case>
-        <url>${server}/node/list?type=video</url>
-    </case>-->
 
    <case>
        <url>${server}/node/PostByMail</url>
        <method>POST</method>
        <add_header>Content-Type: multipart/form-data</add_header>
-       <body><![CDATA[desc=testafile&user=tony@fuel-it-up.com&photo=@file/Users/Tony1/Desktop/a.mp4]]></body>
+       <body><![CDATA[desc=testafile&user=397420507@qq.com&photo=@file/Users/jackeychen/Downloads/sgtestmaterial/01_07_filtering.mov]]></body>
+   </case>
+
+   <case>
+       <url>${server}/node/PostByMail</url>
+       <method>POST</method>
+       <add_header>Content-Type: multipart/form-data</add_header>
+       <body><![CDATA[desc=testafile&user=397420507@qq.com&photo=@file/Users/jackeychen/Downloads/sgtestmaterial/Anthem 30.mov]]></body>
+   </case>
+
+   <case>
+       <url>${server}/node/PostByMail</url>
+       <method>POST</method>
+       <add_header>Content-Type: multipart/form-data</add_header>
+       <body><![CDATA[desc=testafile&user=397420507@qq.com&photo=@file/Users/jackeychen/Downloads/sgtestmaterial/drop.avi]]></body>
+   </case>
+
+   <case>
+       <url>${server}/node/PostByMail</url>
+       <method>POST</method>
+       <add_header>Content-Type: multipart/form-data</add_header>
+       <body><![CDATA[desc=testafile&user=397420507@qq.com&photo=@file/Users/jackeychen/Downloads/sgtestmaterial/FR_FRED_SGEN_INIT_0008_025_F_ARPP(1).mov]]></body>
+   </case>
+
+
+   <case>
+       <url>${server}/node/PostByMail</url>
+       <method>POST</method>
+       <add_header>Content-Type: multipart/form-data</add_header>
+       <body><![CDATA[desc=testafile&user=397420507@qq.com&photo=@file/Users/jackeychen/Downloads/sgtestmaterial/sample2.3gp]]></body>
+   </case>
+
+   <case>
+       <url>${server}/node/PostByMail</url>
+       <method>POST</method>
+       <add_header>Content-Type: multipart/form-data</add_header>
+       <body><![CDATA[desc=testafile&user=397420507@qq.com&photo=@file/Users/jackeychen/Downloads/sgtestmaterial/ScreenFlow_2.mpg]]></body>
    </case>
 
 </testcases>

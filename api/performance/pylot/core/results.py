@@ -247,6 +247,9 @@ class ResultsGenerator(Thread):  # generate results in a new thread so UI isn't 
         try:
             generate_results(self.dir, self.test_name)
         except Exception, e:
+            exc_type, exc_value, exc_traceback = sys.exc_info()
+            import traceback
+            traceback.print_exception(exc_type, exc_value, exc_traceback)
             sys.stderr.write('ERROR: Unable to generate results: %s\n' % e)
         
         

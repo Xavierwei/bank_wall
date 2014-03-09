@@ -290,7 +290,13 @@ class LoadAgent(Thread):  # each Agent/VU runs in its own thread
                 # 这里有一个文件需要上传
                 if "@file" in value:
                     has_file = True
-                    json_body[name] = open(value.replace("@file", ""), "rb")
+                    try:
+                        json_body[name] = open(value.replace("@file", ""), "rb")
+                    except:
+                        print "File [%s] is not found "  %(value)
+                        json_body[name] = value;
+                    finally:
+                        pass
                 else:
                     json_body[name] = value
 
@@ -308,6 +314,7 @@ class LoadAgent(Thread):  # each Agent/VU runs in its own thread
             resp = urllib2.urlopen(request)  # this sends the HTTP request and returns as soon as it is done connecting and sending
             connect_end_time = self.default_timer()
             content = resp.read()
+            print content
             req_end_time = self.default_timer()
         except httplib.HTTPException, e:  # this can happen on an incomplete read, just catch all HTTPException
             connect_end_time = self.default_timer()
