@@ -48,7 +48,7 @@ def reply_mail(mail_obj, is_success=True, body=None):
     smtp.connect('smtp.gmail.com', 587)
     smtp.starttls()
     smtp.login(config["user"], config["pass"])
-    from_addr = "testdev@fuel-it-up.com"
+    from_addr = "upload@wall150ans.com"
     to_addr = original["Reply-To"] or parse_base64_mail_mime(original["From"])
     
     subject, encoding = decode_header(original["Subject"])[0]
