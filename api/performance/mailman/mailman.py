@@ -1,7 +1,6 @@
 import os.path
 # -*- coding: utf-8 -*-
 
-import sys
 import os
 from smtplib import SMTP
 import email
@@ -9,13 +8,42 @@ import mimetypes
 import email.mime.application
 import random
 from email import encoders
-from email.message import Message
 from email.mime.audio import MIMEAudio
 from email.mime.base import MIMEBase
 from email.mime.image import MIMEImage
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
 import datetime
+import threading
+
+class SendMailThread (threading.Thread):
+  def run(self):
+    # 一个线程发50封邮件
+    count = 50
+    print "Start thread to send mail [Thread ID : %s]" %(self.getName())
+    
+    print "Begin to login mail server"
+    smtp = reconnect_server()
+    print "Login mail server success "
+
+    while (count > 0):
+      print "Random mail body"
+      body = random_mail_body()
+      print "Random mail body success"
+
+      try:
+        print "Trying to send mail"
+        smtp.sendmail(config["from"], config["api_mail"], body)
+        print "Mail has been sent "
+      except:
+        print "Reconnect to server "
+        smtp = reconnect_server()
+        print "Reconnected server"
+        # 这里，重新链接服务器后 上一封邮件没有发送成功
+        count = count + 1
+
+      count = count - 1
+
+    print "Quit"  
+    smtp.quit()
 
 config = {
   "user": "upload@wall150ans.com",
@@ -25,7 +53,6 @@ config = {
   "from": "testdev@fuel-it-up.com"
 }
 
-
 files = ["/Users/jackeychen/Downloads/sgtestmaterial/yarratrams.mpeg",
   "/Users/jackeychen/Downloads/sgtestmaterial/ScreenFlow_2.mpg"]
 
@@ -34,6 +61,7 @@ def random_mail_body():
   msg["Subject"] = "Text video from test script"
   msg["From"] = config["from"]
   msg["To"] = config["api_mail"]
+  msg["Date"] = datetime.datetime.now().strftime( "%d/%m/%Y %H:%M" )
   body = email.mime.Text.MIMEText("""Hi, I am just test script. ignore me please""")
   msg.attach(body)
   
@@ -80,29 +108,24 @@ def reconnect_server():
 if __name__ == "__main__":
   
   # 发一千封邮件
-  count = 5
-  
-  print "Begin to login mail server"
-  smtp = reconnect_server()
-  print "Login mail server success "
-  
-  while (count > 0):
-    print "Random mail body"
-    body = random_mail_body()
-    print "Random mail body success"
+  # 一个线程50封邮件， 20个线程就是 1000个邮件
+  thread_count  = 20
+  threads = []
+  for i in range(0, 20):
+    new_thread = SendMailThread()
+    print "New thread with name [%s]" %( new_thread.getName() )
+    threads.append(new_thread)
     
-    try:
-      print "Trying to send mail"
-      smtp.sendmail(config["from"], config["api_mail"], body)
-      print "Mail has been sent "
-    except:
-      print "Reconnect to server "
-      smtp = reconnect_server()
-      print "Reconnected server"
-      # 这里，重新链接服务器后 上一封邮件没有发送成功
-      count = count + 1
+  # 开始线程
+  for thread in threads:
+    thread.start()
     
-    count = count - 1
+  # 等待线程
+  for thread in threads:
+    thread.join()
+    
+  print "Finished"
+  
+  
 
-print "Quit"  
-smtp.quit()
+
