@@ -20,29 +20,29 @@ class SendMailThread (threading.Thread):
     count = 50
     print "Start thread to send mail [Thread ID : %s]" %(self.getName())
     
-    print "Begin to login mail server"
+    print "Thread [%s]: Begin to login mail server" %(self.getName())
     smtp = reconnect_server()
-    print "Login mail server success "
+    print "Thread [%s]: Login mail server success " %(self.getName())
 
     while (count > 0):
-      print "Random mail body"
+      print "Thread [%s]: Random mail body" %(self.getName())
       body = random_mail_body()
-      print "Random mail body success"
+      print "Thread [%s]: Random mail body success" %(self.getName())
 
       try:
-        print "Trying to send mail"
+        print "Thread [%s] : Trying to send mail"  %(self.getName())
         smtp.sendmail(config["from"], config["api_mail"], body)
-        print "Mail has been sent "
+        print "Thread [%s]: Mail has been sent " %(self.getName())
       except:
-        print "Reconnect to server "
+        print "Thread [%s]: Reconnect to server " %(self.getName())
         smtp = reconnect_server()
-        print "Reconnected server"
+        print "Thread [%s]:  Reconnected server" %(self.getName())
         # 这里，重新链接服务器后 上一封邮件没有发送成功
         count = count + 1
 
       count = count - 1
 
-    print "Quit"  
+    print "Thread [%s]: Quit"  %(self.getName())  
     smtp.quit()
 
 config = {
@@ -114,6 +114,7 @@ if __name__ == "__main__":
   for i in range(0, 20):
     new_thread = SendMailThread()
     print "New thread with name [%s]" %( new_thread.getName() )
+    new_thread.daemon(True)
     threads.append(new_thread)
     
   # 开始线程
