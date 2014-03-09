@@ -36,6 +36,10 @@ def post_media_to_bankwall(desc="description", user="xx@xx.com", media="/path/to
   print res["message"]
   return res["message"]
 
+def parse_base64_mail_mime(base_str):
+  # TODO::
+  return base_str
+
 def reply_mail(mail_obj, is_success=True, body=None):
     print "begin to reply email to [%s] "  %(mail_obj["From"] or mail_obj["Reply-To"])
     original = mail_obj
@@ -45,17 +49,25 @@ def reply_mail(mail_obj, is_success=True, body=None):
     smtp.starttls()
     smtp.login(config["user"], config["pass"])
     from_addr = "testdev@fuel-it-up.com"
-    to_addr = original["Reply-To"] or original["From"]
-    subj = "Re: "+original["Subject"]
+    to_addr = original["Reply-To"] or parse_base64_mail_mime(original["From"])
+    
+    subject, encoding = decode_header(original["Subject"])[0]
+    if encoding:
+      subject = subject.decode(encoding)
+      subj = u"Re: " + subject
+    else:
+      subj = u"Re: " + subject
+    
     date = datetime.datetime.now().strftime( "%d/%m/%Y %H:%M" )
     message_text = "Hello\nThis is a mail from your server\n\nBye\n"
     if body is not None:
-        msg = "From: %s\nTo: %s\nSubject: %s\nDate: %s\n\n%s" % ( from_addr, to_addr, subj, date, body.replace('\\n','\n') )
+        msg = u"From: %s\nTo: %s\nSubject: %s\nDate: %s\n\n%s" % ( from_addr, to_addr, subj, date, body.replace('\\n','\n') )
     else:
-        msg = "From: %s\nTo: %s\nSubject: %s\nDate: %s\n\n%s" % ( from_addr, to_addr, subj, date, is_success.replace('\\n','\n') )
-    smtp.sendmail(from_addr, to_addr, msg)
+        msg = u"From: %s\nTo: %s\nSubject: %s\nDate: %s\n\n%s" % ( from_addr, to_addr, subj, date, is_success.replace('\\n','\n') )
+
+    smtp.sendmail(from_addr, to_addr, unicode(msg))
     smtp.quit()
-    print "replied email to [%s] "  %(mail_obj["From"] or mail_obj["Reply-To"])
+    print "replied email to [%s] "  %(parse_base64_mail_mime(mail_obj["From"]) or mail_obj["Reply-To"])
   
 
 def is_media(file):
@@ -66,6 +78,7 @@ def is_media(file):
   stdout = subprocess.PIPE).communicate()[0]
   mime = mime.split(";")[0].strip()
   print "mime is [%s]" %(mime)
+  
   mimes_allowed = [
     "image/gif", \
     "image/png", \
@@ -100,6 +113,61 @@ def is_media(file):
     return True
   return False
 
+def tune_file(file):
+  file = file.replace("(", "\(").replace(")", "\)")
+  cmd = "/usr/bin/file -b --mime %s" % (file)
+  mime = subprocess.Popen(cmd, shell=True, \
+  stdout = subprocess.PIPE).communicate()[0]
+  mime = mime.split(";")[0].strip()
+  
+  mime_exts = {
+    "image/gif" : 'gif', \
+    "image/png" : "png", \
+    "image/jpeg" : "jpeg", \
+    "image/jpg" : 'jpg', \
+    "image/pjpeg" : "jpg", \
+    "image/x-png" : "png", \
+    "application/x-empty" : "" , \
+    "video/mp2p" : "mpeg", \
+    "video/mov" : "mov", \
+    "video/quicktime" : "mov", \
+    "video/x-msvideo" : "avi", \
+    "video/x-ms-wmv" : "wmv", \
+    "video/wmv" : "wmv", \
+    "video/mp4" : "mp4", \
+    "video/avi" : "avi",  \
+    "video/3gp" : "3gp", \
+    "video/3gpp" : "3gp", \
+    "video/mpeg" : "mpeg", \
+    "video/mpg" : "mpeg", \
+    "application/octet-stream" : "swf",\
+    "video/x-ms-asf" : "asf", \
+    "video/x-ms-dvr" : "dvr",  \
+    "video/x-ms-wm"  : "wm", \
+    'video/x-ms-wmv' : "wmv", \
+    'video/x-msvideo' : "avi", \
+    'video/x-ms-asx' : "asx", \
+    'video/x-ms-wvx' : "WMV", \
+    'application/x-troff-msvideo' : "avi", \
+    'video/x-ms-wmx' : "wmx" \
+    }
+    
+  _no_use,ext_name = os.path.splitext(file)
+  if not ext_name:
+    print "Old ext is None"
+    new_ext_name = mime_exts[mime]
+    print "ext is : %s" %(new_ext_name)
+    if new_ext_name is not None:
+      new_file = file + "." + new_ext_name
+      print "new file name: %s" %(new_file)
+      os.rename(file, new_file)
+      print "Renamed file"
+      file = new_file
+      
+  return file
+  
+  
+  
 def cache_mail(uuid, gmail_mail, filepath, inbox="inbox"):
   """缓存邮件内容"""
   print "mail id [%s] is being to cached " %(uuid)
@@ -108,6 +176,8 @@ def cache_mail(uuid, gmail_mail, filepath, inbox="inbox"):
   # Subject
   subject = gmail_mail["Subject"]
   subject, encoding = decode_header(subject)[0]
+  if encoding:
+    subject = subject.decode(encoding)
   
   # 打印提示
   print "Cached %s Email with %s subject !" %(mfrom, subject)
@@ -138,6 +208,7 @@ def rm_cache_mail(uuid, inbox):
 
   os.unlink(cache_file)
   return True
+
 
 def is_cached(uuid, inbox="inbox"):
   cache_dir = os.path.join(basepath, "caches", inbox)
@@ -193,13 +264,12 @@ def fetching_gamil(user, password, boxname = "inbox"):
 
   ids = data[0]
   id_list = ids.split()
-
+  id_list.sort(reverse=True)
+  
   print "ids [%s] of mail that be fetched " %(id_list)
 
-  id_list.sort(reverse=True)
-
   for eid in id_list:
-
+    print "Begin fetch email [%s]" %(eid)
     if is_cached(eid, inbox):
       print "Email with uuid: [%s] is cached." %(eid)
       continue
@@ -216,9 +286,9 @@ def fetching_gamil(user, password, boxname = "inbox"):
           break
     if result != "OK":
         continue
-
     gmail_mail = email.message_from_string(email_data[0][1])
     files_downloaded = []
+    
     # Get attachment
     for part in gmail_mail.walk():
       if part.get_content_maintype() == "multipart":
@@ -229,7 +299,8 @@ def fetching_gamil(user, password, boxname = "inbox"):
       if part.get_filename() is None:
         continue
       filename = "".join(part.get_filename().split())
-      print filename
+      is_decoed = False
+          
       import time,hashlib
       #nowtimestamp = unicode(int(time.time())).encode("utf-8")
       #filename = unicode(filename).encode("utf-8")
@@ -253,8 +324,12 @@ def fetching_gamil(user, password, boxname = "inbox"):
         else:
           # Exist same name file
           print "File : [%s] is downloaded" %(filepath)
-
+        
         if is_media(filepath):
+          # 如果文件名没有解码出来 则直接判断文件类型 然后加上文件mime 
+          if is_decoed is False:
+            filepath = tune_file(filepath)
+          
           files_downloaded.append(filepath)
           # 在这里，先看是否已经有了缓存文件，如果有则不去发送图片到网站了
           if is_cached(eid, inbox):
@@ -272,6 +347,8 @@ def fetching_gamil(user, password, boxname = "inbox"):
               # Subject
               subject = gmail_mail["Subject"]
               subject, encoding = decode_header(subject)[0]
+              if encoding:
+                subject = subject.decode(encoding)
               try:
                 ret = post_media_to_bankwall(desc=subject, user=mfrom, media=filepath)
               except Exception as e:
@@ -283,11 +360,20 @@ def fetching_gamil(user, password, boxname = "inbox"):
                   reply_mail(gmail_mail, ret)
         else:
           if is_cached(eid):
-			      print "Mail with uuid [%s] is cached " %(eid)
-			      continue
+            print "Mail with uuid [%s] is cached " %(eid)
+            continue
           else:
             data = cache_mail(eid, gmail_mail, filepath)
-            reply_mail(gmail_mail, True, "Bonjour,\n\nLe type de fichier que vous venez de télécharger n'est pas supporté.\n\nL'équipe SG WALL\n\n\n\nDear,\n\nThe file you upload is not support.\n\nSG WALL Team")
+            mfrom = email.utils.parseaddr(gmail_mail["From"])
+            personal_name = ""
+            if isinstance(mfrom, tuple):
+              decoded_name = mfrom[0]
+              if decoded_name[0:2] == "=?":
+                import base64
+                personal_name = decoded_name.replace("=?","").replace("?=","").split("?")
+                if personal_name[1] == "B":
+                  personal_name = base64.b64decode(personal_name[2]).decode(personal_name[0])
+            reply_mail(gmail_mail, True, "Bonjour "+ personal_name + ", \n\nLe type de fichier que vous venez de télécharger n'est pas supporté.\n\nL'équipe SG WALL\n\n\n\nDear "+ personal_name + ",\n\nThe file you upload is not support.\n\nSG WALL Team")
             print "File [%s] is not media " %(filepath)
   conn.close()
   conn.logout()
@@ -315,52 +401,84 @@ def load_config():
     print "setting.ini is not exists!"
     sys.exit(1)
 
-def exit_handler():
-  lock_file = os.path.join(basepath, ".lock")
-  if os.path.isfile(lock_file):
-    os.remove(lock_file)
-  print "Cleaned something!"
+def is_runing():
+  if not os.path.isfile(".lock"):
+    f = open(".lock", "w+")
+    f.close()
+  
+  with open(".lock", "r+") as f:
+    p = f.read()
+    if len(p) == 0:
+      return False
+    else:
+      return True
+    
+def make_lock_file():
+  if not os.path.isfile(".lock"):
+    f = open(".lock", "w+")
+    f.close()
+  
+  with open(".lock", "r+") as f:
+    f.write("True")
+
+def rm_lock():
+  try:
+    os.unlink(".lock")
+    print ".lock is removed "
+  except:
+    pass
+  return True
+
+def exit_handler(a1="", a2=""):
+  # 退出程序时候 需要清除 attachments 
+  # 必要时 清除 .lock
+  clean_dir("./attachments")
+  print "Cleaned attachments !"
+  
+  global IS_RUNING
+  if IS_RUNING:
+    rm_lock()
+    
+  # 如果是 signal 处理程序， 则清理完后还需要手动退出程序
+  if a1:
+    sys.exit(0)
+
+# 全局变量
+# 用来 判断程序是否只运行了一个
+IS_RUNING = False
 
 if __name__ == "__main__":
+  # 注册退出处理程序
   import atexit
+  # 注册signal 监听程序
+  import signal
   atexit.register(exit_handler)
+  signal.signal(signal.SIGINT, exit_handler)
+  signal.signal(signal.SIGTSTP, exit_handler)
+  
+  # 首先检查是否有其他进程在运行
+  if is_runing():
+    print "Another process is runing"
+    sys.exit(0)
+  # 如果没有其他程序在运行得话，则要生成一个.lock文件
+  else:
+    IS_RUNING = True
+    make_lock_file()
+  
   try:
     config = load_config()
     account = dict(config.items("mailaccount"))
   except Exception as e:
     print "Exception: %s" %(e)
     sys.exit(1)
-  finally:
-    pass
-
-  # There's only one process do fetch job in each time
-  if not os.path.isfile(".lock"):
-    f = open(".lock", "w+")
-    f.close()
   
-  f = open(".lock", "r+")
-  p = f.read()
-  print p
-  # If empty, that means we can run it
-  if len(p) == 0:
-    f.write("True")
-  # Otherwise, we exit it imedirecly
-  else:
-    print "Another process is runing"
-    sys.exit(0)
-
-  f.close()
-
+  # 程序到这里为止，就说明是只有一个进程在运行
   try:
     print "begin fetch mail from account [%s] " %(account['user'])
     boxnames = ["inbox", "[Gmail]/Spam"]
+    
     for boxname in boxnames:
       fetching_gamil(account['user'], account['pass'], boxname)
-
-    # After finished fetching mail, we empty .lock file
-    with open(".lock", "w+") as f:
-      f.write("")
-
   except Exception as e:
     print "Exception when fetch email !"
     exc_type, exc_value, exc_traceback = sys.exc_info()
@@ -369,10 +487,7 @@ if __name__ == "__main__":
     print e
   
   finally:
-    os.unlink(".lock")
-    # 删除attachments 所有文件
-    print "Clean attachment files"
-    clean_dir("./attachments")
+    sys.exit(1)
     
   
 
