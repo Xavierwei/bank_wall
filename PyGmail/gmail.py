@@ -369,7 +369,10 @@ def fetching_gamil(user, password, boxname = "inbox"):
                 print e
               finally:
                 if ret is not None:
-                  reply_mail(gmail_mail, ret)
+                  try:
+                    reply_mail(gmail_mail, ret)
+                  except:
+                    print "Reply mail failed"
         else:
           if is_cached(eid):
             print "Mail with uuid [%s] is cached " %(eid)
