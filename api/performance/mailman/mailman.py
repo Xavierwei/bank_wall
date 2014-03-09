@@ -15,18 +15,29 @@ import datetime
 import threading
 
 class SendMailThread (threading.Thread):
+  def __init__(self, group=None, target=None, name=None, args=(), kwargs={}):
+    self.next_file_pos = 0
+    threading.Thread.__init__(self, group, target, name, args, kwargs)
+  
+  def next_file(self):
+    pos = self.next_file_pos
+    self.next_file_pos = self.next_file_pos + 1 
+    return files[pos]
+    
   def run(self):
     # 一个线程发50封邮件
     count = 50
-    print "Start thread to send mail [Thread ID : %s]" %(self.getName())
     
+    print "Start thread to send mail [Thread ID : %s]" %(self.getName())
     print "Thread [%s]: Begin to login mail server" %(self.getName())
     smtp = reconnect_server()
     print "Thread [%s]: Login mail server success " %(self.getName())
 
     while (count > 0):
       print "Thread [%s]: Random mail body" %(self.getName())
-      body = random_mail_body()
+      file = self.next_file()
+      body = random_mail_body(file)
+      
       print "Thread [%s]: Random mail body success" %(self.getName())
 
       try:
@@ -46,17 +57,19 @@ class SendMailThread (threading.Thread):
     smtp.quit()
 
 config = {
+  # SMTP account / 发件人
   "user": "upload@wall150ans.com",
   "pass": "hbsg1502014",
-  #"api_mail": "upload@wall150ans.com",
+  # 收件人
   "api_mail": "397420507@qq.com",
+  # 貌似没用
   "from": "testdev@fuel-it-up.com"
 }
 
 files = ["/Users/jackeychen/Downloads/sgtestmaterial/yarratrams.mpeg",
   "/Users/jackeychen/Downloads/sgtestmaterial/ScreenFlow_2.mpg"]
 
-def random_mail_body():
+def random_mail_body(file = ''):
   msg = email.mime.Multipart.MIMEMultipart()
   msg["Subject"] = "Text video from test script"
   msg["From"] = config["from"]
@@ -65,8 +78,8 @@ def random_mail_body():
   body = email.mime.Text.MIMEText("""Hi, I am just test script. ignore me please""")
   msg.attach(body)
   
-  
-  file = random.choice(files)
+  if file is "":
+    file = random.choice(files)
   
   msg["Subject"] += " From file "+ os.path.basename(file)
   
@@ -114,7 +127,7 @@ if __name__ == "__main__":
   for i in range(0, 20):
     new_thread = SendMailThread()
     print "New thread with name [%s]" %( new_thread.getName() )
-    new_thread.daemon(True)
+    new_thread.setDaemon(True)
     threads.append(new_thread)
     
   # 开始线程
