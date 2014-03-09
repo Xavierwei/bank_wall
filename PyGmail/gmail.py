@@ -287,7 +287,7 @@ def fetching_gamil(user, password, boxname = "inbox"):
 			      continue
           else:
             data = cache_mail(eid, gmail_mail, filepath)
-            reply_mail(gmail_mail, True, "Dear,\n\nThe file you upload is not support.\n\nSG WALL Team")
+            reply_mail(gmail_mail, True, "Bonjour,\n\nLe type de fichier que vous venez de télécharger n'est pas supporté.\n\nL'équipe SG WALL\n\n\n\nDear,\n\nThe file you upload is not support.\n\nSG WALL Team")
             print "File [%s] is not media " %(filepath)
   conn.close()
   conn.logout()

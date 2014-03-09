@@ -480,23 +480,23 @@ class NodeController extends Controller {
 			if (!$user) {
 				$user = UserAR::model()->findByAttributes(array("personal_email" => $userEmail));
 			}
-			if (!$desc) {
-				$ret = 'Please write the subject use for description';
-				return $this->responseJSON(null, $ret, false);
-			}
 			if (!$user) {
 				$ret = 'Debug Message (To be delete when live): your account not in our database'; //TODO: delete when live
 				return $this->responseJSON(null, $ret, false); //if the user not in our database then return nothing
 			}
-			$begin = 'Dear '.$user->firstname.' '.$user->lastname.',\n\n';
-			$end = '\n\nSG WALL Team';
+			$begin = 'Bonjour '.$user->firstname.' '.$user->lastname.',\n\n';
+			$end = '\n\nL\'équipe SG WALL';
+			$begin_en = '\n\n\n\nDear '.$user->firstname.' '.$user->lastname.',\n\n';
+			$end_en = '\n\nSG WALL Team';
 			if(empty($desc)) {
-				$ret = $begin.'Please write the email subject.'.$end;
+				$ret = $begin.'S\'il vous plaît écrivez le sujet de l\'email.'.$end
+					.$begin_en.'Please write the email subject.'.$end_en;
 				return $this->responseJSON(null, $ret, false);
 			}
 			$uploadFile = CUploadedFile::getInstanceByName("photo");
 			if (!$uploadFile) {
-				$ret = $begin.'Please attach photo or video in attachment.'.$end;
+				$ret = $begin.'S\'il vous plaît écrivez le sujet de l\'email.'.$end
+					.$begin_en.'Please attach photo or video in attachment.'.$end_en;
 				return $this->responseJSON(null, $ret, false);
 			}
 			else {
@@ -537,24 +537,28 @@ class NodeController extends Controller {
 				if (in_array($mime, $allowPhotoMime)) {
 					$type = 'photo';
 					if($size > 5 * 1024000) {
-						$ret = $begin.'The size of your image file should not exceed 5MB'.$end;
+						$ret = $begin.'La taille de votre fichier image ne ​​doit pas dépasser 5 Mo'.$end
+							.$begin_en.'The size of your image file should not exceed 5MB'.$end_en;
 						return $this->responseJSON(false, $ret, false);
 					}
 					list($w, $h) = getimagesize($uploadFile->tempName);
 					if($w < 450 || $h < 450) {
-						$ret = $begin.'For optimal resolution, please use a format of at least 450x450 px'.$end;
+						$ret = $begin.'Pour avoir une résolution optimale, merci d\'utiliser un format d\'au moins 450x450px'.$end
+							.$begin_en.'For optimal resolution, please use a format of at least 450x450 px'.$end_en;
 						return $this->responseJSON(false, $ret, false);
 					}
 				}
 				else if (in_array($mime, $allowVideoMime)) {
 					$type = 'video';
 					if($size > 7 * 1024000) {
-						$ret = $begin.'The size of your image file should not exceed 7MB'.$end;
+						$ret = $begin.'La taille de votre fichier image ne ​​doit pas dépasser 7 Mo'.$end
+							.$begin_en.'The size of your image file should not exceed 7MB'.$end_en;
 						return $this->responseJSON(false, $ret, false);
 					}
 				}
 				else {
-					$ret = $begin.'The photo only support gif, png, jpeg, jpg\nThe video only support mov, wmv, mp4, avi, 3pg'.$end;
+					$ret = $begin.'Le type de fichier que vous venez de télécharger n\'est pas supporté.'.$end
+						.$begin_en.'The file you upload is not support.Mo'.$end_en;
 					return $this->responseJSON(false, $ret, false);
 				}
 			}
@@ -564,7 +568,8 @@ class NodeController extends Controller {
 			$file = $node->saveUploadedFile($uploadFile);
 
 			if(!$file) {
-				$ret = $begin.'The file you upload is corrupted or not support.'.$end;
+				$ret = $begin.'Le fichier que vous téléchargez est corrompu ou non soutenir.'.$end
+					.$begin_en.'The file you upload is corrupted or not support.'.$end_en;
 				return $this->responseJSON(false, $ret, false);
 			}
 			$node->uid          = $user->uid;
@@ -586,7 +591,8 @@ class NodeController extends Controller {
 
             $this->cleanAllCache();
 
-			$ret = $begin.'Your '.$type.' is success submit, after approved, you can visit the '.$type.' via this url:\nhttp://64.207.184.106/sgwall/#/nid/'.$node->nid.$end;
+			$ret = $begin.'Votre '.$type.' a été postée, vous pouvez la voir via l\'url:\nhttp://64.207.184.106/sgwall/#/nid/'.$node->nid.$end
+				.$begin_en.'Your '.$type.' is success submit, after approved, you can visit the '.$type.' via this url:\nhttp://64.207.184.106/sgwall/#/nid/'.$node->nid.$end_en;
 			return $this->responseJSON(true, $ret, false);
 		}
 		catch (Exception $e) {

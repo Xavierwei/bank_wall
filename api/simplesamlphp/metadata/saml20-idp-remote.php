@@ -33,5 +33,7 @@ $metadata['https://www.wall150ans.com'] = array(
 	),
 	'description'          => 'SGIdP',
 	'SingleSignOnService'  => 'https://dafelx01.dns21.socgen:1443/sgwall/AccueilAuth/IdPAccess',
-	'certificate'      => 'server.crt'
+	'certificate'          => 'server.crt',
+	'nameid.encryption'    => TRUE,
+	'assertion.encryption' => TRUE
 );
