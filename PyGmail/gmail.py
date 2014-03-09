@@ -114,6 +114,9 @@ def is_media(file):
   return False
 
 def tune_file(file):
+  _no_use,ext_name = os.path.splitext(file)
+  if ext_name:
+    return file
   file = file.replace("(", "\(").replace(")", "\)")
   cmd = "/usr/bin/file -b --mime %s" % (file)
   mime = subprocess.Popen(cmd, shell=True, \
@@ -286,7 +289,11 @@ def fetching_gamil(user, password, boxname = "inbox"):
           break
     if result != "OK":
         continue
-    gmail_mail = email.message_from_string(email_data[0][1])
+    try:
+      gmail_mail = email.message_from_string(email_data[0][1])
+    except:
+      continue
+      
     files_downloaded = []
     
     # Get attachment
@@ -306,8 +313,13 @@ def fetching_gamil(user, password, boxname = "inbox"):
       #filename = unicode(filename).encode("utf-8")
       nowtimestamp =str(int(time.time()))
       md5 = hashlib.md5()
-      md5.update(str(filename))
-      ext=os.path.splitext(filename)[1]
+      try:
+        md5.update(str(filename))
+      except:
+        continue
+        
+      ext = os.path.splitext(filename)[1]
+      
       filename = ''.join([nowtimestamp , md5.hexdigest(), ext])
 
       if bool(filename):
@@ -363,20 +375,26 @@ def fetching_gamil(user, password, boxname = "inbox"):
             print "Mail with uuid [%s] is cached " %(eid)
             continue
           else:
-            data = cache_mail(eid, gmail_mail, filepath)
-            mfrom = email.utils.parseaddr(gmail_mail["From"])
-            personal_name = ""
-            if isinstance(mfrom, tuple):
-              decoded_name = mfrom[0]
-              if decoded_name[0:2] == "=?":
-                import base64
-                personal_name = decoded_name.replace("=?","").replace("?=","").split("?")
-                if personal_name[1] == "B":
-                  personal_name = base64.b64decode(personal_name[2]).decode(personal_name[0])
-            reply_mail(gmail_mail, True, "Bonjour "+ personal_name + ", \n\nLe type de fichier que vous venez de télécharger n'est pas supporté.\n\nL'équipe SG WALL\n\n\n\nDear "+ personal_name + ",\n\nThe file you upload is not support.\n\nSG WALL Team")
-            print "File [%s] is not media " %(filepath)
-  conn.close()
-  conn.logout()
+            try:
+              data = cache_mail(eid, gmail_mail, filepath)
+              mfrom = email.utils.parseaddr(gmail_mail["From"])
+              personal_name = ""
+              if isinstance(mfrom, tuple):
+                decoded_name = mfrom[0]
+                if decoded_name[0:2] == "=?":
+                  import base64
+                  personal_name = decoded_name.replace("=?","").replace("?=","").split("?")
+                  if personal_name[1] == "B":
+                    personal_name = base64.b64decode(personal_name[2]).decode(personal_name[0])
+              reply_mail(gmail_mail, True, "Bonjour "+ personal_name + ", \n\nLe type de fichier que vous venez de télécharger n'est pas supporté.\n\nL'équipe SG WALL\n\n\n\nDear "+ personal_name + ",\n\nThe file you upload is not support.\n\nSG WALL Team")
+              print "File [%s] is not media " %(filepath)
+            except Exception as e:
+              print e
+  try:
+    conn.close()
+    conn.logout()
+  except:
+    pass
   
   
 def clean_dir(dir):
