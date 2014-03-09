@@ -4,18 +4,18 @@
     <param name="server_dev" value="http://bankwall.local/" />
     <param name="server_tonydev" value="http://localhost:8888/bank_wall/api" />
 
-   <case>
-       <url>${server}/node/PostByMail</url>
-       <method>POST</method>
-       <add_header>Content-Type: multipart/form-data</add_header>
-       <body><![CDATA[desc=testafile&user=397420507@qq.com&photo=@file/Users/jackeychen/Downloads/sgtestmaterial/01_07_filtering.mov]]></body>
-   </case>
+    <case>
+        <url>${server}/node/PostByMail</url>
+        <method>POST</method>
+        <add_header>Content-Type: multipart/form-data</add_header>
+        <body><![CDATA[desc=testavideo&user=fuelituptest@fuel-it-up.com&photo=@/test/performance/Archive/01_04_allprojects.mov]]></body>
+    </case>
 
    <case>
        <url>${server}/node/PostByMail</url>
        <method>POST</method>
        <add_header>Content-Type: multipart/form-data</add_header>
-       <body><![CDATA[desc=testafile&user=397420507@qq.com&photo=@file/Users/jackeychen/Downloads/sgtestmaterial/01_04_allprojects.mov]]></body>
+       <body><![CDATA[desc=testavideo&user=fuelituptest@fuel-it-up.com&photo=@/test/performance/Archive/01_07_filtering.mov]]></body>
    </case>
    
 </testcases>

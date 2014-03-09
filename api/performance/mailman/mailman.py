@@ -22,6 +22,8 @@ class SendMailThread (threading.Thread):
   def next_file(self):
     pos = self.next_file_pos
     self.next_file_pos = self.next_file_pos + 1 
+    if self.next_file_pos >= len(files):
+      next_file_pos = 0
     return files[pos]
     
   def run(self):
@@ -99,7 +101,7 @@ def random_mail_body(file = '', pos = 0):
 
 def reconnect_server():
   smtp = SMTP()
-  smtp.connect('smtp.gmail.com', 587)
+  smtp.connect('mail.xanadu-x.com', 587)
   smtp.starttls()
   smtp.login(config["user"], config["pass"])
   
@@ -108,12 +110,12 @@ def reconnect_server():
 
 config = {
   # SMTP account / 发件人
-  "user": "fuelituptest@gmail.com",
-  "pass": "shanghaitest",
+  "user": "dev2@xanadu-x.com",
+  "pass": "@1234567Aa",
   # 收件人
   "api_mail": "upload@wall150ans.com",
   # 貌似没用
-  "from": "fuelituptest@gmail.com"
+  "from": "dev2@xanadu-x.com"
 }
 
 files = ["/test/performance/Archive/test.wmv",
@@ -142,7 +144,7 @@ if __name__ == "__main__":
   # 一个线程50封邮件， 20个线程就是 1000个邮件
   thread_count  = 1
   threads = []
-  for i in range(0, 20):
+  for i in range(0, thread_count):
     new_thread = SendMailThread()
     print "New thread with name [%s]" %( new_thread.getName() )
     new_thread.setDaemon(True)
