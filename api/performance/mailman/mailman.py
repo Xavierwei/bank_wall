@@ -56,19 +56,6 @@ class SendMailThread (threading.Thread):
     print "Thread [%s]: Quit"  %(self.getName())  
     smtp.quit()
 
-config = {
-  # SMTP account / 发件人
-  "user": "upload@wall150ans.com",
-  "pass": "hbsg1502014",
-  # 收件人
-  "api_mail": "397420507@qq.com",
-  # 貌似没用
-  "from": "testdev@fuel-it-up.com"
-}
-
-files = ["/Users/jackeychen/Downloads/sgtestmaterial/yarratrams.mpeg",
-  "/Users/jackeychen/Downloads/sgtestmaterial/ScreenFlow_2.mpg"]
-
 def random_mail_body(file = ''):
   msg = email.mime.Multipart.MIMEMultipart()
   msg["Subject"] = "Text video from test script"
@@ -117,6 +104,20 @@ def reconnect_server():
   smtp.login(config["user"], config["pass"])
   
   return smtp
+
+
+config = {
+  # SMTP account / 发件人
+  "user": "devtest@fuel-it-up.com",
+  "pass": "bankwall",
+  # 收件人
+  "api_mail": "devtest@fuel-it-up.com",
+  # 貌似没用
+  "from": "testdev@fuel-it-up.com"
+}
+
+files = ["/Users/jackeychen/Downloads/sgtestmaterial/yarratrams.mpeg",
+  "/Users/jackeychen/Downloads/sgtestmaterial/ScreenFlow_2.mpg"]
 
 if __name__ == "__main__":
   
