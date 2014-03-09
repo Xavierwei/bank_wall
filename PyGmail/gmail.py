@@ -257,7 +257,7 @@ def fetching_gamil(user, password, boxname = "inbox"):
 
   # 执行search 命令
   # 只查询前2天的邮件 (多查询几天免得漏掉邮件)
-  date = (datetime.date.today() - datetime.timedelta(2)).strftime("%d-%b-%Y")
+  date = (datetime.date.today() - datetime.timedelta(1)).strftime("%d-%b-%Y")
   print "Fetching email since %s" %("(SENTSINCE {date})".format(date=date))
   result, data = conn.uid("search", None, "(SENTSINCE {date})".format(date=date))
   # result, data = conn.uid("search", None, "ALL")
