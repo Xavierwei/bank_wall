@@ -7,5 +7,5 @@ if [[ ! -d $DIR/result ]]; then
 fi
 
 # 测试10秒，模拟4个客户端 （客户端数字是  cpu核心数 * 2）
-python pylot/run.py -x $DIR/testcase.xml -a 10 -o $DIR/results --log_msgs
+python pylot/run.py -x $DIR/testcase.xml -a 2 -o $DIR/results --log_msgs
 
