@@ -65,9 +65,10 @@ class FlagController extends Controller {
 
 
 		if ($flagAr->validate()) {
-		  $flagAr->save();
-
-		  $this->responseJSON($flagAr->attributes, "success");
+			$flagAr->save();
+			$this->cleanCache("node_")
+				->cleanCache("comment_");
+			$this->responseJSON($flagAr->attributes, "success");
 		}
 		else {
 		  $this->responseError(current(array_shift($flagAr->getErrors())));
