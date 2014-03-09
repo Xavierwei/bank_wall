@@ -479,10 +479,10 @@ class NodeAR extends CActiveRecord{
     function is_valid_video($path) {
         $cmd = "/usr/local/bin/ffprobe " . $path . "  2>/dev/null 2>&1";
         $result = shell_exec($cmd);
-        if (strpos($result, "Invalid") !== FALSE) {
-            return FALSE;
+        if (strpos($result, "Invalid") === FALSE) {
+            return TRUE;
         }
-        return TRUE;
+        return FALSE;
     }
 
 
