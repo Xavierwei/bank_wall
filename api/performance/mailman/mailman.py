@@ -36,7 +36,7 @@ class SendMailThread (threading.Thread):
     while (count > 0):
       print "Thread [%s]: Random mail body" %(self.getName())
       file = self.next_file()
-      body = random_mail_body(file)
+      body = random_mail_body(file, self.next_file_pos)
       
       print "Thread [%s]: Random mail body success" %(self.getName())
 
@@ -56,19 +56,19 @@ class SendMailThread (threading.Thread):
     print "Thread [%s]: Quit"  %(self.getName())  
     smtp.quit()
 
-def random_mail_body(file = ''):
+def random_mail_body(file = '', pos = 0):
   msg = email.mime.Multipart.MIMEMultipart()
-  msg["Subject"] = "Text video from test script"
+  msg["Subject"] = "Email test %s with id %s" %(os.path.basename(file), pos)
   msg["From"] = config["from"]
   msg["To"] = config["api_mail"]
   msg["Date"] = datetime.datetime.now().strftime( "%d/%m/%Y %H:%M" )
   body = email.mime.Text.MIMEText("""Hi, I am just test script. ignore me please""")
-  msg.attach(body)
+  msg.attach(body) 
   
   if file is "":
     file = random.choice(files)
   
-  msg["Subject"] += " From file "+ os.path.basename(file)
+  #msg["Subject"] += " From file "+ os.path.basename(file)
   
   ctype, coding = mimetypes.guess_type(file)
   
@@ -108,22 +108,39 @@ def reconnect_server():
 
 config = {
   # SMTP account / 发件人
-  "user": "devtest@fuel-it-up.com",
-  "pass": "bankwall",
+  "user": "fuelituptest@gmail.com",
+  "pass": "shanghaitest",
   # 收件人
-  "api_mail": "devtest@fuel-it-up.com",
+  "api_mail": "upload@wall150ans.com",
   # 貌似没用
-  "from": "testdev@fuel-it-up.com"
+  "from": "fuelituptest@gmail.com"
 }
 
-files = ["/Users/jackeychen/Downloads/sgtestmaterial/yarratrams.mpeg",
-  "/Users/jackeychen/Downloads/sgtestmaterial/ScreenFlow_2.mpg"]
+files = ["/test/performance/Archive/test.wmv",
+  "/test/performance/Archive/ScreenFlow_2.mpg"
+  ,"/test/performance/Archive/Upload Studio.mp4"
+  ,"/test/performance/Archive/TASES_P01_C02_L00.wmv"
+  ,"/test/performance/Archive/sdfasdfa.tiff"
+  ,"/test/performance/Archive/img.jpg"
+  ,"/test/performance/Archive/damageimg copy.jpg"
+  ,"/test/performance/Archive/TASES_P02_C03_L09.wmv"
+  ,"/test/performance/Archive/yarratrams.mpeg"
+  ,"/test/performance/Archive/iD-KAMERA-sample.avi"
+  ,"/test/performance/Archive/drop.avi"
+  ,"/test/performance/Archive/SMS_ADVIDEUM_500kbs_512x288.txt.mp4"
+  ,"/test/performance/Archive/sample2.3gp"
+  ,"/test/performance/Archive/FR_FRED_SGEN_INIT_0008_025_F_ARPP(1).mov"
+  ,"/test/performance/Archive/test.mpeg"
+  ,"/test/performance/Archive/2173549770259792399.jpg"
+  ,"/test/performance/Archive/2021271807859432089.jpg"
+  ,"/test/performance/Archive/2173268295283031286.jpg"
+  ,"/test/performance/Archive/1995376110002003411.jpg"]
 
 if __name__ == "__main__":
   
   # 发一千封邮件
   # 一个线程50封邮件， 20个线程就是 1000个邮件
-  thread_count  = 20
+  thread_count  = 1
   threads = []
   for i in range(0, 20):
     new_thread = SendMailThread()
