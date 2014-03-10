@@ -19,17 +19,19 @@
 .popload-icon {background: url('../img/icon_upload_loading.gif') no-repeat;}
 .step1-tips li.damaged {top:88px;}
 
+.count-userpho {border: none;}
 .count-userpho img {border:none;}
-.count-userpho .avatar-ie-round {background:url('../img/ie8_avatar_round_62.png') no-repeat;width:62px;height: 62px;position: absolute;top:0;left:0;z-index: 2;}
+.count-userpho .avatar-ie-round {background:url('../img/ie8_avatar_round_62.png') no-repeat;width:65px;height: 65px;position: absolute;top:0;left:0;z-index: 2;}
 
 .comuser-pho {position: relative;}
 .comuser-pho img {border:none;}
 .comuser-pho .avatar-ie-round {background:url('../img/ie8_avatar_round_32.png') no-repeat;width:32px;height:32px;position: absolute;top:0;left:0;z-index: 2;}
 
 .user:hover {filter:alpha(opacity=100);}
-.user-pho {position: relative;}
+.user-pho {position: relative;border:none;}
 .user-pho img {border:none;}
 .user-pho .avatar-ie-round {background:url('../img/ie8_avatar_round_34.png') no-repeat;width:39px;height:39px;position: absolute;top:0;left:0;z-index: 2;}
+.user-pho {}
 
 .sm-width .logo {margin:5px auto 0 auto;width:158px;height:48px;background:url('../img/logo_s.gif') no-repeat;}
 .sm-width .search {top:60px;}
