@@ -9,7 +9,16 @@ var closeUploadPop = function() {
     },1500);
 }
 
+
 var uploadPopError = function(code) {
+    if(data.message == 508) {
+        setTimeout(function(){
+            api.ajax('repost' , {path: 'upload/1.mov'} , function( data ){
+                uploadPopError(data.message);
+            });
+        }, 1000*5);
+        return;
+    }
     switch(code){
         case 502:
             var errorIndex = 0;
@@ -62,9 +71,18 @@ var uploadProgress = function(file, bytesLoaded, bytesTotal) {
     $('.popload-percent p').css({width:rate + '%'});
 }
 
-var uploadSuccess = function(file, serverData) {
-    var data = JSON.parse(serverData);
+
+var uploadDoneMsg = function(data) {
     if(!data.success) {
+        if(data.message == 508) {
+            setTimeout(function(){
+                api.ajax('repost' , {path: 'upload/1.mov'} , function( data ){
+                    uploadDoneMsg(data);
+                });
+            }, 1000*5);
+            return;
+        }
+
         switch(data.message){
             case 502:
                 var errorIndex = 0;
@@ -87,10 +105,15 @@ var uploadSuccess = function(file, serverData) {
     }
     else {
         $('.pop-txt').fadeIn(400);
-		$('.poptxt-pic-inner').fadeIn();
+        $('.poptxt-pic-inner').fadeIn();
         $('.poptxt-pic img').attr('src', API_FOLDER + data.data.file.replace('.mp4', '.jpg'));
         $('.poptxt-submit').attr('data-d','file='+ data.data.file +'&type=' + data.data.type);
     }
+}
+
+var uploadSuccess = function(file, serverData) {
+    var data = JSON.parse(serverData);
+    uploadDoneMsg(data);
     //$('.pop-load').fadeOut(400);
 }
 
