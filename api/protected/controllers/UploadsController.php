@@ -62,7 +62,17 @@ class UploadsController extends Controller {
   }
 
 
+
+	public function actionRepost() {
+		return $this->responseError(508);
+	}
+
 	public function actionUpload() {
+
+		return $this->responseError(508);
+
+
+
 		$uid = Yii::app()->user->getId();
 		$user = UserAR::model()->findByPk($uid);
 		if(!$user) {

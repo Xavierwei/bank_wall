@@ -1540,6 +1540,88 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         }
     });
 
+
+    var fileUploadDone = function(data){
+        if(!data.result.success) {
+            if(data.result.message == 508) {
+                setTimeout(function(){
+                    api.ajax('repost' , {path: 'upload/1.mov'} , function( result ){
+                        var data = {};
+                        data.result = result;
+                        fileUploadDone(data);
+                    });
+                }, 1000*5);
+                return;
+            }
+            switch(data.result.message){
+                case 502:
+                    var errorIndex = 0;
+                    break;
+                case 501:
+                    var errorIndex = 2;
+                    break;
+                case 503:
+                    var errorIndex = 1;
+                    break;
+                case 509:
+                    var errorIndex = 3;
+                    break;
+            }
+            $('.pop-inner').fadeOut(400);
+            $('.pop-file').delay(800).fadeIn(400);
+            $('.step1-tips li').removeClass('error');
+            $('.step1-tips li').eq(errorIndex).addClass('error');
+        } else {
+            $('.poptxt-pic-inner').css({opacity:0});
+            var rdata = data.result.data;
+            if(rdata.type == 'video') {
+                $('.poptxt-pic-inner').animate({opacity:1});
+                $('.poptxt-pic img')
+                    .unbind('load.forinnershow')
+                    .bind('load.forinnershow' , function(){
+                        $('.pop-inner').delay(400).fadeOut(400);
+                        $('.pop-txt').delay(1200).fadeIn(400);
+                    })
+                    .attr('src', API_FOLDER + rdata.file.replace('.mp4', '.jpg'));
+                $('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
+
+            } else {
+                if (data.files && data.files[0] && window.FileReader ) {
+                    //..create loading
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        // change checkpage img
+                        $('.poptxt-pic img')
+                            .unbind('load.forinnershow')
+                            .bind('load.forinnershow' , function(){
+                                $('.pop-inner').delay(400).fadeOut(400);
+                                $('.pop-txt').delay(1200).fadeIn(400);
+                                setTimeout(function(){
+                                    transformMgr.initialize( $('.poptxt-pic-inner') );
+                                } , 1700 );
+                            })
+                            .attr('src', e.target.result/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
+                        $('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
+                    };
+                    reader.readAsDataURL(data.files[0]);
+                    $('.poptxt-pic-inner').delay(3000).animate({opacity:1});
+                } else {
+                    $('.poptxt-pic img')
+                        .unbind('load.forinnershow')
+                        .bind('load.forinnershow' , function(){
+                            $('.pop-inner').delay(400).fadeOut(400);
+                            $('.pop-txt').delay(1200).fadeIn(400);
+                            setTimeout(function(){
+                                transformMgr.initialize( $('.poptxt-pic-inner') );
+                            } , 1700 );
+                        })
+                        .attr('src', API_FOLDER + rdata.file/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
+                    $('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
+                }
+            }
+        }
+    }
+
     //upload photo
     LP.action('pop_upload' , function( data ){
         var acceptFileTypes;
@@ -1656,79 +1738,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 							$('.pop-file').delay(400).fadeIn(400);
 						})
 						.bind('fileuploaddone', function (e, data) {
-							if(!data.result.success) {
-								switch(data.result.message){
-									case 502:
-										var errorIndex = 0;
-										break;
-									case 501:
-										var errorIndex = 2;
-										break;
-									case 503:
-										var errorIndex = 1;
-										break;
-                                    case 509:
-                                        var errorIndex = 3;
-                                        break;
-								}
-								$('.pop-inner').fadeOut(400);
-								$('.pop-file').delay(800).fadeIn(400);
-								$('.step1-tips li').removeClass('error');
-								$('.step1-tips li').eq(errorIndex).addClass('error');
-							} else {
-								$('.poptxt-pic-inner').css({opacity:0});
-								var rdata = data.result.data;
-								if(rdata.type == 'video') {
-									$('.poptxt-pic-inner').animate({opacity:1});
-									$('.poptxt-pic img')
-                                        .unbind('load.forinnershow')
-                                        .bind('load.forinnershow' , function(){
-                                            $('.pop-inner').delay(400).fadeOut(400);
-                                            $('.pop-txt').delay(1200).fadeIn(400);
-                                        })
-										.attr('src', API_FOLDER + rdata.file.replace('.mp4', /*THUMBNAIL_IMG_SIZE + */'.jpg'));
-									// TODO:: why need timeout?
-//                                setTimeout(function(){
-//                                    $('.poptxt-pic img').attr('src',$('.poptxt-pic img').attr('src') + '?' + new Date().getTime() );
-//                                },2000);
-									$('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
-
-								} else {
-									if (data.files && data.files[0] && window.FileReader ) {
-										//..create loading
-										var reader = new FileReader();
-
-										reader.onload = function (e) {
-											// change checkpage img
-											$('.poptxt-pic img')
-												.unbind('load.forinnershow')
-												.bind('load.forinnershow' , function(){
-													$('.pop-inner').delay(400).fadeOut(400);
-													$('.pop-txt').delay(1200).fadeIn(400);
-                                                    setTimeout(function(){
-                                                        transformMgr.initialize( $('.poptxt-pic-inner') );
-                                                    } , 1700 );
-												})
-												.attr('src', e.target.result/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
-											$('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
-										};
-										reader.readAsDataURL(data.files[0]);
-										$('.poptxt-pic-inner').delay(3000).animate({opacity:1});
-									} else {
-										$('.poptxt-pic img')
-											.unbind('load.forinnershow')
-											.bind('load.forinnershow' , function(){
-												$('.pop-inner').delay(400).fadeOut(400);
-												$('.pop-txt').delay(1200).fadeIn(400);
-                                                setTimeout(function(){
-                                                    transformMgr.initialize( $('.poptxt-pic-inner') );
-                                                } , 1700 );
-											})
-											.attr('src', API_FOLDER + rdata.file/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
-										$('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
-									}
-								}
-							}
+                            fileUploadDone(data);
 						});
                 });
             }
