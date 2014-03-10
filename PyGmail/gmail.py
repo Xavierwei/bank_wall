@@ -240,7 +240,7 @@ def is_cached(uuid, inbox="inbox"):
     print "is cahced returned false"
     return False
   
-  print "is cahced returned false"
+  print "is cahced returned TRUE"
   return True
 
 def reconnect_gmail(user, password):
@@ -370,14 +370,15 @@ def fetching_gamil(user, password, boxname = "inbox"):
           
           files_downloaded.append(filepath)
           # 在这里，先看是否已经有了缓存文件，如果有则不去发送图片到网站了
-          if is_cached(eid, inbox):
+          if False:
             print "Mail with uuid [%s] is cached " %(eid)
             continue
           else:
             # 如果没有则先缓存图片再发送图片到网站
             # data = cache_mail(eid, gmail_mail, filepath, inbox)
             data = "Not None"
-            if data is not None:
+            print "Data is Not none"
+            if True:
               print "begin to post data to bank wall"
               # 如果保存成功就发送数据到后台保存
               # From
@@ -400,7 +401,7 @@ def fetching_gamil(user, password, boxname = "inbox"):
                   except:
                     print "Reply mail failed"
         else:
-          if is_cached(eid):
+          if False:
             print "Mail with uuid [%s] is cached " %(eid)
             continue
           else:
