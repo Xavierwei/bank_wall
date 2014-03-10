@@ -174,13 +174,17 @@ def tune_file(file):
 def cache_mail(uuid, gmail_mail, filepath, inbox="inbox"):
   """缓存邮件内容"""
   print "mail id [%s] is being to cached " %(uuid)
-  # From
-  mfrom = email.utils.parseaddr(gmail_mail["From"])
-  # Subject
-  subject = gmail_mail["Subject"]
-  subject, encoding = decode_header(subject)[0]
-  if encoding:
-    subject = subject.decode(encoding)
+  if not gmail_mail:
+    mfrom = "[empty]";
+    subject = "[empty]";
+  else:
+    # From
+    mfrom = email.utils.parseaddr(gmail_mail["From"])
+    # Subject
+    subject = gmail_mail["Subject"]
+    subject, encoding = decode_header(subject)[0]
+    if encoding:
+      subject = subject.decode(encoding)
   
   # 打印提示
   print "Cached %s Email with %s subject !" %(mfrom, subject)
@@ -199,6 +203,18 @@ def cache_mail(uuid, gmail_mail, filepath, inbox="inbox"):
   fp.close()
   
   return cache_data
+
+def mv_mails_to_cached_box(uuids, conn):
+  boxname = "cached"
+  try:
+    for uuid in uuids:
+      conn.uid("COPY", uuid, boxname)
+      conn.uid("STORE", uuid, '+FLAGS', r'(\Deleted)')
+      conn.expunge()
+  except Exception as e:
+    print e
+    
+  return True
 
 def rm_cache_mail(uuid, inbox):
   cache_dir = os.path.join(basepath, "caches", inbox)
@@ -221,7 +237,10 @@ def is_cached(uuid, inbox="inbox"):
   
   cache_file = os.path.join(cache_dir, uuid)
   if not os.path.isfile(cache_file):
+    print "is cahced returned false"
     return False
+  
+  print "is cahced returned false"
   return True
 
 def reconnect_gmail(user, password):
@@ -269,16 +288,23 @@ def fetching_gamil(user, password, boxname = "inbox"):
   id_list = ids.split()
   id_list.sort(reverse=True)
   
+  cached_mails = []
+  
   print "ids [%s] of mail that be fetched " %(id_list)
 
   for eid in id_list:
-    print "Begin fetch email [%s]" %(eid)
+    print "First check: Begin fetch email [%s]" %(eid)
+    cached_mails.append(eid)
+    
     if is_cached(eid, inbox):
-      print "Email with uuid: [%s] is cached." %(eid)
+      print "Checked Email with uuid: [%s] is cached." %(eid)
       continue
+    else:
+      cache_mail(eid, None, "", inbox)
       
     # 对取每个邮件进行异常处理
     try:
+      print "Trying to fetch mail with uuid [%s]" %(eid)
       result, email_data = conn.uid("fetch", eid, "(RFC822)")
     except:
         while (True):
@@ -394,10 +420,14 @@ def fetching_gamil(user, password, boxname = "inbox"):
             except Exception as e:
               print e
   try:
+    
+    # 最后把抓过的邮件放到 mail 的 cached 目录的
+    mv_mails_to_cached_box(cached_mails, conn)
     conn.close()
     conn.logout()
   except:
     pass
+  
   
   
 def clean_dir(dir):
