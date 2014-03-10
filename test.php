@@ -1,14 +1,6 @@
 <?php
-//1389527410   195
-//1389491072   122
-$datetime = date('Y-m-d','1392175200');
-$datetime2 = date(r,'1392175200');
-$start_time = strtotime($datetime);
-echo $datetime2 .'<br/>'.$datetime.'<br/>';
-echo $start_time;
-?>
-ffmpeg -i /Users/tony/Desktop/VID_20140301_180246.mp4 -vcodec libx264 -filter:v scale=720:-1 -acodec aac -strict experimental -ac 2 /Users/tony/Desktop/VID_20140301_1802462.mp4
 
+<<<<<<< Updated upstream
 
 ffmpeg -i /Users/tony/Desktop/v918.mp4 -acodec aac -strict experimental -ac 2 /Users/tony/Desktop/v91822.mp4 -metadata rotate=0
 
@@ -36,3 +28,60 @@ sftp://64.207.184.106//var/www/vhosts/polyardshanghai.com/httpdocs/sgwall/api/up
 ffmpeg -i sample2.3gp -movflags +faststart -strict -2 -ar 44100 sample2.mp4
 
 ffmpeg -i /var/www/vhosts/polyardshanghai.com/httpdocs/sgwall/api/uploads/2014/2/19/v468.mp4 -vcodec libx264 -acodec aac -strict experimental -ac 2 -vf "transpose=2" /var/www/vhosts/polyardshanghai.com/httpdocs/sgwall/api/uploads/2014/2/19/v4682.mp4
+=======
+function ffmpeg_process_count() {
+  $command = "ps -ef | grep -v grep | grep ffmpeg | wc -l";
+  
+  $descriptorspec = array(
+      0 => array("pipe", "r"),
+      1 => array("pipe", "w"),
+      2 => array("file", "/dev/null", "w"),
+  );
+
+  $process = proc_open($command, $descriptorspec, $pipes);
+  $can_be_convert = FALSE;
+  if (is_resource($process)) {
+    fclose($pipes[0]);
+
+    $content = stream_get_contents($pipes[1]);
+    fclose($pipes[1]);
+
+    $ret_value = proc_close($process);
+
+    return intval(trim($content));
+  }
+
+  else {
+    // 打开进程失败
+    return FALSE;
+  }
+}
+
+# Linux / Centos only
+function cpu_core_count() {
+  $command = "cat /proc/cpuinfo | grep -v grep | grep processor | wc -l";
+  
+  $descriptorspec = array(
+      0 => array("pipe", "r"),
+      1 => array("pipe", "w"),
+      2 => array("file", "/dev/null", "w"),
+  );
+
+  $process = proc_open($command, $descriptorspec, $pipes);
+  if (is_resource($process)) {
+    fclose($pipes[0]);
+
+    $content = stream_get_contents($pipes[1]);
+    fclose($pipes[1]);
+
+    $ret_value = proc_close($process);
+
+    return intval(trim($content));
+  }
+
+  else {
+    // 打开进程失败
+    return FALSE;
+  }
+}
+>>>>>>> Stashed changes
