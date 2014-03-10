@@ -1,8 +1,9 @@
 
 <testcases>
-    <param name="server_tonydev" value="http://64.207.184.106/sgwall" />
+    <param name="server_tonydev" value="http://www.wall150ans.com" />
 
     <case>
+        <add_header>Authorization: Basic d2FsbDE1MGFuczpseUw1WC5UcWJ5OEc=</add_header>
         <url>${server_tonydev}/testvideo/video.php</url>
     </case>
 

@@ -28,7 +28,11 @@ If the IE8 doesn't have flash player,  the video will play using windows media p
 ffmpeg -i v918.mp4 -vcodec libx264 -movflags +faststart -acodec aac -strict experimental -ac 2 -metadata:s:v:0 rotate=0 v918_2.mp4
 
 
+ffmpeg -i {$to} -vcodec libx264 -threads 2 -movflags +faststart -acodec aac -strict experimental -ac 2 {$rotate} {$newpath}
+
 
 sftp://64.207.184.106//var/www/vhosts/polyardshanghai.com/httpdocs/sgwall/api/uploads/2014/3/6/v918.mp4
+
+ffmpeg -i sample2.3gp -movflags +faststart -strict -2 -ar 44100 sample2.mp4
 
 ffmpeg -i /var/www/vhosts/polyardshanghai.com/httpdocs/sgwall/api/uploads/2014/2/19/v468.mp4 -vcodec libx264 -acodec aac -strict experimental -ac 2 -vf "transpose=2" /var/www/vhosts/polyardshanghai.com/httpdocs/sgwall/api/uploads/2014/2/19/v4682.mp4

@@ -406,7 +406,7 @@ class NodeAR extends CActiveRecord{
                         // 视频转换
 						switch($extname) {
 							case 'mp4':
-								exec("ffmpeg -i {$to} -vcodec libx264 {$size} -movflags +faststart -acodec aac -strict experimental -ac 2 {$rotate} {$newpath}", $output, $status);
+								exec("ffmpeg  -i {$to} -vcodec libx264 {$size} -movflags +faststart -acodec aac -strict experimental -ac 2 {$rotate} {$newpath}", $output, $status);
 								break;
 							case 'mpg':
 								exec("ffmpeg -i {$to} -vcodec libx264 -movflags +faststart -acodec aac -strict experimental -ac 2 {$newpath}", $output, $status);
@@ -434,6 +434,7 @@ class NodeAR extends CActiveRecord{
 							default:
 								exec("ffmpeg -i {$to} -vcodec libx264 -movflags +faststart -acodec aac -strict experimental -ac 2 {$newpath}", $output, $status);
 						}
+
 
                         if (!$this->is_valid_video($newpath)) {
                             return FALSE;
