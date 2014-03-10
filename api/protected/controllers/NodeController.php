@@ -1,6 +1,64 @@
 <?php
 
 class NodeController extends Controller {
+  
+  
+  
+  function ffmpeg_process_count() {
+    $command = "ps -ef | grep -v grep | grep ffmpeg | wc -l";
+
+    $descriptorspec = array(
+        0 => array("pipe", "r"),
+        1 => array("pipe", "w"),
+        2 => array("file", "/dev/null", "w"),
+    );
+
+    $process = proc_open($command, $descriptorspec, $pipes);
+    $can_be_convert = FALSE;
+    if (is_resource($process)) {
+      fclose($pipes[0]);
+
+      $content = stream_get_contents($pipes[1]);
+      fclose($pipes[1]);
+
+      $ret_value = proc_close($process);
+
+      return intval(trim($content));
+    }
+
+    else {
+      // 打开进程失败
+      return FALSE;
+    }
+  }
+  
+  # Linux / Centos only
+  function cpu_core_count() {
+    $command = "cat /proc/cpuinfo | grep -v grep | grep processor | wc -l";
+
+    $descriptorspec = array(
+        0 => array("pipe", "r"),
+        1 => array("pipe", "w"),
+        2 => array("file", "/dev/null", "w"),
+    );
+
+    $process = proc_open($command, $descriptorspec, $pipes);
+    if (is_resource($process)) {
+      fclose($pipes[0]);
+
+      $content = stream_get_contents($pipes[1]);
+      fclose($pipes[1]);
+
+      $ret_value = proc_close($process);
+
+      return intval(trim($content));
+    }
+
+    else {
+      // 打开进程失败
+      return FALSE;
+    }
+  }
 
 	/**
 	 * Post new node (photo/video)
