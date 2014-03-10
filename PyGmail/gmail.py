@@ -375,8 +375,8 @@ def fetching_gamil(user, password, boxname = "inbox"):
             continue
           else:
             # 如果没有则先缓存图片再发送图片到网站
-            data = cache_mail(eid, gmail_mail, filepath, inbox)
-
+            # data = cache_mail(eid, gmail_mail, filepath, inbox)
+            data = "Not None"
             if data is not None:
               print "begin to post data to bank wall"
               # 如果保存成功就发送数据到后台保存
