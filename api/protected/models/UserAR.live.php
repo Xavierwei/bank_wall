@@ -115,10 +115,10 @@ class UserAR extends CActiveRecord{
 	public function createSAMLRegister($attributes) {
 		$newUser = new UserAR();
 		$newUser->datetime = time();
-		$newUser->name = $attributes['societegenerale.uid'][0];
+		$newUser->name = $attributes['societegenerale.givenname'][0];
 		$newUser->company_email = $attributes['societegenerale.sggroupid'][0];
-		$newUser->sso_id = md5($attributes['societegenerale.uid'][0]);
-		$newUser->firstname = $attributes['societegenerale.givenName'][0];
+		$newUser->sso_id = md5($attributes['societegenerale.givenname'][0]);
+		$newUser->firstname = $attributes['societegenerale.givenname'][0];
 		$newUser->lastname = $attributes['societegenerale.sn'][0];
 		$newUser->role = self::ROLE_AUTHEN;
 		$newUser->country_id = 30;

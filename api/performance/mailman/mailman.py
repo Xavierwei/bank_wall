@@ -28,7 +28,7 @@ class SendMailThread (threading.Thread):
     
   def run(self):
     # 一个线程发50封邮件
-    count = 50
+    count = 15
     
     print "Start thread to send mail [Thread ID : %s]" %(self.getName())
     print "Thread [%s]: Begin to login mail server" %(self.getName())
@@ -122,21 +122,17 @@ files = ["/test/performance/Archive/test.wmv",
   "/test/performance/Archive/ScreenFlow_2.mpg"
   ,"/test/performance/Archive/Upload Studio.mp4"
   ,"/test/performance/Archive/TASES_P01_C02_L00.wmv"
-  ,"/test/performance/Archive/sdfasdfa.tiff"
-  ,"/test/performance/Archive/img.jpg"
-  ,"/test/performance/Archive/damageimg copy.jpg"
   ,"/test/performance/Archive/TASES_P02_C03_L09.wmv"
   ,"/test/performance/Archive/yarratrams.mpeg"
   ,"/test/performance/Archive/iD-KAMERA-sample.avi"
   ,"/test/performance/Archive/drop.avi"
   ,"/test/performance/Archive/SMS_ADVIDEUM_500kbs_512x288.txt.mp4"
   ,"/test/performance/Archive/sample2.3gp"
-  ,"/test/performance/Archive/FR_FRED_SGEN_INIT_0008_025_F_ARPP(1).mov"
   ,"/test/performance/Archive/test.mpeg"
-  ,"/test/performance/Archive/2173549770259792399.jpg"
-  ,"/test/performance/Archive/2021271807859432089.jpg"
-  ,"/test/performance/Archive/2173268295283031286.jpg"
-  ,"/test/performance/Archive/1995376110002003411.jpg"]
+  ,"/test/performance/Archive/p1.jpg"
+  ,"/test/performance/Archive/p2.jpg"
+  ,"/test/performance/Archive/p3.jpg"
+  ,"/test/performance/Archive/p4.jpg"]
 
 if __name__ == "__main__":
   

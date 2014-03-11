@@ -11,14 +11,16 @@ var closeUploadPop = function() {
 
 
 var uploadPopError = function(code) {
-    if(data.message == 508) {
-        setTimeout(function(){
-            api.ajax('repost' , {path: 'upload/1.mov'} , function( data ){
-                uploadPopError(data.message);
-            });
-        }, 1000*5);
-        return;
-    }
+//    if(data.message == 508) {
+//        setTimeout(function(){
+//            LP.use(['api'] , function(api){
+//                api.ajax('repost' , {path: ''} , function( data ){
+//                    uploadPopError(data.message);
+//                });
+//            })
+//        }, 1000*5);
+//        return;
+//    }
     switch(code){
         case 502:
             var errorIndex = 0;
@@ -74,14 +76,14 @@ var uploadProgress = function(file, bytesLoaded, bytesTotal) {
 
 var uploadDoneMsg = function(data) {
     if(!data.success) {
-        if(data.message == 508) {
-            setTimeout(function(){
-                api.ajax('repost' , {path: 'upload/1.mov'} , function( data ){
-                    uploadDoneMsg(data);
-                });
-            }, 1000*5);
-            return;
-        }
+//        if(data.message == 508) {
+//            setTimeout(function(){
+//                api.ajax('repost' , {path: 'upload/1.mov'} , function( data ){
+//                    uploadDoneMsg(data);
+//                });
+//            }, 1000*5);
+//            return;
+//        }
 
         switch(data.message){
             case 502:

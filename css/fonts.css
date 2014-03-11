@@ -28,6 +28,7 @@
 
 body,input,textarea{font-family:'HelveticaNeueLTStd-MdCn', arial, sans-serif;text-transform: uppercase;}
 input,textarea {text-transform:none;}
+button {text-transform: uppercase;}
 .count {letter-spacing:1px;}
 .item-info {font-family: 'Myriad Pro', arial;font-size:10px;}
 .menu-item h6 {font-size:12px;}

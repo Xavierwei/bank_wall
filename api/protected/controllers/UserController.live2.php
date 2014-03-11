@@ -62,7 +62,7 @@ class UserController extends Controller {
 		}
 
 		// Identity local site user data
-		$userIdentify = new UserIdentity($user->company_email, $attributes['societegenerale.uid'][0]);
+		$userIdentify = new UserIdentity($user->company_email, $attributes['societegenerale.givenname'][0]);
 
 		// Save user status in session
 		if (!$userIdentify->authenticate()) {
