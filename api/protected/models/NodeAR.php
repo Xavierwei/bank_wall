@@ -371,6 +371,10 @@ class NodeAR extends CActiveRecord{
 			$to = $dir."/". $filename;
 			$ret = $upload->newSaveAs($to);
       
+      if (!$ret) {
+        return FALSE;
+      }
+      
 			// 在这里做视频转换功能
 			// 先检查 ffmpeg 是否已经安装
 

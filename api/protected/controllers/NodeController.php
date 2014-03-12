@@ -15,6 +15,7 @@ class NodeController extends Controller {
     $tmp_file = $request->getPost("tmp_file");
     $is_retry = !!$tmp_file;
     $abs_tmp_file = ROOT. $tmp_file;
+    
     // 如果存在一个临时文件的上传数据 ， 很可能是重新转视频
     if ($tmp_file && is_file(ROOT.$tmp_file)) {
       $filePath = ROOT. $tmp_file;
@@ -45,6 +46,7 @@ class NodeController extends Controller {
 
 			$nodeAr = new NodeAR();
 			if($isIframe || $isFlash) {
+        // 在这里， 重新上传的文件名不确定 所以需要手动获得
         if ($tmp_file) {
           $file_name = pathinfo($tmp_file, PATHINFO_FILENAME);
         }
