@@ -1937,7 +1937,9 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 },1500);
             };
         } , null , function(){
-            $dom.removeClass('disabled');
+            setTimeout(function(){
+                $dom.removeClass('disabled');
+            },2000);
             // hide loading tag
             $('.pop-uploadloading').hide();
         });
