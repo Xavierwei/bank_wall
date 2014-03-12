@@ -1543,16 +1543,16 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 
     var fileUploadDone = function(data){
         if(!data.result.success) {
-//            if(data.result.message == 508) {
-//                setTimeout(function(){
-//                    api.ajax('repost' , {path: 'upload/1.mov'} , function( result ){
-//                        var data = {};
-//                        data.result = result;
-//                        fileUploadDone(data);
-//                    });
-//                }, 1000*5);
-//                return;
-//            }
+            if(data.result.message == 508) {
+                setTimeout(function(){
+                    api.ajax('repost' , {path: 'upload/1.mov'} , function( result ){
+                        var data = {};
+                        data.result = result;
+                        fileUploadDone(data);
+                    });
+                }, 1000*5);
+                return;
+            }
             switch(data.result.message){
                 case 502:
                     var errorIndex = 0;
