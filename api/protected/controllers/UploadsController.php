@@ -116,7 +116,9 @@ class UploadsController extends Controller {
     if ($file && is_array($file) && $file[0] === FALSE) {
       $to = $file[1];
       if (is_file($to)) {
+
         $this->responseError(array("error" => 508, "tmp_file" => str_replace(ROOT, "", $to)));
+
       }
       else {
         return $this->responseError(509); 
