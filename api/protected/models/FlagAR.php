@@ -51,12 +51,13 @@ class FlagAR extends CActiveRecord {
 	public function afterSave() {
 		$nid = $this->nid;
 		$cid = $this->cid;
+		$flagCountBlocked = $this->getSetting();
 
 		// Block the node if over the counts of the flag settings
 		if ($nid) {
 			$command = Yii::app()->db->createCommand("SELECT count(*) as count FROM flag where nid = :nid");
 			$res = $command->query(array(":nid" => (int)$nid))->read();
-			if ($res["count"] >= self::COUNT_THAT_BLOckED) {
+			if ($res["count"] >= $flagCountBlocked) {
 				$node = NodeAR::model()->findByPk((int)$nid);
 				$node->blockIt();
 			}
@@ -66,7 +67,7 @@ class FlagAR extends CActiveRecord {
 		if ($cid) {
 			$command = Yii::app()->db->createCommand("SELECT count(*) as count FROM flag where cid = :cid");
 			$res = $command->query(array(":cid" => (int)$cid))->read();
-			if ($res["count"] >= self::COUNT_THAT_BLOckED) {
+			if ($res["count"] >= $flagCountBlocked) {
 				$comment = CommentAR::model()->findByPk((int)$cid);
 				$comment->blockIt();
 			}

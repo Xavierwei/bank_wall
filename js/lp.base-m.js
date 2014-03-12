@@ -6,6 +6,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 
     var pagenum = 8;
     var isIE8 = $('html').hasClass('ie8');
+    var isAndroid = navigator.userAgent.toLowerCase().indexOf('android') > 0;
     var API_FOLDER = "../api";
     var THUMBNAIL_IMG_SIZE = "_640_640";
     var BIG_IMG_SIZE = "_640_640";
@@ -1529,6 +1530,9 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
         }
         $('.side .menu-item.'+type).addClass('active');
         data._e = _e;
+        if(isAndroid) {
+            data.device = 'android';
+        }
         LP.compile( "pop-template" , data,  function( html ){
             $(document.body).append( html );
             $('.overlay').fadeIn();
@@ -1539,7 +1543,13 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
             var $fileupload = $('#fileupload');
             if(type == 'video') {
                 acceptFileTypes = /(\.|\/)(mov|wmv|mp4|avi|mpg|mpeg|3gp)$/i;
-                var maxFileSize = 7 * 1024000;
+                if(isAndroid) {
+                    var maxFileSize = 16 * 1024000;
+                }
+                else {
+                    var maxFileSize = 7 * 1024000;
+                }
+
             } else {
                 acceptFileTypes = /(\.|\/)(gif|jpe?g|png)$/i;
                 var maxFileSize = 5 * 1024000;

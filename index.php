@@ -25,12 +25,12 @@ if (preg_match('/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|phone|andro
     <title>WALL - SOCIÉTÉ GÉNÉRALE</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=11; IE=10; IE=9; IE=8" />
 	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1, user-scalable=no" />
-    <link href="css/jsPane.css?<?php echo time();?>" rel="stylesheet" type="text/css" />
-    <link href="css/layout.css?<?php echo time();?>" rel="stylesheet" type="text/css" />
-    <link href="css/fonts.css?<?php echo time();?>" rel="stylesheet" type="text/css" />
-    <link href="css/animation.css?<?php echo time();?>" rel="stylesheet" type="text/css" />
-    <link href="css/needtocombine.css?<?php echo time();?>" rel="stylesheet" type="text/css" />
-    <link href="css/video-js.css?<?php echo time();?>" rel="stylesheet" type="text/css" />
+    <link href="css/jsPane.css" rel="stylesheet" type="text/css" />
+    <link href="css/layout.css" rel="stylesheet" type="text/css" />
+    <link href="css/fonts.css" rel="stylesheet" type="text/css" />
+    <link href="css/animation.css" rel="stylesheet" type="text/css" />
+    <link href="css/needtocombine.css" rel="stylesheet" type="text/css" />
+    <link href="css/video-js.css" rel="stylesheet" type="text/css" />
 	<!--[if IE 8]>
 	<link href="css/ie8.css" rel="stylesheet" type="text/css" />
 	<!--<![endif]-->
@@ -62,10 +62,10 @@ if (preg_match('/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|phone|andro
 ?>
 
 <script type="text/javascript" src="./js/plugin/modernizr-2.5.3.min.js"></script>
-<script type="text/javascript" src="./js/sea/sea-debug.js" data-config="../config.js?_2014#"></script>
+<script type="text/javascript" src="./js/sea/sea-debug.js" data-config="../config.js"></script>
 <script type="text/javascript" src="./js/sea/plugin-shim.js"></script>
 <script type="text/javascript" src="./js/lp.core.js"></script>
-<script type="text/javascript" src="./js/lp.base.js?<?php echo time();?>"></script>
+<script type="text/javascript" src="./js/lp.base.js"></script>
 <!--[if IE 8]>
 <script type="text/javascript" src="./js/ie8.js"></script>
 <!--<![endif]-->

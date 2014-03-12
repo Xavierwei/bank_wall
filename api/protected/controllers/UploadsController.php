@@ -12,14 +12,11 @@ class UploadsController extends Controller {
   public function init() {
     Yii::import("application.vendor.*");
   }
-  
-  // 生成
+
+
   public function missingAction($actionID) {
-    
     $files = explode("/", substr($_SERVER["REQUEST_URI"], 1));
     $filename = $files[count($files) - 1];
-    // 先确定是视频的截图压缩图还是普通的图片
-    //  如果是视频
     if ($filename[0]== "v") {
       $output;
       exec("which ffmpeg", $output);
@@ -33,10 +30,6 @@ class UploadsController extends Controller {
             $source_filename = str_replace("_{$width}_{$height}", "", $filename);
             $basepath = implode("/",array_splice($files, 0, count($files) - 1));
             $source_path = DOCUMENT_ROOT.'/'.$basepath.'/'.$source_filename;//增加了DOCUMENT_ROOT，否则在子目录下路径不对了
-//						echo $source_path;
-//            if (!is_file($source_path)) {
-//              return ;
-//            }
             NodeAR::model()->makeVideoThumbnail($source_path, DOCUMENT_ROOT.'/'.$basepath .'/' .$filename, $width, $height, true);
           }
         }
@@ -53,8 +46,8 @@ class UploadsController extends Controller {
         if (!is_file($source_path)) {
           return;
         }
-				$request_file_path = DOCUMENT_ROOT.$request_file_path; //增加了DOCUMENT_ROOT，否则在子目录下路径不对了
-				NodeAR::model()->makeImageThumbnail($source_path, $request_file_path, $width, $height, true);
+		$request_file_path = DOCUMENT_ROOT.$request_file_path; //增加了DOCUMENT_ROOT，否则在子目录下路径不对了
+		NodeAR::model()->makeImageThumbnail($source_path, $request_file_path, $width, $height, true);
       }
     }
 
@@ -63,16 +56,8 @@ class UploadsController extends Controller {
 
 
 
-	public function actionRepost() {
-		return $this->responseError(508);
-	}
 
 	public function actionUpload() {
-
-		return $this->responseError(508);
-
-
-
 		$uid = Yii::app()->user->getId();
 		$user = UserAR::model()->findByPk($uid);
 		if(!$user) {
@@ -94,11 +79,9 @@ class UploadsController extends Controller {
 			}
 		}
 		$nodeAr = new NodeAR();
-		$validateUpload = $nodeAr->validateUpload($fileUpload, $type);
+		$validateUpload = $nodeAr->validateUpload($fileUpload, $type, $device);
 		if($validateUpload !== true) {
-			if(!($validateUpload == 501 && $device == 'android')) {
-				return $this->responseError($validateUpload);
-			}
+			return $this->responseError($validateUpload);
 		}
 
 		// save file to dir
