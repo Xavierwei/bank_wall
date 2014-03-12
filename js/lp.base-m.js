@@ -1516,6 +1516,89 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
         }
     });
 
+    var fileUploadDone = function(data) {
+        if(!data.result.success) {
+            if(typeof data.result.message.error != "undefined" && data.result.message.error == 508) {
+                setTimeout(function(){
+                    var type = $('#node_post_form input[name="type"]').val();
+                    api.ajax('upload' , {'type':type, 'tmp_file': data.result.message.tmp_file} , function( result ){
+                        var data = {};
+                        data.result = result;
+                        fileUploadDone(data);
+                    });
+                }, 1000*5);
+                return;
+            }
+            switch(data.result.message){
+                case 502:
+                    var errorIndex = 0;
+                    break;
+                case 501:
+                    var errorIndex = 2;
+                    break;
+                case 503:
+                    var errorIndex = 1;
+                    break;
+                case 509:
+                    var errorIndex = 3;
+                    break;
+            }
+            $('.pop-inner').fadeOut(400);
+            $('.pop-file').delay(800).fadeIn(400);
+            $('.step1-tips li').removeClass('error');
+            $('.step1-tips li').eq(errorIndex).addClass('error');
+        } else {
+            var rdata = data.result.data;
+
+            if(rdata.type == 'video') {
+                $('.poptxt-pic-inner').show();
+                $('.poptxt-pic img')
+                    .unbind('load.forinnershow')
+                    .bind('load.forinnershow' , function(){
+                        $('.pop-inner').delay(400).fadeOut(400);
+                        $('.pop-txt').delay(1200).fadeIn(400);
+                    })
+                    .attr('src', API_FOLDER + rdata.file.replace('.mp4', /*THUMBNAIL_IMG_SIZE + */'.jpg'));
+
+                $('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
+
+            } else {
+                if (data.files && data.files[0] && window.FileReader ) {
+                    //..create loading
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        // change checkpage img
+                        $('.poptxt-pic img')
+                            .unbind('load.forinnershow')
+                            .bind('load.forinnershow' , function(){
+                                $('.pop-inner').delay(400).fadeOut(400);
+                                $('.pop-txt').delay(1200).fadeIn(400);
+                                setTimeout(function(){
+                                    transformMgr.initialize( $('.poptxt-pic-inner') );
+                                } , 1700 );
+                            })
+                            .attr('src', e.target.result/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
+                        $('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
+                    };
+                    reader.readAsDataURL(data.files[0]);
+                } else {
+                    $('.poptxt-pic img')
+                        .unbind('load.forinnershow')
+                        .bind('load.forinnershow' , function(){
+                            $('.pop-inner').delay(400).fadeOut(400);
+                            $('.pop-txt').delay(1200).fadeIn(400);
+                            setTimeout(function(){
+                                transformMgr.initialize( $('.poptxt-pic-inner') );
+                            } , 1700 );
+                        })
+                        .attr('src', API_FOLDER + rdata.file/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
+                    $('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
+
+                }
+            }
+        }
+    }
+
     //upload photo
     LP.action('pop_upload' , function( data ){
         // close user side bar
@@ -1593,78 +1676,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 						$('.pop-file').delay(400).fadeIn(400);
 					})
 					.bind('fileuploaddone', function (e, data) {
-						if(!data.result.success) {
-							switch(data.result.message){
-								case 502:
-									var errorIndex = 0;
-									break;
-								case 501:
-									var errorIndex = 2;
-									break;
-								case 503:
-									var errorIndex = 1;
-									break;
-                                case 509:
-                                    var errorIndex = 3;
-                                    break;
-							}
-							$('.pop-inner').fadeOut(400);
-							$('.pop-file').delay(800).fadeIn(400);
-							$('.step1-tips li').removeClass('error');
-							$('.step1-tips li').eq(errorIndex).addClass('error');
-						} else {
-							var rdata = data.result.data;
-
-							if(rdata.type == 'video') {
-								$('.poptxt-pic-inner').show();
-								$('.poptxt-pic img')
-									.unbind('load.forinnershow')
-									.bind('load.forinnershow' , function(){
-										$('.pop-inner').delay(400).fadeOut(400);
-										$('.pop-txt').delay(1200).fadeIn(400);
-									})
-									.attr('src', API_FOLDER + rdata.file.replace('.mp4', /*THUMBNAIL_IMG_SIZE + */'.jpg'));
-								// TODO:: why need timeout?
-//                                setTimeout(function(){
-//                                    $('.poptxt-pic img').attr('src',$('.poptxt-pic img').attr('src') + '?' + new Date().getTime() );
-//                                },2000);
-								$('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
-
-							} else {
-								if (data.files && data.files[0] && window.FileReader ) {
-									//..create loading
-									var reader = new FileReader();
-									reader.onload = function (e) {
-										// change checkpage img
-										$('.poptxt-pic img')
-											.unbind('load.forinnershow')
-											.bind('load.forinnershow' , function(){
-												$('.pop-inner').delay(400).fadeOut(400);
-												$('.pop-txt').delay(1200).fadeIn(400);
-                                                setTimeout(function(){
-                                                    transformMgr.initialize( $('.poptxt-pic-inner') );
-                                                } , 1700 );
-											})
-											.attr('src', e.target.result/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
-										$('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
-									};
-									reader.readAsDataURL(data.files[0]);
-								} else {
-									$('.poptxt-pic img')
-										.unbind('load.forinnershow')
-										.bind('load.forinnershow' , function(){
-											$('.pop-inner').delay(400).fadeOut(400);
-											$('.pop-txt').delay(1200).fadeIn(400);
-                                            setTimeout(function(){
-                                                transformMgr.initialize( $('.poptxt-pic-inner') );
-                                            } , 1700 );
-										})
-										.attr('src', API_FOLDER + rdata.file/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
-									$('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
-
-								}
-							}
-						}
+                        fileUploadDone(data);
 					});
 			});
 
@@ -2057,30 +2069,38 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 
     //save user updates
     LP.action('save_user' , function(){
-        $('.user-edit-loading').fadeIn();
-        if($('.edit-email-error').is(':visible')) return;
-        if(!$('.editfi-condition').hasClass('checked')) {
-            $('.editfi-condition-error').fadeIn();
-            $('.user-edit-loading').fadeOut();
-            return;
+        if(!$('.saveuser-confirm-modal').is(':visible')) {
+            $('.modal-overlay').fadeIn(700);
+            $('.saveuser-confirm-modal').fadeIn(700).dequeue().animate({top:'50%'}, 700, 'easeOutQuart');
         }
-        var user = {uid:$('.side').data('user').uid, personal_email: $('.user-edit-page .edit-email').val(), country_id: $('.user-edit-page .editfi-country-box').data('id')}
-        api.ajax('saveUser', user, function( result ){
-            if(result.success) {
-                $('.user-edit-page').fadeOut(400);
-                $('.avatar-file').fadeOut();
-                $('.count-com').delay(400).fadeIn(400);
-                $('.count-edit').fadeIn();
-                $('.count-userpho').removeAttr('data-a', 'avatar_upload');
-                $('.count-userinfo').removeClass('count-userinfo-edit');
-				$('.count-userinfo .location').html($('.user-edit-page .editfi-country-box').html());
+        else {
+            $('.user-edit-loading').fadeIn();
+            if($('.edit-email-error').is(':visible')) return;
+            if(!$('.editfi-condition').hasClass('checked')) {
+                $('.editfi-condition-error').fadeIn();
+                $('.user-edit-loading').fadeOut();
+                LP.triggerAction('cancel_modal');
+                return;
             }
-            else if(result.message === 603) {
-                $('.edit-email-error').html(_e.ERROR_EXIST_EMAIL).fadeIn();
-            }
-        }, null, function(){
-            $('.user-edit-loading').fadeOut();
-        });
+            var user = {uid:$('.side').data('user').uid, personal_email: $('.user-edit-page .edit-email').val(), country_id: $('.user-edit-page .editfi-country-box').data('id')}
+            api.ajax('saveUser', user, function( result ){
+                if(result.success) {
+                    $('.user-edit-page').fadeOut(400);
+                    $('.avatar-file').fadeOut();
+                    $('.count-com').delay(400).fadeIn(400);
+                    $('.count-edit').fadeIn();
+                    $('.count-userpho').removeAttr('data-a', 'avatar_upload');
+                    $('.count-userinfo').removeClass('count-userinfo-edit');
+                    $('.count-userinfo .location').html($('.user-edit-page .editfi-country-box').html());
+                }
+                else if(result.message === 603) {
+                    $('.edit-email-error').html(_e.ERROR_EXIST_EMAIL).fadeIn();
+                }
+            }, null, function(){
+                $('.user-edit-loading').fadeOut();
+            });
+            LP.triggerAction('cancel_modal');
+        }
     });
 
 

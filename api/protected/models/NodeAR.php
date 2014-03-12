@@ -36,7 +36,7 @@ class NodeAR extends CActiveRecord{
 	const ALLOW_STORE_VIDE_TYPE = "mp4";
   
   // ffmpeg 允许的最大进程数
-  const ALLOW_MAX_FFMPEG_COUNT = 8;
+  const ALLOW_MAX_FFMPEG_COUNT = 1;
 
 	public $nodecounts;
   
@@ -391,12 +391,12 @@ class NodeAR extends CActiveRecord{
 			if (!empty($output)) {
 				$ffmpeg = array_shift($output);
 				if ($ffmpeg) {
-          // ffmpeg 确定安装后 检查 ffmpeg 进程个数
-          // 如果超过了 ALLOW_MAX_FFMPEG_COUNT 阀值 就直接返回FALSE
-          // 然后保存文件 并且返回 临时文件路径
-          if (self::ffmpeg_process_count() >= self::ALLOW_MAX_FFMPEG_COUNT) {
-            return array(FALSE, $to);
-          }
+					// ffmpeg 确定安装后 检查 ffmpeg 进程个数
+					// 如果超过了 ALLOW_MAX_FFMPEG_COUNT 阀值 就直接返回FALSE
+					// 然后保存文件 并且返回 临时文件路径
+					if (self::ffmpeg_process_count() >= self::ALLOW_MAX_FFMPEG_COUNT) {
+						return array(FALSE, $to);
+					}
 					$newpath = pathinfo($to, PATHINFO_FILENAME)."_new.". self::ALLOW_STORE_VIDE_TYPE;
 					$dir = pathinfo($to, PATHINFO_DIRNAME);
 					$newpath = $dir.'/'. $newpath;
@@ -723,7 +723,7 @@ class NodeAR extends CActiveRecord{
     $descriptorspec = array(
         0 => array("pipe", "r"),
         1 => array("pipe", "w"),
-        2 => array("file", "/dev/null", "w"),
+        2 => array("file", ROOT."/uploads/log.log", "w"),
     );
 
     $process = proc_open($command, $descriptorspec, $pipes);

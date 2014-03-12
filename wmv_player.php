@@ -103,10 +103,12 @@
 
 	function handler(type) {
 		var a = arguments;
+		window.top.wmvPause();
 		if(a[1] == 9) {
 			$('.loading').show();
 		}
 		if(a[1] == 3) {
+			window.top.wmvPlaying();
 			if(!playInterval) {
 				var duration = player.currentMedia.duration;
 				playInterval = setInterval(function(){
@@ -143,6 +145,10 @@
 			$('.wmp .poster').fadeIn();
 		}, 3000);
 	});
+
+	var iframePlay = function() {
+		$('.playbtn').click();
+	}
 
 </script>
 <script for="wmp" event="playstatechange(newState)">

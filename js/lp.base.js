@@ -25,6 +25,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     var _e;
     var lang;
 	var req;
+    var tagReq;
 
     if(isPad) {
 		$(window).bind('orientationchange', function() {
@@ -274,7 +275,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         prependNode: function( $dom , nodes , bShowDate ){
             var aHtml = [];
             var lastDate = null;
-            var pageParm = $main.data('param'); //TODO:  pageParm.orderby == 'like' || pageParm.orderby == 'random' 此时不显示日历
+            var pageParm = $main.data('param');
             nodes = nodes || [];
 
             // save nodes to cache
@@ -457,7 +458,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 var $img = $nodes.eq(0)
                     .find('img');
                 startAnimate( $nodes.eq(0) );
-                //TODO: commented the image loaded condition during testing
             } else { // judge if need to load next page
                 $(window).trigger('scroll');
             }
@@ -561,7 +561,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                         nodeActions.inserNode( $main , result.data , param.orderby == 'datetime');
                         
                         $listLoading.fadeOut();
-                        // TODO:: no more data tip
                     });
                 }
                 // fix user page element
@@ -579,12 +578,10 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                         $listLoading.fadeOut();
                         if( param.page != $com.data('param').page ) return;
                         nodeActions.inserNode( $userCom , result.data , true );
-                        // TODO:: no more data tip
                     });
                 }
             } , 200);
             if( _scrollAjax ){
-                // TODO: loading animation
             }
         }
     });
@@ -1222,7 +1219,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             if( $dom.data('end') ){
                 _currentNodeIndex--;
                 $inner.removeClass('disabled');
-                // TODO:: tip no more nodes
                 //alert('no more nodes');
                 _innerLock = false;
                 return;
@@ -1242,8 +1238,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 } else {
                     $inner.removeClass('disabled');
                     $dom.data('end' , true);
-                    // TODO:: tip no more nodes
-                    //alert('no more nodes');
                     _innerLock = false;
                 }
             });
@@ -1492,7 +1486,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 });
             }
             if(data.type == 'node') {
-				// directly remove from ui whatever the backend deleted or not. TODO: add a deleting loading later
+				// directly remove from ui whatever the backend deleted or not.
 				var $nodes = $('.main-item-' + data.nid).css({width:0, opacity:0});
                 $nodes.each( function( i ){
                     if( $(this).prev().hasClass('time-item')
@@ -1543,14 +1537,15 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 
     var fileUploadDone = function(data){
         if(!data.result.success) {
-            if(data.result.message == 508) {
+            if(typeof data.result.message.error != "undefined" && data.result.message.error == 508) {
                 setTimeout(function(){
-                    api.ajax('repost' , {path: 'upload/1.mov'} , function( result ){
+                    var type = $('#node_post_form input[name="type"]').val();
+                    api.ajax('upload' , {'type':type, 'tmp_file': data.result.message.tmp_file} , function( result ){
                         var data = {};
                         data.result = result;
                         fileUploadDone(data);
                     });
-                }, 1000*5);
+                }, 1000*15);
                 return;
             }
             switch(data.result.message){
@@ -1881,7 +1876,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     //select photo
     LP.action('upload_photo' , function(){
         $('.pop-inner').fadeOut(400);
-        //TODO uploading
         $('.pop-load').delay(400).fadeIn(400);
         $('.pop-load').delay(400).fadeOut(400);
         $('.pop-txt').delay(800).fadeIn(400);
@@ -1964,7 +1958,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 $('.user-pho , .count-userpho').find('img')
                     .attr('src' , './api' + result.data.file+'?'+ new Date().getTime() );
             } else {
-                // TODO:: show error
             }
         } , null , function(){
             $dom.removeClass('disabled');
@@ -2134,29 +2127,39 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 
     //save user updates
     LP.action('save_user' , function(){
-        $('.user-edit-loading').fadeIn();
-        if($('.edit-email-error').is(':visible')) return;
-        if(!$('.editfi-condition').hasClass('checked')) {
-            $('.editfi-condition-error').fadeIn();
-            $('.user-edit-loading').fadeOut();
-            return;
+        if(!$('.saveuser-confirm-modal').is(':visible')) {
+            $('.modal-overlay').fadeIn(700);
+            $('.saveuser-confirm-modal').fadeIn(700).dequeue().animate({top:'50%'}, 700, 'easeOutQuart');
         }
-        var user = {uid:$('.side').data('user').uid, personal_email: $('.user-edit-page .edit-email').val(), country_id: $('.user-edit-page .editfi-country-box').data('id')}
-        api.ajax('saveUser', user, function( result ){
-            if(result.success) {
-                $('.user-edit-page').fadeOut(400);
-                $('.avatar-file').fadeOut();
-                $('.count-com').delay(400).fadeIn(400);
-                $('.count-edit').fadeIn();
-                $('.count-userinfo').removeClass('count-userinfo-edit');
-				$('.count-userinfo .location').html($('.user-edit-page .editfi-country-box').html());
+        else {
+            $('.user-edit-loading').fadeIn();
+            if($('.edit-email-error').is(':visible')) return;
+            if(!$('.editfi-condition').hasClass('checked')) {
+                $('.editfi-condition-error').fadeIn();
+                $('.user-edit-loading').fadeOut();
+                LP.triggerAction('cancel_modal');
+                return;
             }
-            else if(result.message === 603) {
-                $('.edit-email-error').html(_e.ERROR_EXIST_EMAIL).fadeIn();
-            }
-        }, null, function(){
-            $('.user-edit-loading').fadeOut();
-        });
+            var user = {uid:$('.side').data('user').uid, personal_email: $('.user-edit-page .edit-email').val(), country_id: $('.user-edit-page .editfi-country-box').data('id')}
+            api.ajax('saveUser', user, function( result ){
+                if(result.success) {
+                    $('.user-edit-page').fadeOut(400);
+                    $('.avatar-file').fadeOut();
+                    $('.count-com').delay(400).fadeIn(400);
+                    $('.count-edit').fadeIn();
+                    $('.count-userinfo').removeClass('count-userinfo-edit');
+                    $('.count-userinfo .location').html($('.user-edit-page .editfi-country-box').html());
+                }
+                else if(result.message === 603) {
+                    $('.edit-email-error').html(_e.ERROR_EXIST_EMAIL).fadeIn();
+                }
+            }, null, function(){
+                $('.user-edit-loading').fadeOut();
+            });
+            LP.triggerAction('cancel_modal');
+        }
+
+
     });
 
 	//cancel user edit
@@ -2229,13 +2232,11 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             LP.triggerAction('close_user_page');
             $main.html('');
             $main.data('nodes','');
-            //TODO this method need to reset selected items to default value
             resetQuery();
             var param = refreshQuery();
             param = $.extend(param, {'topday': 1});
             $('.side .menu-item.day, .side .menu-item.jour').addClass('active');
             $listLoading.fadeIn();
-            //TODO save to dom cache date
 			if(req) {
 				req.abort();
 			}
@@ -2260,13 +2261,11 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             LP.triggerAction('close_user_page');
             $main.html('');
             $main.data('nodes','');
-            //TODO this method need to reset selected items to default value
             resetQuery();
             var param = refreshQuery();
             param = $.extend(param, {'topmonth': 1});
             $('.side .menu-item.month').addClass('active');
             $listLoading.fadeIn();
-            //TODO save to dom cache date
 			if(req) {
 				req.abort();
 			}
@@ -2655,14 +2654,17 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 });
 
                 LP.use('uicustom',function(){
-                    var placeHolder = $( ".search-ipt").attr('placeholder'); // TODO: use background instead
+                    var placeHolder = $( ".search-ipt").attr('placeholder');
                     $( ".search-ipt").val('').autocomplete({
                         source: function( request, response ) {
-                            $.ajax({
+                            if(tagReq) {
+                                tagReq.abort();
+                            }
+                            tagReq = $.ajax({
                                 url: "./api/tag/list",
                                 dataType: "json",
                                 data: {
-                                    term: request.term
+                                    term: request.term.replace('#','')
                                 },
                                 success: function( data ) {
                                     response( $.map( data.data, function( item ) {
@@ -2676,7 +2678,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                         },
                         minLength: 1,
                         select: function( event, ui ) {
-                            //console.log(ui);
                         }
                     });
                 });
@@ -3044,6 +3045,20 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                             $('.vjs-big-play-button').click(function(){
                                 $('video').attr('poster', '');
                             });
+                            $('.inner-infoicon .video').on('click', function(){
+                                if($('.video-js').hasClass('vjs-paused')) {
+                                    $('video')[0].play();
+                                }
+                                else {
+                                    $('video')[0].pause();
+                                }
+                            });
+                            $('video').on('ended pause', function(){
+                                $('.inner-infoicon .video').removeClass('pause');
+                            });
+                            $('video').on('play', function(){
+                                $('.inner-infoicon .video').addClass('pause');
+                            });
                         });
                     });
 
@@ -3056,6 +3071,23 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             {
                 LP.compile( 'flash-player-template' , node , function( html ){
                     $newItem.html(html);
+                    if($('#flash-player').length) {
+                        var flashPlayer=document.getElementById("flash-player");
+                        if(!flashPlayer.play){
+                            flashPlayer = document.getElementById("flash-player-embed");
+                        }
+                        $('.inner-infoicon .video').on('click', function(){
+                            if($(this).hasClass('pause')) {
+                                flashPlayer.pause();
+                                $(this).removeClass('pause');
+                            }
+                            else {
+                                flashPlayer.play();
+                                $(this).addClass('pause');
+                            }
+
+                        });
+                    }
                 });
             }
             else
@@ -3064,6 +3096,11 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 LP.compile( 'wmv-player-template' , node , function( html ){
                     $newItem.html(html);
                     $('.image-wrap-inner iframe');
+                    $('.inner-infoicon .video').on('click', function(){
+                        if($('#wmv-iframe').length) {
+                            $('#wmv-iframe')[0].contentWindow.iframePlay();
+                        }
+                    });
                 });
             }
         });
@@ -3088,3 +3125,9 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 });
 
 
+var flashPlay = function(){
+    $('.inner-infoicon .video').addClass('pause');
+}
+var flashplayComplete = function(){
+    $('.inner-infoicon .video').removeClass('pause');
+}

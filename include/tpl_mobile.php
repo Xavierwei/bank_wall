@@ -67,6 +67,11 @@
 		<button class="btn ok" data-a="">{{_e.CONFIRM}}</button>
 	</div>
 
+	<div class="saveuser-confirm-modal pop-modal">
+		<button class="btn cancel" data-a="cancel_modal">{{_e.CANCEL}}</button>
+		<button class="btn ok" data-a="save_user">{{_e.CONFIRM}}</button>
+	</div>
+
 
 	<div class="filter-modal pop-modal">
 		<div class="select-option" data-param="">

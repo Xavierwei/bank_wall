@@ -47,7 +47,7 @@ define(function( require , exports , model ){
         // get user's nodes
         userNode: {path: './admin/app/json/node/recent.json' , data:{ uid: 0 , page: 1 }, method: 'get'},
         saveNode: {path: './api/index.php/node/post'},
-        repost: {path: './api/index.php/uploads/repost'},
+        upload: {path: './api/index.php/uploads/upload'},
         neighbor: {path: './api/index.php/node/getneighbor', method:'get'},
         countryList: {path: './json/country.json', method:'get', cache: true},
         i18n_en: {path: './lang/en.json', method:'get', async: false, cache:true},

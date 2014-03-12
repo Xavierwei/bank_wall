@@ -68,13 +68,18 @@
 	<div class="flag-confirm-modal pop-modal">
 		<div class="flag-confirm-text">{{_e.REPORT_THIS}} <span></span>?</div>
 		<button class="btn cancel" data-a="cancel_modal">{{_e.CANCEL}}</button>
-		<button class="btn ok" data-a="">{{_e.CONFIRM}}</button>
+		<button class="btn ok" data-a="user">{{_e.CONFIRM}}</button>
 	</div>
 
 	<div class="delete-confirm-modal pop-modal">
 		<div class="flag-confirm-text">{{_e.DELETE_THIS}} <span></span>?</div>
 		<button class="btn cancel" data-a="cancel_modal">{{_e.CANCEL}}</button>
 		<button class="btn ok" data-a="">{{_e.CONFIRM}}</button>
+	</div>
+
+	<div class="saveuser-confirm-modal pop-modal">
+		<button class="btn cancel" data-a="cancel_modal">{{_e.CANCEL}}</button>
+		<button class="btn ok" data-a="save_user">{{_e.CONFIRM}}</button>
 	</div>
 	<!-- modal -->
 </script>
@@ -383,7 +388,7 @@
 		<!-- inner -->
 		<div class="count-inner">
 			<div class="count-user">
-				<div class="count-userpho"><img src="./api{{avatar}}" width="64"  /><div class="avatar-ie-round"></div></div>
+				<div class="count-userpho"><img src="./api{{avatar}}" width="64" /><div class="avatar-ie-round"></div></div>
 				<div class="count-userinfo">
 					<p class="name">{{firstname}} {{lastname}}</p>
 					<p class="location">{{country.country_name}}</p>
@@ -478,19 +483,19 @@
 
 <!-- wmv-player-tpl -->
 <script type="text/tpl" id="wmv-player-template">
-  <iframe style="display:none" onload="this.style.display='block';" src="wmv_player.php?file={{file}}" scrolling="no" frameborder="0"></iframe>
+  <iframe id="wmv-iframe" style="display:none" onload="this.style.display='block';" src="wmv_player.php?file={{file}}" scrolling="no" frameborder="0"></iframe>
 </script>
 
 <!-- flash-player-tpl -->
 <script type="text/tpl" id="flash-player-template">
-  <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="100%" height="100%">
+  <object id="flash-player" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="100%" height="100%">
 	<param name="allowScriptAccess" value="always"/>
 	<param name="movie" value="flash/player.swf"/>
-	<param name="flashVars" value="source=../api{{file}}&skinMode=show&fengmian=./api{{image}}"/>
+	<param name="flashVars" value="source=../api{{file}}&skinMode=show&onPlay=flashPlay()&onPause=flashPause()&onPlayComplete=flashplayComplete()&fengmian=./api{{image}}"/>
 	<param name="quality" value="high"/>
 	<param name="wmode" value="opaque"/>
 	<param name="allowFullScreen" value="true"/>
-    <embed name="player" src="flash/player.swf" flashVars="source=../api{{file}}&skinMode=show&fengmian=./api{{image}}" allowFullScreen="true" quality="high" wmode="opaque" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="100%" height="100%" allowScriptAccess="always"></embed>
+    <embed id="flash-player-embed" name="player" src="flash/player.swf" flashVars="source=../api{{file}}&skinMode=show&onPlay=flashPlay()&onPause=flashPause()&onPlayComplete=flashplayComplete()&fengmian=./api{{image}}" allowFullScreen="true" quality="high" wmode="opaque" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="100%" height="100%" allowScriptAccess="always"></embed>
   </object>
 </script>
 

@@ -12,27 +12,28 @@ class NodeController extends Controller {
 		$user = UserAR::model()->findByPk($uid);
 		$request = Yii::app()->getRequest();
 		$isIframe = htmlspecialchars($request->getPost("iframe"));
-    $tmp_file = $request->getPost("tmp_file");
-    $is_retry = !!$tmp_file;
-    $abs_tmp_file = ROOT. $tmp_file;
-    
-    // 如果存在一个临时文件的上传数据 ， 很可能是重新转视频
-    if ($tmp_file && is_file(ROOT.$tmp_file)) {
-      $filePath = ROOT. $tmp_file;
-      $mime = NodeAR::detechFileMime($filePath);
-      $size = filesize($filePath);
-      $name = pathinfo($filePath, PATHINFO_BASENAME);
+		$isIframeRepost = htmlspecialchars($request->getPost("iframeRepost"));
+		$tmp_file = $request->getPost("tmp_file");
+		$is_retry = !!$tmp_file;
+		$abs_tmp_file = ROOT. $tmp_file;
 
-      $new_file_entity = array(
-          "type" => $mime,
-          "size" => $size,
-          "tmp_name" => $filePath,
-          "error" => UPLOAD_ERR_OK,
-          "name" => $name
-      );
-      // 重新生成一个假的$_FILES 数据
-      $_FILES[pathinfo($filePath, PATHINFO_FILENAME)] = $new_file_entity;
-    }
+		// 如果存在一个临时文件的上传数据 ， 很可能是重新转视频
+		if ($tmp_file && is_file(ROOT.$tmp_file)) {
+			$filePath = ROOT. $tmp_file;
+			$mime = NodeAR::detechFileMime($filePath);
+			$size = filesize($filePath);
+			$name = pathinfo($filePath, PATHINFO_BASENAME);
+
+			$new_file_entity = array(
+			  "type" => $mime,
+			  "size" => $size,
+			  "tmp_name" => $filePath,
+			  "error" => UPLOAD_ERR_OK,
+			  "name" => $name
+			);
+			// 重新生成一个假的$_FILES 数据
+			$_FILES[pathinfo($filePath, PATHINFO_FILENAME)] = $new_file_entity;
+		}
     
 		if ($user) {
 			$country_id = $user->country_id;
@@ -46,13 +47,13 @@ class NodeController extends Controller {
 
 			$nodeAr = new NodeAR();
 			if($isIframe || $isFlash) {
-        // 在这里， 重新上传的文件名不确定 所以需要手动获得
-        if ($tmp_file) {
-          $file_name = pathinfo($tmp_file, PATHINFO_FILENAME);
-        }
-        else {
-          $file_name = "file";
-        }
+				// 在这里， 重新上传的文件名不确定 所以需要手动获得
+				if ($tmp_file) {
+				  $file_name = pathinfo($tmp_file, PATHINFO_FILENAME);
+				}
+				else {
+				  $file_name = "file";
+				}
 				$fileUpload = CUploadedFile::getInstanceByName($file_name);
 				$validateUpload = $nodeAr->validateUpload($fileUpload, $type);
         
@@ -72,22 +73,28 @@ class NodeController extends Controller {
 			$nodeAr->type = $type;
 			if($isIframe || $isFlash ) {
 				$file = $nodeAr->saveUploadedFile($fileUpload);
-        // 如果返回的是一个数组， 则可能是ffmpeg 超过了阀值
-        if (is_array($file) && $file[0] === FALSE) {
-          $tmp_file = $file[1];
-          // 确保文件一定存在
-          if (is_file($tmp_file)) {
-            $base_path = ROOT;
-            $this->responseJSON(array(
-                "error" => "ffmpeg busy",
-                "tmp_file" => str_replace($base_path, "", $tmp_file),
-            ),"retry upload");
-          }
-          // 直接返回错误
-          else {
-            $this->responseError("ffmpeg busy");
-          }
-        }
+				// 如果返回的是一个数组， 则可能是ffmpeg 超过了阀值
+				if (is_array($file) && $file[0] === FALSE) {
+				  $tmp_file = $file[1];
+				  // 确保文件一定存在
+				  if (is_file($tmp_file)) {
+						$base_path = ROOT;
+					  	if($isIframeRepost) {
+							$this->responseError(array("error" => 508, "tmp_file" => str_replace($base_path, "", $tmp_file)));
+						}
+					  	else {
+							$this->render('post', array(
+								'code'=>508,
+								'tmp_file' => str_replace($base_path, "", $tmp_file),
+							));
+						}
+					  	return;
+				  }
+				  // 直接返回错误
+				  else {
+					$this->responseError("ffmpeg busy");
+				  }
+				}
 				if($file) {
 					$nodeAr->file = $file;
 				}
@@ -110,9 +117,9 @@ class NodeController extends Controller {
 					$_scale_size = $request->getPost("size");
 					$nodeAr->file = $nodeAr->cropPhoto($file, $_x, $_y, $_width, $_scale_size);
 				}
-        else {
-          $nodeAr->file = $file;
-        }
+				else {
+				  $nodeAr->file = $file;
+				}
 			}
 
 			$nodeAr->uid = $uid;
@@ -127,7 +134,7 @@ class NodeController extends Controller {
 				$retdata['user'] = $nodeAr->user->attributes;
 				$retdata['country'] = $nodeAr->country->attributes;
 				
-				if($isIframe){
+				if($isIframe && !$isIframeRepost){
 					$this->render('post', array(
 						'code'=>1
 					));

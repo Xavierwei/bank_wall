@@ -152,6 +152,7 @@ a{text-decoration:none;color:#666}
 	.inner-infoicon{position: absolute;bottom: 13px;right:10px;z-index:2;}
 	.inner-info .photo{background: url('../img/icon_photo_w.png') no-repeat center;width:15px;height: 11px;margin: 0 auto}
     .inner-info .video{background: url('../img/icon_video_w.png') no-repeat center;width:11px;height: 12px;margin: 0 auto}
+    .inner-info .video.pause {background: url('../img/icon_video_pause_w.png') no-repeat center;}
     .flag-node {display:none;position: absolute;top:10px;right:10px;background:url('../img/icon_flag_b.png') no-repeat;text-indent:-999em;width:16px;height:17px;}
     .flag-node.flagged {background-position:0 -19px;}
     .logged .flag-node {display:block;}
@@ -274,16 +275,20 @@ a{text-decoration:none;color:#666}
 	.poptxt-cancel{float:left;width: 190px;height: 40px;background: #3f3e3d;border: #5d5d5d 2px solid;color:#fff;line-height: 45px;text-align: center;font-size:14px;text-transform: uppercase;}
 	.poptxt-submit{float:right;width: 190px;height: 40px;background: #db2842;border: #c0152d 2px solid;color:#fff;line-height: 45px;text-align: center;font-size:14px;text-transform: uppercase;}
     .pop-modal {display:none;z-index:12;background:#fff;position:fixed;left:50%;top:-30%;color:#434343;-webkit-box-shadow: 3px 3px 10px 0 #C2C2C2;box-shadow: 3px 3px 10px 0 #C2C2C2;}
-    .flag-confirm-modal {width: 400px;height:140px;margin: -70px 0 0 -200px;text-align: center;}
+    .flag-confirm-modal {width: 500px;height:140px;margin: -70px 0 0 -250px;text-align: center;}
     .flag-confirm-text {font-size:15px;margin:25px 0 0;}
     .flag-confirm-modal .btn {font-size:15px;color:#fff;width:120px;height:40px;line-height:40px;border:none;margin:25px 5px 0 5px;display:inline-block;}
     .flag-confirm-modal .cancel {background:#90918e;}
     .flag-confirm-modal .ok {background:#d3273f;}
-    .delete-confirm-modal {width: 440px;height:140px;margin: -70px 0 0 -220px;text-align: center;}
+    .delete-confirm-modal {width: 500px;height:140px;margin: -70px 0 0 -250px;text-align: center;}
     .delete-confirm-text {font-size:15px;margin:25px 0 0;}
     .delete-confirm-modal .btn {font-size:15px;color:#fff;width:120px;height:40px;line-height:40px;border:none;margin:25px 5px 0 5px;display:inline-block;}
     .delete-confirm-modal .cancel {background:#90918e;}
     .delete-confirm-modal .ok {background:#d3273f;}
+    .saveuser-confirm-modal {width: 400px;height:140px;margin: -70px 0 0 -200px;text-align: center;}
+    .saveuser-confirm-modal .btn {font-size:15px;color:#fff;width:120px;height:40px;line-height:40px;border:none;margin:50px 5px 0 5px;display:inline-block;}
+    .saveuser-confirm-modal .cancel {background:#90918e;}
+    .saveuser-confirm-modal .ok {background:#d3273f;}
     .search-tip-modal {width:460px;height:200px;margin: -100px 0 0 -230px;background:#fff url('../img/icon_search_tip_b.gif') no-repeat 15px 30px;}
     .search-tip-modal .tip-text {margin:23px 20px 0 62px;line-height:120%;font-size:15px;}
     .tip-text span {color:#d62740;}

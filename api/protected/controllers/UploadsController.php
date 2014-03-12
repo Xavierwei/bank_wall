@@ -115,8 +115,8 @@ class UploadsController extends Controller {
     // ffmpeg 正忙
     if ($file && is_array($file) && $file[0] === FALSE) {
       $to = $file[1];
-      if (is_file(ROOT. $to)) {
-        $this->responseJSON(array("error" => "ffmpeg busy", "tmp_file" => str_replace(ROOT, "", $to)), "ffmpeg busy");
+      if (is_file($to)) {
+        $this->responseError(array("error" => 508, "tmp_file" => str_replace(ROOT, "", $to)));
       }
       else {
         return $this->responseError(509); 

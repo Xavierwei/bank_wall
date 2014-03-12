@@ -41,7 +41,7 @@ class CommentController extends Controller {
 		$commentAr->attributes = array(
 		    "uid" => $uid,
 		    "nid" => $nid,
-		    "content" => htmlentities($content),
+		    "content" => htmlspecialchars($content),
 		    "status" => 1
 		);
 
