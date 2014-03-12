@@ -8,7 +8,6 @@ class UserController extends Controller {
 
 	/**
 	 * SAML SSO Login
-	 * TODO: Need change to live SAML IdP
 	 */
 	public function actionSAMLLogin() {
 		if(isset($_SERVER['HTTP_REFERER'])) {
@@ -19,9 +18,6 @@ class UserController extends Controller {
 			}
 		}
 
-		// TODO: TESTING
-		//$as = new SimpleSAML_Auth_Simple('default-sp');
-		// TODO: LIVE
 		$as = new SimpleSAML_Auth_Simple('live-sp');
 
 		$as->requireAuth();
@@ -30,43 +26,19 @@ class UserController extends Controller {
 			return $this->responseError("login saml failed");
 		}
 
-		// TODO: TESTING
-		// Create the new user if user doesn't exist in database
-//		if( !$user = UserAR::model()->findByAttributes(array('company_email'=>$attributes['eduPersonPrincipalName'][0])) ) {
-//			$user = UserAR::model()->createSAMLRegisterTest($attributes);
-//		}
-//
-//		// Identity local site user data
-//		$userIdentify = new UserIdentity($user->company_email, $attributes['eduPersonTargetedID'][0]);
-//
-//		// Save user status in session
-//		if (!$userIdentify->authenticate()) {
-//			echo md5($attributes['eduPersonTargetedID'][0]);
-//			$this->responseError("login failed.");
-//		}
-//		else {
-//			Yii::app()->user->login($userIdentify);
-//			if(Yii::app()->session['loginfrom'] == 'admin') {
-//				$this->redirect('../admin/index');
-//			}
-//			else {
-//				$this->redirect('../../index');
-//			}
-//		}
 
 
-		// TODO: LIVE
 		// Create the new user if user doesn't exist in database
 		if( !$user = UserAR::model()->findByAttributes(array('company_email'=>$attributes['societegenerale.sggroupid'][0])) ) {
 			$user = UserAR::model()->createSAMLRegister($attributes);
 		}
 
 		// Identity local site user data
-		$userIdentify = new UserIdentity($user->company_email, $attributes['societegenerale.uid'][0]);
+		$userIdentify = new UserIdentity($user->company_email, $attributes['societegenerale.givenname'][0]);
 
 		// Save user status in session
 		if (!$userIdentify->authenticate()) {
-			$this->responseError("login failed.");
+			$this->redirect('../../index');
 		}
 		else {
 			Yii::app()->user->login($userIdentify);
@@ -89,7 +61,7 @@ class UserController extends Controller {
 			// Clean session
 			Yii::app()->user->logout();
 			// Logout from SSO
-			$as = new SimpleSAML_Auth_Simple('default-sp');
+			$as = new SimpleSAML_Auth_Simple('live-sp');
 			$status = $as->isAuthenticated();
 			if($status){
 				$as->logout();
@@ -103,93 +75,7 @@ class UserController extends Controller {
 		}
 	}
 
-	/* Get User List (Disabled)
-	public function actionList() {
-		$request = Yii::app()->getRequest();
 
-		if (!Yii::app()->user->checkAccess("listAllAccount")) {
-			return $this->responseError("permission deny");
-		}
-
-		$role = $request->getParam("role");
-		$country_id = $request->getParam("country_id");
-		$orderby = $request->getParam("orderby");
-
-
-		if ($country_id && !is_numeric($country_id)) {
-			$country_id = FALSE;
-		}
-
-		if (Yii::app()->user->role == UserAR::ROLE_COUNTRY_MANAGER) {
-			$login_uid = Yii::app()->user->getId();
-			$user = UserAR::model()->findByPk($login_uid);
-			$country_id = $user->country_id;
-		}
-
-		if (!$role) {
-		  //$this->responseError("invalid params role");
-		}
-		if ($role && !is_numeric($role)) {
-		  $this->responseError("invalid params role");
-		}
-
-		$columns = UserAR::model()->getTableSchema()->columns;
-		if (!isset($columns[$orderby])) {
-		  $this->responseError("invalid params orderby");
-		}
-
-		$params = array();
-		$query = new CDbCriteria();
-		if ($role) {
-		  $query->addCondition("role=:role");
-		  $params[":role"] = $role;
-		}
-
-
-		if ($country_id) {
-		  $query->addCondition(UserAR::model()->tableAlias . ".country_id = :country_id");
-		  $params[":country_id"] = $country_id;
-		}
-
-		$query->order = $orderby . " DESC";
-
-		$query->params = $params;
-
-		$users = UserAR::model()->with("country")->findAll($query);
-
-		$array_users = array();
-		foreach ($users as $user) {
-		  $array = $user->attributes;
-		  $country = $user->country;
-		  $array["country"] = $country->attributes;
-
-		  $array_users[] = $array;
-		}
-
-		$allow_fields = array("uid", "firstname", "lastname", "avatar", "country" => array("country_name", "flag_icon"),
-		    "company_email", "personal_email", "role", "status");
-
-		$ret_data = array();
-		foreach ($array_users as $user) {
-		  $ret_user = array();
-		  foreach ($allow_fields as $key => $field) {
-		    if (is_numeric($key)) {
-		      $ret_user[$field] = $user[$field];
-		    } else {
-		      if (is_array($field)) {
-		        $ret_user[$key] = array();
-		        foreach ($field as $sub_field) {
-		          $ret_user[$key][$sub_field] = $user[$key][$sub_field];
-		        }
-		      }
-		    }
-		  }
-		  $ret_data[] = $ret_user;
-		}
-
-		$this->responseJSON($ret_data, "success");
-	}
-    */
 
 
 	/**
@@ -233,65 +119,7 @@ class UserController extends Controller {
 		}
 	}
 
-	/**
-	* Get user info by uid (disabled)
 
-	public function actionGetByUid() {
-		$request = Yii::app()->getRequest();
-		$uid = $request->getParam("uid");
-
-		if (!Yii::app()->user->role == UserAR::ROLE_ADMIN && !Yii::app()->user->role == UserAR::ROLE_COUNTRY_MANAGER) {
-	        return $this->responseError("permission deny");
-		}
-
-		if ($uid) {
-			$user = UserAR::model()->with("country")->findByPk($uid);
-			if ($user) {
-				$ret_user = UserAR::getOutputRecordInArray($user);
-				$this->responseJSON($ret_user, "success");
-			}
-			else {
-				$this->responseError("not found user");
-			}
-		}
-		else {
-		    $this->responseError("invalid params");
-		}
-	}
-	*/
-
-	/**
-	* Post user
-
-	public function actionPost() {
-		$arUser = new UserAR();
-
-		$request = Yii::app()->getRequest();
-
-		if (Yii::app()->user->getId() ) {
-			return $this->responseError("you have already login");
-		}
-
-		// Only allow post
-		if ($this->isPost()) {
-			$id = $arUser->postNewUser();
-			if ($id) {
-				$mUser = UserAR::model()->findByPk($arUser->uid);
-				// 返回数据
-				$this->responseJSON(array(
-				    "uid" => $id,
-				    "lastname" => $mUser->lastname,
-				    "firstname" => $mUser->firstname,
-				    "avatar" => $mUser->avatar,
-				        ), Yii::t("strings", "success"));
-			} else {
-				$this->responseError($arUser->errorsString());
-			}
-		} else {
-		    $this->responseError(Yii::t("strings", "http error"));
-		}
-	}
-	 */
 
 	/**
 	* Upload avatar
@@ -384,38 +212,7 @@ class UserController extends Controller {
 		}
 	}
 
-	/**
-	* Delete user (disabled)
-	public function actionDelete() {
-		$request = Yii::app()->getRequest();
-
-		if (!$request->isPostRequest) {
-		    $this->responseError("http error");
-		}
-
-		$uid = $request->getPost("uid");
-		if (!$uid) {
-		    $this->responseError("invalid params");
-		}
-		$user = UserAR::model()->with("country")->findByPk($uid);
-
-		// 检查用户权限
-		if (!Yii::app()->user->checkAccess("deleteAnyAccount", array("country_id" => $user->country_id))) {
-		    return $this->responseError("permission deny");
-		}
-
-		if ($user) {
-			if (!Yii::app()->user->checkAccess("deleteAnyAccount", array("country_id" => $user->country_id))) {
-			return $this->responseError("permission deny");
-			}
-			UserAR::model()->deleteByPk($user->uid);
-			$this->responseJSON(array(), "success");
-		}
-		else {
-			$this->responseJSON(array(), "success");
-		}
-	}
-	*/
+	
 
 
 	/**

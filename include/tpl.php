@@ -383,7 +383,7 @@
 		<!-- inner -->
 		<div class="count-inner">
 			<div class="count-user">
-				<div class="count-userpho"><img src="./api{{avatar}}" width="60"  /><div class="avatar-ie-round"></div></div>
+				<div class="count-userpho"><img src="./api{{avatar}}" width="64"  /><div class="avatar-ie-round"></div></div>
 				<div class="count-userinfo">
 					<p class="name">{{firstname}} {{lastname}}</p>
 					<p class="location">{{country.country_name}}</p>

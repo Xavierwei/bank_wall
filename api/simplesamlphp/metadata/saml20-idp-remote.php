@@ -26,7 +26,7 @@ $metadata['https://openidp.feide.no'] = array(
 /*
  * Live site IdP
  */
-$metadata['https://www.wall150ans.com'] = array(
+$metadata['https://dafelx01.dns21.socgen:1443/wall'] = array(
 	'name' => array(
 		'en' => 'SGIdP',
 		'fr' => 'SGIdP',
@@ -35,5 +35,5 @@ $metadata['https://www.wall150ans.com'] = array(
 	'SingleSignOnService'  => 'https://dafelx01.dns21.socgen:1443/wall/AccueilAuth/IdPAccess',
 	'certificate'          => 'server.crt',
 	'nameid.encryption'    => TRUE,
-	'assertion.encryption' => TRUE
+	'assertion.encryption' => FALSE
 );
