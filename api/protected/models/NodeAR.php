@@ -223,7 +223,7 @@ class NodeAR extends CActiveRecord{
 	}
 
 
-	public function validateUpload($fileUpload, $type) {
+	public function validateUpload($fileUpload, $type, $device = null) {
 		if(!$fileUpload) {
 			return 500; //video or photo is mandatory
 		}
@@ -265,7 +265,14 @@ class NodeAR extends CActiveRecord{
 
 		if ($type == 'video') {
 			$size = $fileUpload->getSize(); //in bytes
-			if($size > 7 * 1024000) {
+			if($device == 'android') {
+				$allowsize = 16 * 1024000;
+			}
+			else {
+				$allowsize = 7 * 1024000;
+			}
+
+			if($size > $allowsize) {
 				return 501; //video size out of limitation
 			}
 			$mime = $fileUpload->getType();
@@ -373,8 +380,10 @@ class NodeAR extends CActiveRecord{
       
 			// 在这里做视频转换功能
 			// 先检查 ffmpeg 是否已经安装
-
 			exec("which ffmpeg", $output);
+			if(!$output) {
+				exec("which ffmpeg 2>/dev/null 2>&1",$output);
+			}
 			if (!empty($output)) {
 				$ffmpeg = array_shift($output);
 				if ($ffmpeg) {
@@ -387,6 +396,7 @@ class NodeAR extends CActiveRecord{
 					$newpath = pathinfo($to, PATHINFO_FILENAME)."_new.". self::ALLOW_STORE_VIDE_TYPE;
 					$dir = pathinfo($to, PATHINFO_DIRNAME);
 					$newpath = $dir.'/'. $newpath;
+
 					if ($newpath != $to) {
 							//if (1) {
 						$status;
@@ -448,6 +458,10 @@ class NodeAR extends CActiveRecord{
                             return FALSE;
                         }
 
+						if (!is_file($newpath)) {
+							return FALSE;
+						}
+
 						if(is_file($to)) {
 							unlink($to);
 						}
@@ -455,6 +469,9 @@ class NodeAR extends CActiveRecord{
 					}
 
 				}
+			}
+			else {
+				return false;
 			}
 		}
 
@@ -488,7 +505,7 @@ class NodeAR extends CActiveRecord{
     function is_valid_video($path) {
         $cmd = "/usr/local/bin/ffprobe " . $path . "  2>/dev/null 2>&1";
         $result = shell_exec($cmd);
-        if (strpos($result, "Invalid") === FALSE || strpos($result, "fault") === FALSE) {
+        if (strpos($result, "Invalid") === FALSE && strpos($result, " fault") === FALSE) {
             return TRUE;
         }
         return FALSE;

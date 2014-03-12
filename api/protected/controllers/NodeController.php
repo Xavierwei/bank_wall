@@ -292,10 +292,6 @@ class NodeController extends Controller {
 
 		$user = UserAR::model()->findByPk(Yii::app()->user->getId());
 
-//		$session_token =  Yii::app()->session['token'];
-//		if($token != $session_token) {
-//			$this->responseError(102);
-//		}
 
 		// Build Query
 		$query = new CDbCriteria();
@@ -638,8 +634,9 @@ class NodeController extends Controller {
 
             $this->cleanAllCache();
 
-			$ret = $begin.'Votre '.$type.' a été postée, vous pouvez la voir via l\'url:\nhttp://64.207.184.106/sgwall/#/nid/'.$node->nid.$end
-				.$begin_en.'Your '.$type.' is success submit, after approved, you can visit the '.$type.' via this url:\nhttp://64.207.184.106/sgwall/#/nid/'.$node->nid.$end_en;
+			$siteDomain = Yii::app()->params['siteDomain'];
+			$ret = $begin.'Votre '.$type.' a été postée, vous pouvez la voir via l\'url:\n'.$siteDomain.'/#/nid/'.$node->nid.$end
+				.$begin_en.'Your '.$type.' is success submit, after approved, you can visit the '.$type.' via this url:\n'.$siteDomain.'/#/nid/'.$node->nid.$end_en;
 			return $this->responseJSON(true, $ret, false);
 		}
 		catch (Exception $e) {
