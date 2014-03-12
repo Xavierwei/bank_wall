@@ -34,6 +34,9 @@ class NodeAR extends CActiveRecord{
 	const ALLOW_UPLOADED_VIDEO_TYPES = "mp4,avi,mov,mpg,mpeg,3gp,wmv";
 
 	const ALLOW_STORE_VIDE_TYPE = "mp4";
+  
+  // ffmpeg 允许的最大进程数
+  const ALLOW_MAX_FFMPEG_COUNT = 8;
 
 	public $nodecounts;
   
@@ -362,13 +365,12 @@ class NodeAR extends CActiveRecord{
 			}
 		}
 
-
-
 		// 检查是不是视频， 如果是, 就就做视频转换工作
 		if (in_array($extname, $videoexts)) {
 			$filename = md5( uniqid() . '_' . $upload->getName() ) . '.' .$extname ;
 			$to = $dir."/". $filename;
-			$ret = $upload->saveAs($to);
+			$ret = $upload->newSaveAs($to);
+      
 			// 在这里做视频转换功能
 			// 先检查 ffmpeg 是否已经安装
 
@@ -376,6 +378,12 @@ class NodeAR extends CActiveRecord{
 			if (!empty($output)) {
 				$ffmpeg = array_shift($output);
 				if ($ffmpeg) {
+          // ffmpeg 确定安装后 检查 ffmpeg 进程个数
+          // 如果超过了 ALLOW_MAX_FFMPEG_COUNT 阀值 就直接返回FALSE
+          // 然后保存文件 并且返回 临时文件路径
+          if (self::ffmpeg_process_count() >= self::ALLOW_MAX_FFMPEG_COUNT) {
+            return array(FALSE, $to);
+          }
 					$newpath = pathinfo($to, PATHINFO_FILENAME)."_new.". self::ALLOW_STORE_VIDE_TYPE;
 					$dir = pathinfo($to, PATHINFO_DIRNAME);
 					$newpath = $dir.'/'. $newpath;
@@ -671,4 +679,76 @@ class NodeAR extends CActiveRecord{
 
 		return $page;
 	}
+  
+  public static function detechFileMime($path) {
+    if (is_file($path)) {
+      
+      $ret = exec("file -b --mime-type ". $path, $output, $staus);
+      if ($staus === 0 && $ret) {
+        return $ret;
+      }
+      else {
+        return FALSE;
+      }
+    }
+    return FALSE;
+  }
+  
+
+  // 检查 ffmpeg 进程个数
+  public static function ffmpeg_process_count() {
+    $command = "ps -ef | grep -v grep | grep ffmpeg | wc -l";
+
+    $descriptorspec = array(
+        0 => array("pipe", "r"),
+        1 => array("pipe", "w"),
+        2 => array("file", "/dev/null", "w"),
+    );
+
+    $process = proc_open($command, $descriptorspec, $pipes);
+    $can_be_convert = FALSE;
+    if (is_resource($process)) {
+      fclose($pipes[0]);
+
+      $content = stream_get_contents($pipes[1]);
+      fclose($pipes[1]);
+
+      $ret_value = proc_close($process);
+
+      return intval(trim($content));
+    }
+
+    else {
+      // 打开进程失败
+      return FALSE;
+    }
+  }
+  
+  # Linux / Centos only
+  public static function cpu_core_count() {
+    $command = "cat /proc/cpuinfo | grep -v grep | grep processor | wc -l";
+
+    $descriptorspec = array(
+        0 => array("pipe", "r"),
+        1 => array("pipe", "w"),
+        2 => array("file", "/dev/null", "w"),
+    );
+
+    $process = proc_open($command, $descriptorspec, $pipes);
+    if (is_resource($process)) {
+      fclose($pipes[0]);
+
+      $content = stream_get_contents($pipes[1]);
+      fclose($pipes[1]);
+
+      $ret_value = proc_close($process);
+
+      return intval(trim($content));
+    }
+
+    else {
+      // 打开进程失败
+      return FALSE;
+    }
+  }
 }

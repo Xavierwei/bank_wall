@@ -204,6 +204,23 @@ class CUploadedFile extends CComponent
 		else
 			return false;
 	}
+  
+  public function newSaveAs($file, $deleteTempFile = TRUE) {
+		if($this->_error==UPLOAD_ERR_OK)
+		{
+      if($deleteTempFile) {
+				copy($this->_tempName,$file);
+        unlink($this->_tempName);
+        
+        return TRUE;
+      }
+      else {
+				return copy($this->_tempName, $file);
+      }
+		}
+		else
+			return false;
+  }
 
 	/**
 	 * @return string the original name of the file being uploaded

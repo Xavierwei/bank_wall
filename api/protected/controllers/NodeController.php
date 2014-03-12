@@ -3,62 +3,6 @@
 class NodeController extends Controller {
   
   
-  
-  function ffmpeg_process_count() {
-    $command = "ps -ef | grep -v grep | grep ffmpeg | wc -l";
-
-    $descriptorspec = array(
-        0 => array("pipe", "r"),
-        1 => array("pipe", "w"),
-        2 => array("file", "/dev/null", "w"),
-    );
-
-    $process = proc_open($command, $descriptorspec, $pipes);
-    $can_be_convert = FALSE;
-    if (is_resource($process)) {
-      fclose($pipes[0]);
-
-      $content = stream_get_contents($pipes[1]);
-      fclose($pipes[1]);
-
-      $ret_value = proc_close($process);
-
-      return intval(trim($content));
-    }
-
-    else {
-      // 打开进程失败
-      return FALSE;
-    }
-  }
-  
-  # Linux / Centos only
-  function cpu_core_count() {
-    $command = "cat /proc/cpuinfo | grep -v grep | grep processor | wc -l";
-
-    $descriptorspec = array(
-        0 => array("pipe", "r"),
-        1 => array("pipe", "w"),
-        2 => array("file", "/dev/null", "w"),
-    );
-
-    $process = proc_open($command, $descriptorspec, $pipes);
-    if (is_resource($process)) {
-      fclose($pipes[0]);
-
-      $content = stream_get_contents($pipes[1]);
-      fclose($pipes[1]);
-
-      $ret_value = proc_close($process);
-
-      return intval(trim($content));
-    }
-
-    else {
-      // 打开进程失败
-      return FALSE;
-    }
-  }
 
 	/**
 	 * Post new node (photo/video)
@@ -68,19 +12,48 @@ class NodeController extends Controller {
 		$user = UserAR::model()->findByPk($uid);
 		$request = Yii::app()->getRequest();
 		$isIframe = htmlspecialchars($request->getPost("iframe"));
+    $tmp_file = $request->getPost("tmp_file");
+    $is_retry = !!$tmp_file;
+    $abs_tmp_file = ROOT. $tmp_file;
+    // 如果存在一个临时文件的上传数据 ， 很可能是重新转视频
+    if ($tmp_file && is_file(ROOT.$tmp_file)) {
+      $filePath = ROOT. $tmp_file;
+      $mime = NodeAR::detechFileMime($filePath);
+      $size = filesize($filePath);
+      $name = pathinfo($filePath, PATHINFO_BASENAME);
+
+      $new_file_entity = array(
+          "type" => $mime,
+          "size" => $size,
+          "tmp_name" => $filePath,
+          "error" => UPLOAD_ERR_OK,
+          "name" => $name
+      );
+      // 重新生成一个假的$_FILES 数据
+      $_FILES[pathinfo($filePath, PATHINFO_FILENAME)] = $new_file_entity;
+    }
+    
 		if ($user) {
 			$country_id = $user->country_id;
 
 			if (!$request->isPostRequest) {
 				$this->responseError("http error");
 			}
+      
 			$type = htmlspecialchars($request->getPost("type"));
 			$isFlash = htmlspecialchars($request->getPost("flash"));
 
 			$nodeAr = new NodeAR();
 			if($isIframe || $isFlash) {
-				$fileUpload = CUploadedFile::getInstanceByName("file");
+        if ($tmp_file) {
+          $file_name = pathinfo($tmp_file, PATHINFO_FILENAME);
+        }
+        else {
+          $file_name = "file";
+        }
+				$fileUpload = CUploadedFile::getInstanceByName($file_name);
 				$validateUpload = $nodeAr->validateUpload($fileUpload, $type);
+        
 				if($validateUpload !== true) {
 					if($isIframe){
 						$this->render('post', array(
@@ -95,8 +68,24 @@ class NodeController extends Controller {
 			}
 			$nodeAr->description = htmlspecialchars($request->getPost("description"));
 			$nodeAr->type = $type;
-			if($isIframe || $isFlash) {
+			if($isIframe || $isFlash ) {
 				$file = $nodeAr->saveUploadedFile($fileUpload);
+        // 如果返回的是一个数组， 则可能是ffmpeg 超过了阀值
+        if (is_array($file) && $file[0] === FALSE) {
+          $tmp_file = $file[1];
+          // 确保文件一定存在
+          if (is_file($tmp_file)) {
+            $base_path = ROOT;
+            $this->responseJSON(array(
+                "error" => "ffmpeg busy",
+                "tmp_file" => str_replace($base_path, "", $tmp_file),
+            ),"retry upload");
+          }
+          // 直接返回错误
+          else {
+            $this->responseError("ffmpeg busy");
+          }
+        }
 				if($file) {
 					$nodeAr->file = $file;
 				}
@@ -119,9 +108,9 @@ class NodeController extends Controller {
 					$_scale_size = $request->getPost("size");
 					$nodeAr->file = $nodeAr->cropPhoto($file, $_x, $_y, $_width, $_scale_size);
 				}
-		        else {
-		          $nodeAr->file = $file;
-		        }
+        else {
+          $nodeAr->file = $file;
+        }
 			}
 
 			$nodeAr->uid = $uid;
@@ -657,5 +646,24 @@ class NodeController extends Controller {
 			return $this->responseJSON(false, $e->getMessage(), false);
 		}
 	}
+  
+  public function actionTest() {
+    print "node test";
+    $filePath = "/Users/jackeychen/Workspace/bank_wall/api/uploads/v168.mp4";
+    $mime = NodeAR::detechFileMime($filePath);
+    $size = filesize($filePath);
+    $name = pathinfo($filePath, PATHINFO_BASENAME);
+    
+    $new_file_entity = array(
+        "type" => $mime,
+        "size" => $size,
+        "tmp_name" => $filePath,
+        "error" => UPLOAD_ERR_OK,
+    );
+    $_FILES[$name] = $new_file_entity;
+    
+    print_r($_FILES);
+    die();
+  }
 }
 
