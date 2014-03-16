@@ -64,31 +64,31 @@ class UploadsController extends Controller {
 			return $this->responseError(602);
 		}
     
-    $request = Yii::app()->getRequest();
-    
-    $tmp_file = $request->getPost("tmp_file");
-    // 如果有temp file 并且文件存在就说明是重新上传文件
-    if ($tmp_file && is_file(ROOT.$tmp_file)) {
-      $filePath = ROOT. $tmp_file;
-      $mime = NodeAR::detechFileMime($filePath);
-      $size = filesize($filePath);
-      $name = pathinfo($filePath, PATHINFO_BASENAME);
+		$request = Yii::app()->getRequest();
 
-      $new_file_entity = array(
-          "type" => $mime,
-          "size" => $size,
-          "tmp_name" => $filePath,
-          "error" => UPLOAD_ERR_OK,
-          "name" => $name
-      );
-      // 重新生成一个假的$_FILES 数据
-      $_FILES[pathinfo($filePath, PATHINFO_FILENAME)] = $new_file_entity;
-      
-      $file_name = pathinfo($filePath, PATHINFO_FILENAME);
-    }
-    else {
-      $file_name = "file";
-    }
+		$tmp_file = $request->getPost("tmp_file");
+		// 如果有temp file 并且文件存在就说明是重新上传文件
+		if ($tmp_file && is_file(ROOT.$tmp_file)) {
+		  $filePath = ROOT. $tmp_file;
+		  $mime = NodeAR::detechFileMime($filePath);
+		  $size = filesize($filePath);
+		  $name = pathinfo($filePath, PATHINFO_BASENAME);
+
+		  $new_file_entity = array(
+			  "type" => $mime,
+			  "size" => $size,
+			  "tmp_name" => $filePath,
+			  "error" => UPLOAD_ERR_OK,
+			  "name" => $name
+		  );
+		  // 重新生成一个假的$_FILES 数据
+		  $_FILES[pathinfo($filePath, PATHINFO_FILENAME)] = $new_file_entity;
+
+		  $file_name = pathinfo($filePath, PATHINFO_FILENAME);
+		}
+		else {
+		  $file_name = "file";
+		}
     
 		$fileUpload = CUploadedFile::getInstanceByName($file_name);
 		$type = $request->getPost("type");
@@ -112,18 +112,18 @@ class UploadsController extends Controller {
 
 		// save file to dir
 		$file = $nodeAr->saveUploadedFile($fileUpload, $device);
-    // ffmpeg 正忙
-    if ($file && is_array($file) && $file[0] === FALSE) {
-      $to = $file[1];
-      if (is_file($to)) {
+		// ffmpeg is busy
+		if ($file && is_array($file) && $file[0] === FALSE) {
+		  $to = $file[1];
+		  if (is_file($to)) {
 
-        $this->responseError(array("error" => 508, "tmp_file" => str_replace(ROOT, "", $to)));
+			$this->responseError(array("error" => 508, "tmp_file" => str_replace(ROOT, "", $to)));
 
-      }
-      else {
-        return $this->responseError(509); 
-      }
-    }
+		  }
+		  else {
+			return $this->responseError(509);
+		  }
+		}
 		else if($file) {
 			// make preview thumbnail
 			if($type == 'video') {

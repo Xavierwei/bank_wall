@@ -1,7 +1,7 @@
 /*
  * page base action
  */
-LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 'swfupload-speed', 'swfupload-queue'] , function( $ , api ){
+LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupload', 'swfupload-speed', 'swfupload-queue'] , function( $ , api ){
     'use strict'
 
     var pageTitle = "WALL - SOCIÉTÉ GÉNÉRALE";
@@ -1589,10 +1589,29 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                         $('.poptxt-pic img')
                             .unbind('load.forinnershow')
                             .bind('load.forinnershow' , function(){
+                                if($('.poptxt-pic-inner').hasClass('loaded')) return;
+                                $('.poptxt-pic-inner').addClass('loaded');
                                 $('.pop-inner').delay(400).fadeOut(400);
                                 $('.pop-txt').delay(1200).fadeIn(400);
                                 setTimeout(function(){
                                     transformMgr.initialize( $('.poptxt-pic-inner') );
+                                    var b64 = $('.poptxt-pic-inner img').attr('src');
+                                    var bin = atob(b64.split(',')[1]);
+                                    var exif = EXIF.readFromBinaryFile(new BinaryFile(bin));
+                                    if(exif.Orientation != undefined && exif.Orientation != 1){
+                                        var oldWidth = $('.poptxt-pic-inner img').width();
+                                        var oldHeight = $('.poptxt-pic-inner img').height();
+                                        $('.poptxt-pic-inner img').addClass('fromserver').height(oldWidth).width(oldHeight).attr('src', API_FOLDER + data.result.data.file).css('opacity',0);
+                                        setTimeout(function(){
+                                            $('.poptxt-pic-inner img.fromserver').ensureLoad(function(){
+                                                if($(this).attr('src').indexOf('api')) {
+                                                    $(this).animate({'opacity':1});
+                                                }
+                                            });
+                                            transformMgr.initialize( $('.poptxt-pic-inner') );
+                                        },500);
+                                    }
+
                                 } , 1700 );
                             })
                             .attr('src', e.target.result/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);

@@ -29,7 +29,7 @@ class NodeAR extends CActiveRecord{
 	public $flag = array();
 
 
-	const ALLOW_UPLOADED_PHOTO_TYPES = "jpg,png,gif";
+	const ALLOW_UPLOADED_PHOTO_TYPES = "jpg,png,gif,jpeg";
 
 	const ALLOW_UPLOADED_VIDEO_TYPES = "mp4,avi,mov,mpg,mpeg,3gp,wmv";
 
@@ -366,6 +366,7 @@ class NodeAR extends CActiveRecord{
 			}
 			if($srcImg) {
 				imagejpeg($srcImg, $to, 90);
+				imagedestroy($srcImg);
 			}
 			else {
 				return false;

@@ -82,7 +82,7 @@
             position: 'absolute',
             left: _imgLeft,
             top: _imgTop
-        } );
+        });
 
         var lastScale = 1 , ctx , cty , lastTx , lastTy , _isTransforming;
         var supportTouch = !$('html').hasClass('no-touch');
