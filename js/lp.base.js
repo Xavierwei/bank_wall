@@ -634,7 +634,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
         if(!$('.side').is(':visible')) {
             _silderWidth = 0;
         }
-		console.log(node);
         //$('.search-hd').hide();
         var datetime = new Date((parseInt(node.datetime)+1*3600)*1000);
         node.date = datetime.getUTCDate();
