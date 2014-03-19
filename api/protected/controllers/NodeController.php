@@ -518,6 +518,22 @@ class NodeController extends Controller {
 
 	}
 
+
+	/**
+	 * Get Node by nid
+	 */
+	public function actionGetByNid() {
+		if(Yii::app()->user->checkAccess("isAdmin")) {
+			$request = Yii::app()->getRequest();
+			$nid = $request->getParam("nid");
+			$node = NodeAR::model()->findByPk($nid);
+			$data = $node->attributes;
+			$data['user'] = UserAR::model()->findByPk($node->uid);
+			$data['country'] = CountryAR::model()->findByPk($node->country_id);
+			$this->responseJSON($data, "success");
+		}
+	}
+
 	/**
 	 * Post the content via Mail
 	 */

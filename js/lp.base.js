@@ -618,6 +618,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
         var $dom = $( this );
         if(data.type) {
             var node = data; // 如果直接传入单个node，不再从列表中获取
+			var isAdmin = 1;
         }
         else {
             _currentNodeIndex = $(this).prevAll(':not(.time-item)').length;
@@ -633,6 +634,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
         if(!$('.side').is(':visible')) {
             _silderWidth = 0;
         }
+		console.log(node);
         //$('.search-hd').hide();
         var datetime = new Date((parseInt(node.datetime)+1*3600)*1000);
         node.date = datetime.getUTCDate();
@@ -717,11 +719,12 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                         $('.image-wrap-inner .video-js').fadeIn();
                     },400);
 
-                    // preload before and after images
-                    preLoadSiblings();
                     var $info = $inner.find('.inner-info');
                     $info.css( 'bottom' , - $info.height() );
                     slideIntroBar($info, _animateTime);
+					// preload before and after images
+					if(isAdmin) return;
+					preLoadSiblings();
                 });
             }
 
@@ -729,14 +732,15 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
             if( node.type == "photo" ){
                 $('.image-wrap-inner img').ensureLoad(function(){
                     $(this).fadeIn();
-                    // preload before and after images
-                    preLoadSiblings();
                     var $info = $inner.find('.inner-info');
                     $info.css( 'bottom' , - $info.height() );
                     slideIntroBar($info, _animateTime);
+					// preload before and after images
+					if(isAdmin) return;
+					preLoadSiblings();
                 });
             }
-            
+
 
             // change url
             changeUrl('/nid/' + node.nid , {event: 'back'});
@@ -3006,6 +3010,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
      * Open the content via url hash id
      */
     var openByHash = function(){
+		var isAdmin = getQueryString('admin');
         changeUrl( location.hash.replace('#' , '') || '/main' , {event:'load'} );
         //获取nid所在的页码，然后加载该list
         var hash = location.hash;
@@ -3013,6 +3018,21 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
         if( ( match = hash.match( /#\/nid\/(\d+)/ ) ) ){
             var nid = match[1];
             var pageParam = refreshQuery();
+			if(isAdmin) {
+				api.ajax('getNode', {nid:nid}, function(result){
+					LP.triggerAction('node',result.data);
+				});
+				api.ajax('recent', pageParam , function( result ){
+					if(result.data.length > 0) {
+						nodeActions.inserNode( $main , result.data , pageParam.orderby == 'datetime' );
+						$listLoading.fadeOut();
+						// fix bug , some times the height would be 0
+						$main.height('auto');
+						$('.inner').data('from', $main);
+					}
+				});
+				return;
+			}
             api.ajax('getPageByNid', {nid:nid, pagenum:20}, function(result){
                 pageParam.page = result.data;
                 pageParam.previouspage = result.data;
@@ -3128,6 +3148,11 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
     }
 
 
+	var getQueryString = function(name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+		var r = window.location.search.substr(1).match(reg);
+		if (r != null) return unescape(r[2]); return null;
+	}
 
     jQuery.fn.extend({
         ensureLoad: function(handler) {
