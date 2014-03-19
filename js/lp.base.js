@@ -76,7 +76,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
             }
 			else {
 				$(this).find('.item-info')
-					.fadeIn( 500 );
+					.fadeIn( 200 );
 			}
 
         })
@@ -88,7 +88,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
 			else {
 				$(this).find('.item-info')
 					//.stop( true , false )
-					.fadeOut( 500 );
+					.fadeOut( 200 );
 			}
 
         })
@@ -153,7 +153,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
         .delegate('.user-edit-page .edit-email' , 'blur' , function(){
             var $error = $('.user-edit-page .edit-email-error');
             var email = $(this).val();
-            var exp = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\_|\.]?)*[a-zA-Z0-9]+\.(?:com|cn)$/;
+            var exp = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\_|\.]?)*[a-zA-Z0-9]+\.(.*?)$/;
             if (!exp.test(email)) {
                 $error.fadeIn();
             }

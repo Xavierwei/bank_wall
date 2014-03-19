@@ -124,6 +124,7 @@ class NodeController extends Controller {
 
 			$nodeAr->uid = $uid;
 			$nodeAr->country_id = $country_id;
+			$nodeAr->status = 1; //publish by default
 			if ($nodeAr->validate()) {
 				$success = $nodeAr->save();
                 $this->cleanAllCache();
@@ -531,6 +532,9 @@ class NodeController extends Controller {
 			$user = UserAR::model()->findByAttributes(array("company_email" => $userEmail));
 			if (!$user) {
 				$user = UserAR::model()->findByAttributes(array("personal_email" => $userEmail));
+				if($user) {
+					$isPersonalEmail = true;
+				}
 			}
 			if (!$user) {
 				$ret = 'Debug Message (To be delete when live): your account not in our database'; //TODO: delete when live
@@ -627,7 +631,13 @@ class NodeController extends Controller {
 			$node->uid          = $user->uid;
 			$node->country_id   = $user->country_id;
 			$node->type         = $type;
-			$node->status       = 1; // TODO: The default status is blocked when the content from email
+			if(isset($isPersonalEmail) && $isPersonalEmail == true) {
+				$node->status   = 0;
+			}
+			else {
+				$node->status   = 1;
+			}
+
 			$node->file         = $file;
 			$node->description  = htmlspecialchars($desc);
 
@@ -644,8 +654,16 @@ class NodeController extends Controller {
             $this->cleanAllCache();
 
 			$siteDomain = Yii::app()->params['siteDomain'];
-			$ret = $begin.'Votre '.$type.' a été postée, vous pouvez la voir via l\'url:\n'.$siteDomain.'/#/nid/'.$node->nid.$end
-				.$begin_en.'Your '.$type.' is success submit, after approved, you can visit the '.$type.' via this url:\n'.$siteDomain.'/#/nid/'.$node->nid.$end_en;
+
+			if(isset($isPersonalEmail) && $isPersonalEmail == true) {
+				$ret = $begin.'Votre '.$type.' a été postée. Vous pourrez la voir sur le wall après validation.'.$end
+					.$begin_en.'Your '.$type.' is success submit, after approved, you can visit the '.$type.' on the wall.'.$end_en;
+			}
+			else {
+				$ret = $begin.'Votre '.$type.' a été postée, vous pouvez la voir via l\'url:\n'.$siteDomain.'/#/nid/'.$node->nid.$end
+					.$begin_en.'Your '.$type.' is success submit, after approved, you can visit the '.$type.' via this url:\n'.$siteDomain.'/#/nid/'.$node->nid.$end_en;
+			}
+
 			return $this->responseJSON(true, $ret, false);
 		}
 		catch (Exception $e) {
@@ -653,23 +671,6 @@ class NodeController extends Controller {
 		}
 	}
   
-  public function actionTest() {
-    print "node test";
-    $filePath = "/Users/jackeychen/Workspace/bank_wall/api/uploads/v168.mp4";
-    $mime = NodeAR::detechFileMime($filePath);
-    $size = filesize($filePath);
-    $name = pathinfo($filePath, PATHINFO_BASENAME);
-    
-    $new_file_entity = array(
-        "type" => $mime,
-        "size" => $size,
-        "tmp_name" => $filePath,
-        "error" => UPLOAD_ERR_OK,
-    );
-    $_FILES[$name] = $new_file_entity;
-    
-    print_r($_FILES);
-    die();
-  }
+
 }
 

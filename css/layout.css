@@ -286,7 +286,8 @@ a{text-decoration:none;color:#666}
     .delete-confirm-modal .cancel {background:#90918e;}
     .delete-confirm-modal .ok {background:#d3273f;}
     .saveuser-confirm-modal {width: 400px;height:140px;margin: -70px 0 0 -200px;text-align: center;}
-    .saveuser-confirm-modal .btn {font-size:15px;color:#fff;width:120px;height:40px;line-height:40px;border:none;margin:50px 5px 0 5px;display:inline-block;}
+    .saveuser-confirm-text {font-size:15px;margin:25px 0 0;}
+    .saveuser-confirm-modal .btn {font-size:15px;color:#fff;width:120px;height:40px;line-height:40px;border:none;margin:20px 5px 0 5px;display:inline-block;}
     .saveuser-confirm-modal .cancel {background:#90918e;}
     .saveuser-confirm-modal .ok {background:#d3273f;}
     .search-tip-modal {width:460px;height:200px;margin: -100px 0 0 -230px;background:#fff url('../img/icon_search_tip_b.gif') no-repeat 15px 30px;}

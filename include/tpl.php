@@ -78,6 +78,7 @@
 	</div>
 
 	<div class="saveuser-confirm-modal pop-modal">
+		<div class="saveuser-confirm-text">{{_e.CONFIRM_SAVE_USER}}</div>
 		<button class="btn cancel" data-a="cancel_modal">{{_e.CANCEL}}</button>
 		<button class="btn ok" data-a="save_user">{{_e.CONFIRM}}</button>
 	</div>
@@ -406,7 +407,7 @@
 						<div class="editfi-tit">{{_e.EMAIL_PROFESSIONNEL}}:</div>
 						<div class="editfi-email">{{company_email}}</div>
 					</div>
-					<div class="edit-tips"><em>{{_e.COMPANY_EMAIL_TERM}}:</em></div>
+					<div class="edit-tips"><em>{{{_e.COMPANY_EMAIL_TERM}}}:</em></div>
 					<div class="edit-fi clear">
 						<div class="editfi-tit">{{_e.EMAIL_PERSONNEL}}:</div>
 						<div class="editfi-com">

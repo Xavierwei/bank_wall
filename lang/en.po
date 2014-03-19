@@ -198,8 +198,8 @@ msgstr "PERSONAL EMAIL"
 
 msgid "COMPANY_EMAIL_TERM"
 msgstr ""
-"If you want to send contents to the Wall with an email address other than "
-"your corporate email"
+"If you want to send contents to the Wall with an email address other than your corporate email, please fill the field below your personal email. To send a picture of/and a video from a mobile, you have to send your email to upload@wall150ans.com.<br/><br/>"
+"In the subject field of your email, you can write the description of your photo or video which be visible on the wall."
 
 msgid "PERSONAL_EMAIL_TERM"
 msgstr ""
@@ -267,6 +267,9 @@ msgstr "The video you uploaded is corrupted"
 
 msgid "ERROR_PHOTO_CORRUPTED"
 msgstr "The photo you uploaded is corrupted"
+
+msgid "CONFIRM_SAVE_USER"
+msgstr "Do you want to save this change ?"
 
 msgid "DAY"
 msgstr "day"

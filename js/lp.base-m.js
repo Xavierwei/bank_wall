@@ -237,57 +237,10 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
         .delegate('.search-ipt' , 'change' , function(ev){
 			LP.triggerAction('search');
         })
-//        .delegate('.menu-item' , 'mouseenter' , function(){
-//            if($(this).hasClass('active')) {
-//                return;
-//            }
-//            $(this).find('h6')
-//                .delay(200).stop( true , true).fadeIn( 500 );
-//            $(this).find('p')
-//                .delay(200).stop( true , true).fadeOut( 500 );
-//        })
-//        .delegate('.menu-item' , 'mouseleave' , function(){
-//            $(this).find('h6')
-//                .delay(200).stop( true , true).fadeOut( 500 );
-//            $(this).find('p')
-//                .delay(200).stop( true , true ).fadeIn( 500 );
-//        })
-        // for select options
-//        .delegate('.select-option p' , 'click' , function(){
-//            $(this)
-//                // add selected class
-//                .addClass('selected')
-//                // remove sibling class
-//                .siblings()
-//                .removeClass('selected')
-//                .end()
-//                .closest('.select-pop')
-//                .prev()
-//                .html( $(this).html() );
-//
-//            //TODO: loading animation
-//
-//            // reset status / back to homepage
-//            if(!$main.is(':visible')){
-//                LP.triggerAction('back');
-//            }
-//
-//            $('.search-hd').fadeOut(100);
-//
-//
-//            $main.fadeOut(100,function(){
-//                LP.triggerAction('close_user_page');
-//                LP.triggerAction('load_list');
-//            });
-//
-//        })
-//        .delegate('.editfi-country-option p' , 'click' , function(){
-//            $('.editfi-country-box').html($(this).html()).data('id', $(this).data('id'));
-//        })
         .delegate('.user-edit-page .edit-email' , 'blur' , function(){
             var $error = $('.user-edit-page .edit-email-error');
             var email = $(this).val();
-            var exp = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\_|\.]?)*[a-zA-Z0-9]+\.(?:com|cn)$/;
+            var exp = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\_|\.]?)*[a-zA-Z0-9]+\.(.*?)$/;
             if (!exp.test(email)) {
                 $error.fadeIn();
             }
@@ -527,30 +480,13 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
             } );
         },
         setItemWidth: function( $dom ){
-//            if( $dom.is(':hidden') ) return;
-//            var mainWidth = $dom.width();
-//            var min = ~~( mainWidth / minWidth );
-//            // save itemWidth and winWidth
-//            itemWidth = ~~( mainWidth / min );
-//            winWidth = $(window).width();
-//
-//            $dom.find('.time-item, .main-item.reversal , .main-item.reversal img')
-//                .width( itemWidth )
-//                .height( itemWidth );
-//            $dom.find('.main-item').height( itemWidth );
+
         },
         stopItemReversal: function(){
             clearTimeout( nodeActions._reversalTimeout );
         },
         // start pic reversal animation
         setItemReversal: function( $dom ){
-            // fix all the items , set position: relative
-//            $dom.children()
-//                .css('position' , 'relative');
-
-            // get first time item , which is not opend
-            // wait for it's items prepared ( load images )
-            // run the animate
 
             // if has time items, it means it needs to reversal from last node-item element
             // which is not be resersaled
@@ -559,101 +495,9 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
             $imgs.hide().ensureLoad(function(){
                 $(this).fadeIn().parents('.pic-item').addClass('reversal');
             });
-
-
-//            var startAnimate = function( $node ){
-//                if( $dom.is(':hidden') ) return;
-//
-//                $node.addClass('reversal')
-//                    .width( itemWidth )
-//                    .height( itemWidth );
-//                var animationTimeout = 300;
-//
-//                // fix it's img width and height
-//                $node.find('img')
-//                    .width( itemWidth )
-//                    .height( itemWidth );
-//                nodeActions._reversalTimeout =  setTimeout(function(){
-//                    nodeActions.setItemReversal( $dom );
-//                } , animationTimeout);
-//            }
-//            // if esist node , which is not reversaled , do the animation
-//            if( $nodes.length  ){
-//                var $img = $nodes.eq(0)
-//                    .find('img');
-//                startAnimate( $nodes.eq(0) );
-//                //TODO: commented the image loaded condition during testing
-////                if( $img[0].complete ){
-////                    startAnimate( $nodes.eq(0) );
-////                } else {
-////                    $img.load(function(){
-////                        startAnimate( $nodes.eq(0) );
-////                    });
-////                }
-//            } else { // judge if need to load next page
-//                //$(window).trigger('scroll');
-//            }
         }
-        // set items auto fix it's width
-//        setItemIsotope: function( $dom ){
-//            // if the page has unreversaled node
-//            if( $dom.find('.main-item:not(.time-item,.reversal)').length ) return;
-//
-//            if( $dom.children('.isotope-item').length ){
-//                $dom.isotope('reLayout');
-//                return;
-//            }
-//
-//            LP.use('isotope' , function(){
-//                // first init isotope , render no animate effect
-//                $dom
-//                    .addClass('no-animate')
-//                    .isotope({
-//                        resizable: false
-//                    });
-//
-//                // after first isotope init
-//                // remove no animate class
-//                setTimeout(function(){
-//                    $dom.removeClass('no-animate');
-//                } , 100);
-//            });
-//        }
     }
 
-    // fix window resize event
-    // resize item width
-
-    // .resize(function(){
-    //     clearTimeout( _resizeTimer );
-
-    //     _resizeTimer = setTimeout(function(){
-    //         if( $main.is(':visible') ){
-    //             nodeActions.setItemWidth( $main );
-
-    //             // run isotope after item width fixed
-    //             setTimeout(function(){
-    //                 nodeActions.setItemIsotope( $main );
-    //             } , 500);
-    //         }
-
-    //         var $userPage = $('.user-page');
-    //         var $userCom = $userPage.find('.count-com');
-    //         if( $userPage.is(':visible') && $userCom.is(':visible') ){
-    //             nodeActions.setItemWidth( $userCom );
-    //             // run isotope after item width fixed
-    //             setTimeout(function(){
-    //                 nodeActions.setItemIsotope( $userCom );
-    //             } , 500);
-    //         }
-    //     } , 200);
-
-    //     // immediate resize
-    //     // resize big image
-    //     resizeInnerBox();
-    //     // resize user box
-    //     resizeUserBox();
-    // })
 
 
 
@@ -748,25 +592,6 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
             }
 
 
-            // loading comments
-//            bindCommentSubmisson();
-//            _waitingCommentListAjax = false;
-//            getCommentList(node.nid,1);
-
-//            LP.use(['jscrollpane' , 'mousewheel'] , function(){
-//                $('.com-list').jScrollPane({autoReinitialise:true}).bind(
-//                    'jsp-scroll-y',
-//                    function(event, scrollPositionY, isAtTop, isAtBottom)
-//                    {
-//                        if(isAtBottom) {
-//                            var commentParam = $('.comment-wrap').data('param');
-//                            var page = commentParam ?  commentParam.page : 0;
-//                            getCommentList(node.nid,page + 1);
-//                            //console.log('Append next page');
-//                        }
-//                    }
-//                );
-//            });
 
             // Resize Image
             var $newItem = $('.image-wrap-inner');
@@ -788,15 +613,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
                 $('.video-poster').delay(200).fadeIn();
                 $('#imgLoad').attr('src', './api' + node.image);
                 $('#imgLoad').ensureLoad(function(){
-//                    setTimeout(function(){
-//                        $('.image-wrap-inner video').fadeIn();
-//                        //$('.image-wrap-inner .video-js').fadeIn();
-//                    },400);
-
-                    // preload before and after images
                     preLoadSiblings();
-                    //$info.css( 'bottom' , - $info.height() );
-                    //slideIntroBar($info, _animateTime);
                 });
             }
 
@@ -815,12 +632,8 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 
             // change url
             changeUrl('/nid/' + node.nid , {event: 'back'});
-            // loading image
 
-            // Resize Inner Box
-//            setTimeout(function(){
-//                resizeInnerBox();
-//            },100);
+
 
             // save node from
             $inner.data('from' , $dom.parent() );
@@ -925,9 +738,6 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
     function releaseDragNode(direction) {
         if(_draggingReleasing) return;
         _draggingReleasing = true;
-//        setTimeout(function(){
-//            _draggingReleasing = false; // force unlock, due to some time the transit call back will not fire.
-//        },600);
         var $imageWrapInner = $('.image-wrap-inner');
         if($imageWrapInner.length == 2) {
             var wrapWidth = $imageWrapInner.eq(0).width();
@@ -1005,27 +815,13 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
     }
 
     /**
-     * @desc: 立方体旋转inner node
+     * @desc: inner node
      * @date:
      * @param node {node object}
      * @param direction { 'right' or 'left' }
      */
     function cubeInnerNode( node , direction, drag ){
 
-
-//        var cubeDir = 'cube-' + direction;
-//        var rotateDir = 'rotate-' + direction;
-//
-//        // base on comment wrap width
-//        var dist = $('.comment-wrap').width() / 2;
-//        var dirData = {
-//            dist: dist,
-//            rotate: 90
-//        }
-//        if( direction == 'left' ){
-//            dirData.dist = - dist;
-//            dirData.rotate = -90;
-//        }
 
         var datetime = new Date((parseInt(node.datetime)+1*3600)*1000);
         node.date = datetime.getUTCDate();
@@ -1039,7 +835,6 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
         node._e = _e;
         var $inner = $('.inner');
         LP.compile( 'inner-template' , node , function( html ){
-//            var $comment = $inner.find('.comment');
             // comment animation
             var $newInner = $(html);
 
@@ -1082,12 +877,6 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 				.next()
 				.css('x' , direction == 'left' ? 0 : wrapWidth );
 
-
-			// init video
-//			if( node.type == "video" ){
-//				//$('.image-wrap-inner video').fadeIn(200);
-//
-//			}
 
             $newItem.find('img').ensureLoad(function(){
                 $(this).fadeIn(200);
@@ -1268,10 +1057,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
                     var $selectBox = $('.filter-modal .select-option span').each(function(){
                         searchs += '[' + $(this).html() + '] ';
                     });
-                    // if(pageParam.country_id) {
-                    //     var countryName = $('.select-country-option-list p[data-param="country_id='+pageParam.country_id+'"]').html();
-                    //     result.country_name = countryName;
-                    // }
+
                     result.searchs = searchs;
                     result._e = _e;
                     LP.compile( 'blank-filter-template' ,
@@ -2585,37 +2371,8 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
                         var html = '<option value="country_id=' + item.country_id + '" data-api="recent">' + _e[item.i18n] + '</option>';
                         $countryList.append(html);
                     });
-//                    LP.use(['jscrollpane' , 'mousewheel'] , function(){
-//                        $countryList.jScrollPane({autoReinitialise:true});
-//                    });
                 });
 
-//                LP.use('uicustom',function(){
-//                    var placeHolder = $( ".search-ipt").attr('placeholder'); // TODO: use background instead
-//                    $( ".search-ipt").val('').autocomplete({
-//                        source: function( request, response ) {
-//                            $.ajax({
-//                                url: "./api/tag/list",
-//                                dataType: "json",
-//                                data: {
-//                                    term: request.term
-//                                },
-//                                success: function( data ) {
-//                                    response( $.map( data.data, function( item ) {
-//                                        return {
-//                                            label: item.tag,
-//                                            value: item.tag
-//                                        }
-//                                    }));
-//                                }
-//                            });
-//                        },
-//                        minLength: 1,
-//                        select: function( event, ui ) {
-//                            //console.log(ui);
-//                        }
-//                    });
-//                });
 
 
                 LP.use('handlebars' , function(){
@@ -2817,89 +2574,6 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
      * Resize Inner Box width Image and Video
      */
     var resizeInnerBox = function(){
-//        var $side = $('.side');
-//        var slideWidth = $side.width();
-//        // Resize Inner Box
-//        var $inner = $('.inner');
-//        var innerHeight = $(window).height() - $('.header').height();
-//        $inner.height(innerHeight);
-//
-//        // Resize Comment Box
-//        var $comList = $('.com-list');
-//        var comListHeight = $(window).height() - 390 - $('.com-user').height();
-//        $comList.height(comListHeight);
-//
-//        // Resize Image
-//        var imgBoxWidth = $(window).width() - 330 - slideWidth;
-//        var imgBoxHeight =$(window).height() - $('.header').height();
-//        var minSize = Math.min( imgBoxHeight , imgBoxWidth );
-//        var $img = $('.image-wrap-inner img').css('margin',0);
-//        $('.image-wrap-inner').width(minSize).height(minSize);
-//
-//        if( imgBoxHeight > imgBoxWidth ){
-//            var marginLeft = (imgBoxHeight - imgBoxWidth) / 2;
-//            $('.image-wrap-inner').height(imgBoxHeight);
-//            $img.width('auto').height('100%').css('margin-left', -marginLeft);
-//        }
-//        // if(imgBoxWidth > imgBoxHeight) {
-//        //     var marginTop = (imgBoxWidth - imgBoxHeight) / 2;
-//        //     $img.css('margin',0);
-//        //     $img.height('auto').width('100%').css('margin-top', -marginTop);
-//        // } else {
-//        //     var marginLeft = (imgBoxHeight - imgBoxWidth) / 2;
-//        //     $img.css('margin',0);
-//        //     $img.width('auto').height('100%').css('margin-left', -marginLeft);
-//        // }
-//
-//        // Resize Video
-//        var $video = $('.video-js .vjs-tech');
-//        if($video.hasClass('zoom')) {
-//            var $videoWrap = $('.video-js');
-//            var videoWrapWidth = $videoWrap.width();
-//            var videoWrapHeight = $videoWrap.height();
-//            var videoWrapRatio = videoWrapWidth/videoWrapHeight;
-//            var videoWidth = $video.width();
-//            var videoHeight = $video.height();
-//            var videoRatio = videoWidth/videoHeight;
-//            if(videoRatio < videoWrapRatio) {
-//                $video.width('100%').height('auto');
-//                var videoMarginTop = (videoHeight - videoWrapHeight)/2;
-//                $video.css('margin-top',-videoMarginTop);
-//                $video.css('margin-left',0);
-//            } else {
-//                $video.width('auto').height('100%');
-//                var videoMarginLeft = (videoWidth - videoWrapWidth)/2;
-//                $video.css('margin-left',-videoMarginLeft);
-//                $video.css('margin-top',0);
-//            }
-//        }
-//
-//        // Resize WMV iframe
-//        var $wmvIframe = $('.image-wrap-inner iframe');
-//        if($wmvIframe.length > 0) {
-//            $wmvIframe.width('100%').height(imgBoxHeight-36);
-//        }
-//
-//        // resize inner width
-//        var minLeft = $(window).width() - minSize;
-//        $('.inner').css('margin-left' , minLeft )
-//            // set inner info
-//            .find('.inner-info')
-//            .css({
-//                'width': minSize,
-//                'left' : minLeft
-//            })
-//            // set .comment-wrap
-//            .end()
-//            .find('.comment-wrap')
-//            .css({
-//                'width' : minLeft - slideWidth,
-//                'left'  : slideWidth - minLeft
-//            })
-//            // set image wrap width
-//            .end()
-//            .find('.image-wrap')
-//            .width( minSize );
 
     }
 

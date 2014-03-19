@@ -312,6 +312,11 @@ a{text-decoration:none;color:#666}
     .delete-confirm-modal .btn {font-size:25px;color:#fff;width:200px;height:68px;line-height:68px;border:none;margin:25px 5px 0 5px;display:inline-block;}
     .delete-confirm-modal .cancel {background:#90918e;}
     .delete-confirm-modal .ok {background:#d3273f;}
+    .saveuser-confirm-modal {width: 500px;height:225px;margin: -100px 0 0 -250px;text-align: center;}
+    .saveuser-confirm-text {font-size:25px;margin:40px 0 0;line-height: 30px}
+    .saveuser-confirm-modal .btn {font-size:25px;color:#fff;width:200px;height:68px;line-height:68px;border:none;margin:25px 5px 0 5px;display:inline-block;}
+    .saveuser-confirm-modal .cancel {background:#90918e;}
+    .saveuser-confirm-modal .ok {background:#d3273f;}
     .flag-confirm-modal {width: 580px;height:230px;margin: -165px 0 0 -290px;text-align: center;color:#434343;}
     .flag-confirm-text {font-size:25px;margin:40px 0 0;line-height: 30px}
     .flag-confirm-modal .btn {font-size:25px;color:#fff;width:200px;height:68px;line-height:68px;border:none;margin:25px 5px 0 5px;display:inline-block;}

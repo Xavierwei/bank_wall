@@ -30,7 +30,7 @@ if (preg_match('/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|phone|andro
     <link href="css/layout.css" rel="stylesheet" type="text/css" />
     <link href="css/fonts.css" rel="stylesheet" type="text/css" />
     <link href="css/animation.css" rel="stylesheet" type="text/css" />
-    <link href="css/needtocombine.css" rel="stylesheet" type="text/css" />
+    <link href="css/photoitem.css" rel="stylesheet" type="text/css" />
     <link href="css/video-js.css" rel="stylesheet" type="text/css" />
 	<!--[if IE 8]>
 	<link href="css/ie8.css" rel="stylesheet" type="text/css" />
