@@ -506,6 +506,12 @@ class NodeController extends Controller {
 			if($node->topmonth) {
 				$data["topmonth"] = TRUE;
 			}
+
+			if (!Yii::app()->user->checkAccess("isAdmin")) {
+				unset($data["user"]['personal_email']);
+				unset($data["user"]['company_email']);
+			}
+
 			$retdata[] = $data;
 		}
 

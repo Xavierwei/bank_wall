@@ -383,8 +383,8 @@
 			<div data-a="list_user_nodes" data-d="type=video" class="count-item"><span>{{videos_count}}</span>{{#ifzero videos_count}}{{_e.VIDEO_POSTED}}{{else}}{{_e.VIDEOS_POSTED}}{{/ifzero}}</div>
 			{{#if count_by_day}}<div data-a="list_user_nodes" data-d="type=day" class="count-item"><span>{{count_by_day}}</span>{{#ifzero count_by_day}}{{_e.CONTENT_OF_THE_DAY}}{{else}}{{_e.CONTENTS_OF_DAY}}{{/ifzero}}</div>{{/if}}
 			{{#if count_by_month}}<div data-a="list_user_nodes" data-d="type=month" class="count-item"><span>{{count_by_month}}</span>{{#ifzero count_by_month}}{{_e.CONTENT_OF_THE_MONTH}}{{else}}{{_e.CONTENTS_OF_MONTH}}{{/ifzero}}</div>{{/if}}
-			<div data-d="type=comment" class="count-item no-link"><span>{{comments_count}}</span>{{#ifzero comments_count}}{{_e.COMMENT}}{{else}}{{_e.COMMENTS}}{{/ifzero}}</div>
-			<div data-d="type=like" class="count-item no-link"><span>{{likes_count}}</span>{{#ifzero likes_count}}{{_e.LIKE}}{{else}}{{_e.LIKES}}{{/ifzero}}</div>
+			<div class="count-item no-link"><span>{{comments_count}}</span>{{#ifzero comments_count}}{{_e.COMMENT}}{{else}}{{_e.COMMENTS}}{{/ifzero}}</div>
+			<div class="count-item no-link"><span>{{likes_count}}</span>{{#ifzero likes_count}}{{_e.LIKE}}{{else}}{{_e.LIKES}}{{/ifzero}}</div>
 		</div>
 		<!-- inner -->
 		<div class="count-inner">

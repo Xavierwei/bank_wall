@@ -243,6 +243,12 @@ class CommentController extends Controller {
 				$commentdata["mycomment"] = TRUE;
 			}
 			$commentdata['flagcount'] = FlagAR::model()->flagCountInComment($comment->cid);
+
+			if (!Yii::app()->user->checkAccess("isAdmin")) {
+				unset($commentdata["user"]['personal_email']);
+				unset($commentdata["user"]['company_email']);
+			}
+
 			$retdata[] = $commentdata;
 		}
 
