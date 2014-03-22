@@ -898,6 +898,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 						// resizeInnerBox();
 						$newItem.css('width' , '100%');
 						updateInnerNode(node,direction);
+						$('.image-wrap-inner').eq(direction == 'right' ? 0 : 1).remove();
 					});
 			}
 
