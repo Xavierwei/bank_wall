@@ -545,6 +545,14 @@ class NodeController extends Controller {
 	 */
 	public function actionPostByMail() {
 		try {
+			// Get client IP address
+			$ip = CHttpRequest::getUserHostAddress();
+			// Server IP Address
+			$server_ip = $_SERVER["SERVER_ADDR"];
+			// If not from same server, we just simply return false
+			if (trim($server_ip) != trim($ip) {
+				return $this->responseJSON("FALSE");
+			}
 			$request = Yii::app()->getRequest();
 			if (!$request->isPostRequest) {
 				return $this->responseJSON(null, null, false);
