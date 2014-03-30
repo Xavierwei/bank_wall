@@ -511,7 +511,13 @@ class NodeController extends Controller {
 			if (!Yii::app()->user->checkAccess("isAdmin")) {
 				unset($data["user"]['personal_email']);
 				unset($data["user"]['company_email']);
+				unset($data["status"]);
+				unset($data["from"]);
 			}
+			unset($data["user"]['sso_id']);
+			unset($data["user"]['password']);
+			unset($data["user"]['token']);
+			unset($data["user"]['country_id']);
 			unset($data["user"]['status']);
 			unset($data["user"]['role']);
 			unset($data["country"]['country_name']);
@@ -557,8 +563,8 @@ class NodeController extends Controller {
 			// Server IP Address
 			$server_ip = $_SERVER["SERVER_ADDR"];
 			// If not from same server, we just simply return false
-			if (trim($server_ip) != trim($ip) {
-				return $this->responseJSON("FALSE");
+			if (trim($server_ip) != trim($ip)) {
+				return $this->responseJSON(null, null, false);
 			}
 			$request = Yii::app()->getRequest();
 			if (!$request->isPostRequest) {
