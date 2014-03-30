@@ -133,7 +133,8 @@ class UploadsController extends Controller {
 			}
 
 			// return result
-			$retdata = array( "type"=> $type , "file" => $file );
+			$file_id = NodeAR::saveFile($file, $uid);
+			$retdata = array( "type"=> $type , "file" => $file, "file_id"=>$file_id );
 			$this->responseJSON($retdata, "success");
 		}
 		else {

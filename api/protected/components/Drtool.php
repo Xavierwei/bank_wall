@@ -15,7 +15,6 @@ class Drtool {
     public static function setMyCookie($name,$val)
     {
         $cookie = new CHttpCookie($name, $val);
-        $cookie->expire =time()+60*60*24*5;
         Yii::app()->request->cookies[$name]=$cookie;
     }
 

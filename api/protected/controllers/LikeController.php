@@ -15,11 +15,11 @@ class LikeController extends Controller {
 			return $this->responseError(601);
 		}
 
+		$uid = Yii::app()->user->getId();
 		if (!Yii::app()->user->checkAccess("flagNode")) {
 			return $this->responseError(601);
 		}
 
-		$uid = Yii::app()->user->getId();
 		$nid = $request->getPost("nid");
 
 		$likeAr = new LikeAR();

@@ -21,7 +21,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
     var winWidth = $(window).width();
     var $listLoading = $('.loading-list');
     var aMonth;
-	var apiToken;
     var _e;
     var lang;
 	var req;
@@ -1581,7 +1580,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                         $('.pop-txt').delay(1200).fadeIn(400);
                     })
                     .attr('src', API_FOLDER + rdata.file.replace('.mp4', '.jpg'));
-                $('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
+                $('.poptxt-submit').attr('data-d','file='+ rdata.file_id +'&type=' + rdata.type);
 
             } else {
                 if (data.files && data.files[0] && window.FileReader ) {
@@ -1618,7 +1617,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                                 } , 1700 );
                             })
                             .attr('src', e.target.result/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
-                        $('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
+                        $('.poptxt-submit').attr('data-d','file='+ rdata.file_id +'&type=' + rdata.type);
                     };
                     reader.readAsDataURL(data.files[0]);
                     $('.poptxt-pic-inner').delay(3000).animate({opacity:1});
@@ -1633,7 +1632,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                             } , 1700 );
                         })
                         .attr('src', API_FOLDER + rdata.file/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
-                    $('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
+                    $('.poptxt-submit').attr('data-d','file='+ rdata.file_id +'&type=' + rdata.type);
                 }
             }
         }
@@ -1856,7 +1855,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                                         } , 1700 );
                                     })
                                     .attr('src', API_FOLDER + rdata.file/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
-                                $('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
+                                $('.poptxt-submit').attr('data-d','file='+ rdata.file_id +'&type=' + rdata.type);
                             }
                         });
                 });
@@ -2022,7 +2021,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
 					}
 					else {
 						var user = $('.side').data('user');
-						var param = {page:1,pagenum:20, uid:user.uid, orderby:'datetime', token: apiToken};
+						var param = {page:1,pagenum:20, uid:user.uid, orderby:'datetime'};
 						var $countCom = $(this).find('.count-com');
 						$countCom.data('param', param);
 						//if( !$countCom.children().length ){
@@ -2151,20 +2150,20 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
 
     //save user updates
     LP.action('save_user' , function(){
+		if($('.edit-email-error').is(':visible')) return;
+		if(!$('.editfi-condition').hasClass('checked')) {
+			$('.editfi-condition-error').fadeIn();
+			$('.user-edit-loading').fadeOut();
+			LP.triggerAction('cancel_modal');
+			return;
+		}
         if(!$('.saveuser-confirm-modal').is(':visible')) {
             $('.modal-overlay').fadeIn(700);
             $('.saveuser-confirm-modal').fadeIn(700).dequeue().animate({top:'50%'}, 700, 'easeOutQuart');
         }
         else {
             $('.user-edit-loading').fadeIn();
-            if($('.edit-email-error').is(':visible')) return;
-            if(!$('.editfi-condition').hasClass('checked')) {
-                $('.editfi-condition-error').fadeIn();
-                $('.user-edit-loading').fadeOut();
-                LP.triggerAction('cancel_modal');
-                return;
-            }
-            var user = {uid:$('.side').data('user').uid, personal_email: $('.user-edit-page .edit-email').val(), country_id: $('.user-edit-page .editfi-country-box').data('id')}
+            var user = {personal_email: $('.user-edit-page .edit-email').val(), country_id: $('.user-edit-page .editfi-country-box').data('id')}
             api.ajax('saveUser', user, function( result ){
                 if(result.success) {
                     $('.user-edit-page').fadeOut(400);
@@ -2172,7 +2171,9 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                     $('.count-com').delay(400).fadeIn(400);
                     $('.count-edit').fadeIn();
                     $('.count-userinfo').removeClass('count-userinfo-edit');
-                    $('.count-userinfo .location').html($('.user-edit-page .editfi-country-box').html());
+					if($('.user-edit-page .editfi-country-box').data('id') != $('.side').data('user').country.country_id) {
+						$('.count-userinfo .location').html($('.user-edit-page .editfi-country-box').html());
+					}
                 }
                 else if(result.message === 603) {
                     $('.edit-email-error').html(_e.ERROR_EXIST_EMAIL).fadeIn();
@@ -2432,7 +2433,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
 		if($searchInput.val() != '') {
 			resetQuery();
 		}
-        var param = { page: 1 , pagenum: 20, token: apiToken };
+        var param = { page: 1 , pagenum: 20 };
         param [ $searchInput.attr('name') ] = $.trim( $searchInput.val() ).replace( /^#+/ , '' );
 
         // get select options
@@ -2658,11 +2659,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                         $('.header .login').fadeIn();
                     }
                 });
-
-				api.ajax('token' , function( result ){
-					apiToken = result.data;
-				});
-
 
                 var $countryList = $('.select-country-option-list');
                 $countryList.empty();

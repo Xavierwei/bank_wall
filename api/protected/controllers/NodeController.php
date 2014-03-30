@@ -17,7 +17,6 @@ class NodeController extends Controller {
 		$is_retry = !!$tmp_file;
 		$abs_tmp_file = ROOT. $tmp_file;
 
-		// 如果存在一个临时文件的上传数据 ， 很可能是重新转视频
 		if ($tmp_file && is_file(ROOT.$tmp_file)) {
 			$filePath = ROOT. $tmp_file;
 			$mime = NodeAR::detechFileMime($filePath);
@@ -31,15 +30,13 @@ class NodeController extends Controller {
 			  "error" => UPLOAD_ERR_OK,
 			  "name" => $name
 			);
-			// 重新生成一个假的$_FILES 数据
 			$_FILES[pathinfo($filePath, PATHINFO_FILENAME)] = $new_file_entity;
 		}
     
 		if ($user) {
-			$country_id = $user->country_id;
 
 			if (!$request->isPostRequest) {
-				$this->responseError("http error");
+				$this->responseError(101);
 			}
       
 			$type = htmlspecialchars($request->getPost("type"));
@@ -73,10 +70,8 @@ class NodeController extends Controller {
 			$nodeAr->type = $type;
 			if($isIframe || $isFlash ) {
 				$file = $nodeAr->saveUploadedFile($fileUpload);
-				// 如果返回的是一个数组， 则可能是ffmpeg 超过了阀值
 				if (is_array($file) && $file[0] === FALSE) {
 				  $tmp_file = $file[1];
-				  // 确保文件一定存在
 				  if (is_file($tmp_file)) {
 						$base_path = ROOT;
 					  	if($isIframeRepost) {
@@ -90,7 +85,6 @@ class NodeController extends Controller {
 						}
 					  	return;
 				  }
-				  // 直接返回错误
 				  else {
 					$this->responseError("ffmpeg busy");
 				  }
@@ -106,8 +100,9 @@ class NodeController extends Controller {
 				}
 			}
 			else {
-				$file = $request->getPost("file");
-				if(!file_exists(ROOT.$file)) {
+				$file_id = $request->getPost("file");
+				$file = NodeAR::getFile($file_id, $uid);
+				if(!$file || !file_exists(ROOT.$file)) {
 					exit();
 				}
 				$_x = $request->getPost("x");
@@ -123,7 +118,7 @@ class NodeController extends Controller {
 			}
 
 			$nodeAr->uid = $uid;
-			$nodeAr->country_id = $country_id;
+			$nodeAr->country_id = $user->country_id;
 			$nodeAr->status = 1; //publish by default
 			if ($nodeAr->validate()) {
 				$success = $nodeAr->save();
@@ -141,6 +136,9 @@ class NodeController extends Controller {
 					));
 					return;
 				} else {
+					if(isset($file_id)) {
+						NodeAR::deleteFile($file_id);
+					}
 					$this->responseJSON($retdata, "success");
 				}
 
@@ -218,6 +216,7 @@ class NodeController extends Controller {
 	 * Delete content
 	*/
 	public function actionDelete() {
+
 		$request = Yii::app()->getRequest();
 
 		if (!$request->isPostRequest) {
@@ -507,10 +506,18 @@ class NodeController extends Controller {
 				$data["topmonth"] = TRUE;
 			}
 
+
+			// Remove unnecessary JSON data
 			if (!Yii::app()->user->checkAccess("isAdmin")) {
 				unset($data["user"]['personal_email']);
 				unset($data["user"]['company_email']);
 			}
+			unset($data["user"]['status']);
+			unset($data["user"]['role']);
+			unset($data["country"]['country_name']);
+			unset($data["country"]['code']);
+			unset($data["country"]['flag_icon']);
+
 
 			$retdata[] = $data;
 		}

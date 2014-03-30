@@ -41,13 +41,10 @@ class UserController extends Controller {
 
 		// Save user status in session
 		if (!$userIdentify->authenticate()) {
-			echo md5($attributes['uid'][0]);
 			$this->responseError("login failed.");
 		}
 		else {
 			Yii::app()->user->login($userIdentify);
-			$token = Drtool::randomNew();
-			Drtool::setMyCookie('sgtoken', $token);
 			if(Yii::app()->session['loginfrom'] == 'admin') {
 				$this->redirect('../admin/index');
 			}
@@ -124,6 +121,7 @@ class UserController extends Controller {
 				$this->responseError(101);
 			}
 
+
 			if (!Yii::app()->user->checkAccess("updateOwnAccount", array("uid" => $user->uid ))) {
 				return $this->responseError(602);
 			}
@@ -139,7 +137,7 @@ class UserController extends Controller {
 
 			UserAR::model()->updateByPk($uid, $data);
 
-			$this->responseJSON($user, "success");
+			$this->responseJSON('', "success");
 		}
 		else {
 			$this->responseError(601);
@@ -230,11 +228,10 @@ class UserController extends Controller {
 					'code'=>'509'
 				));
 			}
-
-
 		}
 		else {
-			$fileUpload = $request->getPost("file");
+			$file_id = $request->getPost("file");
+			$fileUpload = NodeAR::getFile($file_id, $uid);
 			if( empty( $fileUpload ) ){
 				$this->responseError('no file');
 			}
@@ -252,6 +249,9 @@ class UserController extends Controller {
 			unlink(ROOT . '/' . $fileUpload);
 			$fileto = str_replace( ROOT, '', $fileto );
 			UserAR::model()->updateByPk($uid, array('avatar' => $fileto ));
+			if(isset($file_id)) {
+				NodeAR::deleteFile($file_id);
+			}
 			$this->responseJSON(array( "file" => $fileto ) , "success");
 		}
 	}
@@ -281,6 +281,20 @@ class UserController extends Controller {
 			$retdata["videos_count"] = $nodeAr->countByType($user->uid, 'video');
 			$retdata["count_by_day"] = $nodeAr->countByDay($user->uid);
 			$retdata["count_by_month"] = $nodeAr->countByMonth($user->uid);
+
+			// Remove unnecessary JSON data
+			unset($retdata["role"]);
+			unset($retdata["status"]);
+			unset($retdata["role"]);
+			unset($retdata["country"]["country_name"]);
+			unset($retdata["country"]["flag_icon"]);
+
+			// Generate random token string
+			$token = Drtool::randomNew();
+			Drtool::setMyCookie('sg_token', $token);
+			// Save the token to database
+			UserAR::model()->updateByPk($user->uid, array('token' => $token ));
+
 			$this->responseJSON($retdata, "success");
 		}
 		else {

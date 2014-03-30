@@ -34,9 +34,8 @@ class NodeAR extends CActiveRecord{
 	const ALLOW_UPLOADED_VIDEO_TYPES = "mp4,avi,mov,mpg,mpeg,3gp,wmv";
 
 	const ALLOW_STORE_VIDE_TYPE = "mp4";
-  
-  // ffmpeg 允许的最大进程数
-  const ALLOW_MAX_FFMPEG_COUNT = 1;
+
+    const ALLOW_MAX_FFMPEG_COUNT = 1;
 
 	public $nodecounts;
   
@@ -103,9 +102,7 @@ class NodeAR extends CActiveRecord{
 		parent::beforeSave();
 
 		$hashtags = $this->getHashTag();
-		// 在添加时 需要制定一个默认的 status = publichsed
 		if (!$this->{$this->getPrimaryKey()}) {
-		    //$this->setAttribute("status", self::PUBLICHSED);
 		    $this->setAttribute("datetime", time());
 		    $this->setAttribute("created", time());
 		}
@@ -121,7 +118,6 @@ class NodeAR extends CActiveRecord{
 		parent::afterFind();
 		$this->hashtag = unserialize($this->hashtag);
 
-		// 加载当前用户的flag/like状态
 		if ($uid = Yii::app()->user->getId() ) {
 		  $user = UserAR::model()->findByPk($uid); // 此处是否有必要？多一次查询了
 		  if ($user) {
@@ -143,7 +139,6 @@ class NodeAR extends CActiveRecord{
 		  }
 		}
 
-		// 加载 flagcount/ commentflag / likecount
 		$nid = $this->nid;
 		$commentAr = new CommentAR();
 		$this->commentcount = $commentAr->totalCommentsByNode($this->nid);
@@ -173,7 +168,7 @@ class NodeAR extends CActiveRecord{
 
 		if (file_exists(ROOT.$this->file)) {
 			rename(ROOT.$this->file, ROOT. $newpath);
-			// 文件重命名后 修改数据库
+			//rename the file name
 			$this->updateByPk($this->nid, array("file" => $newpath));
 			$this->file = $newpath;
 
@@ -373,18 +368,16 @@ class NodeAR extends CActiveRecord{
 			}
 		}
 
-		// 检查是不是视频， 如果是, 就就做视频转换工作
+		// check if the video type
 		if (in_array($extname, $videoexts)) {
 			$filename = md5( uniqid() . '_' . $upload->getName() ) . '.' .$extname ;
 			$to = $dir."/". $filename;
 			$ret = $upload->newSaveAs($to);
       
-      if (!$ret) {
-        return FALSE;
-      }
-      
-			// 在这里做视频转换功能
-			// 先检查 ffmpeg 是否已经安装
+			if (!$ret) {
+				return FALSE;
+			}
+
 			exec("which ffmpeg", $output);
 			if(!$output) {
 				exec("which ffmpeg 2>/dev/null 2>&1",$output);
@@ -568,17 +561,9 @@ class NodeAR extends CActiveRecord{
 	}
 
 	/**
-	 * 这个函数有2步；
-	 * 第一步 生成视频截图
-	 * 第二步 生成缩略图
-	 * @param type $screenImagePath 视频截图的相对路径
-	 * @param type $saveTo 缩略图保存路径
-	 * @param type $w 缩略图 width
-	 * @param type $h 缩略图 height
-	 * @return
+	 * Generate Video Thumbnail
 	 */
 	public function makeVideoThumbnail($screenImagePath, $saveTo, $w, $h, $isOutput) {
-		// 我们要根据视频截图的路径推算出视频的路径
 		$paths = explode(".",$screenImagePath);
 		$basename = array_shift($paths);
 		$output = NULL;
@@ -587,8 +572,6 @@ class NodeAR extends CActiveRecord{
 		$abssaveTo = $saveTo;
 		$absvideoPath = str_replace('.jpg','.mp4',$screenImagePath);
 
-		// 视频截图不能截2次
-		// 做个检查
 		if (!file_exists($absscreenImagePath)) {
 
 			exec("ffmpeg -ss 00:00:03 -i $absvideoPath -vframes 1 -an -f image2 ".$absscreenImagePath, $output, $status);
@@ -701,76 +684,114 @@ class NodeAR extends CActiveRecord{
 
 		return $page;
 	}
+
+
+	/*
+	 * Save temp file
+	 */
+	public static function saveFile($file, $uid) {
+		$ret = Yii::app()->db->createCommand()
+			->insert('file', array('file'=>$file, 'uid'=>$uid));
+		$file_id = Yii::app()->db->getLastInsertID();
+		return $file_id;
+	}
+
+
+	/*
+	 * Get temp file
+	 */
+	public static function getFile($file_id, $uid) {
+		$ret = Yii::app()->db->createCommand()
+			->select('file')
+			->from('file')
+			->where('file_id=:file_id and uid=:uid', array(':file_id'=>$file_id, ':uid'=>$uid))
+			->queryRow();
+		if(isset($ret)) {
+			return $ret['file'];
+		}
+		else {
+			return false;
+		}
+
+	}
+
+	/*
+	 * Delete temp file
+	 */
+	public static function deleteFile($file_id) {
+		Yii::app()->db->createCommand()
+			->delete('file', 'file_id=:file_id', array('file_id'=>$file_id));
+	}
+
   
-  public static function detechFileMime($path) {
-    if (is_file($path)) {
-      
-      $ret = exec("file -b --mime-type ". $path, $output, $staus);
-      if ($staus === 0 && $ret) {
-        return $ret;
-      }
-      else {
-        return FALSE;
-      }
-    }
-    return FALSE;
-  }
+	public static function detechFileMime($path) {
+		if (is_file($path)) {
+
+		  $ret = exec("file -b --mime-type ". $path, $output, $staus);
+		  if ($staus === 0 && $ret) {
+		    return $ret;
+		  }
+		  else {
+		    return FALSE;
+		  }
+		}
+		return FALSE;
+	}
   
 
-  // 检查 ffmpeg 进程个数
-  public static function ffmpeg_process_count() {
-    $command = "ps -ef | grep -v grep | grep ffmpeg | wc -l";
+	// 检查 ffmpeg 进程个数
+	public static function ffmpeg_process_count() {
+		$command = "ps -ef | grep -v grep | grep ffmpeg | wc -l";
 
-    $descriptorspec = array(
-        0 => array("pipe", "r"),
-        1 => array("pipe", "w"),
-        2 => array("file", ROOT."/uploads/log.log", "w"),
-    );
+		$descriptorspec = array(
+		    0 => array("pipe", "r"),
+		    1 => array("pipe", "w"),
+		    2 => array("file", ROOT."/uploads/log.log", "w"),
+		);
 
-    $process = proc_open($command, $descriptorspec, $pipes);
-    $can_be_convert = FALSE;
-    if (is_resource($process)) {
-      fclose($pipes[0]);
+		$process = proc_open($command, $descriptorspec, $pipes);
+		$can_be_convert = FALSE;
+		if (is_resource($process)) {
+		  fclose($pipes[0]);
 
-      $content = stream_get_contents($pipes[1]);
-      fclose($pipes[1]);
+		  $content = stream_get_contents($pipes[1]);
+		  fclose($pipes[1]);
 
-      $ret_value = proc_close($process);
+		  $ret_value = proc_close($process);
 
-      return intval(trim($content));
-    }
+		  return intval(trim($content));
+		}
 
-    else {
-      // 打开进程失败
-      return FALSE;
-    }
-  }
+		else {
+		  return FALSE;
+		}
+	}
   
-  # Linux / Centos only
-  public static function cpu_core_count() {
-    $command = "cat /proc/cpuinfo | grep -v grep | grep processor | wc -l";
+	# Linux / Centos only
+	public static function cpu_core_count() {
+		$command = "cat /proc/cpuinfo | grep -v grep | grep processor | wc -l";
 
-    $descriptorspec = array(
-        0 => array("pipe", "r"),
-        1 => array("pipe", "w"),
-        2 => array("file", "/dev/null", "w"),
-    );
+		$descriptorspec = array(
+		    0 => array("pipe", "r"),
+		    1 => array("pipe", "w"),
+		    2 => array("file", "/dev/null", "w"),
+		);
 
-    $process = proc_open($command, $descriptorspec, $pipes);
-    if (is_resource($process)) {
-      fclose($pipes[0]);
+		$process = proc_open($command, $descriptorspec, $pipes);
+		if (is_resource($process)) {
+		  fclose($pipes[0]);
 
-      $content = stream_get_contents($pipes[1]);
-      fclose($pipes[1]);
+		  $content = stream_get_contents($pipes[1]);
+		  fclose($pipes[1]);
 
-      $ret_value = proc_close($process);
+		  $ret_value = proc_close($process);
 
-      return intval(trim($content));
-    }
+		  return intval(trim($content));
+		}
 
-    else {
-      // 打开进程失败
-      return FALSE;
-    }
-  }
+		else {
+		  // 打开进程失败
+		  return FALSE;
+		}
+	}
 }

@@ -16,17 +16,14 @@ class CommentController extends Controller {
 			$this->responseError(101);
 		}
 
-		$nid        = $request->getPost("nid");
-		$content    = $request->getPost("content");
 
 		if(Yii::app()->user->isGuest) {
 			return $this->responseError(601);
 		}
 
-		$uid = Yii::app()->user->getId();
-//		if (Yii::app()->user->checkAccess("postComment")) {
-//			return $this->responseError(602);
-//		}
+		$uid        = Yii::app()->user->getId();
+		$nid        = $request->getPost("nid");
+		$content    = $request->getPost("content");
 
 		if(empty($content)) {
 			return $this->responseError(701);
@@ -116,6 +113,7 @@ class CommentController extends Controller {
 		if (!$request->isPostRequest) {
 			$this->responseError(101);
 		}
+
 		$cid = $request->getPost("cid");
 		if (!$cid) {
 			$this->responseError(101);
@@ -248,6 +246,19 @@ class CommentController extends Controller {
 				unset($commentdata["user"]['personal_email']);
 				unset($commentdata["user"]['company_email']);
 			}
+			unset($commentdata["user"]['token']);
+			unset($commentdata["user"]['status']);
+			unset($commentdata["user"]['role']);
+			unset($commentdata["user"]['sso_id']);
+			unset($commentdata["user"]['uid']);
+			unset($commentdata["user"]['datetime']);
+			unset($commentdata["user"]['password']);
+			unset($commentdata["country"]['country_name']);
+			unset($commentdata["country"]['code']);
+			unset($commentdata["country"]['flag_icon']);
+			unset($commentdata["status"]);
+			unset($commentdata["uid"]);
+			unset($commentdata["country_id"]);
 
 			$retdata[] = $commentdata;
 		}
