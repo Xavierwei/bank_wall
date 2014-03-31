@@ -55,6 +55,9 @@ a{text-decoration:none;color:#666}
     .nodes-list .type {position: absolute;right:10px;top:170px;background: url(../img/icons-white.png) no-repeat;text-indent: -999em;}
     .nodes-list .type.icon-photo {width:21px;height:15px;margin-top:5px;}
     .nodes-list .type.icon-video {width:21px;height:18px;background-position: 0 -42px;}
+    .nodes-list .from {position: absolute;left:10px;top:165px;background: url(../img/from_icon.png) no-repeat;text-indent: -999em;}
+    .nodes-list .from.icon-1 {width:30px;height:29px;background-position: -51px 0;}
+    .nodes-list .from.icon-2 {width:30px;height:29px;background-position: 0 0;}
     .nodes-list .switch {position: absolute;right:10px;top:10px;}
     .nodes-list .date {color:#999;}
     .nodes-list .user {margin:6px 0 6px 0;line-height:150%;}

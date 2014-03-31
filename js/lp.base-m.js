@@ -757,12 +757,16 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
             updateInnerNode(node, direction);
 
             setTimeout(function(){
-                $('.image-wrap-inner').eq(direction == 'right' ? 0 : 1).remove();
+                $('.image-wrap-inner:not(:' + (direction == 'right' ? 'last)' : 'first)')).remove();
+                $('.image-wrap-inner')
+                    .eq(0)
+                    .css({x: 0});
                 _draggingReleasing = false;
             }, 500);
         }
         else {
             _draggingReleasing = false;
+            _innerLock = false;
         }
     }
 

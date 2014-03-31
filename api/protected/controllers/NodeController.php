@@ -510,6 +510,7 @@ class NodeController extends Controller {
 			if (!Yii::app()->user->checkAccess("isAdmin")) {
 				unset($data["user"]['personal_email']);
 				unset($data["user"]['company_email']);
+				unset($data['from']);
 			}
 
 			$retdata[] = $data;
@@ -655,9 +656,11 @@ class NodeController extends Controller {
 			$node->type         = $type;
 			if(isset($isPersonalEmail) && $isPersonalEmail == true) {
 				$node->status   = 0;
+				$node->from = 2;
 			}
 			else {
 				$node->status   = 1;
+				$node->from = 1;
 			}
 
 			$node->file         = $file;

@@ -57,7 +57,7 @@ class NodeAR extends CActiveRecord{
 		    array("uid, file, country_id, type", "required"),
 		    array("uid", "uidExist"),
 		    array("country_id", "countryExist"),
-		    array("created , type, datetime, status, description, nid, hashtag, user_liked,user_flagged, like, flag, topday, topmonth", "safe"),
+		    array("created , type, datetime, status, description, nid, hashtag, user_liked,user_flagged, like, flag, topday, topmonth, from", "safe"),
 		);
 	}
   

@@ -3113,7 +3113,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                     $newItem.html(html);
                     if($('#flash-player').length) {
                         var flashPlayer=document.getElementById("flash-player");
-                        if(!flashPlayer.play){
+                        if(!flashPlayer){
                             flashPlayer = document.getElementById("flash-player-embed");
                         }
                         $('.inner-infoicon .video').on('click', function(){

@@ -60,6 +60,7 @@
 		        <a href="javascript:void(0)" class="switch switch-{{node.status}}" ng-click="updateStatus(node)"></a>
 		        <div ng-show="node.flagcount" class="flag flag{{node.flagcount}}">Flagged: {{node.flagcount}}</div>
 	        </div>
+            <div class="from icon-{{node.from}}">{{node.from}}</div>
 	        <div class="type icon-{{node.type}}">{{node.type}}</div>
 	        <div class="user">
 	            <div class="avatar"><img ng-src="{{node.user.avatar | avatar}}" width="40" height="40" /></div>
