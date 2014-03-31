@@ -10,6 +10,8 @@ class FlagController extends Controller {
 	public function actionPost() {
 		$request = Yii::app()->getRequest();
 
+		$uid = Yii::app()->user->getId();
+
 		if (!Yii::app()->user->checkAccess("flagNode")) {
 		  return $this->responseError(602);
 		}
@@ -37,7 +39,6 @@ class FlagController extends Controller {
 				$this->responseError(101);
 			}
 
-		$uid = Yii::app()->user->getId();
 
 		$flagAr = new FlagAR();
 		$flagAr->uid = $uid;
@@ -98,7 +99,6 @@ class FlagController extends Controller {
 		if (!$value || !is_numeric($value)) {
 			$this->responseError(101);
 		}
-
 
 		if (!Yii::app()->user->checkAccess("isAdmin")) {
 			return $this->responseError(601);

@@ -50,7 +50,7 @@ class UserAR extends CActiveRecord{
 	// Validation rules
 	public function rules() {
 		return array(
-			array("avatar, personal_email, company_email, name, sso_id, country_id, datetime, firstname, lastname, role", 'safe'),
+			array("avatar, personal_email, company_email, name, sso_id, country_id, datetime, firstname, lastname, role, token", 'safe'),
 		);
 	}
 
@@ -122,7 +122,6 @@ class UserAR extends CActiveRecord{
 		$newUser->lastname = $attributes['sn'][0];
 		$newUser->role = self::ROLE_AUTHEN;
 		$newUser->country_id = 30;
-
 		if ($newUser->validate()) {
 			$newUser->save();
 			return $newUser;

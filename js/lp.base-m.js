@@ -902,6 +902,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 						// resizeInnerBox();
 						$newItem.css('width' , '100%');
 						updateInnerNode(node,direction);
+						$('.image-wrap-inner').eq(direction == 'right' ? 0 : 1).remove();
 					});
 			}
 
@@ -1350,7 +1351,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
                     })
                     .attr('src', API_FOLDER + rdata.file.replace('.mp4', /*THUMBNAIL_IMG_SIZE + */'.jpg'));
 
-                $('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
+                $('.poptxt-submit').attr('data-d','file='+ rdata.file_id +'&type=' + rdata.type);
 
             } else {
                 if (data.files && data.files[0] && window.FileReader ) {
@@ -1368,7 +1369,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
                                 } , 1700 );
                             })
                             .attr('src', e.target.result/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
-                        $('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
+                        $('.poptxt-submit').attr('data-d','file='+ rdata.file_id +'&type=' + rdata.type);
                     };
                     reader.readAsDataURL(data.files[0]);
                 } else {
@@ -1382,7 +1383,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
                             } , 1700 );
                         })
                         .attr('src', API_FOLDER + rdata.file/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
-                    $('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
+                    $('.poptxt-submit').attr('data-d','file='+ rdata.file_id +'&type=' + rdata.type);
 
                 }
             }
@@ -1560,7 +1561,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
                                     } , 1700 );
                                 })
                                 .attr('src', API_FOLDER + rdata.file/*.replace('.jpg', THUMBNAIL_IMG_SIZE + '.jpg')*/);
-                            $('.poptxt-submit').attr('data-d','file='+ rdata.file +'&type=' + rdata.type);
+                            $('.poptxt-submit').attr('data-d','file='+ rdata.file_id +'&type=' + rdata.type);
 						}
 					});
 			});
