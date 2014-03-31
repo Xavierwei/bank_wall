@@ -7,14 +7,20 @@ class HttpRequest extends CHttpRequest
 	{
 		if($this->getIsPostRequest())
 		{
-			$valid = true;
+			// exclude action postbymail
+			if(strtolower($this->pathInfo) == 'node/postbymail') {
+				return;
+			}
+			$valid = false;
 			$uid = Yii::app()->user->getId();
 			$user = UserAR::model()->findByPk($uid);
 
 			// Validate CSRF token
 			$token = Drtool::getMyCookie('sg_token');
-			if($token != $user->token) {
-				$valid = false;
+			if(isset($user) && isset($token)) {
+				if($token == $user->token) {
+					$valid = true;
+				}
 			}
 
 			if(!$valid)

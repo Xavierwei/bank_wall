@@ -8,7 +8,7 @@
     <title>WALL - SOCIÉTÉ GÉNÉRALE</title>
     <link href="../css/jsPane.css" rel="stylesheet" type="text/css" />
     <link href="css/layout.css" rel="stylesheet" type="text/css" />
-	<link href="css/needtocombine.css" rel="stylesheet" type="text/css" />
+	<link href="css/photoitem.css" rel="stylesheet" type="text/css" />
     <link href="css/fonts.css" rel="stylesheet" type="text/css" />
     <link href="css/animation.css" rel="stylesheet" type="text/css" />
 	<style>

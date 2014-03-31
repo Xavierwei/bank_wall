@@ -559,7 +559,7 @@ class NodeController extends Controller {
 	public function actionPostByMail() {
 		try {
 			// Get client IP address
-			$ip = CHttpRequest::getUserHostAddress();
+			$ip = $_SERVER['REMOTE_ADDR'];
 			// Server IP Address
 			$server_ip = $_SERVER["SERVER_ADDR"];
 			// If not from same server, we just simply return false

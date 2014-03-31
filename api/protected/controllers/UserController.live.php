@@ -8,7 +8,6 @@ class UserController extends Controller {
 
 	/**
 	 * SAML SSO Login
-	 * TODO: Need change to live SAML IdP
 	 */
 	public function actionSAMLLogin() {
 		if(isset($_SERVER['HTTP_REFERER'])) {
@@ -19,9 +18,6 @@ class UserController extends Controller {
 			}
 		}
 
-		// TODO: TESTING
-		//$as = new SimpleSAML_Auth_Simple('default-sp');
-		// TODO: LIVE
 		$as = new SimpleSAML_Auth_Simple('live-sp');
 
 		$as->requireAuth();
@@ -30,43 +26,19 @@ class UserController extends Controller {
 			return $this->responseError("login saml failed");
 		}
 
-		// TODO: TESTING
-		// Create the new user if user doesn't exist in database
-//		if( !$user = UserAR::model()->findByAttributes(array('company_email'=>$attributes['eduPersonPrincipalName'][0])) ) {
-//			$user = UserAR::model()->createSAMLRegisterTest($attributes);
-//		}
-//
-//		// Identity local site user data
-//		$userIdentify = new UserIdentity($user->company_email, $attributes['eduPersonTargetedID'][0]);
-//
-//		// Save user status in session
-//		if (!$userIdentify->authenticate()) {
-//			echo md5($attributes['eduPersonTargetedID'][0]);
-//			$this->responseError("login failed.");
-//		}
-//		else {
-//			Yii::app()->user->login($userIdentify);
-//			if(Yii::app()->session['loginfrom'] == 'admin') {
-//				$this->redirect('../admin/index');
-//			}
-//			else {
-//				$this->redirect('../../index');
-//			}
-//		}
 
 
-		// TODO: LIVE
 		// Create the new user if user doesn't exist in database
-		if( !$user = UserAR::model()->findByAttributes(array('company_email'=>$attributes['sggroupid'][0])) ) {
+		if( !$user = UserAR::model()->findByAttributes(array('company_email'=>$attributes['societegenerale.sggroupid'][0])) ) {
 			$user = UserAR::model()->createSAMLRegister($attributes);
 		}
 
 		// Identity local site user data
-		$userIdentify = new UserIdentity($user->company_email, $attributes['uid'][0]);
+		$userIdentify = new UserIdentity($user->company_email, $attributes['societegenerale.givenname'][0]);
 
 		// Save user status in session
 		if (!$userIdentify->authenticate()) {
-			$this->responseError("login failed.");
+			$this->redirect('../../index');
 		}
 		else {
 			Yii::app()->user->login($userIdentify);
@@ -89,7 +61,7 @@ class UserController extends Controller {
 			// Clean session
 			Yii::app()->user->logout();
 			// Logout from SSO
-			$as = new SimpleSAML_Auth_Simple('default-sp');
+			$as = new SimpleSAML_Auth_Simple('live-sp');
 			$status = $as->isAuthenticated();
 			if($status){
 				$as->logout();
@@ -103,98 +75,10 @@ class UserController extends Controller {
 		}
 	}
 
-	/* Get User List (Disabled)
-	public function actionList() {
-		$request = Yii::app()->getRequest();
-
-		if (!Yii::app()->user->checkAccess("listAllAccount")) {
-			return $this->responseError("permission deny");
-		}
-
-		$role = $request->getParam("role");
-		$country_id = $request->getParam("country_id");
-		$orderby = $request->getParam("orderby");
-
-
-		if ($country_id && !is_numeric($country_id)) {
-			$country_id = FALSE;
-		}
-
-		if (Yii::app()->user->role == UserAR::ROLE_COUNTRY_MANAGER) {
-			$login_uid = Yii::app()->user->getId();
-			$user = UserAR::model()->findByPk($login_uid);
-			$country_id = $user->country_id;
-		}
-
-		if (!$role) {
-		  //$this->responseError("invalid params role");
-		}
-		if ($role && !is_numeric($role)) {
-		  $this->responseError("invalid params role");
-		}
-
-		$columns = UserAR::model()->getTableSchema()->columns;
-		if (!isset($columns[$orderby])) {
-		  $this->responseError("invalid params orderby");
-		}
-
-		$params = array();
-		$query = new CDbCriteria();
-		if ($role) {
-		  $query->addCondition("role=:role");
-		  $params[":role"] = $role;
-		}
-
-
-		if ($country_id) {
-		  $query->addCondition(UserAR::model()->tableAlias . ".country_id = :country_id");
-		  $params[":country_id"] = $country_id;
-		}
-
-		$query->order = $orderby . " DESC";
-
-		$query->params = $params;
-
-		$users = UserAR::model()->with("country")->findAll($query);
-
-		$array_users = array();
-		foreach ($users as $user) {
-		  $array = $user->attributes;
-		  $country = $user->country;
-		  $array["country"] = $country->attributes;
-
-		  $array_users[] = $array;
-		}
-
-		$allow_fields = array("uid", "firstname", "lastname", "avatar", "country" => array("country_name", "flag_icon"),
-		    "company_email", "personal_email", "role", "status");
-
-		$ret_data = array();
-		foreach ($array_users as $user) {
-		  $ret_user = array();
-		  foreach ($allow_fields as $key => $field) {
-		    if (is_numeric($key)) {
-		      $ret_user[$field] = $user[$field];
-		    } else {
-		      if (is_array($field)) {
-		        $ret_user[$key] = array();
-		        foreach ($field as $sub_field) {
-		          $ret_user[$key][$sub_field] = $user[$key][$sub_field];
-		        }
-		      }
-		    }
-		  }
-		  $ret_data[] = $ret_user;
-		}
-
-		$this->responseJSON($ret_data, "success");
-	}
-    */
-
 
 	/**
-	* Update user
-	*/
+	 * Update user
+	 */
 	public function actionPut() {
 		$request = Yii::app()->getRequest();
 		if (!$request->isPostRequest) {
@@ -209,6 +93,7 @@ class UserController extends Controller {
 				$this->responseError(101);
 			}
 
+
 			if (!Yii::app()->user->checkAccess("updateOwnAccount", array("uid" => $user->uid ))) {
 				return $this->responseError(602);
 			}
@@ -222,154 +107,110 @@ class UserController extends Controller {
 				return $this->responseError(603); // Personal Email already exsit
 			}
 
-			$update_uid = $data['uid'];
-			unset($data['uid']);
-			UserAR::model()->updateByPk($update_uid, $data);
+			UserAR::model()->updateByPk($uid, $data);
 
-			$this->responseJSON($user, "success");
+			$this->responseJSON('', "success");
 		}
 		else {
 			$this->responseError(601);
 		}
 	}
 
-	/**
-	* Get user info by uid (disabled)
-
-	public function actionGetByUid() {
-		$request = Yii::app()->getRequest();
-		$uid = $request->getParam("uid");
-
-		if (!Yii::app()->user->role == UserAR::ROLE_ADMIN && !Yii::app()->user->role == UserAR::ROLE_COUNTRY_MANAGER) {
-	        return $this->responseError("permission deny");
-		}
-
-		if ($uid) {
-			$user = UserAR::model()->with("country")->findByPk($uid);
-			if ($user) {
-				$ret_user = UserAR::getOutputRecordInArray($user);
-				$this->responseJSON($ret_user, "success");
-			}
-			else {
-				$this->responseError("not found user");
-			}
-		}
-		else {
-		    $this->responseError("invalid params");
-		}
-	}
-	*/
 
 	/**
-	* Post user
-
-	public function actionPost() {
-		$arUser = new UserAR();
-
-		$request = Yii::app()->getRequest();
-
-		if (Yii::app()->user->getId() ) {
-			return $this->responseError("you have already login");
-		}
-
-		// Only allow post
-		if ($this->isPost()) {
-			$id = $arUser->postNewUser();
-			if ($id) {
-				$mUser = UserAR::model()->findByPk($arUser->uid);
-				// 返回数据
-				$this->responseJSON(array(
-				    "uid" => $id,
-				    "lastname" => $mUser->lastname,
-				    "firstname" => $mUser->firstname,
-				    "avatar" => $mUser->avatar,
-				        ), Yii::t("strings", "success"));
-			} else {
-				$this->responseError($arUser->errorsString());
-			}
-		} else {
-		    $this->responseError(Yii::t("strings", "http error"));
-		}
-	}
+	 * Upload avatar
 	 */
-
-	/**
-	* Upload avatar
-	*/
 	public function actionSaveAvatar(){
 		$uid = Yii::app()->user->getId();
+		$request = Yii::app()->getRequest();
+		$iframe = $request->getPost("iframe");
 		if( empty( $uid ) ){
-			$this->responseError( "not login" );
+			if($iframe) {
+				$this->render('post', array(
+					'code'=>601
+				));
+				return;
+			}
+			else {
+				return $this->responseError(601);
+			}
 		}
-
 		$user = UserAR::model()->findByPk($uid);
 		if (!Yii::app()->user->checkAccess("updateOwnAccount", array("uid" => $user->uid ))) {
 			return $this->responseError("permission deny");
 		}
-		$request = Yii::app()->getRequest();
-		$iframe = $request->getPost("iframe");
 		if($iframe) {
 			$fileUpload = CUploadedFile::getInstanceByName("file");
-			$validateUpload = NodeAR::model()->validateUpload($fileUpload, 'photo');
+			$validateUpload = NodeAR::model()->validateUpload($fileUpload, 'avatar');
 			if($validateUpload !== true) {
-				return $this->responseError($validateUpload);
+				$this->render('post', array(
+					'code'=>$validateUpload
+				));
+				return;
 			}
 
 			// save file to dir
 			$fileUpload = NodeAR::model()->saveUploadedFile($fileUpload);
+			if($fileUpload) {
+				$size = getimagesize(ROOT . '/' . $fileUpload);
+				$s_w = $size[0];
+				$s_h = $size[1];
+				$w = $h = 80;
 
-			$size = getimagesize(ROOT . '/' . $fileUpload);
-			$s_w = $size[0];
-			$s_h = $size[1];
-			$w = $h = 80;
+				$r1 = $w / $s_w;
+				$r2 = $h / $s_h;
+				$widthSamller = TRUE;
+				if ($r1 > $r2) {
+					$r = $r1;
+				}
+				else {
+					$widthSamller = FALSE;
+					$r = $r2;
+				}
+				$t_w = $r * $s_w;
+				$t_h = $r * $s_h;
 
-			$r1 = $w / $s_w;
-			$r2 = $h / $s_h;
-			$widthSamller = TRUE;
-			if ($r1 > $r2) {
-				$r = $r1;
+				// 先等比例 resize
+				$thumb = new EasyImage(ROOT . '/' . $fileUpload);
+				$thumb->resize($t_w, $t_h);
+				// 再裁剪
+				// 裁剪 多余的宽
+				if (!$widthSamller) {
+					$start_x = ($t_w - $w)/2;
+					$start_y = 0;
+					$thumb->crop($w, $h, $start_x, $start_y);
+				}
+				// 裁剪多余的 高
+				else {
+					$start_x = 0;
+					$start_y = ($t_h - $h);
+					$thumb->crop($w, $h, $start_x, $start_y);
+				}
+
+				unlink(ROOT . '/' . $fileUpload);
+				$fileto = ROOT . '/uploads/avatar/' . $uid .'.'. pathinfo($fileUpload, PATHINFO_EXTENSION);
+				$thumb->save($fileto);
+				$fileto = str_replace( ROOT, '', $fileto );
+				$this->render('post', array(
+					'url'=>$fileto
+				));
 			}
 			else {
-				$widthSamller = FALSE;
-				$r = $r2;
+				$this->render('post', array(
+					'code'=>'509'
+				));
 			}
-			$t_w = $r * $s_w;
-			$t_h = $r * $s_h;
-
-			// 先等比例 resize
-			$thumb = new EasyImage(ROOT . '/' . $fileUpload);
-			$thumb->resize($t_w, $t_h);
-			// 再裁剪
-			// 裁剪 多余的宽
-			if (!$widthSamller) {
-				$start_x = ($t_w - $w)/2;
-				$start_y = 0;
-				$thumb->crop($w, $h, $start_x, $start_y);
-			}
-			// 裁剪多余的 高
-			else {
-				$start_x = 0;
-				$start_y = ($t_h - $h);
-				$thumb->crop($w, $h, $start_x, $start_y);
-			}
-
-			unlink(ROOT . '/' . $fileUpload);
-			$fileto = ROOT . '/uploads/avatar/' . $uid .'.'. pathinfo($fileUpload, PATHINFO_EXTENSION);
-			$thumb->save($fileto);
-			$fileto = str_replace( ROOT, '', $fileto );
-			$this->render('post', array(
-			'url'=>$fileto
-			));
 		}
 		else {
-			$fileUpload = $request->getPost("file");
+			$file_id = $request->getPost("file");
+			$fileUpload = NodeAR::getFile($file_id, $uid);
 			if( empty( $fileUpload ) ){
 				$this->responseError('no file');
 			}
 			// cut the file
 			$thumb = new EasyImage( ROOT . '/' . $fileUpload );
 			$thumb->resize( $request->getPost("width") , $request->getPost("height") );
-			$thumb->crop( 220 , 220 , -$request->getPost("x") , -$request->getPost("y") );
+			$thumb->crop( $request->getPost("size") , $request->getPost("size") , -$request->getPost("x") , -$request->getPost("y") );
 			$thumb->resize(80, 80);
 			$fileto = ROOT . '/uploads/avatar/' . $uid .'.'. pathinfo($fileUpload, PATHINFO_EXTENSION);
 			$dir = dirname( $fileto );
@@ -380,42 +221,12 @@ class UserController extends Controller {
 			unlink(ROOT . '/' . $fileUpload);
 			$fileto = str_replace( ROOT, '', $fileto );
 			UserAR::model()->updateByPk($uid, array('avatar' => $fileto ));
+			if(isset($file_id)) {
+				NodeAR::deleteFile($file_id);
+			}
 			$this->responseJSON(array( "file" => $fileto ) , "success");
 		}
 	}
-
-	/**
-	* Delete user (disabled)
-	public function actionDelete() {
-		$request = Yii::app()->getRequest();
-
-		if (!$request->isPostRequest) {
-		    $this->responseError("http error");
-		}
-
-		$uid = $request->getPost("uid");
-		if (!$uid) {
-		    $this->responseError("invalid params");
-		}
-		$user = UserAR::model()->with("country")->findByPk($uid);
-
-		// 检查用户权限
-		if (!Yii::app()->user->checkAccess("deleteAnyAccount", array("country_id" => $user->country_id))) {
-		    return $this->responseError("permission deny");
-		}
-
-		if ($user) {
-			if (!Yii::app()->user->checkAccess("deleteAnyAccount", array("country_id" => $user->country_id))) {
-			return $this->responseError("permission deny");
-			}
-			UserAR::model()->deleteByPk($user->uid);
-			$this->responseJSON(array(), "success");
-		}
-		else {
-			$this->responseJSON(array(), "success");
-		}
-	}
-	*/
 
 
 	/**
@@ -442,21 +253,27 @@ class UserController extends Controller {
 			$retdata["videos_count"] = $nodeAr->countByType($user->uid, 'video');
 			$retdata["count_by_day"] = $nodeAr->countByDay($user->uid);
 			$retdata["count_by_month"] = $nodeAr->countByMonth($user->uid);
+
+			// Remove unnecessary JSON data
+			unset($retdata["role"]);
+			unset($retdata["status"]);
+			unset($retdata["role"]);
+			unset($retdata["country"]["country_name"]);
+			unset($retdata["country"]["flag_icon"]);
+
+			// Generate random token string
+			$token = Drtool::randomNew();
+			Drtool::setMyCookie('sg_token', $token);
+			// Save the token to database
+			UserAR::model()->updateByPk($user->uid, array('token' => $token ));
+
 			$this->responseJSON($retdata, "success");
 		}
 		else {
-		    $this->responseError(601);
+			$this->responseError(601);
 		}
 	}
 
-
-	/**
-	 * Generate API token, when call the GET api, server side need validate the token from client side
-	 */
-	public function actionGetToken() {
-		$token = UserAR::model()->getToken();
-		$this->responseJSON($token, "success");
-	}
 
 
 

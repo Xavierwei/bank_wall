@@ -50,7 +50,7 @@ class UserAR extends CActiveRecord{
 	// Validation rules
 	public function rules() {
 		return array(
-			array("avatar, personal_email, company_email, name, sso_id, country_id, datetime, firstname, lastname, role", 'safe'),
+			array("avatar, personal_email, company_email, name, sso_id, country_id, datetime, firstname, lastname, role, token", 'safe'),
 		);
 	}
 
