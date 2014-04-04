@@ -26,13 +26,13 @@ $metadata['https://openidp.feide.no'] = array(
 /*
  * Live site IdP
  */
-$metadata['https://h-login.safe.socgen/wall'] = array(
+$metadata['https://login.safe.socgen/wall'] = array(
 	'name' => array(
 		'en' => 'SGIdP',
 		'fr' => 'SGIdP',
 	),
 	'description'          => 'SGIdP',
-	'SingleSignOnService'  => 'https://h-login.safe.socgen/wall/AccueilAuth/IdPAccess',
+	'SingleSignOnService'  => 'https://login.safe.socgen/wall/AccueilAuth/IdPAccess',
 	'certificate'          => 'server.crt',
 	'nameid.encryption'    => TRUE,
 	'assertion.encryption' => FALSE

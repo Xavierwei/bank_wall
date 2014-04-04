@@ -432,9 +432,9 @@ class NodeAR extends CActiveRecord{
 								break;
 							case 'mov':
 								exec("ffmpeg -i {$to} -vcodec libx264 -movflags +faststart -acodec aac -strict experimental -ac 2 {$rotate} {$newpath}", $output, $status);
-								if(!is_file($newpath) || !$this->is_valid_video($newpath)) {
-									exec("ffmpeg -i {$to} -acodec copy -vcodec copy {$rotate} {$newpath}", $output, $status);
-								}
+//								if(!is_file($newpath) || !$this->is_valid_video($newpath)) {
+//									exec("ffmpeg -i {$to} -acodec copy -vcodec copy {$rotate} {$newpath}", $output, $status);
+//								}
 								break;
 							case 'wmv':
 								exec("ffmpeg -i {$to} -movflags +faststart -strict -2 -ar 44100 {$newpath}", $output, $status);
