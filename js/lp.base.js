@@ -604,6 +604,26 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
         LP.reload();
     });
 
+    var doWidthNextNode = function( cb ){
+        var $dom = $('.inner').data('from') || $main;
+        var nodes = $dom.data('nodes');
+        if( nodes[ _currentNodeIndex + 1 ] ){
+            cb( nodes[ _currentNodeIndex + 1 ] ); 
+        } else {
+            var param = $dom.data('param');
+            param.page++;
+            api.ajax('recent' , param , function( result ){
+                if( result.data.length ){
+                    nodeActions.inserNode( $dom , result.data , param.orderby == 'datetime' );
+                    nodes = $dom.data('nodes');
+                    cb( nodes[ _currentNodeIndex + 1 ] );
+                } else {
+                    $dom.data('end' , true);
+                }
+            });
+        }
+    }
+
     // view node action
     var _silderWidth = 80;
     var _animateTime = 800;
@@ -664,7 +684,20 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                 .animate({
                     left: 0
                 }, _animateTime , _animateEasing , function(){
-                    // show up node info
+                    // get next node info
+                    // @2014-04-05 显示下个node的图片
+                    doWidthNextNode( function( node ){
+                        var image = node.file.replace( node.type == "video" ? '.mp4' : '.jpg', BIG_IMG_SIZE + '.jpg');
+                        var $img = $('<img class="next-image"/>')
+                            .attr('src' , './api/' + image)
+                            .css({
+                                position: 'absolute',
+                                height: '100%',
+                                left: "95%",
+                                top: 0
+                            })
+                            .appendTo( $('.inner') );
+                    } );
                 });
             // set inner-info bottom css
 
@@ -867,6 +900,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
      * @param direction { 'right' or 'left' }
      */
     function cubeInnerNode( node , direction ){
+        $(".next-image").remove();
 
         var cubeDir = 'cube-' + direction;
         var rotateDir = 'rotate-' + direction;
@@ -998,6 +1032,18 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
 
                 $inner.removeClass('disabled');
 
+                doWidthNextNode( function( node ){
+                    var image = node.file.replace( node.type == "video" ? '.mp4' : '.jpg', BIG_IMG_SIZE + '.jpg');
+                    var $img = $('<img class="next-image"/>')
+                        .attr('src' , './api/' + image)
+                        .css({
+                            position: 'absolute',
+                            height: '100%',
+                            left: "95%",
+                            top: 0
+                        })
+                        .appendTo( $('.inner') );
+                } );
             } , 1000);
 
             // picture animation,
