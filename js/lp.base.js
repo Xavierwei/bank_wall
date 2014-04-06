@@ -1130,6 +1130,24 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                         .end()
                         .insertAfter( $inner.find('.image-wrap-inner').last() );
 
+                        $imgWrap.children('.image-wrap-inner').last()
+                            .find('img')
+                            .css('opacity' , 0.5)
+                            .end()
+                            .append('<div class="image-hover-handler"></div>')
+                            .bind('click.next' , function(){
+                                LP.triggerAction('next');
+                            })
+                            .bind('mouseenter.opa' , function(){
+                                $(this).find('img').animate({
+                                    opacity: 1
+                                } , 300);
+                            })
+                            .bind('mouseout.opa' , function(){
+                                $(this).find('img').animate({
+                                    opacity: 0.5
+                                } , 300);
+                            });
                 } );
             }
             var $nextFlag = $newInner.find('.flag-node');
@@ -1176,26 +1194,29 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                     // Resize Inner Box
                     // resizeInnerBox();
                     // $newItem.css('width' , wrapWidth / 2 );
-
-                    $imgWrap.children('.image-wrap-inner')[ direction == 'left' ? 'last' : 'first' ]().remove();
-                    $imgWrap.children('.image-wrap-inner').last()
-                        .find('img')
-                        .css('opacity' , 0.5)
-                        .end()
-                        .append('<div class="image-hover-handler"></div>')
-                        .bind('click.next' , function(){
-                            LP.triggerAction('next');
-                        })
-                        .bind('mouseenter.opa' , function(){
-                            $(this).find('img').animate({
-                                opacity: 1
-                            } , 300);
-                        })
-                        .bind('mouseout.opa' , function(){
-                            $(this).find('img').animate({
-                                opacity: 0.5
-                            } , 300);
-                        })
+                    var $imgWraps = $imgWrap.children('.image-wrap-inner');
+                    if( $imgWraps.length >= 2 )
+                       $imgWraps[ direction == 'left' ? 'last' : 'first' ]().remove();
+                   if( direction == 'left' ){
+                        $imgWrap.children('.image-wrap-inner').last()
+                            .find('img')
+                            .css('opacity' , 0.5)
+                            .end()
+                            .append('<div class="image-hover-handler"></div>')
+                            .bind('click.next' , function(){
+                                LP.triggerAction('next');
+                            })
+                            .bind('mouseenter.opa' , function(){
+                                $(this).find('img').animate({
+                                    opacity: 1
+                                } , 300);
+                            })
+                            .bind('mouseout.opa' , function(){
+                                $(this).find('img').animate({
+                                    opacity: 0.5
+                                } , 300);
+                            });
+                   }
                 });
 
             // desc animation
