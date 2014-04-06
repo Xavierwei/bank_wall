@@ -705,7 +705,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                     doWidthNextNode( function( node ){
                         var image = node.file.replace( node.type == "video" ? '.mp4' : '.jpg', BIG_IMG_SIZE + '.jpg');
                         var wrapWidth = $inner.find('.image-wrap-inner').width();
-                        $('<div class="image-wrap-inner next-image"><img style="display:none;" /><div class="image-hover-handler"></div></div>')
+                        $('<div class="image-wrap-inner next-image"><img /><div class="image-hover-handler"></div></div>')
                             .css({
                                 height: $inner.height(),
                                 width: wrapWidth
@@ -714,12 +714,8 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                             .attr('src' , './api/' + image)
                             .css({
                                 display: 'block',
-                                width: '100%',
-                                opacity: 0
+                                width: '100%'
                             })
-							.animate({
-								opacity: 0.5
-							})
                             .end()
                             .insertAfter( $inner.find('.image-wrap-inner') )
                             .bind('click.next' , function(){
@@ -732,7 +728,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                             })
                             .bind('mouseout.opa' , function(){
                                 $(this).find('img').animate({
-                                    opacity: 0.5
                                 } , 300);
                             });
                     } );
@@ -833,7 +828,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
         var $inner = $('.inner');
         // hide next inner image
         $inner.find('.image-wrap-inner').last()
-            .hide();
+            .fadeOut();
         var infoTime = 300;
         // hide the inner info node
         var $info = $inner.find('.inner-info');
@@ -3067,7 +3062,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
         $comList.height(comListHeight);
 
         // Resize Image
-        var imgBoxWidth = $(window).width() - 330 - slideWidth;
+        var imgBoxWidth = $(window).width() - 350 - slideWidth;
         var imgBoxHeight =$(window).height() - $('.header').height();
         var minSize = Math.min( imgBoxHeight , imgBoxWidth );
         var $img = $('.image-wrap-inner img').css('margin',0);
