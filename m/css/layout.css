@@ -322,6 +322,10 @@ a{text-decoration:none;color:#666}
     .flag-confirm-modal .btn {font-size:25px;color:#fff;width:200px;height:68px;line-height:68px;border:none;margin:25px 5px 0 5px;display:inline-block;}
     .flag-confirm-modal .cancel {background:#90918e;}
     .flag-confirm-modal .ok {background:#d3273f;}
+.flag-login-modal {width: 580px;height:230px;margin: -165px 0 0 -290px;text-align: center;color:#434343;}
+.flag-login-text {font-size:25px;margin:40px 0 0;line-height: 30px}
+.flag-login-modal .btn {font-size:25px;color:#fff;width:200px;height:68px;line-height:68px;border:none;margin:25px 5px 0 5px;display:inline-block;}
+.flag-login-modal .cancel {background:#d3273f;}
     .filter-modal {width:100%;height:340px;top:-50%;margin-top:-170px;left:0;background:none;-webkit-box-shadow:none;box-shadow:none;}
     .filter-modal .select-option {position:relative;background:#fff;border-bottom:1px solid #000;text-align: center;font-size:43px;height:90px;line-height:95px;margin:0 40px;-webkit-border-radius: 10px;-moz-border-radius: 10px;border-radius: 10px;}
     .filter-modal .select-cancel {margin:20px 40px 0 40px;background:#fff;color:#eb1f40;text-align: center;font-size:43px;height:90px;line-height:95px;-webkit-border-radius: 10px;-moz-border-radius: 10px;border-radius: 10px;}
@@ -345,9 +349,9 @@ a{text-decoration:none;color:#666}
 .logged .search-ipt{left:249px;}
 .logged .filter {display: block;}
 .logged .filter-unlogged {display:none;}
-.logged .flag-node {display: block;}
-.logged .com-like {border-right:1px solid #fff;width:90px;}
-.logged .com-com-count {width:156px;}
+.flag-node {display: block;}
+.com-like {border-right:1px solid #fff;width:90px;}
+.com-com-count {width:156px;}
 
 
 .turn_device {display: none;position: fixed;width:100%;height:100%;top:0;bottom:0;background:#fff url('../img/device_turn.gif') no-repeat center;z-index:99999;}

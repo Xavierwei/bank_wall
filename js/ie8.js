@@ -61,6 +61,10 @@ var close_pop = function() {
     },1500);
 }
 
+var cancel_pop = function() {
+	LP.triggerAction('close_pop');
+}
+
 var closeAvatarPop = function(url) {
     LP.triggerAction('close_pop');
     $('.user-pho , .count-userpho').find('img')

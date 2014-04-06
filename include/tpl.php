@@ -71,6 +71,11 @@
 		<button class="btn ok" data-a="user">{{_e.CONFIRM}}</button>
 	</div>
 
+	<div class="flag-login-modal pop-modal">
+		<div class="flag-login-text">{{_e.REPORT_LOGIN}} <span></span></div>
+		<button class="btn cancel" data-a="cancel_modal">{{_e.CONFIRM}}</button>
+	</div>
+
 	<div class="delete-confirm-modal pop-modal">
 		<div class="flag-confirm-text">{{_e.DELETE_THIS}} <span></span>?</div>
 		<button class="btn cancel" data-a="cancel_modal">{{_e.CANCEL}}</button>
@@ -461,7 +466,7 @@
 		<!-- user -->
 		<div class="user" data-a="toggle_user_page">
 			<div class="user-pho"><img src="./api{{avatar}}" width="34" height="34" /><div class="avatar-ie-round"></div></div>
-			<div class="user-name">{{firstname}}</div>
+			<div class="user-name">{{{_e.MY_PROFILE}}}</div>
 			<div class="close-user-page" data-a="toggle-user-page"></div>
 			<h6>{{{_e.MY_PROFILE}}}</h6>
 		</div>

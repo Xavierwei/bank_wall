@@ -71,8 +71,8 @@ a{text-decoration:none;color:#666}
 
 /* search Used
 ================================================================================================= */
-.search-hd {display:none;margin:109px 0 -69px 10px;color:#757575;}
-.logged .search-hd {margin:114px 0 -64px 90px;}
+.search-hd {display:none;margin:109px 0 -69px 10px;color:#757575;line-height: 25px;}
+.logged .search-hd {margin:112px 0 -64px 90px;}
 .no-results {color:#afafaf;text-align: center;font-size: 14px;background: url('../img/no-results.png') no-repeat center 60px;padding:200px 0 42px;}
 .no-results-line {width:75px;border-bottom:1px solid #777;margin:0 auto;}
 .popular-hashtags {text-align: center;color:#777;margin-top:40px;}
@@ -117,7 +117,7 @@ a{text-decoration:none;color:#666}
             border-radius: 33px;border-radius: 33px;-webkit-border-radius: 33px;-moz-border-radius: 33px;-o-border-radius: 33px;-ms-border-radius: 33px;}
 		.user-pho img {width:39px;height:39px;display: block;
             border-radius: 33px;border-radius: 33px;-webkit-border-radius: 33px;-moz-border-radius: 33px;-o-border-radius: 33px;-ms-border-radius: 33px;}
-        .user h6 {position: absolute;background:#cb223a;color:#fff;text-align:center;top:0;left:0;padding:15px 0;margin:0;width:80px;display:none;}
+        .user h6 {position: absolute;z-index:10;background:#cb223a;color:#fff;text-align:center;top:0;left:0;padding:15px 15px;margin:0;width:50px;display:none;}
 	.menu{}
 		.menu-item {display:block;position:relative;border-bottom:#4f4f4f 1px solid;border-left:2px solid #94938f;height:50px;cursor: pointer; }
         .menu-item.active {border-left:2px solid #e81b3b;}
@@ -154,7 +154,7 @@ a{text-decoration:none;color:#666}
 	.inner-info .photo{background: url('../img/icon_photo_w.png') no-repeat center;width:15px;height: 11px;margin: 0 auto}
     .inner-info .video{background: url('../img/icon_video_w.png') no-repeat center;width:11px;height: 12px;margin: 0 auto}
     .inner-info .video.pause {background: url('../img/icon_video_pause_w.png') no-repeat center;}
-    .flag-node {display:none;position: absolute;top:10px;right:10px;background:url('../img/icon_flag_b.png') no-repeat;text-indent:-999em;width:16px;height:17px;}
+    .flag-node {position: absolute;top:10px;right:10px;background:url('../img/icon_flag_b.png') no-repeat;text-indent:-999em;width:16px;height:17px;}
     .flag-node.flagged {background-position:0 -19px;}
     .logged .flag-node {display:block;}
     .inner-topday {position: absolute;top:-33px;left:10px;background:url('../img/icon_topday_b.gif') no-repeat;width:50px;height:31px;border:1px solid #d2d2d2;}
@@ -202,9 +202,8 @@ a{text-decoration:none;color:#666}
             .comlist-item:last-child {margin-bottom: 0;}
 				.comlist-tit span{font-size:18px;}
                 .comlist-delete {position: absolute;background:url('../img/icon_comm_del.gif') no-repeat center;width:10px;height:10px;top: 10px;right: 25px}
-				.comlist-flag{display:none;position: absolute;background:url('../img/icon_comm_flag.gif') no-repeat;width:10px;height:10px;top: 10px;right: 10px}
+				.comlist-flag{position: absolute;background:url('../img/icon_comm_flag.gif') no-repeat;width:10px;height:10px;top: 10px;right: 10px}
                 .comlist-flag.flagged {background-position: 0 -15px;}
-                .logged .comlist-flag {display:block;}
 		.com-ipt{background:#4b4b4b;color:#ccc;margin:10px 0 0;padding:7px 10px;font-size:12px;resize:none;width:242px;}
         .com-ipt:focus {background:#4f4f4f;}
         .com-make .submit {text-transform:uppercase;background:#333;color:#ccc;border: none;padding:5px 5px 2px 5px;margin-top:2px;margin-right:10px;float:right;}
@@ -281,6 +280,10 @@ a{text-decoration:none;color:#666}
     .flag-confirm-modal .btn {font-size:15px;color:#fff;width:120px;height:40px;line-height:40px;border:none;margin:25px 5px 0 5px;display:inline-block;}
     .flag-confirm-modal .cancel {background:#90918e;}
     .flag-confirm-modal .ok {background:#d3273f;}
+    .flag-login-modal {width: 500px;height:140px;margin: -70px 0 0 -250px;text-align: center;}
+    .flag-login-text {font-size:15px;margin:25px 0 0;}
+    .flag-login-modal .btn {font-size:15px;color:#fff;width:120px;height:40px;line-height:40px;border:none;margin:25px 5px 0 5px;display:inline-block;}
+    .flag-login-modal .cancel {background:#d3273f;}
     .delete-confirm-modal {width: 500px;height:140px;margin: -70px 0 0 -250px;text-align: center;}
     .delete-confirm-text {font-size:15px;margin:25px 0 0;}
     .delete-confirm-modal .btn {font-size:15px;color:#fff;width:120px;height:40px;line-height:40px;border:none;margin:25px 5px 0 5px;display:inline-block;}

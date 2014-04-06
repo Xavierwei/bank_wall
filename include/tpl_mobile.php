@@ -55,6 +55,11 @@
 		<button class="btn cancel" data-a="cancel_modal">{{_e.CANCEL}}</button>
 	</div>
 
+	<div class="flag-login-modal pop-modal">
+		<div class="flag-login-text">{{_e.REPORT_LOGIN}} <span></span></div>
+		<button class="btn cancel" data-a="cancel_modal">{{_e.CONFIRM}}</button>
+	</div>
+
 	<div class="flag-confirm-modal pop-modal">
 		<div class="flag-confirm-text">{{_e.REPORT_THIS}} <span></span>?</div>
 		<button class="btn cancel" data-a="cancel_modal">{{_e.CANCEL}}</button>

@@ -16,7 +16,7 @@ msgid "CONNECT"
 msgstr "Se connecter"
 
 msgid "MY_PROFILE"
-msgstr "Mon<br/>Profil"
+msgstr "Mon Profil"
 
 msgid "POST_A_PHOTO"
 msgstr "Poster une photo"
@@ -67,6 +67,9 @@ msgstr ""
 
 msgid "HASHTAG_EXAMPLES"
 msgstr "Exemples : #espritd’équipe #sociétégénérale #olympiades"
+
+msgid "REPORT_LOGIN"
+msgstr "Vous devez vous connecter pour signaler un "
 
 msgid "REPORT_THIS"
 msgstr "ÊTES-VOUS SÛR DE VOULOIR SIGNALER CE "
