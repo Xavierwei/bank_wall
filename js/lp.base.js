@@ -713,7 +713,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                             .find('img')
                             .attr('src' , './api/' + image)
                             .css({
-                                display: 'block',
                                 width: '100%'
                             })
                             .end()
@@ -730,6 +729,11 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                                 $(this).find('img').animate({
                                 } , 300);
                             });
+						$('.image-wrap-inner.next-image').find('img').ensureLoad(function(){
+							if($(this).parent().hasClass('.next-image')) {
+								$(this).css({display:'block', opacity:0}).animate({opacity:0.5});
+							}
+						});
                     } );
                 });
             // set inner-info bottom css
@@ -950,6 +954,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
             dirData.rotate = -90;
         }
 
+
         var datetime = new Date((parseInt(node.datetime)+1*3600)*1000);
         node.date = datetime.getUTCDate();
         node.month = getMonth((parseInt(datetime.getUTCMonth()) + 1));
@@ -1098,7 +1103,8 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
             // append dom
             var $oriItem = $imgWrap.children('.image-wrap-inner').unbind('click.next')
                 .unbind('mouseout.opa')
-                .unbind('mouseenter.opa');
+                .unbind('mouseenter.opa')
+				.removeClass('next-image');
             $oriItem.find( '.image-hover-handler' ).fadeOut(function(){
 				$(this).remove();
 			});
@@ -1116,7 +1122,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                 // render nenext image
                 doWidthNextNode( function( node ){
                     var image = node.file.replace( node.type == "video" ? '.mp4' : '.jpg', BIG_IMG_SIZE + '.jpg');
-                    $('<div class="image-wrap-inner"><img class="next-image"/></div>')
+                    $('<div class="image-wrap-inner next-image"><img /></div>')
                         .css({
                             height: $inner.height(),
                             width: wrapWidth
@@ -1124,7 +1130,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                         .find('img')
                         .attr('src' , './api/' + image)
                         .css({
-                            display: 'block',
                             width: '100%'
                         })
                         .end()
@@ -1180,11 +1185,9 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
 
                     $imgWrap.children('.image-wrap-inner').last()
                         .find('img')
-                        .animate({'opacity':0.5})
                         .end()
                         .append('<div class="image-hover-handler"></div>')
 						.find('.image-hover-handler')
-						.fadeIn()
 						.end()
                         .bind('click.next' , function(){
                             LP.triggerAction('next');
@@ -1199,6 +1202,11 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                                 opacity: 0.5
                             } , 300);
                         })
+					if( direction == 'left' ){
+						$imgWrap.children('.image-wrap-inner').last().addClass('next-image')
+							.find('img')
+							.animate({opacity:0.5});
+					}
                 });
 
             // desc animation
@@ -1240,11 +1248,16 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
             }
             // init photo node
             if( node.type == "photo" ){
-                $('.image-wrap-inner img').ensureLoad(function(){
+                $('.image-wrap-inner:not(".next-image")').find('img').ensureLoad(function(){
                     $(this).fadeIn();
                     slideIntroBar($newInfo, _animateTime);
                 });
             }
+			$('.next-image').find('img').ensureLoad(function(){
+				if($(this).parent().hasClass('.next-image')) {
+					$(this).css({display:'block', opacity:0}).animate({opacity:0.5});
+				}
+			});
 
             // load comment
             bindCommentSubmisson();
