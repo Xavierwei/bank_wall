@@ -92,7 +92,7 @@ class NodeAR extends CActiveRecord{
 	public function getHashTag() {
 		$description = $this->description;
 		$matches = array();
-		preg_match_all("/#([\\w']+)/", $description, $matches);
+		preg_match_all("/#([^\s]*)/", $description, $matches);
 		$hashtags = end($matches);
 
 		return $hashtags;

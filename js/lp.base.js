@@ -1156,7 +1156,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                     // $newItem.css('width' , wrapWidth / 2 );
 
                     $imgWrap.children('.image-wrap-inner')[ direction == 'left' ? 'last' : 'first' ]().remove();
-                    console.log( $imgWrap.children('.image-wrap-inner') );
+//                    console.log( $imgWrap.children('.image-wrap-inner') );
                 });
 
             // desc animation
@@ -1493,6 +1493,18 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
         if($(this).hasClass('flagged')) {
             return false;
         }
+		if(!$('.page').hasClass('logged')) {
+			$('.modal-overlay').fadeIn(700);
+			$('.flag-login-modal').fadeIn(700).dequeue().animate({top:'50%'}, 700, 'easeOutQuart');
+			if(data.type == 'node') {
+				var type = _e['CONTENT'];
+			}
+			else {
+				var type = _e['COMMENT'];
+			}
+			$('.flag-login-modal .flag-login-text span').html(type);
+			return;
+		}
         // display the modal before submit flag
         if(!$('.flag-confirm-modal').is(':visible')) {
             $('.modal-overlay').fadeIn(700);
@@ -2701,6 +2713,11 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
 //		});
 
 		if(isOldIE) return;
+		if(isIE8) {
+			setInterval(function(){
+				window.document.title = pageTitle;
+			}, 2000);
+		}
 
         // Get language
         lang = LP.getCookie('lang') || 'fr';
@@ -3147,7 +3164,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
             LP.triggerAction('content_of_month');
         } else if( ( match = hash.match( /#\/cod/ ) ) ){
             LP.triggerAction('content_of_day');
-		} else if( ( match = hash.match( /#\/search\/(\w+)/ ) ) ){
+		} else if( ( match = hash.match( /#\/search\/(.*)/ ) ) ){
 			var hashtag = match[1];
 			$('.search-ipt').val(hashtag);
 			LP.triggerAction('search');
