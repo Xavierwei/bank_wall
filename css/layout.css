@@ -383,3 +383,16 @@ a{text-decoration:none;color:#666}
     .com-user {height: 120px;}
     .comuser-pho {margin-top:20px;}
 }
+
+.image-hover-handler{
+    height: 100%;
+    position: absolute;
+    z-index: 1;
+    background: url(../img/angle.png) no-repeat center center;
+    width: 5%;
+    left: 0;
+    top: 0;
+}
+
+.image-wrap-inner{position: relative;}
+.image-hover-handler{cursor: pointer;}
