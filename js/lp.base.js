@@ -836,7 +836,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
         var $inner = $('.inner');
         // hide next inner image
         $inner.find('.image-wrap-inner').last()
-            .hide();
+            .fadeOut();
         var infoTime = 300;
         // hide the inner info node
         var $info = $inner.find('.inner-info');
@@ -1124,7 +1124,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                 // render nenext image
                 doWidthNextNode( function( node ){
                     var image = node.file.replace( node.type == "video" ? '.mp4' : '.jpg', BIG_IMG_SIZE + '.jpg');
-                    $('<div class="image-wrap-inner"><img class="next-image"/></div>')
+                    $('<div class="image-wrap-inner next-image"><img /></div>')
                         .css({
                             height: $inner.height(),
                             width: wrapWidth
@@ -1138,6 +1138,24 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                         .end()
                         .insertAfter( $inner.find('.image-wrap-inner').last() );
 
+                        $imgWrap.children('.image-wrap-inner').last()
+                            .find('img')
+                            .css('opacity' , 0.5)
+                            .end()
+                            .append('<div class="image-hover-handler"></div>')
+                            .bind('click.next' , function(){
+                                LP.triggerAction('next');
+                            })
+                            .bind('mouseenter.opa' , function(){
+                                $(this).find('img').animate({
+                                    opacity: 1
+                                } , 300);
+                            })
+                            .bind('mouseout.opa' , function(){
+                                $(this).find('img').animate({
+                                    opacity: 0.5
+                                } , 300);
+                            });
                 } );
             }
             var $nextFlag = $newInner.find('.flag-node');
@@ -1183,31 +1201,30 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                     $imgWrap.width( 2 * wrapWidth );
                     // Resize Inner Box
                     // resizeInnerBox();
-                    // $newItem.css('width' , wrapWidth / 2 );
-
-                    $imgWrap.children('.image-wrap-inner')[ direction == 'left' ? 'last' : 'first' ]().remove();
-
-                    $imgWrap.children('.image-wrap-inner').last()
-                        .find('img')
-                        .animate({'opacity':0.5})
-                        .end()
-                        .append('<div class="image-hover-handler"></div>')
-						.find('.image-hover-handler')
-						.fadeIn()
-						.end()
-                        .bind('click.next' , function(){
-                            LP.triggerAction('next');
-                        })
-                        .bind('mouseenter.opa' , function(){
-                            $(this).find('img').animate({
-                                opacity: 1
-                            } , 300);
-                        })
-                        .bind('mouseout.opa' , function(){
-                            $(this).find('img').animate({
-                                opacity: 0.5
-                            } , 300);
-                        })
+                    var $imgWraps = $imgWrap.children('.image-wrap-inner');
+                    if( $imgWraps.length >= 2 )
+                       $imgWraps[ direction == 'left' ? 'last' : 'first' ]().remove();
+                   	if( direction == 'left' ){
+                        $imgWrap.children('.image-wrap-inner').last()
+                            .find('img')
+							.css({'opacity':0.5})
+                            .end()
+                            .append('<div class="image-hover-handler"></div>')
+							.end()
+                            .bind('click.next' , function(){
+                                LP.triggerAction('next');
+                            })
+                            .bind('mouseenter.opa' , function(){
+                                $(this).find('img').animate({
+                                    opacity: 1
+                                } , 300);
+                            })
+                            .bind('mouseout.opa' , function(){
+                                $(this).find('img').animate({
+                                    opacity: 0.5
+                                } , 300);
+                            });
+                   	}
                 });
 
             // desc animation
@@ -2764,11 +2781,11 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
 //		});
 
 		if(isOldIE) return;
-		if(isIE8) {
-			setInterval(function(){
-				window.document.title = pageTitle;
-			}, 2000);
-		}
+//		if(isIE8) {
+//			setInterval(function(){
+//				window.document.title = pageTitle;
+//			}, 2000);
+//		}
 
         // Get language
         lang = LP.getCookie('lang') || 'fr';
