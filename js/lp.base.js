@@ -705,7 +705,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                     doWidthNextNode( function( node ){
                         var image = node.file.replace( node.type == "video" ? '.mp4' : '.jpg', BIG_IMG_SIZE + '.jpg');
                         var wrapWidth = $inner.find('.image-wrap-inner').width();
-                        $('<div class="image-wrap-inner next-image"><img/><div class="image-hover-handler"></div></div>')
+                        $('<div class="image-wrap-inner next-image"><img style="display:none;" /><div class="image-hover-handler"></div></div>')
                             .css({
                                 height: $inner.height(),
                                 width: wrapWidth
@@ -715,9 +715,15 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                             .css({
                                 display: 'block',
                                 width: '100%',
-                                opacity: 0.5
+                                opacity: 0
                             })
+							.animate({
+								opacity: 0.5
+							})
                             .end()
+							.find('.image-hover-handler')
+							.fadeIn()
+							.end()
                             .insertAfter( $inner.find('.image-wrap-inner') )
                             .bind('click.next' , function(){
                                 LP.triggerAction('next');
@@ -1101,7 +1107,9 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
             var $oriItem = $imgWrap.children('.image-wrap-inner').unbind('click.next')
                 .unbind('mouseout.opa')
                 .unbind('mouseenter.opa');
-            $oriItem.find( '.image-hover-handler' ).remove();
+            $oriItem.find( '.image-hover-handler' ).fadeOut(function(){
+				$(this).remove();
+			});
             $oriItem.find('img').css('opacity' , 1);
             // count the style
             // 如果是next的话，就不用再进行插入了
@@ -1181,9 +1189,12 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
 
                     $imgWrap.children('.image-wrap-inner').last()
                         .find('img')
-                        .css('opacity' , 0.5)
+                        .animate({'opacity':0.5})
                         .end()
                         .append('<div class="image-hover-handler"></div>')
+						.find('.image-hover-handler')
+						.fadeIn()
+						.end()
                         .bind('click.next' , function(){
                             LP.triggerAction('next');
                         })

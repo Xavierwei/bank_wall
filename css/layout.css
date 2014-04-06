@@ -159,13 +159,14 @@ a{text-decoration:none;color:#666}
     .logged .flag-node {display:block;}
     .inner-topday {position: absolute;top:-33px;left:10px;background:url('../img/icon_topday_b.gif') no-repeat;width:50px;height:31px;border:1px solid #d2d2d2;}
     .inner-topmonth {position: absolute;top:-33px;left:10px;background:url('../img/icon_topmonth_b.gif') no-repeat;width:50px;height:31px;}
-    .image-wrap {background:#444;}
-    .image-wrap-inner {background: url('../img/loading_inner.gif') no-repeat center center;overflow:hidden;}
+    .image-wrap-inner {background:#444 url('../img/loading_inner.gif') no-repeat center center;overflow:hidden;}
     .image-wrap-inner img {display:none;}
     .image-wrap-inner iframe {height: 100%;}
     .image-wrap-inner video {display: none;}
     .image-wrap-inner object {display: none;}
     .image-wrap-inner .video-js {display: none;}
+    .next-image {background:none;}
+    .image-hover-handler {display: none;}
 
 /* comment Used
 ================================================================================================= */
