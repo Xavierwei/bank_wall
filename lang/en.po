@@ -15,6 +15,9 @@ msgstr ""
 msgid "CONNECT"
 msgstr "Login"
 
+msgid "MY_PROFILE"
+msgstr "My<br/>Profil"
+
 msgid "POST_A_PHOTO"
 msgstr "Post a photo"
 
@@ -524,7 +527,7 @@ msgid "TURKEY"
 msgstr "Turkey"
 
 msgid "UK"
-msgstr "UK"
+msgstr "Uk"
 
 msgid "UKRAINE"
 msgstr "Ukraine"
@@ -536,7 +539,7 @@ msgid "URUGUAY"
 msgstr "Uruguay"
 
 msgid "USA"
-msgstr "USA"
+msgstr "Usa"
 
 msgid "VIETNAM"
 msgstr "Vietnam"

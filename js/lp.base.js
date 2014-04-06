@@ -112,6 +112,18 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
             $(this).find('p')
                 .delay(200).stop( true , true ).fadeIn( 500 );
         })
+		.delegate('.user' , 'mouseenter' , function(){
+			$(this).find('h6')
+				.delay(200).stop( true , true).fadeIn( 500 );
+			$(this).find('p')
+				.delay(200).stop( true , true).fadeOut( 500 );
+		})
+		.delegate('.user' , 'mouseleave' , function(){
+			$(this).find('h6')
+				.delay(200).stop( true , true).fadeOut( 500 );
+			$(this).find('p')
+				.delay(200).stop( true , true ).fadeIn( 500 );
+		})
         // for select options
         .delegate('.select-option p' , 'click' , function(){
             $(this)
@@ -153,7 +165,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
             var $error = $('.user-edit-page .edit-email-error');
             var email = $(this).val();
             var exp = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\_|\.]?)*[a-zA-Z0-9]+\.(.*?)$/;
-            if (!exp.test(email)) {
+            if (!exp.test(email) && email != '') {
                 $error.fadeIn();
             }
             else
@@ -250,14 +262,18 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
 
         // click to hide select options
         .click(function( ev ){
-            $('.select-pop').fadeOut();
+			if(!$(ev.target).attr('class') || ($(ev.target).attr('class').indexOf('jsp') == -1 && $(ev.target).attr('class').indexOf('country') == -1)) {
+				$('.select-pop').fadeOut();
+			}
             if( $(ev.target).hasClass('select-box') ){
                 $(ev.target)
                     .next()
                     .fadeIn();
             }
 
-            $('.editfi-country-pop').fadeOut();
+			if(!$(ev.target).attr('class') || ($(ev.target).attr('class').indexOf('jsp') == -1 && $(ev.target).attr('class').indexOf('country') == -1)) {
+				$('.editfi-country-pop').fadeOut();
+			}
             if( $(ev.target).hasClass('editfi-country-box') ){
                 $(ev.target)
                     .next()

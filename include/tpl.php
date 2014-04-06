@@ -459,10 +459,11 @@
 <script type="text/tpl" id="side-template">
 	<div class="side">
 		<!-- user -->
-		<div class="user btn" data-a="toggle_user_page">
+		<div class="user" data-a="toggle_user_page">
 			<div class="user-pho"><img src="./api{{avatar}}" width="34" height="34" /><div class="avatar-ie-round"></div></div>
 			<div class="user-name">{{firstname}}</div>
 			<div class="close-user-page" data-a="toggle-user-page"></div>
+			<h6>{{{_e.MY_PROFILE}}}</h6>
 		</div>
 		<!-- menu -->
 		<div class="menu">
