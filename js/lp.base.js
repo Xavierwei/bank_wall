@@ -688,15 +688,20 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                     // @2014-04-05 显示下个node的图片
                     doWidthNextNode( function( node ){
                         var image = node.file.replace( node.type == "video" ? '.mp4' : '.jpg', BIG_IMG_SIZE + '.jpg');
-                        var $img = $('<img class="next-image"/>')
+                        var wrapWidth = $inner.find('.image-wrap-inner').width();
+                        $('<div class="image-wrap-inner"><img class="next-image"/></div>')
+                            .css({
+                                height: "100%",
+                                width: wrapWidth
+                            })
+                            .find('img')
                             .attr('src' , './api/' + image)
                             .css({
-                                position: 'absolute',
-                                height: '100%',
-                                left: "95%",
-                                top: 0
+                                display: 'block',
+                                width: '100%'
                             })
-                            .appendTo( $('.inner') );
+                            .end()
+                            .insertAfter( $inner.find('.image-wrap-inner') );
                     } );
                 });
             // set inner-info bottom css
@@ -900,8 +905,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
      * @param direction { 'right' or 'left' }
      */
     function cubeInnerNode( node , direction ){
-        $(".next-image").remove();
-
         var cubeDir = 'cube-' + direction;
         var rotateDir = 'rotate-' + direction;
 
@@ -1032,18 +1035,24 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
 
                 $inner.removeClass('disabled');
 
-                doWidthNextNode( function( node ){
-                    var image = node.file.replace( node.type == "video" ? '.mp4' : '.jpg', BIG_IMG_SIZE + '.jpg');
-                    var $img = $('<img class="next-image"/>')
-                        .attr('src' , './api/' + image)
-                        .css({
-                            position: 'absolute',
-                            height: '100%',
-                            left: "95%",
-                            top: 0
-                        })
-                        .appendTo( $('.inner') );
-                } );
+                // doWidthNextNode( function( node ){
+                //     var image = node.file.replace( node.type == "video" ? '.mp4' : '.jpg', BIG_IMG_SIZE + '.jpg');
+                //     var wrapWidth = $inner.find('.image-wrap-inner').width();
+                //     $('<div class="image-wrap-inner"><img class="next-image"/></div>')
+                //         .css({
+                //             height: "100%",
+                //             width: wrapWidth
+                //         })
+                //         .find('img')
+                //         .attr('src' , './api/' + image)
+                //         .css({
+                //             display: 'block',
+                //             width: '100%'
+                //         })
+                //         .end()
+                //         .insertAfter( $inner.find('.image-wrap-inner') );
+                // } );
+                
             } , 1000);
 
             // picture animation,
@@ -1052,18 +1061,39 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
             // set .image-wrap's margin-right
             // animate the first image's margin-left style
             var $imgWrap = $inner.find('.image-wrap');
-            var wrapWidth = $imgWrap.width();
-            $imgWrap.css('width' , 2 * wrapWidth );
+            var wrapWidth = $inner.width();
+            $imgWrap.css('width' , 3 * wrapWidth );
 
             // append dom
             var $oriItem = $imgWrap.children('.image-wrap-inner');
             // count the style
-            var $newItem = $newInner.find('.image-wrap-inner')[ direction == 'left' ? 'insertBefore' : 'insertAfter' ]( $oriItem )
-                .attr('style' , $oriItem.attr('style'))
-                .find('img')
-                .hide()
-                .end();
-
+            // 如果是next的话，就不用再进行插入了
+            if( direction == 'left' ){
+                var $newItem = $newInner.find('.image-wrap-inner')[ direction == 'left' ? 'insertBefore' : 'insertAfter' ]( $oriItem[0] )
+                    .attr('style' , $oriItem.eq(0).attr('style'))
+                    .find('img')
+                    .hide()
+                    .end();
+            } else {
+                var $newItem = $oriItem.last();
+                // render nenext image
+                doWidthNextNode( function( node ){
+                    var image = node.file.replace( node.type == "video" ? '.mp4' : '.jpg', BIG_IMG_SIZE + '.jpg');
+                    $('<div class="image-wrap-inner"><img class="next-image"/></div>')
+                        .css({
+                            height: "100%",
+                            width: wrapWidth
+                        })
+                        .find('img')
+                        .attr('src' , './api/' + image)
+                        .css({
+                            display: 'block',
+                            width: '100%'
+                        })
+                        .end()
+                        .insertAfter( $inner.find('.image-wrap-inner').last() );
+                } );
+            }
             var $nextFlag = $newInner.find('.flag-node');
             $inner.find('.flag-node').remove();
             $newItem.parent().append($nextFlag);
@@ -1094,7 +1124,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
 
             // set style and animation
             $imgWrap.children('.image-wrap-inner').css({
-                    width: wrapWidth
+                    width: wrapWidth 
                 })
                 .eq(0)
                 .css('marginLeft' , direction == 'left' ? - wrapWidth : 0 )
@@ -1104,11 +1134,13 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                 // after animation
                 .promise()
                 .done(function(){
-                    $imgWrap.width( wrapWidth );
+                    $imgWrap.width( 2 * wrapWidth );
                     // Resize Inner Box
                     // resizeInnerBox();
-                    $newItem.css('width' , '100%');
-                    $newItem.siblings('.image-wrap-inner').remove();
+                    // $newItem.css('width' , wrapWidth / 2 );
+
+                    $imgWrap.children('.image-wrap-inner')[ direction == 'left' ? 'last' : 'first' ]().remove();
+                    console.log( $imgWrap.children('.image-wrap-inner') );
                 });
 
             // desc animation
@@ -2941,6 +2973,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
      * Resize Inner Box width Image and Video
      */
     var resizeInnerBox = function(){
+        $(document.body).css('overflow' , 'hidden');
         var $side = $('.side');
         var slideWidth = $side.width();
         // Resize Inner Box
@@ -3005,8 +3038,8 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
         }
 
         // resize inner width
-        var minLeft = $(window).width() - minSize;
-        $('.inner').css('margin-left' , minLeft )
+        var minLeft = $(window).width() - minSize * 1.05;
+        $('.inner').css({'margin-left' : minLeft , width: minSize })
             // set inner info
             .find('.inner-info')
             .css({
@@ -3023,7 +3056,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
             // set image wrap width
             .end()
             .find('.image-wrap')
-            .width( minSize );
+            .width( minSize * 2 );
 
     }
 
