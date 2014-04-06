@@ -705,19 +705,33 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                     doWidthNextNode( function( node ){
                         var image = node.file.replace( node.type == "video" ? '.mp4' : '.jpg', BIG_IMG_SIZE + '.jpg');
                         var wrapWidth = $inner.find('.image-wrap-inner').width();
-                        $('<div class="image-wrap-inner"><img class="next-image"/></div>')
+                        $('<div class="image-wrap-inner next-image"><img/><div class="image-hover-handler"></div></div>')
                             .css({
-                                height: "100%",
+                                height: $inner.height(),
                                 width: wrapWidth
                             })
                             .find('img')
                             .attr('src' , './api/' + image)
                             .css({
                                 display: 'block',
-                                width: '100%'
+                                width: '100%',
+                                opacity: 0.5
                             })
                             .end()
-                            .insertAfter( $inner.find('.image-wrap-inner') );
+                            .insertAfter( $inner.find('.image-wrap-inner') )
+                            .bind('click.next' , function(){
+                                LP.triggerAction('next');
+                            })
+                            .bind('mouseenter.opa' , function(){
+                                $(this).find('img').animate({
+                                    opacity: 1
+                                } , 300);
+                            })
+                            .bind('mouseout.opa' , function(){
+                                $(this).find('img').animate({
+                                    opacity: 0.5
+                                } , 300);
+                            });
                     } );
                 });
             // set inner-info bottom css
@@ -814,6 +828,9 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
     LP.action('back' , function( data ){
         if( _innerLock ) return;
         var $inner = $('.inner');
+        // hide next inner image
+        $inner.find('.image-wrap-inner').last()
+            .hide();
         var infoTime = 300;
         // hide the inner info node
         var $info = $inner.find('.inner-info');
@@ -1081,7 +1098,11 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
             $imgWrap.css('width' , 3 * wrapWidth );
 
             // append dom
-            var $oriItem = $imgWrap.children('.image-wrap-inner');
+            var $oriItem = $imgWrap.children('.image-wrap-inner').unbind('click.next')
+                .unbind('mouseout.opa')
+                .unbind('mouseenter.opa');
+            $oriItem.find( '.image-hover-handler' ).remove();
+            $oriItem.find('img').css('opacity' , 1);
             // count the style
             // 如果是next的话，就不用再进行插入了
             if( direction == 'left' ){
@@ -1097,7 +1118,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                     var image = node.file.replace( node.type == "video" ? '.mp4' : '.jpg', BIG_IMG_SIZE + '.jpg');
                     $('<div class="image-wrap-inner"><img class="next-image"/></div>')
                         .css({
-                            height: "100%",
+                            height: $inner.height(),
                             width: wrapWidth
                         })
                         .find('img')
@@ -1108,6 +1129,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                         })
                         .end()
                         .insertAfter( $inner.find('.image-wrap-inner').last() );
+
                 } );
             }
             var $nextFlag = $newInner.find('.flag-node');
@@ -1156,7 +1178,25 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                     // $newItem.css('width' , wrapWidth / 2 );
 
                     $imgWrap.children('.image-wrap-inner')[ direction == 'left' ? 'last' : 'first' ]().remove();
-//                    console.log( $imgWrap.children('.image-wrap-inner') );
+
+                    $imgWrap.children('.image-wrap-inner').last()
+                        .find('img')
+                        .css('opacity' , 0.5)
+                        .end()
+                        .append('<div class="image-hover-handler"></div>')
+                        .bind('click.next' , function(){
+                            LP.triggerAction('next');
+                        })
+                        .bind('mouseenter.opa' , function(){
+                            $(this).find('img').animate({
+                                opacity: 1
+                            } , 300);
+                        })
+                        .bind('mouseout.opa' , function(){
+                            $(this).find('img').animate({
+                                opacity: 0.5
+                            } , 300);
+                        })
                 });
 
             // desc animation
