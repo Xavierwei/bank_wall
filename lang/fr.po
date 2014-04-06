@@ -15,6 +15,9 @@ msgstr ""
 msgid "CONNECT"
 msgstr "Se connecter"
 
+msgid "MY_PROFILE"
+msgstr "Mon<br/>Profil"
+
 msgid "POST_A_PHOTO"
 msgstr "Poster une photo"
 
@@ -202,8 +205,7 @@ msgstr "E-mail personnel"
 msgid "COMPANY_EMAIL_TERM"
 msgstr ""
 "Si vous souhaitez envoyer du contenu sur le Wall avec une adresse e-mail autre que votre e-mail professionnel, merci de bien vouloir paramêtrer ci-dessous votre adresse e-mail personnel. Pour envoyer une photo ou/et une vidéo depuis un appareil personnel, vous devez adresser par mail votre contenu à l’adresse upload@wall150ans.com<br/><br/>"
-"Dans le champs « objet » de votre e-mail, vous pouvez insérer une description de votre photo ou/vidéo qui sera visible sur le Wall.<br/><br/>"
-"Pouvez vous ajuster aussi cette fenêtre pour que les éléments respectent une mise en page uniforme. "
+"Dans le champs « objet » de votre e-mail, vous pouvez insérer une description de votre photo ou/vidéo qui sera visible sur le Wall."
 
 msgid "PERSONAL_EMAIL_TERM"
 msgstr ""

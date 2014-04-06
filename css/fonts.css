@@ -31,6 +31,7 @@ input,textarea {text-transform:none;}
 button {text-transform: uppercase;}
 .count {letter-spacing:1px;}
 .item-info {font-family: 'Myriad Pro', arial;font-size:10px;}
+.user h6 {font-size:12px;}
 .menu-item h6 {font-size:12px;}
 .count-userinfo {text-transform:capitalize;}
 .count-userinfo .name {font-family: 'HelveticaNeueLTPro-BdCn', arial;}

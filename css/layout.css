@@ -117,6 +117,7 @@ a{text-decoration:none;color:#666}
             border-radius: 33px;border-radius: 33px;-webkit-border-radius: 33px;-moz-border-radius: 33px;-o-border-radius: 33px;-ms-border-radius: 33px;}
 		.user-pho img {width:39px;height:39px;display: block;
             border-radius: 33px;border-radius: 33px;-webkit-border-radius: 33px;-moz-border-radius: 33px;-o-border-radius: 33px;-ms-border-radius: 33px;}
+        .user h6 {position: absolute;background:#cb223a;color:#fff;text-align:center;top:0;left:0;padding:15px 0;margin:0;width:80px;display:none;}
 	.menu{}
 		.menu-item {display:block;position:relative;border-bottom:#4f4f4f 1px solid;border-left:2px solid #94938f;height:50px;cursor: pointer; }
         .menu-item.active {border-left:2px solid #e81b3b;}
