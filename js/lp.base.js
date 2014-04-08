@@ -730,7 +730,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                                 } , 300);
                             });
 						$('.image-wrap-inner.next-image').find('img').ensureLoad(function(){
-							if($(this).parent().hasClass('.next-image')) {
+							if($(this).parent().hasClass('next-image')) {
 								$(this).css({display:'block', opacity:0}).animate({opacity:0.5});
 							}
 						});
@@ -1254,7 +1254,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                 });
             }
 			$('.next-image').find('img').ensureLoad(function(){
-				if($(this).parent().hasClass('.next-image')) {
+				if($(this).parent().hasClass('next-image')) {
 					$(this).css({display:'block', opacity:0}).animate({opacity:0.5});
 				}
 			});
