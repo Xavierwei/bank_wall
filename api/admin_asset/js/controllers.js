@@ -13,4 +13,7 @@ SGWallAdminController
             $scope.countries = data;
         });
 
+        UserService.getCurrentUser(function(){
+
+        });
 	})

@@ -7,7 +7,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
     var pageTitle = "WALL - SOCIÉTÉ GÉNÉRALE";
     var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > 0;
     var isPad =navigator.userAgent.toLowerCase().indexOf('pad') > 0;
-	var isIE8 = $('html').hasClass('ie8');
+	var isIE8 = $('html').hasClass('ie8') || $('html').hasClass('ie9');
 	var isIE10 = navigator.userAgent.toLowerCase().indexOf('msie 10') > 0;
 	var isOldIE = $('html').hasClass('ie6') || $('html').hasClass('ie7');
     var API_FOLDER = "./api";
@@ -2300,7 +2300,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
             $('.editfi-country-option-list').jScrollPane({autoReinitialise:true});
         });
         $countryList.empty();
-        api.ajax('countryList', function( result ){
+        api.ajax('countryList_'+lang, function( result ){
             var htmls = [];
             $.each(result, function(index, item){
                 htmls.push( '<p data-id="' + item.country_id + '">' + _e[item.i18n] + '</p>' );
@@ -2311,8 +2311,9 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
 
     //save user updates
     LP.action('save_user' , function(){
+        $('.editfi-condition-error, .edit-email-error').fadeOut();
 		if($('.edit-email-error').is(':visible')) return;
-		if(!$('.editfi-condition').hasClass('checked')) {
+		if(!$('.editfi-condition').hasClass('checked') && $('.edit-email').val() != '') {
 			$('.editfi-condition-error').fadeIn();
 			$('.user-edit-loading').fadeOut();
 			LP.triggerAction('cancel_modal');
@@ -2829,7 +2830,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                 var $countryList = $('.select-country-option-list');
                 $countryList.empty();
                 $countryList.append('<p data-api="recent">'+_e.ALL+'</p>');
-                api.ajax('countryList', function( result ){
+                api.ajax('countryList_'+lang, function( result ){
                     $.each(result, function(index, item){
                         var html = '<p data-param="country_id=' + item.country_id + '" data-api="recent">' + _e[item.i18n] + '</p>';
                         $countryList.append(html);

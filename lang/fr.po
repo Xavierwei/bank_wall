@@ -273,10 +273,10 @@ msgid "ERROR_WRONG_USERNAME_PASSWORD"
 msgstr "Identifiants incorrects."
 
 msgid "ERROR_VIDEO_CORRUPTED"
-msgstr "La vidéo que vous avez téléchargé est corrompu"
+msgstr "La vidéo que vous avez téléchargé est corrompue"
 
 msgid "ERROR_PHOTO_CORRUPTED"
-msgstr "La photo que vous avez téléchargé est corrompu"
+msgstr "La photo que vous avez téléchargé est corrompue"
 
 msgid "CONFIRM_SAVE_USER"
 msgstr "Souhaitez-vous sauvegarder ces données ?"

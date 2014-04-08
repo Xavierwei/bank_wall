@@ -49,7 +49,8 @@ define(function( require , exports , model ){
         saveNode: {path: './api/index.php/node/post'},
         upload: {path: './api/index.php/uploads/upload'},
         neighbor: {path: './api/index.php/node/getneighbor', method:'get'},
-        countryList: {path: './json/country.json', method:'get', cache: true},
+        countryList_en: {path: './json/country_en.json', method:'get', cache: true},
+        countryList_fr: {path: './json/country_fr.json', method:'get', cache: true},
         i18n_en: {path: './lang/en.json', method:'get', async: false, cache:true},
         i18n_fr: {path: './lang/fr.json', method:'get', async: false, cache:true}
     };

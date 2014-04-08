@@ -127,7 +127,7 @@ var uploadDoneMsg = function(data) {
         $('.pop-txt').fadeIn(400);
         $('.poptxt-pic-inner').fadeIn();
         $('.poptxt-pic img').attr('src', API_FOLDER + data.data.file.replace('.mp4', '.jpg'));
-        $('.poptxt-submit').attr('data-d','file='+ data.data.file +'&type=' + data.data.type);
+        $('.poptxt-submit').attr('data-d','file='+ data.data.file_id +'&type=' + data.data.type);
     }
 }
 
