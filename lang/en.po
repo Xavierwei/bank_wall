@@ -16,7 +16,7 @@ msgid "CONNECT"
 msgstr "Login"
 
 msgid "MY_PROFILE"
-msgstr "My Profil"
+msgstr "My Profile"
 
 msgid "POST_A_PHOTO"
 msgstr "Post a photo"
