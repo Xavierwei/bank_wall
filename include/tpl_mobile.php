@@ -431,7 +431,7 @@
 					<div class="editfi-tit">{{_e.EMAIL_PROFESSIONNEL}}:</div>
 					<div class="editfi-email">{{company_email}}</div>
 				</div>
-				<div class="edit-tips"><em>{{_e.COMPANY_EMAIL_TERM}}:</em></div>
+				<div class="edit-tips"><em>{{{_e.COMPANY_EMAIL_TERM}}}:</em></div>
 				<div class="edit-fi clear">
 					<div class="editfi-tit">{{_e.EMAIL_PERSONNEL}}:</div>
 					<div class="editfi-com">

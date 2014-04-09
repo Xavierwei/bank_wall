@@ -245,6 +245,7 @@ class CommentController extends Controller {
 			if (!Yii::app()->user->checkAccess("isAdmin")) {
 				unset($commentdata["user"]['personal_email']);
 				unset($commentdata["user"]['company_email']);
+				unset($commentdata["status"]);
 			}
 			unset($commentdata["user"]['token']);
 			unset($commentdata["user"]['status']);
@@ -256,7 +257,6 @@ class CommentController extends Controller {
 			unset($commentdata["country"]['country_name']);
 			unset($commentdata["country"]['code']);
 			unset($commentdata["country"]['flag_icon']);
-			unset($commentdata["status"]);
 			unset($commentdata["uid"]);
 			unset($commentdata["country_id"]);
 

@@ -82,7 +82,7 @@ class FlagController extends Controller {
 	 */
 	public function actionGetSetting() {
 		$setting = FlagAR::model()->getSetting();
-		return $setting;
+		return $this->responseJSON($setting, "success");
 	}
 
 	/**

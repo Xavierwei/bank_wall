@@ -219,6 +219,7 @@ class UserController extends Controller {
 				$fileto = ROOT . '/uploads/avatar/' . $uid .'.'. pathinfo($fileUpload, PATHINFO_EXTENSION);
 				$thumb->save($fileto);
 				$fileto = str_replace( ROOT, '', $fileto );
+				UserAR::model()->updateByPk($uid, array('avatar' => $fileto ));
 				$this->render('post', array(
 					'url'=>$fileto
 				));

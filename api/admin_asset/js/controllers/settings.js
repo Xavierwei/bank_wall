@@ -2,7 +2,7 @@ SGWallAdminController
     .controller('SettingsCtrList', function($scope, $http, $modal, $log, $routeParams, SettingsService, ASSET_FOLDER) {
         $scope.saved = false;
         SettingsService.getFlagValue(function(data){
-            $scope.flagValue = data;
+            $scope.flagValue = data.data;
         });
 
         $scope.save = function(){

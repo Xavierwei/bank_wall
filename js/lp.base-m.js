@@ -22,6 +22,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
     var aMonth;
 	var apiToken;
     var _e;
+    var lang;
 
 
     $(window).bind('orientationchange', function() {
@@ -1879,7 +1880,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
         else {
             $('.user-edit-loading').fadeIn();
             if($('.edit-email-error').is(':visible')) return;
-            if(!$('.editfi-condition').hasClass('checked')) {
+            if(!$('.editfi-condition').hasClass('checked') && $('.edit-email').val() != '') {
                 $('.editfi-condition-error').fadeIn();
                 $('.user-edit-loading').fadeOut();
                 LP.triggerAction('cancel_modal');
@@ -2322,7 +2323,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 		}
 
         // Get language
-        var lang = LP.getCookie('lang') || 'fr';
+        lang = LP.getCookie('lang') || 'fr';
 
         api.ajax('i18n_' + lang , function( result ){
             _e = result;

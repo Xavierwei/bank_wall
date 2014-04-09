@@ -35,7 +35,7 @@ class NodeAR extends CActiveRecord{
 
 	const ALLOW_STORE_VIDE_TYPE = "mp4";
 
-    const ALLOW_MAX_FFMPEG_COUNT = 1;
+    const ALLOW_MAX_FFMPEG_COUNT = 5;
 
 	public $nodecounts;
   
@@ -432,9 +432,9 @@ class NodeAR extends CActiveRecord{
 								break;
 							case 'mov':
 								exec("ffmpeg -i {$to} -vcodec libx264 -movflags +faststart -acodec aac -strict experimental -ac 2 {$rotate} {$newpath}", $output, $status);
-//								if(!is_file($newpath) || !$this->is_valid_video($newpath)) {
-//									exec("ffmpeg -i {$to} -acodec copy -vcodec copy {$rotate} {$newpath}", $output, $status);
-//								}
+								if(!is_file($newpath) || !$this->is_valid_video($newpath)) {
+									exec("ffmpeg -i {$to} -acodec copy -vcodec copy {$rotate} {$newpath}", $output, $status);
+								}
 								break;
 							case 'wmv':
 								exec("ffmpeg -i {$to} -movflags +faststart -strict -2 -ar 44100 {$newpath}", $output, $status);
@@ -444,7 +444,6 @@ class NodeAR extends CActiveRecord{
 
 								break;
 							case 'avi':
-                               // print "ffmpeg -i {$to} -vcodec mpeg4 -movflags +faststart -acodec aac -strict experimental -ar 44100 {$newpath}";
 								exec("ffmpeg -i {$to} -vcodec libx264 -movflags +faststart -acodec aac -strict experimental -ac 2 {$newpath}", $output, $status);
 								break;
 							default:
@@ -484,7 +483,7 @@ class NodeAR extends CActiveRecord{
   	}
 
 	function get_video_orientation($video_path) {
-		$cmd = "/usr/local/bin/ffprobe " . $video_path . " -show_streams 2>/dev/null 2>&1";
+		$cmd = "/usr/bin/ffprobe " . $video_path . " -show_streams 2>/dev/null 2>&1";
 		$result = shell_exec($cmd);
 		$orientation = 0;
 		if(strpos($result, 'TAG:rotate') !== FALSE) {
@@ -501,7 +500,7 @@ class NodeAR extends CActiveRecord{
 	}
 
     function is_valid_video($path) {
-        $cmd = "/usr/local/bin/ffprobe " . $path . "  2>/dev/null 2>&1";
+        $cmd = "/usr/bin/ffprobe " . $path . "  2>/dev/null 2>&1";
         $result = shell_exec($cmd);
         if (strpos($result, "Invalid") === FALSE && strpos($result, " fault") === FALSE) {
             return TRUE;

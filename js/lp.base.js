@@ -2749,25 +2749,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
 
 
     var init = function() {
-
-//        var datetime = new Date(((1392175200+1*3600)*1000));
-//        var country = "South Africa,Albania,Algeria,Germany,Saudi,Arabia,Argentina,Australia,Austria,Bahamas,Belgium,Benin,Brazil,Bulgaria,Burkina Faso,Canada,Chile,China,Cyprus,Korea,Republic of Ivory Coast,Croatia,Denmark,Egypt,United Arab Emirates,Spain,Estonia,USA,Finland,France,Georgia,Ghana,Greece,Guinea,Equatorial Guinea,Hungary,India,Ireland,Italy,Japan,Jordan,Latvia,Lebanon,Lithuania,Luxembourg,Macedonia,Madagascar,Morocco,Mauritania,Mexico,Moldova,Republic of Montenegro,Norway,New Caledonia,Panama,Netherlands,Peru,Poland,Portugal,Reunion,Romania,UK,Russian Federation,Senegal,Serbia,Singapore,Slovakia,Slovenia,Sweden,Switzerland,Chad,Czech Republic,Tunisia,Turkey,Ukraine,Uruguay,Vietnam";
-//        var countryArray = country.split(',');
-//        var output;
-//        $.each(countryArray, function(i,e){
-//            var string = '{"country_id":'+(i+1)+',"country":"'+e+'"},';
-//            output += string;
-//        });
-//        console.log(output);
-
-//        $(document).ajaxStop(function () {
-//            console.log(1);
-//        });
-
-//		$('.page-loading-logo img').ensureLoad(function(){
-//			$('.page-loading-logo').fadeIn().dequeue().animate({top:'50%'}, 1000, 'easeInOutQuart');
-//		});
-
 		if(isOldIE) return;
 		if(isIE8) {
 			setInterval(function(){
