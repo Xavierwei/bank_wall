@@ -449,7 +449,7 @@
 					<div class="editfi-com">
 						<div class="editfi-country">
 							<div class="editfi-country-box" data-id="{{country.country_id}}">
-								{{_e.SELECT_YOUR_COUNTRY}}
+								{{country.country_name}}
 								<select class="editfi-country-option-list">
 								</select>
 							</div>

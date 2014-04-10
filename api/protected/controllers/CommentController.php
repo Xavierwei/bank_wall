@@ -177,13 +177,12 @@ class CommentController extends Controller {
 			$query->params[":nid"] = $nid;
 		}
 
-
-		if(Yii::app()->user->checkAccess("isAdmin") && isset($status)) {
+		if(Yii::app()->user->checkAccess("isAdmin") && $status == 'all') {
+			//show all
+		}
+		else if(Yii::app()->user->checkAccess("isAdmin") && isset($status)) {
 			$query->addCondition(CommentAR::model()->getTableAlias().".status=:status");
 			$query->params[":status"] = $status;
-		}
-		elseif(Yii::app()->user->checkAccess("isAdmin")) {
-			//show all
 		}
 		else {
 			$query->addCondition(CommentAR::model()->getTableAlias().".status=:status");

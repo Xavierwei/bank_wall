@@ -202,7 +202,7 @@ a{text-decoration:none;color:#666}
             .comlist-item:last-child {margin-bottom: 0;}
 				.comlist-tit span{font-size:18px;}
                 .comlist-delete {position: absolute;background:url('../img/icon_comm_del.gif') no-repeat center;width:10px;height:10px;top: 10px;right: 25px}
-				.comlist-flag{position: absolute;background:url('../img/icon_comm_flag.gif') no-repeat;width:10px;height:10px;top: 10px;right: 10px}
+				.comlist-flag{display:none;position: absolute;background:url('../img/icon_comm_flag.gif') no-repeat;width:10px;height:10px;top: 10px;right: 10px}
                 .comlist-flag.flagged {background-position: 0 -15px;}
 		.com-ipt{background:#4b4b4b;color:#ccc;margin:10px 0 0;padding:7px 10px;font-size:12px;resize:none;width:242px;}
         .com-ipt:focus {background:#4f4f4f;}
@@ -352,6 +352,7 @@ a{text-decoration:none;color:#666}
         .editfi-country-option-list {height:160px;}
         .editfi-country-option p{padding:1px 0 0 5px;color:#fafafa;border:1px solid #444;border-bottom:1px solid #555;cursor: pointer;}
         .editfi-country-option p:hover {background:#323232;}
+        .editfi-country-option p.selected {background:#323232;}
         .user-edit-btns {position: absolute;right:10px;top:10px;}
         .user-edit-save {float:right;height:22px;line-height:25px;background: #eb1f40 url('../img/icon_user_save.gif') no-repeat 6px 4px;color:#fff;padding:0 10px 0 40px;}
         .user-edit-cancel {float:right;height:22px;line-height:25px;background: #888;color:#fff;padding:0 15px 0 15px;margin:0 15px 0 0;}

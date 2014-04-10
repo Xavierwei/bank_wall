@@ -2302,8 +2302,13 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
         $countryList.empty();
         api.ajax('countryList_'+lang, function( result ){
             var htmls = [];
+            var currentCountryId = $('.side').data('user').country.country_id;
             $.each(result, function(index, item){
-                htmls.push( '<p data-id="' + item.country_id + '">' + _e[item.i18n] + '</p>' );
+                var className = '';
+                if(currentCountryId == item.country_id) {
+                    className = ' class="selected"';
+                }
+                htmls.push( '<p'+className+' data-id="' + item.country_id + '">' + _e[item.i18n] + '</p>' );
             });
             $countryList.append(htmls.join(''));
         });
@@ -2945,6 +2950,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                                     $('.com-list-inner').html('');
                                 }
                                 $('.com-list-inner').first().append(html);
+                                $('.comlist-item').last().find('.comlist-flag').show();
                                 var $comCount = $('.com-com-count');
                                 var newComCount = parseInt($comCount.html())+1;
                                 $comCount.html(newComCount);
@@ -3031,6 +3037,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
             var user = $('.side').data('user');
             if(user) {
                 api.ajax('flaggedComments', {nid: nid}, function( result ){
+                    $('.comlist-flag').show();
                     $.each(result.data, function(index, item){
                         $('.comlist-item-' + item.cid).find('.comlist-flag').addClass('flagged').removeClass('btn2').removeAttr('data-a');
                     });
@@ -3258,16 +3265,16 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                     $newItem.html(html);
                     if($('#flash-player').length) {
                         var flashPlayer=document.getElementById("flash-player");
-                        if(!flashPlayer){
+                        if(isFirefox){
                             flashPlayer = document.getElementById("flash-player-embed");
                         }
                         $('.inner-infoicon .video').on('click', function(){
                             if($(this).hasClass('pause')) {
-                                flashPlayer.pause();
+                                flashPlayer._pause();
                                 $(this).removeClass('pause');
                             }
                             else {
-                                flashPlayer.play();
+                                flashPlayer._play();
                                 $(this).addClass('pause');
                             }
 

@@ -256,7 +256,7 @@
 			<div class="comment-cube">
 				<div class="comment">
 					<div class="com-user">
-						<div class="comuser-pho"><img src="./api{{user.avatar}}" width="32" /><div class="avatar-ie-round"></div></div>
+						<div class="comuser-pho"><img src="./api{{user.avatar}}?{{timestamp}}" width="32" /><div class="avatar-ie-round"></div></div>
 						<div class="comuser-name"><p>{{user.firstname}} {{user.lastname}}</p></div>
 						<div class="comuser-location"><p>{{country.country_name}}</p></div>
 					</div>
@@ -427,7 +427,7 @@
 						<div class="editfi-tit">{{_e.COUNTRY}}:</div>
 						<div class="editfi-com">
 							<div class="editfi-country">
-								<div class="editfi-country-box" data-id="{{country.country_id}}">{{_e.SELECT_YOUR_COUNTRY}}</div>
+								<div class="editfi-country-box" data-id="{{country.country_id}}">{{country.country_name}}</div>
 								<div class="editfi-country-pop">
 									<div class="editfi-country-option-list">
 										<div class="editfi-country-option">

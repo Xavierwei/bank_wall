@@ -59,6 +59,7 @@ class LikeAR extends CActiveRecord {
 			":end" => $end_time
 		);
 		$query->group = "`node`.nid";
+		$query->order = "likecount desc";
 		$res = $this->find($query);
 		if(!$res) {
 			return Yii::app()->db->createCommand()->delete('topday', 'date=:date', array(':date'=>$start_time));
@@ -103,6 +104,7 @@ class LikeAR extends CActiveRecord {
 			":end" => $end_time
 		);
 		$query->group = "`node`.nid";
+		$query->order = "likecount desc";
 		$res = $this->find($query);
 		if(!$res) {
 			return Yii::app()->db->createCommand()->delete('topmonth', 'date=:date', array(':date'=>$start_time));

@@ -14,7 +14,7 @@ SGWallAdminController
         $scope.filter.status = 'all';
 		$scope.page = 1;
         params.shownode = true;
-        params.showall = true;
+        params.status = 'all';
         params.order = 'DESC';
 		params.pagenum = 16;
         params.cache = new Date().getTime();
@@ -33,15 +33,7 @@ SGWallAdminController
         });
 
         $scope.$watch('filter.status + currentPage', function() {
-            if($scope.filter.status != 'all') {
-                params.status = $scope.filter.status;
-                delete params.showall;
-            }
-            else {
-                params.showall = true;
-                delete params.status;
-            }
-
+            params.status = $scope.filter.status;
             params.page = $scope.currentPage;
             params.cache = new Date().getTime();
 			loadComment(params);
@@ -55,9 +47,6 @@ SGWallAdminController
         $scope.search = function() {
             if($scope.filter.status != 'all') {
                 params.status = $scope.filter.status;
-            }
-            else {
-                delete params.status;
             }
             params.keyword = $scope.filter.keyword;
             params.email = $scope.filter.email;
