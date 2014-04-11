@@ -2384,8 +2384,8 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 				var $countryList = $('.select-country-option-list');
                 $countryList.empty();
                 $countryList.append('<option data-api="recent">'+_e.ALL+'</option>');
-                api.ajax('countryList_'+lang, function( result ){
-                    $.each(result, function(index, item){
+                api.ajax('countryFilterList',{'lang':lang}, function( result ){
+                    $.each(result.data, function(index, item){
                         var html = '<option value="country_id=' + item.country_id + '" data-api="recent">' + _e[item.i18n] + '</option>';
                         $countryList.append(html);
                     });

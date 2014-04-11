@@ -51,6 +51,7 @@ define(function( require , exports , model ){
         neighbor: {path: './api/index.php/node/getneighbor', method:'get'},
         countryList_en: {path: './json/country_en.json', method:'get', cache: true},
         countryList_fr: {path: './json/country_fr.json', method:'get', cache: true},
+        countryFilterList: {path: './api/index.php/country/filterlist', method:'get', cache: true},
         i18n_en: {path: './lang/en.json', method:'get', async: false, cache:true},
         i18n_fr: {path: './lang/fr.json', method:'get', async: false, cache:true}
     };

@@ -319,30 +319,33 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                         lastDate = date;
                     }
                 }
-                // fix video type
-                node.image = node.file.replace( node.type == 'video' ? '.mp4' : '.jpg' , THUMBNAIL_IMG_SIZE + '.jpg');
-                node.formatDate = date;
 
-                node.str_like = node.likecount > 1 ? 'Likes' : 'Like';
-                LP.compile( 'node-item-template' ,
-                    node ,
-                    function( html ){
-                        aHtml.push( html );
+                if($dom.find('.main-item-'+node.nid).length == 0) {
+                    // fix video type
+                    node.image = node.file.replace( node.type == 'video' ? '.mp4' : '.jpg' , THUMBNAIL_IMG_SIZE + '.jpg');
+                    node.formatDate = date;
 
-                        if( index == nodes.length - 1 ){
-                            // render html
-                            var $oFirstTimeNode = $dom.children().eq(0);
-                            // remove first time item;
-                            $dom.prepend(aHtml.join(''));
-                            if( bShowDate && 
-                                $oFirstTimeNode.prevAll('.time-item').first().data('date')
-                                == $oFirstTimeNode.data('date') ){
-                                $oFirstTimeNode.remove();
+                    node.str_like = node.likecount > 1 ? 'Likes' : 'Like';
+                    LP.compile( 'node-item-template' ,
+                        node ,
+                        function( html ){
+                            aHtml.push( html );
+
+                            if( index == nodes.length - 1 ){
+                                // render html
+                                var $oFirstTimeNode = $dom.children().eq(0);
+                                // remove first time item;
+                                $dom.prepend(aHtml.join(''));
+                                if( bShowDate &&
+                                    $oFirstTimeNode.prevAll('.time-item').first().data('date')
+                                    == $oFirstTimeNode.data('date') ){
+                                    $oFirstTimeNode.remove();
+                                }
+                                nodeActions.setItemWidth( $dom );
+                                nodeActions.setItemReversal( $dom );
                             }
-                            nodeActions.setItemWidth( $dom );
-                            nodeActions.setItemReversal( $dom );
-                        }
-                    } );
+                        } );
+                }
 
             } );
         },
@@ -397,23 +400,25 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                         lastDate = date;
                     }
                 }
-                // fix video type
-                node.image = node.file.replace( node.type == 'video' ? '.mp4' : '.jpg' , THUMBNAIL_IMG_SIZE + '.jpg');
-                node.formatDate = date;
-				node.country.country_name = _e[node.country.i18n];
-                node.str_like = node.likecount > 1 ? 'Likes' : 'Like';
-                LP.compile( 'node-item-template' ,
-                    node ,
-                    function( html ){
-                        aHtml.push( html );
+                if($dom.find('.main-item-'+node.nid).length == 0) {
+                    // fix video type
+                    node.image = node.file.replace( node.type == 'video' ? '.mp4' : '.jpg' , THUMBNAIL_IMG_SIZE + '.jpg');
+                    node.formatDate = date;
+                    node.country.country_name = _e[node.country.i18n];
+                    node.str_like = node.likecount > 1 ? 'Likes' : 'Like';
+                    LP.compile( 'node-item-template' ,
+                        node ,
+                        function( html ){
+                            aHtml.push( html );
 
-                        if( index == nodes.length - 1 ){
-                            // render html
-                            $dom.append(aHtml.join(''));
-                            nodeActions.setItemWidth( $dom );
-                            nodeActions.setItemReversal( $dom );
-                        }
-                    } );
+                            if( index == nodes.length - 1 ){
+                                // render html
+                                $dom.append(aHtml.join(''));
+                                nodeActions.setItemWidth( $dom );
+                                nodeActions.setItemReversal( $dom );
+                            }
+                        } );
+                }
 
             } );
         },
@@ -2816,8 +2821,8 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                 var $countryList = $('.select-country-option-list');
                 $countryList.empty();
                 $countryList.append('<p data-api="recent">'+_e.ALL+'</p>');
-                api.ajax('countryList_'+lang, function( result ){
-                    $.each(result, function(index, item){
+                api.ajax('countryFilterList',{'lang':lang}, function( result ){
+                    $.each(result.data, function(index, item){
                         var html = '<p data-param="country_id=' + item.country_id + '" data-api="recent">' + _e[item.i18n] + '</p>';
                         $countryList.append(html);
                     });
@@ -3050,11 +3055,15 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
      * Resize Inner Box width Image and Video
      */
     var resizeInnerBox = function(){
-        $(document.body).css('overflow' , 'hidden');
+
         var $side = $('.side');
         var slideWidth = $side.width();
         // Resize Inner Box
         var $inner = $('.inner');
+        if($inner.is(':visible'))
+        {
+            $(document.body).css('overflow' , 'hidden');
+        }
         var innerHeight = $(window).height() - $('.header').height();
         $inner.height(innerHeight);
 

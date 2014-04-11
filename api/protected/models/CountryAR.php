@@ -17,11 +17,13 @@ class CountryAR extends CActiveRecord{
 	public function rules() {
 	return array(
 		array("country_name", "required"),
+		array("country_name_fr", "required"),
 		array("code", "uniqueCountryCode"),
 		array("code", "required"),
 		array("flag_icon", "required"),
 		array("description", "safe"),
 		array("i18n", "safe"),
+		array("node_count", "safe"),
 	);
 	}
 

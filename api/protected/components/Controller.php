@@ -128,19 +128,25 @@ class Controller extends CController
       $actioName = Yii::app()->controller->action->id;
       if (!$request->isPostRequest) {
 
-        //判断是否需要cache
+		//判断是否需要cache
 
-        // api: node/list
-        if ($controllerName == "node" && $actioName == "list") {
-          $key = $this->cacheKey();
-          // 3分钟失效
-          Yii::app()->cache->set($key, $data, 60 * 3);
-        }
-        // api: comment/list
-        if ($controllerName == "comment" && $actioName == "list") {
-          $key = $this->cacheKey();
-          Yii::app()->cache->set($key, $data, 60 * 3);
-        }
+		// api: node/list
+		if ($controllerName == "node" && $actioName == "list") {
+		  $key = $this->cacheKey();
+		  // 3分钟失效
+		  Yii::app()->cache->set($key, $data, 60 * 3);
+		}
+		// api: comment/list
+		if ($controllerName == "comment" && $actioName == "list") {
+		  $key = $this->cacheKey();
+		  Yii::app()->cache->set($key, $data, 60 * 3);
+		}
+
+		// api: country
+		if ($controllerName == "country" && $actioName == "filterlist") {
+		  $key = $this->cacheKey();
+		  Yii::app()->cache->set($key, $data, 60 * 3);
+		}
 
         // 其他需要缓存的情况可以写在后面
       }

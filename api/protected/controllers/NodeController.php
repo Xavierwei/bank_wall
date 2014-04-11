@@ -122,6 +122,7 @@ class NodeController extends Controller {
 			$nodeAr->status = 1; //publish by default
 			if ($nodeAr->validate()) {
 				$success = $nodeAr->save();
+
                 $this->cleanAllCache();
 				if (!$success) {
 				    $this->responseError("exception happended");
@@ -238,8 +239,13 @@ class NodeController extends Controller {
 			return $this->responseError(602);
 		}
 
+
 		$nodeAr->deleteByPk($nodeAr->nid);
 		$nodeAr->deleteRelatedData($nodeAr->nid);
+		// update node count in country table
+		$country = CountryAR::model()->findByPk($nodeAr->country_id);
+		$country->node_count =  $country->node_count - 1;
+		$country->updateByPk($country->country_id, array("node_count" => $country->node_count));
 		// update hashtag counts
 		$hashtags =$nodeAr->attributes['hashtag'];
 		foreach($hashtags as $tag) {

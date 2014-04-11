@@ -193,9 +193,9 @@ class NodeAR extends CActiveRecord{
 		$userAr = new UserAR();
 		$userAr->setAttributes($userAr->getOutputRecordInArray(UserAR::model()->findByPk($this->uid)));
 		$this->user = $userAr;
-
 		$this->country = CountryAR::model()->findByPk($this->country_id);
-
+		$this->country->node_count =  $this->country->node_count + 1;
+		$this->country->updateByPk($this->country->country_id, array("node_count" => $this->country->node_count));
 		return TRUE;
     }
 
