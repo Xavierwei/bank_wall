@@ -663,7 +663,7 @@ class NodeController extends Controller {
 				}
 				else {
 					$ret = $begin.'Le type de fichier que vous venez de télécharger n\'est pas supporté.'.$end
-						.$begin_en.'The file you upload is not support.Mo'.$end_en;
+						.$begin_en.'The file you upload is not support.'.$end_en;
 					return $this->responseJSON(false, $ret, false);
 				}
 			}
