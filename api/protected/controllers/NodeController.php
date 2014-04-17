@@ -593,10 +593,11 @@ class NodeController extends Controller {
 			$end = '\n\nL\'équipe SG WALL';
 			$begin_en = '\n\n\n\nDear '.$user->firstname.' '.$user->lastname.',\n\n';
 			$end_en = '\n\nSG WALL Team';
-			if(empty($desc)) {
-				$ret = $begin.'S\'il vous plaît écrivez le sujet de l\'email.'.$end
-					.$begin_en.'Please write the email subject.'.$end_en;
-				return $this->responseJSON(null, $ret, false);
+			if(empty($desc) || strtolower($desc) == 'none') {
+                $desc = ' ';
+//				$ret = $begin.'S\'il vous plaît écrivez le sujet de l\'email.'.$end
+//					.$begin_en.'Please write the email subject.'.$end_en;
+//				return $this->responseJSON(null, $ret, false);
 			}
 			$uploadFile = CUploadedFile::getInstanceByName("photo");
 			if (!$uploadFile) {
