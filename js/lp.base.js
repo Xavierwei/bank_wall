@@ -258,8 +258,18 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
         .delegate('video','click',function(){
             $(this)[0].pause();
         })
-
-
+        .delegate('.login','click',function(){
+            ga('send', 'sgwall', 'connect', 'button', 'button');
+        })
+        .delegate('.language-item-fr','click',function(){
+            ga('send', 'sgwall', 'french_language ', 'button', 'button');
+        })
+        .delegate('.language-item-en','click',function(){
+            ga('send', 'sgwall', 'french_language ', 'button', 'button');
+        })
+        .delegate('.logout','click',function(){
+            ga('send', 'sgwall', 'disconnect', 'button', 'button');
+        })
         // click to hide select options
         .click(function( ev ){
 			if(!$(ev.target).attr('class') || ($(ev.target).attr('class').indexOf('jsp') == -1 && $(ev.target).attr('class').indexOf('country') == -1)) {
@@ -918,6 +928,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
     });
     
     LP.action('back_home', function(){
+        ga('send', 'sgwall', 'logo', 'button', 'button');
         nodeActions.stopItemReversal();
         _stopScrollEvent();
 		if($main.hasClass('closed')) {
@@ -1810,8 +1821,10 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
         var type = data.type;
         if(type == 'video') {
             data.accept = 'video/*,video/mp4';
+            ga('send', 'sgwall', 'postpicture', 'button', 'button');
         } else {
             data.accept = 'image/*';
+            ga('send', 'sgwall', 'postvideo', 'button', 'button');
         }
         $('.side .menu-item.'+type).addClass('active');
         data._e = _e;
@@ -2159,6 +2172,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
     LP.action('toggle_user_page' , function(){
         if( isToggleIng ) return;
         isToggleIng = true;
+        ga('send', 'sgwall', 'profile', 'button', 'button');
 
         nodeActions.stopItemReversal();
         _stopScrollEvent();
@@ -2421,6 +2435,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
 
     // get last day nodes
     LP.action('content_of_day' , function(){
+        ga('send', 'sgwall', 'pictureoftheday_gallery', 'button', 'button');
         if($main.hasClass('closed')) {
             LP.triggerAction('back');
         }
@@ -2450,6 +2465,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
 
     // get last day nodes
     LP.action('content_of_month' , function(){
+        ga('send', 'sgwall', 'pictureofthemonth_gallery', 'button', 'button');
         if($main.hasClass('closed')) {
             LP.triggerAction('back');
         }

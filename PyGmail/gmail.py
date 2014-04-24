@@ -30,9 +30,7 @@ def post_media_to_bankwall(desc="description", user="xx@xx.com", media="/path/to
   datagen, headers = multipart_encode({"photo": open(os.path.join(basepath , media), "rb"), 
     "desc": desc,
     "user": user})
-  base64string = base64.encodestring('%s:%s' % ('wall150ans', 'lyL5X.Tqby8G')).replace('\n', '')
-  request = urllib2.Request("http://www.wall150ans.com/api/node/postbymail", datagen, headers)
-  request.add_header("Authorization", "Basic %s" % base64string)
+  request = urllib2.Request("https://www.wall150ans.com/api/node/postbymail", datagen, headers)
   res = urllib2.urlopen(request).read()
   res = json.loads(res)
   print res["message"]
@@ -120,7 +118,7 @@ def tune_file(file):
   if ext_name:
     return file
   file = file.replace("(", "\(").replace(")", "\)")
-  cmd = "/usr/bin/file -b --mime %s" % (file)
+  cmd = "/usr/bin/file -b --mime-type %s" % (file)
   mime = subprocess.Popen(cmd, shell=True, \
   stdout = subprocess.PIPE).communicate()[0]
   mime = mime.split(";")[0].strip()

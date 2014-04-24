@@ -1,3 +1,6 @@
+
+ga('send', 'sgwall', 'postvideo', 'button', 'button');
+
 <?php
 
 <<<<<<< Updated upstream

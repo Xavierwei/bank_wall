@@ -335,8 +335,18 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
         .delegate('video','click',function(){
             $(this)[0].pause();
         })
-
-
+        .delegate('.login','click',function(){
+            ga('send', 'sgwall', 'connect', 'button', 'button');
+        })
+        .delegate('.language-item-fr','click',function(){
+            ga('send', 'sgwall', 'french_language ', 'button', 'button');
+        })
+        .delegate('.language-item-en','click',function(){
+            ga('send', 'sgwall', 'french_language ', 'button', 'button');
+        })
+        .delegate('.logout','click',function(){
+            ga('send', 'sgwall', 'disconnect', 'button', 'button');
+        })
         // click to hide select options
         .click(function( ev ){
             $('.select-pop').fadeOut();
@@ -708,6 +718,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
     });
 
     LP.action('back_home', function(){
+        ga('send', 'sgwall', 'logo', 'button', 'button');
 		var delay = 400;
         LP.triggerAction('back');
 		if($('.user-page').is(':visible')) {
@@ -1412,8 +1423,10 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
         var type = data.type;
         if(type == 'video') {
             data.accept = 'video/*,video/mp4';
+            ga('send', 'sgwall', 'postpicture', 'button', 'button');
         } else {
             data.accept = 'image/*';
+            ga('send', 'sgwall', 'postvideo', 'button', 'button');
         }
         $('.side .menu-item.'+type).addClass('active');
         data._e = _e;
@@ -1742,6 +1755,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 
     //toggle user page
     LP.action('toggle_user_page' , function(){
+        ga('send', 'sgwall', 'profile', 'button', 'button');
         LP.triggerAction('toggle_side_bar','right');
         if(!$('.user-page').is(':visible')) {
             var mainWidth = winWidth;
@@ -1972,6 +1986,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 
     // get last day nodes
     LP.action('content_of_day' , function(){
+        ga('send', 'sgwall', 'pictureoftheday_gallery', 'button', 'button');
         if($('.inner').is(':visible')) {
             LP.triggerAction('back');
         }
@@ -2001,6 +2016,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 
     // get last day nodes
     LP.action('content_of_month' , function(){
+        ga('send', 'sgwall', 'pictureofthemonth_gallery', 'button', 'button');
         if($('.inner').is(':visible')) {
             LP.triggerAction('back');
         }

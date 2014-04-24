@@ -668,7 +668,6 @@ class NodeController extends Controller {
 					return $this->responseJSON(false, $ret, false);
 				}
 			}
-
 			$node = new NodeAR();
 
 			$file = $node->saveUploadedFile($uploadFile);
