@@ -126,7 +126,7 @@ a{text-decoration:none;color:#666}
         .inner-loading {display:none;background:url('../img/loading_trans_white.png') no-repeat;width:40px;height:40px;position: absolute;left:50%;top:50%;margin-left:-20px;margin-top:-39px;}
         .inner-info{position: absolute;right: 0;left:0px;bottom:88px;z-index:10;height: 53px}
         .inner-shade{position: absolute; height: 100%; width:100%;z-index: 1; background: #000;opacity: 0.5;filter: alpha(opacity=50);}
-        .inner-infocom{z-index:2;position:relative;bottom: 0;color:#fff;padding:0 20px ;line-height: 55px}
+        .inner-infocom{z-index:2;position:relative;bottom: 0;color:#fff;padding:0 20px ;line-height: 55px;word-wrap:break-word;}
         .inner-infoicon{position: absolute;bottom:4px;right:10px;z-index:2;}
         .inner-info .photo{background: url('../img/icon_photo_w.png') no-repeat center;width:42px;height: 45px;margin: 0 auto}
         .inner-info .video{background: url('../img/icon_video_w.png') no-repeat center;width:42px;height: 45px;margin: 0 auto}
