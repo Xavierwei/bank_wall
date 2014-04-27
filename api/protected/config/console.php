@@ -8,12 +8,24 @@ return array(
 
 	// preloading 'log' component
 	'preload'=>array('log'),
+    // autoloading model and component classes
+    'import' => array(
+        'application.models.*',
+        'application.components.*',
+        'application.validators.*',
+        'ext.easyimage.EasyImage',
+    ),
 
 	// application components
 	'components'=>array(
-		'db'=>array(
-			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
-		),
+        // uncomment the following to use a MySQL database
+        'db' => array(
+            'connectionString' => 'mysql:host=localhost;dbname=bank_wall',
+            'emulatePrepare' => true,
+            'username' => 'root',
+            'password' => 'admin',
+            'charset' => 'utf8',
+        ),
 		// uncomment the following to use a MySQL database
 		/*
 		'db'=>array(
