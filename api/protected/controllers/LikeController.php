@@ -74,5 +74,19 @@ class LikeController extends Controller {
 			->cleanCache("comment_");
 		$this->responseJSON($likeAr->getNodeCount((int)$nid), "success");
 	}
+
+	public function actionUpdateLikeOfday() {
+		$likeAr = new LikeAR();
+		$ret = $likeAr->updateAllTopOfDay();
+
+		$this->responseJSON(array("update" => $ret), "success");
+	}
+
+	public function actionUpdateLikeOfMonth() {
+		$likeAr = new LikeAR();
+		$ret = $likeAr->updateAllTopOfMonth();
+
+		$this->responseJSON(array("update" => $ret), "success");
+	}
 }
 

@@ -21,7 +21,7 @@ class LikeAR extends CActiveRecord {
 		return array(
 		    array("nid", "NidExist"),
 		    array("uid", "UidExist"),
-		    array("datetime, like_id", "safe"),
+		    array("datetime, like_id, nids, count, count_d ", "safe"),
 		);
 	}
 
@@ -38,6 +38,77 @@ class LikeAR extends CActiveRecord {
 		$node = NodeAR::model()->findByPk((int)$nid);
 		$this->saveTopOfDay($node);
 		$this->saveTopOfMonth($node);
+	}
+
+	public function updateAllTopOfDay() {
+		return $this->updateAllTopOfDuringTime("day");
+	}
+
+	public function updateAllTopOfDuringTime($time = "day") {
+		$query = new CDbCriteria();
+		if ($time == "day") {
+			$res = Yii::app()->db->createCommand()
+				->select("group_concat(l.nid) as nids, count(distinct l.nid) as countd, count(l.nid) as count, from_unixtime(l.datetime, '%Y-%m-%e') as datetime")
+				->from("like as l")
+				->group('from_unixtime(l.datetime, "%Y-%m-%e")');
+		}
+		else if ($time == "month") {
+			$res = Yii::app()->db->createCommand()
+				->select("group_concat(l.nid) as nids, count(distinct l.nid) as countd, count(l.nid) as count, from_unixtime(l.datetime, '%Y-%m') as datetime")
+				->from("like as l")
+				->group('from_unixtime(l.datetime, "%Y-%m")');
+		}
+		else {
+			return FALSE;
+		}
+
+		$rows = $res->queryAll();
+		// Find out node that most liked in one day.
+		$top_likes = array();
+		foreach ($rows as $row) {
+			$nids = explode(",", $row["nids"]);
+			if ($row["count"] == $row["countd"]) {
+				$top_likes[] = array(
+					"datetime" => $row["datetime"],
+					"nid" => $nids[0],
+				);
+			}
+			else {
+				$c_nids = array();
+				foreach ($nids as $nid) {
+					if (!isset($c_nids[$nid])) {
+						$c_nids[$nid] = 0;
+					}
+					$c_nids[$nid] += 1;
+				}
+				asort($c_nids, SORT_NUMERIC);
+				$top_likes[] = array(
+					"datetime" => $row["datetime"],
+					"nid" => array_shift(array_keys($c_nids))
+				);
+			}
+		}
+
+		// Then save or update with datetime.
+		$sql = "INSERT INTO topday (nid, `date`) VALUES ";
+		$values = array();
+		foreach ($top_likes as $top_like) {
+			$values[] = '( '.$top_like["nid"]. ','. strtotime($top_like["datetime"]). ')';
+		}
+		if (count($values)) {
+			$str_values = implode(",", $values);
+			$sql .= $str_values;
+		}
+		// IMPORTANT: When there's duplicate item, we update it only
+		$sql .= " ON DUPLICATE KEY UPDATE nid=VALUES(nid)";
+		$command = Yii::app()->db->createCommand($sql);
+		// Return number of  affected rows
+		$ret = $command->execute();
+		return $ret;
+	}
+
+	public function updateAllTopOfMonth() {
+		return $this->updateAllTopOfDuringTime("month");
 	}
 
 
