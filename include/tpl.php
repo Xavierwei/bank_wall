@@ -585,7 +585,7 @@
 			</div>
 			<div class="tutor-btns">
 				<button data-a="skip-tutor" class="tutor-skip">{{_e.SKIP}}</button>
-				<button data-a="next-tutor" class="tutor-ok tutor-btn-red">{{_e.OK}}</button>
+				<button data-a="next-tutor" class="tutor-ok tutor-btn-red">{{_e.NEXT}}</button>
 			</div>
 		</div>
 		<div class="tutor-step tutor-step3" > 
@@ -595,7 +595,7 @@
 			</div>
 			<div class="tutor-btns">
 				<button data-a="skip-tutor" class="tutor-skip">{{_e.SKIP}}</button>
-				<button data-a="next-tutor" class="tutor-ok tutor-btn-red">{{_e.OK}}</button>
+				<button data-a="next-tutor" class="tutor-ok tutor-btn-red">{{_e.NEXT}}</button>
 			</div>
 		</div>
 		<div class="tutor-step tutor-step4" > 
@@ -605,7 +605,7 @@
 			</div>
 			<div class="tutor-btns">
 				<button data-a="skip-tutor" class="tutor-skip">{{_e.SKIP}}</button>
-				<button data-a="next-tutor" class="tutor-ok tutor-btn-red">{{_e.OK}}</button>
+				<button data-a="next-tutor" class="tutor-ok tutor-btn-red">{{_e.NEXT}}</button>
 			</div>
 		</div>
 		<div class="tutor-step tutor-step5" > 

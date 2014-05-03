@@ -2802,7 +2802,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
 		}
 
         // Get language
-        lang = LP.getCookie('lang') || 'en';
+        lang = LP.getCookie('lang') || 'fr';
 
         api.ajax('i18n_' + lang , function( result ){
             _e = result;
