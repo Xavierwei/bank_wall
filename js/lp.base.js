@@ -4,6 +4,7 @@
 LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupload', 'swfupload-speed', 'swfupload-queue'] , function( $ , api ){
     'use strict'
 
+
     var pageTitle = "WALL - SOCIÉTÉ GÉNÉRALE";
     var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > 0;
     var isPad =navigator.userAgent.toLowerCase().indexOf('pad') > 0;
@@ -1636,6 +1637,23 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
     });
 
 
+    // tutor 
+    LP.action("skip-tutor" , function(){
+        api.ajax( "user/finishtuto" , "" , function(){
+            $(".tutor").fadeOut(function(){
+                $(this).remove();
+            });
+        });
+    });
+
+    LP.action("next-tutor" , function(){
+        var $step = $(this).closest(".tutor-step");
+        $step.fadeOut(500)
+            .next()
+            .fadeIn(500);
+
+    });
+
     //for delete comment action
     LP.action('delete' , function( data ){
         if(!$('.delete-confirm-modal').is(':visible')) {
@@ -2775,6 +2793,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
 
 
     var init = function() {
+
 		if(isOldIE) return;
 		if(isIE8) {
 			setInterval(function(){
@@ -2783,11 +2802,10 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
 		}
 
         // Get language
-        lang = LP.getCookie('lang') || 'fr';
+        lang = LP.getCookie('lang') || 'en';
 
         api.ajax('i18n_' + lang , function( result ){
             _e = result;
-
             aMonth = [_e.JANUARY,_e.FEBRUARY,_e.MARCH,_e.APRIL,_e.MAY,_e.JUNE,_e.JULY,_e.AUGUST,_e.SEPTEMBER,_e.OCTOBER,_e.NOVEMBER,_e.DECEMBER];
 
             LP.compile( 'base-template' , {_e:_e, lang:lang} , function( html ){
@@ -2828,6 +2846,14 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                         });
                         $('.page').addClass('logged');
                         $('.header .select').fadeIn();
+
+
+                        // if user unread the tutor , show it
+                        if( !result.data.finishtuto ){
+                            LP.compile("tutor-template" , {_e:_e}, function( html ){
+                                $(document.body).append( html );
+                            });
+                        }
                     }
                     else {
                         $('.header .login').fadeIn();

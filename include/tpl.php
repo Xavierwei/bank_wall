@@ -552,3 +552,76 @@
     </div>
   </div>
 </script>
+
+
+<script type="text/tpl" id="tutor-template">
+<div class="tutor">
+	<div class="tutor-bg">
+		<img src="./img/tutor/tutor-bg-img.jpg"/>
+	</div>
+	<div class="tutor-mask"></div>
+	<div class="tutor-steps">
+		<div class="tutor-step tutor-step1"  style="display:block;"> 
+			<p class="txt">{{{_e.TUTOR_EXPLAIN}}}</p>
+			<div class="tutor-btns">
+				<button data-a="skip-tutor" class="tutor-skip">{{_e.SKIP_THE_TUTORIAL}}</button>
+				<button data-a="next-tutor" class="tutor-ok tutor-btn-red">{{_e.OK}}</button>
+			</div>
+		</div>
+		<div class="tutor-step tutor-step2"> 
+			<div class="tutor-step2-1">
+				<img src="./img/tutor/step2-1.png">
+				<p class="t1">{{{_e.STEP2_1}}}</p>
+			</div>
+			<div class="tutor-step2-2">
+				<img src="./img/tutor/step2-2.png">
+				<p class="t1">{{{_e.STEP2_2}}}</p>
+				<p class="t2">{{{_e.STEP2_3}}}</p>
+			</div>
+			<div class="tutor-step2-3">
+				<img src="./img/tutor/step2-3.png">
+				<p class="t1">{{{_e.STEP2_4}}}</p>
+				<p class="t2">{{{_e.STEP2_5}}}</p>
+			</div>
+			<div class="tutor-btns">
+				<button data-a="skip-tutor" class="tutor-skip">{{_e.SKIP}}</button>
+				<button data-a="next-tutor" class="tutor-ok tutor-btn-red">{{_e.OK}}</button>
+			</div>
+		</div>
+		<div class="tutor-step tutor-step3" > 
+			<div class="tutor-step3-1">
+				<img src="./img/tutor/step3-1.png">
+				<p class="t1">{{_e.STEP3_1}}</p>
+			</div>
+			<div class="tutor-btns">
+				<button data-a="skip-tutor" class="tutor-skip">{{_e.SKIP}}</button>
+				<button data-a="next-tutor" class="tutor-ok tutor-btn-red">{{_e.OK}}</button>
+			</div>
+		</div>
+		<div class="tutor-step tutor-step4" > 
+			<div class="tutor-step4-1">
+				<img src="./img/tutor/step4-1.png">
+				<p class="t1">{{_e.STEP4_1}}</p>
+			</div>
+			<div class="tutor-btns">
+				<button data-a="skip-tutor" class="tutor-skip">{{_e.SKIP}}</button>
+				<button data-a="next-tutor" class="tutor-ok tutor-btn-red">{{_e.OK}}</button>
+			</div>
+		</div>
+		<div class="tutor-step tutor-step5" > 
+			<div class="tutor-step5-1">
+				<img src="./img/tutor/step5-1.png">
+				<p class="t1">{{{_e.STEP5_1}}}</p>
+				<p class="t2">{{_e.STEP5_2}}</p>
+				<p class="t3">{{_e.STEP5_3}}</p>
+				<p class="t4">{{_e.STEP5_4}}</p>
+				<p class="t5">{{_e.STEP5_5}}</p>
+				<p class="t6">{{_e.STEP5_6}}</p>
+			</div>
+			<div class="tutor-btns">
+				<button data-a="skip-tutor" class="tutor-enjoy tutor-btn-red">{{_e.ENJOY}}</button>
+			</div>
+		</div>
+	</div>
+</div>
+</script>
