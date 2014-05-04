@@ -36,7 +36,7 @@
 			<a href="./">BACK</a>
 			<a href="./api/user/samllogin">I AGREE</a>
 		</div>
-	<?else:?>
+	<?php else:?>
 		<div class="login-term">
 			En vous connectant à ce site web,
 			<a target="_blank" href="pdf/wall150ans_cgu_fr.pdf">vous acceptez les conditions d'utilisations de ce site.</a>
@@ -45,7 +45,7 @@
 			<a href="./">retour</a>
 			<a href="./api/user/samllogin">J'ACCEPTE ET JE ME CONNECTE</a>
 		</div>
-	<?endif;?>
+	<?php endif;?>
 </div>
 
 <script type="text/javascript" src="./js/plugin/modernizr-2.5.3.min.js"></script>

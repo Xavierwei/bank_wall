@@ -2354,6 +2354,10 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
             });
             $countryList.append(htmls.join(''));
         });
+        // save checked status
+        if( LP.getCookie('_editfi_checked_') ){
+            $('.editfi-condition').addClass('checked');
+        }
     });
 
     //save user updates
@@ -2383,6 +2387,14 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
 					if($('.user-edit-page .editfi-country-box').data('id') != $('.side').data('user').country.country_id) {
 						$('.count-userinfo .location').html($('.user-edit-page .editfi-country-box').html());
 					}
+
+                    // if checked save the status
+                    var checked = !!$('.editfi-condition.checked').length;
+                    if( checked ){
+                        LP.setCookie( "_editfi_checked_" , 1 , 86400 * 30 );
+                    } else {
+                        LP.removeCookie( "_editfi_checked_" );
+                    }
                 }
                 else if(result.message === 603) {
                     $('.edit-email-error').html(_e.ERROR_EXIST_EMAIL).fadeIn();
@@ -2621,6 +2633,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
         }
     });
 
+
     // get month
     var getMonth = (function(){
         return function( date ){
@@ -2798,7 +2811,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
 
 
     var init = function() {
-
 		if(isOldIE) return;
 		if(isIE8) {
 			setInterval(function(){
@@ -2823,7 +2835,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                     .addClass('language-item-on');
 
                 // after page load , load the current user information data from server
-                api.ajax('user' , function( result ){
+                api.ajax('user' , "", function( result ){
                     if(result.success) {
                         //bind user data after success logged
                         if(result.data.count_by_day == 0) {
