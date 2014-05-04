@@ -39,10 +39,10 @@ define(function( require , exports , model ){
         // get user info
         login: {path: './api/index.php/user/login'},
         logout: {path: './api/index.php/user/logout'},
-        //user: {path: './api/index.php/user/getcurrent' , method: 'get'},
+        user: {path: './api/index.php/user/getcurrent' , method: 'get'},
 		finishtuto: {path: './api/index.php/user/finishtuto' , method: 'get'},
 		token: {path: './api/index.php/user/gettoken' , method: 'get'},
-        user: {path: './json/user.json' , method: 'get'},
+        //user: {path: './json/user.json' , method: 'get'},
         saveUser: {path: './api/index.php/user/put' , method: 'post'},
         saveAvatar: {path: './api/index.php/user/saveavatar' , method: 'post'},
         // get user's nodes
