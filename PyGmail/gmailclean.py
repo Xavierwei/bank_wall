@@ -9,7 +9,7 @@ root = os.path.abspath(os.path.dirname(__file__))
 
 def load_mail_ids():
 
-  dirs = ["inbox", "[Gmail]/Spam", "."]
+  dirs = ["inbox", "[Gmail]/Spam", ".", "cached"]
   ids = []
   for dir_path in dirs:
     cache_dir = os.path.join(root, "caches", dir_path)

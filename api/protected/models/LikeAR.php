@@ -38,6 +38,42 @@ class LikeAR extends CActiveRecord {
 		$node = NodeAR::model()->findByPk((int)$nid);
 		$this->saveTopOfDay($node);
 		$this->saveTopOfMonth($node);
+
+		// Send mail to notify user
+		$this->emailnotify();
+	}
+
+	public function emailnotify() {
+		// The node id that be liked
+		$nid = $this->getAttribute("nid");
+		// The user id that like it
+		$uid = $this->getAttribute("uid");
+		if (!$nid || !$uid) {
+			return FALSE;
+		}
+		$node = NodeAR::model()->findByPk($nid);
+		$user = UserAR::model()->findByPk($uid);
+
+		$description = $node->getAttribute("description");
+		$company_email = $user->getAttribute("company_email");
+		$personal_email = $user->getAttribute("personal_email");
+		$node_link = "http://xxx.com/#/node/". $nid;
+
+		if (!$node || !$user) {
+			return FALSE;
+		}
+
+		$msg_html = "Your content <strong> <a href='".$node_link."'>".$description."</a></strong>is liked by <strong>".$user->getAttribute("firstname").' '.$user->getAttribute("lastname")."</strong>";
+		$mailler = Yii::app()->Smtpmail;
+		$mailler->SetFrom("upload@wall150ans.com");
+		$mailler->MsgHTML($msg_html);
+		$mailler->AddAddress($company_email, "");
+		$mailler->AddCC($personal_email, "");
+		$mailler->Subject = "You have new content liked !";
+		if ($mailler->Send()) {
+			return FALSE;
+		}
+		return TRUE;
 	}
 
 	public function updateAllTopOfDay() {
