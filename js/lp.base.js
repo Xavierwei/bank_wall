@@ -1639,7 +1639,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
 
     // tutor 
     LP.action("skip-tutor" , function(){
-        api.ajax( "user/finishtuto" , "" , function(){
+        api.ajax( "finishtuto" , "" , function(){
             $(".tutor").fadeOut(function(){
                 $(this).remove();
             });
@@ -1651,7 +1651,12 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
         $step.fadeOut(500)
             .next()
             .fadeIn(500);
-
+		if($step.hasClass('tutor-step1')) {
+			$('.tutor-bg').addClass('tutor-bg2');
+		}
+		else {
+			$('.tutor-bg').removeClass('tutor-bg2');
+		}
     });
 
     //for delete comment action
@@ -2849,8 +2854,8 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
 
 
                         // if user unread the tutor , show it
-                        if( !result.data.finishtuto ){
-                            LP.compile("tutor-template" , {_e:_e}, function( html ){
+                        if( !result.data.finishtuto || result.data.finishtuto == 0 ){
+                            LP.compile("tutor-template" , {lang:lang, _e:_e}, function( html ){
                                 $(document.body).append( html );
                             });
                         }

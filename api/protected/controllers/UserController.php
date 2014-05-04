@@ -144,6 +144,34 @@ class UserController extends Controller {
 		}
 	}
 
+	/**
+	 * Update tuto status
+	 */
+	public function actionFinishtuto() {
+		$uid = Yii::app()->user->getId();
+
+		if ($uid) {
+			$user = UserAR::model()->findByPk($uid);
+			if (!$user) {
+				$this->responseError(101);
+			}
+
+
+			if (!Yii::app()->user->checkAccess("updateOwnAccount", array("uid" => $user->uid ))) {
+				return $this->responseError(602);
+			}
+
+			$query = new CDbCriteria();
+			$query->addCondition('uid != :uid');
+			$query->params[":uid"] = $uid;
+			UserAR::model()->updateByPk($uid, array('finishtuto' => 1 ));
+			$this->responseJSON('', "success");
+		}
+		else {
+			$this->responseError(601);
+		}
+	}
+
 
 	/**
 	* Upload avatar

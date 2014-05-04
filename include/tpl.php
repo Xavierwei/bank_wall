@@ -557,7 +557,7 @@
 <script type="text/tpl" id="tutor-template">
 <div class="tutor">
 	<div class="tutor-bg">
-		<img src="./img/tutor/tutor-bg-img.jpg"/>
+		<img src="./img/tutor/tutor-bg-img-{{lang}}.jpg"/>
 	</div>
 	<div class="tutor-mask"></div>
 	<div class="tutor-steps">
@@ -579,7 +579,7 @@
 				<p class="t2">{{{_e.STEP2_3}}}</p>
 			</div>
 			<div class="tutor-step2-3">
-				<img src="./img/tutor/step2-3.png">
+				<img src="./img/tutor/step2-3-{{lang}}.png">
 				<p class="t1">{{{_e.STEP2_4}}}</p>
 				<p class="t2">{{{_e.STEP2_5}}}</p>
 			</div>
@@ -590,7 +590,7 @@
 		</div>
 		<div class="tutor-step tutor-step3" > 
 			<div class="tutor-step3-1">
-				<img src="./img/tutor/step3-1.png">
+				<img src="./img/tutor/step3-1-{{lang}}.png">
 				<p class="t1">{{_e.STEP3_1}}</p>
 			</div>
 			<div class="tutor-btns">
@@ -600,7 +600,7 @@
 		</div>
 		<div class="tutor-step tutor-step4" > 
 			<div class="tutor-step4-1">
-				<img src="./img/tutor/step4-1.png">
+				<img src="./img/tutor/step4-1-{{lang}}.png">
 				<p class="t1">{{_e.STEP4_1}}</p>
 			</div>
 			<div class="tutor-btns">
@@ -610,7 +610,7 @@
 		</div>
 		<div class="tutor-step tutor-step5" > 
 			<div class="tutor-step5-1">
-				<img src="./img/tutor/step5-1.png">
+				<img src="./img/tutor/step5-1-{{lang}}.png">
 				<p class="t1">{{{_e.STEP5_1}}}</p>
 				<p class="t2">{{_e.STEP5_2}}</p>
 				<p class="t3">{{_e.STEP5_3}}</p>

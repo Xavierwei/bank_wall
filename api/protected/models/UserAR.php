@@ -16,7 +16,7 @@ class UserAR extends CActiveRecord{
   
 	public static function getAllowOutputFields() {
 		return array("uid", "firstname", "lastname", "avatar", "country" => array("country_id", "country_name", "flag_icon", "i18n"),
-			"company_email", "personal_email", "role", "status");
+			"company_email", "personal_email", "role", "status", "finishtuto");
 	}
 
 
@@ -50,7 +50,7 @@ class UserAR extends CActiveRecord{
 	// Validation rules
 	public function rules() {
 		return array(
-			array("avatar, personal_email, company_email, name, sso_id, country_id, datetime, firstname, lastname, role, token", 'safe'),
+			array("avatar, personal_email, company_email, name, sso_id, country_id, datetime, firstname, lastname, role, token, finishtuto", 'safe'),
 		);
 	}
 
