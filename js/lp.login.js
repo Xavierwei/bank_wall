@@ -6,31 +6,24 @@ LP.use(['jquery' , 'api'] , function( $ , api ){
 
 
 
+	// language select btn event
+	LP.action('lang' , function( data ){
+		$(this)
+			.addClass('language-item-on')
+			.siblings()
+			.removeClass('language-item-on');
 
-    //for comment action
-    LP.action('login' , function( data ){
-        var name = $('#name').val();
-        var password = $('#password').val();
-        api.ajax('login', {company_email:name, password: password}, function(data){
-            if(data.success) {
-                window.location.href = "index.html";
-            }
-        });
-    });
+		// set lang tag to cookie
+		LP.setCookie('lang' , data.lang );
 
-    $(document).keydown(function( ev ){
-        switch( ev.which ){
-            case 13: // enter
-                LP.triggerAction('login');
-                break;
-        }
-    });
+		// reload document
+		LP.reload();
+	});
 
-    $(document).ready(function(){
-alert(1);
-        alert($('#player'));
-        $('#player').prepend('body');
-    });
+	var lang = LP.getCookie('lang') || 'fr';
+	$('.language-item').removeClass('language-item-on')
+		.filter('[data-d="lang=' + lang + '"]')
+		.addClass('language-item-on');
 
 
 });

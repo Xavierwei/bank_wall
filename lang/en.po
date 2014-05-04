@@ -277,6 +277,63 @@ msgstr "The photo you uploaded is corrupted"
 msgid "CONFIRM_SAVE_USER"
 msgstr "Do you want to save this change ?"
 
+msgid "TUTOR_EXPLAIN"
+msgstr "WELCOME ON THE WALL 150 ANS<br/><span>DO YOU WISH TO SEE THE TUTORIAL?</span>"
+
+msgid "SKIP_THE_TUTORIAL"
+msgstr "SKIP THE TUTORIAL"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "STEP2_1"
+msgstr "YOU CAN SEARCH USING #HASHTAGS BY USING THIS SEARCH BAR"
+
+msgid "STEP2_2"
+msgstr "THIS ICON MEANS THIS CONTENT HAS BEEN ELECTED CONTENT OF THE MONTH"
+
+msgid "STEP2_3"
+msgstr "THIS ICON MEANS THIS HAS BEEN ELECTED CONTENT OF THE DAY"
+
+msgid "STEP2_4"
+msgstr "CLICK HERE TO CONNECT"
+
+msgid "STEP2_5"
+msgstr "YOU CAN FILTER PHOTOS AND VIDEOS BY:<br/><span>- RECENT/RANDOM/POPULAR CONTENT</span><br/><span>- PHOTO / VIDEOS OR BOTH</span><br/><span>- COUNTRY</span>"
+
+msgid "STEP3_1"
+msgstr "YOU CAN GO BACK TO THE HOME PAGE BY CLICKING THE LOGO AT ANY TIME"
+
+msgid "STEP4_1"
+msgstr "PICTURES AND VIDEOS UPLOADED APPEAR ON THIS GRID"
+
+msgid "STEP5_1"
+msgstr "ONCE CONNECTED YOU CAN ACCESS YOUR PROFILE HERE<br/><span>YOU CAN ALSO REGISTER YOUR PERSONAL MAIL ADDRESS AND SENT YOUR CONTENT USING A PERSONAL DEVICE</span>"
+
+msgid "STEP5_2"
+msgstr "YOU CAN ADD PHOTOS BY CLICKING HERE"
+
+msgid "STEP5_3"
+msgstr "AND VIDEOS HERE"
+
+msgid "STEP5_4"
+msgstr "CLICK HERE TO SEE THE CONTENT OF THE DAY GRID"
+
+msgid "STEP5_5"
+msgstr "AND CONTENT OF THE MONTH HERE"
+
+msgid "STEP5_6"
+msgstr "YOU CAN DISCONNECT AT ANY TIME BY CLICKING HERE!"
+
+msgid "ENJOY"
+msgstr "ENJOY!"
+
+msgid "SKIP"
+msgstr "SKIP"
+
+msgid "NEXT"
+msgstr "NEXT"
+
 msgid "DAY"
 msgstr "day"
 
@@ -482,7 +539,7 @@ msgid "REPUBLIC_OF_IVORY_COAST"
 msgstr "Republic of Ivory Coast"
 
 msgid "REPUBLIC_OF_MONTENEGRO"
-msgstr "Republic of Montenegro"
+msgstr "Montenegro"
 
 msgid "REUNION"
 msgstr "Reunion"

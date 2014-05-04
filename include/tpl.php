@@ -568,15 +568,15 @@
 				<button data-a="next-tutor" class="tutor-ok tutor-btn-red">{{_e.OK}}</button>
 			</div>
 		</div>
-		<div class="tutor-step tutor-step2"> 
-			<div class="tutor-step2-1">
-				<img src="./img/tutor/step2-1.png">
-				<p class="t1">{{{_e.STEP2_1}}}</p>
-			</div>
+		<div class="tutor-step tutor-step2">
 			<div class="tutor-step2-2">
 				<img src="./img/tutor/step2-2.png">
 				<p class="t1">{{{_e.STEP2_2}}}</p>
 				<p class="t2">{{{_e.STEP2_3}}}</p>
+			</div>
+			<div class="tutor-step2-1">
+				<img src="./img/tutor/step2-1.png">
+				<p class="t1">{{{_e.STEP2_1}}}</p>
 			</div>
 			<div class="tutor-step2-3">
 				<img src="./img/tutor/step2-3-{{lang}}.png">

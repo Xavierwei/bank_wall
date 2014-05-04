@@ -363,6 +363,11 @@ a{text-decoration:none;color:#666}
     .error-404 h3 {text-indent: -999em;background: url('../img/error_404.gif') no-repeat center;width:92px;height:64px;margin:0 auto;}
     .error-404 h5 {font-size:14px;color:#afafaf;font-family:'HelveticaNeueLTStd-Lt';}
 
+.login-wrap {background:#fff;}
+    .login-wrap .logo {display: block;}
+    .login-box {position: absolute;text-align: center;width:100%;height:100px;top:50%;margin-top:-50px;}
+
+
 .touch body {overflow-x:hidden;}
 .touch .main {margin-right:-5px;}
 .touch .content {width:100%;overflow-x:hidden;}

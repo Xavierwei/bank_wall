@@ -281,6 +281,63 @@ msgstr "La photo que vous avez téléchargé est corrompue"
 msgid "CONFIRM_SAVE_USER"
 msgstr "Souhaitez-vous sauvegarder ces données ?"
 
+msgid "TUTOR_EXPLAIN"
+msgstr "BIENVENUE SUR LE WALL 150 ANS<br/><span>Souhaitez vous voir le tutoriel ?</span>"
+
+msgid "SKIP_THE_TUTORIAL"
+msgstr "PASSEZ LE TUTORIEL"
+
+msgid "OK"
+msgstr "OUI"
+
+msgid "STEP2_1"
+msgstr "VOUS POUVEZ FAIRE UNE recherche par hashtag grace à cette barre de recherche"
+
+msgid "STEP2_2"
+msgstr "CE PICTOGRAMME SIGNIFIE QUE CE CONTENU EST ÉLU CONTENU DU MOIS"
+
+msgid "STEP2_3"
+msgstr "CE PICTOGRAMME signifie que c'est le contenu du jour"
+
+msgid "STEP2_4"
+msgstr "CLIQUEZ ICI POUR VOUS CONNECTER"
+
+msgid "STEP2_5"
+msgstr "VOUS POUVEZ trier les Photos/vidéos par  :<br/><span>- Contenu récent/aléatoire/populaire</span><br/><span>- contenu photo/video ou les 2</span><br/><span>- contenu par pays</span>"
+
+msgid "STEP3_1"
+msgstr "A tout moment, vous pouvez revenir à l'accueil en cliquant sur le logo"
+
+msgid "STEP4_1"
+msgstr "les photos et vidéos uploadées apparaissent sur cette mosaïque"
+
+msgid "STEP5_1"
+msgstr "UNE FOIS CONNECTÉ, VOUS POUVEZ ACCÈder à votre profil EN CLIQUANT ICI"
+
+msgid "STEP5_2"
+msgstr "Vous pouvez ajouter des photos en cliquant ici"
+
+msgid "STEP5_3"
+msgstr "ET DES VIDéos en cliquant ici"
+
+msgid "STEP5_4"
+msgstr "CLIQUEZ ICI POUR VOIR LA GALERIE DES CONTENUS DU JOUR"
+
+msgid "STEP5_5"
+msgstr "ET LA GALERIE DES CONTENUS DU MOIS CLIQUEZ ICI"
+
+msgid "STEP5_6"
+msgstr "VOUS POURREZ vous déconnecter à tout moment en cliquant ici"
+
+msgid "ENJOY"
+msgstr "BONNE VISITE!"
+
+msgid "SKIP"
+msgstr "PASSEZ"
+
+msgid "NEXT"
+msgstr "SUIVANT"
+
 msgid "DAY"
 msgstr "jour"
 
