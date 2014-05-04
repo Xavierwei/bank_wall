@@ -207,14 +207,13 @@ msgstr "E-mail personnel"
 
 msgid "COMPANY_EMAIL_TERM"
 msgstr ""
-"Si vous souhaitez envoyer du contenu sur le Wall avec une adresse e-mail autre que votre e-mail professionnel, merci de bien vouloir paramêtrer ci-dessous votre adresse e-mail personnel. Pour envoyer une photo ou/et une vidéo depuis un appareil personnel, vous devez adresser par mail votre contenu à l’adresse upload@wall150ans.com<br/><br/>"
-"Dans le champs « objet » de votre e-mail, vous pouvez insérer une description de votre photo ou/vidéo qui sera visible sur le Wall."
+"Si vous souhaitez envoyer du contenu sur le Wall avec une adresse e-mail autre que votre e-mail professionnel, merci de bien vouloir paramétrer ci-dessous votre adresse e-mail personnel.<br/><br/>"
+"Après avoir enregistré votre e-mail personnel, pour envoyer une photo ou/et une vidéo depuis un appareil personnel, vous devez adresser par mail votre contenu à l’adresse upload@wall150ans.com. Dans le champs « objet » de votre e-mail, vous pouvez insérer une description de votre contenu qui sera visible sur le Wall. <br/><br/>"
+"Pour toute question, n’hésitez pas à contacter : contact@wall150ans.com"
 
 msgid "PERSONAL_EMAIL_TERM"
 msgstr ""
-"Je déclare posséder la totalité des droits sur cette image/vidéo et avoir "
-"obtenu l’autorisation des personnes ainsi que des responsables des biens y "
-"figurant.J’accepte les conditions d’utilisations de ce site."
+"Pour tout contenu envoyé depuis un terminal personnel, je déclare avoir obtenu toutes les autorisations requises par la loi pour la diffusion de cette image/vidéo sur le Wall, notamment des titulaires éventuels de droit de propriété intellectuelle ou de droit à l’image."
 
 msgid "PERSONAL_EMAIL_INFO"
 msgstr ""

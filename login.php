@@ -30,7 +30,7 @@
 	<?php if(isset($_COOKIE['lang']) && $_COOKIE['lang'] == 'en'):?>
 		<div class="login-term">
 			By logging into this website,
-			<a href="pdf/wall150ans_cgu.pdf">you accept the terms of use of this website.</a>
+			<a target="_blank" href="pdf/wall150ans_cgu_en.pdf">you accept the terms of use of this website.</a>
 		</div>
 		<div class="login-btns">
 			<a href="./">BACK</a>
@@ -39,7 +39,7 @@
 	<?else:?>
 		<div class="login-term">
 			En vous connectant à ce site web,
-			<a href="pdf/wall150ans_cgu.pdf">vous acceptez les conditions d'utilisations de ce site.</a>
+			<a target="_blank" href="pdf/wall150ans_cgu_fr.pdf">vous acceptez les conditions d'utilisations de ce site.</a>
 		</div>
 		<div class="login-btns">
 			<a href="./">retour</a>

@@ -420,7 +420,7 @@
 							<div class="edit-email-error">{{_e.ERROR_EMAIL}}</div>
 							<div class="editfi-condition">{{_e.PERSONAL_EMAIL_TERM}}</div>
 							<div class="editfi-condition-error">{{_e.ERROR_CONDITION}}</div>
-							<div class="editfi-information">{{_e.PERSONAL_EMAIL_INFO}} <a href="#">{{_e.CLICK_HERE}}</a></div>
+							<div class="editfi-information">{{_e.PERSONAL_EMAIL_INFO}} <a target="_blank" href="./pdf/wall150ans_cgu_{{lang}}.pdf">{{_e.CLICK_HERE}}</a></div>
 						</div>
 					</div>
 					<div class="edit-fi clear">

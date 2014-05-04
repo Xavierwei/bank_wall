@@ -2078,6 +2078,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
                     result.data.avatar = "/uploads/default_avatar.gif";
                 }
                 result.data._e = _e;
+				result.data.lang = lang;
                 LP.compile( 'user-page-template' , result.data , function( html ){
                     $('.user-page .count').html($(html).find('.count').html());
                 });

@@ -2840,6 +2840,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
                         }
 						result.data.country.country_name = _e[result.data.country.i18n];
                         result.data._e = _e;
+						result.data.lang = lang;
                         LP.compile( 'user-page-template' , result.data , function( html ){
                             $('.content').append(html);
                         });

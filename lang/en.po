@@ -204,14 +204,13 @@ msgstr "PERSONAL EMAIL"
 
 msgid "COMPANY_EMAIL_TERM"
 msgstr ""
-"If you want to send contents to the Wall with an email address other than your corporate email, please fill the field below your personal email. To send a picture of/and a video from a mobile, you have to send your email to upload@wall150ans.com.<br/><br/>"
-"In the subject field of your email, you can write the description of your photo or video which be visible on the wall."
+"If you want to send content to the Wall with a mail address that is different from your professional email, please set your personal email below.<br/><br/>"
+"After having set your personal email, you will be able to send photos and/or videos to the address upload@wall150ans.com from your own device. In the \"Subject\" field you can enter a description of your content that will be visible on the wall.<br/><br/>"
+"Feel free to ask us any questions: contact@wall150ans.com"
 
 msgid "PERSONAL_EMAIL_TERM"
 msgstr ""
-"I represent that all rights to this image / video and have obtained "
-"permission from the people and officials of property therein. I accept the "
-"terms of service of this website."
+"For any content sent from a personal device, I declare having obtained all authorizations required by law for the distribution of this image/video on the Wall, including any holders of intellectual property rights or image rights."
 
 msgid "PERSONAL_EMAIL_INFO"
 msgstr ""
