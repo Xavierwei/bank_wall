@@ -40,7 +40,7 @@ class LikeAR extends CActiveRecord {
 		$this->saveTopOfMonth($node);
 
 		// Send mail to notify user
-		$this->emailnotify();
+		//$this->emailnotify();
 	}
 
 	public function emailnotify() {
