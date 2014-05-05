@@ -132,21 +132,28 @@ class LikeAR extends CActiveRecord {
 		}
 
 		// Then save or update with datetime.
-		$sql = "INSERT INTO topday (nid, `date`) VALUES ";
-		$values = array();
-		foreach ($top_likes as $top_like) {
-			$values[] = '( '.$top_like["nid"]. ','. strtotime($top_like["datetime"]). ')';
-		}
-		if (count($values)) {
-			$str_values = implode(",", $values);
-			$sql .= $str_values;
-		}
-		// IMPORTANT: When there's duplicate item, we update it only
-		$sql .= " ON DUPLICATE KEY UPDATE nid=VALUES(nid)";
-		$command = Yii::app()->db->createCommand($sql);
-		// Return number of  affected rows
-		$ret = $command->execute();
-		return $ret;
+    if ($time == "day") {
+      $truncate_sql = "truncate table `topday` ";
+      $sql = "INSERT INTO topday (nid, `date`) VALUES ";
+    }
+    else {
+      $truncate_sql = "truncate table `topmonth` ";
+      $sql = "INSERT INTO topmonth (nid, `date`) VALUES ";
+    }
+    $values = array();
+    foreach ($top_likes as $top_like) {
+      $values[] = '( '.$top_like["nid"]. ','. strtotime($top_like["datetime"]). ')';
+    }
+    if (count($values)) {
+      $str_values = implode(",", $values);
+      $sql .= $str_values;
+    }
+    // IMPORTANT: When there's duplicate item, we update it only
+    $sql .= " ON DUPLICATE KEY UPDATE nid=VALUES(nid)";
+    $command = Yii::app()->db->createCommand($sql);
+    // Return number of  affected rows
+    $ret = $command->execute();
+    return $ret;
 	}
 
 	public function updateAllTopOfMonth() {
