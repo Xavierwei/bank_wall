@@ -274,7 +274,7 @@ msgid "ERROR_PHOTO_CORRUPTED"
 msgstr "The photo you uploaded is corrupted"
 
 msgid "CONFIRM_SAVE_USER"
-msgstr "Do you want to save this change ?"
+msgstr "Do you want to save this change?"
 
 msgid "TUTOR_EXPLAIN"
 msgstr "WELCOME ON THE WALL 150 ANS<br/><span>DO YOU WISH TO SEE THE TUTORIAL?</span>"
@@ -283,7 +283,7 @@ msgid "SKIP_THE_TUTORIAL"
 msgstr "SKIP THE TUTORIAL"
 
 msgid "OK"
-msgstr "OK"
+msgstr "ok"
 
 msgid "STEP2_1"
 msgstr "YOU CAN SEARCH USING #HASHTAGS BY USING THIS SEARCH BAR"
@@ -328,10 +328,10 @@ msgid "ENJOY"
 msgstr "ENJOY!"
 
 msgid "SKIP"
-msgstr "SKIP"
+msgstr "skip"
 
 msgid "NEXT"
-msgstr "NEXT"
+msgstr "next"
 
 msgid "DAY"
 msgstr "day"

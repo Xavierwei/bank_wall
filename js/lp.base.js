@@ -217,9 +217,11 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
         .delegate('.editfi-condition','click',function(){
             if($(this).hasClass('checked')) {
                 $(this).removeClass('checked');
+				LP.removeCookie( "_editfi_checked_" );
             } else {
                 $(this).addClass('checked');
                 $('.editfi-condition-error').fadeOut();
+				LP.setCookie( "_editfi_checked_" , 1 , 86400 * 30 );
             }
         })
         .delegate('.poptxt-check','click',function(){
@@ -2388,13 +2390,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
 						$('.count-userinfo .location').html($('.user-edit-page .editfi-country-box').html());
 					}
 
-                    // if checked save the status
-                    var checked = !!$('.editfi-condition.checked').length;
-                    if( checked ){
-                        LP.setCookie( "_editfi_checked_" , 1 , 86400 * 30 );
-                    } else {
-                        LP.removeCookie( "_editfi_checked_" );
-                    }
                 }
                 else if(result.message === 603) {
                     $('.edit-email-error').html(_e.ERROR_EXIST_EMAIL).fadeIn();

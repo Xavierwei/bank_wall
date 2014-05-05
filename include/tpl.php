@@ -3,7 +3,7 @@
 	<div class="page">
 		<!-- header -->
 		<div class="header">
-			<a href="./api/user/samllogin" class="login btn">
+			<a href="./login" class="login btn">
 				{{_e.CONNECT}}
 			</a>
 			<!--  -->

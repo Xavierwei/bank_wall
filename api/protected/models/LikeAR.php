@@ -57,19 +57,25 @@ class LikeAR extends CActiveRecord {
 		$description = $node->getAttribute("description");
 		$company_email = $user->getAttribute("company_email");
 		$personal_email = $user->getAttribute("personal_email");
-		$node_link = "http://xxx.com/#/node/". $nid;
+		$siteDomain = Yii::app()->params['siteDomain'];
+		$node_link = $siteDomain."/#/nid/". $nid;
 
 		if (!$node || !$user) {
 			return FALSE;
 		}
 
-		$msg_html = "Your content <strong> <a href='".$node_link."'>".$description."</a></strong>is liked by <strong>".$user->getAttribute("firstname").' '.$user->getAttribute("lastname")."</strong>";
+		$begin = 'Bonjour '.$user->firstname.' '.$user->lastname.',\n\n';
+		$end = '\n\nL\'équipe SG WALL';
+		$begin_en = '\n\n\n\nDear '.$user->firstname.' '.$user->lastname.',\n\n';
+		$end_en = '\n\nSG WALL Team';
+		$msg_html = $begin.$user->getAttribute("firstname").' '.$user->getAttribute("lastname")." a aimé votre contenu:".$node_link.$end
+					.$begin_en.$user->getAttribute("firstname").' '.$user->getAttribute("lastname")." liked your content:".$end_en;
 		$mailler = Yii::app()->Smtpmail;
 		$mailler->SetFrom("upload@wall150ans.com");
 		$mailler->MsgHTML($msg_html);
 		$mailler->AddAddress($company_email, "");
-		$mailler->AddCC($personal_email, "");
-		$mailler->Subject = "You have new content liked !";
+		//$mailler->AddCC($personal_email, "");
+		$mailler->Subject = "Your content was liked!";
 		if ($mailler->Send()) {
 			return FALSE;
 		}

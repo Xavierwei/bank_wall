@@ -20,7 +20,7 @@
 </head>
 <body class="login-wrap">
 <div class="header">
-	<a class="logo" href="./"></a>
+	<a class="logo logo-<?php echo $_COOKIE['lang'];?>" href="./"></a>
 	<div class="language">
 		<div data-a="lang" data-d="lang=fr" class="btn language-item language-item-fr"><p class="fr"></p></div>
 		<div data-a="lang" data-d="lang=en" class="btn language-item language-item-en"><p class="en"></p></div>

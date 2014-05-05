@@ -364,7 +364,8 @@ a{text-decoration:none;color:#666}
     .error-404 h5 {font-size:14px;color:#afafaf;font-family:'HelveticaNeueLTStd-Lt';}
 
 .login-wrap {background:#fff;}
-    .login-wrap .logo {display: block;}
+    .login-wrap .logo {display: block;background: url('../img/logo_b.gif') no-repeat;width:264px;height:79px;margin-top: 45px;}
+    .login-wrap .logo-en {background: url('../img/logo_b_en.gif') no-repeat;}
     .login-box { color: white; position: absolute;text-align: center;width: 410px;padding: 30px;background: #262626;left: 50%;margin-left: -235px;border-radius: 12px;top:50%;margin-top:-100px;}
     .login-term{color: white;margin: 20px 10px 40px; font-size: 15px; }
     .login-term a{color: white; text-decoration: underline;}
@@ -428,7 +429,7 @@ a{text-decoration:none;color:#666}
 
     .tutor-step2-2{position: absolute;top: 243px;left: 320px;}
     .tutor-step2-2 .t1{position: absolute;width: 300px;top: 282px;left: -110px;}
-    .tutor-step2-2 .t2{position: absolute;width: 350px;top: 220px;left: 230px;}
+    .tutor-step2-2 .t2{position: absolute;width: 300px;top: 320px;left: 312px;}
 
     .tutor-step2-3 .t1{position: absolute;width: 100px;top: 70px;left: -110px;}
     .tutor-step2-3 .t2{position: absolute;width: 350px;text-align: left;top: 190px;left: -50px;}
