@@ -85,52 +85,49 @@ class LikeAR extends CActiveRecord {
 	public function updateAllTopOfDay() {
 		return $this->updateAllTopOfDuringTime("day");
 	}
-
-	public function updateAllTopOfDuringTime($time = "day") {
-		$query = new CDbCriteria();
-		if ($time == "day") {
-			$res = Yii::app()->db->createCommand()
-				->select("group_concat(l.nid) as nids, count(distinct l.nid) as countd, count(l.nid) as count, from_unixtime(l.datetime, '%Y-%m-%e') as datetime")
-				->from("like as l")
-				->group('from_unixtime(l.datetime, "%Y-%m-%e")');
-		}
-		else if ($time == "month") {
-			$res = Yii::app()->db->createCommand()
-				->select("group_concat(l.nid) as nids, count(distinct l.nid) as countd, count(l.nid) as count, from_unixtime(l.datetime, '%Y-%m') as datetime")
-				->from("like as l")
-				->group('from_unixtime(l.datetime, "%Y-%m")');
-		}
-		else {
-			return FALSE;
-		}
-
-		$rows = $res->queryAll();
-		// Find out node that most liked in one day.
-		$top_likes = array();
-		foreach ($rows as $row) {
-			$nids = explode(",", $row["nids"]);
-			if ($row["count"] == $row["countd"]) {
-				$top_likes[] = array(
-					"datetime" => $row["datetime"],
-					"nid" => $nids[0],
-				);
-			}
-			else {
-				$c_nids = array();
-				foreach ($nids as $nid) {
-					if (!isset($c_nids[$nid])) {
-						$c_nids[$nid] = 0;
-					}
-					$c_nids[$nid] += 1;
-				}
-				asort($c_nids, SORT_NUMERIC);
-				$top_likes[] = array(
-					"datetime" => $row["datetime"],
-					"nid" => array_shift(array_keys($c_nids))
-				);
-			}
-		}
-
+  
+  public function updateAllTopOfDuringTime($time = "day") {
+    if ($time == "day") {
+      $query = Yii::app()->db->createCommand()
+              ->select('group_concat(nid) as nids, from_unixtime(datetime, "%Y-%m-%e") as strdate')
+              ->from("node")
+              ->where("status = 1")
+              ->group('from_unixtime(datetime, "%Y-%m-%e")');
+      $rows = $query->queryAll();
+      $top_likes = array();
+      foreach ($rows as $row) {
+        $like_count = $this->getLikeCount($row["nids"]);
+        if ($like_count && $like_count["nid"]) {
+          $top_likes[] = array(
+              "datetime" => $row["strdate"],
+              "nid" => $like_count["nid"],
+          );
+        }
+      }
+    }
+    else {
+      $query = Yii::app()->db->createCommand()
+              ->select('group_concat(nid) as nids, from_unixtime(datetime, "%Y-%m") as strdate')
+              ->from("node")
+              ->where("status = 1")
+              ->group('from_unixtime(datetime, "%Y-%m")');
+      $rows = $query->queryAll();
+      $top_likes = array();
+      foreach ($rows as $row) {
+        $like_count = $this->getLikeCount($row["nids"]);
+        if ($like_count && $like_count["nid"]) {
+          $top_likes[] = array(
+              "datetime" => $row["strdate"],
+              "nid" => $like_count["nid"],
+          );
+        }
+      }
+    }
+    
+    if (!$top_likes) {
+      return;
+    }
+    
 		// Then save or update with datetime.
     if ($time == "day") {
       $truncate_sql = "truncate table `topday` ";
@@ -140,6 +137,8 @@ class LikeAR extends CActiveRecord {
       $truncate_sql = "truncate table `topmonth` ";
       $sql = "INSERT INTO topmonth (nid, `date`) VALUES ";
     }
+    
+    Yii::app()->db->createCommand($truncate_sql)->execute();
     $values = array();
     foreach ($top_likes as $top_like) {
       $values[] = '( '.$top_like["nid"]. ','. strtotime($top_like["datetime"]). ')';
@@ -154,13 +153,29 @@ class LikeAR extends CActiveRecord {
     // Return number of  affected rows
     $ret = $command->execute();
     return $ret;
-	}
+  }
+  
+  public function getLikeCount($nids) {
+    // $nids: "1,2,3"
+    $query = Yii::app()->db->createCommand()
+            ->select("count(like_id) as likecount, l.nid")
+            ->from("like as l")
+            ->join("node", "node.nid=l.nid AND node.status = 1")
+            ->where("l.nid in (".$nids.")")
+            ->group("l.nid")
+            ->order("likecount DESC");
+    $row = $query->queryRow();
+    if (!$row) {
+      return 0;
+    }
+    return $row;
+  }
 
 	public function updateAllTopOfMonth() {
 		return $this->updateAllTopOfDuringTime("month");
 	}
-
-
+  
+  
 	/**
 	 * Set content of day
 	 */
