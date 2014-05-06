@@ -75,22 +75,22 @@ class LikeController extends Controller {
 		$this->responseJSON($likeAr->getNodeCount((int)$nid), "success");
 	}
 
-	public function actionUpdateLikeOfday() {
-		print "time: ".date("Y-m-d")." -- Begin update top of day in node like. \r\n";
-		$likeAr = new LikeAR();
-		$ret = $likeAr->updateAllTopOfDay();
-		print "time: ".date("Y-m-d")." -- Finished update top of day in node like. \r\n";
-
-		return 0;
-	}
-
-	public function actionUpdateLikeOfMonth() {
-		print "time: ".date("Y-m-d")." -- Begin update top of month in node like. \r\n";
-		$likeAr = new LikeAR();
-		$ret = $likeAr->updateAllTopOfMonth();
-		print "time: ".date("Y-m-d")." -- Finished update top of month in node like. \r\n";
-
-		return 0;
-	}
+//	public function actionUpdateLikeOfday() {
+//		print "time: ".date("Y-m-d")." -- Begin update top of day in node like. \r\n";
+//		$likeAr = new LikeAR();
+//		$ret = $likeAr->updateAllTopOfDay();
+//		print "time: ".date("Y-m-d")." -- Finished update top of day in node like. \r\n";
+//
+//		return 0;
+//	}
+//
+//	public function actionUpdateLikeOfMonth() {
+//		print "time: ".date("Y-m-d")." -- Begin update top of month in node like. \r\n";
+//		$likeAr = new LikeAR();
+//		$ret = $likeAr->updateAllTopOfMonth();
+//		print "time: ".date("Y-m-d")." -- Finished update top of month in node like. \r\n";
+//
+//		return 0;
+//	}
 }
 
