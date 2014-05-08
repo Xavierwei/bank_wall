@@ -34,7 +34,7 @@
 		</div>
 		<div class="login-btns">
 			<a href="./">BACK</a>
-			<a href="./api/user/samllogin">I AGREE</a>
+			<a class="red" href="./api/user/samllogin">I AGREE</a>
 		</div>
 	<?php else:?>
 		<div class="login-term">
@@ -43,7 +43,7 @@
 		</div>
 		<div class="login-btns">
 			<a href="./">retour</a>
-			<a href="./api/user/samllogin">J'ACCEPTE ET JE ME CONNECTE</a>
+			<a class="red" href="./api/user/samllogin">J'ACCEPTE ET JE ME CONNECTE</a>
 		</div>
 	<?php endif;?>
 </div>

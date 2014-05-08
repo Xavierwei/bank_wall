@@ -371,7 +371,7 @@ a{text-decoration:none;color:#666}
     .login-term a{color: white; text-decoration: underline;}
     .login-btns{padding-bottom: 20px;}
     .login-btns a{display: inline-block;padding: 9px 20px 4px;background: #93908f;color: white;font-size: 14px;border-radius: 2px;border: 1px solid #808080;margin: 0 5px;}
-    .login-btns a:last-child{background: #da243d;border-color: #a01327;}
+    .login-btns a.red {background: #da243d;border-color: #a01327;}
 
 .touch body {overflow-x:hidden;}
 .touch .main {margin-right:-5px;}
