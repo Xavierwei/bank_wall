@@ -1513,6 +1513,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
 		}
         var _likeWrap = _this.find('span').eq(0);
 		_this.addClass('disabled');
+        _this.addClass('com-unlike');
 		_this.addClass('flashing');
         api.ajax('like', {nid:data.nid}, function( result ){
 			_this.removeClass('flashing');
