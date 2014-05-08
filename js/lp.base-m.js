@@ -336,16 +336,16 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
             $(this)[0].pause();
         })
         .delegate('.login','click',function(){
-            ga('send', 'sgwall', 'connect', 'button', 'button');
+            ga('send', 'event', 'connect', 'button', lang);
         })
         .delegate('.language-item-fr','click',function(){
-            ga('send', 'sgwall', 'french_language ', 'button', 'button');
+            ga('send', 'event', 'language ', 'button', lang);
         })
         .delegate('.language-item-en','click',function(){
-            ga('send', 'sgwall', 'french_language ', 'button', 'button');
+            ga('send', 'event', 'language ', 'button', lang);
         })
         .delegate('.logout','click',function(){
-            ga('send', 'sgwall', 'disconnect', 'button', 'button');
+            ga('send', 'event', 'disconnect', 'button', lang);
         })
         // click to hide select options
         .click(function( ev ){
@@ -718,7 +718,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
     });
 
     LP.action('back_home', function(){
-        ga('send', 'sgwall', 'logo', 'button', 'button');
+        ga('send', 'event', 'logo', 'button', lang);
 		var delay = 400;
         LP.triggerAction('back');
 		if($('.user-page').is(':visible')) {
@@ -1423,10 +1423,10 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
         var type = data.type;
         if(type == 'video') {
             data.accept = 'video/*,video/mp4';
-            ga('send', 'sgwall', 'postpicture', 'button', 'button');
+            ga('send', 'event', 'postpicture', 'button', lang);
         } else {
             data.accept = 'image/*';
-            ga('send', 'sgwall', 'postvideo', 'button', 'button');
+            ga('send', 'event', 'postvideo', 'button', lang);
         }
         $('.side .menu-item.'+type).addClass('active');
         data._e = _e;
@@ -1755,7 +1755,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 
     //toggle user page
     LP.action('toggle_user_page' , function(){
-        ga('send', 'sgwall', 'profile', 'button', 'button');
+        ga('send', 'event', 'profile', 'button', lang);
         LP.triggerAction('toggle_side_bar','right');
         if(!$('.user-page').is(':visible')) {
             var mainWidth = winWidth;
@@ -1986,7 +1986,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 
     // get last day nodes
     LP.action('content_of_day' , function(){
-        ga('send', 'sgwall', 'pictureoftheday_gallery', 'button', 'button');
+        ga('send', 'event', 'pictureoftheday_gallery', 'button', lang);
         if($('.inner').is(':visible')) {
             LP.triggerAction('back');
         }
@@ -2016,7 +2016,7 @@ LP.use(['jquery', 'api', 'easing', 'transit', 'fileupload',  'hammer', 'mousewhe
 
     // get last day nodes
     LP.action('content_of_month' , function(){
-        ga('send', 'sgwall', 'pictureofthemonth_gallery', 'button', 'button');
+        ga('send', 'event', 'pictureofthemonth_gallery', 'button', lang);
         if($('.inner').is(':visible')) {
             LP.triggerAction('back');
         }

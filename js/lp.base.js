@@ -262,16 +262,16 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
             $(this)[0].pause();
         })
         .delegate('.login','click',function(){
-            ga('send', 'sgwall', 'connect', 'button', 'button');
+            ga('send', 'event', 'connect', 'button', lang);
         })
         .delegate('.language-item-fr','click',function(){
-            ga('send', 'sgwall', 'french_language ', 'button', 'button');
+            ga('send', 'event', 'language ', 'button', lang);
         })
         .delegate('.language-item-en','click',function(){
-            ga('send', 'sgwall', 'french_language ', 'button', 'button');
+            ga('send', 'event', 'language ', 'button', lang);
         })
         .delegate('.logout','click',function(){
-            ga('send', 'sgwall', 'disconnect', 'button', 'button');
+            ga('send', 'event', 'disconnect', 'button', lang);
         })
         // click to hide select options
         .click(function( ev ){
@@ -931,7 +931,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
     });
     
     LP.action('back_home', function(){
-        ga('send', 'sgwall', 'logo', 'button', 'button');
+        ga('send', 'event', 'logo', 'button', lang);
         nodeActions.stopItemReversal();
         _stopScrollEvent();
 		if($main.hasClass('closed')) {
@@ -1846,10 +1846,10 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
         var type = data.type;
         if(type == 'video') {
             data.accept = 'video/*,video/mp4';
-            ga('send', 'sgwall', 'postpicture', 'button', 'button');
+            ga('send', 'event', 'postpicture', 'button', lang);
         } else {
             data.accept = 'image/*';
-            ga('send', 'sgwall', 'postvideo', 'button', 'button');
+            ga('send', 'event', 'postvideo', 'button', lang);
         }
         $('.side .menu-item.'+type).addClass('active');
         data._e = _e;
@@ -2197,7 +2197,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
     LP.action('toggle_user_page' , function(){
         if( isToggleIng ) return;
         isToggleIng = true;
-        ga('send', 'sgwall', 'profile', 'button', 'button');
+        ga('send', 'event', 'profile', 'button', lang);
 
         nodeActions.stopItemReversal();
         _stopScrollEvent();
@@ -2465,7 +2465,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
 
     // get last day nodes
     LP.action('content_of_day' , function(){
-        ga('send', 'sgwall', 'pictureoftheday_gallery', 'button', 'button');
+        ga('send', 'event', 'pictureoftheday_gallery', 'button', lang);
         if($main.hasClass('closed')) {
             LP.triggerAction('back');
         }
@@ -2495,7 +2495,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
 
     // get last day nodes
     LP.action('content_of_month' , function(){
-        ga('send', 'sgwall', 'pictureofthemonth_gallery', 'button', 'button');
+        ga('send', 'event', 'pictureofthemonth_gallery', 'button', lang);
         if($main.hasClass('closed')) {
             LP.triggerAction('back');
         }
