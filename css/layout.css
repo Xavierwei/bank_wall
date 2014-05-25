@@ -332,8 +332,9 @@ a{text-decoration:none;color:#666}
         .user-edit-page form {padding-top:70px;}
         .user-edit-loading {display:none;background: url('../img/loading_white.gif') no-repeat;width:20px;height:20px;position: absolute;bottom:10px;right:10px;}
 	    .edit-fi{margin: 0 0 20px}
-		.editfi-tit{text-align: right;width:204px;float: left;padding:0;line-height: 32px}
-        .editfi-com {margin:0 50px 0 210px;}
+		.editfi-tit{text-align:left;float: left;padding:0 0 0 45px;line-height: 32px}
+        .editfi-info {margin:0 50px 0 45px;float:left;}
+        .editfi-com {margin:0 50px 0 15px;float:left;}
         .editfi-com em {font-size:12px;}
         .editfi-email {float:left;color:#737373;margin:6px 0 0 7px;}
         .edit-email{border: #333 solid 1px;width:230px;height: 21px;padding:2px 0 0 3px;margin:4px 0 0 0;}
@@ -428,8 +429,8 @@ a{text-decoration:none;color:#666}
     .tutor-step2-3{position: absolute;top:0; right: 10px;}
 
     .tutor-step2-2{position: absolute;top: 243px;left: 320px;}
-    .tutor-step2-2 .t1{position: absolute;width: 300px;top: 282px;left: -110px;}
-    .tutor-step2-2 .t2{position: absolute;width: 300px;top: 320px;left: 312px;}
+    .tutor-step2-2 .t1{position: absolute;width: 300px;top: 117px;left: -195px;}
+    .tutor-step2-2 .t2{position: absolute;width: 300px;top: 103px;left: 221px;}
 
     .tutor-step2-3 .t1{position: absolute;width: 100px;top: 70px;left: -110px;}
     .tutor-step2-3 .t2{position: absolute;width: 350px;text-align: left;top: 190px;left: -50px;}
@@ -440,7 +441,7 @@ a{text-decoration:none;color:#666}
     .tutor-step3 .t1{position: absolute; width: 600px;left:50%;margin-left: -300px;text-align: center; }
 
     .tutor-step4-1{position: absolute;top: 86px;left: 80px;}
-    .tutor-step4 .t1{position: absolute; width: 600px;left:363px;margin-top: 0px;}
+    .tutor-step4 .t1{position: absolute; width: 330px;top:276px;left:336px;margin-top: 0px;}
 
     .tutor-step5-1{position: absolute;top: 50px;left: 0;  }
     .tutor-step5 .t1{position: absolute;top: -10px;left: 280px;width: 700px;text-align: left;}
@@ -448,8 +449,8 @@ a{text-decoration:none;color:#666}
     .tutor-step5 .t2{position: absolute;top: 100px;left: 250px;width: 500px;text-align: left;}
     .tutor-step5 .t3{position: absolute;left: 250px;top: 150px;width: 500px;text-align: left;}
     .tutor-step5 .t4{position: absolute;left: 250px;top: 220px;width: 500px;text-align: left;}
-    .tutor-step5 .t5{position: absolute;top: 290px;left: 240px;width: 500px;text-align: left;}
-    .tutor-step5 .t6{position: absolute;top: 440px;left: 250px;width: 500px;text-align: left;}
+    .tutor-step5 .t5{position: absolute;top: 290px;left: 250px;width: 500px;text-align: left;}
+    .tutor-step5 .t6{position: absolute;top: 336px;left: 250px;width: 500px;text-align: left;}
 
     .tutor-btns{position: absolute; bottom: 70px; width: 525px;left: 50%;margin-left: -260px;}
     .tutor-btns button{cursor: pointer; width: 200px;border: 2px solid #787878;background: #636363;color: white;margin: 0 30px;height: 36px;font-weight: bold; }

@@ -63,6 +63,7 @@ a{text-decoration:none;color:#666}
     .nodes-list .user {margin:6px 0 6px 0;line-height:150%;}
     .nodes-list .avatar {float: left;margin:0 10px 0 6px;height:100px;}
     .nodes-list .avatar img {border-radius: 33px;-webkit-border-radius: 33px;-moz-border-radius: 33px;-o-border-radius: 33px;-ms-border-radius: 33px;}
+    .nodes-list .user-info {float:left;width:140px;}
     .nodes-list .user .email {word-wrap: break-word;word-break: break-all;line-height: 100%;}
     .nodes-list .comment {background: url(../img/icons.png) no-repeat 0 4px;padding:0 0 0 20px;margin:0 0 0 10px;float:left;}
     .nodes-list .comment a {border-bottom:1px dotted #cb223a;}

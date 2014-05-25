@@ -1512,17 +1512,19 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'exif', 'swfupl
 			return;
 		}
         var _likeWrap = _this.find('span').eq(0);
+		var _count = parseInt(_likeWrap.html());
+		_likeWrap.html(_count + 1);
 		_this.addClass('disabled');
         _this.addClass('com-unlike');
-		_this.addClass('flashing');
+		//_this.addClass('flashing');
         api.ajax('like', {nid:data.nid}, function( result ){
-			_this.removeClass('flashing');
+			//_this.removeClass('flashing');
             setTimeout(function(){
 				_this.removeClass('disabled');
             },1000);
             if(result.success) {
                 _likeWrap.animate({opacity:0},function(){
-                    _likeWrap.html(result.data);
+                    //_likeWrap.html(result.data);
                     _this.data('liked',true);
                     _this.attr('data-a','unlike');
                     _this.addClass('com-unlike');
