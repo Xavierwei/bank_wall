@@ -55,13 +55,14 @@ a{text-decoration:none;color:#666}
                 .select-country-option-list {height:200px;}
                 .select-country-option-list .jspTrack {background:#555;}
                 .select-country-option-list .jspDrag {background:#ccc;}
-    .language{position: absolute;right:10px;top: 0px; }
+    .language{position: absolute;right:25px;top: 0px; }
 		.language-item{float:left;padding:5px 3px;}
 		.language-item-on{background: url('../img/languageon.gif') no-repeat center top;}
 			.language-item p {width: 13px;height: 13px;cursor: pointer;}
 			.fr{background: url('../img/language.gif') no-repeat left 0;}
 			.en{background: url('../img/language.gif') no-repeat right 0;}
-	.login {display:none;background: #df2847 url('../img/icon_login.gif') no-repeat 10px 6px;color:#fff;position: absolute;right:55px;top:0px;padding:0 20px 0 40px;height:23px;line-height:24px;}
+    .term-icon {background: url('../img/icon_information.gif') no-repeat;width:15px;height:15px;position: absolute;right:5px;top:4px;}
+	.login {display:none;background: #df2847 url('../img/icon_login.gif') no-repeat 10px 6px;color:#fff;position: absolute;right:75px;top:0px;padding:0 20px 0 40px;height:23px;line-height:24px;}
         .login a {color:#fff;}
 
 /* content Used
