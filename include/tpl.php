@@ -48,7 +48,7 @@
 				<div data-a="lang" data-d="lang=fr" class="btn language-item language-item-fr"><p class="fr"></p></div>
 				<div data-a="lang" data-d="lang=en" class="btn language-item language-item-en"><p class="en"></p></div>
 			</div>
-			<a class="term-icon" target="_blank" href="doc/Wall150ans_CGU_V3_EN.doc"></a>
+			<a class="term-icon" target="_blank" href="./pdf/wall150ans_cgu_{{lang}}.pdf"></a>
 		</div>
 		<!--  -->
 		<div class="content">
